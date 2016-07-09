@@ -1,0 +1,31 @@
+<zk xmlns:n="native" xmlns:w="client">
+	<window width="25%" sclass="window-dialog" action="show: slideIn;hide: slideOut"
+		use="karen.core.dialog.message_box.controllers.C_GenericMessageBoxDialog" position="center,top"
+		apply="org.zkoss.bind.BindComposer" draggable="false" 
+		viewModel="@id('vm') @init('karen.core.dialog.message_box.viewmodels.VM_GenericMessageBoxDialog', dialogData=arg.get('dialogData'))">
+		<caption label="@load(vm.tituloHeader)"/>
+		
+		<div sclass="@load(vm.classIntermittent)"></div>
+		
+		<div sclass="message_box_div_content">
+			<div sclass="message_box_div_content_icon">
+				<span sclass="@load(vm.icon)"></span>
+			</div>
+			<div sclass="message_box_div_content_text">
+				<html content="@load(vm.text)"></html>
+			</div>
+		</div>
+
+		<div sclass="div-buttons-dialog">
+			<div>
+				<button id="btnAccept" label="Aceptar" visible="@load(vm.visibleAccept)"
+					sclass="green waves-effect waves-light btn" iconSclass="fa fa-check">
+				</button>
+				<button id="btnCancel" label="Cancelar" visible="@load(vm.visibleCancel)"
+					sclass="red waves-effect waves-light btn" iconSclass="z-icon-times">
+				</button>
+			</div>
+		</div>
+
+	</window>
+</zk>

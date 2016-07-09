@@ -1,0 +1,53 @@
+<zk xmlns:n="native">
+	<div class="z-div-label-upload" if="${arg.title != null }">
+		<n:label class="center-transform-x">${arg.title }</n:label>
+	</div>
+	<textbox id="textbox" value="${arg.idUpload}" visible="false" width="0" height="0"></textbox>
+	<div id="pics" class="z-div-upload circle center-transform-x" style="max-width: ${empty arg.size ? 220: arg.size}px; height: ${empty arg.size ? 220: arg.size}px;">
+	   	<button id="z_button_more" iconSclass="fa fa-plus" upload="true,maxsize=${empty arg.maxsize ? 300 : arg.maxsize}" 
+	   		class="btn-floating waves-effect waves-light btn-medium green darken-1 z-btn-upload-image-single center-transform-y center-transform-x" 
+	   		tooltiptext="Subir una imágen">
+	        <attribute name="onUpload"><![CDATA[
+				if (pics.getChildren().size() > 2) {
+					pics.getChildren().remove(2);
+				}					                                            
+	
+	            org.zkoss.util.media.Media media = event.getMedia();
+	            
+	            if (media instanceof org.zkoss.image.Image) {
+	                org.zkoss.zul.Image image = new org.zkoss.zul.Image();
+	                image.setSclass("z-image-upload circle");
+	                image.setContent(media);
+	                image.setParent(pics);
+	                z_button_more.setStyle("display: none");
+	                z_button_less.setStyle("display: inline-block");
+	                
+	                vm.onUploadImageSingle(event, textbox.getValue());
+	            } else {
+	                Messagebox.show("No es una imágen válida: " + media, "Error", Messagebox.OK, Messagebox.ERROR);
+	            }
+	        ]]></attribute>
+	   	</button>
+	   	<button id="z_button_less" iconSclass="fa fa-minus" style="display: none;"
+	   		class="btn-floating waves-effect waves-light btn-medium red z-btn-upload-image-single center-transform-y center-transform-x"
+	   		tooltiptext="Quitar imágen">
+	        <attribute name="onClick"><![CDATA[
+	            if (pics.getChildren().size() > 2) {
+	            	pics.getChildren().remove(2);
+	            }
+	            z_button_less.setStyle("display: none");
+	            z_button_more.setStyle("display: inline-block");
+	            
+	            vm.onRemoveImageSingle(textbox.getValue());
+	        ]]></attribute>
+	   	</button>
+	   	<image content="@load(vm.imageContent)" sclass="z-image-upload circle" if="${vm.imageContent != null}">
+	   		 <attribute name="onCreate"><![CDATA[
+				if (pics.getChildren().size() > 2) {
+	                z_button_more.setStyle("display: none");
+	                z_button_less.setStyle("display: inline-block");
+				}
+	        ]]></attribute>
+	   	</image>
+	</div>
+</zk>

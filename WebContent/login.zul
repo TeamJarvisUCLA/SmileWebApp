@@ -1,0 +1,57 @@
+<?page title="Promo 54"?>
+
+<?meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"?>
+<?link href="resources/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"?>
+<?link href="resources/materialize_v0.97.5/css/materialize.min.css" rel="stylesheet" type="text/css"?>
+<?link href="resources/css/loading.css" rel="stylesheet" type="text/css"?>
+
+<?link href="resources/css/login.css" rel="stylesheet" type="text/css"?>
+
+<?script src="resources/bootstrap/js/bootstrap.js"?>
+<?script src="resources/materialize_v0.97.5/js/materialize.min.js"?>
+
+<?script src="resources/three/build/three.min.js"?>
+<?script src="resources/three/js/renderers/Projector.js"?>
+<?script src="resources/three/js/renderers/CanvasRenderer.js"?>
+<?script src="resources/js/login.js"?>
+
+
+<zk xmlns:n="native" xmlns:w="client">
+	<div sclass="page-content page-content-main"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('lights.smile.login.Login')">
+		<div apply="karen.core.crux.session.check.CheckLogin" style="display: none;"></div>
+		<div if="${vm.logued == false}">
+			<n:div id="container">
+				<div class="form card-panel">
+					<div class="col s12">
+						<div align="center">
+							<image src="imagenes/LOGO54.png"></image>
+						</div>
+					</div>
+					<div class="col s12">
+						<div class="input-field col s12">
+							<n:label for="correo">Correo</n:label>
+							<textbox id="correo" type="text" value="@bind(vm.usuario.correo)"
+								onOK="@command('login')">
+							</textbox>
+						</div>
+					</div>
+					<div class="col s12">
+						<div class="input-field col s12">
+							<n:label for="clave">Clave</n:label>
+							<textbox id="clave" type="password" value="@bind(vm.usuario.clave)"
+								onOK="@command('login')">
+							</textbox>
+						</div>
+					</div>
+					<div class="col s12">
+						<div class="input field col s12" align="center">
+				           	<a sclass="waves-effect waves-light btn" onClick="@command('login')">Login</a>
+						</div>
+					</div>
+				</div>
+			</n:div>
+		</div>
+	</div>
+</zk>

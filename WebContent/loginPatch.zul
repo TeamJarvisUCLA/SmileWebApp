@@ -1,0 +1,47 @@
+<?page title="Patch"?>
+
+<?meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"?>
+<?link href="resources/css/loading.css" rel="stylesheet" type="text/css"?>
+
+<?link href="resources/css/login.css" rel="stylesheet" type="text/css"?>
+
+
+
+
+<zk xmlns:n="native" xmlns:w="client">
+	<div sclass="page-content page-content-main"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('lights.smile.login.Login')">
+		<div apply="karen.core.crux.session.check.CheckLogin" style="display: none;"></div>
+		<div if="${vm.logued == false}">
+				<div class="form card-patch">
+					<div class="c-head">
+					Clown Patch
+					</div>
+					<div class="c-body">
+						<div class="c-body-image" align="center">
+							<image src="imagenes/patch.png"></image>
+						</div>
+						<div class="">
+							<div class="">
+								<textbox id="correo" type="text" value="@bind(vm.usuario.correo)"
+									onOK="@command('login')" placeholder="email/usuario">
+								</textbox>
+							</div>
+						</div>
+						<div class="">
+							<div class="">
+								<textbox id="clave" type="password" value="@bind(vm.usuario.clave)"
+									onOK="@command('login')" placeholder="Contraseña">
+								</textbox>
+							</div>
+						</div>
+					</div>
+					<div class="c-footer waves-effect waves-light" align="center" 
+						onClick="@command('login')">
+						Iniciar Sesión
+					</div>
+				</div>
+		</div>
+	</div>
+</zk>

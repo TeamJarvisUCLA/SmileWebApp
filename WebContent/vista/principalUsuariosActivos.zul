@@ -1,0 +1,49 @@
+<?xel-method prefix="m" name="longToStringSesionTimeAgoCompareWithToday" class="lights.promo54.util.UtilConverterDataList" 
+	signature="java.lang.String longToStringSesionTimeAgoCompareWithToday(java.lang.Long)" ?>
+	
+<?xel-method prefix="m" name="getAuditoriaIn0" class="lights.promo54.util.UtilConverterDataList" 
+	signature="java.lang.String getAuditoriaIn0(lights.seguridad.dto.Sesion)" ?>
+	
+<zk xmlns:n="native" xmlns:w="client">
+	<div width="100%" class="${arg.animation_}"
+		use="karen.core.simple_list_principal.controllers.C_WindowSimpleListPrincipal"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('lights.seguridad.viewmodels.VMPUsuariosActivos')">
+
+		<div class="row">
+			<div class="col s12">
+				<div class="col s12">
+					<listbox id="lstbox"
+						model="@load(vm.objectsList)"
+						selectedItem="@bind(vm.selectedObject)">
+
+						<listhead sizable="true">
+							<listheader width="50%" label="Id Sesión" />
+							<listheader width="50%" label="Correo" />
+							<listheader width="50%" label="Ip" />
+							<listheader width="50%" label="Tiempo Conectado" />
+							<listheader width="50%" label="Última Actividad" />
+						</listhead>
+						<template name="model">
+							<listitem>
+								<listcell label="@load(each.idSesion)" />
+								<listcell label="@load(each.fkUsuario.correo)" />
+								<listcell label="@load(each.direccionIp)" />
+								<listcell label="${m:longToStringSesionTimeAgoCompareWithToday(each.fechaInicio)}" />
+								<listcell label="${m:getAuditoriaIn0(each)}" />
+							</listitem>
+						</template>
+						<listfoot>
+							<listfooter id="listFoot" span="5"
+								use="karen.core.listfoot.ListFoot">
+							</listfooter>
+						</listfoot>
+					</listbox>
+				</div>
+			</div>
+		</div>
+
+		<toolbar id="toolbar" align="center" use="karen.core.toolbar.Toolbar">
+		</toolbar>
+	</div>
+</zk>

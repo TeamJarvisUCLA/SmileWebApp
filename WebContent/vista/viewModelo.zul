@@ -1,0 +1,108 @@
+<?component name="uploadImageSingle" macroURI="/resources/componentes/upload_image_single.zul"?>
+<?component name="uploadImageSingle2" macroURI="/resources/componentes/upload_image_single_2.zul"?>
+
+<zk xmlns:n="native" xmlns:w="client">
+	<div width="80%" class="container ${arg.animation_}"
+		use="karen.core.form.controllers.C_WindowForm"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('lights.promo54.viewmodels.VMVModelo')">
+
+		<div class="row">
+
+				<div class="col s12">
+					<div class="input-field col s6">
+						<n:label for="nombres">Nombres</n:label>
+					<textbox id="nombres" type="text"
+						value="@bind(vm.modelo.nombres)">
+					</textbox>
+					</div>
+					<div class="input-field col s6">
+						<n:label for="apellidos">Apellidos</n:label>
+					<textbox id="apellidos" type="text"
+						value="@bind(vm.modelo.apellidos)">
+					</textbox>
+					</div>
+				</div>
+				<div class="col s12">
+					<div class="input-field col s6">
+						<n:label for="edad">Edad</n:label>
+					<textbox id="edad" type="text"
+						value="@bind(vm.modelo.edad)">
+					</textbox>
+					</div>
+					<div class="input-field col s6">
+						<n:label for="fecha_nacimiento">Fecha Nacimiento</n:label>
+						<calendar value="@bind(vm.fechaNacimiento)"/> 
+					</div>
+				</div>
+				<div class="col s12">
+					<div class="input-field col s6">
+						<n:label for="color_piel">Color Piel</n:label>
+					<textbox id="color_piel" type="text"
+						value="@bind(vm.modelo.colorPiel)">
+					</textbox>
+					</div>
+					<div class="input-field col s6">
+						<n:label for="color_cabello">Color Cabello</n:label>
+					<textbox id="color_cabello" type="text"
+						value="@bind(vm.modelo.colorCabello)">
+					</textbox>
+					</div>
+				</div>
+				<div class="col s12">
+					<div class="input-field col s6">
+						<n:label for="color_ojos">Color Ojos</n:label>
+					<textbox id="color_ojos" type="text"
+						value="@bind(vm.modelo.colorOjos)">
+					</textbox>
+					</div>
+					<div class="input-field col s6">
+						<n:label for="estatura">Estatura</n:label>
+					<textbox id="estatura" type="text"
+						value="@bind(vm.modelo.estatura)">
+					</textbox>
+					</div>
+				</div>
+				<div class="col s12">
+					<div class="input-field col s6">
+						<n:label for="peso">Peso</n:label>
+					<textbox id="peso" type="text"
+						value="@bind(vm.modelo.peso)">
+					</textbox>
+					</div>
+					<div class="input-field col s6">
+						<n:label for="talla">Talla</n:label>
+					<textbox id="talla" type="text"
+						value="@bind(vm.modelo.talla)">
+					</textbox>
+					</div>
+				</div>
+				<div class="col s12">
+					<div class="input-field col s6">
+						<n:label for="actividades">Actividades</n:label>
+					<textbox id="actividades" type="text"
+						value="@bind(vm.modelo.actividades)">
+					</textbox>
+					</div>
+					<div class="input-field col s6">
+						<n:label for="numero">Numero</n:label>
+					<textbox id="numero" type="text"
+						value="@bind(vm.modelo.numero)">
+					</textbox>
+					</div>
+				</div>
+				<div class="col s12">
+					<div class="input-field col s6">
+						<uploadImageSingle maxsize="9000" size="350" idUpload="1" title="Rostro"/>
+					</div>
+					<div class="input-field col s6">
+						<uploadImageSingle2 maxsize="9000" size="350" idUpload="2" title="Cuerpo Completo"/>
+					</div>
+				</div>
+
+		</div>
+		<div id="divButtonsForm"
+			use="karen.core.form.buttons.containers.DivButtonsForm">
+		</div>
+	</div>
+</zk>

@@ -1,0 +1,62 @@
+<zk xmlns:n="native" xmlns:w="client">
+	<div width="100%" class="${arg.animation_}"
+		use="lights.seguridad.permisos.controllers.C_PermisosIndex"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('lights.seguridad.permisos.viewmodels.VM_PermisosIndex')">
+
+		<div class="row">
+			<div class="col s12">
+				<div class="col s5">
+					 <listbox id="lstbox"
+						model="@load(vm.objectsList)"
+						selectedItem="@bind(vm.selectedObject)"
+						onSelect="@command('onSelectRol')">
+			
+						<listhead sizable="true">
+							<listheader label="Roles" />
+						</listhead>
+						<template name="model">
+							<listitem>
+								<listcell label="@load(each.nombre)" />
+							</listitem>
+						</template>
+						<listfoot>
+							<listfooter id="listFoot" span="1"
+								use="karen.core.listfoot.ListFoot">
+							</listfooter>
+						</listfoot>
+					</listbox>
+				</div>
+				<div class="col s5">
+					<tree id="tree" height="100%" 
+						use="lights.seguridad.MenuTreeFull">
+						<treecols>
+				            <treecol label="Menú Disponible" />      
+				        </treecols>
+					</tree>
+				</div>
+				<div class="col s2 toolbarToSee_">
+					<div class="z-listheader-content" align="center">
+						Operaciones Habilitadas
+					</div>
+					<toolbar id="toolbarToSee" align="center" use="karen.core.toolbar.Toolbar">
+					</toolbar>
+				</div>
+			</div>
+		</div>
+		
+		<toolbar id="toolbar" align="center" use="karen.core.toolbar.Toolbar">
+		</toolbar>
+	</div>
+	
+	<style>
+		.toolbarToSee_ button {
+			margin-bottom: 5px;
+		}
+		.toolbarToSee_ .ka-toolbar {
+			margin-top: 0px !important; 
+			max-width: 36px; 
+			margin: 0 auto;
+		}
+	</style>
+</zk>

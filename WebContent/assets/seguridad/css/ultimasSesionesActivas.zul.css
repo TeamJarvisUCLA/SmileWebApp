@@ -1,0 +1,19 @@
+.div-title {
+	margin-top: 15px;
+	margin-bottom: 15px;
+	text-align: center;
+}
+
+.div-title .label-1 {
+	font-size: 15px;
+	text-decoration: underline;
+}
+
+.div-title .label-2 {
+	font-size: 15px;
+}
+
+.div-title .label-3 {
+	font-size: 15px;
+	font-weight: bold;
+}

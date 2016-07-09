@@ -1,0 +1,23 @@
+<div sclass="breadcrumbs_theme" apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('karen.core.crux.breadcrums.Breadcrumbs')" >
+		
+	<div sclass="breadcrumb_theme" children="@load(vm.listBreadsCrumbs)" visible="@load(vm.notEmptyList)">	
+	   	<template name="children" style="padding-bottom: 0px;">
+	   		<span sclass="home-icon z-icon-home" if="${forEachStatus.index == 0}"/> 
+	   		<a label="Home" href="#" if="${forEachStatus.index == 0}" onClick="@command('goHome')"/>
+	        <label value="@load(each)"/>
+	    </template>
+	</div>
+	
+	<div sclass="breadcrumb_theme" visible="@load(vm.emptyList)">	
+   		<span sclass="home-icon z-icon-home"/>
+   		<a label="Home" onClick="@command('goHome')"/>
+	</div>
+  <!-- Search input-->
+  <!-- 
+	<div sclass="nav-search">
+		<bandbox placeholder="Search ..." sclass="input-prepend"/>
+	</div>
+	-->
+</div>
+

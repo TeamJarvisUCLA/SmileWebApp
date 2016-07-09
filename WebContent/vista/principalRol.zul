@@ -1,0 +1,48 @@
+<zk xmlns:n="native" xmlns:w="client">
+	<div width="100%" class="${arg.animation_}"
+		use="karen.core.simple_list_principal.controllers.C_WindowSimpleListPrincipal"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('lights.seguridad.viewmodels.VMPRol')">
+
+		<div class="row">
+			<div class="col s12">
+				<div class="col s6">
+					 <listbox id="lstbox"
+						model="@load(vm.objectsList)"
+						selectedItem="@bind(vm.selectedObject)"
+						onSelect="@command('onSelectRol')">
+			
+						<listhead sizable="true">
+							<listheader width="49%" label="Nombre" />
+						</listhead>
+						<template name="model">
+							<listitem>
+								<listcell label="@load(each.nombre)" />
+							</listitem>
+						</template>
+						<listfoot>
+							<listfooter id="listFoot" span="1"
+								use="karen.core.listfoot.ListFoot">
+							</listfooter>
+						</listfoot>
+					</listbox>
+				</div>
+				<div class="col s6">
+					<listbox model="@load(vm.selectedObject.usuarios)">
+						<listhead sizable="true">
+							<listheader label="Usuarios" />
+						</listhead>
+						<template name="model">
+							<listitem>
+								<listcell label="@load(each.correo)" />
+							</listitem>
+						</template>
+					</listbox>
+				</div>
+			</div>
+		</div>
+		
+		<toolbar id="toolbar" align="center" use="karen.core.toolbar.Toolbar">
+		</toolbar>
+	</div>
+</zk>

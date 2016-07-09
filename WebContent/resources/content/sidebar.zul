@@ -1,0 +1,47 @@
+<zk xmlns:n="native" xmlns:w="client">
+	<div id="sidebar" sclass="side-nav fixed" apply="karen.core.crux.sidebar.Sidebar">
+		<!-- Shortcuts Button-->
+		<div class="shortcuts">
+		<div class="shortcuts-expanded" style="margin-top: 100px;">
+			<image src="/imagenes/logo_fanca.png" style="max-width:200px; max-height:200px; margin-top: -90px;"></image>
+		</div>
+			<!-- Display when expanded 
+			<div class="shortcuts-expanded">
+				<button type="button" class="btn-floating btn-small cyan waves-effect waves-light" 
+					iconSclass="z-icon-pencil"/>
+				<button id="btn2" type="button" class="btn-floating btn-small orange waves-effect waves-light" 
+					iconSclass="z-icon-group"/>
+				<button type="button" class="btn-floating btn-small red waves-effect waves-light" 
+					iconSclass="z-icon-cogs"/>
+				<n:button id="f11" type="button" title="Iniciar pantalla completa (F11)" 
+					class="btn-floating btn-small green waves-effect waves-light z-button">
+					<n:i class="fa fa-expand"></n:i> 
+				</n:button>
+			</div>
+			-->
+			<div class="shortcuts-collapsed">
+						<image src="/imagenes/logo_fanca.png"
+							style="max-width:30px; max-height:30px">
+						</image>
+					</div>
+			<!-- Display when collapsed 
+			<div class="shortcuts-collapsed">
+				<n:i class="fa fa-bars"></n:i>
+			</div>
+			-->
+		</div>
+		<!-- Navigation List -->
+		<navbar id="navbar" sclass="nav-list" orient="vertical" use="karen.core.crux.sidebar.NavbarSidebar">
+			
+		</navbar>
+		<!-- Toggler -->
+		<div sclass="sidebar-collapse">
+			<a id="toggler" iconSclass="z-icon-angle-double-left"/>
+		</div>
+		<!-- Tooptip for Calender Navitem -->
+		<popup id="calpp" zclass="tooltip" sclass="right tooltip-error cal">
+			<span zclass="tooltip-arrow"/>
+			<label zclass="tooltip-inner" value="2 Important Event"/>
+		</popup>
+	</div>
+</zk>

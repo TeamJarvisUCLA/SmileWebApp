@@ -1,0 +1,189 @@
+body {
+	padding: 0px !important;
+}
+canvas {
+	width: 100% !important;
+	height: 100% !important;
+}
+.container, body {
+	overflow: hidden;
+}
+a {
+	color: white !important;
+}
+.page-content {
+	height: 100%;
+}
+.page-content > div {
+	width: 100%;
+	height: 100%;
+	/* 
+	background-image: url("http://7hdwallpapers.com/wp-content/uploads/2015/10/2781-cool-lights-abstract.jpg");
+	background-image: url("https://wallpaperscraft.com/image/background_drops_light_circles_blue_83428_1600x900.jpg");
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-position: center center;
+	background-size: 100% 100%;
+	background-color: #29B4A7;
+	*/
+}
+.form {
+	width: 360px;
+	padding: 40px;
+	position: absolute;
+	transform: translateX(-50%) translateY(-50%);
+	top: 40% !important;
+	left: 75% !important;
+	opacity: 0.5;
+	-webkit-transition: opacity 2s; /* Safari */
+    transition: opacity 2s;
+}
+.form:HOVER {
+	opacity: 1;
+}
+.z-navitem-text,
+a,
+.z-label,
+label, textarea,
+input, button,
+.z-comboitem-text,
+.z-nav-text,
+.z-calendar-weekday,
+.z-calendar-weekend,
+.z-chosenbox-item-content,
+.z-calendar-text,
+.z-html,
+.z-chosenbox-option,
+.z-caption-content {
+	font-family: "Roboto",sans-serif !important;
+}
+label {
+	font-weight: unset !important;
+}
+/* /Tipo de Letra/ */
+/* Cambios de rem a em */
+.page-content-main input {
+	height: 2em;
+    font-size: 1.3em;
+}
+.page-content-main .input-field label {
+	top: 0.6rem;
+	left: 0px;
+}
+.page-content-main .input-field label {
+    font-size: 1.3em;
+}
+.page-content-main .input-field label.active {
+    font-size: 1.1em;
+    transform: translateY(-140%);
+    top: 0.8rem;
+}
+img {
+	margin-bottom: 15px;
+}
+/* Dialogs */
+.window-dialog {
+	background: #26A69A;
+}
+.window-dialog .z-caption .z-caption-content {
+	color: white;
+	font-weight: 600;
+	margin-top: 3px;
+}
+.window-dialog .z-window-content {
+	padding: 0px;
+}
+.div-buttons-dialog {
+	text-align: center;
+	background: #363940;
+	padding: 5px 5px 0px 5px;
+}
+.div-buttons-dialog button {
+	margin-bottom: 5px;
+}
+.div-buttons-dialog > div {
+	display: inline-block;
+}
+.message_box_div_header_color {
+	background: red;
+	height: 5px;
+}
+.message_box_div_content_icon {
+	text-align: center;
+	margin-top: 10px;
+	margin-bottom: 10px;	
+}
+.message_box_div_content_text {
+	padding: 0px 25px;
+	text-align: center;
+	margin-bottom: 10px;
+}
+.message_box_div_content_text span {
+	font-size: 1.3em;
+}
+.intermittent {
+	-webkit-animation-name: intermittent; /* Chrome, Safari, Opera */
+    -webkit-animation-duration: 3.8s; /* Chrome, Safari, Opera */
+    -webkit-animation-iteration-count: 1; /* Chrome, Safari, Opera */
+    animation-name: intermittent;
+    animation-duration: 3.8s;
+    animation-iteration-count: 1;
+}
+@-webkit-keyframes intermittent {
+    0%   {opacity: 0;}
+    25%  {opacity: 1;}
+    50%  {opacity: 0;}
+    75%  {opacity: 1;}
+    100%  {opacity: 0;}
+}
+@keyframes intermittent {
+    0%   {opacity: 0;}
+    25%  {opacity: 1;}
+    50%  {opacity: 0;}
+    75%  {opacity: 1;}
+    100%  {opacity: 0;}
+}
+/* /Dialogs/ */
+.btn:focus {
+    outline: unset;
+}
+.z-button, .z-button:hover, .z-button:focus, .z-button:active {
+    background: none repeat scroll 0% 0% transparent;
+    color: white;
+    text-shadow: unset;
+}
+.z-caption-content {
+    line-height: 32px;
+}
+.z-caption {
+    font-size: 18px;
+}
+/***********************MOVIL***********************************/
+@media screen and (max-width: 768px) {
+	div {
+		background: red;
+	}
+    canvas,img,label {
+        display: none;
+    }
+    .form.card-panel {
+    	width: 100%;
+    	transform: unset;
+    	top: 0 !important;
+		left: 0 !important;
+		opacity: 1;
+		transition: unset;
+		margin: 0;
+    }
+    .input-field label {
+        font-size: 1.1em !important;
+		transform: translateY(-140%);
+		top: 0.8rem !important;
+    }
+    .form {
+    	position: relative !important;
+    }
+    .card-panel {
+    	box-shadow: unset;
+    }
+}

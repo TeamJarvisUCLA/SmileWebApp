@@ -1,0 +1,92 @@
+<zk xmlns:n="native" xmlns:w="client">
+	<div width="80%" class="container ${arg.animation_}"
+		use="karen.core.form.controllers.C_WindowForm"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('lights.seguridad.viewmodels.VMVRol')">
+
+		<div class="row">
+
+			<div class="col s12">
+				<div class="input-field col s12">
+					<n:label for="nombre" class="mandatory">Nombre</n:label>
+					<textbox id="nombre" type="text"
+						value="@bind(vm.rol.nombre)">
+					</textbox>
+				</div>
+			</div>
+			
+			<div class="col s12">
+				<div class="col s12" align="center" if="${vm.isConsultar == false}">
+					<label 
+						value="Puede seleccionar/deseleccionar usuarios arrastrandolos de una lista a otra.">
+					</label>
+				</div>
+			
+				<div class="col s12" if="${vm.isConsultar == true}">
+					<listbox model="@load(vm.rol.usuarios)">
+						<listhead sizable="true">
+							<listheader label="Usuarios Seleccionados" />
+						</listhead>
+						<template name="model">
+							<listitem>
+								<listcell label="@load(each.correo)" />
+							</listitem>
+						</template>
+					</listbox>
+				</div>
+				<div class="col s6" if="${vm.isConsultar == false}">
+					<listbox model="@load(vm.rol.usuarios)" droppable="true"
+						selectedItems="@bind(vm.usuariosDeRolSeleccionado)" multiple="true"
+						onDrop="@command('onDropListUsusariosSeleccionados', id=event.dragged.id)">
+						<listhead sizable="true">
+							<listheader label="Usuarios Seleccionados" />
+						</listhead>
+						<template name="model">
+							<listitem draggable="true" droppable="true" id="${each.idUsuario}"
+								onDrop="@command('onDropListUsusariosSeleccionados', id=event.dragged.id)">
+								<listcell label="@load(each.correo)" />
+							</listitem>
+						</template>
+					</listbox>
+				</div>
+				<div class="col s6" if="${vm.isConsultar == false}">
+					 <listbox id="lstbox"
+						model="@load(vm.objectsList)" droppable="true"
+						selectedItems="@bind(vm.selectedObject)" multiple="true"
+						onDrop="@command('onDropListUsusariosDisponibles', id=event.dragged.id)">
+						<listhead sizable="true">
+							<listheader width="100%" label="Usuarios Disponibles" />
+						</listhead>
+						<template name="model">
+							<listitem draggable="true" droppable="true" id="${each.idUsuario}"
+								onDrop="@command('onDropListUsusariosDisponibles', id=event.dragged.id)">
+								<listcell label="@load(each.correo)" />
+							</listitem>
+						</template>
+						<listfoot>
+							<listfooter id="listFoot" span="1"
+								use="karen.core.listfoot.ListFoot">
+							</listfooter>
+						</listfoot>
+					</listbox>
+				</div>
+				<div class="col s12" if="${vm.isConsultar == false}">
+					<div class="col s6" align="center">
+						<toolbar align="center" sclass="ka-toolbar">
+							<button sclass="btn-floating btn-small btn waves-effect waves-light light-green darken-3"
+								tooltiptext="Remover rol a este usuario" iconSclass="fa fa-arrow-right"
+								onClick="@command('removerUsuarioDeRol')"></button>
+						</toolbar>
+					</div>
+					<div class="col s6" align="center" if="${vm.isConsultar == false}">
+						<toolbar id="toolbar" align="center" use="karen.core.toolbar.Toolbar">
+						</toolbar>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="divButtonsForm"
+			use="karen.core.form.buttons.containers.DivButtonsForm">
+		</div>
+	</div>
+</zk>

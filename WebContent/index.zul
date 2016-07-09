@@ -1,0 +1,91 @@
+<?page title="Smile"?>
+
+<?meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"?>
+<?link href="resources/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"?>
+<?link href="resources/materialize_v0.97.5/css/materialize.min.css" rel="stylesheet" type="text/css"?>
+<?link href="resources/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css"?>
+<?link href="resources/css/theme.css" rel="stylesheet" type="text/css"?>
+<?link href="resources/css/karen.css" rel="stylesheet" type="text/css"?>
+<?link href="resources/css/loading.css" rel="stylesheet" type="text/css"?>
+<?link href="resources/css/animate.css" rel="stylesheet" type="text/css"?>
+<?link href="resources/css/componentesZK.css" rel="stylesheet" type="text/css"?>
+<?link href="/assets/seguridad/css/ultimasSesionesActivas.zul.css" rel="stylesheet" type="text/css"?>
+
+
+<?script src="resources/bootstrap/js/bootstrap.js"?>
+<?script src="resources/materialize_v0.97.5/js/materialize.min.js"?>
+
+<?script src="resources/js/shorcut.js"?>
+<?script src="resources/js/fullScreenApi.js"?>
+<?script src="resources/js/index.js"?>
+
+<zk xmlns:n="native">
+	<div apply="karen.core.crux.session.check.CheckIndex"
+		style="display: none;">
+	</div>
+	<div apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('karen.core.crux.session.DataCenter')">
+		<div if="${vm.loguedAndPerfilValid == true}">
+
+			<hlayout id="main" spacing="0">
+				<div id="sidebar" sclass="side-nav fixed"
+					apply="karen.core.crux.session.check.CheckIndex">
+					<!-- Shortcuts Button-->
+					<div class="shortcuts">
+						<div class="shortcuts-expanded"
+							style="margin-top: 100px;">
+							<image src="/imagenes/logo_fanca.png"
+								style="max-width:200px; max-height:200px; margin-top: -90px;">
+							</image>
+						</div>
+
+						<div class="shortcuts-collapsed">
+							<image src="/imagenes/logo_fanca.png"
+								style="max-width:30px; max-height:30px">
+							</image>
+						</div>
+						<!-- Display when collapsed 
+							<div class="shortcuts-collapsed">
+							<n:i class="fa fa-bars"></n:i>
+							</div>
+						-->
+					</div>
+					<!-- Navigation List -->
+					<navbar id="navbar" sclass="nav-list"
+						orient="vertical" use="karen.core.crux.sidebar.NavbarSidebar">
+
+					</navbar>
+					<!-- Toggler -->
+					<div sclass="sidebar-collapse">
+						<a id="toggler"
+							iconSclass="z-icon-angle-double-left" />
+					</div>
+					<!-- Tooptip for Calender Navitem -->
+					<popup id="calpp" zclass="tooltip"
+						sclass="right tooltip-error cal">
+						<span zclass="tooltip-arrow" />
+						<label zclass="tooltip-inner"
+							value="2 Important Event" />
+					</popup>
+				</div>
+				<vlayout id="vlayout" hflex="1" sclass="content-main">
+					<include src="resources/content/navbar.zul" />
+					<include src="resources/content/breadcrumbs.zul" />
+
+					<include src="resources/content/page_header.zul" />
+
+					<!-- Body -->
+					<div>
+						<div id="mainContent"
+							sclass="page-content page-content-main">
+							<include src="@load(vm.srcPageContent)"
+								animation_="animated slideInDown">
+							</include>
+						</div>
+					</div>
+					<!-- End Body -->
+				</vlayout>
+			</hlayout>
+		</div>
+	</div>
+</zk>

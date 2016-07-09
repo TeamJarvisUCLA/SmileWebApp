@@ -1,0 +1,55 @@
+<?xel-method prefix="m" name="sesionToStringSesionTimeConexionTotal" class="lights.promo54.util.UtilConverterDataList" 
+	signature="java.lang.String sesionToStringSesionTimeConexionTotal(lights.seguridad.dto.Sesion)" ?>
+
+<zk xmlns:n="native" xmlns:w="client">
+	<window width="80%" sclass="window-dialog" action="show: slideIn;hide: slideOut" 
+		use="lights.seguridad.controllers.C_UltimasSesionesActivas"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('lights.seguridad.viewmodels.VMUltimasSesionesActivas', dialogData=arg.get('dialogData'))">
+		<caption label="Últimas Sesiones Activas"/>
+
+		<div class="col s12 div-title">
+			<label class="label-1" value="Correo"></label>
+			<label class="label-2" value=": "></label>
+			<label class="label-3" value="@load(vm.correo)"></label>
+		</div>
+		
+		<div class="row">
+			<div class="col s12">
+				<div class="col s12">
+					<listbox id="lstbox"
+						model="@load(vm.listaSesiones)"
+						selectedItem="@bind(vm.sesionSeleccionada)">
+
+						<listhead sizable="true">
+							<listheader width="50%" label="Id Sesión" />
+							<listheader width="50%" label="Ip" />
+							<listheader width="50%" label="Tiempo De Conexión Total" />
+						</listhead>
+						<template name="model">
+							<listitem>
+								<listcell label="@load(each.idSesion)" />
+								<listcell label="@load(each.direccionIp)" />
+								<listcell label="${m:sesionToStringSesionTimeConexionTotal(each)}" />
+							</listitem>
+						</template>
+						<listfoot>
+							<listfooter id="listFoot" span="3"
+								use="karen.core.listfoot.ListFoot">
+							</listfooter>
+						</listfoot>
+					</listbox>
+				</div>
+			</div>
+		</div>
+
+		<div sclass="div-buttons-dialog">
+			<div>
+				<button id="btnCancel" label="Cerrar"
+					sclass="red waves-effect waves-light btn" iconSclass="z-icon-times">
+				</button>
+			</div>
+		</div>
+	</window>
+
+</zk>

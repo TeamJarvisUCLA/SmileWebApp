@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+zk.xml Copyright (C) 2006 Potix Corporation. All Rights Reserved.
+-->
+<zk>
+	<!-- Adempiere thread session context handler -->
+	<listener>
+		<listener-class>karen.core.crux.session.listener_zk.MySessionListener</listener-class>
+	</listener>
+</zk>

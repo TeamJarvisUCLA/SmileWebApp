@@ -1,0 +1,36 @@
+.div-title {
+	width: 100%;
+	text-align: center;
+	margin-bottom: 30px;
+	margin-top: 30px;
+}
+.div-title .label-1 {
+	font-size: 25px;
+	color: white;
+}
+.form-div {
+	background-color:rgba(72,72,72,0.4);
+	padding-left:35px;
+	padding-right:35px;
+	padding-top:35px;
+	padding-bottom:50px;
+	width: 70%;
+	left: 15%;
+	position: absolute;
+    margin-top:30px;
+    -moz-border-radius: 7px;
+    -webkit-border-radius: 7px;
+}
+body {    
+  background: url(http://thekitemap.com/images/feedback-img.jpg) no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+.input-field label,
+.input-field input,
+.z-datebox-button,
+.z-combobox-icon {
+	color: white !important;
+}

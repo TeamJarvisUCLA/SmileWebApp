@@ -1,0 +1,59 @@
+<?meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"?>
+<?link href="resources/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"?>
+<?link href="resources/materialize_v0.97.5/css/materialize.min.css" rel="stylesheet" type="text/css"?>
+<?link href="resources/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css"?>
+<?link href="resources/css/theme.css" rel="stylesheet" type="text/css"?>
+<?link href="resources/css/karen.css" rel="stylesheet" type="text/css"?>
+<?link href="resources/css/loading.css" rel="stylesheet" type="text/css"?>
+<?link href="resources/css/animate.css" rel="stylesheet" type="text/css"?>
+<?link href="resources/css/portal.css" rel="stylesheet" type="text/css"?>
+<?link href="/assets/seguridad/css/ultimasSesionesActivas.zul.css" rel="stylesheet" type="text/css"?>
+
+<?script src="resources/bootstrap/js/bootstrap.js"?>
+<?script src="resources/materialize_v0.97.5/js/materialize.min.js"?>
+
+<?script src="resources/js/shorcut.js"?>
+<?script src="resources/js/fullScreenApi.js"?>
+<?script src="resources/js/index.js"?>
+<div sclass="navbar"
+	style="background-color: #fefefe; border-bottom: 1px solid; min-height: 90px; padding: 0;">
+	<image src="/imagenes/logo_fanca2.jpg"
+		style="max-width:214px; max-height:210px; padding-left: 30px;">
+	</image>
+	
+	<div sclass="pull-right divNavar">
+	<a  target="true" href=""
+		style=" font-size: 25px; " label=""
+		iconSclass="fa fa-bars">
+	</a>
+	</div>
+	<hlayout sclass="valign-wrapper nav-user pull-right hlayautPortal"
+		spacing="20px">
+		<a sclass="a1" target="true" href="" style="margin-top: 20px;"
+			label="INICIO">
+		</a>
+		<a sclass="a2" target="true" href="" style="margin-top: 20px;"
+			label="CONÓCENOS">
+		</a>
+		
+		<a sclass="a1" target="true" href="" style="margin-top: 20px;"
+			label="GALERIA">
+		</a>
+		
+		<a sclass="a3" target="true" href="" style="margin-top: 20px;"
+			label="PARTICIPA">
+		</a>
+		
+		<a sclass="a4" target="true" href="" style="margin-top: 20px;"
+			label="CONTÁCTANOS">
+		</a>
+		
+		<!--  <div>
+			<a sclass="" target="true" href=""
+				style="margin-top: 15px; font-size: 25px;" label=""
+				iconSclass="fa fa-bars">
+			</a>
+		</div>-->
+	</hlayout>
+	
+</div>

@@ -1,7 +1,7 @@
-<?xel-method prefix="m" name="longToStringSesionTimeAgoCompareWithToday" class="lights.promo54.util.UtilConverterDataList" 
+<?xel-method prefix="m" name="longToStringSesionTimeAgoCompareWithToday" class="lights.smile.util.UtilConverterDataList" 
 	signature="java.lang.String longToStringSesionTimeAgoCompareWithToday(java.lang.Long)" ?>
 	
-<?xel-method prefix="m" name="getAuditoriaIn0" class="lights.promo54.util.UtilConverterDataList" 
+<?xel-method prefix="m" name="getAuditoriaIn0" class="lights.smile.util.UtilConverterDataList" 
 	signature="java.lang.String getAuditoriaIn0(lights.seguridad.dto.Sesion)" ?>
 	
 <zk xmlns:n="native" xmlns:w="client">

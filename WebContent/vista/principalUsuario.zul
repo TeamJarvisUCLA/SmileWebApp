@@ -1,4 +1,4 @@
-<?xel-method prefix="m" name="charToStringUsuarioEstatus" class="lights.promo54.util.UtilConverterDataList" 
+<?xel-method prefix="m" name="charToStringUsuarioEstatus" class="lights.smile.util.UtilConverterDataList" 
 	signature="java.lang.String charToStringUsuarioEstatus(java.lang.String)" ?>
 	
 <zk xmlns:n="native" xmlns:w="client">

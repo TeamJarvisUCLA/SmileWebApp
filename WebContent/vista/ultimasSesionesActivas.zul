@@ -1,4 +1,4 @@
-<?xel-method prefix="m" name="sesionToStringSesionTimeConexionTotal" class="lights.promo54.util.UtilConverterDataList" 
+<?xel-method prefix="m" name="sesionToStringSesionTimeConexionTotal" class="lights.smile.util.UtilConverterDataList" 
 	signature="java.lang.String sesionToStringSesionTimeConexionTotal(lights.seguridad.dto.Sesion)" ?>
 
 <zk xmlns:n="native" xmlns:w="client">

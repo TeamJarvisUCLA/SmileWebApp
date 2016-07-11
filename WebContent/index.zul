@@ -2,7 +2,7 @@
 
 <?meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"?>
 <?link href="resources/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"?>
-<?link href="resources/materialize_v0.97.5/css/materialize.min.css" rel="stylesheet" type="text/css"?>
+<?link href="resources/materialize_v0.97.5/css/materialize.css" rel="stylesheet" type="text/css"?>
 <?link href="resources/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css"?>
 <?link href="resources/css/theme.css" rel="stylesheet" type="text/css"?>
 <?link href="resources/css/karen.css" rel="stylesheet" type="text/css"?>

@@ -1,0 +1,102 @@
+<?page title="FANCA - Contáctanos" contentType="text/html;charset=UTF-8"?>
+<?meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"?>
+<?link href="/resources/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"?>
+<?link href="/resources/materialize_v0.97.5/css/materialize.min.css" rel="stylesheet" type="text/css"?>
+<?link href="/resources/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css"?>
+<?link href="/resources/css/theme.css" rel="stylesheet" type="text/css"?>
+<?link href="/resources/css/karen.css" rel="stylesheet" type="text/css"?>
+<?link href="/resources/css/loading.css" rel="stylesheet" type="text/css"?>
+<?link href="/resources/css/animate.css" rel="stylesheet" type="text/css"?>
+<?link href="/assets/seguridad/css/ultimasSesionesActivas.zul.css" rel="stylesheet" type="text/css"?>
+<?link href="/resources/css/portal/navbar.css" rel="stylesheet" type="text/css"?>
+<?link href="/resources/css/portal/contactanos.css" rel="stylesheet" type="text/css"?>
+<?script src="/resources/bootstrap/js/bootstrap.js"?>
+<?script src="/resources/materialize_v0.97.5/js/materialize.min.js"?>
+
+<?script src="/resources/js/shorcut.js"?>
+<?script src="/resources/js/fullScreenApi.js"?>
+<?script src="/resources/js/index.js"?>
+<zk xmlns:n="native" xmlns:w="client">
+	<include src="navbar.zul"></include>
+	<div class="org-contenedor-banner banner-organizacion">
+		<div>
+			<div
+				class="org-contenedor-banner org-contenedor-banner-img">
+				<iframe sclass="contact-map"
+					src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15714.297497096071!2d-69.3126340524231!3d10.05193704663637!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xcfb1348846c590da!2sFundacion+Amigos+del+Ni%C3%B1o+con+cancer+lara!5e0!3m2!1ses!2sve!4v1468198039346">
+				</iframe>
+			</div>
+		</div>
+	</div>
+	<div
+		sclass="text-center container  org-contenedor-contenido row col 12">
+
+		<div sclass="col s4">
+
+			<div class="row" style="margin-right:6px; ">
+				<div sclass="col s12 tituloSeccion">
+					<label value="NUESTROS DATOS DE CONTATO"></label>
+				</div>
+
+			</div>
+		</div>
+		<div sclass="col s4">
+
+			<div class="row"
+				style="margin-right:2px; margin-left:2px">
+
+				<div sclass="col s12 tituloSeccion">
+					<label value="ESCRÍBENOS UN MENSAJE O COMENTARIO">
+					</label>
+				</div>
+				<space height="10px"></space>
+				<div sclass="row">
+					<div class="input-field col s12">
+						<n:label for="nombres">Nombres:</n:label>
+						<textbox id="nombres" type="text"></textbox>
+					</div>
+					<div class="input-field col s12">
+						<n:label for="apellidos">Apellidos:</n:label>
+						<textbox id="apellidos" type="text"></textbox>
+					</div>
+
+					<div class="input-field col s12">
+						<n:label for="correo">Correo:</n:label>
+						<textbox id="correo" type="text"></textbox>
+					</div>
+
+					<div class="input-field col s12">
+						<n:label for="asunto">Asunto:</n:label>
+						<textbox id="asunto" type="text"></textbox>
+					</div>
+					<div class="input-field col s12">
+						<n:label for="mensaje">Mensaje:</n:label>
+						<textbox id="mensaje" type="text"
+							sclass="materialize-textarea" multiline="true">
+						</textbox>
+					</div>
+
+				</div>
+
+				<div id="divButtonsForm" sclass="row">
+					<div class="col s12 div-buttons-form z-div">
+						<button type="button" id="nEMQo3"
+							iconSclass="fa fa-send-o"
+							class="indigo waves-effect waves-light btn"
+							style="background: #D9EB52 !important; color: #8D826D !important">
+							Enviar
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div sclass="col s4">
+			<div class="row" style="margin-left:6px">
+				<div sclass="col s12 tituloSeccion">
+					<label value="VISITA NUESTRAS REDES SOCIALES">
+					</label>
+				</div>
+			</div>
+		</div>
+	</div>
+</zk>

@@ -1,0 +1,59 @@
+<?meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"?>
+<?link href="/resources/css/portal/navbar.css" rel="stylesheet" type="text/css"?>
+
+<zk>
+
+	<div sclass="navbar navbar-fixed">
+		<image src="/imagenes/logo_fanca2.jpg" style=""></image>
+
+		<div sclass="pull-right divNavbar">
+			<a target="true" href="" style=" font-size: 25px; " label=""
+				iconSclass="fa fa-bars"
+				popup="menu, position=after_end, type=toggle">
+			</a>
+		</div>
+		<hlayout
+			sclass="valign-wrapper nav-user pull-right hlayautPortal"
+			spacing="20px">
+
+			<a
+				sclass="rosadoFanca labelNavbar hvr-underline-from-center"
+				target="true" href="" label="INICIO">
+			</a>
+			<a sclass="grisFanca labelNavbar hvr-underline-from-center"
+				target="true" href="" label="CONÓCENOS">
+			</a>
+
+			<a sclass="verdeFanca labelNavbar hvr-underline-from-center"
+				target="true" href="" label="GALERÍA">
+			</a>
+
+			<a sclass="azulFanca labelNavbar hvr-underline-from-center"
+				target="true" href="" label="EVENTOS">
+			</a>
+
+			<a
+				sclass="rosadoFanca labelNavbar hvr-underline-from-center"
+				target="true" href="" label="PARTICIPA">
+			</a>
+
+			<a sclass="grisFanca labelNavbar hvr-underline-from-center"
+				target="true" href="" style="margin-top: 20px;"
+				label="CONTÁCTANOS">
+			</a>
+
+		</hlayout>
+	</div>
+	<popup id="menu" sclass="menu before-reajust" width="180px">
+
+		<vlayout spacing="0">
+			<a iconSclass=" no-hover z-icon-comment" href="#">
+				<label>Iniciar Sesión</label>
+			</a>
+			<a iconSclass="no-hover z-icon-user" href="#">
+				<label>Descargar App Móvil</label>
+			</a>
+
+		</vlayout>
+	</popup>
+</zk>

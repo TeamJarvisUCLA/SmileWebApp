@@ -9802,7 +9802,7 @@ select {
 }
 
 .side-nav li:hover, .side-nav li.active {
-  background-color: #ddd;
+    background-color: #f0f2dc;
 }
 
 .side-nav a {

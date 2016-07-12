@@ -1,0 +1,51 @@
+<?meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"?>
+<?link href="/resources/css/portal/eventosMain.css" rel="stylesheet" type="text/css"?>
+
+<zk xmlns:n="native" xmlns:w="client">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="cabecera vcenter titulo text-center">
+				<n:b>Eventos</n:b>
+			</div>
+			<div class="col s4">
+				<image class="img-responsive center-block" src="/imagenes/portal/icon/icon-carrera.png" width="128px" height="128px"></image>
+				<n:br></n:br>
+				<div class="subtitulo text-center">
+           			<n:p>Carrera</n:p><n:br></n:br>
+       			</div>
+       			<div class="info">
+		            <n:b>Fecha:</n:b> 02/05/2016<n:br></n:br>
+		            <n:b>Lugar:</n:b> Hotel Príncipe<n:br></n:br>
+		            <n:b>Descripción:</n:b> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.
+          		</div>
+			</div>
+			<div class="col s4">
+				<image class="img-responsive center-block" src="/imagenes/portal/icon/icon-vendimia.png" width="128px" height="128px"></image>					
+				<n:br></n:br>
+				<div class="subtitulo text-center">
+           			<n:p>Vendimia</n:p><n:br></n:br>
+       			</div>
+       			<div class="info">
+		            <n:b>Fecha:</n:b> 02/05/2016<n:br></n:br>
+		            <n:b>Lugar:</n:b> Hotel Príncipe<n:br></n:br>
+		            <n:b>Descripción:</n:b> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.
+	          	</div>
+	          	<div class="boton text-center">
+           			<button type="button" class="btn btn-info">Ver más</button>
+       			</div>
+			</div>
+			<div class="col s4">
+				<image class="img-responsive center-block" src="/imagenes/portal/icon/icon-bingo.png" width="128px" height="128px"></image>
+				<n:br></n:br>
+				<div class="subtitulo text-center">
+           			<n:p>Bingo</n:p><n:br></n:br>
+       			</div>
+       			<div class="info">
+		            <n:b>Fecha:</n:b> 02/05/2016<n:br></n:br>
+		            <n:b>Lugar:</n:b> Hotel Príncipe<n:br></n:br>
+		            <n:b>Descripción:</n:b> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.
+	          	</div>
+			</div>
+		</div>
+	</div>
+</zk>

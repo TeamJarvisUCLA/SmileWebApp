@@ -1,0 +1,120 @@
+<?meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"?>
+<?link href="/resources/css/portal/participaMain.css" rel="stylesheet" type="text/css"?>
+
+
+<zk xmlns:n="native" xmlns:w="client">
+	<div class="container-fluid"  >
+		<div class="row">
+			<div align="center" style="width: 100%; height: 45px; background-color: #f26b7a; margin-bottom: 15px;">    
+				<n:h5 style="padding-top: 9px; color: #F0F2D6; margin-top: 0;" >PARTICIPA</n:h5>
+			</div>
+			<div class="col s4">
+				<image class="img-responsive center-block" src="/imagenes/portal/icon/icon-voluntarios.png" width="128px" height="128px"></image>
+				<n:br></n:br>
+				<div class="subtitulo text-center">
+           			<n:h5 style="font-size: 14px; color: #8AC7DE;">VOLUNTARIADO</n:h5>
+       			</div>
+       			<div class="info">
+		            <n:b>Fecha:</n:b> 02/05/2016<n:br></n:br>
+		            <n:b>Lugar:</n:b> Hotel Príncipe<n:br></n:br>
+		            <n:b>Descripción:</n:b> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.
+	          	</div>
+			</div>
+			<div class="col s4">
+				<image class="img-responsive center-block" src="/imagenes/portal/icon/icon-padrinos.png" width="128px" height="128px"></image>					
+				<n:br></n:br>
+				<div class="subtitulo text-center">
+           			<n:h5 style="font-size: 14px; color: #8AC7DE;">PADRINOS</n:h5>
+       			</div>
+       			<div class="info">
+		            <n:b>Fecha:</n:b> 02/05/2016<n:br></n:br>
+		            <n:b>Lugar:</n:b> Hotel Príncipe<n:br></n:br>
+		            <n:b>Descripción:</n:b> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.
+	          	</div>
+	          	<div class="boton text-center">
+           			<button type="button" class="btn btn-info">Ver más</button>
+       			</div>
+			</div>
+			<div class="col s4">
+				<image class="img-responsive center-block" src="/imagenes/portal/icon/icon-donaciones.png" width="128px" height="128px"></image>
+				<n:br></n:br>
+				<div class="subtitulo text-center">
+           			<n:h5 style="font-size: 14px; color: #8AC7DE;">DONACIONES</n:h5>
+       			</div>
+       			<div class="info">
+		            <n:b>Fecha:</n:b> 02/05/2016<n:br></n:br>
+		            <n:b>Lugar:</n:b> Hotel Príncipe<n:br></n:br>
+		            <n:b>Descripción:</n:b> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.
+	          	</div>
+			</div>
+		</div>
+	</div>
+</zk>		
+					
+					
+					
+					
+<!-- 	<div align="center" -->
+<!-- 		style="width: 100%; -->
+<!--     height: 64px; -->
+<!--     background-color: #f26b7a;"> -->
+
+<!-- 		<n:h5 style="padding-top: 18px; color: #F0F2D6; margin-top: 0;" >PARTICIPA</n:h5> -->
+<!-- 	</div> -->						
+					
+<!-- 		<div class="row"> -->
+			
+<!-- 				<div class="col s12 fotos"> -->
+<!-- 					<div class="col s4" align="center"> -->
+					
+<!-- 						 <div class="thumbnail" style="border-color: #ffffff"> -->
+<!-- 						      <image src="/imagenes/portal/icon/icon-voluntarios.png"></image> -->
+<!-- 						      <div class="caption"> -->
+<!-- 						        <n:h5 style="padding-top: 18px; color: #8AC7DE;">VOLUNTARIADO</n:h5> -->
+<!-- 						        <n:p>Lorem ipsum dolor sit amet, consectetur adipiscing elit,  -->
+<!-- 						        sed eiusmod tempor incidunt ut labore et dolore magna aliqua.  -->
+<!-- 						        Ut enim ad minim veniam, quis nostrud exercitation ullamco  -->
+<!-- 						        laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure  -->
+<!-- 						        reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.  -->
+<!-- 						        Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia  -->
+<!-- 						        deserunt mollit anim id est laborum.</n:p> -->
+<!-- 							  </div> -->
+<!-- 						 </div> -->
+					 
+<!-- 					</div> -->
+<!-- 					<div class="col s4" align="center"> -->
+<!-- 						 <div class="thumbnail" style="border-color: #ffffff"> -->
+<!-- 						      <image src="/imagenes/portal/icon/icon-padrinos.png"></image> -->
+<!-- 						      <div class="caption"> -->
+<!-- 						        <n:h5 style="padding-top: 18px; color: #8AC7DE;">PADRINOS</n:h5> -->
+<!-- 						        <n:p>Lorem ipsum dolor sit amet, consectetur adipiscing elit,  -->
+<!-- 						        sed eiusmod tempor incidunt ut labore et dolore magna aliqua.  -->
+<!-- 						        Ut enim ad minim veniam, quis nostrud exercitation ullamco  -->
+<!-- 						        laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure  -->
+<!-- 						        reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.  -->
+<!-- 						        Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia  -->
+<!-- 						        deserunt mollit anim id est laborum.</n:p> -->
+<!-- 							  </div> -->
+<!-- 						 </div> -->
+<!-- 					</div> -->
+<!-- 					<div class="col s4" align="center"> -->
+<!-- 						 <div class="thumbnail" style="border-color: #ffffff"> -->
+<!-- 						      <image src="/imagenes/portal/icon/icon-donaciones.png"></image> -->
+<!-- 						      <div class="caption"> -->
+<!-- 						        <n:h5 style="padding-top: 18px; color: #8AC7DE;">DONACIONES</n:h5> -->
+<!-- 						        <n:p>Lorem ipsum dolor sit amet, consectetur adipiscing elit,  -->
+<!-- 						        sed eiusmod tempor incidunt ut labore et dolore magna aliqua.  -->
+<!-- 						        Ut enim ad minim veniam, quis nostrud exercitation ullamco  -->
+<!-- 						        laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure  -->
+<!-- 						        reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.  -->
+<!-- 						        Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia  -->
+<!-- 						        deserunt mollit anim id est laborum.</n:p> -->
+<!-- 							  </div> -->
+<!-- 						 </div> -->
+<!-- 					</div>	 -->
+<!-- 					<div class="col s12" align="center"> -->
+<!-- 						<n:button type="button" class="btn btn-lg" style="background-color: #8AC7DE" >ver mas</n:button> -->
+<!-- 					</div>	 -->
+<!-- 				</div>				 -->
+			
+<!-- 		</div> -->

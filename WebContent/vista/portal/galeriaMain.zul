@@ -1,0 +1,33 @@
+<?meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"?>
+
+<?link href="/resources/css/portal/galeriaMain.css" rel="stylesheet" type="text/css"?>
+
+
+
+<zk xmlns:n="native" xmlns:w="client">
+	<div class="container-fluid galeria"  >
+		<div class="row">
+			<n:h4>galeria de fotos</n:h4>
+			<div class="col s12 seccion">
+				<div class="col s12">
+					<div class="row fotos">
+						<div class="col s4">
+							<image src="/imagenes/portal/foto1.png"></image>
+						</div>
+						<div class="col s4">
+							<image src="/imagenes/portal/foto1.png"></image>
+						</div>
+						<div class="col s4">
+							<image  src="/imagenes/portal/foto1.png"></image>
+						</div>	
+						<div class="col s12">
+							<button class="waves-effect waves-light btn">
+								ver mas
+							</button>
+						</div>
+					</div>
+				</div>				
+			</div>
+		</div>
+	</div>
+</zk>

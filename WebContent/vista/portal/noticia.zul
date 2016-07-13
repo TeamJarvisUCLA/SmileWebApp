@@ -8,7 +8,7 @@
 <?link href="/resources/css/animate.css" rel="stylesheet" type="text/css"?>
 <?link href="/resources/css/noticia.css" rel="stylesheet" type="text/css"?>
 <?link href="/assets/seguridad/css/ultimasSesionesActivas.zul.css" rel="stylesheet" type="text/css"?>
-
+<?link href="resources/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css"?>
 <?link href="/resources/owl-carousel/owl.carousel.css" rel="stylesheet" type="text/css"?>
 <?link href="/resources/owl-carousel/owl.theme.css" rel="stylesheet" type="text/css"?>
 
@@ -54,13 +54,24 @@
 .owl-theme .owl-controls .owl-buttons .owl-prev{
   left: -45px;
   top: 55px; 
+      position: absolute;
 }
  
 .owl-theme .owl-controls .owl-buttons .owl-next{
   right: -45px;
   top: 55px;
+      position: absolute;
+}
+
+.owl-carousel {
+    display: none;
+    position: relative;
+    width: 80%;
+    -ms-touch-action: pan-y;
+    margin-left: 5%;
 }
  
+
 	</style>
 	<div align="center"
 		style="width: 100%;
@@ -152,8 +163,8 @@ $(document).ready(function() {
       paginationSpeed : 400,
       singleItem:true,
 navigationText: [
-      '<label sclass='fa-chevron-left fa'></label>',
-    '<label sclass='fa-chevron-right fa'></label>'
+      '<label sclass='fa-user fa'></label>',
+    '<label sclass='fa-user fa'></label>'
       ],
       // "singleItem:true" is a shortcut for:
       // items : 1, 

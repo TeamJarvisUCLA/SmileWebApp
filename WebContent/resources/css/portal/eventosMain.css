@@ -1,34 +1,27 @@
-.container {
-	font-family: 'Roboto', sans-serif;
-	font-size: 14px;
-}
-
-.cabecera {
+.eventos h4 {
 	background-color: #d9eb52;
 	color: #a0958e;
-	height: 45px;
-	margin-bottom: 15px;
-	padding-top: 8px;
+	margin: 0;
+	padding: 15px 0;
 }
 
-.titulo, .subtitulo {
-	font-weight: bold;
-	text-transform: uppercase;
-}
-
-.titulo {
-	font-size: 18px;
+.eventos .seccion {
+	padding-top: 20px;
 }
 
 .subtitulo {
+	font-size: 1.3em;
+	font-weight: bold;
 	color: #8ac7de;
+	text-transform: uppercase;
+}
+
+.info {
+    padding: 0 15px;
+    height: 130px;
 }
 
 .info b {
 	color: #f26b7a;
 	font-weight: bold;
-}
-
-.boton {
-	margin-top: 20px;
 }

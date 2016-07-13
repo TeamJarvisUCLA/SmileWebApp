@@ -1,1 +1,10 @@
-/* Aqui colocar los styles de participaMain */
+.participa h4 {
+	background-color: #f26b7a;
+	color: #ffffff;
+	margin: 0;
+	padding: 15px 0;
+}
+
+.participa .seccion {
+	padding-top: 20px;
+}

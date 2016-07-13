@@ -1,3 +1,15 @@
 .col.s6.participa, .col.s6.eventos {
 	padding: 0;
 }
+
+button {
+	margin-top: 35px;
+	background: #8ac7de !important;
+}
+
+h4 {
+	font-size: 1.5em;
+	font-weight: bold;
+	text-align: center;
+	text-transform: uppercase;
+}

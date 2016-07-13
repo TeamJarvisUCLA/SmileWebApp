@@ -7,26 +7,39 @@
 <zk xmlns:n="native" xmlns:w="client">
 	<div class="container-fluid galeria"  >
 		<div class="row">
-			<n:h4>galeria de fotos</n:h4>
+			<n:h4>galería de fotos</n:h4>
 			<div class="col s12 seccion">
 				<div class="col s12">
 					<div class="row fotos">
 						<div class="col s4">
-							<image src="/imagenes/portal/foto1.png"></image>
+							<image src="/imagenes/portal/galeria1.png"></image>
 						</div>
 						<div class="col s4">
-							<image src="/imagenes/portal/foto1.png"></image>
+							<image src="/imagenes/portal/galeria2.png"></image>
 						</div>
 						<div class="col s4">
-							<image  src="/imagenes/portal/foto1.png"></image>
+							<image src="/imagenes/portal/galeria3.jpg"></image>
 						</div>	
-						<div class="col s12">
-							<button class="waves-effect waves-light btn">
-								ver mas
-							</button>
-						</div>
 					</div>
-				</div>				
+				</div>
+				<div class="col s12">
+					<div class="row fotos">
+						<div class="col s4">
+							<image src="/imagenes/portal/galeria1.png"></image>
+						</div>
+						<div class="col s4">
+							<image src="/imagenes/portal/galeria2.png"></image>
+						</div>
+						<div class="col s4">
+							<image src="/imagenes/portal/galeria3.jpg"></image>
+						</div>	
+					</div>
+				</div>	
+				<div class="col s12 text-center">
+					<button class="waves-effect waves-light btn">
+						ver mas
+					</button>
+				</div>			
 			</div>
 		</div>
 	</div>

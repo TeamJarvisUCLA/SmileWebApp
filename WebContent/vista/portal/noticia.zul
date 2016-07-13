@@ -1,0 +1,174 @@
+<?meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"?>
+<?link href="/resources/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"?>
+<?link href="/resources/materialize_v0.97.5/css/materialize.min.css" rel="stylesheet" type="text/css"?>
+<?link href="/resources/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css"?>
+<?link href="/resources/css/theme.css" rel="stylesheet" type="text/css"?>
+<?link href="/resources/css/karen.css" rel="stylesheet" type="text/css"?>
+<?link href="/resources/css/loading.css" rel="stylesheet" type="text/css"?>
+<?link href="/resources/css/animate.css" rel="stylesheet" type="text/css"?>
+<?link href="/resources/css/noticia.css" rel="stylesheet" type="text/css"?>
+<?link href="/assets/seguridad/css/ultimasSesionesActivas.zul.css" rel="stylesheet" type="text/css"?>
+
+<?link href="/resources/owl-carousel/owl.carousel.css" rel="stylesheet" type="text/css"?>
+<?link href="/resources/owl-carousel/owl.theme.css" rel="stylesheet" type="text/css"?>
+
+<?script src="/resources/owl-carousel/owl.carousel.js"?>
+
+<?script src="/resources/bootstrap/js/bootstrap.js"?>
+<?script src="/resources/materialize_v0.97.5/js/materialize.min.js"?>
+
+<?script src="/resources/js/shorcut.js"?>
+<?script src="/resources/js/fullScreenApi.js"?>
+<?script src="/resources/js/index.js"?>
+
+	
+<zk xmlns:n="native" xmlns:w="client">
+<style>
+
+
+
+
+#owlDemo .item{
+  display: block;
+  padding: 30px 0px;
+  margin: 5px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  text-align: center;
+}
+.owl-theme .owl-controls .owl-buttons div {
+  padding: 5px 9px;
+}
+ 
+.owl-theme .owl-buttons span{
+  margin-top: 2px;
+}
+ 
+//To move navigation buttons outside use these settings:
+ 
+.owl-theme .owl-controls .owl-buttons div {
+  position: absolute;
+}
+ 
+.owl-theme .owl-controls .owl-buttons .owl-prev{
+  left: -45px;
+  top: 55px; 
+}
+ 
+.owl-theme .owl-controls .owl-buttons .owl-next{
+  right: -45px;
+  top: 55px;
+}
+ 
+	</style>
+	<div align="center"
+		style="width: 100%;
+    height: 54px;
+    background-color: #d9eb52; margin-top: -12px;">
+
+
+		<n:h5
+			style="padding-top: 14px; color: #87796F; font-family: Roboto,sans-serif !important;
+    font-weight: bold;">
+			NOTICIAS
+		</n:h5>
+	</div>
+	<div>
+
+
+	</div>
+	<div sclass="container">
+		<div sclass="carousel slide">
+			<n:ol class="carousel-indicators">
+				<n:li class="active"></n:li>
+				<n:li></n:li>
+				<n:li></n:li>
+
+			</n:ol>
+			<div>
+
+			</div>
+			<div sclass="carousel-inner">
+				<div sclass="item active"
+					style="width: 70%;  margin-left: 15%; margin-top: 4%;">
+					<div style="padding-bottom: 10px;">
+						<label
+							style="color: #f26b7a; font-weight: bold;"
+							value="TITULO DE LA NOTICIA">
+						</label>
+					</div>
+					<label
+						value="Note: Carousels are not supported properly in Internet Explorer 9 and earlier (because they use CSS3 transitions and animations to achieve the slide effect). ">
+					</label>
+
+				</div>
+			</div>
+			<a sclass="left carousel-control">
+				<span sclass="glyphicon glyphicon-chevron-left"></span>
+			</a>
+			<a sclass="right carousel-control">
+				<span sclass="glyphicon glyphicon-chevron-right"></span>
+			</a>
+		</div>
+	</div>
+	<div sclass="row">
+		<n:div id="owlDemo" sclass="owl-carousel owl-theme">
+
+			<div sclass="item">
+				
+					<label
+						value ="Note: Carousels are not supported properly in
+						Internet Explorer 9 and earlier (because they
+						use CSS3 transitions and animations to achieve
+						the slide effect).">
+					</label>
+				</div>
+			<div sclass="item">
+				
+					<label value ="Note: Carousels are not supported properly in
+						Internet Explorer 9 and earlier (because they
+						use CSS3 transitions and animations to achieve
+						the slide effect).">
+					</label>
+				</div>
+			
+
+		</n:div>
+		
+		
+	</div>
+
+	
+<n:script type="text/javascript">
+		
+
+$(document).ready(function() {
+
+  $('#owlDemo').owlCarousel({
+
+      navigation : true, // Show next and prev buttons
+      slideSpeed : 300,
+      paginationSpeed : 400,
+      singleItem:true,
+navigationText: [
+      '<label sclass='fa-chevron-left fa'></label>',
+    '<label sclass='fa-chevron-right fa'></label>'
+      ],
+      // "singleItem:true" is a shortcut for:
+      // items : 1, 
+      // itemsDesktop : false,
+      // itemsDesktopSmall : false,
+      // itemsTablet: false,
+      // itemsMobile : false
+
+  });
+
+});
+ 
+
+		
+</n:script>
+	
+
+</zk>

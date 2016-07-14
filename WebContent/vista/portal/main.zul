@@ -59,7 +59,7 @@
 	<div class="container-fluid">
 		<image class="responsive-img" src="/imagenes/portal/web-banner.png"></image>
 	</div>
-	<include src="/vista/portal/noticia.zul"></include>
+	<include src="/vista/portal/noticiasMain.zul"></include>
 	<n:div id="conocenos">
 		<include src="/vista/portal/conocenosMain.zul"></include>
 	</n:div>

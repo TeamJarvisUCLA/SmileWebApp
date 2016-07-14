@@ -1,0 +1,143 @@
+<?page title="Noticias" contentType="text/html;charset=UTF-8"?>
+<?meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"?>
+<?link href="/resources/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"?>
+<?link href="/resources/materialize_v0.97.5/css/materialize.min.css" rel="stylesheet" type="text/css"?>
+<?link href="/resources/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css"?>
+<?link href="/resources/css/theme.css" rel="stylesheet" type="text/css"?>
+<?link href="/resources/css/karen.css" rel="stylesheet" type="text/css"?>
+<?link href="/resources/css/loading.css" rel="stylesheet" type="text/css"?>
+<?link href="/resources/css/animate.css" rel="stylesheet" type="text/css"?>
+<?link href="/assets/seguridad/css/ultimasSesionesActivas.zul.css" rel="stylesheet" type="text/css"?>
+
+<?link href="/resources/css/portal/navbar.css" rel="stylesheet" type="text/css"?>
+<?link href="/resources/css/portal/noticias.css" rel="stylesheet" type="text/css"?>
+<?link href="/resources/css/portal/footer.css" rel="stylesheet" type="text/css"?>
+
+<?script src="/resources/bootstrap/js/bootstrap.js"?>
+<?script src="/resources/materialize_v0.97.5/js/materialize.min.js"?>
+<?script src="/resources/js/shorcut.js"?>
+<?script src="/resources/js/fullScreenApi.js"?>
+<?script src="/resources/js/index.js"?>
+<zk>
+	<include src="navbar.zul"></include>
+<div style="background-color: #c2d62d; height: 10px;"></div>
+	<div sclass="container">	
+	<div sclass="row">
+	<div sclass="col s12 text-center" style="padding-top: 35px;">
+		<label value="NOTICIAS" sclass="titulo"></label>
+   	</div>
+		<div sclass="col s3 offset-s1 marcoNoticia text-center" style="padding-top: 12px;">
+			<label value="Título de la Noticia" sclass="tituloNoticia"></label>
+			<image src="../../imagenes/foto-ejemplo.png" sclass="imgNoticia"></image>
+			<div style="padding-top: 7px;">
+			<label sclass="fechaNoticia" value="Fecha: 03/07/2016"></label>
+			</div>
+			<div style="padding-top: 7px;">
+			<label sclass="text-justify" value="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo 
+			 reprehenderit commodi fuga dolores eligendi necessitatibus quo. Minus 
+			 numquam necessitatibus velit assumenda ipsum id eius laudantium mollitia 
+			 eaque. Illum, sed, laborum!"></label>
+			 <div sclass="divTag">
+			 <label value="Tag *"></label>
+			 </div>
+		</div>
+		</div>
+		
+	<div sclass="col s3 offset-s1 marcoNoticia text-center" style="padding-top: 12px;">
+			<label value="Título de la Noticia" sclass="tituloNoticia"></label>
+			<image src="../../imagenes/foto-ejemplo.png" sclass="imgNoticia"></image>
+			<div style="padding-top: 7px;">
+			<label sclass="fechaNoticia" value="Fecha: 03/07/2016"></label>
+			</div>
+			<div style="padding-top: 7px;">
+			<label sclass="text-justify" value="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo 
+			 reprehenderit commodi fuga dolores eligendi necessitatibus quo. Minus 
+			 numquam necessitatibus velit assumenda ipsum id eius laudantium mollitia 
+			 eaque. Illum, sed, laborum!"></label>
+			 <div sclass="divTag">
+			 <label value="Tag *"></label>
+			 </div>
+		</div>
+		</div>
+		
+		<div sclass="col s3 offset-s1 marcoNoticia text-center" style="padding-top: 12px;">
+			<label value="Título de la Noticia" sclass="tituloNoticia"></label>
+			<image src="../../imagenes/foto-ejemplo.png" sclass="imgNoticia"></image>
+			<div style="padding-top: 7px;">
+			<label sclass="fechaNoticia" value="Fecha: 03/07/2016"></label>
+			</div>
+			<div style="padding-top: 7px;">
+			<label sclass="text-justify" value="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo 
+			 reprehenderit commodi fuga dolores eligendi necessitatibus quo. Minus 
+			 numquam necessitatibus velit assumenda ipsum id eius laudantium mollitia 
+			 eaque. Illum, sed, laborum!"></label>
+			 <div sclass="divTag">
+			 <label value="Tag *"></label>
+			 </div>
+		</div>
+		</div>		
+		
+		<div sclass="col s3 offset-s1 marcoNoticia text-center" style="padding-top: 12px;">
+			<label value="Título de la Noticia" sclass="tituloNoticia"></label>
+			<image src="../../imagenes/foto-ejemplo.png" sclass="imgNoticia"></image>
+			<div style="padding-top: 7px;">
+			<label sclass="fechaNoticia" value="Fecha: 03/07/2016"></label>
+			</div>
+			<div style="padding-top: 7px;">
+			<label sclass="text-justify" value="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo 
+			 reprehenderit commodi fuga dolores eligendi necessitatibus quo. Minus 
+			 numquam necessitatibus velit assumenda ipsum id eius laudantium mollitia 
+			 eaque. Illum, sed, laborum!"></label>
+			 <div sclass="divTag">
+			 <label value="Tag *"></label>
+			 </div>
+		</div>
+		</div>
+		
+		<div sclass="col s3 offset-s1 marcoNoticia text-center" style="padding-top: 12px;">
+			<label value="Título de la Noticia" sclass="tituloNoticia"></label>
+			<image src="../../imagenes/img-por-defecto.png" sclass="imgNoticia"></image>
+			<div style="padding-top: 7px;">
+			<label sclass="fechaNoticia" value="Fecha: 03/07/2016"></label>
+			</div>
+			<div style="padding-top: 7px;">
+			<label sclass="text-justify" value="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo 
+			 reprehenderit commodi fuga dolores eligendi necessitatibus quo. Minus 
+			 numquam necessitatibus velit assumenda ipsum id eius laudantium mollitia 
+			 eaque. Illum, sed, laborum!"></label>
+			 <div sclass="divTag">
+			 <label value="Tag *"></label>
+			 </div>
+		</div>
+		</div>
+		
+		<div sclass="col s3 offset-s1 marcoNoticia text-center" style="padding-top: 12px;">
+			<label value="Título de la Noticia" sclass="tituloNoticia"></label>
+			<image src="../../imagenes/foto-ejemplo.png" sclass="imgNoticia"></image>
+			<div style="padding-top: 7px;">
+			<label sclass="fechaNoticia" value="Fecha: 03/07/2016"></label>
+			</div>
+			<div style="padding-top: 7px;">
+			<label sclass="text-justify" value="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo 
+			 reprehenderit commodi fuga dolores eligendi necessitatibus quo. Minus 
+			 numquam necessitatibus velit assumenda ipsum id eius laudantium mollitia 
+			 eaque. Illum, sed, laborum!"></label>
+			 <div sclass="divTag">
+			 <label value="Tag *"></label>
+			 </div>
+		</div>
+		</div>
+		
+	   </div>
+	   </div>
+
+ <!-- <listbox sclass="pagination" mold="paging">
+    <listitem sclass="material-icons"><label value="1"></label></listitem>
+    <listitem sclass="active"><label value="1"></label></listitem>
+    <listitem sclass="waves-effect"><label value="1"></label></listitem>
+    <listitem sclass="waves-effect"><label value="1"></label></listitem>
+    <listitem sclass="waves-effect material-icons"><label value="1"></label></listitem>
+  </listbox> -->
+	   
+	<include src="footer.zul"></include>
+</zk>

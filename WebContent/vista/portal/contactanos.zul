@@ -10,6 +10,7 @@
 <?link href="/assets/seguridad/css/ultimasSesionesActivas.zul.css" rel="stylesheet" type="text/css"?>
 <?link href="/resources/css/portal/navbar.css" rel="stylesheet" type="text/css"?>
 <?link href="/resources/css/portal/contactanos.css" rel="stylesheet" type="text/css"?>
+<?link href="/resources/css/portal/footer.css" rel="stylesheet" type="text/css"?>
 <?script src="/resources/bootstrap/js/bootstrap.js"?>
 <?script src="/resources/materialize_v0.97.5/js/materialize.min.js"?>
 
@@ -30,16 +31,50 @@
 	</div>
 	<div
 		sclass="text-center container  org-contenedor-contenido row col 12">
-
+		
 		<div sclass="col s4">
 
 			<div class="row" style="margin-right:6px; ">
 				<div sclass="col s12 tituloSeccion">
-					<label value="NUESTROS DATOS DE CONTATO"></label>
+					<label value="NUESTROS DATOS DE CONTACTO"></label>
 				</div>
-
+				<space height="37px"></space>
+				<div sclass="row">
+					<div class="col s12 s4 offset-s1 contact-holder left-align">
+		                <n:h6 class="textoContacto">Teléfonos:</n:h6>
+		                <div class="textoDatos">
+	                	(0251)2338265<n:br></n:br>
+		                (0251)4542039<n:br></n:br>
+		                <n:br></n:br>
+		                </div>
+		                
+		                <n:h6 class="textoContacto">Fax</n:h6>
+		                <div class="textoDatos">
+	                	(0251)2337004<n:br></n:br>
+		                <n:br></n:br>
+		                </div>
+		                
+		                <n:h6 class="textoContacto">Correo electrónico</n:h6>
+		                <div class="textoDatos">
+	                	fancalara@gmail.com<n:br></n:br>
+		                <n:br></n:br>
+		                </div>
+		                
+		                <n:h6 class="textoContacto">Ubicación</n:h6>
+		                <div class="textoDatos">
+	                	Urbanización "La Concordia" Vereda 6<n:br></n:br>
+		                Casa #21<n:br></n:br>
+		                Barquisimeto - Estado Lara
+		                </div>
+            		</div>
+				</div>
+				<div class="right-align">
+				<n:img class="responsive-img" src="/SmileWebApp/imagenes/portal/google-maps.png"></n:img>
 			</div>
+			</div>
+			
 		</div>
+
 		<div sclass="col s4">
 
 			<div class="row"
@@ -96,7 +131,36 @@
 					<label value="VISITA NUESTRAS REDES SOCIALES">
 					</label>
 				</div>
+				<space height="37px"></space>
+				<div sclass="row">
+					<div class="col s12 contact-holder left-align">
+					
+		                <div class="containerRedes twitter valign-wrapper">
+							<div class="valign" style="margin-left: 10px;">
+								<n:img class="responsive-img" src="/SmileWebApp/imagenes/portal/twitter.png" style="margin-right: 50px;"></n:img>
+							</div>
+							<n:b>twitter</n:b>
+						</div>
+						
+						<div class="containerRedes facebook valign-wrapper">
+							<div class="valign" style="margin-left: 10px;">
+								<n:img class="responsive-img" src="/SmileWebApp/imagenes/portal/facebook.png" style="margin-right: 50px;"></n:img>
+							</div>
+							<n:b>facebook</n:b>
+						</div>
+						
+						<div class="containerRedes instagram valign-wrapper">
+							<div class="valign" style="margin-left: 10px;">
+								<n:img class="responsive-img" src="/SmileWebApp/imagenes/portal/instagram.png" style="margin-right: 50px;"></n:img>
+							</div>
+							<n:b>instagram</n:b>
+						</div>
+		                
+		                
+            		</div>
+				</div>
 			</div>
 		</div>
 	</div>
+	<include src="/vista/portal/footer.zul"></include>
 </zk>

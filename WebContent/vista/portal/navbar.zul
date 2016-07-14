@@ -18,27 +18,27 @@
 
 			<a
 				sclass="rosadoFanca labelNavbar hvr-underline-from-center"
-				target="true" href="" label="INICIO">
+				target="_self" href="./main.zul" label="INICIO">
 			</a>
 			<a sclass="grisFanca labelNavbar hvr-underline-from-center"
-				target="true" href="" label="CONÓCENOS">
+				target="_self" href="./conocenos.zul" label="CONÓCENOS">
 			</a>
 
 			<a sclass="verdeFanca labelNavbar hvr-underline-from-center"
-				target="true" href="" label="GALERÍA">
+				target="_self" href="./galeria.zul" label="GALERÍA">
 			</a>
 
 			<a sclass="azulFanca labelNavbar hvr-underline-from-center"
-				target="true" href="" label="EVENTOS">
+				target="_self" href="./eventos.zul" label="EVENTOS">
 			</a>
 
 			<a
 				sclass="rosadoFanca labelNavbar hvr-underline-from-center"
-				target="true" href="" label="PARTICIPA">
+				target="_self" href="./participa.zul" label="PARTICIPA">
 			</a>
 
 			<a sclass="grisFanca labelNavbar hvr-underline-from-center"
-				target="true" href="" style="margin-top: 20px;"
+				target="_self" href="./contactanos.zul" style="margin-top: 20px;"
 				label="CONTÁCTANOS">
 			</a>
 

@@ -1,0 +1,7 @@
+.titulo {
+	    color: #3B85A1;
+}
+
+.titulo > span {
+	       font-weight: bold;
+}

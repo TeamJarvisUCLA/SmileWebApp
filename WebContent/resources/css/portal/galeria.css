@@ -1,0 +1,82 @@
+.galeria h4 {
+    background-color: #d9eb52;
+    color: #a0958e;
+	margin: 0;
+	padding: 15px 0;
+}
+
+.seccion {
+	margin-top: 20px;
+}
+
+.seccion .fotos, .seccion .albumes {
+	text-align: center;
+	width: 75%;
+}
+
+.galeria .seccion img {
+	height: 100%;
+	width: 100%;
+}
+
+.galeria .seccion .albumes img {
+	margin-bottom: 20px;
+}
+
+.galeria .seccion .icon img {
+	height: initial;
+	width: initial;
+	margin-bottom: 30px;
+}
+
+.galeria .seccion .icon a {
+	font-size: 1.2em;
+	font-weight: bold;
+    color: #a0958e;
+}
+
+.subtitulo {
+	padding-top: 6px;
+	font-size: 1.3em;
+	font-weight: bold;
+	color: #ffffff;
+	background:#8ac7de;
+	height: 36px;
+}
+
+.subtitulo p{
+	margin: 0;
+}
+
+.albumes p {
+	height: 100px;
+}
+
+.galeria .seccion .albumes .link {
+    text-align: initial;
+}
+.galeria .seccion .albumes .link a {
+	font-size: 1.3em;
+}
+
+#owlDemo.owl-carousel.owl-theme {
+    width: 100%;
+    margin-left: 0%;
+}
+
+.owl-wrapper-outer {
+	z-index: -1;
+}
+
+.owl-theme .owl-controls {
+    margin-top: -30px !important;
+}
+
+.owl-page span{
+	background: #87796f !important;
+	opacity: 1 !important;
+}
+
+.owl-page.active span{
+	background: #f26b7a !important;
+}

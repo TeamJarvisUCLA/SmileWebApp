@@ -1,0 +1,186 @@
+div.list-group h5 {
+	color: #ffffff
+	
+}
+div.voluntario h2{
+	
+		font-weigth:bold;
+	
+padding-top: 10px; 
+color: yellow;
+opacity: 0.50;
+	
+}
+div.nombres h5{
+	color: #F26B7A;
+	
+	
+}
+div.informacion h5{
+	
+	font-weigth:bold;
+	
+	
+}
+div.listadoRequisitos a 
+{
+	color:black;
+	
+}
+div.listadoRequisitos li{
+	color: #F26B7A;
+list-style-ico: url('http://fontawesome.io/icons/circle');
+ }
+ .vinieta2{color: #F26B7A;
+list-style-image: url('');
+ }
+ .vinieta3{color: #F26B7A;
+list-style-image: url('fa fa-css3 ');
+ }
+div.barra-verde h5{
+	font-weigth:bold;
+	
+padding-top: 10px; 
+color: #87796F;
+	
+}
+
+div.barra-verde{
+	width: 100%;
+    height: 45px;
+    background-color: #d9eb52;
+    	color: #F26B7A;
+    
+	
+}
+div.carousel-slide{
+	
+	
+	
+}	
+
+
+	
+
+
+div.panel-default div.panel-heading {
+	background-color: #F0F2DC
+}
+
+div.panel-default {
+	background-color: #F0F2DC
+}
+
+div.panel-title {
+	color: #F26B7A;
+}
+
+div.panel-default   a {
+	align: left
+}
+
+div.bhoechie-tab-container {
+	z-index: 0;
+	background-color: #ffffff;
+	padding: 0 !important;
+	border-radius: 0px;
+	-moz-border-radius: 0px;
+	border: 0px;
+	margin-top: 0px;
+	margin-left: 0px;
+	-webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+	box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+	-moz-box-shadow: 0 3px 3px rgba(0, 0, 0, .175);
+	background-clip: padding-box;
+	opacity: 0.97;
+	filter: alpha(opacity = 97);
+}
+
+div.bhoechie-tab-menu {
+	padding-right: 0;
+	padding-left: 0;
+	padding-bottom: 0;
+	background-color:#87796F
+}
+
+
+
+
+div.bhoechie-tab-menu div.list-group {
+		background-color:#87796F
+	
+}
+
+div.bhoechie-tab-menu div.list-group>a {
+	background-color: #87796F;
+	margin-bottom: 0;
+	border-color: #F26B7A;
+}
+
+.carousel-inner {
+ 
+    width: 100%;
+    height: 200%;
+   
+}
+
+
+div#carousel-example-generic{
+	
+	    /* overflow: hidden; */
+   
+    width: 100%;
+    height: 40%;
+    -webkit-perspective: 650px;
+    perspective: 500px;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    -webkit-transform-origin: 0% 50%;
+    transform-origin: 0% 50%;
+	
+}
+
+div.bhoechie-tab-menu div.list-group>,div.bhoechie-tab-menu div.list-group>a .fa
+	{
+
+}
+
+div.bhoechie-tab-menu div.list-group>a:first-child {
+
+}
+.collapse.in {
+  
+    visibility: visible;}
+div.bhoechie-tab-menu div.list-group>a:last-child {
+	background-image: #87796F;
+}
+
+div.bhoechie-tab-menu div.list-group>a.active,div.bhoechie-tab-menu div.list-group>a.active .glyphicon,div.bhoechie-tab-menu div.list-group>a.active .fa
+	{
+	background-color: #F26B7A;
+
+	color: #87796F;;
+}
+
+div.bhoechie-tab-menu div.list-group>a.active:after {
+	content: '';
+	position: absolute;
+	left: 50%;
+	top: 30%;
+	margin-top: -13px;
+	border-left: 0;
+	border-bottom: 13px solid #F26B7A;
+	border-top: 13px solid #F26B7A;
+	border-left: 10px solid #F26B7A;
+	background-color: #87796F;
+}
+
+div.bhoechie-tab-content {
+	/* border: 1px solid #eeeeee; */
+	padding-left: 10px;
+	padding-top: 10px;
+}
+div.bhoechie-tab div.bhoechie-tab-content:not(.active){
+  display: none;
+   background-image: #87796F;
+}

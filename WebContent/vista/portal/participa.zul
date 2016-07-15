@@ -1,0 +1,507 @@
+<?meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"?>
+<?link href="../../resources/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"?>
+<?link href="../../resources/materialize_v0.97.5/css/materialize.min.css" rel="stylesheet" type="text/css"?>
+<?link href="../../resources/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css"?>
+<?link href="../../resources/css/theme.css" rel="stylesheet" type="text/css"?>
+<?link href="../../resources/css/loading.css" rel="stylesheet" type="text/css"?>
+<?link href="../../resources/css/portal/participa.css" rel="stylesheet" type="text/css"?>
+<?link href="../../resources/css/karen.css" rel="stylesheet" type="text/css"?>
+<?link href="../../resources/css/loading.css" rel="stylesheet" type="text/css"?>
+<?link href="../../resources/css/animate.css" rel="stylesheet" type="text/css"?>
+<?link href="../../resources/css/portal.css" rel="stylesheet" type="text/css"?>
+<?link href="/assets/seguridad/css/ultimasSesionesActivas.zul.css" rel="stylesheet" type="text/css"?>
+<?link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css"?>
+<?link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css"?>
+<?link  href="../../resources/booststrap/css/bootstrap.vertical-tabs.css"?>
+<?link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"?>
+<?link href="../../resources/css/portal/navbar.css" rel="stylesheet" type="text/css"?>
+<?link href="/resources/css/portal/footer.css" rel="stylesheet" type="text/css"?>
+<?link href="/resources/css/portal/colapsibleParticipa.css" rel="stylesheet" type="text/css"?>
+
+<?script src="../../resources/bootstrap/js/bootstrap.js"?>
+<?script src="../../resources/materialize_v0.97.5/js/materialize.min.js"?>
+<?script src="https://code.jquery.com/jquery-2.1.1.min.js"?>
+<?script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"?>
+<?script src="../../resources/js/shorcut.js"?>
+<?script src="../../resources/js/fullScreenApi.js"?>
+<?script src="../../resources/js/index.js"?>
+
+<zk xmlns:n="native" xmlns:w="client">
+	<include src="navbar.zul"></include>
+
+	<n:div id="carousel-example-generic" class="carousel slide"
+		data-ride="carousel">
+
+		<!-- Indicators -->
+		<n:ol class="carousel-indicators ">
+			<n:li data-target="#carousel-example-generic"
+				data-slide-to="0" class="active">
+			</n:li>
+			<n:li data-target="#carousel-example-generic"
+				data-slide-to="1">
+
+			</n:li>
+			<n:li data-target="#carousel-example-generic"
+				data-slide-to="2">
+			</n:li>
+		</n:ol>
+
+
+		<!-- Wrapper for slides -->
+		<n:div class="carousel-inner" role="listbox">
+			<div class="item active">
+				<image src="/imagenes/portal/slider1.png"></image>
+				<div class="carousel-caption">
+
+					...
+				</div>
+			</div>
+			<div class="item">
+				<image src="/imagenes/portal/slider2.png"></image>
+				<div class="carousel-caption">...</div>
+			</div>
+
+			<div class="item">
+				<image src="/imagenes/portal/slider3.png"></image>
+				<div class="carousel-caption">...</div>
+			</div>
+
+			...
+		</n:div>
+
+		<!-- Controls -->
+		<n:a class="left carousel-control"
+			href="#carousel-example-generic" role="button" data-slide="prev">
+			<n:span class="glyphicon glyphicon-chevron-left"
+				style=" color: #F26B7A;" aria-hidden="true">
+			</n:span>
+			<n:span class="sr-only">antes</n:span>
+		</n:a>
+
+		<n:a class="right carousel-control"
+			href="#carousel-example-generic" role="button" data-slide="next">
+			<n:span class="glyphicon glyphicon-chevron-right "
+				style=" color: #F26B7A; " aria-hidden="true">
+			</n:span>
+			<n:span class="sr-only">siguiente</n:span>
+		</n:a>
+
+
+
+	</n:div>
+	<n:div class="barra-verde " align="center" style="">
+		<n:h5>TU PUEDES SER PARTE DE LA FUNDACION</n:h5>
+	</n:div>
+
+
+	<n:div align="center" style="width: 100%;
+    height: 45px;">
+
+		<div class="">
+			<div class="row">
+				<div class="col-lg-12  bhoechie-tab-container "
+					style="background-image: url(../../imagenes/portal/fondo.png); background-repeat:repeat; heigth: 100%">
+
+					<div
+						class="col-lg-3 col-sm-3 col-xs-3 bhoechie-tab-menu">
+						<div class="list-group">
+							<n:a href="#"
+								class="list-group-item active text-center">
+								<n:br />
+								<n:h5 class="">Donaciones</n:h5>
+								<n:br />
+							</n:a>
+							<n:a href="#"
+								class="list-group-item text-center">
+								<n:br />
+								<n:h5 class="">Voluntariado</n:h5>
+								<n:br />
+							</n:a>
+							<n:a href="#"
+								class="list-group-item text-center">
+								<n:br />
+								<n:h5 class="">Apadrinamiento</n:h5>
+								<n:br />
+							</n:a>
+							<n:a href=""
+								class="list-group-item text-center">
+								<n:br />
+								<n:h5 class="">Ayuda</n:h5>
+								<n:br />
+							</n:a>
+
+						</div>
+					</div>
+					<div
+						class="col-lg-9 col-md-2 col-xs-3 bhoechie-tab ">
+
+						<div class="bhoechie-tab-content active">
+
+							<div class="panel-body col s12">
+								<n:div class="panel-body col s6">
+									<div class="informacion">
+										<n:h5>INFORMACION GENERAL</n:h5>
+									</div>
+
+									<n:br />
+									Anim pariatur cliche
+									reprehendfgdfgdfgderit, enim
+									eiusmodfghfghfghgfhf high life
+									accusamus terry richardson ad squid.
+									3 wolf moon officia aute, non
+									cupidatat skateboard dolor brunch.
+									Food truck quinoa nesciunt laborum
+									eiusmod. Brunch 3 wolf moon tempor,
+									sunt aliqua put a bird on it squid
+									single-origin coffee nulla assumenda
+									shoreditch et. Nihil anim keffiyeh
+									helvetica, craft beer labore wes
+									anderson cred nesciunt sapiente ea
+									proident. Ad vegan excepteur butcher
+									vice lomo. Leggings occaecat craft
+									beer
+
+									sapiente ea proident. Ad vegan
+									excepteur butcher vice lomo.
+									Leggings occaecat craft beer
+									farm-to-table, raw denim aesthetic
+									synth nesciunt you probably haven't
+									heard of them accusamus labore
+									sustainable VHS.
+
+									shoreditch et. Nihil anim keffiyeh
+									helvetica, craft beer labore wes
+									anderson cred nesciunt sapiente ea
+									proident. Ad vegan excepteur butcher
+									vice lomo. Leggings occaecat craft
+									beer farm-to-table, raw denim
+									aesthetic synth nesciunt you
+									probably haven't heard of them
+									accusamus labore sustainable VHS.
+								</n:div>
+								<n:div class="panel-body col s6">
+
+									Anim pariatur cliche
+									reprehendfgdfgdfgderit, enim
+									eiusmodfghfghfghgfhf high life
+									accusamus terry richardson ad squid.
+									3 wolf moon officia aute, non
+									cupidatat skateboard dolor brunch.
+									Food truck quinoa nesciunt laborum
+									eiusmod. Brunch 3 wolf moon tempor,
+									sunt aliqua put a bird on it squid
+									single-origin coffee nulla assumenda
+									shoreditch et. Nihil anim keffiyeh
+									helvetica, craft beer labore wes
+									anderson cred nesciunt sapiente ea
+									proident. Ad vegan excepteur butcher
+									vice lomo. Leggings occaecat craft
+									beer farm-to-table, raw denim
+									aesthetic synth nesciunt you
+									probably haven't heard of them
+									accusamus labore sustainable VHS.
+								</n:div>
+							</div>
+						</div>
+						<div class="bhoechie-tab-content">
+
+							<div class="panel-body col s12">
+
+								<n:div class="panel-body col s6">
+
+									<div class="informacion">
+										<n:h5>INFORMACION GENERAL</n:h5>
+									</div>
+									<n:br />
+									Anim pariatur cliche
+									reprehendfgdfgdfgderit, enim
+									eiusmodfghfghfghgfhf high life
+									accusamus terry richardson ad squid.
+									3 wolf moon officia aute, non
+									cupidatat skateboard dolor brunch.
+									Food truck quinoa nesciunt laborum
+									eiusmod. Brunch 3 wolf moon tempor,
+									sunt aliqua put a bird on it squid
+									single-origin coffee nulla assumenda
+									shoreditch et. Nihil anim keffiyeh
+									helvetica, craft beer labore wes
+									anderson cred nesciunt sapiente ea
+									proident. Ad vegan excepteur butcher
+									vice lomo. Leggings occaecat craft
+									beer farm-to-table, raw denim
+									aesthetic synth nesciunt you
+									probably haven't heard of them
+									accusamus labore sustainable VHS.
+								</n:div>
+								<n:div class="panel-body col s6">
+									<div class="informacion">
+										<n:h5>REQUISITOS</n:h5>
+									</div>
+									<n:br />
+									<div>
+
+										<n:ul>
+											<n:li>
+												<a sclass="icon"
+													style="color:black" iconSclass="glyphicon glyphicon-ok-sign "
+													href="#">
+													heard of them
+													accusamus labore
+													sustainable VHS.
+												</a>
+											</n:li>
+											<n:br />
+											<n:li>
+												<a sclass="icon"
+													style="color:black"
+													iconSclass="glyphicon glyphicon-ok-sign " href="#">
+													heard of them
+													accusamus labore
+													sustainable VHS.
+												</a>
+											</n:li>
+											<n:br />
+											<n:li>
+												<a sclass="icon"
+													style="color:black"
+													iconSclass="glyphicon glyphicon-ok-sign " href="#">
+													heard of them
+													accusamus labore
+													sustainable VHS.
+												</a>
+											</n:li>
+											<n:br />
+											<n:li>
+												<a sclass="icon"
+													style="color:black"
+													iconSclass="glyphicon glyphicon-ok-sign " href="#">
+													heard of them
+													accusamus labore
+													sustainable VHS.
+												</a>
+											</n:li>
+											<n:br />
+											<n:li>
+												<a sclass="icon"
+													style="color:black"
+													iconSclass="glyphicon glyphicon-ok-sign " href="#">
+													heard of them
+													accusamus labore
+													sustainable VHS.
+												</a>
+											</n:li>
+											<n:br />
+											<n:li>
+												<a sclass="icon"
+													style="color:black"
+													iconSclass="glyphicon glyphicon-ok-sign " href="#">
+													heard of them
+													accusamus labore
+													sustainable VHS.
+												</a>
+											</n:li>
+										</n:ul>
+									</div>
+									<n:br />
+									<n:br />
+									<n:br />
+									<n:input
+										style="color:#ffffff; background-color:#044159;"
+										class="btn btn-default " type="button" value="PARTICIPA">
+									</n:input>
+									<n:br />
+								</n:div>
+
+
+							</div>
+							<div sclass="col s12">
+								<div class="voluntario ">
+									<n:h2 class="">
+										VOLUNTARIOS DESTACADOS
+									</n:h2>
+								</div>
+								<div sclass="col s4">
+									<div
+										style=" border: 7px solid yellow; padding: 10px; border-radius: 100%; text-align: center; margin-left: 39px; margin-right: 39px;">
+										<image
+											class="img-responsive center-block"
+											src="../../imagenes/portal/foto1.jpg" width="100px"
+											height="100px">
+										</image>
+									</div>
+									<div class="nombres">
+										<n:h5>Maria Suarez</n:h5>
+									</div>
+								</div>
+								<div sclass="col s4">
+									<div
+										style=" border: 7px solid yellow; padding: 10px; border-radius: 100%; text-align: center; margin-left: 39px; margin-right: 39px;">
+										<image
+											class="img-responsive center-block"
+											src="../../imagenes/portal/foto2.jpg" width="100px"
+											height="100px">
+										</image>
+									</div>
+									<div class="nombres">
+										<n:h5>Manuel Coro</n:h5>
+									</div>
+								</div>
+								<div sclass="col s4">
+									<div
+										style=" border: 7px solid yellow; padding: 10px; border-radius: 100%; text-align: center; margin-left: 39px; margin-right: 39px;">
+										<image
+											class="img-responsive center-block"
+											src="../../imagenes/portal/foto3.jpg" width="100px"
+											height="100px">
+										</image>
+									</div>
+									<div class="nombres">
+										<n:h5>Sandra Perez</n:h5>
+									</div>
+								</div>
+							</div>
+
+						</div>
+
+
+						<div class="bhoechie-tab-content">
+
+							<div class="panel-body col s12">
+								<n:div class="panel-body col s6">
+
+									<div class="informacion">
+										<n:h5>INFORMACION GENERAL</n:h5>
+									</div>
+
+									<n:br />
+									Anim pariatur cliche
+									reprehendfgdfgdfgderit, enim
+									eiusmodfghfghfghgfhf high life
+									accusamus terry richardson ad squid.
+									3 wolf moon officia aute, non
+									cupidatat skateboard dolor brunch.
+									Food truck quinoa nesciunt laborum
+									eiusmod. Brunch 3 wolf moon tempor,
+									sunt aliqua put a bird on it squid
+									single-origin coffee nulla assumenda
+									shoreditch et. Nihil anim keffiyeh
+									helvetica, craft beer labore wes
+									anderson cred nesciunt sapiente ea
+									proident. Ad vegan excepteur butcher
+									vice lomo. Leggings occaecat craft
+									beer farm-to-table, raw denim
+									aesthetic synth nesciunt you
+									probably haven't heard of them
+									accusamus labore sustainable VHS.
+								</n:div>
+								<n:div class="panel-body col s6">
+									<div class="informacion">
+										<n:h5>REQUISITOS</n:h5>
+									</div>
+									<n:br />
+									<div>
+
+										<n:ul>
+											<n:li>
+												<a sclass="icon"
+													style="color:black" iconSclass="glyphicon glyphicon-ok-sign "
+													href="#">
+													heard of them
+													accusamus labore
+													sustainable VHS.
+												</a>
+											</n:li>
+											<n:br />
+											<n:li>
+												<a sclass="icon"
+													style="color:black"
+													iconSclass="glyphicon glyphicon-ok-sign " href="#">
+													heard of them
+													accusamus labore
+													sustainable VHS.
+												</a>
+											</n:li>
+											<n:br />
+											<n:li>
+												<a sclass="icon"
+													style="color:black"
+													iconSclass="glyphicon glyphicon-ok-sign " href="#">
+													heard of them
+													accusamus labore
+													sustainable VHS.
+												</a>
+											</n:li>
+											<n:br />
+											<n:li>
+												<a sclass="icon"
+													style="color:black"
+													iconSclass="glyphicon glyphicon-ok-sign " href="#">
+													heard of them
+													accusamus labore
+													sustainable VHS.
+												</a>
+											</n:li>
+											<n:br />
+											<n:li>
+												<a sclass="icon"
+													style="color:black"
+													iconSclass="glyphicon glyphicon-ok-sign " href="#">
+													heard of them
+													accusamus labore
+													sustainable VHS.
+												</a>
+											</n:li>
+											<n:br />
+											<n:li>
+												<a sclass="icon"
+													style="color:black"
+													iconSclass="glyphicon glyphicon-ok-sign " href="#">
+													heard of them
+													accusamus labore
+													sustainable VHS.
+												</a>
+											</n:li>
+										</n:ul>
+									</div>
+
+									<n:br />
+									<n:br />
+									<n:br />
+									<n:input
+										style="color:#ffffff; background-color:#044159;"
+										class="btn btn-default " type="button" value="PARTICIPA">
+									</n:input>
+								</n:div>
+							</div>
+						</div>
+
+
+
+						<div class="bhoechie-tab-content">
+							<include src="colapsibleParticipa.zul"></include>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<n:script type="text/javascript">
+
+			$('#myCollapsible').collapse({
+
+			});
+
+
+			$(document).ready(function() {
+			$("div.bhoechie-tab-menu>div.list-group>a").click(function(e)
+			{ e.preventDefault();
+			$(this).siblings('a.active').removeClass("active");
+			$(this).addClass("active"); var index = $(this).index();
+			$("div.bhoechie-tab>div.bhoechie-tab-content").removeClass("active");
+			$("div.bhoechie-tab>div.bhoechie-tab-content").eq(index).addClass("active");
+			}); });
+
+		</n:script>
+	</n:div>
+	<include src="footer.zul"></include>
+</zk>

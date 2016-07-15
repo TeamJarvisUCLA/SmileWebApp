@@ -1,0 +1,322 @@
+
+<?link href="../../resources/css/portal/participa.css" rel="stylesheet" type="text/css"?>
+<?link href="resources/css/karen.css" rel="stylesheet" type="text/css"?>
+<?link href="resources/css/loading.css" rel="stylesheet" type="text/css"?>
+<?link href="resources/css/animate.css" rel="stylesheet" type="text/css"?>
+<?link href="/assets/seguridad/css/ultimasSesionesActivas.zul.css" rel="stylesheet" type="text/css"?>
+<?link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css"?>
+<?link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css"?>
+<?link  href="resources/booststrap/css/bootstrap.vertical-tabs.css"?>
+<?link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"?>
+
+<?script src="resources/bootstrap/js/bootstrap.js"?>
+<?script src="resources/materialize_v0.97.5/js/materialize.min.js"?>
+<?script src="https://code.jquery.com/jquery-2.1.1.min.js"?>
+<?script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"?>
+<?script src="resources/js/shorcut.js"?>
+<?script src="resources/js/fullScreenApi.js"?>
+<?script src="resources/js/index.js"?>
+
+<zk xmlns:n="native" xmlns:w="client">
+<div class="panel-group" id="accordion">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <n:h4 class="panel-title">
+        <n:a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+       <n:h5
+														align="left">
+														Ayuda
+														<n:i
+															style="color:#F26B7A" class="material-icons">
+															play_for_work
+														</n:i>
+													</n:h5></n:a>
+      </n:h4>
+    </div>
+    <n:div id="collapse1" class="panel-collapse collapse in">
+      <div
+												class="panel-body col s12">
+																<n:div
+													class="panel-body col s6">
+													Anim pariatur cliche
+													reprehendfgdfgdfgderit,
+													enim
+													eiusmodfghfghfghgfhf
+													high life accusamus
+													terry richardson ad
+													squid. 3 wolf moon
+													officia aute, non
+													cupidatat skateboard
+													dolor brunch. Food
+													truck quinoa
+													nesciunt laborum
+													eiusmod. Brunch 3
+													wolf moon tempor,
+													sunt aliqua put a
+													bird on it squid
+													single-origin coffee
+													nulla assumenda
+													shoreditch et. Nihil
+													anim keffiyeh
+													helvetica, craft
+													beer labore wes
+													anderson cred
+													nesciunt sapiente ea
+													proident. Ad vegan
+													excepteur butcher
+													vice lomo. Leggings
+													occaecat craft beer
+													farm-to-table, raw
+													denim aesthetic
+													synth nesciunt you
+													probably haven't
+													heard of them
+													accusamus labore
+													sustainable VHS.
+												</n:div>
+												<n:div
+													class="panel-body col s6">
+													Anim pariatur cliche
+													reprehendfgdfgdfgderit,
+													enim
+													eiusmodfghfghfghgfhf
+													high life accusamus
+													terry richardson ad
+													squid. 3 wolf moon
+													officia aute, non
+													cupidatat skateboard
+													dolor brunch. Food
+													truck quinoa
+													nesciunt laborum
+													eiusmod. Brunch 3
+													wolf moon tempor,
+													sunt aliqua put a
+													bird on it squid
+													single-origin coffee
+													nulla assumenda
+													shoreditch et. Nihil
+													anim keffiyeh
+													helvetica, craft
+													beer labore wes
+													anderson cred
+													nesciunt sapiente ea
+													proident. Ad vegan
+													excepteur butcher
+													vice lomo. Leggings
+													occaecat craft beer
+													farm-to-table, raw
+													denim aesthetic
+													synth nesciunt you
+													probably haven't
+													heard of them
+													accusamus labore
+													sustainable VHS.
+										
+												</n:div>
+										
+											</div>
+										
+    </n:div>
+  </div>
+ 
+  
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <n:h4 class="panel-title">
+        <n:a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
+       <n:h5
+														align="left">
+														Ayuda
+														<n:i
+															style="color:#F26B7A" class="material-icons">
+															play_for_work
+														</n:i>
+													</n:h5></n:a>
+      </n:h4>
+    </div>
+    <n:div id="collapse2" class="panel-collapse collapse">
+<n:div
+												class="panel-body col s12">
+																<n:div
+													class="panel-body col s6">
+													Anim pariatur cliche
+													reprehendfgdfgdfgderit,
+													enim
+													eiusmodfghfghfghgfhf
+													high life accusamus
+													terry richardson ad
+													squid. 3 wolf moon
+													officia aute, non
+													cupidatat skateboard
+													dolor brunch. Food
+													truck quinoa
+													nesciunt laborum
+													eiusmod. Brunch 3
+													wolf moon tempor,
+													sunt aliqua put a
+													bird on it squid
+													single-origin coffee
+													nulla assumenda
+													shoreditch et. Nihil
+													anim keffiyeh
+													helvetica, craft
+													beer labore wes
+													anderson cred
+													nesciunt sapiente ea
+													proident. Ad vegan
+													excepteur butcher
+													vice lomo. Leggings
+													occaecat craft beer
+													farm-to-table, raw
+													denim aesthetic
+													synth nesciunt you
+													probably haven't
+													heard of them
+													accusamus labore
+													sustainable VHS.
+												</n:div>
+												<n:div
+													class="panel-body col s6">
+													Anim pariatur cliche
+													reprehendfgdfgdfgderit,
+													enim
+													eiusmodfghfghfghgfhf
+													high life accusamus
+													terry richardson ad
+													squid. 3 wolf moon
+													officia aute, non
+													cupidatat skateboard
+													dolor brunch. Food
+													truck quinoa
+													nesciunt laborum
+													eiusmod. Brunch 3
+													wolf moon tempor,
+													sunt aliqua put a
+													bird on it squid
+													single-origin coffee
+													nulla assumenda
+													shoreditch et. Nihil
+													anim keffiyeh
+													helvetica, craft
+													beer labore wes
+													anderson cred
+													nesciunt sapiente ea
+													proident. Ad vegan
+													excepteur butcher
+													vice lomo. Leggings
+													occaecat craft beer
+													farm-to-table, raw
+													denim aesthetic
+													synth nesciunt you
+													probably haven't
+													heard of them
+													accusamus labore
+													sustainable VHS.
+										
+												</n:div>
+										
+											</n:div>
+										
+    </n:div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <n:h4 class="panel-title">
+        <n:a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
+        <n:h5
+														align="left">
+														Ayuda
+														<n:i
+															style="color:#F26B7A" class="material-icons">
+															play_for_work
+														</n:i>
+													</n:h5></n:a>
+      </n:h4>
+    </div>
+     <n:div id="collapse3" class="panel-collapse collapse">
+     <div
+												class="panel-body col s12">
+																<n:div
+													class="panel-body col s6">
+													Anim pariatur cliche
+													reprehendfgdfgdfgderit,
+													enim
+													eiusmodfghfghfghgfhf
+													high life accusamus
+													terry richardson ad
+													squid. 3 wolf moon
+													officia aute, non
+													cupidatat skateboard
+													dolor brunch. Food
+													truck quinoa
+													nesciunt laborum
+													eiusmod. Brunch 3
+													wolf moon tempor,
+													sunt aliqua put a
+													bird on it squid
+													single-origin coffee
+													nulla assumenda
+													shoreditch et. Nihil
+													anim keffiyeh
+													helvetica, craft
+													beer labore wes
+													anderson cred
+													nesciunt sapiente ea
+													proident. Ad vegan
+													excepteur butcher
+													vice lomo. Leggings
+													occaecat craft beer
+													farm-to-table, raw
+													denim aesthetic
+													synth nesciunt you
+													probably haven't
+													heard of them
+													accusamus labore
+													sustainable VHS.
+												</n:div>
+												<n:div
+													class="panel-body col s6">
+													Anim pariatur cliche
+													reprehendfgdfgdfgderit,
+													enim
+													eiusmodfghfghfghgfhf
+													high life accusamus
+													terry richardson ad
+													squid. 3 wolf moon
+													officia aute, non
+													cupidatat skateboard
+													dolor brunch. Food
+													truck quinoa
+													nesciunt laborum
+													eiusmod. Brunch 3
+													wolf moon tempor,
+													sunt aliqua put a
+													bird on it squid
+													single-origin coffee
+													nulla assumenda
+													shoreditch et. Nihil
+													anim keffiyeh
+													helvetica, craft
+													beer labore wes
+													anderson cred
+													nesciunt sapiente ea
+													proident. Ad vegan
+													excepteur butcher
+													vice lomo. Leggings
+													occaecat craft beer
+													farm-to-table, raw
+													denim aesthetic
+													synth nesciunt you
+													probably haven't
+													heard of them
+													accusamus labore
+													sustainable VHS.
+										
+												</n:div>
+										
+											</div>
+										
+    </n:div>
+  </div>
+</div>
+</zk>

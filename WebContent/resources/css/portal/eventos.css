@@ -1,0 +1,20 @@
+.cinta {
+	background-color: #F26B7A;
+	height: 10px;
+}
+
+.titulo {
+	text-transform: uppercase;
+	color: #F26B7A;
+	margin-bottom: 30px;
+}
+
+.cabecera {
+	Background-color: #3B85A1;
+	color: white; 
+	text-transform: uppercase;
+}
+
+.imagen {
+	background-color: #F0F2DC;
+}

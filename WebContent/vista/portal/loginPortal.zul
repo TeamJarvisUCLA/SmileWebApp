@@ -18,13 +18,18 @@
 <?script src="/resources/js/fullScreenApi.js"?>
 <?script src="/resources/js/index.js"?>
 <zk xmlns:n="native" xmlns:w="client">
-
+<div sclass="page-content page-content-main"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('lights.smile.login.Login')">
+		<div apply="karen.core.crux.session.check.CheckLogin" style="display: none;"></div>
 	<div
-		sclass="text-center container  org-contenedor-contenido row col 12">
+		sclass="text-center container  org-contenedor-contenido row col 12"
+		>
 
 		<div sclass="col s4">
 
-			<div class="row" style="margin-right:6px; ">
+			<div class="row"
+				style="margin-right:6px; padding-top: 15px;">
 				<div sclass="col s12 titulo">
 					<label value="Ingresa con:"></label>
 				</div>
@@ -37,14 +42,23 @@
 						<n:label for="nombres">
 							Nombres Usuario:
 						</n:label>
-						<textbox id="nombres" type="text"></textbox>
+						<textbox id="nombres" type="text" value="@bind(vm.usuario.correo)" onOK="@command('login')"></textbox>
 					</div>
 					<div class="input-field col s12">
 						<n:label for="apellidos">Contraseña:</n:label>
-						<textbox id="apellidos" type="text"></textbox>
+						<textbox id="apellidos" type="password" value="@bind(vm.usuario.clave)" onOK="@command('login')"></textbox>
+						<checkbox checked=""
+							style="margin-left: 53px;">
+						</checkbox>
+						<div class="input-field col s12">
+							<n:label for="Recuerdame"
+								style="margin-left: 177px;
+    margin-top: -58px;">
+								Recordarme
+							</n:label>
+
+						</div>
 					</div>
-
-
 
 				</div>
 			</div>
@@ -56,7 +70,7 @@
 					<div class="col s12 div-buttons-form z-div">
 						<button type="button" id="nEMQo3" iconSclass=""
 							class="indigo waves-effect waves-light btn"
-							style="background-color: #3B85A1 !important;">
+							style="background-color: #3B85A1 !important; margin-top: -65px;" onClick="@command('login')">
 							INICIAR SESIÓN
 						</button>
 					</div>
@@ -64,7 +78,7 @@
 			</div>
 		</div>
 		<div sclass="col s4">
-			<div class="row" style="margin-left:6px">
+			<div class="row" style="margin-left:6px; padding-top: 15px;">
 				<div sclass="col s12 titulo">
 					<label value="¿Olvidaste tu contraseña?"></label>
 				</div>
@@ -79,15 +93,17 @@
 						</button>
 					</div>
 				</div>
+				
+
 				<div sclass="col s12 titulo">
 					<label value="¿Tienes alguna duda?"></label>
 					<separator height="20px"></separator>
-					<div>
+					<div style="color: black;">
 						<label
 							value="Te proporcionamos una manera sencilla de enteder todo el entorno web">
 						</label>
 					</div>
-					<separator height="15px"></separator>
+					<separator height="25px"></separator>
 					<div class="col s12 div-buttons-form z-div">
 						<button type="button" iconSclass=""
 							class="indigo waves-effect waves-light btn"
@@ -114,5 +130,9 @@
 				</div>
 			</div>
 		</div>
+
 	</div>
+	
+	</div>
+	<div sclass="linea"></div>
 </zk>

@@ -21,7 +21,7 @@
 				target="_self" href="./main.zul" label="INICIO">
 			</a>
 			<a sclass="grisFanca labelNavbar hvr-underline-from-center"
-				target="_self" href="./conocenos.zul" label="CONÓCENOS">
+				target="_self" href="./conocenosWeb.zul" label="CONÓCENOS">
 			</a>
 
 			<a sclass="verdeFanca labelNavbar hvr-underline-from-center"

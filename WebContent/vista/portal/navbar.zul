@@ -33,7 +33,7 @@
 			</a>
 
 			<a sclass="azulFanca labelNavbar hvr-underline-from-center"
-				target="_self" href="/vista/portal/eventos.zul" label="EVENTOS">
+				target="_self" href="" label="EVENTOS" onClick="@command('eventos')">
 			</a>
 
 			<a

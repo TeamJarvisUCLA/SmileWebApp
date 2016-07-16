@@ -25,7 +25,7 @@
 <?script src="/resources/js/index.js"?>
 <zk xmlns:n="native" xmlns:w="client">
 
-	<include src="navbar.zul"></include>
+
 
 	<div sclass="container-fluid">
 		<div class="cinta"></div>
@@ -50,7 +50,7 @@
 			src="/SmileWebApp/imagenes/portal/img-ninos.png">
 		</n:img>
 	</div>
-	<include src="/vista/portal/footer.zul"></include>
+
 	<n:script type="text/javascript">
     $('#calendar').fullCalendar({
       eventClick: function(calEvent, jsEvent, view) {

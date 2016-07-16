@@ -38,7 +38,7 @@
 
 			<a
 				sclass="rosadoFanca labelNavbar hvr-underline-from-center"
-				target="_self" href="/vista/portal/participa.zul" label="PARTICIPA">
+				target="_self" href="" label="PARTICIPA" onClick="@command('participa')">
 			</a>
 
 			<a sclass="grisFanca labelNavbar hvr-underline-from-center"

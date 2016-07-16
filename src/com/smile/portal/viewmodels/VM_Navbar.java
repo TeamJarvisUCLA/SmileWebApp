@@ -39,5 +39,11 @@ public class VM_Navbar {
 		DataCenter.updateSrcPageContent(null, null, "/vista/portal/eventos.zul");
 		
 	}
+	
+	@Command
+	public void participa() {
+		DataCenter.updateSrcPageContent(null, null, "/vista/portal/participa.zul");
+		
+	}	
 
 }

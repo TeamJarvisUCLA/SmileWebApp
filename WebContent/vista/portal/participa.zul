@@ -27,7 +27,6 @@
 <?script src="../../resources/js/index.js"?>
 
 <zk xmlns:n="native" xmlns:w="client">
-	<include src="navbar.zul"></include>
 
 	<n:div id="carousel-example-generic" class="carousel slide"
 		data-ride="carousel">
@@ -503,5 +502,4 @@
 
 		</n:script>
 	</n:div>
-	<include src="footer.zul"></include>
 </zk>

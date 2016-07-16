@@ -18,7 +18,6 @@
 <?script src="/resources/js/fullScreenApi.js"?>
 <?script src="/resources/js/index.js"?>
 <zk xmlns:n="native" xmlns:w="client">
-	<include src="navbar.zul"></include>
 	<div class="org-contenedor-banner banner-organizacion">
 		<div>
 			<div
@@ -162,5 +161,4 @@
 			</div>
 		</div>
 	</div>
-	<include src="/vista/portal/footer.zul"></include>
 </zk>

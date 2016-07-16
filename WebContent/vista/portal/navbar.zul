@@ -42,8 +42,8 @@
 			</a>
 
 			<a sclass="grisFanca labelNavbar hvr-underline-from-center"
-				target="_self" href="/vista/portal/contactanos.zul" style="margin-top: 20px;"
-				label="CONTÁCTANOS">
+				target="_self" href="" style="margin-top: 20px;"
+				label="CONTÁCTANOS" onClick="@command('contactanos')">
 			</a>
 
 		</hlayout>

@@ -19,7 +19,6 @@
 <?script src="/resources/js/fullScreenApi.js"?>
 <?script src="/resources/js/index.js"?>
 <zk>
-	<include src="navbar.zul"></include>
 <div style="background-color: #c2d62d; height: 10px;"></div>
 	<div sclass="container">	
 	<div sclass="row">
@@ -139,5 +138,4 @@
     <listitem sclass="waves-effect material-icons"><label value="1"></label></listitem>
   </listbox> -->
 	   
-	<include src="footer.zul"></include>
 </zk>

@@ -30,11 +30,9 @@
 <?script src="/resources/js/index.js"?>
 
 <zk xmlns:n="native" xmlns:w="client">
-	<include src="/vista/portal/navbar.zul"></include>
 	<include src="/vista/portal/sliderOrganizacion.zul"></include>
 	<include src="/vista/portal/conocenosMain.zul"></include>
 	<include src="/vista/portal/estructuraOrganizacional.zul"></include>
 	<include src="/vista/portal/valores.zul"></include>
 	<include src="/vista/portal/descargables.zul"></include>
-	<include src="/vista/portal/footer.zul"></include>
 </zk>

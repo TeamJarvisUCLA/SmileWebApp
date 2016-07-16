@@ -27,5 +27,11 @@ public class VM_Navbar {
 		DataCenter.updateSrcPageContent(null, null, "/vista/portal/galeria.zul");
 		
 	}
+	
+	@Command
+	public void conocenos() {
+		DataCenter.updateSrcPageContent(null, null, "/vista/portal/conocenosWeb.zul");
+		
+	}
 
 }

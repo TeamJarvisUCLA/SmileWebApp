@@ -126,7 +126,7 @@
 		</n:div>
 		</div>
 		<div class="col s2 text-center ">
-					<button class="waves-effect waves-light btn" style="background-color: #8ac7de; margin-top: 25%;" href="./noticias.zul">
+					<button class="waves-effect waves-light btn" style="background-color: #8ac7de; margin-top: 25%;" href="/vista/portal/noticias.zul">
 						ver mas
 					</button>
 				</div>	

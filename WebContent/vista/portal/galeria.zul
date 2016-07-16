@@ -1,4 +1,4 @@
-<?page title="FANCA" contentType="text/html;charset=UTF-8"?>
+<?page title="FANCA-GALERÍA" contentType="text/html;charset=UTF-8"?>
 <?meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"?>
 <?link href="/resources/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"?>
 <?link href="/resources/materialize_v0.97.5/css/materialize.min.css" rel="stylesheet" type="text/css"?>
@@ -23,7 +23,6 @@
 <?link href="/resources/owl-carousel/owl.theme.css" rel="stylesheet" type="text/css"?>
 
 <?script src="/resources/owl-carousel/owl.carousel.js"?>
-
 
 <?script src="/resources/js/shorcut.js"?>
 <?script src="/resources/js/fullScreenApi.js"?>
@@ -62,26 +61,26 @@
 				<div class="col s12">
 					<div class="row fotos">
 						<div class="col s4">
-							<image src="/imagenes/portal/galeria1.png"></image>
+							<image src="/imagenes/portal/galeria1.png" sclass="materialboxed"></image>
 						</div>
 						<div class="col s4">
-							<image src="/imagenes/portal/galeria2.png"></image>
+							<image src="/imagenes/portal/galeria2.png" sclass="materialboxed"></image>
 						</div>
 						<div class="col s4">
-							<image src="/imagenes/portal/galeria3.jpg"></image>
+							<image src="/imagenes/portal/galeria3.jpg" sclass="materialboxed"></image>
 						</div>	
 					</div>
 				</div>
 				<div class="col s12">
 					<div class="row fotos">
 						<div class="col s4">
-							<image src="/imagenes/portal/galeria1.png"></image>
+							<image src="/imagenes/portal/galeria1.png" sclass="materialboxed"></image>
 						</div>
 						<div class="col s4">
-							<image src="/imagenes/portal/galeria2.png"></image>
+							<image src="/imagenes/portal/galeria2.png" sclass="materialboxed"></image>
 						</div>
 						<div class="col s4">
-							<image src="/imagenes/portal/galeria3.jpg"></image>
+							<image src="/imagenes/portal/galeria3.jpg" sclass="materialboxed"></image>
 						</div>	
 					</div>
 				</div>	
@@ -173,21 +172,31 @@
 	<include src="footer.zul"></include>
 	
 <n:script type="text/javascript">
-		
-
 $(document).ready(function() {
 
   $('#owlDemo').owlCarousel({
+
+      navigation : true, // Show next and prev buttons
       slideSpeed : 300,
       paginationSpeed : 400,
       singleItem:true,
-	  autoPlay : 4000,
-	  });
+	navigationText: [
+      '<span sclass="fa fa-chevron-left"></span>',
+    '<span sclass="fa fa-chevron-right"></span>'
+      ],
+      // "singleItem:true" is a shortcut for:
+      // items : 1, 
+      // itemsDesktop : false,
+      // itemsDesktopSmall : false,
+      // itemsTablet: false,
+      // itemsMobile : false
+
+  });
+  
+   $('.materialboxed').materialbox();
 
 });
- 
-
-		
+ 	
 </n:script>
 	
 

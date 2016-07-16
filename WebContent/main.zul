@@ -1,0 +1,111 @@
+<?page title="FANCA" contentType="text/html;charset=UTF-8"?>
+<?meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"?>
+<?link href="/resources/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"?>
+<?link href="/resources/materialize_v0.97.5/css/materialize.min.css" rel="stylesheet" type="text/css"?>
+<?link href="/resources/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css"?>
+<?link href="/resources/css/theme.css" rel="stylesheet" type="text/css"?>
+<?link href="/resources/css/karen.css" rel="stylesheet" type="text/css"?>
+<?link href="/resources/css/loading.css" rel="stylesheet" type="text/css"?>
+<?link href="/resources/css/animate.css" rel="stylesheet" type="text/css"?>
+<?link href="/assets/seguridad/css/ultimasSesionesActivas.zul.css" rel="stylesheet" type="text/css"?>
+
+<?link href="/resources/css/portal/main.css" rel="stylesheet" type="text/css"?>
+<?link href="/resources/css/portal/navbar.css" rel="stylesheet" type="text/css"?>
+<?link href="/resources/css/portal/galeriaMain.css" rel="stylesheet" type="text/css"?>
+<?link href="/resources/css/portal/eventosMain.css" rel="stylesheet" type="text/css"?>
+<?link href="/resources/css/portal/participaMain.css" rel="stylesheet" type="text/css"?>
+<?link href="/resources/css/portal/footer.css" rel="stylesheet" type="text/css"?>
+<?link href="/resources/css/portal/noticiasMain.css" rel="stylesheet" type="text/css"?>
+<?link href="/resources/css/portal/login.css" rel="stylesheet" type="text/css"?>
+
+<?link href="/resources/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css"?>
+<?link href="/resources/owl-carousel/owl.carousel.css" rel="stylesheet" type="text/css"?>
+<?link href="/resources/owl-carousel/owl.theme.css" rel="stylesheet" type="text/css"?>
+
+<?script src="/resources/owl-carousel/owl.carousel.js"?>
+
+
+
+<?script src="/resources/bootstrap/js/bootstrap.js"?>
+<?script src="/resources/materialize_v0.97.5/js/materialize.min.js"?>
+
+<?script src="/resources/js/shorcut.js"?>
+<?script src="/resources/js/fullScreenApi.js"?>
+<?script src="/resources/js/index.js"?>
+<zk xmlns:n="native" xmlns:w="client">
+<include src="/loginPortal.zul"></include>
+	<div class="social">
+		<div style="padding: 0px;">
+			<div>
+				<a href="#" sclass="icon" iconSclass="fa fa-home ">
+					<span>Inicio</span>
+				</a>
+			</div>
+			<div>
+				<a href="#conocenos" sclass="icon"
+					iconSclass="fa fa-bank ">
+					<span>Organización</span>
+				</a>
+			</div>
+			<div>
+				<a href="#galeria" sclass="icon"
+					iconSclass="fa fa-picture-o">
+					<span>Galería</span>
+				</a>
+			</div>
+			<div>
+				<a href="#eventos" sclass="icon"
+					iconSclass="fa fa-picture-o">
+					<span>Eventos</span>
+				</a>
+				
+			</div>
+			<div>
+				<a href="#comunidad" sclass="icon"
+					iconSclass="fa fa-user">
+					<span>Comunidad</span>
+				</a>
+				
+			</div>
+		</div>
+	</div>
+
+	<include src="/vista/portal/navbar.zul"></include>
+	<div class="container-fluid">
+		<image class="responsive-img"
+			src="/imagenes/portal/web-banner.png">
+		</image>
+	</div>
+	<include src="/vista/portal/noticiasMain.zul"></include>
+	<n:div id="conocenos">
+		<include src="/vista/portal/conocenosMain.zul"></include>
+	</n:div>
+	<n:div id="galeria">
+		<include src="/vista/portal/galeriaMain.zul"></include>
+	</n:div>
+	<div id="eventos" class="container-fluid">
+		<div class="row">
+			<div class="col s6 eventos">
+				<include src="/vista/portal/eventosMain.zul"></include>
+			</div>
+			<div class="col s6 participa">
+				<include src="/vista/portal/participaMain.zul"></include>
+			</div>
+		</div>
+	</div>
+	<div id="twitter" class="container-fluid">
+		<div class="row">
+			<div class="col s12" style="padding:0px">
+				<include src="/vista/portal/twitterMain.zul"></include>
+			</div>
+		</div>
+	</div>
+	<div id="comunidad" class="container-fluid">
+		<div class="row">
+			<div class="col s12" style="padding:0px">
+				<include src="/vista/portal/comunidadMain.zul"></include>
+			</div>
+		</div>
+	</div>
+	<include src="/vista/portal/footer.zul"></include>
+</zk>

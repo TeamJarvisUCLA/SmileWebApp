@@ -80,3 +80,15 @@
 .owl-page.active span{
 	background: #f26b7a !important;
 }
+
+.owl-theme .owl-controls .owl-buttons .owl-prev{
+  left: 0px;
+  top: 200px; 
+      position: absolute;
+}
+ 
+.owl-theme .owl-controls .owl-buttons .owl-next{
+  right: 0px;
+  top: 200px; 
+      position: absolute;
+}

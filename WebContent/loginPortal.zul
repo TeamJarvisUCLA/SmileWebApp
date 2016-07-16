@@ -18,15 +18,33 @@
 <?script src="/resources/js/fullScreenApi.js"?>
 <?script src="/resources/js/index.js"?>
 <zk xmlns:n="native" xmlns:w="client">
-
+	<style>
+		.loginNone{ display: none !important;
+ -webkit-transition:display, 0.5s linear;
+    -moz-transition: display, 0.5s linear;
+    -ms-transition: display, 0.5s linear;
+    -o-transition: display, 0.5s linear;
+    transition: display, 0.5s linear;
+		}
+		
+		.login{
+			display: block !important;
+			
+			 -webkit-transition: display, 0.5s linear;
+    -moz-transition: display, 0.5s linear;
+    -ms-transition: display, 0.5s linear;
+    -o-transition: display, 0.5s linear;
+    transition: display, 0.5s linear;
+		}
+	</style>
 	<div sclass="page-content page-content-main"
 		apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('lights.smile.login.Login')">
 		<div apply="karen.core.crux.session.check.CheckLogin"
 			style="display: none;">
 		</div>
-		<div
-			sclass="text-center container  org-contenedor-contenido row col 12">
+		<div id="login"
+			sclass="text-center container  org-contenedor-contenido row col 12 loginNone">
 
 			<div sclass="col s4">
 
@@ -145,4 +163,5 @@
 
 	</div>
 	<div sclass="linea"></div>
+
 </zk>

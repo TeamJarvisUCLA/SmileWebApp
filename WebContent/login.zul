@@ -21,12 +21,13 @@
 		apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('lights.smile.login.Login')">
 		<div apply="karen.core.crux.session.check.CheckLogin" style="display: none;"></div>
+		<include src="/vista/portal/navbar.zul"></include>
 		<div if="${vm.logued == false}">
 			<n:div id="container">
 				<div class="form card-panel">
 					<div class="col s12">
 						<div align="center">
-							<image src="imagenes/LOGO54.png"></image>
+							<image src="imagenes/smiles_web.png" sclass="img-responsive"></image>
 						</div>
 					</div>
 					<div class="col s12">

@@ -1,8 +1,10 @@
 <?meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"?>
 <?link href="/resources/css/portal/navbar.css" rel="stylesheet" type="text/css"?>
+<?link href="/resources/css/portal/login.css" rel="stylesheet" type="text/css"?>
+<?script src="/resources/js/index.js"?>
 
-<zk>
-
+<zk xmlns:n="native" xmlns:w="client">
+	
 	<div sclass="navbar navbar-fixed">
 		<image src="/imagenes/logo_fanca2.jpg" style=""></image>
 
@@ -18,27 +20,27 @@
 
 			<a
 				sclass="rosadoFanca labelNavbar hvr-underline-from-center"
-				target="_self" href="./main.zul" label="INICIO">
+				target="_self" href="/main.zul" label="INICIO">
 			</a>
 			<a sclass="grisFanca labelNavbar hvr-underline-from-center"
-				target="_self" href="./conocenosWeb.zul" label="CONÓCENOS">
+				target="_self" href="/vista/portal/conocenosWeb.zul" label="CONÓCENOS">
 			</a>
 
 			<a sclass="verdeFanca labelNavbar hvr-underline-from-center"
-				target="_self" href="./galeria.zul" label="GALERÍA">
+				target="_self" href="/vista/portal/galeria.zul" label="GALERÍA">
 			</a>
 
 			<a sclass="azulFanca labelNavbar hvr-underline-from-center"
-				target="_self" href="./eventos.zul" label="EVENTOS">
+				target="_self" href="/vista/portal/eventos.zul" label="EVENTOS">
 			</a>
 
 			<a
 				sclass="rosadoFanca labelNavbar hvr-underline-from-center"
-				target="_self" href="./participa.zul" label="PARTICIPA">
+				target="_self" href="/vista/portal/participa.zul" label="PARTICIPA">
 			</a>
 
 			<a sclass="grisFanca labelNavbar hvr-underline-from-center"
-				target="_self" href="./contactanos.zul" style="margin-top: 20px;"
+				target="_self" href="/vista/portal/contactanos.zul" style="margin-top: 20px;"
 				label="CONTÁCTANOS">
 			</a>
 
@@ -47,13 +49,30 @@
 	<popup id="menu" sclass="menu before-reajust" width="180px">
 
 		<vlayout spacing="0">
-			<a iconSclass=" no-hover z-icon-comment" href="#">
+
+			<a iconSclass=" no-hover z-icon-comment" class="hide_button" id="hide_button" >
 				<label>Iniciar Sesión</label>
 			</a>
 			<a iconSclass="no-hover z-icon-user" href="#">
 				<label>Descargar App Móvil</label>
 			</a>
-
+			<a iconSclass="no-hover z-icon-user" href="#">
+				<label>Preguntas Frecuentes</label>
+			</a>
 		</vlayout>
 	</popup>
+
+<n:script type="text/javascript">
+$(document).ready(function() {
+  $('.hide_button').click(function(){
+	alert('hide_button');
+     
+
+  });
+
+});
+ 
+
+		
+</n:script>	
 </zk>

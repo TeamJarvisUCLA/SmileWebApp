@@ -2,8 +2,6 @@
 
 <?link href="/resources/css/portal/galeriaMain.css" rel="stylesheet" type="text/css"?>
 
-
-
 <zk xmlns:n="native" xmlns:w="client">
 	<div class="container-fluid galeria"  >
 		<div class="row">

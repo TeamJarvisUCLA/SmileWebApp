@@ -28,7 +28,7 @@
 <?script src="/resources/js/fullScreenApi.js"?>
 <?script src="/resources/js/index.js"?>
 <zk xmlns:n="native" xmlns:w="client">
-	<include src="navbar.zul"></include>
+	
 	
 		<div class="container-fluid galeria">
 			<n:div id="owlDemo" sclass="owl-carousel owl-theme">
@@ -169,7 +169,7 @@
 				</div>		
 			</div>
 		</div>
-	<include src="footer.zul"></include>
+
 	
 <n:script type="text/javascript">
 $(document).ready(function() {

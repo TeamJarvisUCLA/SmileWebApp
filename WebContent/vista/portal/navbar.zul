@@ -5,7 +5,9 @@
 
 <zk xmlns:n="native" xmlns:w="client">
 	
-	<div sclass="navbar navbar-fixed">
+	<div sclass="navbar navbar-fixed"
+	apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('com.smile.portal.viewmodels.VM_Navbar')">
 		<image src="/imagenes/logo_fanca2.jpg" style=""></image>
 
 		<div sclass="pull-right divNavbar">
@@ -20,14 +22,14 @@
 
 			<a
 				sclass="rosadoFanca labelNavbar hvr-underline-from-center"
-				target="_self" href="/main.zul" label="INICIO">
+				target="_self" href="" label="INICIO" onClick="@command('inicio')">
 			</a>
 			<a sclass="grisFanca labelNavbar hvr-underline-from-center"
 				target="_self" href="/vista/portal/conocenosWeb.zul" label="CONÓCENOS">
 			</a>
 
 			<a sclass="verdeFanca labelNavbar hvr-underline-from-center"
-				target="_self" href="/vista/portal/galeria.zul" label="GALERÍA">
+				target="_self" href="" label="GALERÍA" onClick="@command('galeria')">
 			</a>
 
 			<a sclass="azulFanca labelNavbar hvr-underline-from-center"

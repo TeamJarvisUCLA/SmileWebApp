@@ -71,41 +71,48 @@
 	</div>
 
 	<include src="/vista/portal/navbar.zul"></include>
-	<div class="container-fluid">
-		<image class="responsive-img"
-			src="/imagenes/portal/web-banner.png">
-		</image>
-	</div>
-	<include src="/vista/portal/noticiasMain.zul"></include>
-	<n:div id="conocenos">
-		<include src="/vista/portal/conocenosMain.zul"></include>
-	</n:div>
-	<n:div id="galeria">
-		<include src="/vista/portal/galeriaMain.zul"></include>
-	</n:div>
-	<div id="eventos" class="container-fluid">
-		<div class="row">
-			<div class="col s6 eventos">
-				<include src="/vista/portal/eventosMain.zul"></include>
-			</div>
-			<div class="col s6 participa">
-				<include src="/vista/portal/participaMain.zul"></include>
-			</div>
-		</div>
-	</div>
-	<div id="twitter" class="container-fluid">
-		<div class="row">
-			<div class="col s12" style="padding:0px">
-				<include src="/vista/portal/twitterMain.zul"></include>
-			</div>
-		</div>
-	</div>
-	<div id="comunidad" class="container-fluid">
-		<div class="row">
-			<div class="col s12" style="padding:0px">
-				<include src="/vista/portal/comunidadMain.zul"></include>
-			</div>
-		</div>
+	<!-- 	<div class="container-fluid"> -->
+	<!-- 		<image class="responsive-img" -->
+	<!-- 			src="/imagenes/portal/web-banner.png"> -->
+	<!-- 		</image> -->
+	<!-- 	</div> -->
+	<!-- 	<include src="/vista/portal/noticiasMain.zul"></include> -->
+	<!-- 	<n:div id="conocenos"> -->
+	<!-- 		<include src="/vista/portal/conocenosMain.zul"></include> -->
+	<!-- 	</n:div> -->
+	<!-- 	<n:div id="galeria"> -->
+	<!-- 		<include src="/vista/portal/galeriaMain.zul"></include> -->
+	<!-- 	</n:div> -->
+	<!-- 	<div id="eventos" class="container-fluid"> -->
+	<!-- 		<div class="row"> -->
+	<!-- 			<div class="col s6 eventos"> -->
+	<!-- 				<include src="/vista/portal/eventosMain.zul"></include> -->
+	<!-- 			</div> -->
+	<!-- 			<div class="col s6 participa"> -->
+	<!-- 				<include src="/vista/portal/participaMain.zul"></include> -->
+	<!-- 			</div> -->
+	<!-- 		</div> -->
+	<!-- 	</div> -->
+	<!-- 	<div id="twitter" class="container-fluid"> -->
+	<!-- 		<div class="row"> -->
+	<!-- 			<div class="col s12" style="padding:0px"> -->
+	<!-- 				<include src="/vista/portal/twitterMain.zul"></include> -->
+	<!-- 			</div> -->
+	<!-- 		</div> -->
+	<!-- 	</div> -->
+	<!-- 	<div id="comunidad" class="container-fluid"> -->
+	<!-- 		<div class="row"> -->
+	<!-- 			<div class="col s12" style="padding:0px"> -->
+	<!-- 				<include src="/vista/portal/comunidadMain.zul"></include> -->
+	<!-- 			</div> -->
+	<!-- 		</div> -->
+	<!-- 	</div> -->
+	<div apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('karen.core.crux.session.DataCenter')">
+		<include src="@load(vm.srcPageContent)">
+
+		</include>
 	</div>
 	<include src="/vista/portal/footer.zul"></include>
+
 </zk>

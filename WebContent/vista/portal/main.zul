@@ -213,7 +213,6 @@
 
 	</div>
 	<div sclass="linea"></div>
-	<include src="/vista/portal/navbar.zul"></include>
 	<div class="container-fluid">
 		<image class="responsive-img"
 			src="/imagenes/portal/web-banner.png">
@@ -250,5 +249,4 @@
 			</div>
 		</div> 	
 	</div>
-	<include src="/vista/portal/footer.zul"></include>
 </zk>

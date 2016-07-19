@@ -1,4 +1,5 @@
 <zk xmlns:n="native" xmlns:w="client">
+<n:link href="resources/css/portal/main.css" rel="stylesheet" type="text/css"></n:link>
 	<div class="social">
 		<div style="padding: 0px;">
 			<div>

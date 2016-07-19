@@ -9,7 +9,7 @@
 <?link href="/resources/css/animate.css" rel="stylesheet" type="text/css"?>
 <?link href="/assets/seguridad/css/ultimasSesionesActivas.zul.css" rel="stylesheet" type="text/css"?>
 
-<?link href="/resources/css/portal/main.css" rel="stylesheet" type="text/css"?>
+
 <?link href="/resources/css/portal/navbar.css" rel="stylesheet" type="text/css"?>
 <?link href="/resources/css/portal/footer.css" rel="stylesheet" type="text/css"?>
 <?link href="/resources/css/portal/login.css" rel="stylesheet" type="text/css"?>

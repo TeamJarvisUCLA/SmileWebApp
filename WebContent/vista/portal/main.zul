@@ -1,37 +1,3 @@
-<?page title="FANCA" contentType="text/html;charset=UTF-8"?>
-<?meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"?>
-<?link href="/resources/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"?>
-<?link href="/resources/materialize_v0.97.5/css/materialize.min.css" rel="stylesheet" type="text/css"?>
-<?link href="/resources/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css"?>
-<?link href="/resources/css/theme.css" rel="stylesheet" type="text/css"?>
-<?link href="/resources/css/karen.css" rel="stylesheet" type="text/css"?>
-<?link href="/resources/css/loading.css" rel="stylesheet" type="text/css"?>
-<?link href="/resources/css/animate.css" rel="stylesheet" type="text/css"?>
-<?link href="/assets/seguridad/css/ultimasSesionesActivas.zul.css" rel="stylesheet" type="text/css"?>
-
-<?link href="/resources/css/portal/main.css" rel="stylesheet" type="text/css"?>
-<?link href="/resources/css/portal/navbar.css" rel="stylesheet" type="text/css"?>
-<?link href="/resources/css/portal/galeriaMain.css" rel="stylesheet" type="text/css"?>
-<?link href="/resources/css/portal/eventosMain.css" rel="stylesheet" type="text/css"?>
-<?link href="/resources/css/portal/participaMain.css" rel="stylesheet" type="text/css"?>
-<?link href="/resources/css/portal/footer.css" rel="stylesheet" type="text/css"?>
-<?link href="/resources/css/portal/noticiasMain.css" rel="stylesheet" type="text/css"?>
-<?link href="/resources/css/portal/login.css" rel="stylesheet" type="text/css"?>
-
-<?link href="/resources/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css"?>
-<?link href="/resources/owl-carousel/owl.carousel.css" rel="stylesheet" type="text/css"?>
-<?link href="/resources/owl-carousel/owl.theme.css" rel="stylesheet" type="text/css"?>
-
-<?script src="/resources/owl-carousel/owl.carousel.js"?>
-
-
-
-<?script src="/resources/bootstrap/js/bootstrap.js"?>
-<?script src="/resources/materialize_v0.97.5/js/materialize.min.js"?>
-
-<?script src="/resources/js/shorcut.js"?>
-<?script src="/resources/js/fullScreenApi.js"?>
-<?script src="/resources/js/index.js"?>
 <zk xmlns:n="native" xmlns:w="client">
 	<div class="social">
 		<div style="padding: 0px;">
@@ -68,185 +34,416 @@
 			</div>
 		</div>
 	</div>
-	<style>
-		.loginNone{ display: none !important;
- -webkit-transition:display, 0.5s linear;
-    -moz-transition: display, 0.5s linear;
-    -ms-transition: display, 0.5s linear;
-    -o-transition: display, 0.5s linear;
-    transition: display, 0.5s linear;
-		}
-		
-		.login{
-			display: block !important;
-			
-			 -webkit-transition: display, 0.5s linear;
-    -moz-transition: display, 0.5s linear;
-    -ms-transition: display, 0.5s linear;
-    -o-transition: display, 0.5s linear;
-    transition: display, 0.5s linear;
-		}
-	</style>
-	<div sclass="page-content page-content-main"
-		apply="org.zkoss.bind.BindComposer"
-		viewModel="@id('vm') @init('lights.smile.login.Login')">
-		<div apply="karen.core.crux.session.check.CheckLogin"
-			style="display: none;">
-		</div>
-		<div id="login"
-			sclass="text-center container  org-contenedor-contenido row col 12 login">
-
-			<div sclass="col s4">
-
-				<div class="row"
-					style="margin-right:6px; padding-top: 15px;">
-					<div sclass="col s12 titulo">
-						<label value="Ingresa con:"></label>
-					</div>
-
-				</div>
-				<div class="row"
-					style="margin-right:2px; margin-left:2px">
-					<div sclass="row">
-						<div class="input-field col s12">
-							<n:label for="nombres">
-								Nombres Usuario:
-							</n:label>
-							<textbox id="nombres" type="text"
-								value="@bind(vm.usuario.correo)" onOK="@command('login')">
-							</textbox>
-						</div>
-						<div class="input-field col s12">
-							<n:label for="apellidos">
-								Contraseña:
-							</n:label>
-							<textbox id="apellidos" type="password"
-								value="@bind(vm.usuario.clave)" onOK="@command('login')">
-							</textbox>
-							<checkbox checked=""
-								style="margin-left: 53px;">
-							</checkbox>
-							<div class="input-field col s12">
-								<n:label for="Recuerdame"
-									style="margin-left: 177px;
-    margin-top: -58px;">
-									Recordarme
-								</n:label>
-
-							</div>
-						</div>
-
-					</div>
-				</div>
-				<div sclass="col s4">
-
-
-
-					<div id="divButtonsForm" sclass="row">
-						<div class="col s12 div-buttons-form z-div">
-							<button type="button" id="nEMQo3"
-								iconSclass="" class="indigo waves-effect waves-light btn"
-								style="background-color: #3B85A1 !important; margin-top: -65px;"
-								onClick="@command('login')">
-								INICIAR SESIÓN
-							</button>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div sclass="col s4">
-				<div class="row"
-					style="margin-left:6px; padding-top: 15px;">
-					<div sclass="col s12 titulo">
-						<label value="¿Olvidaste tu contraseña?"></label>
-					</div>
-					<div id="divButtons" sclass="row">
-
-						<div class="col s12 div-buttons-form z-div">
-							<separator height="15px"></separator>
-							<button type="button" iconSclass=""
-								class="indigo waves-effect waves-light btn"
-								style="background-color: #3B85A1 !important;">
-								RECUPERAR
-							</button>
-						</div>
-					</div>
-
-
-					<div sclass="col s12 titulo">
-						<label value="¿Tienes alguna duda?"></label>
-						<separator height="20px"></separator>
-						<div style="color: black;">
-							<label
-								value="Te proporcionamos una manera sencilla de enteder todo el entorno web">
-							</label>
-						</div>
-						<separator height="25px"></separator>
-						<div class="col s12 div-buttons-form z-div">
-							<button type="button" iconSclass=""
-								class="indigo waves-effect waves-light btn"
-								style="background-color: #3B85A1 !important;">
-								AYUDA
-							</button>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div sclass="col s4">
-				<div class="row" style="margin-left:6px">
-					<div sclass="col s12 tituloSeccion">
-
-						<image src="/imagenes/smiles_web.png"
-							style="max-width: 175px;
-    max-height: 175px;">
-						</image>
-						<div style="text-align: justify;">
-							<label
-								value="Una mañana, tras un sueño intranquilo, Gregorio Samsa se despertó convertido en un monstruoso insecto. Estaba echado de espaldas sobre un duro caparazón y, al alzar la cabeza, vio su vientre convexo y oscuro, surcado por curvadas callosidades, sobre el que casi no se aguantaba la ">
-							</label>
-						</div>
-					</div>
-				</div>
-			</div>
-
-		</div>
-
-	</div>
-	<div sclass="linea"></div>
 	<div class="container-fluid">
 		<image class="responsive-img"
 			src="/imagenes/portal/web-banner.png">
 		</image>
 	</div>
-	<include src="/vista/portal/noticiasMain.zul"></include>
+	<n:div id="noticias">
+		<div align="center" style="width: 100%; height: 54px; background-color: #d9eb52; margin-top: -12px;">
+			<n:h5 style="padding-top: 14px; color: #87796F; font-family: Roboto,sans-serif !important; font-weight: bold;">
+				NOTICIAS
+			</n:h5>
+		</div>
+		<div sclass="row" apply="org.zkoss.bind.BindComposer"
+			viewModel="@id('vm') @init('com.smile.portal.viewmodels.VM_Navbar')">
+			<div sclass="col s10">
+				<n:div id="owlDemo" sclass="owl-carousel owl-theme">
+					<div sclass="item" width="95%" style="margin-left: 5%;">
+						<div style="padding-bottom: 10px;">
+							<label
+								style="color: #f26b7a; font-weight: bold;"
+								value="LOREM IPSUN DOLOR">
+							</label>
+						</div>
+						<label
+							value="Muy lejos, más allá de las montañas de palabras, alejados de los países de las vocales y las consonantes, viven los textos simulados. Viven aislados en casas de letras, en la costa de la semántica, un gran océano de lenguas. Un riachuelo llamado Pons fluye por su pueblo y los abastece con las normas necesarias. Hablamos de un país paraisomático en el que a uno le caen pedazos de frases asadas en l">
+						</label>
+					</div>
+					<div sclass="item" width="95%" style="margin-left: 5%;">
+						<div style="padding-bottom: 10px;">
+							<label
+								style="color: #f26b7a; font-weight: bold;"
+								value="SED UT PERSPICIATI">
+							</label>
+						</div>
+						<label
+							value="Reina en mi espíritu una alegría admirable, muy parecida a las dulces alboradas de la primavera, de que gozo aquí con delicia. Estoy solo, y me felicito de vivir en este país, el más a propósito para almas como la mía, soy tan dichoso, mi querido amigo, me sojuzga de tal modo la idea de reposar, que no me ocupo de mi arte. Ahora no sabría dibujar, ni siquiera hacer una línea con el lápiz; y, sin e">
+						</label>
+					</div>
+					<div sclass="item" width="95%" style="margin-left: 5%;">
+						<div style="padding-bottom: 10px;">
+							<label
+								style="color: #f26b7a; font-weight: bold;"
+								value="REINA EN MI ESPIRITUu">
+							</label>
+						</div>
+						<label
+							value="Quiere la boca exhausta vid, kiwi, piña y fugaz jamón. Fabio me exige, sin tapujos, que añada cerveza al whisky. Jovencillo emponzoñado de whisky, ¡qué figurota exhibes! La cigüeña tocaba cada vez mejor el saxofón y el búho pedía kiwi y queso. El jefe buscó el éxtasis en un imprevisto baño de whisky">
+						</label>
+					</div>
+				</n:div>
+			</div>
+			<div class="col s2 text-center ">
+				<button class="waves-effect waves-light btn"
+					style="background-color: #8ac7de; margin-top: 25%;" href=""
+					onClick="@command('noticias')">
+					ver mas
+				</button>
+			</div>
+		</div>
+	</n:div>
 	<n:div id="conocenos">
-		<include src="/vista/portal/conocenosMain.zul"></include>
+		<div style="width: 100%;
+		    height: 480px;
+	   		background-color: #F0F2DC;">
+	   		<div class="container-fluid">
+				<div class="row" style="width: 70%;">
+					<div class="col s4 text-center">  
+		     			<n:br></n:br>
+			        	<image src="/imagenes/portal/icon/icon-people-grande.png"
+							style="height:140px;">
+		   				</image>   
+			         	<n:h6 style="padding-top: 18px; color: #87796F; font-weight: bold; text-transform: uppercase;"  >Fanca</n:h6>
+		         		<n:br></n:br>  
+			         	<n:p>This is the standard version that comes with both the minified and unminified CSS and JavaScript files. 
+			         		This option requires little to no setup. Use this if you are unfamiliar with Sass.
+			            	This option requires little to no setup. Use this if you are unfamiliar with Sass.
+			               This option requires little to no setup. Use this if you are unfamiliar with Sass.
+			         	</n:p>		
+			      	</div>	  
+			      	<div class="col s4 text-center">  
+					    <n:br></n:br> 
+					    <image src="/imagenes/portal/icon/icon-goals-grande.png"
+							style="height: 140px" >
+					   	</image>
+				      	<n:h6 style="padding-top: 18px; color: #87796F; font-weight: bold; text-transform: uppercase;"  >Misión</n:h6>
+					    <n:br></n:br>
+					    <n:p>This is the standard version that comes with both the minified and unminified CSS and JavaScript files. 
+				        	This option requires little to no setup. Use this if you are unfamiliar with Sass.
+				            This option requires little to no setup. Use this if you are unfamiliar with Sass.
+			               	This option requires little to no setup. Use this if you are unfamiliar with Sass.</n:p>
+					</div>  
+			      	<div class="col s4 text-center">
+		      			<n:br></n:br>
+			         	<image src="/imagenes/portal/icon/icon-medical-grande.png"
+							style="height:140px;">
+				     	</image>  
+			         	<n:h6 style="padding-top: 18px; color: #87796F; font-weight: bold; text-transform: uppercase;">Visión</n:h6>
+			        	<n:br></n:br>
+				        <n:p>This is the standard version that comes with both the minified and unminified CSS and JavaScript files. 
+				    	    This option requires little to no setup. Use this if you are unfamiliar with Sass.
+			            	This option requires little to no setup. Use this if you are unfamiliar with Sass.
+							This option requires little to no setup. Use this if you are unfamiliar with Sass.</n:p>
+				  	</div>
+		  			<div class="col s12 text-center">
+						<n:h5  style="color: #F2707D; font-weight: bold">
+							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus at officiis amet 
+							corporis repellendus totam maxime, quod, itaque quam
+						</n:h5>
+					</div>	
+				</div>
+			</div>
+		</div>	
 	</n:div>
 	<n:div id="galeria">
-		<include src="/vista/portal/galeriaMain.zul"></include>
+		<div class="container-fluid galeria"  >
+			<div class="row">
+				<n:h4>galería de fotos</n:h4>
+				<div class="col s12 seccion">
+					<div class="col s12">
+						<div class="row fotos">
+							<div class="col s4">
+								<image src="/imagenes/portal/galeria1.png"></image>
+							</div>
+							<div class="col s4">
+								<image src="/imagenes/portal/galeria2.png"></image>
+							</div>
+							<div class="col s4">
+								<image src="/imagenes/portal/galeria3.jpg"></image>
+							</div>	
+						</div>
+					</div>
+					<div class="col s12">
+						<div class="row fotos">
+							<div class="col s4">
+								<image src="/imagenes/portal/galeria1.png"></image>
+							</div>
+							<div class="col s4">
+								<image src="/imagenes/portal/galeria2.png"></image>
+							</div>
+							<div class="col s4">
+								<image src="/imagenes/portal/galeria3.jpg"></image>
+							</div>	
+						</div>
+					</div>	
+					<div class="col s12 text-center">
+						<button class="waves-effect waves-light btn" href="./galeria.zul">
+							ver mas
+						</button>
+					</div>			
+				</div>
+			</div>
+		</div>	
 	</n:div>
-	<div id="eventos" class="container-fluid">
+	<div id="eventos_participa" class="container-fluid">
 		<div class="row">
-			<div class="col s6 eventos">
-				<include src="/vista/portal/eventosMain.zul"></include>
-			</div>
-			<div class="col s6 participa">
-				<include src="/vista/portal/participaMain.zul"></include>
-			</div>
+			<n:div id= "eventos">
+				<div class="col s6 eventos">
+					<div class="container-fluid eventos">
+						<div class="row">
+							<div class=" vcenter text-center">
+								<n:h4>Eventos</n:h4>
+							</div>
+							<div class="col s12 seccion">
+								<div class="col s4">
+									<image class="img-responsive center-block"
+										src="/imagenes/portal/icon/icon-carrera.png" width="128px"
+										height="128px">
+									</image>
+									<n:br></n:br>
+									<div class="subtitulo text-center">
+										<n:p>Carrera</n:p>
+									</div>
+									<div class="info">
+										<n:b>Fecha:</n:b>
+										02/05/2016
+										<n:br></n:br>
+										<n:b>Lugar:</n:b>
+										Hotel Príncipe
+										<n:br></n:br>
+										<n:b>Descripción:</n:b>
+										Lorem ipsum dolor sit amet, consectetur
+										adipisicing elit, sed do eiusmod.
+									</div>
+								</div>
+								<div class="col s4">
+									<image class="img-responsive center-block"
+										src="/imagenes/portal/icon/icon-vendimia.png" width="128px"
+										height="128px">
+									</image>
+									<n:br></n:br>
+									<div class="subtitulo text-center">
+										<n:p>Vendimia</n:p>
+									</div>
+									<div class="info">
+										<n:b>Fecha:</n:b>
+										02/05/2016
+										<n:br></n:br>
+										<n:b>Lugar:</n:b>
+										Hotel Príncipe
+										<n:br></n:br>
+										<n:b>Descripción:</n:b>
+										Lorem ipsum dolor sit amet, consectetur
+										adipisicing elit, sed do eiusmod.
+									</div>
+								</div>
+								<div class="col s4">
+									<image class="img-responsive center-block"
+										src="/imagenes/portal/icon/icon-bingo.png" width="128px"
+										height="128px">
+									</image>
+									<n:br></n:br>
+									<div class="subtitulo text-center">
+										<n:p>Bingo</n:p>
+									</div>
+									<div class="info">
+										<n:b>Fecha:</n:b>
+										02/05/2016
+										<n:br></n:br>
+										<n:b>Lugar:</n:b>
+										Hotel Príncipe
+										<n:br></n:br>
+										<n:b>Descripción:</n:b>
+										Lorem ipsum dolor sit amet, consectetur
+										adipisicing elit, sed do eiusmod.
+									</div>
+								</div>
+							</div>
+							<div class="col s12">
+								<div class="boton text-center">
+									<button class="waves-effect waves-light btn"
+										href="/vista/portal/eventos.zul">
+										ver mas
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</n:div>
+			<n:div id= "participa">
+				<div class="col s6 participa">
+					<div class="container-fluid participa"  >
+						<div class="row">
+							<div align="center">    
+								<n:h4>PARTICIPA</n:h4>
+							</div>
+							<div class="col s12 seccion">
+								<div class="col s4">
+									<image class="img-responsive center-block" src="/imagenes/portal/icon/icon-voluntarios.png" width="128px" height="128px"></image>
+									<n:br></n:br>
+									<div class="subtitulo text-center">
+					           			<n:p>VOLUNTARIADO</n:p>
+					       			</div>
+					       			<div class="info">
+								        <n:p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
+											sed eiusmod tempor incidunt ut labore et dolore magna aliqua.
+					        			</n:p>
+						          	</div>
+								</div>
+								<div class="col s4">
+									<image class="img-responsive center-block" src="/imagenes/portal/icon/icon-padrinos.png" width="128px" height="128px"></image>					
+									<n:br></n:br>
+									<div class="subtitulo text-center">
+					           			<n:p>PADRINOS</n:p>
+					       			</div>
+					       			<div class="info">
+					       				<n:p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
+											sed eiusmod tempor incidunt ut labore et dolore magna aliqua.
+					        			</n:p>
+							        </div>
+								</div>
+								<div class="col s4">
+									<image class="img-responsive center-block" src="/imagenes/portal/icon/icon-donaciones.png" width="128px" height="128px"></image>
+									<n:br></n:br>
+									<div class="subtitulo text-center">
+					           			<n:p>DONACIONES</n:p>
+					       			</div>
+					       			<div class="info">
+					       				<n:p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
+											sed eiusmod tempor incidunt ut labore et dolore magna aliqua.
+					        			</n:p>
+						          	</div>
+								</div>
+							</div>
+							<div class="col s12">
+					          	<div class="boton text-center">
+				        			<button type="button" class="waves-effect waves-light btn">Ver más</button>
+				    			</div>
+				    		</div>
+						</div>
+					</div>
+				</div>
+			</n:div>
 		</div>
 	</div>
-	<div id="twitter" class="container-fluid">
-		<div class="row">
-			<div class="col s12" style="padding:0px">
-				<include src="/vista/portal/twitterMain.zul"></include>
+	<n:div id="twitter">
+		<div id="twitter" class="container-fluid">
+			<div class="row">
+				<div class="col s12" style="padding:0px">
+					<div sclass="row valign-wrapper" style="background: #4099FF; width:100%; height:100%; margin:0px">
+						<div class="col s1 valign text-center ">
+							<image src="/imagenes/portal/twitter-logo.png"></image>
+						</div>
+						<div sclass="col s11">
+							<n:div id="owlTwitter" sclass="owl-carousel owl-theme">
+				
+								<div sclass="item item-twitter">
+									<label
+										value="Otra ganadora de nuestra 2da.Carrera #porlosSuperhéroes María Burgos #3erLugarabsoluto del… https://www.instagram.com/p/BH3IUqoBXE7/ ">
+									</label>
+								</div>
+								<div sclass="item item-twitter">
+									<label
+										value="#TapasDeLaEsperanza No botes las tapas y envases plásticos, recícla!! Traelas a nuestra sede… https://www.instagram.com/p/BH2rXfUDZva/ ">
+									</label>
+								</div>
+								<div sclass="item item-twitter">
+									<label
+										value="La ganadora del 1er.lugar absoluto de nuestra 2da.Carrera: María Navas del equipo oklesh_shoes… https://www.instagram.com/p/BH0eYQOB-8X/ ">
+									</label>
+								</div>
+								<div sclass="item item-twitter">
+									<label
+										value="#FotoPremiun Una de nuestras superheroínas recibe con la medalla de nuestra 2da.Carrera a… https://www.instagram.com/p/BHzNTVlBSzO/ ">
+									</label>
+								</div>
+							</n:div>
+						</div>
+					</div>				
+				</div>
 			</div>
 		</div>
-	</div>
+	</n:div>
 	<div id="comunidad" class="container-fluid">
 		<div class="row">
-			<div class="col s12" style="padding:0px">
-				<include src="/vista/portal/comunidadMain.zul"></include>
-			</div>
+			<n:div id="comunidad">
+				<div class="col s12" style="padding:0px">
+					<div class="container-fluid comunidad">
+						<div class="row">
+							<n:h4>COMUNIDAD ACTIVA</n:h4>
+							<div class="col s12 seccion">
+								<div class="row text-center ">
+									<div class="col s4 text-center">
+										<div sclass="row">
+											<image src="/imagenes/portal/medalla.png">
+											</image>
+										</div>
+										<div sclass="row" style="margin-top:10px">
+											<label sclass="subtitulo " style="color:#F26B7A">Ana Matheus</label>
+										</div><!-- 							<image src="/imagenes/portal/foto1.jpg" height="100px" width="100px" sclass="circle responsive-img"> -->
+										<!-- 							</image> -->
+									</div>
+									<div class="col s4 text-center">
+										<div sclass="row">
+											<image src="/imagenes/portal/medalla.png">
+											</image>
+										</div>
+										<div sclass="row" style="margin-top:10px">
+											<label sclass="subtitulo " style="color:#F26B7A">Ana Matheus</label>
+										</div>
+				
+									</div>
+									<div class="col s4 text-center">
+										<div sclass="row">
+											<image src="/imagenes/portal/medalla.png">
+											</image>
+										</div>
+										<div sclass="row" style="margin-top:10px">
+											<label sclass="subtitulo " style="color:#F26B7A">Ana Matheus</label>
+										</div>
+									</div>
+								</div>
+				
+							</div>
+						</div>
+					</div>
+				</div>
+			</n:div>
 		</div> 	
 	</div>
+	
+	<n:script type="text/javascript">
+		$(document).ready(function() {
+		
+		  $('#owlDemo').owlCarousel({
+		
+		      navigation : true, // Show next and prev buttons
+		      slideSpeed : 300,
+		      paginationSpeed : 400,
+		      singleItem:true,
+			navigationText: [
+		      '<span sclass="fa fa-chevron-left"></span>',
+		    '<span sclass="fa fa-chevron-right"></span>'
+		      ],
+		      // "singleItem:true" is a shortcut for:
+		      // items : 1, 
+		      // itemsDesktop : false,
+		      // itemsDesktopSmall : false,
+		      // itemsTablet: false,
+		      // itemsMobile : false
+		  });
+		});	
+		
+		$(document).ready(function() {
+
+		$('#owlTwitter').owlCarousel({
+
+		navigation : false, // Show next and prev buttons
+		pagination:false, slideSpeed : 300, paginationSpeed : 400,
+		singleItem:true, autoPlay: true });
+
+		});
+	</n:script>
 </zk>

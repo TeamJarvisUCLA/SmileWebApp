@@ -1,0 +1,58 @@
+<zk xmlns:n="native" xmlns:w="client">
+	<div width="80%" class="container ${arg.animation_}"
+		use="ve.seguridad.permisos.controllers.C_PermisosFormBasic" apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('ve.seguridad.permisos.viewmodels.VM_PermisosFormBasic')">
+
+		<div class="row">
+			<div class="col s12 div_rol" align="center">
+				<label value="@load(vm.rol.nombre)"></label>
+			</div>
+			<div class="col s8 offset-s2">
+				<div class="col s12">
+					<tree id="tree" height="100%"
+						use="ve.seguridad.permisos.controllers.C_MenuTreeFullPermisos">
+						<treecols>
+							<treecol width="60%" label="Menú Disponible" />
+							<treecol label="Opciones" />
+						</treecols>
+					</tree>
+				</div>
+			</div>
+
+		</div>
+		<div id="divButtonsForm" use="karen.core.form.buttons.containers.DivButtonsForm">
+		</div>
+	</div>
+
+	<style>
+		.div_rol {
+		margin-bottom: 10px;
+		}
+		.div_rol span {
+		font-size: 1.3em;
+		font-style:oblique;
+		}
+		.toolbar-permisos .btn-floating.btn-small {
+		width: 25px;
+		height: 25px;
+		}
+		.toolbar-permisos {
+		margin: 0px !important;
+		padding: 0px !important;
+		text-align: center;
+		}
+		.toolbar-permisos button i {
+		margin-top: -1em;
+		}
+		.toolbar-permisos button {
+		font-size: 0em !important;
+		}
+		.toolbar-permisos .button_blur {
+		opacity: 0.3;
+		}
+		.menu-tree-full-permisos .z-treecell-content {
+		min-height: 40px;
+		line-height: 25px;
+		}
+	</style>
+</zk>

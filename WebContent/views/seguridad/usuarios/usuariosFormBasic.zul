@@ -1,0 +1,45 @@
+<zk xmlns:n="native" xmlns:w="client">
+	<div width="80%" class="container ${arg.animation_}" use="karen.core.form.controllers.C_WindowForm"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('ve.seguridad.usuarios.viewmodels.VM_UsuariosFormBasic')">
+
+		<div class="row">
+
+			<div class="col s12">
+				<div class="input-field col s12">
+					<n:label for="correo" class="mandatory">Correo</n:label>
+					<textbox id="correo" type="text" value="@bind(vm.usuario.correo)">
+					</textbox>
+				</div>
+			</div>
+			<div class="input-field col s12">
+				<div class="input-field col s10">
+					<n:label for="rol" class="active">Rol</n:label>
+					<textbox id="rol" disabled="true" type="text"
+						value="@load(vm.usuario.fkRol.nombre)">
+					</textbox>
+				</div>
+				<div class="input-field col s2" style="font-size: 2em;">
+					<button sclass="teal lighten-1 waves-effect waves-light"
+						iconSclass="fa fa-search" onClick="@command('buscarRol')" style="padding: 5px 15px;"></button>
+					<button sclass="red waves-effect waves-light" iconSclass="fa fa-times"
+						onClick="@command('quitarRol')" style="padding: 5px 15px;"></button>
+				</div>
+			</div>
+			<div class="col s12">
+				<div class="input-field col s6 offset-s3">
+					<n:div class="switch">
+						<n:label>
+							Inhabilitado
+							<checkbox checked="@bind(vm.estatus)">
+							</checkbox>
+							Habilitado
+						</n:label>
+					</n:div>
+				</div>
+			</div>
+		</div>
+		<div id="divButtonsForm" use="karen.core.form.buttons.containers.DivButtonsForm">
+		</div>
+	</div>
+</zk>

@@ -1,18 +1,15 @@
 <?page title="Promo 54"?>
 
 <?meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"?>
-<?link href="resources/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"?>
-<?link href="resources/materialize_v0.97.5/css/materialize.min.css" rel="stylesheet" type="text/css"?>
-<?link href="resources/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css"?>
-<?link href="resources/css/theme.css" rel="stylesheet" type="text/css"?>
-<?link href="resources/css/karen.css" rel="stylesheet" type="text/css"?>
-<?link href="resources/css/loading.css" rel="stylesheet" type="text/css"?>
+<?link href="assets/third-party-libraries/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"?>
+<?link href="assets/third-party-libraries/materialize_v0.97.5/css/materialize.min.css" rel="stylesheet" type="text/css"?>
+<?link href="assets/third-party-libraries/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css"?>
+<?link href="assets/css/theme.css" rel="stylesheet" type="text/css"?>
+<?link href="assets/css/karen.css" rel="stylesheet" type="text/css"?>
+<?link href="assets/css/loading.css" rel="stylesheet" type="text/css"?>
 
-<?link href="/assets/seguridad/css/perfil.zul.css" rel="stylesheet" type="text/css"?>
-
-<?script src="resources/bootstrap/js/bootstrap.js"?>
-<?script src="resources/materialize_v0.97.5/js/materialize.min.js"?>
-
+<?script src="assets/third-party-libraries/bootstrap/js/bootstrap.js"?>
+<?script src="assets/third-party-libraries/materialize_v0.97.5/js/materialize.min.js"?>
 
 <zk xmlns:n="native">
 	<div apply="karen.core.crux.session.check.CheckPerfil" style="display: none;"></div>
@@ -27,11 +24,47 @@
 		    	<div class="col s12 div-title">
 					<label class="label-1" value="Debe llenar los siguientes datos para continuar"></label>
 				</div>
-			
 				<include src="/vista/viewPerfil.zul" />
 			</div>
-		
-
 		</div>
 	</div>
+	
+	<style>
+		.div-title {
+			width: 100%;
+			text-align: center;
+			margin-bottom: 30px;
+			margin-top: 30px;
+		}
+		.div-title .label-1 {
+			font-size: 25px;
+			color: white;
+		}
+		.form-div {
+			background-color:rgba(72,72,72,0.4);
+			padding-left:35px;
+			padding-right:35px;
+			padding-top:35px;
+			padding-bottom:50px;
+			width: 70%;
+			left: 15%;
+			position: absolute;
+		    margin-top:30px;
+		    -moz-border-radius: 7px;
+		    -webkit-border-radius: 7px;
+		}
+		body {    
+		  background: url(http://thekitemap.com/images/feedback-img.jpg) no-repeat;
+		  -webkit-background-size: cover;
+		  -moz-background-size: cover;
+		  -o-background-size: cover;
+		  background-size: cover;
+		}
+		.input-field label,
+		.input-field input,
+		.z-datebox-button,
+		.z-combobox-icon {
+			color: white !important;
+		}
+	</style>
 </zk>

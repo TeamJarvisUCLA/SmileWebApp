@@ -1,0 +1,341 @@
+<zk xmlns:n="native" xmlns:w="client">
+
+	<div align="center"
+		style="width: 100%;height: 54px; background-color: #d9eb52; margin-top: -12px;">
+		
+		<n:h5
+			style="padding-top: 14px; color: #ffffff; font-family: Roboto,sans-serif !important; font-weight: bold;">
+			LA ORGANIZACION
+		</n:h5>
+		
+	</div>
+
+	<div
+		style="width: 100%; height: 480px; background-color: #F0F2DC;">
+		<div class="container-fluid">
+			<div class="row" style="width: 70%;">
+				<div class="col s4 text-center">
+					<n:br></n:br>
+					<image
+						src="/imagenes/portal/icon/icon-people-grande.png"
+						style="height:140px;">
+					</image>
+					<n:h6
+						style="padding-top: 18px; color: #87796F; font-weight: bold; text-transform: uppercase;">
+						Fanca
+					</n:h6>
+					<n:br></n:br>
+					<n:p>
+						This is the standard version that comes with
+						both the minified and unminified CSS and
+						JavaScript files. This option requires little to
+						no setup. Use this if you are unfamiliar with
+						Sass. This option requires little to no setup.
+						Use this if you are unfamiliar with Sass. This
+						option requires little to no setup. Use this if
+						you are unfamiliar with Sass.
+					</n:p>
+				</div>
+				<div class="col s4 text-center">
+					<n:br></n:br>
+					<image
+						src="/imagenes/portal/icon/icon-goals-grande.png"
+						style="height: 140px">
+					</image>
+					<n:h6
+						style="padding-top: 18px; color: #87796F; font-weight: bold; text-transform: uppercase;">
+						Misión
+					</n:h6>
+					<n:br></n:br>
+					<n:p>
+						This is the standard version that comes with
+						both the minified and unminified CSS and
+						JavaScript files. This option requires little to
+						no setup. Use this if you are unfamiliar with
+						Sass. This option requires little to no setup.
+						Use this if you are unfamiliar with Sass. This
+						option requires little to no setup. Use this if
+						you are unfamiliar with Sass.
+					</n:p>
+				</div>
+				<div class="col s4 text-center">
+					<n:br></n:br>
+					<image
+						src="/imagenes/portal/icon/icon-medical-grande.png"
+						style="height:140px;">
+					</image>
+					<n:h6
+						style="padding-top: 18px; color: #87796F; font-weight: bold; text-transform: uppercase;">
+						Visión
+					</n:h6>
+					<n:br></n:br>
+					<n:p>
+						This is the standard version that comes with
+						both the minified and unminified CSS and
+						JavaScript files. This option requires little to
+						no setup. Use this if you are unfamiliar with
+						Sass. This option requires little to no setup.
+						Use this if you are unfamiliar with Sass. This
+						option requires little to no setup. Use this if
+						you are unfamiliar with Sass.
+					</n:p>
+				</div>
+				<div class="col s12 text-center">
+					<n:h5 style="color: #F2707D; font-weight: bold">
+						Lorem ipsum dolor sit amet, consectetur
+						adipisicing elit. Minus at officiis amet
+						corporis repellendus totam maxime, quod, itaque
+						quam
+					</n:h5>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div align="center"
+		style="width: 100%; height: 64px; background-color: #8AC7DE;">
+		<n:h5 style="padding-top: 18px; color: #ffffff;">
+			ESTRUCTURA ORGANIZACIONAL
+		</n:h5>
+	</div>
+	<n:br></n:br>
+
+	<div class="container-fluid galeria">
+		<div class="row">
+			<div class="col-xs-12 fotos">
+				<div class="col-xs-6" align="center">
+					<div style="border-color: #ffffff">
+						<image class="img-responsive center-block"
+							src="/imagenes/organigrama.png" width="300px" height="300px">
+						</image>
+					</div>
+				</div>
+				<div class="col-xs-6" align="center">
+					<div style="border-color: #ffffff">
+						<n:p style="text-align: justify">
+							Lorem ipsum dolor sit amet, consectetur
+							adipiscing elit, sed eiusmod tempor incidunt
+							ut labore et dolore magna aliqua. Ut enim ad
+							minim veniam, quis nostrud exercitation
+							ullamco laboris nisi ut aliquid ex ea
+							commodi consequat. Quis aute iure
+							reprehenderit in voluptate velit esse cillum
+							dolore eu fugiat nulla pariatur. Excepteur
+							sint obcaecat cupiditat non proident, sunt
+							in culpa qui officia deserunt mollit anim id
+							est laborum.
+							<n:br></n:br>
+							<n:br></n:br>
+							Lorem ipsum dolor sit amet, consectetur
+							adipiscing elit, sed eiusmod tempor incidunt
+							ut labore et dolore magna aliqua. Ut enim ad
+							minim veniam, quis nostrud exercitation
+							ullamco laboris nisi ut aliquid ex ea
+							commodi consequat. Quis aute iure
+							reprehenderit in voluptate velit esse cillum
+							dolore eu fugiat nulla pariatur. Excepteur
+							sint obcaecat cupiditat non proident, sunt
+							in culpa qui officia deserunt mollit anim id
+							est laborum.
+						</n:p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<n:br></n:br>
+
+	<div align="center"
+		style="width: 100%; height: 64px; background-color: #87796F;">
+		<n:h5 style="padding-top: 18px; color: #F0F2D6;">VALORES</n:h5>
+	</div>
+
+	<n:br></n:br>
+
+	<div class="container-fluid galeria">
+		<div class="row">
+			<div class="col-xs-12 fotos">
+				<div class="col-xs-2" align="center">
+					<div class="thumbnail"
+						style="border-color: #ffffff">
+						<image src="/imagenes/icon-respeto.png"></image>
+						<div class="caption">
+							<n:h5
+								style="padding-top: 18px; color: #87796F;">
+								RESPETO
+							</n:h5>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-2" align="center">
+					<div class="thumbnail"
+						style="border-color: #ffffff">
+						<image
+							src="/imagenes/icon-trabajo-equipo.png">
+						</image>
+						<div class="caption">
+							<n:h5
+								style="padding-top: 18px; color: #87796F;">
+								TRABAJO EN EQUIPO
+							</n:h5>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-2" align="center">
+					<div class="thumbnail"
+						style="border-color: #ffffff">
+						<image src="/imagenes/icon-vocacion.png"></image>
+						<div class="caption">
+							<n:h5
+								style="padding-top: 18px; color: #87796F;">
+								VOCACIÓN
+							</n:h5>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-xs-2" align="center">
+					<div class="thumbnail"
+						style="border-color: #ffffff">
+						<image src="/imagenes/icon-asistencia.png"></image>
+						<div class="caption">
+							<n:h5
+								style="padding-top: 18px; color: #87796F;">
+								ASISTENCIA HUMANIZADA
+							</n:h5>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-2" align="center">
+					<div class="thumbnail"
+						style="border-color: #ffffff">
+						<image src="/imagenes/icon-compromiso.png"></image>
+						<div class="caption">
+							<n:h5
+								style="padding-top: 18px; color: #87796F;">
+								COMPROMISO
+							</n:h5>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-2" align="center">
+					<div class="thumbnail"
+						style="border-color: #ffffff">
+						<image src="/imagenes/icon-credibilidad.png"></image>
+						<div class="caption">
+							<n:h5
+								style="padding-top: 18px; color: #87796F;">
+								CREDIBILIDAD
+							</n:h5>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+
+		</div>
+	</div>
+
+	<div align="center"
+		style="width: 100%; height: 64px; background-color: #D9EB52;">
+		<n:h5 style="padding-top: 18px; color: #F0F2D6;">
+			DESCARGABLES
+		</n:h5>
+	</div>
+	<div class="container-fluid galeria">
+		<div class="row">
+			<div class="col-xs-12 fotos">
+				<div class="col-xs-4" align="center">
+					<div class="thumbnail"
+						style="border-color: #ffffff">
+						<n:h5
+							style="padding-top: 18px; color: #87796F;">
+							TITULO 1
+						</n:h5>
+						<n:p style="text-align: justify">
+							Lorem ipsum dolor sit amet, consectetur
+							adipiscing elit, sed eiusmod tempor incidunt
+							ut labore et dolore magna aliqua. Ut enim ad
+							minim veniam, quis nostrud exercitation
+							ullamco laboris nisi ut aliquid ex ea
+							commodi consequat. Quis aute iure
+							reprehenderit in voluptate velit esse cillum
+							dolore eu fugiat nulla pariatur. Excepteur
+							sint obcaecat cupiditat non proident, sunt
+							in culpa qui officia deserunt mollit anim id
+							est laborum.
+						</n:p>
+						<image src="/imagenes/icon-download(2).png"></image>
+						<div class="caption">
+							<n:h5
+								style="padding-top: 18px; color: #F26B7A;">
+								DESCARGAR
+							</n:h5>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-4" align="center">
+					<div class="thumbnail"
+						style="border-color: #ffffff">
+						<n:h5
+							style="padding-top: 18px; color: #87796F;">
+							TITULO 2
+						</n:h5>
+						<n:p style="text-align: justify">
+							Lorem ipsum dolor sit amet, consectetur
+							adipiscing elit, sed eiusmod tempor incidunt
+							ut labore et dolore magna aliqua. Ut enim ad
+							minim veniam, quis nostrud exercitation
+							ullamco laboris nisi ut aliquid ex ea
+							commodi consequat. Quis aute iure
+							reprehenderit in voluptate velit esse cillum
+							dolore eu fugiat nulla pariatur. Excepteur
+							sint obcaecat cupiditat non proident, sunt
+							in culpa qui officia deserunt mollit anim id
+							est laborum.
+						</n:p>
+						<image src="/imagenes/icon-download(2).png"></image>
+						<div class="caption">
+							<n:h5
+								style="padding-top: 18px; color: #F26B7A;">
+								DESCARGAR
+							</n:h5>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-4" align="center">
+					<div class="thumbnail"
+						style="border-color: #ffffff">
+						<n:h5
+							style="padding-top: 18px; color: #87796F;">
+							TITULO 3
+						</n:h5>
+						<n:p style="text-align: justify">
+							Lorem ipsum dolor sit amet, consectetur
+							adipiscing elit, sed eiusmod tempor incidunt
+							ut labore et dolore magna aliqua. Ut enim ad
+							minim veniam, quis nostrud exercitation
+							ullamco laboris nisi ut aliquid ex ea
+							commodi consequat. Quis aute iure
+							reprehenderit in voluptate velit esse cillum
+							dolore eu fugiat nulla pariatur. Excepteur
+							sint obcaecat cupiditat non proident, sunt
+							in culpa qui officia deserunt mollit anim id
+							est laborum.
+						</n:p>
+						<image src="/imagenes/icon-download(2).png"></image>
+						<div class="caption">
+							<n:h5
+								style="padding-top: 18px; color: #F26B7A;">
+								DESCARGAR
+							</n:h5>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</zk>

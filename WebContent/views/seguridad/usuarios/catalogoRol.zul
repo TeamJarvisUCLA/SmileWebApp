@@ -1,0 +1,37 @@
+<zk xmlns:n="native" xmlns:w="client">
+	<window width="80%" sclass="window-dialog" action="show: slideIn;hide: slideOut"
+		use="karen.core.dialog.catalogue.list_pagination.controllers.C_ListPaginationCatalogueDialog"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('ve.seguridad.usuarios.viewmodels.VM_CatalogoRol', dialogData=arg.get('dialogData'))">
+		<caption label="Seleccione un Icono" />
+
+		<listbox id="listbox" model="@load(vm.objectList)"
+			selectedItem="@bind(vm.selectedObject)">
+
+			<listhead sizable="true">
+				<listheader label="Nombre" />
+			</listhead>
+			<template name="model">
+				<listitem>
+					<listcell label="@load(each.nombre)" />
+				</listitem>
+			</template>
+			<listfoot>
+				<listfooter id="listFoot" span="1"
+					use="karen.core.listfoot.ListFoot">
+				</listfooter>
+			</listfoot>
+		</listbox>
+
+		<div sclass="div-buttons-dialog">
+			<div>
+				<button id="btnAccept" label="Seleccionar"
+					sclass="green waves-effect waves-light btn" iconSclass="fa fa-check">
+				</button>
+				<button id="btnCancel" label="Cancelar"
+					sclass="red waves-effect waves-light btn" iconSclass="z-icon-times">
+				</button>
+			</div>
+		</div>
+	</window>
+</zk>

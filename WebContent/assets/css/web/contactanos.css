@@ -1,0 +1,135 @@
+body {
+	background-color: #594e46;
+}
+
+.contact-map {
+	max-width: 100%;
+	width: 1680px;
+	height: 465px;
+	padding-top: 0px;
+}
+
+.banner-organizacion {
+	height: 200px;
+	width: 100%;
+	position: relative !important;
+}
+
+.org-contenedor-contenido {
+	z-index: 2;
+	top: 33em;
+	-webkit-box-shadow: 0 0 1px #999;
+	-moz-box-shadow: 0 0 1px #999;
+	box-shadow: 0 0 5px 1px #999;
+	padding: 0px;
+	background: #F0F2DC !important;
+}
+
+.org-contenedor-banner {
+	position: absolute;
+	width: 100%;
+	height: 708px;
+	background-repeat: no-repeat;
+}
+
+.banner-organizacion {
+	height: 200px;
+	width: 100%;
+	position: relative !important;
+}
+
+.org-contenedor-banner {
+	position: absolute;
+	width: 100%;
+	height: 708px;
+	background-repeat: no-repeat;
+}
+
+.org-contenedor-texto {
+	position: relative;
+	width: 100%;
+	max-width: 100%;
+	z-index: 3;
+	color: #fff;
+	text-shadow: black 0.1em 0.1em 0.2em;
+	text-align: center;
+}
+
+.org-sub-bold {
+	font-weight: bold;
+}
+
+.banner-organizacion {
+	height: 310px;
+	width: 100%;
+	position: relative !important;
+}
+
+.org-contenedor-banner>img {
+	max-width: 1354px;
+}
+
+.org-contenedor-banner-img {
+	z-index: -1;
+}
+
+.tituloSeccion {
+	background: #F26B7A !important;
+	padding: 0px 10px;
+	height: 48px;
+}
+
+.tituloSeccion span {
+	color: #F0F2DC;
+	font-size: 20px !important;
+}
+
+.textoContacto {
+	font-family: 'Roboto', sans-serif;
+	font-size: 15px !important;
+	font-weight: 500;
+	color: #87796F;
+}
+
+.textoDatos {
+	color: #594E46;
+}
+
+.input-field label {
+     color: #594E46;
+}
+
+.input-field input[type=text] {
+     border-bottom: 1px solid #8AC7DE;
+}
+
+.input-field input[type=text]:focus {
+     border-bottom: 1px solid #8AC7DE;
+}
+
+.twitter {
+	background-color: #55acee;
+	margin: 60px auto 35px auto;
+}
+
+.facebook {
+	background-color: #3B5998;
+	margin: 0px auto 35px auto;
+}
+
+.instagram {
+	background-color: #125688;
+	margin: 0px auto 35px auto;
+}
+
+.containerRedes {
+	color: white;
+	height: 45px;
+	width: 270px;
+	font-size: 20px;
+	padding-left: 15px;
+}
+
+.cont {
+	margin-top: -140px;
+}

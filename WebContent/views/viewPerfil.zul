@@ -1,0 +1,97 @@
+<zk xmlns:n="native" xmlns:w="client">
+	<div width="80%" class="container ${arg.animation_}" use="karen.core.form.controllers.C_WindowForm"
+		apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('lights.seguridad.viewmodels.VMVPerfil')">
+
+		<div class="row">
+
+			<div class="col s12">
+				<div class="input-field col s6">
+					<n:label for="identificacion" class="mandatory">Identificacion</n:label>
+					<textbox id="identificacion" type="text"
+						value="@bind(vm.perfil.identificacion)">
+					</textbox>
+				</div>
+				<div class="input-field col s6">
+					<n:label for="nombre" class="mandatory">Nombre</n:label>
+					<textbox id="nombre" type="text" value="@bind(vm.perfil.nombre)">
+					</textbox>
+				</div>
+			</div>
+			<div class="col s12">
+				<div class="input-field col s6">
+					<n:label for="edad" class="mandatory">Edad</n:label>
+					<intbox id="edad" value="@bind(vm.perfil.edad)">
+					</intbox>
+				</div>
+				<div class="input-field col s6">
+					<n:label class="active">Sexo</n:label>
+					<combobox readonly="true" model="@load(vm.optionsSexo)"
+						selectedItem="@bind(vm.enumSexo)">
+						<template name="model">
+							<comboitem label="@load(each)" />
+						</template>
+					</combobox>
+				</div>
+			</div>
+
+			<div class="col s12">
+				<div class="input-field col s6">
+					<n:label for="fecha_nacimiento" class="mandatory">Fecha Nacimiento</n:label>
+					<datebox id="fecha_nacimiento" readonly="true"
+						value="@bind(vm.fechaNacimiento)" format="dd/MM/yyyy">
+					</datebox>
+				</div>
+				<div class="input-field col s6">
+					<n:label for="telefono_1" class="mandatory">Telefono 1</n:label>
+					<textbox id="telefono_1" type="text" value="@bind(vm.perfil.telefono1)">
+					</textbox>
+				</div>
+			</div>
+			<div class="col s12">
+				<div class="input-field col s6">
+					<n:label for="telefono_2" class="mandatory">Telefono 2</n:label>
+					<textbox id="telefono_2" type="text" value="@bind(vm.perfil.telefono2)">
+					</textbox>
+				</div>
+				<div class="input-field col s6">
+					<n:label for="telefono_3" class="mandatory">Telefono 3</n:label>
+					<textbox id="telefono_3" type="text" value="@bind(vm.perfil.telefono3)">
+					</textbox>
+				</div>
+			</div>
+			<div class="col s12">
+				<div class="input-field col s6">
+					<n:label for="direccion" class="mandatory">Direccion</n:label>
+					<textbox id="direccion" type="text" value="@bind(vm.perfil.direccion)">
+					</textbox>
+				</div>
+				<div class="input-field col s6">
+					<n:label for="pais" class="mandatory">Pais</n:label>
+					<textbox id="pais" type="text" value="@bind(vm.perfil.pais)">
+					</textbox>
+				</div>
+			</div>
+			<div class="col s12">
+				<div class="input-field col s6">
+					<n:label for="twitter" class="mandatory">Twitter</n:label>
+					<textbox id="twitter" type="text" value="@bind(vm.perfil.twitter)">
+					</textbox>
+				</div>
+				<div class="input-field col s6">
+					<n:label for="instagram" class="mandatory">Instagram</n:label>
+					<textbox id="instagram" type="text" value="@bind(vm.perfil.instagram)">
+					</textbox>
+				</div>
+			</div>
+			<div class="col s12">
+				<div class="input-field col s12">
+					<n:label for="linkedin" class="mandatory">Linkedin</n:label>
+					<textbox id="linkedin" type="text" value="@bind(vm.perfil.linkedin)">
+					</textbox>
+				</div>
+			</div>
+		</div>
+		<div id="divButtonsForm" use="karen.core.form.buttons.containers.DivButtonsForm">
+		</div>
+	</div>
+</zk>

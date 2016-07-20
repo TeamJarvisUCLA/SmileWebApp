@@ -1,0 +1,9 @@
+
+<!-- Title and message -->
+<vlayout sclass="page-content" spacing="0">
+	<div sclass="page-header">
+	   	<label value="@load(vm.titleHeaderCenter)"/>
+	</div>
+	
+	<include src="assets/theme/content/alert.zul"/>
+</vlayout>

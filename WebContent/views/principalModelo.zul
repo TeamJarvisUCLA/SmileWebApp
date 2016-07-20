@@ -1,0 +1,58 @@
+<?xel-method prefix="m" name="longToStringGenericDate" class="karen.core.util.Util" 
+	signature="java.lang.String longToStringGenericDate(java.lang.Long)" ?>
+
+<zk xmlns:n="native" xmlns:w="client">
+	<div width="100%" class="${arg.animation_}"
+		use="karen.core.simple_list_principal.controllers.C_WindowSimpleListPrincipal"
+		apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('lights.promo54.viewmodels.VMPModelo')">
+
+		<div class="row">
+			<div class="col s12">
+				<div class="col s12">
+					<listbox id="lstbox" model="@load(vm.objectsList)"
+						selectedItem="@bind(vm.selectedObject)">
+
+						<listhead sizable="true">
+							<listheader width="8%" label="Nombres" />
+							<listheader width="8%" label="Apellidos" />
+							<listheader width="8%" label="Edad" />
+							<listheader width="8%" label="Fecha Nacimiento" />
+							<listheader width="8%" label="Color Piel" />
+							<listheader width="8%" label="Color Cabello" />
+							<listheader width="8%" label="Color Ojos" />
+							<listheader width="8%" label="Estatura" />
+							<listheader width="8%" label="Peso" />
+							<listheader width="8%" label="Talla" />
+							<listheader width="8%" label="Actividades" />
+							<listheader width="8%" label="Numero" />
+						</listhead>
+						<template name="model">
+							<listitem>
+								<listcell label="@load(each.nombres)" />
+								<listcell label="@load(each.apellidos)" />
+								<listcell label="@load(each.edad)" />
+								<listcell label="${m:longToStringGenericDate(each.fechaNacimiento)}" />
+								<listcell label="@load(each.colorPiel)" />
+								<listcell label="@load(each.colorCabello)" />
+								<listcell label="@load(each.colorOjos)" />
+								<listcell label="@load(each.estatura)" />
+								<listcell label="@load(each.peso)" />
+								<listcell label="@load(each.talla)" />
+								<listcell label="@load(each.actividades)" />
+								<listcell label="@load(each.numero)" />
+							</listitem>
+						</template>
+						<listfoot>
+							<listfooter id="listFoot" span="12"
+								use="karen.core.listfoot.ListFoot">
+							</listfooter>
+						</listfoot>
+					</listbox>
+				</div>
+			</div>
+		</div>
+
+		<toolbar id="toolbar" align="center" use="karen.core.toolbar.Toolbar">
+		</toolbar>
+	</div>
+</zk>

@@ -1,0 +1,171 @@
+<zk xmlns:n="native" xmlns:w="client">
+	<n:link href="assets/css/web/contactanos.css" rel="stylesheet"
+		type="text/css">
+	</n:link>
+	<div class="org-contenedor-banner banner-organizacion">
+		<div>
+			<div
+				class="org-contenedor-banner org-contenedor-banner-img">
+				<iframe sclass="contact-map"
+					src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15714.297497096071!2d-69.3126340524231!3d10.05193704663637!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xcfb1348846c590da!2sFundacion+Amigos+del+Ni%C3%B1o+con+cancer+lara!5e0!3m2!1ses!2sve!4v1468198039346">
+				</iframe>
+			</div>
+		</div>
+	</div>
+	<div
+		sclass="cont text-center container  org-contenedor-contenido row col 12">
+
+		<div sclass="col s4">
+
+			<div class="row" style="margin-right:6px; ">
+				<div sclass="col s12 tituloSeccion">
+					<label value="NUESTROS DATOS DE CONTACTO"></label>
+				</div>
+				<space height="37px"></space>
+				<div sclass="row">
+					<div
+						class="col s12 s4 offset-s1 contact-holder left-align">
+						<n:h6 class="textoContacto">Teléfonos:</n:h6>
+						<div class="textoDatos">
+							(0251)2338265
+							<n:br></n:br>
+							(0251)4542039
+							<n:br></n:br>
+							<n:br></n:br>
+						</div>
+
+						<n:h6 class="textoContacto">Fax:</n:h6>
+						<div class="textoDatos">
+							(0251)2337004
+							<n:br></n:br>
+							<n:br></n:br>
+						</div>
+
+						<n:h6 class="textoContacto">
+							Correo electrónico:
+						</n:h6>
+						<div class="textoDatos">
+							fancalara@gmail.com
+							<n:br></n:br>
+							<n:br></n:br>
+						</div>
+
+						<n:h6 class="textoContacto">Ubicación:</n:h6>
+						<div class="textoDatos">
+							Urbanización "La Concordia" Vereda 6
+							<n:br></n:br>
+							Casa #21
+							<n:br></n:br>
+							Barquisimeto - Estado Lara
+						</div>
+					</div>
+				</div>
+				<div class="right-align">
+					<n:img class="responsive-img"
+						src="/SmileWebApp/imagenes/portal/google-maps.png">
+					</n:img>
+				</div>
+			</div>
+
+		</div>
+
+		<div sclass="col s4">
+
+			<div class="row"
+				style="margin-right:2px; margin-left:2px">
+
+				<div sclass="col s12 tituloSeccion valign-wrapper">
+					<label class="valign"
+						value="ESCRÍBENOS UN MENSAJE">
+					</label>
+				</div>
+				<space height="10px"></space>
+				<div sclass="row" style="padding: 0 12px;">
+					<div class="input-field col s12">
+						<n:label for="nombres">Nombres:</n:label>
+						<textbox id="nombres" type="text"></textbox>
+					</div>
+					<div class="input-field col s12">
+						<n:label for="apellidos">Apellidos:</n:label>
+						<textbox id="apellidos" type="text"></textbox>
+					</div>
+
+					<div class="input-field col s12">
+						<n:label for="correo">Correo:</n:label>
+						<textbox id="correo" type="text"></textbox>
+					</div>
+
+					<div class="input-field col s12">
+						<n:label for="asunto">Asunto:</n:label>
+						<textbox id="asunto" type="text"></textbox>
+					</div>
+					<div class="input-field col s12">
+						<n:label for="mensaje">Mensaje:</n:label>
+						<textbox id="mensaje" type="text"></textbox>
+					</div>
+
+				</div>
+
+				<div id="divButtonsForm" sclass="row">
+					<div class="col s12 div-buttons-form z-div">
+						<button type="button" id="nEMQo3"
+							class="indigo waves-effect waves-light btn"
+							style="background: #3b85a1 !important; color: #ffffff !important">
+							Enviar
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div sclass="col s4">
+			<div class="row" style="margin-left:6px">
+				<div sclass="col s12 tituloSeccion">
+					<label value="VISITA NUESTRAS REDES SOCIALES">
+					</label>
+				</div>
+				<space height="37px"></space>
+				<div sclass="row">
+					<div class="col s12 contact-holder">
+
+						<div
+							class="containerRedes twitter valign-wrapper">
+							<div class="valign-wrapper">
+								<n:img class="responsive-img valign"
+									src="/SmileWebApp/imagenes/portal/twitter.png">
+								</n:img>
+							</div>
+							<n:span class="valign center-block">
+								twitter
+							</n:span>
+						</div>
+
+						<div
+							class="containerRedes facebook valign-wrapper">
+							<div class="valign-wrapper">
+								<n:img class="responsive-img valign"
+									src="/SmileWebApp/imagenes/portal/facebook.png">
+								</n:img>
+							</div>
+							<n:span class="valign center-block">
+								facebook
+							</n:span>
+						</div>
+
+						<div
+							class="containerRedes instagram valign-wrapper">
+							<div class="valign-wrapper">
+								<n:img class="responsive-img valign"
+									src="/SmileWebApp/imagenes/portal/instagram.png">
+								</n:img>
+							</div>
+							<n:span class="valign center-block">
+								instagram
+							</n:span>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</zk>

@@ -7,11 +7,10 @@
 
 
 
-
 <zk xmlns:n="native" xmlns:w="client">
 	<div sclass="page-content page-content-main"
 		apply="org.zkoss.bind.BindComposer"
-		viewModel="@id('vm') @init('lights.smile.login.Login')">
+		viewModel="@id('vm') @init('lights.promo54.login.Login')">
 		<div apply="karen.core.crux.session.check.CheckLogin" style="display: none;"></div>
 		<div if="${vm.logued == false}">
 				<div class="form card-patch">

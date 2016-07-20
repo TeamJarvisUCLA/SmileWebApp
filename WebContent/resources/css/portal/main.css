@@ -72,7 +72,7 @@ h4 {
 /* estilos para seccion noticias */
 
 #noticias #owlDemo .item{
-  display: block;
+/*   display: block; */
   padding: 30px 10px;
   margin: 5px;
   -webkit-border-radius: 3px;

@@ -1,173 +1,108 @@
 <zk xmlns:n="native" xmlns:w="client">
-<n:link href="resources/css/portal/galeria.css" rel="stylesheet" type="text/css"></n:link>
+<n:link href="resources/css/portal/galeria1.css" rel="stylesheet" type="text/css"></n:link>
 		<div class="container-fluid galeria">
-			<n:div id="owlDemo" sclass="owl-carousel owl-theme">
-				<div sclass="item">
-					<div class="container-fluid">
-						<image class="responsive-img" src="/imagenes/portal/slider1.png"></image>
-					</div>
-				</div>
-				<div sclass="item">					
-					<div class="container-fluid">
-						<image class="responsive-img" src="/imagenes/portal/slider2.png"></image>
-					</div>
-				</div>
-				<div sclass="item">					
-					<div class="container-fluid">
-						<image class="responsive-img" src="/imagenes/portal/slider3.png"></image>
-					</div>
+			<n:h4>fotos</n:h4>
+			<n:div id="fotos">
+				<div class="col s12 seccion">
+					<div class="col s12">
+						<div class="row fotos">
+							<div class="col s4">
+								<image src="/imagenes/portal/galeria1.png" sclass="materialboxed"></image>
+							</div>
+							<div class="col s4">
+								<image src="/imagenes/portal/galeria2.png" sclass="materialboxed"></image>
+							</div>
+							<div class="col s4">
+								<image src="/imagenes/portal/galeria3.jpg" sclass="materialboxed"></image>
+							</div>	
+						</div>
+					</div>	
+					<div class="col s12">
+						<div class="row fotos">
+							<div class="col s4">
+								<image src="/imagenes/portal/galeria1.png"></image>
+							</div>
+							<div class="col s4">
+								<image src="/imagenes/portal/galeria2.png"></image>
+							</div>
+							<div class="col s4 icon">
+								<a><image src="/imagenes/portal/icon/icon-plus.png"></image></a>
+								<div class="col s12">
+									<a>Ver más</a>
+								</div>
+							</div>	
+						</div>
+					</div>		
 				</div>
 			</n:div>
-			<div class="row" style="width: 70%;">
-	  			<div class="col s12 text-center">
-					<n:h5  style="color: #F2707D; font-weight: bold">
-						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus at officiis amet 
-						corporis repellendus totam maxime, quod, itaque quam
-					</n:h5>
-				</div>	
-			</div>
-			<n:h4>galería de fotos</n:h4>
-			<div class="col s12 seccion">
-				<div class="col s12">
-					<div class="row fotos">
-						<div class="col s4">
-							<image src="/imagenes/portal/galeria1.png" sclass="materialboxed"></image>
-						</div>
-						<div class="col s4">
-							<image src="/imagenes/portal/galeria2.png" sclass="materialboxed"></image>
-						</div>
-						<div class="col s4">
-							<image src="/imagenes/portal/galeria3.jpg" sclass="materialboxed"></image>
-						</div>	
-					</div>
-				</div>
-				<div class="col s12">
-					<div class="row fotos">
-						<div class="col s4">
-							<image src="/imagenes/portal/galeria1.png" sclass="materialboxed"></image>
-						</div>
-						<div class="col s4">
-							<image src="/imagenes/portal/galeria2.png" sclass="materialboxed"></image>
-						</div>
-						<div class="col s4">
-							<image src="/imagenes/portal/galeria3.jpg" sclass="materialboxed"></image>
-						</div>	
-					</div>
-				</div>	
-				<div class="col s12">
-					<div class="row fotos">
-						<div class="col s4">
-							<image src="/imagenes/portal/galeria1.png"></image>
-						</div>
-						<div class="col s4">
-							<image src="/imagenes/portal/galeria2.png"></image>
-						</div>
-						<div class="col s4 icon">
-							<a><image src="/imagenes/portal/icon/icon-plus.png"></image></a>
-							<div class="col s12">
-								<a>Ver más</a>
-							</div>
-						</div>	
-					</div>
-				</div>		
-			</div>
 			<n:h4>álbumes</n:h4>
-			<div class="col s12 seccion">
-				<div class="col s12">
-					<div class="row albumes">
-						<div class="col s4">
-							<div class="subtitulo">
-			           			<n:p>Vendimia 2015</n:p>
-			       			</div>
-							<image src="/imagenes/portal/galeria1.png"></image>
-							<n:p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus at officiis amet</n:p>
-							<div class="col s12 link">
-								<a>8 Fotos</a>
+			<n:div id="albumes">
+				<div class="col s12 seccion">
+					<div class="col s12">
+						<div class="row albumes">
+							<div class="col s4">
+								<div class="subtitulo text-center">
+				           			<span>Vendimia 2015</span>
+				       			</div>
+								<image src="/imagenes/portal/galeria1.png"></image>
+								<span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus at officiis amet</span>
+								<div class="col s12 link">
+									<a>8 Fotos</a>
+								</div>
 							</div>
+							<div class="col s4">
+								<div class="subtitulo text-center">
+				           			<span>Juego de Golf</span>
+				       			</div>
+								<image src="/imagenes/portal/galeria2.png"></image>
+								<span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus at officiis amet</span>
+								<div class="col s12 link">
+									<a>30 Fotos</a>
+								</div>							
+							</div>
+							<div class="col s4">
+								<div class="subtitulo text-center">
+				           			<span>Segundo Taller Motivacional</span>
+				       			</div>						
+								<image src="/imagenes/portal/galeria3.jpg"></image>
+								<span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus at officiis amet</span>
+								<div class="col s12 link">
+									<a>12 Fotos</a>
+								</div>							
+							</div>	
 						</div>
-						<div class="col s4">
-							<div class="subtitulo vcenter">
-			           			<n:p>Juego de Golf</n:p>
-			       			</div>
-							<image src="/imagenes/portal/galeria2.png"></image>
-							<n:p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. t, consectetur adipisicing elit. Minus at Minus at officiis amet</n:p>
-							<div class="col s12 link">
-								<a>30 Fotos</a>
-							</div>							
-						</div>
-						<div class="col s4">
-							<div class="subtitulo vcenter">
-			           			<n:p>Segundo Taller Motivacional</n:p>
-			       			</div>						
-							<image src="/imagenes/portal/galeria3.jpg"></image>
-							<n:p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus at officiis amet</n:p>
-							<div class="col s12 link">
-								<a>12 Fotos</a>
-							</div>							
-						</div>	
 					</div>
+					<div class="col s12">
+						<div class="row albumes">
+							<div class="col s4">
+								<div class="subtitulo text-center">
+				           			<span>Vendimia 2016</span>
+				       			</div>						
+								<image src="/imagenes/portal/galeria1.png"></image>
+								<span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus at officiis amet</span>
+								<div class="col s12 link">
+									<a>16 Fotos</a>
+								</div>							
+							</div>
+							<div class="col s4">
+								<div class="subtitulo text-center">
+				           			<span>Paseo</span>
+				       			</div>						
+								<image src="/imagenes/portal/galeria2.png"></image>
+								<span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus at officiis amet</span>
+								<div class="col s12 link">
+									<a>5 Fotos</a>
+								</div>							
+							</div>
+							<div class="col s4 icon">
+								<a><image src="/imagenes/portal/icon/icon-plus.png"></image></a>
+								<div class="col s12">
+									<a>Ver más</a>
+								</div>
+							</div>	
+						</div>
+					</div>		
 				</div>
-				<div class="col s12">
-					<div class="row albumes">
-						<div class="col s4">
-							<div class="subtitulo vcenter">
-			           			<n:p>Vendimia 2016</n:p>
-			       			</div>						
-							<image src="/imagenes/portal/galeria1.png"></image>
-							<n:p>Lorem ipsum dolor sit amet, consectetur at, consectetur adipisicing elit. Minus att, consectetur adipisicing elit. Minus atat officiis amet</n:p>
-							<div class="col s12 link">
-								<a>16 Fotos</a>
-							</div>							
-						</div>
-						<div class="col s4">
-							<div class="subtitulo vcenter">
-			           			<n:p>Paseo</n:p>
-			       			</div>						
-							<image src="/imagenes/portal/galeria2.png"></image>
-							<n:p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus at officiis amet</n:p>
-							<div class="col s12 link">
-								<a>5 Fotos</a>
-							</div>							
-						</div>
-						<div class="col s4 icon">
-							<a><image src="/imagenes/portal/icon/icon-plus.png"></image></a>
-							<div class="col s12">
-								<a>Ver más</a>
-							</div>
-						</div>	
-					</div>
-				</div>		
-			</div>
+			</n:div>
 		</div>
-
-	
-<n:script type="text/javascript">
-$(document).ready(function() {
-
-  $('#owlDemo').owlCarousel({
-
-      navigation : true, // Show next and prev buttons
-      slideSpeed : 300,
-      paginationSpeed : 400,
-      singleItem:true,
-	navigationText: [
-      '<span sclass="fa fa-chevron-left"></span>',
-    '<span sclass="fa fa-chevron-right"></span>'
-      ],
-      // "singleItem:true" is a shortcut for:
-      // items : 1, 
-      // itemsDesktop : false,
-      // itemsDesktopSmall : false,
-      // itemsTablet: false,
-      // itemsMobile : false
-
-  });
-  
-   $('.materialboxed').materialbox();
-
-});
- 	
-</n:script>
-	
-
 </zk>

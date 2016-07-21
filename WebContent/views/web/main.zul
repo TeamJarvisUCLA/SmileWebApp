@@ -42,179 +42,142 @@
 			src="/imagenes/portal/web-banner.png">
 		</image>
 	</div>
-	<n:div id="noticias">
-		<div align="center" style="width: 100%; height: 54px; background-color: #d9eb52; margin-top: -12px;">
-			<n:h5 style="padding-top: 14px; color: #87796F; font-family: Roboto,sans-serif !important; font-weight: bold;">
-				NOTICIAS
-			</n:h5>
+	<n:div id="slider_twitter">
+		<div class="container-fluid">
+			<div sclass="row valign-wrapper">
+				<div class="col s1 valign text-center ">
+					<image src="/imagenes/portal/twitter-logo.png"></image>
+				</div>
+				<div sclass="col s11">
+					<n:div id="owlTwitter" sclass="owl-carousel owl-theme">
+						<div sclass="item item-twitter">
+							<label
+								value="Otra ganadora de nuestra 2da.Carrera #porlosSuperhéroes María Burgos #3erLugarabsoluto del… https://www.instagram.com/p/BH3IUqoBXE7/ ">
+							</label>
+						</div>
+						<div sclass="item item-twitter">
+							<label
+								value="#TapasDeLaEsperanza No botes las tapas y envases plásticos, recícla!! Traelas a nuestra sede… https://www.instagram.com/p/BH2rXfUDZva/ ">
+							</label>
+						</div>
+						<div sclass="item item-twitter">
+							<label
+								value="La ganadora del 1er.lugar absoluto de nuestra 2da.Carrera: María Navas del equipo oklesh_shoes… https://www.instagram.com/p/BH0eYQOB-8X/ ">
+							</label>
+						</div>
+						<div sclass="item item-twitter">
+							<label
+								value="#FotoPremiun Una de nuestras superheroínas recibe con la medalla de nuestra 2da.Carrera a… https://www.instagram.com/p/BHzNTVlBSzO/ ">
+							</label>
+						</div>
+					</n:div>
+				</div>
+			</div>				
 		</div>
+	</n:div>	
+	<n:div id="noticias">
+		<n:h4>
+			noticias
+		</n:h4>
 		<div sclass="row" apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('ve.smile.web.viewmodels.VM_Navbar')">
 			<div sclass="col s10">
 				<n:div id="owlNoticias" class="owl-carousel owl-theme">
-					<div sclass="item" >
+					<div sclass="item">
 						<div style="padding-bottom: 10px;">
-							<label
-								style="color: #f26b7a; font-weight: bold;"
-								value="LOREM IPSUN DOLOR">
+							<label class="title" value="LOREM IPSUN DOLOR">
 							</label>
 						</div>
 						<label
-							value="Muy lejos, más allá de las montañas de palabras, alejados de los países de las vocales y las consonantes, viven los textos simulados. Viven aislados en casas de letras, en la costa de la semántica, un gran océano de lenguas. Un riachuelo llamado Pons fluye por su pueblo y los abastece con las normas necesarias. Hablamos de un país paraisomático en el que a uno le caen pedazos de frases asadas en l">
+							value="Muy lejos, más allá de las montañas de palabras, alejados de los países de las vocales y las consonantes, viven los textos simulados. Viven aislados en casas de letras, en la costa de la semántica, un gran océano de lenguas. Un riachuelo llamado Pons fluye por su pueblo y los abastece con las normas necesarias.">
 						</label>
 					</div>
 					<div sclass="item">
 						<div style="padding-bottom: 10px;">
-							<label
-								style="color: #f26b7a; font-weight: bold;"
-								value="SED UT PERSPICIATI">
+							<label class="title" value="LOREM IPSUN DOLOR">
 							</label>
 						</div>
 						<label
-							value="Reina en mi espíritu una alegría admirable, muy parecida a las dulces alboradas de la primavera, de que gozo aquí con delicia. Estoy solo, y me felicito de vivir en este país, el más a propósito para almas como la mía, soy tan dichoso, mi querido amigo, me sojuzga de tal modo la idea de reposar, que no me ocupo de mi arte. Ahora no sabría dibujar, ni siquiera hacer una línea con el lápiz; y, sin e">
+							value="Muy lejos, más allá de las montañas de palabras, alejados de los países de las vocales y las consonantes, viven los textos simulados. Viven aislados en casas de letras, en la costa de la semántica, un gran océano de lenguas. Un riachuelo llamado Pons fluye por su pueblo y los abastece con las normas necesarias.">
 						</label>
-					</div>
-					<div sclass="item" >
+					</div>									
+					<div sclass="item">
 						<div style="padding-bottom: 10px;">
-							<label
-								style="color: #f26b7a; font-weight: bold;"
-								value="REINA EN MI ESPIRITUu">
+							<label class="title" value="LOREM IPSUN DOLOR">
 							</label>
 						</div>
 						<label
-							value="Quiere la boca exhausta vid, kiwi, piña y fugaz jamón. Fabio me exige, sin tapujos, que añada cerveza al whisky. Jovencillo emponzoñado de whisky, ¡qué figurota exhibes! La cigüeña tocaba cada vez mejor el saxofón y el búho pedía kiwi y queso. El jefe buscó el éxtasis en un imprevisto baño de whisky">
+							value="Muy lejos, más allá de las montañas de palabras, alejados de los países de las vocales y las consonantes, viven los textos simulados. Viven aislados en casas de letras, en la costa de la semántica, un gran océano de lenguas. Un riachuelo llamado Pons fluye por su pueblo y los abastece con las normas necesarias.">
 						</label>
 					</div>
 					<div sclass="item">
 						<div style="padding-bottom: 10px;">
-							<label
-								style="color: #f26b7a; font-weight: bold;"
-								value="SED UT PERSPICIATI">
+							<label class="title" value="LOREM IPSUN DOLOR">
 							</label>
 						</div>
 						<label
-							value="Reina en mi espíritu una alegría admirable, muy parecida a las dulces alboradas de la primavera, de que gozo aquí con delicia. Estoy solo, y me felicito de vivir en este país, el más a propósito para almas como la mía, soy tan dichoso, mi querido amigo, me sojuzga de tal modo la idea de reposar, que no me ocupo de mi arte. Ahora no sabría dibujar, ni siquiera hacer una línea con el lápiz; y, sin e">
+							value="Muy lejos, más allá de las montañas de palabras, alejados de los países de las vocales y las consonantes, viven los textos simulados. Viven aislados en casas de letras, en la costa de la semántica, un gran océano de lenguas. Un riachuelo llamado Pons fluye por su pueblo y los abastece con las normas necesarias.">
 						</label>
 					</div>
-					<div sclass="item" >
+					<div sclass="item">
 						<div style="padding-bottom: 10px;">
-							<label
-								style="color: #f26b7a; font-weight: bold;"
-								value="REINA EN MI ESPIRITUu">
+							<label class="title" value="LOREM IPSUN DOLOR">
 							</label>
 						</div>
 						<label
-							value="Quiere la boca exhausta vid, kiwi, piña y fugaz jamón. Fabio me exige, sin tapujos, que añada cerveza al whisky. Jovencillo emponzoñado de whisky, ¡qué figurota exhibes! La cigüeña tocaba cada vez mejor el saxofón y el búho pedía kiwi y queso. El jefe buscó el éxtasis en un imprevisto baño de whisky">
+							value="Muy lejos, más allá de las montañas de palabras, alejados de los países de las vocales y las consonantes, viven los textos simulados. Viven aislados en casas de letras, en la costa de la semántica, un gran océano de lenguas. Un riachuelo llamado Pons fluye por su pueblo y los abastece con las normas necesarias.">
 						</label>
 					</div>
 				</n:div>
 			</div>
 			<div class="col s2 text-center ">
-				<button class="waves-effect waves-light btn"
-					style="background-color: #8ac7de; margin-top: 25%;" href=""
+				<button class="waves-effect waves-light btn" href=""
 					onClick="@command('noticias')">
 					ver mas
 				</button>
 			</div>
 		</div>
 	</n:div>
-	<n:div id="conocenos">
-		<div style="width: 100%;
-		    height: 480px;
-	   		background-color: #F0F2DC;">
-	   		<div class="container-fluid">
-				<div class="row" style="width: 70%;">
-					<div class="col s4 text-center">  
-		     			<n:br></n:br>
-			        	<image src="/imagenes/portal/icon/icon-people-grande.png"
-							style="height:140px;">
-		   				</image>   
-			         	<n:h6 style="padding-top: 18px; color: #87796F; font-weight: bold; text-transform: uppercase;"  >Fanca</n:h6>
-		         		<n:br></n:br>  
-			         	<n:p>This is the standard version that comes with both the minified and unminified CSS and JavaScript files. 
-			         		This option requires little to no setup. Use this if you are unfamiliar with Sass.
-			            	This option requires little to no setup. Use this if you are unfamiliar with Sass.
-			               This option requires little to no setup. Use this if you are unfamiliar with Sass.
-			         	</n:p>		
-			      	</div>	  
-			      	<div class="col s4 text-center">  
-					    <n:br></n:br> 
-					    <image src="/imagenes/portal/icon/icon-goals-grande.png"
-							style="height: 140px" >
-					   	</image>
-				      	<n:h6 style="padding-top: 18px; color: #87796F; font-weight: bold; text-transform: uppercase;"  >Misión</n:h6>
-					    <n:br></n:br>
-					    <n:p>This is the standard version that comes with both the minified and unminified CSS and JavaScript files. 
-				        	This option requires little to no setup. Use this if you are unfamiliar with Sass.
-				            This option requires little to no setup. Use this if you are unfamiliar with Sass.
-			               	This option requires little to no setup. Use this if you are unfamiliar with Sass.</n:p>
-					</div>  
-			      	<div class="col s4 text-center">
-		      			<n:br></n:br>
-			         	<image src="/imagenes/portal/icon/icon-medical-grande.png"
-							style="height:140px;">
-				     	</image>  
-			         	<n:h6 style="padding-top: 18px; color: #87796F; font-weight: bold; text-transform: uppercase;">Visión</n:h6>
-			        	<n:br></n:br>
-				        <n:p>This is the standard version that comes with both the minified and unminified CSS and JavaScript files. 
-				    	    This option requires little to no setup. Use this if you are unfamiliar with Sass.
-			            	This option requires little to no setup. Use this if you are unfamiliar with Sass.
-							This option requires little to no setup. Use this if you are unfamiliar with Sass.</n:p>
-				  	</div>
-		  			<div class="col s12 text-center">
-						<n:h5  style="color: #F2707D; font-weight: bold">
-							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus at officiis amet 
-							corporis repellendus totam maxime, quod, itaque quam
-						</n:h5>
-					</div>	
-				</div>
-			</div>
-		</div>	
-	</n:div>
-	<n:div id="galeria">
-		<div class="container-fluid galeria"  >
+	<n:div id="conocenos_twiter">
+   		<div class="container-fluid">
 			<div class="row">
-				<n:h4>galería de fotos</n:h4>
-				<div class="col s12 seccion">
-					<div class="col s12">
-						<div class="row fotos">
-							<div class="col s4">
-								<image src="/imagenes/portal/galeria1.png"></image>
+				<n:div id="conocenos">
+					<div class="col s5 text-center">
+						<div class="row" style="width: 60%">
+							<div class="col s12">
+					        	<image src="/imagenes/portal/icon/icon-people-grande.png"
+									style="height:140px;">
+				   				</image>   
+					         	<n:h6>Fanca</n:h6>
+			         		</div> 
+			         		<div class="col s12"  style="text-align: justify">
+					         	<span>This is the standard version that comes with both the minified and unminified CSS and JavaScript files. 
+					         		This option requires little to no setup. Use this if you are unfamiliar with Sass.
+					            	This option requires little to no setup. Use this if you are unfamiliar with Sass.
+					               
+					         	</span>
+				         	</div>
+							<div class="col s12">
+								<button class="waves-effect waves-light btn" href=""
+									onClick="@command('noticias')">
+									ver mas
+								</button>
 							</div>
-							<div class="col s4">
-								<image src="/imagenes/portal/galeria2.png"></image>
-							</div>
-							<div class="col s4">
-								<image src="/imagenes/portal/galeria3.jpg"></image>
-							</div>	
-						</div>
-					</div>
-					<div class="col s12">
-						<div class="row fotos">
-							<div class="col s4">
-								<image src="/imagenes/portal/galeria1.png"></image>
-							</div>
-							<div class="col s4">
-								<image src="/imagenes/portal/galeria2.png"></image>
-							</div>
-							<div class="col s4">
-								<image src="/imagenes/portal/galeria3.jpg"></image>
-							</div>	
-						</div>
-					</div>	
-					<div class="col s12 text-center">
-						<button class="waves-effect waves-light btn" href="./galeria.zul">
-							ver mas
-						</button>
-					</div>			
-				</div>
+						</div>							
+			      	</div>
+			    </n:div>
+			    <n:div id="twitter">
+			      	<div class="col s7">
+			      		<image class="img-responsive" src="/imagenes/portal/twitter-timeline.png" style="height: 368px; width: 727px;"></image>
+			      	</div>
+		      	</n:div> 	
 			</div>
-		</div>	
+		</div>
 	</n:div>
 	<div id="eventos_participa" class="container-fluid">
 		<div class="row">
 			<n:div id= "eventos">
-				<div class="col s6 eventos">
+				<div class="col s6" style="padding: 0;">
 					<div class="container-fluid eventos">
 						<div class="row">
 							<div class=" vcenter text-center">
@@ -285,21 +248,13 @@
 									</div>
 								</div>
 							</div>
-							<div class="col s12">
-								<div class="boton text-center">
-									<button class="waves-effect waves-light btn"
-										href="/vista/portal/eventos.zul">
-										ver mas
-									</button>
-								</div>
-							</div>
 						</div>
 					</div>
 				</div>
 			</n:div>
 			<n:div id= "participa">
-				<div class="col s6 participa">
-					<div class="container-fluid participa"  >
+				<div class="col s6" style="padding: 0;">
+					<div class="container-fluid"  >
 						<div class="row">
 							<div align="center">    
 								<n:h4>PARTICIPA</n:h4>
@@ -342,67 +297,43 @@
 						          	</div>
 								</div>
 							</div>
-							<div class="col s12">
-					          	<div class="boton text-center">
-				        			<button type="button" class="waves-effect waves-light btn">Ver más</button>
-				    			</div>
-				    		</div>
 						</div>
 					</div>
 				</div>
 			</n:div>
-		</div>
-	</div>
-	<n:div id="twitter">
-		<div id="twitter" class="container-fluid">
-			<div class="row">
-				<div class="col s12" style="padding:0px">
-					<div sclass="row valign-wrapper" style="background: #4099FF; width:100%; height:100%; margin:0px">
-						<div class="col s1 valign text-center ">
-							<image src="/imagenes/portal/twitter-logo.png"></image>
-						</div>
-						<div sclass="col s11">
-							<n:div id="owlTwitter" sclass="owl-carousel owl-theme">
-				
-								<div sclass="item item-twitter">
-									<label
-										value="Otra ganadora de nuestra 2da.Carrera #porlosSuperhéroes María Burgos #3erLugarabsoluto del… https://www.instagram.com/p/BH3IUqoBXE7/ ">
-									</label>
-								</div>
-								<div sclass="item item-twitter">
-									<label
-										value="#TapasDeLaEsperanza No botes las tapas y envases plásticos, recícla!! Traelas a nuestra sede… https://www.instagram.com/p/BH2rXfUDZva/ ">
-									</label>
-								</div>
-								<div sclass="item item-twitter">
-									<label
-										value="La ganadora del 1er.lugar absoluto de nuestra 2da.Carrera: María Navas del equipo oklesh_shoes… https://www.instagram.com/p/BH0eYQOB-8X/ ">
-									</label>
-								</div>
-								<div sclass="item item-twitter">
-									<label
-										value="#FotoPremiun Una de nuestras superheroínas recibe con la medalla de nuestra 2da.Carrera a… https://www.instagram.com/p/BHzNTVlBSzO/ ">
-									</label>
-								</div>
-							</n:div>
-						</div>
-					</div>				
+			<div class="col s12">
+				<div class="col s6">
+					<div class="boton text-center">
+						<button class="waves-effect waves-light btn"
+							href="/vista/portal/eventos.zul">
+							ver mas
+						</button>
+					</div>
+				</div>
+				<div class="col s6">
+					<div class="boton text-center">
+						<button class="waves-effect waves-light btn"
+							href="/vista/portal/eventos.zul">
+							ver mas
+						</button>
+					</div>
 				</div>
 			</div>
 		</div>
-	</n:div>
-	<div id="comunidad" class="container-fluid">
+	</div>
+
+	<div class="container-fluid comunidad_galeria">
 		<div class="row">
 			<n:div id="comunidad">
-				<div class="col s12" style="padding:0px">
+				<div class="col s7" style="padding:0px">
 					<div class="container-fluid comunidad">
 						<div class="row">
 							<n:h4>COMUNIDAD ACTIVA</n:h4>
-							<div class="col s12 seccion">
+							<div class="col s12 medallas">
 								<div class="row text-center ">
 									<div class="col s4 text-center">
 										<div sclass="row">
-											<image src="/imagenes/portal/medalla.png">
+											<image class="img-responsive" src="/imagenes/portal/medalla.png">
 											</image>
 										</div>
 										<div sclass="row" style="margin-top:10px">
@@ -412,7 +343,7 @@
 									</div>
 									<div class="col s4 text-center">
 										<div sclass="row">
-											<image src="/imagenes/portal/medalla.png">
+											<image class="img-responsive" src="/imagenes/portal/medalla.png">
 											</image>
 										</div>
 										<div sclass="row" style="margin-top:10px">
@@ -422,7 +353,7 @@
 									</div>
 									<div class="col s4 text-center">
 										<div sclass="row">
-											<image src="/imagenes/portal/medalla.png">
+											<image class="img-responsive" src="/imagenes/portal/medalla.png">
 											</image>
 										</div>
 										<div sclass="row" style="margin-top:10px">
@@ -430,11 +361,19 @@
 										</div>
 									</div>
 								</div>
-				
 							</div>
 						</div>
 					</div>
 				</div>
+			</n:div>
+			<n:div id="galeria">
+				<div class="col s5">
+					<n:h4>galería de fotos</n:h4>
+					<div class="col s12">
+						<image class="img-responsive" src="/imagenes/portal/galeria1.png"></image>
+						<span>ver mas</span>			
+					</div>
+				</div>				
 			</n:div>
 		</div> 	
 	</div>

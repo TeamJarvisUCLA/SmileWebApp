@@ -2,7 +2,6 @@
 	<n:link href="assets/css/web/participa.css" rel="stylesheet"
 		type="text/css">
 	</n:link>
-
 	<div class="participas">
 		<div class="container-fluid">
 			<n:div id="owlDemo" sclass="owl-carousel owl-theme">
@@ -29,16 +28,12 @@
 				</div>
 			</n:div>
 		</div>
-
 		<div class="barra-verde " align="center" style="">
 			<span>TU PUEDES SER PARTE DE LA FUNDACION</span>
 		</div>
-
 		<div class=" menu"
 			style="background-image: url(/SmileWebApp/imagenes/portal/fondo.png); background-repeat:repeat; heigth: 50%">
-
-			<tabbox sclass="nav_tabs" id="tb3" orient="vertical"
-				>
+			<tabbox sclass="nav_tabs" id="tb3" orient="vertical">
 				<tabs width="25%" class="menuPrincipal">
 					<tab label="Donaciones"></tab>
 					<tab label="Voluntariado"></tab>
@@ -50,7 +45,7 @@
 						<span class="requisitos">
 							INFORMACION GENERAL
 						</span>
-						<n:br />
+						<n:br/>
 						<span class="info">
 							Anim pariatur cliche reprehendfgdfgdfgderit,
 							enim eiusmodfghfghfghgfhf high life
@@ -107,7 +102,7 @@
 									</span>
 								</div>
 								<div class=" col s6">
-									<span class="requisitos">
+								<span class="requisitos">
 										REQUISITOS
 									</span>
 									<n:br />
@@ -118,8 +113,6 @@
 										</span>
 									</span>
 									<n:br />
-
-
 									<span style="color:#F26B7A"
 										class="fa fa-heart fa-1x">
 										<span style="color:#87796f">
@@ -127,18 +120,14 @@
 										</span>
 									</span>
 									<n:br />
-
-
 									<span style="color:#F26B7A"
 										class="fa fa-heart fa-1x">
 										<span style="color:#87796f">
 											Requisito numero 5 Requisito
 											numero 5
-
 										</span>
 									</span>
 									<n:br />
-
 									<span style="color:#F26B7A"
 										class="fa fa-heart fa-1x">
 										<span style="color:#87796f">
@@ -146,14 +135,12 @@
 										</span>
 									</span>
 									<n:br />
-
 									<span style="color:#F26B7A"
 										class="fa fa-heart fa-1x">
 										<span style="color:#87796f">
 											Requisito numero 5
 										</span>
 									</span>
-
 									<n:br />
 									<n:br />
 									<div class="boton text-center">
@@ -163,6 +150,40 @@
 										</button>
 									</div>
 								</div>
+							</div>
+							<div class="col s12 seccion">
+								<div  align="center">
+										<n:h4 style="color:#E2F83F">VOLUNTARIOS DESTACADOS</n:h4>
+									</div>
+								<div class="row text-center ">
+									<div class="col s4 text-center">
+										<div sclass="row">
+											<image src="/imagenes/portal/medalla.png">
+											</image>
+										</div>
+										<div sclass="row" style="margin-top:10px">
+											<label sclass="subtitulo " style="color:#F26B7A">Daniel Sanchez</label>
+										</div>
+									</div>
+									<div class="col s4 text-center">
+										<div sclass="row">
+											<image src="/imagenes/portal/medalla.png">
+											</image>
+										</div>
+										<div sclass="row" style="margin-top:10px">
+											<label sclass="subtitulo " style="color:#F26B7A">Ana Matheus</label>
+										</div>				
+									</div>
+									<div class="col s4 text-center">
+										<div sclass="row">
+											<image src="/imagenes/portal/medalla.png">
+											</image>
+										</div>
+										<div sclass="row" style="margin-top:10px">
+											<label sclass="subtitulo " style="color:#F26B7A">Rosa Clark</label>
+										</div>
+									</div>
+								</div>				
 							</div>
 						</div>
 					</tabpanel>
@@ -197,7 +218,6 @@
 										REQUISITOS
 									</span>
 									<n:br />
-
 									<span style="color:#F26B7A"
 										class="fa fa-heart fa-1x">
 										<span style="color:#87796f">
@@ -205,8 +225,6 @@
 										</span>
 									</span>
 									<n:br />
-
-
 									<span style="color:#F26B7A"
 										class="fa fa-heart fa-1x">
 										<span style="color:#87796f">
@@ -214,18 +232,14 @@
 										</span>
 									</span>
 									<n:br />
-
-
 									<span style="color:#F26B7A"
 										class="fa fa-heart fa-1x">
 										<span style="color:#87796f">
 											Requisito numero 5 Requisito
 											numero 5
-
 										</span>
 									</span>
 									<n:br />
-
 									<span style="color:#F26B7A"
 										class="fa fa-heart fa-1x">
 										<span style="color:#87796f">
@@ -233,14 +247,12 @@
 										</span>
 									</span>
 									<n:br />
-
 									<span style="color:#F26B7A"
 										class="fa fa-heart fa-1x">
 										<span style="color:#87796f">
 											Requisito numero 5
 										</span>
 									</span>
-
 									<n:br />
 									<n:br />
 									<div class="boton text-center">
@@ -249,7 +261,6 @@
 											PARTICIPA
 										</button>
 									</div>
-
 								</div>
 							</div>
 						</div>
@@ -257,8 +268,8 @@
 					<tabpanel>
 						<tabbox id="tb" width="100%" 
 							mold="accordion">
-							<tabs>
-								<tab class="tabsitos" label="AYUDA 1" />
+							<tabs >
+								<tab  class="tabsitos" label="AYUDA 1" />
 								<tab class="tabsitos" label="AYUDA 2" />
 								<tab class="tabsitos" label="AYUDA 3" />
 							</tabs>
@@ -303,7 +314,6 @@
 													REQUISITOS
 												</span>
 												<n:br />
-
 												<span
 													style="color:#F26B7A" class="fa fa-heart fa-1x">
 													<span
@@ -313,8 +323,6 @@
 													</span>
 												</span>
 												<n:br />
-
-
 												<span
 													style="color:#F26B7A" class="fa fa-heart fa-1x">
 													<span
@@ -324,8 +332,6 @@
 													</span>
 												</span>
 												<n:br />
-
-
 												<span
 													style="color:#F26B7A" class="fa fa-heart fa-1x">
 													<span
@@ -333,11 +339,9 @@
 														Requisito numero
 														5 Requisito
 														numero 5
-
 													</span>
 												</span>
 												<n:br />
-
 												<span
 													style="color:#F26B7A" class="fa fa-heart fa-1x">
 													<span
@@ -347,7 +351,6 @@
 													</span>
 												</span>
 												<n:br />
-
 												<span
 													style="color:#F26B7A" class="fa fa-heart fa-1x">
 													<span
@@ -356,7 +359,6 @@
 														5
 													</span>
 												</span>
-
 												<n:br />
 											</div>
 										</div>
@@ -399,7 +401,6 @@
 													REQUISITOS
 												</span>
 												<n:br />
-
 												<span
 													style="color:#F26B7A" class="fa fa-heart fa-1x">
 													<span
@@ -409,8 +410,6 @@
 													</span>
 												</span>
 												<n:br />
-
-
 												<span
 													style="color:#F26B7A" class="fa fa-heart fa-1x">
 													<span
@@ -420,8 +419,6 @@
 													</span>
 												</span>
 												<n:br />
-
-
 												<span
 													style="color:#F26B7A" class="fa fa-heart fa-1x">
 													<span
@@ -433,7 +430,6 @@
 													</span>
 												</span>
 												<n:br />
-
 												<span
 													style="color:#F26B7A" class="fa fa-heart fa-1x">
 													<span
@@ -443,7 +439,6 @@
 													</span>
 												</span>
 												<n:br />
-
 												<span
 													style="color:#F26B7A" class="fa fa-heart fa-1x">
 													<span
@@ -452,9 +447,7 @@
 														5
 													</span>
 												</span>
-
 												<n:br />
-
 											</div>
 										</div>
 									</div>
@@ -496,7 +489,6 @@
 													REQUISITOS
 												</span>
 												<n:br />
-
 												<span
 													style="color:#F26B7A" class="fa fa-heart fa-1x">
 													<span
@@ -506,8 +498,6 @@
 													</span>
 												</span>
 												<n:br />
-
-
 												<span
 													style="color:#F26B7A" class="fa fa-heart fa-1x">
 													<span
@@ -517,8 +507,6 @@
 													</span>
 												</span>
 												<n:br />
-
-
 												<span
 													style="color:#F26B7A" class="fa fa-heart fa-1x">
 													<span
@@ -526,11 +514,9 @@
 														Requisito numero
 														5 Requisito
 														numero 5
-
 													</span>
 												</span>
 												<n:br />
-
 												<span
 													style="color:#F26B7A" class="fa fa-heart fa-1x">
 													<span
@@ -540,7 +526,6 @@
 													</span>
 												</span>
 												<n:br />
-
 												<span
 													style="color:#F26B7A" class="fa fa-heart fa-1x">
 													<span
@@ -549,9 +534,7 @@
 														5
 													</span>
 												</span>
-<n:br/>
 												<n:br />
-
 											</div>
 										</div>
 									</div>
@@ -563,13 +546,9 @@
 			</tabbox>
 		</div>
 	</div>
-
-	<n:script type="text/javascript">
-	
-		$(document).ready(function(){
-		
-		  $('#owlDemo').owlCarousel({
-		
+	<n:script type="text/javascript">	
+		$(document).ready(function(){		
+		  $('#owlDemo').owlCarousel({		
 		      navigation : true, // Show next and prev buttons
 		      slideSpeed : 300,
 		      paginationSpeed : 400,
@@ -577,15 +556,9 @@
 			navigationText: [
 		      '<span sclass="fa fa-chevron-left"></span>',
 		    '<span sclass="fa fa-chevron-right"></span>'
-		      ],
-		
-		  });
-		  
+		      ],		
+		  });		  
 		   $('.materialboxed').materialbox();
-
-});
-
- 	
+}); 	
 </n:script>
-
 </zk>

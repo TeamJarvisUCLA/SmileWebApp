@@ -74,13 +74,13 @@ h4 {
 	    background: #F0F2DC;
 	}
 	
-	#noticias #owlNoticias .item{
-	  display: block;
-	  margin: 5px;
-	  -webkit-border-radius: 3px;
-	  -moz-border-radius: 3px;
-	  border-radius: 3px;
-	  text-align: justify;
+	#owlNoticias .item {
+		padding: 25px 62px 25px 10px;
+		margin: 5px;
+		-webkit-border-radius: 3px;
+		-moz-border-radius: 3px;
+		border-radius: 3px;
+		text-align: justify;
 	}
 	
 	#noticias #owlNoticias .item:hover{
@@ -92,40 +92,39 @@ h4 {
 		font-weight: bold;
 	}
 	 
-	#noticias .owl-theme .owl-controls .owl-buttons div {
-	  padding: 5px 40px;
+	#owlNoticias .owl-theme .owl-controls .owl-buttons div {
+		padding: 5px 40px;
 	}
-	 
-	#noticias .owl-theme .owl-buttons span{
-	  margin-top: 2px;
+	
+	#owlNoticias .owl-theme .owl-buttons span {
+		margin-top: 2px;
 	}
 	 
 	//To move navigation buttons outside use these settings:
 	 
-	#noticias .owl-theme .owl-controls .owl-buttons div {
-	  position: absolute;
-	}
-	 
-	#noticias .owl-theme .owl-controls .owl-buttons .owl-prev{
-	  left: -50px;
-	  top: 50px; 
-	      position: absolute;
-	}
-	 
-	#noticias .owl-theme .owl-controls .owl-buttons .owl-next{
-	  right: -118px;
-	  top: 45px;
-	      position: absolute;
-	}
-	
-	#noticias .owl-carousel {
-	    display: none;
-	    position: relative;
-	    width: 95%;
-	    -ms-touch-action: pan-y;
-	    margin-left: 1%;
-	}
+	#owlNoticias .owl-theme .owl-controls .owl-buttons div {
+	position: absolute;
+}
 
+#owlNoticias.owl-theme .owl-controls .owl-buttons .owl-prev {
+	left: -50px;
+	top: 60px;
+	position: absolute;
+}
+
+#owlNoticias.owl-theme .owl-controls .owl-buttons .owl-next {
+	right: -1px;
+	top: 60px;
+	position: absolute;
+}
+
+#owlNoticias.owl-carousel {
+	display: none;
+	position: relative;
+	-ms-touch-action: pan-y;
+		margin-left: 4%;/*nuevo*/
+
+}
 /* estilos para seccion conocenos_twitter */
 	
 	#conocenos h6 {

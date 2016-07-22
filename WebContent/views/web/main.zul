@@ -1,5 +1,15 @@
 <zk xmlns:n="native" xmlns:w="client">
-	
+	<style>
+.timeline-Header-title {
+    font-size: 19px !important;
+    line-height: 26px !important;
+}
+ .timeline-Tweet-text {
+    font-size: 12px !important;
+    line-height: 13px !important;
+    font-weight: 300;
+}
+	</style>
 	<n:link href="assets/css/web/main.css" rel="stylesheet" type="text/css"></n:link>
 	<div sclass="row" apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('ve.smile.web.viewmodels.VM_Main')">

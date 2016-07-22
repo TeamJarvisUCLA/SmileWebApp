@@ -48,8 +48,7 @@ public class Login {
 		}
 
 		DataCenter.clear();
-		//DataCenter.updateSrcPageContent(null, null, "/views/desktop/prueba.zul");
-
+		
 		usuario = Usuario
 				.constructFromLinkedTreeMap((LinkedTreeMap<String, Object>) payloadUsuarioResponse
 						.getInformacion("usuario"));
@@ -59,18 +58,21 @@ public class Login {
 
 		String accessToken = (String) payloadUsuarioResponse
 				.getInformacion(IPayloadResponse.ACCESS_TOKEN);
-		
-		DataCenter
-				.setUserSecurityData(new UserSecurityData(usuario, String
-						.valueOf(usuario.getFkRol().getIdRol()), idSesion,
-						accessToken));
 
 		HttpSession httpSession = (HttpSession) Sessions.getCurrent()
 				.getNativeSession();
 		MySessionListener.putIdSesion(httpSession.getId(), idSesion);
 
 		SesionContextHelper.setLogued(true);
-		
+
+		DataCenter.putVentanaDefault(httpSession.getId(),
+				"/views/desktop/prueba.zul");
+
+		DataCenter
+				.setUserSecurityData(new UserSecurityData(usuario, String
+						.valueOf(usuario.getFkRol().getIdRol()), idSesion,
+						accessToken));
+
 		Executions.sendRedirect("index.zul");
 	}
 

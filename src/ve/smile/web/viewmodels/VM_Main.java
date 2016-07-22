@@ -48,5 +48,11 @@ public class VM_Main {
 		
 	}
 
+	
+	@Command
+	public void calendario() {
+		DataCenter.updateSrcPageContent(null, null, "/views/web/calendario.zul");
+		
+	}
 
 }

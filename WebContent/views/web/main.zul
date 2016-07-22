@@ -83,7 +83,7 @@
 			<div sclass="row">
 				<div sclass="col s10">
 					<n:div id="owlNoticias" class="owl-carousel owl-theme">
-						<div sclass="item" onClick="@command('noticias')">
+						<div sclass="item" onClick="@command('detalleNoticia')">
 							<div style="padding-bottom: 10px;">
 								<label class="title" value="LOREM IPSUN DOLOR">
 								</label>
@@ -92,7 +92,7 @@
 								value="Muy lejos, más allá de las montañas de palabras, alejados de los países de las vocales y las consonantes, viven los textos simulados. Viven aislados en casas de letras, en la costa de la semántica, un gran océano de lenguas. Un riachuelo llamado Pons fluye por su pueblo y los abastece con las normas necesarias.">
 							</label>
 						</div>
-						<div sclass="item" onClick="@command('noticias')">
+						<div sclass="item" onClick="@command('detalleNoticia')">
 							<div style="padding-bottom: 10px;">
 								<label class="title" value="LOREM IPSUN DOLOR">
 								</label>
@@ -101,7 +101,7 @@
 								value="Muy lejos, más allá de las montañas de palabras, alejados de los países de las vocales y las consonantes, viven los textos simulados. Viven aislados en casas de letras, en la costa de la semántica, un gran océano de lenguas. Un riachuelo llamado Pons fluye por su pueblo y los abastece con las normas necesarias.">
 							</label>
 						</div>									
-						<div sclass="item" onClick="@command('noticias')">
+						<div sclass="item" onClick="@command('detalleNoticia')">
 							<div style="padding-bottom: 10px;">
 								<label class="title" value="LOREM IPSUN DOLOR">
 								</label>
@@ -110,7 +110,7 @@
 								value="Muy lejos, más allá de las montañas de palabras, alejados de los países de las vocales y las consonantes, viven los textos simulados. Viven aislados en casas de letras, en la costa de la semántica, un gran océano de lenguas. Un riachuelo llamado Pons fluye por su pueblo y los abastece con las normas necesarias.">
 							</label>
 						</div>
-						<div sclass="item" onClick="@command('noticias')">
+						<div sclass="item" onClick="@command('detalleNoticia')">
 							<div style="padding-bottom: 10px;">
 								<label class="title" value="LOREM IPSUN DOLOR">
 								</label>
@@ -119,7 +119,7 @@
 								value="Muy lejos, más allá de las montañas de palabras, alejados de los países de las vocales y las consonantes, viven los textos simulados. Viven aislados en casas de letras, en la costa de la semántica, un gran océano de lenguas. Un riachuelo llamado Pons fluye por su pueblo y los abastece con las normas necesarias.">
 							</label>
 						</div>
-						<div sclass="item" onClick="@command('noticias')">
+						<div sclass="item" onClick="@command('detalleNoticia')">
 							<div style="padding-bottom: 10px;">
 								<label class="title" value="LOREM IPSUN DOLOR">
 								</label>

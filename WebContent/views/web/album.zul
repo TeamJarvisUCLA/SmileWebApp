@@ -2,13 +2,14 @@
 	<n:link href="assets/css/web/album.css" rel="stylesheet"
 		type="text/css">
 	</n:link>
-	<div class="container-fluid album">
+	<div class="container-fluid album" apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('ve.smile.web.viewmodels.VM_Main')">
 		<div class="row" width="90%">
 			<div class="col s12 title text-center">
 				<span>nombre del álbum</span>
 			</div>
 			<div class="col s12 volver">
-				<a href="#">
+				<a href="" onClick="@command('galeria')">
 					<image src="/imagenes/portal/icon/left-arrow.png"></image>
 					<span>Volver</span>
 				</a>

@@ -35,6 +35,18 @@ public class VM_Main {
 		DataCenter.updateSrcPageContent(null, null, "/views/web/galeria.zul");
 		
 	}
+	
+	@Command
+	public void detalleNoticia() {
+		DataCenter.updateSrcPageContent(null, null, "/views/web/detalleNoticia.zul");
+		
+	}
+	
+	@Command
+	public void album() {
+		DataCenter.updateSrcPageContent(null, null, "/views/web/album.zul");
+		
+	}
 
 
 }

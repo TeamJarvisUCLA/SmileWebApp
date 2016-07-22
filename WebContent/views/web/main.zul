@@ -409,14 +409,16 @@
 			      '<span sclass="fa fa-chevron-left"></span>',
 			    '<span sclass="fa fa-chevron-right"></span>'
 			      ],
-			      autoWidth:true
+			      autoWidth:true,
+			       autoPlay: true 
 		  });
 
 		$('#owlTwitter').owlCarousel({
 			 items:1,
 			 mouseDrag:false,
 			navigation : false, // Show next and prev buttons
-			pagination:false, slideSpeed : 300, paginationSpeed : 400,
+			pagination:false, 
+			slideSpeed : 300, paginationSpeed : 400,
 			singleItem:true, autoPlay: true });
 
 		});

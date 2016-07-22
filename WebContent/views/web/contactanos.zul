@@ -2,6 +2,9 @@
 	<n:link href="assets/css/web/contactanos.css" rel="stylesheet"
 		type="text/css">
 	</n:link>
+	
+	<div class="contactanos">
+	
 	<div class="org-contenedor-banner banner-organizacion">
 		<div>
 			<div
@@ -167,5 +170,7 @@
 				</div>
 			</div>
 		</div>
+	</div>
+	
 	</div>
 </zk>

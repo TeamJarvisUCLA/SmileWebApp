@@ -1,10 +1,6 @@
-.col.s6.participa,.col.s6.eventos {
-	padding: 0;
-}
-
 button {
 	margin-top: 35px;
-	background: #8ac7de !important;
+	background: #3b85a1 !important;
 }
 
 h4 {
@@ -14,260 +10,303 @@ h4 {
 	text-transform: uppercase;
 }
 
-.icon span {
-	display: none;
-}
+/* estilos para seccion slider_twiter */
 
-.icon:hover span {
-	display: initial;
-	margin-left: 5px;
-	text-transform: uppercase;
-}
+	#slider_twitter .row {
+		background: #4099FF; 
+		width:100%; 
+		height:100%; 
+		margin:0px
+	}
+	
+	#slider_twitter .row {
+		margin-bottom: 0;
+	}
+	#slider_twitter #owlTwitter .item{ display: block; padding: 16px 1px; margin: 5px;
+	-webkit-border-radius: 3px; -moz-border-radius: 3px;
+	border-radius: 3px; text-align: justify; } .owl-theme
+	#slider_twitter .owl-controls .owl-buttons div { padding: 5px 40px; }
+	
+	#slider_twitter .owl-theme .owl-buttons span{ margin-top: 2px; }
+	
+	//To move navigation buttons outside use these settings:
+	
+	#slider_twitter .owl-theme .owl-controls .owl-buttons div { position: absolute;
+	}
+	
+	#slider_twitter .owl-theme .owl-controls .owl-buttons .owl-prev{ left: -50px;
+	top: 50px; position: absolute; }
+	
+	#slider_twitter .owl-theme .owl-controls .owl-buttons .owl-next{ right: -118px;
+	top: 45px; position: absolute; }
+	
+	#slider_twitter .owl-carousel { display: none; position: relative; width: 95%;
+	-ms-touch-action: pan-y; margin-left: 1%; }
+	
+	#slider_twitter .item-twitter span{
+	
+	font-size: 16px; color: white; }
 
-.social {
-	position: fixed; /* Hacemos que la posición en
-		pantalla sea fija para que siempre se muestre en pantalla*/
-	left: 0; /* Establecemos la barra en la izquierda */
-	top: 200px;
-	/* Bajamos la barra 200px de arriba a abajo */
-	z-index: 2000; /*
-		Utilizamos la propiedad z-index para que no se superponga algún
-		otro elemento como sliders, galerías, etc */
-}
 
-.social div>div {
-	margin-bottom: 1px;
-}
+/* estilos para seccion conocenos_twiter */
 
-.social div a {
-	display: inline-block;
-	color: #fff;
-	background: #000;
-	padding: 8px 12px;
-	text-decoration: none;
-	-webkit-transition: all 500ms ease;
-	-o-transition: all 500ms ease;
-	transition: all 500ms ease; /* Establecemos una transición a
-		todas las propiedades */
-}
+	#conocenos_twiter .row{
+		margin-bottom: 0;
+	}
+		
+	#conocenos_twiter button{
+		margin-top: 10px;
+	}
+	
+	
+/* estilos para seccion slider_noticias */
 
-.social div .icon {
-	width: 44px;
-	background: #87796F;
-}
+	#noticias h4 {
+		background: #d9eb52;;
+		color: #a0958e;
+		margin: 0;
+		padding: 15px 0;
+	}
 
-.social div .icon i {
-	color: #DB6E78;
-	font-size: 20px;
-}
+	#noticias .row {
+		margin-bottom: 0;
+	    padding: 10px 0 20px 0;
+	    background: #F0F2DC;
+	}
+	
+	#noticias #owlNoticias .item{
+	  display: block;
+	  margin: 5px;
+	  -webkit-border-radius: 3px;
+	  -moz-border-radius: 3px;
+	  border-radius: 3px;
+	  text-align: justify;
+	}
+	
+	#noticias #owlNoticias .item:hover{
+		cursor: pointer;
+	}
+	
+	#noticias #owlNoticias .item .title{
+		color: #f26b7a; 
+		font-weight: bold;
+	}
+	 
+	#noticias .owl-theme .owl-controls .owl-buttons div {
+	  padding: 5px 40px;
+	}
+	 
+	#noticias .owl-theme .owl-buttons span{
+	  margin-top: 2px;
+	}
+	 
+	//To move navigation buttons outside use these settings:
+	 
+	#noticias .owl-theme .owl-controls .owl-buttons div {
+	  position: absolute;
+	}
+	 
+	#noticias .owl-theme .owl-controls .owl-buttons .owl-prev{
+	  left: -50px;
+	  top: 50px; 
+	      position: absolute;
+	}
+	 
+	#noticias .owl-theme .owl-controls .owl-buttons .owl-next{
+	  right: -118px;
+	  top: 45px;
+	      position: absolute;
+	}
+	
+	#noticias .owl-carousel {
+	    display: none;
+	    position: relative;
+	    width: 95%;
+	    -ms-touch-action: pan-y;
+	    margin-left: 1%;
+	}
 
-.social div a:hover {
-	width: auto;
-	background: rgba(135, 121, 111, 0.84);
-	/* Cambiamos el fondo cuando el usuario pase el mouse */
-	padding: 10px 30px; /* Hacemos mas grande el espacio cuando el
-		usuario pase el mouse */
-}
-
-/* estilos para seccion noticias */
-#owlNoticias .item {
-	padding: 25px 62px 25px 10px;
-	margin: 5px;
-	-webkit-border-radius: 3px;
-	-moz-border-radius: 3px;
-	border-radius: 3px;
-	text-align: justify;
-}
-
-#owlNoticias .owl-theme .owl-controls .owl-buttons div {
-	padding: 5px 40px;
-}
-
-#owlNoticias .owl-theme .owl-buttons span {
-	margin-top: 2px;
-}
-
-//
-To move navigation buttons outside use these settings:
- 
-#owlNoticias .owl-theme .owl-controls .owl-buttons div {
-	position: absolute;
-}
-
-#owlNoticias.owl-theme .owl-controls .owl-buttons .owl-prev {
-	left: -50px;
-	top: 60px;
-	position: absolute;
-}
-
-#owlNoticias.owl-theme .owl-controls .owl-buttons .owl-next {
-	right: -1px;
-	top: 60px;
-	position: absolute;
-}
-
-#owlNoticias.owl-carousel {
-	display: none;
-	position: relative;
-	-ms-touch-action: pan-y;
-		margin-left: 4%;/*nuevo*/
-
-}
-/* estilos para seccion noticias */
-
-/* estilos para seccion galeria */
-#galeria .galeria .row {
-	margin-bottom: 0;
-}
-
-#galeria .galeria h4 {
-	background: #87796f;
-	color: #ffffff;
-	margin: 0;
-	padding: 15px 0;
-}
-
-#galeria .galeria .seccion {
-	background: url("../../../imagenes/portal/fondo-body2.png") no-repeat;
-	height: 450px;
-	padding: 30px;
-}
-
-#galeria .seccion .fotos {
-	text-align: center;
-	width: 80%;
-}
-
-#galeria .galeria .seccion img {
-	margin-top: 30px;
-	height: 120px;
-	width: 300px;
-	border: 4px solid #87796f
-}
-/* estilos para seccion galeria */
+/* estilos para seccion conocenos_twitter */
+	
+	#conocenos h6 {
+		padding-top: 18px; 
+		color: #87796F; 
+		font-weight: bold; 
+		text-transform: uppercase;
+	}
 
 /* estilos para seccion eventos */
-#eventos .eventos h4 {
-	background-color: #d9eb52;
-	color: #a0958e;
-	margin: 0;
-	padding: 15px 0;
-}
 
-#eventos .eventos .seccion {
-	padding-top: 20px;
-}
-
-#eventos .subtitulo {
-	font-size: 1.3em;
-	font-weight: bold;
-	color: #8ac7de;
-	text-transform: uppercase;
-}
-
-#eventos .info {
-	padding: 0 15px;
-	height: 130px;
-}
-
-#eventos .info b {
-	color: #f26b7a;
-	font-weight: bold;
-}
-/* estilos para seccion eventos */
+	#eventos h4 {
+		background-color: #d9eb52;
+		color: #a0958e;
+		margin: 0;
+		padding: 15px 0;
+	}
+	
+	#eventos .seccion {
+		padding-top: 20px;
+	}
+	
+	#eventos .subtitulo {
+		font-size: 1.3em;
+		font-weight: bold;
+		color: #8ac7de;
+		text-transform: uppercase;
+	}
+	
+	#eventos .info {
+	    padding: 0 15px;
+	    height: 130px;
+	}
+	
+	#eventos .info b {
+		color: #f26b7a;
+		font-weight: bold;
+	}
 
 /* estilos para seccion participa */
-.participa h4 {
-	background-color: #f26b7a;
-	color: #ffffff;
-	margin: 0;
-	padding: 15px 0;
+	#participa h4 {
+		background-color: #f26b7a;
+		color: #ffffff;
+		margin: 0;
+		padding: 15px 0;
+	}
+	
+	#participa .seccion {
+		padding-top: 20px;
+	}
+
+
+.col.s6.participa,.col.s6.eventos {
+	padding: 0;
 }
 
-.participa .seccion {
-	padding-top: 20px;
-}
-/* estilos para seccion participa */
+/* Menu flotante */
+	.social .icon span {
+		display: none;
+	}
+	
+	.social .icon:hover span {
+		display: initial;
+		margin-left: 5px;
+		text-transform: uppercase;
+	}
+	
+	.social {
+		position: fixed; /* Hacemos que la posición en
+			pantalla sea fija para que siempre se muestre en pantalla*/
+		left: 0; /* Establecemos la barra en la izquierda */
+		top: 200px;
+		/* Bajamos la barra 200px de arriba a abajo */
+		z-index: 2000; /*
+			Utilizamos la propiedad z-index para que no se superponga algún
+			otro elemento como sliders, galerías, etc */
+	}
+	
+	.social div>div {
+		margin-bottom: 1px;
+	}
+	
+	.social div a {
+		display: inline-block;
+		color: #fff;
+		background: #000;
+		padding: 8px 12px;
+		text-decoration: none;
+		-webkit-transition: all 500ms ease;
+		-o-transition: all 500ms ease;
+		transition: all 500ms ease; /* Establecemos una transición a
+			todas las propiedades */
+	}
+	
+	.social div .icon {
+		width: 44px;
+		background: #87796F;
+	}
+	
+	.social div .icon i {
+		color: #DB6E78;
+		font-size: 20px;
+	}
+	
+	.social div a:hover {
+		width: auto;
+		background: rgba(135, 121, 111, 0.84);
+		/* Cambiamos el fondo cuando el usuario pase el mouse */
+		padding: 10px 30px; /* Hacemos mas grande el espacio cuando el
+			usuario pase el mouse */
+	}
+
+/* estilos para seccion galeria */
+	
+	#galeria h4 {
+		background: #8ac7de;
+		color: #ffffff;
+		margin: 0;
+		padding: 15px 0;
+	}
+	
+	#galeria img {
+		margin: 0 auto;	
+		margin-top: 30px;
+	}
+	
+	#galeria .col.s12 {
+		position: relative;
+	}
+	
+	#galeria span {
+	    position: absolute;
+	    top: 50%;
+	    left: 38%;
+	    color: yellow;
+	    text-transform: uppercase;
+	    width: 100px;
+	}
+	
+	#galeria .col.s12:hover {
+		opacity: .5;
+		cursor: pointer;
+	}
+	
+	#galeria>div.s5 {
+		padding:0px;
+	}
 
 /* estilos para seccion comunidad */
-#comunidad .comunidad .row {
-	margin-bottom: 0;
-}
+	#comunidad .comunidad .row { 
+		margin-bottom: 0; 
+	}
+	
+	#comunidad .comunidad h4 { 
+		background: #87796f; 
+		color: #ffffff; 
+		margin: 0;
+		padding: 15px 0; 
+	}
+	
+	.medallas {
+		margin-top: 15px;
+	}
+	
+	#comunidad .medallas .fotos {
+		position: relative;
+	}
+	
+	#comunidad .medallas .fotos img:nth-of-type(1){
+		position: absolute;     
+		width: 100px;      
+		height: 100px;    
+		top: 35px;    
+		left: 59px;
+	}
+	
+	
+	position: absolute;     width: 100px;      height: 100px;    top: 35px;    left: 59px;
 
-#comunidad .comunidad h4 {
-	background: #87796f;
-	color: #ffffff;
-	margin: 0;
-	padding: 15px 0;
-}
-
-#comunidad .comunidad .seccion {
-	background: url("../../../imagenes/portal/fondo-body2.png") no-repeat;
-	height: auto;
-	padding: 30px;
-}
-
-#comunidad .seccion .fotos {
-	text-align: center;
-	width: 80%;
-}
-
-#comunidad .comunidad .seccion img {
-	height: auto;
-	width: auto;
-	border: none
-}
-/* estilos para seccion comunidad */
-
-/* estilos para seccion twitter */
-#twitter #owlTwitter .item {
-	display: block;
-	padding: 16px 1px;
-	margin: 5px;
-	-webkit-border-radius: 3px;
-	-moz-border-radius: 3px;
-	border-radius: 3px;
-	text-align: justify;
-}
-
-.owl-theme
-#twitter .owl-controls .owl-buttons div {
-	padding: 5px 40px;
-}
-
-#twitter .owl-theme .owl-buttons span {
-	margin-top: 2px;
-}
-
-//
-To move navigation buttons outside use these settings:
-
-#twitter .owl-theme .owl-controls .owl-buttons div {
-	position: absolute;
-}
-
-#twitter .owl-theme .owl-controls .owl-buttons .owl-prev {
-	left: -50px;
-	top: 50px;
-	position: absolute;
-}
-
-#twitter .owl-theme .owl-controls .owl-buttons .owl-next {
-	right: -118px;
-	top: 45px;
-	position: absolute;
-}
-
-#twitter .owl-carousel {
-	display: none;
-	position: relative;
-	-ms-touch-action: pan-y;
-	margin-left: 1%;
-}
-
-#twitter .item-twitter span {
-	font-size: 16px;
-	color: white;
-}
-
-/* estilos para seccion twitter */
+	.comunidad_galeria {
+	    margin-bottom: 0;
+	    padding-bottom: 10px;
+	    background: url("/SmileWebApp/imagenes/portal/fondo-body2.png");
+	}

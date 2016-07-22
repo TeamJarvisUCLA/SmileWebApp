@@ -1,5 +1,9 @@
 <zk xmlns:n="native" xmlns:w="client">
 <n:link href="assets/css/web/galeria.css" rel="stylesheet" type="text/css"></n:link>
+
+		<div sclass="row" apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('ve.smile.web.viewmodels.VM_Main')">
+
 		<div class="container-fluid galeria">
 			<n:h4>fotos</n:h4>
 			<n:div id="fotos">
@@ -47,7 +51,7 @@
 								<image src="/imagenes/portal/galeria1.png"></image>
 								<span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus at officiis amet</span>
 								<div class="col s12 link">
-									<a>8 Fotos</a>
+									<a onClick="@command('album')">8 Fotos</a>
 								</div>
 							</div>
 							<div class="col s4">
@@ -57,7 +61,7 @@
 								<image src="/imagenes/portal/galeria2.png"></image>
 								<span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus at officiis amet</span>
 								<div class="col s12 link">
-									<a>30 Fotos</a>
+									<a onClick="@command('album')">30 Fotos</a>
 								</div>							
 							</div>
 							<div class="col s4">
@@ -67,7 +71,7 @@
 								<image src="/imagenes/portal/galeria3.jpg"></image>
 								<span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus at officiis amet</span>
 								<div class="col s12 link">
-									<a>12 Fotos</a>
+									<a onClick="@command('album')">12 Fotos</a>
 								</div>							
 							</div>	
 						</div>
@@ -81,7 +85,7 @@
 								<image src="/imagenes/portal/galeria1.png"></image>
 								<span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus at officiis amet</span>
 								<div class="col s12 link">
-									<a>16 Fotos</a>
+									<a onClick="@command('album')">16 Fotos</a>
 								</div>							
 							</div>
 							<div class="col s4">
@@ -91,7 +95,7 @@
 								<image src="/imagenes/portal/galeria2.png"></image>
 								<span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus at officiis amet</span>
 								<div class="col s12 link">
-									<a>5 Fotos</a>
+									<a onClick="@command('album')">5 Fotos</a>
 								</div>							
 							</div>
 							<div class="col s4 icon">
@@ -104,6 +108,8 @@
 					</div>		
 				</div>
 			</n:div>
+		</div>
+		
 		</div>
 		
 <n:script type="text/javascript">

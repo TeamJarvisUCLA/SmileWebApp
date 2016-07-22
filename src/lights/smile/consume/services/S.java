@@ -1,5 +1,6 @@
 package lights.smile.consume.services;
 
+import ve.smile.consume.services.ClasificadorEventoService;
 import lights.seguridad.consume.services.MensajeSistemaService;
 import lights.seguridad.consume.services.OperacionService;
 import lights.seguridad.consume.services.SclassService;
@@ -33,6 +34,7 @@ public class S {
 	public static MetodoDaoService MetodoDaoService;
 	public static MensajeSistemaService MensajeSistemaService;
 	public static SclassService SclassService;
+	public static ClasificadorEventoService ClasificadorEventoService;
 	
 	public static ModeloService ModeloService;
 	
@@ -53,5 +55,6 @@ public class S {
 		MensajeSistemaService = new MensajeSistemaService();
 		ModeloService = new ModeloService();
 		SclassService = new SclassService();
+		ClasificadorEventoService = new ClasificadorEventoService();
 	}
 }

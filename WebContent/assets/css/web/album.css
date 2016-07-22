@@ -2,6 +2,15 @@
 	background: url("/SmileWebApp/imagenes/portal/fondo.png");
 }
 
+.album .row{
+	margin-bottom: 0;
+	padding-bottom: 20px;
+}
+
+button {
+	background: #3b85a1 !important;
+}
+
 .col.s12.title {
 	padding: 30px 0;
 }
@@ -24,8 +33,26 @@
 .info {
     display: inline;
 }
+
 .info span {
     margin: 0 10px;
+    color: #f26b7a;
+    font-weight: bold;
+}
+
+.detalle>span {
+	font-size: 7px;
+    vertical-align: middle;
+}
+
+.citas span.fa {
+	margin-left: 10px;
+	font-size: 7px;
+    vertical-align: text-top;
+}
+
+.detalle .info:nth-of-type(2n+1) span{
+    color: #8AC7DE;
 }
 
 .album .descrip{
@@ -34,6 +61,7 @@
 }
 
 .divTag {
+	margin: 0 5px;
     background-color: #E5CCFF;
     border-radius: 20px;
     padding: 7px 16px;
@@ -46,4 +74,48 @@
 	padding: 10px 10px;
 	font-size: 1.4em;
 	margin: 0 1.5rem;
+}
+
+.comentarios .row {
+    margin: 0 1.5rem 20px;
+    background: #f0f2dc;
+    padding: 8px;
+}
+
+.comentarios .star-mail {
+	padding-top: 10px;
+}
+
+.comentarios span.fa-star {
+	color: yellow;
+	text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+
+.comentarios span.email {
+	float: right;
+	color: #3b85a1;
+}
+
+.comentarios button {
+	float: right;
+	margin: 0 1rem;;
+}
+
+/* estilos para el modal */
+
+#modalFormComentarios .close {
+	opacity: 1;
+	text-align: right;
+}
+#modalFormComentarios .close span{
+	font-size: 18px;
+}
+
+#modalFormComentarios h6{
+	color: #f26b7a;
+	font-weight: bold
+}
+
+#modalFormComentarios .form div:nth-of-type(4){
+	margin-bottom: 10px;
 }

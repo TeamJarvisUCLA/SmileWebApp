@@ -1,64 +1,69 @@
-.z-tabbox {
-   min-height: 300px !important;
-}
-
-.z-tabs{
-	
-	min-height: 300px !important;
-}
-.z-tabbox-left>.z-tabpanels {
-	border: 0px;
-	border-left: 0px;
-}
-
-.z-tabbox-accordion .z-tabpanel>.z-tab {
-	border-width: 1px 1px 1px;
-	text-align: left;
-	float: none;
-	zoom: 1;
-	border-color: #F0F2DC;
-	background-color: #F0F2DC;
-	border-radius: 4px;
-}
-
-.z-tabbox-accordion>.z-tabpanels>.z-tabpanel {
-	border: 0px;
-	padding: 2px;
-}
-
-.menuPrincipal .z-tabs {
-	background-color: #87796f;
-}
-
-.z-tabbox-left>.z-tabpanels>.z-tabpanel {
-	border: 0;
-	padding: 13px;
-}
-
-.z-tabbox-left>.z-tabs .z-tab {
-	border-width: 1px 0px 1px;
-	border-color: #F26B7A;
-	float: none;
-	border-radius: 0px !important;
-}
-
-.z-tabbox-accordion.z-tabpanel>.z-tabpanel-content {
-	border: 1px solid #f0f2dc;
-	border-top: 3px;
-	padding: 5px;
-	zoom: 1;
-	background-color: #f0f2dc;
-}
-
-.tabsitos a span {
-	background-color: #F0F2DC;
-	color: #87796F;
-	font-size: 12px;
-	font-weigth: bold;
-}
 
 a:hover,a:focus {
 	text-decoration: none;
+}
+
+.btn {
+	margin-bottom: 0;
+	font-size: 14px;
+	font-weight: 400;
+	line-height: 1.42857143;
+	text-align: center;
+	vertical-align: middle;
+	-ms-touch-action: manipulation;
+	touch-action: manipulation;
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	background-image: none;
+	color: #ffffff;
+	background-color: #044159;
+	border-radius: 4px;
+}
+body {
+    padding: 0;
+    background-color: #e4e6e9;
+    min-height: 100%;
+    font-family: "Roboto",sans-serif !important;
+    font-size: 12px; 
+    color: #393939;
+    line-height: 1.72;
+}
+.carousel {
+	position: relative;
+	/* 	height: 235px; */
+}
+.container.menu {
+	width: 100%;
+	/* 	height: 450px; */
+	margin: 0px;
+	padding: 0px;
+}
+div.barra-verde span {
+	font-weigth: bold;
+	padding-top: 5px;
+	color: #87796F;
+}
+
+div.barra-verde {
+	width: 100%;
+	/* 	height: 40px; */
+	background-color: #d9eb52;
+	color: #F26B7A;
+}
+element.style {
+	/* 	height: 200px; */
+	display: block;
+}
+.info span {
+	color: #87796f;
+}
+
+
+.menuPrincipal .z-tabs {
+	background-color: #87796f;
 }
 
 .menuPrincipal>ul>li:hover {
@@ -81,131 +86,22 @@ a:hover,a:focus {
 	list-style-type: none;
 }
 
-.carousel {
-	position: relative;
-	/* 	height: 235px; */
-}
-
-.btn {
-	margin-bottom: 0;
-	font-size: 14px;
-	font-weight: 400;
-	line-height: 1.42857143;
-	text-align: center;
-	vertical-align: middle;
-	-ms-touch-action: manipulation;
-	touch-action: manipulation;
-	cursor: pointer;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-	background-image: none;
-	color: #ffffff;
-	background-color: #044159;
-	border-radius: 4px;
-}
-
-.z-tab {
-	/* 	height: 2%; */
-	border-color: #F26B7A;
-	font-size: 16px;
-	display: block;
-	line-height: 30px;
-	text-align: center;
-	position: relative;
-	float: left;
-	color: #FFF;
-	margin: 0;
-	padding-top: 1px;
-	line-height: 30px;
-	background: #87796f;
-	text-align: center;
-	position: relative;
-	cursor: pointer;
-	float: left;
-	border-top: 0px;
-}
-
-.z-tabbox-accordion .z-tabpanel>.z-tabpanel-content {
-	border: 0px;
-	border-top: 0;
-	padding: 5px;
-	zoom: 1;
-	/* 	height: 250px; */
-}
-
-.z-tab-text {
-	font-style: normal;
-	color: #FFF;
-	display: block;
-	padding: 20px;
-	line-height: 24px;
-	overflow: hidden;
-}
-
-element.style {
-	/* 	height: 200px; */
-	display: block;
-}
-
-.z-tabbox-accordion .z-tabpanel>.z-tab {
-	border-width: 1px 1px 1px;
-	text-align: left;
-	float: none;
-	zoom: 1;
-	border-color: #F0F2DC;
-	background-color: #F0F2DC;
-	border-radius: 4px;
-	height: 30px;
-}
-
-.z-tabbox-accordion>.z-tabpanels {
-	border-top: 0px;
-}
-
 .requisitos span {
 	color: #87796f;
 	font-weigth: bold;
+	align:center;
+	text-align: center;
 }
-
-.info span {
-	color: #87796f;
-}
-
-div.barra-verde span {
-	font-weigth: bold;
-	padding-top: 5px;
-	color: #87796F;
-}
-
-div.barra-verde {
-	width: 100%;
-	/* 	height: 40px; */
-	background-color: #d9eb52;
-	color: #F26B7A;
-}
-
-.container.menu {
-	width: 100%;
-	/* 	height: 450px; */
-	margin: 0px;
-	padding: 0px;
-}
-
-.z-tabbox-accordion .z-tab-text {
-	padding: 1px 1px 1px 1px;
-}
-
 .seccion {
 	margin-top: 20px;
 }
 
-.z-tabbox-left>.z-tabs .z-tabs-content {
-	display: block;
-	height: 4096px;
-	border-right: none !important;
-	background: #87796f;
+
+.tabsitos a span {
+	background-color: #F0F2DC;
+	color: #87796F;
+	font-size: 12px;
+	font-weigth: bold;
 }
 
 #owlDemo.owl-carousel.owl-theme {
@@ -241,3 +137,121 @@ div.barra-verde {
 	top: 200px;
 	position: absolute;
 }
+
+.z-tabbox {
+   min-height: 300px !important;
+}
+
+.z-tabs{
+	
+	min-height: 300px !important;
+}
+.z-tabbox-left>.z-tabpanels {
+	border: 0px;
+	border-left: 0px;
+}
+
+.z-tabbox-accordion .z-tabpanel>.z-tab {
+	border-width: 1px 1px 1px;
+	text-align: left;
+	float: none;
+	zoom: 1;
+	border-color: #F0F2DC;
+	background-color: #F0F2DC;
+	border-radius: 4px;
+}
+
+.z-tabbox-accordion>.z-tabpanels>.z-tabpanel {
+	border: 0px;
+	padding: 2px;
+}
+
+
+.z-tabbox-left>.z-tabpanels>.z-tabpanel {
+	border: 0;
+	padding: 13px;
+}
+
+.z-tabbox-left>.z-tabs .z-tab {
+	border-width: 1px 0px 1px;
+	border-color: #F26B7A;
+	float: none;
+	border-radius: 0px !important;
+}
+
+.z-tabbox-accordion.z-tabpanel>.z-tabpanel-content {
+	border: 1px solid #f0f2dc;
+	border-top: 3px;
+	padding: 5px;
+	zoom: 1;
+	background-color: #f0f2dc;
+}
+
+.z-tab {
+	/* 	height: 2%; */
+	border-color: #F26B7A;
+	font-size: 16px;
+	display: block;
+	line-height: 30px;
+	text-align: center;
+	position: relative;
+	float: left;
+	color: #FFF;
+	margin: 0;
+	padding-top: 1px;
+	line-height: 30px;
+	background: #87796f;
+	text-align: center;
+	position: relative;
+	cursor: pointer;
+	float: left;
+	border-top: 0px;
+}
+
+.z-tabbox-accordion .z-tabpanel>.z-tabpanel-content {
+	border: 0px;
+	border-top: 0;
+	padding: 5px;
+	zoom: 1;
+		
+}
+
+
+.z-tab-text {
+	font-style: normal;
+	color: #FFF;
+	display: block;
+	padding: 20px;
+	line-height: 24px;
+	overflow: hidden;
+}
+
+
+
+.z-tabbox-accordion .z-tabpanel>.z-tab {
+	border-width: 1px 1px 1px;
+	text-align: left;
+	float: none;
+	zoom: 1;
+	border-color: #F0F2DC;
+	background-color: #F0F2DC;
+	border-radius: 4px;
+	height: 30px;
+}
+
+.z-tabbox-accordion>.z-tabpanels {
+	border-top: 0px;
+}
+
+.z-tabbox-accordion .z-tab-text {
+	padding: 1px 1px 1px 1px;
+}
+
+
+.z-tabbox-left>.z-tabs .z-tabs-content {
+	display: block;
+	height: 4096px;
+	border-right: none !important;
+	background: #87796f;
+}
+

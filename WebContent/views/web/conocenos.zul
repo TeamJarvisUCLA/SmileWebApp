@@ -156,7 +156,7 @@
 								reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
 								Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia 
 								deserunt mollit anim id est laborum.</n:p>
-								<div class="circle" style="background-image: url(imagenes/estadistica3.png)"></div>
+								<image class="circle materialboxed" src="/imagenes/portal/estadistica1.png"></image>
 							</div>
 						</div>
 						<div class="col-xs-4" align="center">
@@ -166,7 +166,7 @@
 								sed eiusmod tempor incidunt ut labore et dolore magna aliqua. 
 								Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia 
 								deserunt mollit anim id est laborum.</n:p>
-								<div class="circle" style="background-image: url(imagenes/estadistica1.png)"></div>	
+								<image class="circle materialboxed" src="/imagenes/portal/estadistica2.png"></image>
 							</div>	
 						</div>
 						<div class="col-xs-4" align="center">
@@ -176,7 +176,7 @@
 								sed eiusmod tempor incidunt ut labore et dolore magna aliqua. 
 								Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia 
 								deserunt mollit anim id est laborum.</n:p>
-								<div class="circle" style="background-image: url(imagenes/estadistica2.png)"></div>	
+								<image class="circle materialboxed" src="/imagenes/portal/estadistica3.png"></image>	
 							</div>
 						</div>
 					</div>
@@ -215,5 +215,15 @@
     			</div>
 			</div>
 		</div>	
-	</div>	
+	</div>
+	
+<n:script type="text/javascript">
+	$(document).ready(function() {
+	  
+	   $('.materialboxed').materialbox();
+	
+	});
+ 	
+</n:script>	
+		
 </zk>

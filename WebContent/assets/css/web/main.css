@@ -83,6 +83,10 @@ h4 {
 	  text-align: justify;
 	}
 	
+	#noticias #owlNoticias .item:hover{
+		cursor: pointer;
+	}
+	
 	#noticias #owlNoticias .item .title{
 		color: #f26b7a; 
 		font-weight: bold;
@@ -285,6 +289,21 @@ h4 {
 	.medallas {
 		margin-top: 15px;
 	}
+	
+	#comunidad .medallas .fotos {
+		position: relative;
+	}
+	
+	#comunidad .medallas .fotos img:nth-of-type(1){
+		position: absolute;     
+		width: 100px;      
+		height: 100px;    
+		top: 35px;    
+		left: 59px;
+	}
+	
+	
+	position: absolute;     width: 100px;      height: 100px;    top: 35px;    left: 59px;
 
 	.comunidad_galeria {
 	    margin-bottom: 0;

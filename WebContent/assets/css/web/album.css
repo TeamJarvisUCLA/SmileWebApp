@@ -101,3 +101,21 @@ button {
 	margin: 0 1rem;;
 }
 
+/* estilos para el modal */
+
+#modalFormComentarios .close {
+	opacity: 1;
+	text-align: right;
+}
+#modalFormComentarios .close span{
+	font-size: 18px;
+}
+
+#modalFormComentarios h6{
+	color: #f26b7a;
+	font-weight: bold
+}
+
+#modalFormComentarios .form div:nth-of-type(4){
+	margin-bottom: 10px;
+}

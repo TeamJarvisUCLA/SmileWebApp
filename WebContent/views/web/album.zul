@@ -92,6 +92,17 @@
 					</div>
 				</n:div>
 			</div>
+			<div class="col s12 paginacion text-center">
+				<n:ul class="pagination">
+<!-- 				    <n:li class="disabled"><span class="fa fa-angle-left"></span></n:li> -->
+   				    <n:li class="waves-effect"><span class="fa fa-angle-left"></span></n:li>
+				    <n:li class="active">1</n:li>
+				    <n:li class="waves-effect">2</n:li>
+				    <n:li class="waves-effect">3</n:li>
+				    <n:li class="waves-effect">4</n:li>
+				    <n:li class="waves-effect"><span class="fa fa-angle-right"></span></n:li>
+				</n:ul>
+			</div>
 			<div class="col s12 comentarios">
 				<n:h4>Comentarios</n:h4>
 				<div class="row">

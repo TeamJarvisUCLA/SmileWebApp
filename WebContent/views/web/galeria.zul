@@ -105,4 +105,14 @@
 				</div>
 			</n:div>
 		</div>
+		
+<n:script type="text/javascript">
+	$(document).ready(function() {
+	  
+	   $('.materialboxed').materialbox();
+	
+	});
+ 	
+</n:script>
+		
 </zk>

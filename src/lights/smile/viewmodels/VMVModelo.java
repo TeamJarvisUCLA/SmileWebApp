@@ -26,8 +26,8 @@ import karen.core.form.viewmodels.VM_WindowForm;
 import karen.core.util.UtilDialog;
 import karen.core.util.payload.UtilPayload;
 import karen.core.util.validate.UtilValidate;
-import lights.seguridad.enums.OperacionEnum;
 import lights.smile.consume.services.S;
+import lights.seguridad.enums.OperacionEnum;
 import lights.smile.payload.response.PayloadModeloResponse;
 import lights.smile.dto.Modelo;
 
@@ -35,27 +35,30 @@ public class VMVModelo extends VM_WindowForm {
 
 	private byte[] bytesRostro = null;
 	private byte[] bytesCuerpo = null;
-	
+
 	@Init(superclass = true)
 	public void childInit() {
-		//NOTHING OK!
+		// NOTHING OK!
 	}
 
 	@Override
 	public List<OperacionForm> getOperationsForm(OperacionEnum operacionEnum) {
 		List<OperacionForm> operacionesForm = new ArrayList<OperacionForm>();
 
-		if (operacionEnum.equals(OperacionEnum.INCLUIR) ||
-				operacionEnum.equals(OperacionEnum.MODIFICAR)) {
+		if (operacionEnum.equals(OperacionEnum.INCLUIR)
+				|| operacionEnum.equals(OperacionEnum.MODIFICAR)) {
 
-			operacionesForm.add(OperacionFormHelper.getPorType(OperacionFormEnum.GUARDAR));
-			operacionesForm.add(OperacionFormHelper.getPorType(OperacionFormEnum.CANCELAR));
+			operacionesForm.add(OperacionFormHelper
+					.getPorType(OperacionFormEnum.GUARDAR));
+			operacionesForm.add(OperacionFormHelper
+					.getPorType(OperacionFormEnum.CANCELAR));
 
 			return operacionesForm;
 		}
 
 		if (operacionEnum.equals(OperacionEnum.CONSULTAR)) {
-			operacionesForm.add(OperacionFormHelper.getPorType(OperacionFormEnum.SALIR));
+			operacionesForm.add(OperacionFormHelper
+					.getPorType(OperacionFormEnum.SALIR));
 
 			return operacionesForm;
 		}
@@ -66,22 +69,24 @@ public class VMVModelo extends VM_WindowForm {
 
 	@Override
 	public boolean actionGuardar(OperacionEnum operacionEnum) {
-		if(!isFormValidated()) {
+		if (!isFormValidated()) {
 			return true;
 		}
 
 		if (operacionEnum.equals(OperacionEnum.INCLUIR)) {
-			PayloadModeloResponse payloadModeloResponse =
-					S.ModeloService.incluir(getModelo());
+			PayloadModeloResponse payloadModeloResponse = S.ModeloService
+					.incluir(getModelo());
 
 			Alert.showMessage(payloadModeloResponse);
-			
-			if(!UtilPayload.isOK(payloadModeloResponse)) {
+
+			if (!UtilPayload.isOK(payloadModeloResponse)) {
 				return true;
 			}
-			
-			getModelo().setIdModelo(((Double) payloadModeloResponse.getInformacion("id")).intValue());
-			
+
+			getModelo().setIdModelo(
+					((Double) payloadModeloResponse.getInformacion("id"))
+							.intValue());
+
 			guardarImagenes();
 
 			DataCenter.reloadCurrentNodoMenu();
@@ -90,15 +95,15 @@ public class VMVModelo extends VM_WindowForm {
 		}
 
 		if (operacionEnum.equals(OperacionEnum.MODIFICAR)) {
-			PayloadModeloResponse payloadModeloResponse =
-					S.ModeloService.modificar(getModelo());
+			PayloadModeloResponse payloadModeloResponse = S.ModeloService
+					.modificar(getModelo());
 
 			Alert.showMessage(payloadModeloResponse);
-			
-			if(!UtilPayload.isOK(payloadModeloResponse)) {
+
+			if (!UtilPayload.isOK(payloadModeloResponse)) {
 				return true;
 			}
-			
+
 			guardarImagenes();
 
 			DataCenter.reloadCurrentNodoMenu();
@@ -110,31 +115,37 @@ public class VMVModelo extends VM_WindowForm {
 	}
 
 	public void guardarImagenes() {
-		
+
 		Integer idModelo = getModelo().getIdModelo();
-		
+
 		if (bytesRostro != null) {
 			try {
-				FileUtils.writeByteArrayToFile(
-						new File("/home/tranx6/CAJAFUERTE/Promo54/Imagenes/m_r_" + idModelo), bytesRostro);
+				FileUtils.writeByteArrayToFile(new File(
+						"/home/tranx6/CAJAFUERTE/Promo54/Imagenes/m_r_"
+								+ idModelo), bytesRostro);
 			} catch (IOException e) {
-				UtilDialog.showMessageBoxError("Ha ocurrido un error al guardar la imágen del rostro");
+				UtilDialog
+						.showMessageBoxError("Ha ocurrido un error al guardar la imágen del rostro");
 			}
 		} else {
-			new File("/home/tranx6/CAJAFUERTE/Promo54/Imagenes/m_r_" + idModelo).delete();
+			new File("/home/tranx6/CAJAFUERTE/Promo54/Imagenes/m_r_" + idModelo)
+					.delete();
 		}
-		
+
 		if (bytesCuerpo != null) {
 			try {
-				FileUtils.writeByteArrayToFile(
-						new File("/home/tranx6/CAJAFUERTE/Promo54/Imagenes/m_c_" + idModelo), bytesCuerpo);
+				FileUtils.writeByteArrayToFile(new File(
+						"/home/tranx6/CAJAFUERTE/Promo54/Imagenes/m_c_"
+								+ idModelo), bytesCuerpo);
 			} catch (IOException e) {
-				UtilDialog.showMessageBoxError("Ha ocurrido un error al guardar la imágen del cuerpo completo");
+				UtilDialog
+						.showMessageBoxError("Ha ocurrido un error al guardar la imágen del cuerpo completo");
 			}
 		} else {
-			new File("/home/tranx6/CAJAFUERTE/Promo54/Imagenes/m_c_" + idModelo).delete();
+			new File("/home/tranx6/CAJAFUERTE/Promo54/Imagenes/m_c_" + idModelo)
+					.delete();
 		}
-		
+
 	}
 
 	@Override
@@ -155,32 +166,40 @@ public class VMVModelo extends VM_WindowForm {
 
 	public boolean isFormValidated() {
 		try {
-			UtilValidate.validateString(getModelo().getNombres(), "Nombres", 195);
-			
-			UtilValidate.validateString(getModelo().getApellidos(), "Apellidos", 195);
-			
+			UtilValidate.validateString(getModelo().getNombres(), "Nombres",
+					195);
+
+			UtilValidate.validateString(getModelo().getApellidos(),
+					"Apellidos", 195);
+
 			UtilValidate.validateString(getModelo().getEdad(), "Edad", 195);
-			
-			UtilValidate.validateString(getModelo().getColorPiel(), "Color de Piel", 195);
-			
-			UtilValidate.validateString(getModelo().getColorCabello(), "Color de Cabello", 195);
-			
-			UtilValidate.validateString(getModelo().getColorOjos(), "Color de Ojos", 195);
-			
-			UtilValidate.validateString(getModelo().getEstatura(), "Estatura", 195);
-			
+
+			UtilValidate.validateString(getModelo().getColorPiel(),
+					"Color de Piel", 195);
+
+			UtilValidate.validateString(getModelo().getColorCabello(),
+					"Color de Cabello", 195);
+
+			UtilValidate.validateString(getModelo().getColorOjos(),
+					"Color de Ojos", 195);
+
+			UtilValidate.validateString(getModelo().getEstatura(), "Estatura",
+					195);
+
 			UtilValidate.validateString(getModelo().getPeso(), "peso", 195);
-			
+
 			UtilValidate.validateString(getModelo().getTalla(), "Talla", 195);
-			
-			UtilValidate.validateString(getModelo().getActividades(), "Actividades", 195);
-			
-			UtilValidate.validateString(getModelo().getNumero(), "Número", 195);
-			
+
+			UtilValidate.validateString(getModelo().getActividades(),
+					"Actividades", 195);
+
+			UtilValidate
+					.validateString(getModelo().getNumero(), "Número", 195);
+
 			return true;
 		} catch (Exception e) {
 			Alert.showMessage(e.getMessage());
-			
+
 			return false;
 		}
 	}
@@ -188,39 +207,40 @@ public class VMVModelo extends VM_WindowForm {
 	public void setFechaNacimiento(Timestamp asignacion) {
 		getModelo().setFechaNacimiento(asignacion.getTime());
 	}
-	
+
 	public Timestamp getFechaNacimiento() {
 		if (getModelo().getFechaNacimiento() == null) {
-			getModelo().setFechaNacimiento(Calendar.getInstance().getTimeInMillis());
+			getModelo().setFechaNacimiento(
+					Calendar.getInstance().getTimeInMillis());
 		}
 		return new Timestamp(getModelo().getFechaNacimiento());
 	}
-	
+
 	@Override
 	public void onUploadImageSingle(UploadEvent event, String idUpload) {
 		org.zkoss.util.media.Media media = event.getMedia();
-		
-        if (media instanceof org.zkoss.image.Image) {
-        	if (idUpload.equals("1")) {
-        		bytesRostro = media.getByteData();
-        	} else {
-        		bytesCuerpo = media.getByteData();
-        	}
-        	
-        }
+
+		if (media instanceof org.zkoss.image.Image) {
+			if (idUpload.equals("1")) {
+				bytesRostro = media.getByteData();
+			} else {
+				bytesCuerpo = media.getByteData();
+			}
+
+		}
 	}
-	
+
 	@Override
 	public void onRemoveImageSingle(String idUpload) {
 		if (idUpload.equals("1")) {
-    		bytesRostro = null;
-    	} else {
-    		bytesCuerpo = null;
-    	}
+			bytesRostro = null;
+		} else {
+			bytesCuerpo = null;
+		}
 	}
 
-	//FotoRostro
-	
+	// FotoRostro
+
 	public BufferedImage getImageContent() {
 		try {
 			return loadImage();
@@ -228,26 +248,31 @@ public class VMVModelo extends VM_WindowForm {
 			return null;
 		}
 	}
-	
+
 	private BufferedImage loadImage() throws Exception {
 		try {
 			Integer idModelo = getModelo().getIdModelo();
-			
+
 			if (idModelo == null) {
 				return null;
 			}
-			
-			Path pathRostro = Paths.get("/home/tranx6/CAJAFUERTE/Promo54/Imagenes/m_r_" + idModelo);
-			
+
+			Path pathRostro = Paths
+					.get("/home/tranx6/CAJAFUERTE/Promo54/Imagenes/m_r_"
+							+ idModelo);
+
 			bytesRostro = Files.readAllBytes(pathRostro);
-			
-			return ImageIO.read(new File("/home/tranx6/CAJAFUERTE/Promo54/Imagenes/m_r_" + idModelo));
+
+			return ImageIO
+					.read(new File(
+							"/home/tranx6/CAJAFUERTE/Promo54/Imagenes/m_r_"
+									+ idModelo));
 		} catch (Exception e) {
 			return null;
 		}
 	}
-	
-	//FotoCuerpo
+
+	// FotoCuerpo
 	public BufferedImage getImageContent2() {
 		try {
 			return loadImage2();
@@ -255,20 +280,25 @@ public class VMVModelo extends VM_WindowForm {
 			return null;
 		}
 	}
-	
+
 	private BufferedImage loadImage2() throws Exception {
 		try {
 			Integer idModelo = getModelo().getIdModelo();
-			
+
 			if (idModelo == null) {
 				return null;
 			}
-			
-			Path pathCuerpo = Paths.get("/home/tranx6/CAJAFUERTE/Promo54/Imagenes/m_c_" + idModelo);
-			
+
+			Path pathCuerpo = Paths
+					.get("/home/tranx6/CAJAFUERTE/Promo54/Imagenes/m_c_"
+							+ idModelo);
+
 			bytesCuerpo = Files.readAllBytes(pathCuerpo);
-			
-			return ImageIO.read(new File("/home/tranx6/CAJAFUERTE/Promo54/Imagenes/m_c_" + idModelo));
+
+			return ImageIO
+					.read(new File(
+							"/home/tranx6/CAJAFUERTE/Promo54/Imagenes/m_c_"
+									+ idModelo));
 		} catch (Exception e) {
 			return null;
 		}

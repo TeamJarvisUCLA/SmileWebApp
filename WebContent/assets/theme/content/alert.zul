@@ -1,0 +1,18 @@
+<!-- Alert -->
+<div apply="org.zkoss.bind.BindComposer" 
+	viewModel="@id('vm') @init('karen.core.crux.alert.Alert')">
+	<div id="divAlert" sclass="@load(vm.sclassDivAlert)"
+		visible="@load(vm.visibleDivAlert)">
+		
+		<span id="iconoDivAlert" sclass="@load(vm.iconoDivAlert)"></span>
+		
+		<div sclass="col alert-content">
+			<html id="htmlMensajeDivAlert"
+				content="@load(vm.message)">
+			</html>
+		</div>
+		<div sclass="fa fa-times alert-icon-close center-transform-y"
+			onClick='divAlert.setVisible(false); divAlert.setSclass("")'>
+		</div>
+	</div>
+</div>

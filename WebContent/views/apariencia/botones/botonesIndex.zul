@@ -1,0 +1,164 @@
+<zk xmlns:n="native" xmlns:w="client">
+	<div width="100%" class="${arg.animation_}"
+		use="ve.apariencia.botones.controllers.C_BotonesIndex" apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('ve.apariencia.botones.viewmodels.VM_BotonesIndex')">
+
+		<div class="row">
+			<div class="col s12">
+				<div class="col s6">
+					<div class="col s12" align="center" style="margin-bottom: 20px;">
+						Presione un botón
+						para configurar su apariencia
+					</div>
+					<tabbox id="tabbox" class="rtab">
+						<tabs>
+							<tab label="Botones Particulares" />
+							<tab label="Botones Comunes" selected="true" />
+						</tabs>
+						<tabpanels>
+							<tabpanel>
+								<div class="col s12">
+									<tree id="tree" height="100%"
+										use="ve.apariencia.botones.controllers.C_TreeFullVentanas">
+										<treecols>
+											<treecol width="25%" label="Ventanas" />
+											<treecol width="40%" label="Descripción" />
+											<treecol label="Botones" />
+										</treecols>
+									</tree>
+								</div>
+							</tabpanel>
+							<tabpanel>
+								<div class="z-listheader-content" align="center">
+									Botones
+								</div>
+								<div class="col s12 toolbarToSee_">
+									<toolbar id="toolbarAparienciasComunes" align="center"
+										use="karen.core.toolbar.Toolbar">
+									</toolbar>
+								</div>
+							</tabpanel>
+						</tabpanels>
+					</tabbox>
+				</div>
+				<div class="col s6" visible="@load(vm.isOperationSelected)">
+					<div class="z-listheader-content" align="center" style="margin-bottom: 20px;">
+						Apariencia del botón
+					</div>
+					<div class="input-field col s8 offset-s2">
+						<n:label for="nombre" class="active">
+							Nombre
+						</n:label>
+						<textbox id="nombre" type="text" value="@bind(vm.operacion.nombre)">
+						</textbox>
+					</div>
+					<div class="input-field col s8 offset-s2">
+						<n:label for="tooltiptext" class="active">
+							Tooltiptext
+						</n:label>
+						<textbox id="tooltiptext" type="text" value="@bind(vm.tooltiptext)">
+						</textbox>
+					</div>
+					<div class="col s8 offset-s2">
+						<div class="input-field col s4 estilo-preliminar">
+							<div class="input-field col s12" align="center">
+								<label>
+									Preliminar
+								</label>
+							</div>
+							<div class="input-field col s12">
+								<toolbar id="toolbarPreview" align="center"
+									use="karen.core.toolbar.Toolbar">
+								</toolbar>
+							</div>
+						</div>
+						<div class="input-field col s8">
+							<div class="input-field col s12">
+								<div class="input-field col s2">
+									<div sclass="@load(vm.fkIconSclass2x)" style="width: 100%; text-align: right;"></div>
+								</div>
+								<div class="input-field col s8">
+									<n:label for="icono" class="active">Icono</n:label>
+									<textbox id="icono" disabled="true" type="text"
+										value="@load(vm.operacion.fkIconSclass.nombre)">
+									</textbox>
+								</div>
+								<div class="input-field col s2" style="font-size: 2em;">
+									<button sclass="teal lighten-1 waves-effect waves-light"
+										iconSclass="fa fa-search" onClick="@command('buscarIcono')"
+										style="padding: 5px 15px;"></button>
+								</div>
+							</div>
+							<div class="input-field col s12">
+								<div class="input-field col s2">
+									<div sclass="@load(vm.fkSclassCircle)" style="text-align: right;"></div>
+								</div>
+								<div class="input-field col s8">
+									<n:label for="color" class="active">Color</n:label>
+									<textbox id="color" disabled="true" type="text"
+										value="@load(vm.operacion.fkSclass.nombre)">
+									</textbox>
+								</div>
+								<div class="input-field col s2" style="font-size: 2em;">
+									<button sclass="teal lighten-1 waves-effect waves-light"
+										iconSclass="fa fa-search" onClick="@command('buscarColor')"
+										style="padding: 5px 15px;"></button>
+								</div>
+							</div>
+						</div>
+						<div class="input-field col s12">
+							<div id="divButtonsForm" use="karen.core.form.buttons.containers.DivButtonsForm">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<toolbar id="toolbar" align="center" use="karen.core.toolbar.Toolbar">
+		</toolbar>
+	</div>
+
+	<style>
+		.toolbarToSee_ button {
+		margin-bottom: 5px;
+		}
+		.toolbarToSee_ .ka-toolbar {
+		margin-top: 0px !important;
+		max-width: 36px;
+		margin: 0 auto;
+		}
+		.estilo-color-selected {
+		-webkit-border-radius: 30px 30px 30px 30px;
+		border-radius: 30px 30px 30px 30px;
+		height: 25px;
+		width: 25px;
+		margin-top: 5px;
+		}
+		.estilo-preliminar {
+		margin-top: 10%;
+		border: 2px dashed black;
+		}
+		/* Toolbar de la lista */
+		.toolbar-custom-buttons
+		.btn-floating.btn-small {
+		width: 25px;
+		height: 25px;
+		}
+		.toolbar-custom-buttons {
+		margin: 0px !important;
+		padding: 0px !important;
+		text-align: center;
+		}
+		.toolbar-custom-buttons button i {
+		margin-top: -1em;
+		}
+		.toolbar-custom-buttons button {
+		font-size: 0em !important;
+		}
+		.tree-full-ventanas .z-treecell-content {
+		min-height: 40px;
+		line-height: 25px;
+		}
+	</style>
+</zk>

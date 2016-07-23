@@ -1,0 +1,426 @@
+<zk xmlns:n="native" xmlns:w="client">
+	<style>
+.timeline-Header-title {
+    font-size: 19px !important;
+    line-height: 26px !important;
+}
+ .timeline-Tweet-text {
+    font-size: 12px !important;
+    line-height: 13px !important;
+    font-weight: 300;
+}
+	</style>
+	<n:link href="assets/css/web/main.css" rel="stylesheet" type="text/css"></n:link>
+	<div sclass="row" apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('ve.smile.web.viewmodels.VM_Main')">
+		<div class="social">
+			<div style="padding: 0px;">
+				<div>
+					<a href="#" sclass="icon" iconSclass="fa fa-home ">
+						<span>Inicio</span>
+					</a>
+				</div>
+				<div>
+					<a href="#conocenos" sclass="icon"
+						iconSclass="fa fa-bank ">
+						<span>Organización</span>
+					</a>
+				</div>
+				<div>
+					<a href="#galeria" sclass="icon"
+						iconSclass="fa fa-picture-o">
+						<span>Galería</span>
+					</a>
+				</div>
+				<div>
+					<a href="#eventos" sclass="icon"
+						iconSclass="fa fa-picture-o">
+						<span>Eventos</span>
+					</a>
+				</div>
+				<div>
+					<a href="#comunidad" sclass="icon"
+						iconSclass="fa fa-user">
+						<span>Comunidad</span>
+					</a>
+					
+				</div>
+			</div>
+		</div>
+		<div class="container-fluid">
+			<image class="responsive-img"
+				src="/imagenes/portal/web-banner.png">
+			</image>
+		</div>
+		<n:div id="slider_twitter">
+			<div class="container-fluid">
+				<div sclass="row valign-wrapper">
+					<div class="col s1 valign text-center ">
+						<image src="/imagenes/portal/twitter-logo.png"></image>
+					</div>
+					<div sclass="col s11">
+						<n:div id="owlTwitter" sclass="owl-carousel owl-theme">
+							<div sclass="item item-twitter">
+								<label
+									value="Otra ganadora de nuestra 2da.Carrera #porlosSuperhéroes María Burgos #3erLugarabsoluto del… https://www.instagram.com/p/BH3IUqoBXE7/ ">
+								</label>
+							</div>
+							<div sclass="item item-twitter">
+								<label
+									value="#TapasDeLaEsperanza No botes las tapas y envases plásticos, recícla!! Traelas a nuestra sede… https://www.instagram.com/p/BH2rXfUDZva/ ">
+								</label>
+							</div>
+							<div sclass="item item-twitter">
+								<label
+									value="La ganadora del 1er.lugar absoluto de nuestra 2da.Carrera: María Navas del equipo oklesh_shoes… https://www.instagram.com/p/BH0eYQOB-8X/ ">
+								</label>
+							</div>
+							<div sclass="item item-twitter">
+								<label
+									value="#FotoPremiun Una de nuestras superheroínas recibe con la medalla de nuestra 2da.Carrera a… https://www.instagram.com/p/BHzNTVlBSzO/ ">
+								</label>
+							</div>
+						</n:div>
+					</div>
+				</div>				
+			</div>
+		</n:div>	
+		<n:div id="noticias">
+			<n:h4>
+				noticias
+			</n:h4>
+			<div sclass="row">
+				<div sclass="col s10">
+					<n:div id="owlNoticias" class="owl-carousel owl-theme">
+						<div sclass="item" onClick="@command('detalleNoticia')">
+							<div style="padding-bottom: 10px;">
+								<label class="title" value="LOREM IPSUN DOLOR">
+								</label>
+							</div>
+							<label
+								value="Muy lejos, más allá de las montañas de palabras, alejados de los países de las vocales y las consonantes, viven los textos simulados. Viven aislados en casas de letras, en la costa de la semántica, un gran océano de lenguas. Un riachuelo llamado Pons fluye por su pueblo y los abastece con las normas necesarias.">
+							</label>
+						</div>
+						<div sclass="item" onClick="@command('detalleNoticia')">
+							<div style="padding-bottom: 10px;">
+								<label class="title" value="LOREM IPSUN DOLOR">
+								</label>
+							</div>
+							<label
+								value="Muy lejos, más allá de las montañas de palabras, alejados de los países de las vocales y las consonantes, viven los textos simulados. Viven aislados en casas de letras, en la costa de la semántica, un gran océano de lenguas. Un riachuelo llamado Pons fluye por su pueblo y los abastece con las normas necesarias.">
+							</label>
+						</div>									
+						<div sclass="item" onClick="@command('detalleNoticia')">
+							<div style="padding-bottom: 10px;">
+								<label class="title" value="LOREM IPSUN DOLOR">
+								</label>
+							</div>
+							<label
+								value="Muy lejos, más allá de las montañas de palabras, alejados de los países de las vocales y las consonantes, viven los textos simulados. Viven aislados en casas de letras, en la costa de la semántica, un gran océano de lenguas. Un riachuelo llamado Pons fluye por su pueblo y los abastece con las normas necesarias.">
+							</label>
+						</div>
+						<div sclass="item" onClick="@command('detalleNoticia')">
+							<div style="padding-bottom: 10px;">
+								<label class="title" value="LOREM IPSUN DOLOR">
+								</label>
+							</div>
+							<label
+								value="Muy lejos, más allá de las montañas de palabras, alejados de los países de las vocales y las consonantes, viven los textos simulados. Viven aislados en casas de letras, en la costa de la semántica, un gran océano de lenguas. Un riachuelo llamado Pons fluye por su pueblo y los abastece con las normas necesarias.">
+							</label>
+						</div>
+						<div sclass="item" onClick="@command('detalleNoticia')">
+							<div style="padding-bottom: 10px;">
+								<label class="title" value="LOREM IPSUN DOLOR">
+								</label>
+							</div>
+							<label
+								value="Muy lejos, más allá de las montañas de palabras, alejados de los países de las vocales y las consonantes, viven los textos simulados. Viven aislados en casas de letras, en la costa de la semántica, un gran océano de lenguas. Un riachuelo llamado Pons fluye por su pueblo y los abastece con las normas necesarias.">
+							</label>
+						</div>
+					</n:div>
+				</div>
+				<div class="col s2 text-center ">
+					<button class="waves-effect waves-light btn" href=""
+						onClick="@command('noticias')">
+						ver mas
+					</button>
+				</div>
+			</div>
+		</n:div>
+		<n:div id="conocenos_twiter">
+	   		<div class="container-fluid">
+				<div class="row">
+					<n:div id="conocenos">
+						<div class="col s5 text-center">
+							<div class="row" style="width: 60%">
+								<div class="col s12">
+						        	<image src="/imagenes/portal/icon/icon-people-grande.png"
+										style="height:140px;">
+					   				</image>   
+						         	<n:h6>Fanca</n:h6>
+				         		</div> 
+				         		<div class="col s12"  style="text-align: justify">
+						         	<span>This is the standard version that comes with both the minified and unminified CSS and JavaScript files. 
+						         		This option requires little to no setup. Use this if you are unfamiliar with Sass.
+						            	This option requires little to no setup. Use this if you are unfamiliar with Sass.
+						               
+						         	</span>
+					         	</div>
+								<div class="col s12">
+									<button class="waves-effect waves-light btn" href=""
+										onClick="@command('conocenos')">
+										ver mas
+									</button>
+								</div>
+							</div>							
+				      	</div>
+				    </n:div>
+				    <n:div id="twitter">
+				      	<div class="col s7 text-center">
+	
+				      	<n:a class="twitter-timeline hola" data-width="500" data-height="400" href="https://twitter.com/fancalara"></n:a>
+				      	</div>
+			      	</n:div> 	
+				</div>
+			</div>
+		</n:div>
+		<div id="eventos_participa" class="container-fluid">
+			<div class="row">
+				<n:div id= "eventos">
+					<div class="col s6" style="padding: 0;">
+						<div class="container-fluid eventos">
+							<div class="row">
+								<div class=" vcenter text-center">
+									<n:h4>Eventos</n:h4>
+								</div>
+								<div class="col s12 seccion">
+									<div class="col s4">
+										<image class="img-responsive center-block"
+											src="/imagenes/portal/icon/icon-carrera.png" width="128px"
+											height="128px">
+										</image>
+										<n:br></n:br>
+										<div class="subtitulo text-center">
+											<n:p>Carrera</n:p>
+										</div>
+										<div class="info">
+											<n:b>Fecha:</n:b>
+											02/05/2016
+											<n:br></n:br>
+											<n:b>Lugar:</n:b>
+											Hotel Príncipe
+											<n:br></n:br>
+											<n:b>Descripción:</n:b>
+											Lorem ipsum dolor sit amet, consectetur
+											adipisicing elit, sed do eiusmod.
+										</div>
+									</div>
+									<div class="col s4">
+										<image class="img-responsive center-block"
+											src="/imagenes/portal/icon/icon-vendimia.png" width="128px"
+											height="128px">
+										</image>
+										<n:br></n:br>
+										<div class="subtitulo text-center">
+											<n:p>Vendimia</n:p>
+										</div>
+										<div class="info">
+											<n:b>Fecha:</n:b>
+											02/05/2016
+											<n:br></n:br>
+											<n:b>Lugar:</n:b>
+											Hotel Príncipe
+											<n:br></n:br>
+											<n:b>Descripción:</n:b>
+											Lorem ipsum dolor sit amet, consectetur
+											adipisicing elit, sed do eiusmod.
+										</div>
+									</div>
+									<div class="col s4">
+										<image class="img-responsive center-block"
+											src="/imagenes/portal/icon/icon-bingo.png" width="128px"
+											height="128px">
+										</image>
+										<n:br></n:br>
+										<div class="subtitulo text-center">
+											<n:p>Bingo</n:p>
+										</div>
+										<div class="info">
+											<n:b>Fecha:</n:b>
+											02/05/2016
+											<n:br></n:br>
+											<n:b>Lugar:</n:b>
+											Hotel Príncipe
+											<n:br></n:br>
+											<n:b>Descripción:</n:b>
+											Lorem ipsum dolor sit amet, consectetur
+											adipisicing elit, sed do eiusmod.
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</n:div>
+				<n:div id= "participa">
+					<div class="col s6" style="padding: 0;">
+						<div class="container-fluid"  >
+							<div class="row">
+								<div align="center">    
+									<n:h4>PARTICIPA</n:h4>
+								</div>
+								<div class="col s12 seccion">
+									<div class="col s4">
+										<image class="img-responsive center-block" src="/imagenes/portal/icon/icon-voluntarios.png" width="128px" height="128px"></image>
+										<n:br></n:br>
+										<div class="subtitulo text-center">
+						           			<n:p>VOLUNTARIADO</n:p>
+						       			</div>
+						       			<div class="info">
+									        <n:p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
+												sed eiusmod tempor incidunt ut labore et dolore magna aliqua.
+						        			</n:p>
+							          	</div>
+									</div>
+									<div class="col s4">
+										<image class="img-responsive center-block" src="/imagenes/portal/icon/icon-padrinos.png" width="128px" height="128px"></image>					
+										<n:br></n:br>
+										<div class="subtitulo text-center">
+						           			<n:p>PADRINOS</n:p>
+						       			</div>
+						       			<div class="info">
+						       				<n:p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
+												sed eiusmod tempor incidunt ut labore et dolore magna aliqua.
+						        			</n:p>
+								        </div>
+									</div>
+									<div class="col s4">
+										<image class="img-responsive center-block" src="/imagenes/portal/icon/icon-donaciones.png" width="128px" height="128px"></image>
+										<n:br></n:br>
+										<div class="subtitulo text-center">
+						           			<n:p>DONACIONES</n:p>
+						       			</div>
+						       			<div class="info">
+						       				<n:p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
+												sed eiusmod tempor incidunt ut labore et dolore magna aliqua.
+						        			</n:p>
+							          	</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</n:div>
+				<div class="col s12">
+					<div class="col s6">
+						<div class="boton text-center">
+							<button class="waves-effect waves-light btn" href=""
+								onClick="@command('eventos')">
+								ver mas
+							</button>
+						</div>
+					</div>
+					<div class="col s6">
+						<div class="boton text-center">
+							<button class="waves-effect waves-light btn" href=""
+								onClick="@command('participa')">
+								ver mas
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	
+		<div class="container-fluid comunidad_galeria">
+			<div class="row">
+				<n:div id="comunidad">
+					<div class="col s7" style="padding:0px">
+						<div class="container-fluid comunidad">
+							<div class="row">
+								<n:h4>COMUNIDAD ACTIVA</n:h4>
+								<div class="col s12 medallas">
+									<div class="row text-center ">
+										<div class="col s4 text-center">
+											<div sclass="row fotos">
+												<image src="/imagenes/portal/foto1.jpg" height="100px" width="100px" sclass="circle responsive-img">
+												</image>											
+												<image class="img-responsive" src="/imagenes/portal/medalla.png">
+												</image>
+											</div>
+											<div sclass="row" style="margin-top:10px">
+												<label sclass="subtitulo " style="color:#F26B7A">Ana Matheus</label>
+											</div>
+										</div>
+										<div class="col s4 text-center">
+											<div sclass="row fotos">
+												<image src="/imagenes/portal/foto3.jpg" height="100px" width="100px" sclass="circle responsive-img">
+												</image>
+												<image class="img-responsive" src="/imagenes/portal/medalla.png">
+												</image>
+											</div>
+											<div sclass="row" style="margin-top:10px">
+												<label sclass="subtitulo " style="color:#F26B7A">Ana Matheus</label>
+											</div>
+					
+										</div>
+										<div class="col s4 text-center">
+											<div sclass="row fotos">
+												<image src="/imagenes/portal/foto2.jpg" height="100px" width="100px" sclass="circle responsive-img">
+												</image>
+												<image class="img-responsive" src="/imagenes/portal/medalla.png">
+												</image>
+											</div>
+											<div sclass="row" style="margin-top:10px">
+												<label sclass="subtitulo " style="color:#F26B7A">Ana Matheus</label>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</n:div>
+				<n:div id="galeria">
+					<div class="col s5">
+						<n:h4>galería de fotos</n:h4>
+						<div class="col s12" onClick="@command('galeria')">
+							<image class="img-responsive" src="/imagenes/portal/galeria1.png"></image>
+							<span>ver mas</span>			
+						</div>
+					</div>				
+				</n:div>
+			</div> 	
+		</div>
+	</div>
+	<n:script src="http://platform.twitter.com/widgets.js" charset="utf-8"></n:script>
+	
+	<n:script type="text/javascript">
+		$(document).ready(function() {
+		
+		  $('#owlNoticias').owlCarousel({
+		 items:1,
+		 mouseDrag:false,
+		      navigation : true, // Show next and prev buttons
+		      slideSpeed : 300,
+		      paginationSpeed : 400,
+		      singleItem: true,
+			  navigationText: [
+			      '<span sclass="fa fa-chevron-left"></span>',
+			    '<span sclass="fa fa-chevron-right"></span>'
+			      ],
+			      autoWidth:true,
+			       autoPlay: true 
+		  });
+
+		$('#owlTwitter').owlCarousel({
+			 items:1,
+			 mouseDrag:false,
+			navigation : false, // Show next and prev buttons
+			pagination:false, 
+			slideSpeed : 300, paginationSpeed : 400,
+			singleItem:true, autoPlay: true });
+
+		});
+	</n:script>
+</zk>

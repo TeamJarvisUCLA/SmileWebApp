@@ -1,15 +1,15 @@
 package lights.smile.consume.services;
 
+import ve.smile.consume.services.ClasificadorEventoService;
 import lights.seguridad.consume.services.MensajeSistemaService;
 import lights.seguridad.consume.services.OperacionService;
-import lights.seguridad.consume.services.PerfilService;
+import lights.seguridad.consume.services.SclassService;
 import lights.seguridad.consume.services.VistaOperacionBasicoService;
 import lights.seguridad.consume.services.UsuarioService;
 import lights.seguridad.consume.services.PermisoSeguridadService;
 import lights.seguridad.consume.services.IconSclassService;
 import lights.seguridad.consume.services.VistaOperacionCustomService;
 import lights.seguridad.consume.services.TablaService;
-import lights.seguridad.consume.services.UsuarioRolService;
 import lights.seguridad.consume.services.VistaService;
 import lights.seguridad.consume.services.AuditoriaService;
 import lights.seguridad.consume.services.SesionService;
@@ -26,7 +26,6 @@ public class S {
 	public static VistaOperacionCustomService VistaOperacionCustomService;
 	public static TablaService TablaService;
 	public static OperacionService OperacionService;
-	public static UsuarioRolService UsuarioRolService;
 	public static VistaService VistaService;
 	public static AuditoriaService AuditoriaService;
 	public static SesionService SesionService;
@@ -34,7 +33,8 @@ public class S {
 	public static RolService RolService;
 	public static MetodoDaoService MetodoDaoService;
 	public static MensajeSistemaService MensajeSistemaService;
-	public static PerfilService PerfilService;
+	public static SclassService SclassService;
+	public static ClasificadorEventoService ClasificadorEventoService;
 	
 	public static ModeloService ModeloService;
 	
@@ -46,7 +46,6 @@ public class S {
 		VistaOperacionCustomService = new VistaOperacionCustomService();
 		TablaService = new TablaService();
 		OperacionService = new OperacionService();
-		UsuarioRolService = new UsuarioRolService();
 		VistaService = new VistaService();
 		AuditoriaService = new AuditoriaService();
 		SesionService = new SesionService();
@@ -55,6 +54,7 @@ public class S {
 		MetodoDaoService = new MetodoDaoService();
 		MensajeSistemaService = new MensajeSistemaService();
 		ModeloService = new ModeloService();
-		PerfilService = new PerfilService();
+		SclassService = new SclassService();
+		ClasificadorEventoService = new ClasificadorEventoService();
 	}
 }

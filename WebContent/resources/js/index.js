@@ -3,6 +3,10 @@ zk.afterMount(function() {
 		fullScreenApi.toggleFullScreen(document.body);
 	});
 	
+	jQuery('.hide_button').click(function(){
+		
+		jQuery('#login').toggleClass('login');
+	});
 	shortcut.add("F11",function() {
 		fullScreenApi.toggleFullScreen(document.body);
 	});

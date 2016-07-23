@@ -1,20 +1,19 @@
-<?page title="FANCA"?>
+<?page title="Promo 54"?>
 
 <?meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"?>
-<?link href="resources/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"?>
-<?link href="resources/materialize_v0.97.5/css/materialize.min.css" rel="stylesheet" type="text/css"?>
-<?link href="resources/css/loading.css" rel="stylesheet" type="text/css"?>
+<?link href="assets/third-party-libraries/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"?>
+<?link href="assets/third-party-libraries/materialize_v0.97.5/css/materialize.min.css" rel="stylesheet" type="text/css"?>
+<?link href="assets/css/loading.css" rel="stylesheet" type="text/css"?>
 
-<?link href="resources/css/login.css" rel="stylesheet" type="text/css"?>
+<?link href="assets/css/login.css" rel="stylesheet" type="text/css"?>
 
-<?script src="resources/bootstrap/js/bootstrap.js"?>
-<?script src="resources/materialize_v0.97.5/js/materialize.min.js"?>
+<?script src="assets/bootstrap/js/bootstrap.js"?>
+<?script src="assets/third-party-libraries/materialize_v0.97.5/js/materialize.min.js"?>
 
-<?script src="resources/three/build/three.min.js"?>
-<?script src="resources/three/js/renderers/Projector.js"?>
-<?script src="resources/three/js/renderers/CanvasRenderer.js"?>
-<?script src="resources/js/login.js"?>
-
+<?script src="assets/third-party-libraries/three/build/three.min.js"?>
+<?script src="assets/third-party-libraries/three/js/renderers/Projector.js"?>
+<?script src="assets/third-party-libraries/three/js/renderers/CanvasRenderer.js"?>
+<?script src="assets/js/login.js"?>
 
 <zk xmlns:n="native" xmlns:w="client">
 	<div sclass="page-content page-content-main"

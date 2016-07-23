@@ -1,0 +1,14 @@
+.titulo {
+	color: #3B85A1;
+}
+
+.titulo>span {
+	font-weight: bold;
+}
+
+.linea {
+	width: 100%;
+	background-color: #D44354;
+	height: 20px;
+	margin-top: -40px;
+}

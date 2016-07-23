@@ -1,0 +1,240 @@
+
+<zk xmlns:n="native" xmlns:w="client">	
+	
+	<n:link
+		href="/SmileWebApp/assets/third-party-libraries/fullcalendar/fullcalendar.css"
+		rel="stylesheet" type="text/css">
+	</n:link>
+	<n:link href="/SmileWebApp/assets/css/web/calendario.css"
+		rel="stylesheet" type="text/css">
+	</n:link>
+	<n:script
+		src="/SmileWebApp/assets/third-party-libraries/fullcalendar/fullcalendar.min.js">
+	</n:script>
+
+	<div sclass="container-fluid">
+		<div class="cinta"></div>
+	</div>
+	<div class="container-fluid" style="Background-color: #F0F2DC;" 
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('ve.smile.web.viewmodels.VM_Main')">
+		<div class="row" style="margin-bottom: 0;">
+			<div sclass="col s12">
+				<div class="col-md-1"></div>
+				<div class="col-md-10">
+					<div sclass="volver">
+						<a href="#" onClick="@command('eventos')">
+							<image
+								src="/imagenes/portal/icon/left-arrow.png">
+							</image>
+							<span>Volver</span>
+						</a>
+					</div>
+
+					<div class="titulo center-align">
+						<n:h4>Calendario de Eventos</n:h4>
+					</div>
+				</div>
+				<div class="col-md-1"></div>
+			</div>
+			<div sclass="col s12">
+				<div class="col-md-1"></div>
+				<div class="col-md-6"
+					style="padding: 8px; background-color: #3B85A1 !important; padding-top: 0px;">
+					<n:div id='calendar'></n:div>
+				</div>
+				<div class="col-md-4"
+					style="background: white;border: 8px solid #3B85A1;padding: 0px !important; margin-left: 15px !important;">
+					<div align="center"
+						style="width: 100%; background-color: #d9eb52; margin-top: 0px !important; padding: 4px 0px !important">
+						<n:h6
+							style="color:#87796f; font-family: Roboto,sans-serif !important; font-weight: bold;">
+							BINGO
+						</n:h6>
+					</div>
+					<div sclass="row">
+						<div sclass="col s12">
+							<div sclass="col s6">
+								<n:br></n:br>
+								<div class="info">
+									<n:b>Fecha:</n:b>
+									02/05/2016
+									<n:br></n:br>
+									<n:b>Lugar:</n:b>
+									Hotel Príncipe
+									<n:br></n:br>
+									<n:b>Dirección:</n:b>
+									Carrera 23 entre calles 15 y 16
+									<n:br></n:br>
+
+								</div>
+								<image
+									class="img-responsive center-block"
+									src="/imagenes/portal/icon/mapa.png" style="width: auto;padding: 0px;margin: 0px;display: inline-block;">
+								</image>
+								<image
+									class="img-responsive center-block"
+									src="/imagenes/portal/icon/icon-magnifier.png" style=" width: auto; margin: 0px; display: inline-block;vertical-align: bottom;">
+								</image>
+								<n:br></n:br>
+								<n:br></n:br>
+							</div>
+							<div sclass="col s6">
+								<n:br></n:br>
+								<image
+									class="img-responsive center-block"
+									src="/imagenes/portal/icon/icon-bingo.png" width="128px"
+									height="128px">
+								</image>
+								<n:br></n:br>
+							</div>
+						</div>
+						<div sclass="col s12" align="justify">
+							<div sclass="row">
+								<label>
+									Lorem ipsum dolor sit amet, consectetur
+									adipisicing elit, sed do eiusmod. Lorem
+									ipsum dolor sit amet, consectetur
+									adipisicing elit, sed do eiusmod. Lorem
+									ipsum dolor sit amet, consectetur
+									adipisicing elit, sed do eiusmod.Lorem ipsum dolor sit amet, consectetur
+									adipisicing elit, sed do eiusmod. Lorem
+									ipsum dolor sit amet, consectetur
+									adipisicing elit, sed do eiusmod. Lorem
+									ipsum dolor sit amet, consectetur
+									adipisicing elit, sed do eiusmod.Lorem ipsum dolor sit amet, consectetur
+									adipisicing elit, sed do eiusmod. Lorem
+									ipsum dolor sit amet, consectetur
+									adipisicing elit, sed do eiusmod. Lorem
+									Lorem ipsum dolor sit amet, consectetur
+									adipisicing elit, sed do eiusmod. Lorem
+								</label>
+							</div>
+							<div sclass="row center-align" style="margin-bottom:0pc">
+								<button type="button" id="nEMQo3" onClick="@command('album')"
+									iconSclass="" class="indigo waves-effect waves-light btn"
+									style="background-color: #3B85A1 !important; ">
+									VER ÁLBUM
+								</button>
+							</div>
+
+						</div>
+					</div>
+				</div>
+				<div class="col-md-1"></div>
+			</div>
+		</div>
+			<n:br></n:br>
+	<n:br></n:br>
+	</div>
+
+	<div class="center-align imagen">
+		<n:img class="responsive-img"
+			src="/SmileWebApp/imagenes/portal/img-ninos.png">
+		</n:img>
+	</div>
+
+	<n:script type="text/javascript">
+    $('#calendar').fullCalendar({
+      eventClick: function(calEvent, jsEvent, view) {
+
+        },
+        header: {
+          left: '  today,   next',
+          center: 'title',
+          right: 'prev,   month,basicWeek'
+        },
+		defaultView:'basicWeek',
+        defaultDate: Date(),
+        editable: false,
+        eventLimit: true, 
+		events: [
+		          {
+		            title: 'BINGO',
+		            start: '2016-07-21',
+		            backgroundColor: '#8ac7de',
+					textColor: '#ffffff'
+		          },
+		          {
+		            title: 'CARRERA 15KILOMETROS',
+		            start: '2016-07-22',
+			            end: '2016-07-12',
+		            backgroundColor: '#8ac7de',
+					textColor: '#ffffff'
+		          },
+		          {
+		            id: 9,
+		            title: 'BAILOTERAPIA  ',
+		            start: '2016-07-19T16:00:00',
+		            backgroundColor: '#8ac7de',
+					textColor: '#ffffff'
+		          },
+		          {
+		            id: 9,
+		            title: 'BINGO  ',
+		            start: '2016-07-19T16:00:00',
+		            backgroundColor: '#8ac7de',
+					textColor: '#ffffff'
+		          },
+		          {
+		            id: 999,
+		            title: '  2DA CARRERA 10K Y CAMINATA 6K FANCA ',
+		            start: '2016-07-19T16:00:00',
+		            backgroundColor: '#8ac7de',
+					textColor: '#ffffff'
+		
+		          },
+		          {
+		            title: 'BINGO',
+		            start: '2016-07-18',
+		            end: '2016-07-19',
+		            backgroundColor: '#f26b7a',
+		            textColor: '#ffffff'
+		          },
+		          {
+		            id: 991,
+		            title: 'EXPOFANCA',
+		            start: '2016-07-24T16:00:00',
+		            backgroundColor: '#f26b7a',
+		            textColor: '#ffffff'
+		          },
+		          {
+		            id: 991,
+		            title: 'JORNADA POR LA VIDA Y LA BELLEZA ',
+		            start: '2016-07-30T16:00:00',
+		            backgroundColor: '#87796F',
+		            textColor: '#ffffff'
+		          },
+		          {
+		            title: 'TALLERES DE TEJIDO',
+		            url: 'http://google.com/',
+		            start: '2016-07-17',
+		            backgroundColor: '#8ac7de',
+					textColor: '#ffffff'
+		          },
+		          {
+		            title: 'EXPOFANCA',
+		            start: '2016-07-18',
+		            backgroundColor: '#f26b7a',
+		            textColor: '#ffffff'
+		          },
+		          {
+		            title: 'EXPOFANCA',
+		            start: '2016-07-08',
+		            backgroundColor: '#f26b7a',
+		            textColor: '#ffffff'
+		          },
+		          {
+		            id: 991,
+		            title: 'JORNADA POR LA VIDA Y LA BELLEZA ',
+		            start: '2016-07-20T16:00:00',
+		            backgroundColor: '#87796F',
+		            textColor: '#ffffff'
+		          },
+		        ],
+		selectable: true,
+		select: function(start, end, allDay) {
+    }
+});
+	</n:script>
+</zk>

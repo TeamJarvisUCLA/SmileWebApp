@@ -1,0 +1,148 @@
+<?page title="FANCA - Contáctanos" contentType="text/html;charset=UTF-8"?>
+<?meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"?>
+<?link href="/resources/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"?>
+<?link href="/resources/materialize_v0.97.5/css/materialize.min.css" rel="stylesheet" type="text/css"?>
+<?link href="/resources/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css"?>
+<?link href="/resources/css/theme.css" rel="stylesheet" type="text/css"?>
+<?link href="/resources/css/karen.css" rel="stylesheet" type="text/css"?>
+<?link href="/resources/css/loading.css" rel="stylesheet" type="text/css"?>
+<?link href="/resources/css/animate.css" rel="stylesheet" type="text/css"?>
+<?link href="/resources/css/portal/login.css" rel="stylesheet" type="text/css"?>
+
+<?link href="/assets/seguridad/css/ultimasSesionesActivas.zul.css" rel="stylesheet" type="text/css"?>
+
+<?script src="/resources/bootstrap/js/bootstrap.js"?>
+<?script src="/resources/materialize_v0.97.5/js/materialize.min.js"?>
+
+<?script src="/resources/js/shorcut.js"?>
+<?script src="/resources/js/fullScreenApi.js"?>
+<?script src="/resources/js/index.js"?>
+<zk xmlns:n="native" xmlns:w="client">
+
+	<div sclass="page-content page-content-main"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('lights.smile.login.Login')">
+		<div apply="karen.core.crux.session.check.CheckLogin"
+			style="display: none;">
+		</div>
+		<div
+			sclass="text-center container  org-contenedor-contenido row col 12">
+
+			<div sclass="col s4">
+
+				<div class="row"
+					style="margin-right:6px; padding-top: 15px;">
+					<div sclass="col s12 titulo">
+						<label value="Ingresa con:"></label>
+					</div>
+
+				</div>
+				<div class="row"
+					style="margin-right:2px; margin-left:2px">
+					<div sclass="row">
+						<div class="input-field col s12">
+							<n:label for="nombres">
+								Nombres Usuario:
+							</n:label>
+							<textbox id="nombres" type="text"
+								value="@bind(vm.usuario.correo)" onOK="@command('login')">
+							</textbox>
+						</div>
+						<div class="input-field col s12">
+							<n:label for="apellidos">
+								Contraseña:
+							</n:label>
+							<textbox id="apellidos" type="password"
+								value="@bind(vm.usuario.clave)" onOK="@command('login')">
+							</textbox>
+							<checkbox checked=""
+								style="margin-left: 53px;">
+							</checkbox>
+							<div class="input-field col s12">
+								<n:label for="Recuerdame"
+									style="margin-left: 177px;
+    margin-top: -58px;">
+									Recordarme
+								</n:label>
+
+							</div>
+						</div>
+
+					</div>
+				</div>
+				<div sclass="col s4">
+
+
+
+					<div id="divButtonsForm" sclass="row">
+						<div class="col s12 div-buttons-form z-div">
+							<button type="button" id="nEMQo3"
+								iconSclass="" class="indigo waves-effect waves-light btn"
+								style="background-color: #3B85A1 !important; margin-top: -65px;"
+								onClick="@command('login')">
+								INICIAR SESIÓN
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div sclass="col s4">
+				<div class="row"
+					style="margin-left:6px; padding-top: 15px;">
+					<div sclass="col s12 titulo">
+						<label value="¿Olvidaste tu contraseña?"></label>
+					</div>
+					<div id="divButtons" sclass="row">
+
+						<div class="col s12 div-buttons-form z-div">
+							<separator height="15px"></separator>
+							<button type="button" iconSclass=""
+								class="indigo waves-effect waves-light btn"
+								style="background-color: #3B85A1 !important;">
+								RECUPERAR
+							</button>
+						</div>
+					</div>
+
+
+					<div sclass="col s12 titulo">
+						<label value="¿Tienes alguna duda?"></label>
+						<separator height="20px"></separator>
+						<div style="color: black;">
+							<label
+								value="Te proporcionamos una manera sencilla de enteder todo el entorno web">
+							</label>
+						</div>
+						<separator height="25px"></separator>
+						<div class="col s12 div-buttons-form z-div">
+							<button type="button" iconSclass=""
+								class="indigo waves-effect waves-light btn"
+								style="background-color: #3B85A1 !important;">
+								AYUDA
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div sclass="col s4">
+				<div class="row" style="margin-left:6px">
+					<div sclass="col s12 tituloSeccion">
+
+						<image src="/imagenes/smiles_web.png"
+							style="max-width: 175px;
+    max-height: 175px;">
+						</image>
+						<div style="text-align: justify;">
+							<label
+								value="Una mañana, tras un sueño intranquilo, Gregorio Samsa se despertó convertido en un monstruoso insecto. Estaba echado de espaldas sobre un duro caparazón y, al alzar la cabeza, vio su vientre convexo y oscuro, surcado por curvadas callosidades, sobre el que casi no se aguantaba la ">
+							</label>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+	<div sclass="linea"></div>
+</zk>

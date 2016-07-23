@@ -1,0 +1,108 @@
+<zk xmlns:n="native" xmlns:w="client">
+<n:link href="resources/css/portal/galeria1.css" rel="stylesheet" type="text/css"></n:link>
+		<div class="container-fluid galeria">
+			<n:h4>fotos</n:h4>
+			<n:div id="fotos">
+				<div class="col s12 seccion">
+					<div class="col s12">
+						<div class="row fotos">
+							<div class="col s4">
+								<image src="/imagenes/portal/galeria1.png" sclass="materialboxed"></image>
+							</div>
+							<div class="col s4">
+								<image src="/imagenes/portal/galeria2.png" sclass="materialboxed"></image>
+							</div>
+							<div class="col s4">
+								<image src="/imagenes/portal/galeria3.jpg" sclass="materialboxed"></image>
+							</div>	
+						</div>
+					</div>	
+					<div class="col s12">
+						<div class="row fotos">
+							<div class="col s4">
+								<image src="/imagenes/portal/galeria1.png"></image>
+							</div>
+							<div class="col s4">
+								<image src="/imagenes/portal/galeria2.png"></image>
+							</div>
+							<div class="col s4 icon">
+								<a><image src="/imagenes/portal/icon/icon-plus.png"></image></a>
+								<div class="col s12">
+									<a>Ver más</a>
+								</div>
+							</div>	
+						</div>
+					</div>		
+				</div>
+			</n:div>
+			<n:h4>álbumes</n:h4>
+			<n:div id="albumes">
+				<div class="col s12 seccion">
+					<div class="col s12">
+						<div class="row albumes">
+							<div class="col s4">
+								<div class="subtitulo text-center">
+				           			<span>Vendimia 2015</span>
+				       			</div>
+								<image src="/imagenes/portal/galeria1.png"></image>
+								<span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus at officiis amet</span>
+								<div class="col s12 link">
+									<a>8 Fotos</a>
+								</div>
+							</div>
+							<div class="col s4">
+								<div class="subtitulo text-center">
+				           			<span>Juego de Golf</span>
+				       			</div>
+								<image src="/imagenes/portal/galeria2.png"></image>
+								<span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus at officiis amet</span>
+								<div class="col s12 link">
+									<a>30 Fotos</a>
+								</div>							
+							</div>
+							<div class="col s4">
+								<div class="subtitulo text-center">
+				           			<span>Segundo Taller Motivacional</span>
+				       			</div>						
+								<image src="/imagenes/portal/galeria3.jpg"></image>
+								<span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus at officiis amet</span>
+								<div class="col s12 link">
+									<a>12 Fotos</a>
+								</div>							
+							</div>	
+						</div>
+					</div>
+					<div class="col s12">
+						<div class="row albumes">
+							<div class="col s4">
+								<div class="subtitulo text-center">
+				           			<span>Vendimia 2016</span>
+				       			</div>						
+								<image src="/imagenes/portal/galeria1.png"></image>
+								<span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus at officiis amet</span>
+								<div class="col s12 link">
+									<a>16 Fotos</a>
+								</div>							
+							</div>
+							<div class="col s4">
+								<div class="subtitulo text-center">
+				           			<span>Paseo</span>
+				       			</div>						
+								<image src="/imagenes/portal/galeria2.png"></image>
+								<span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus at officiis amet</span>
+								<div class="col s12 link">
+									<a>5 Fotos</a>
+								</div>							
+							</div>
+							<div class="col s4 icon">
+								<a><image src="/imagenes/portal/icon/icon-plus.png"></image></a>
+								<div class="col s12">
+									<a>Ver más</a>
+								</div>
+							</div>	
+						</div>
+					</div>		
+				</div>
+			</n:div>
+		</div>
+</zk>

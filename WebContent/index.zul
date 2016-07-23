@@ -1,23 +1,22 @@
-<?page title="Smile"?>
+<?page title="SMILE"?>
 
 <?meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"?>
-<?link href="resources/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"?>
-<?link href="resources/materialize_v0.97.5/css/materialize.css" rel="stylesheet" type="text/css"?>
-<?link href="resources/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css"?>
-<?link href="resources/css/theme.css" rel="stylesheet" type="text/css"?>
-<?link href="resources/css/karen.css" rel="stylesheet" type="text/css"?>
-<?link href="resources/css/loading.css" rel="stylesheet" type="text/css"?>
-<?link href="resources/css/animate.css" rel="stylesheet" type="text/css"?>
+<?link href="assets/third-party-libraries/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"?>
+<?link href="assets/third-party-libraries/materialize_v0.97.5/css/materialize.min.css" rel="stylesheet" type="text/css"?>
+<?link href="assets/third-party-libraries/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css"?>
+<?link href="assets/css/theme.css" rel="stylesheet" type="text/css"?>
+<?link href="assets/css/karen.css" rel="stylesheet" type="text/css"?>
+<?link href="assets/css/loading.css" rel="stylesheet" type="text/css"?>
+<?link href="assets/third-party-libraries/animate/animate.css" rel="stylesheet" type="text/css"?>
+
 <?link href="resources/css/componentesZK.css" rel="stylesheet" type="text/css"?>
-<?link href="/assets/seguridad/css/ultimasSesionesActivas.zul.css" rel="stylesheet" type="text/css"?>
 
+<?script src="assets/third-party-libraries/bootstrap/js/bootstrap.js"?>
+<?script src="assets/third-party-libraries/materialize_v0.97.5/js/materialize.min.js"?>
 
-<?script src="resources/bootstrap/js/bootstrap.js"?>
-<?script src="resources/materialize_v0.97.5/js/materialize.min.js"?>
-
-<?script src="resources/js/shorcut.js"?>
-<?script src="resources/js/fullScreenApi.js"?>
-<?script src="resources/js/index.js"?>
+<?script src="assets/third-party-libraries/shorcut/shorcut.js"?>
+<?script src="assets/third-party-libraries/full-screen-api/full-screen-api.js"?>
+<?script src="assets/js/index.js"?>
 
 <zk xmlns:n="native">
 	<div apply="karen.core.crux.session.check.CheckIndex"
@@ -25,7 +24,7 @@
 	</div>
 	<div apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('karen.core.crux.session.DataCenter')">
-		<div if="${vm.loguedAndPerfilValid == true}">
+		<div if="${vm.logued == true}">
 
 			<hlayout id="main" spacing="0">
 				<div id="sidebar" sclass="side-nav fixed"
@@ -69,10 +68,10 @@
 					</popup>
 				</div>
 				<vlayout id="vlayout" hflex="1" sclass="content-main">
-					<include src="resources/content/navbar.zul" />
-					<include src="resources/content/breadcrumbs.zul" />
+					<include src="views/desktop/content/navbar.zul" />
+					<include src="views/desktop/content/breadcrumbs.zul" />
 
-					<include src="resources/content/page_header.zul" />
+					<include src="views/desktop/content/page_header.zul" />
 
 					<!-- Body -->
 					<div>

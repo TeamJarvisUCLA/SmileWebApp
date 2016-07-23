@@ -1,0 +1,77 @@
+<zk xmlns:n="native" xmlns:w="client">
+	<n:link href="assets/css/web/detalleNoticia.css" rel="stylesheet"
+		type="text/css">
+	</n:link>
+	<div class="container-fluid detalleNoticia">
+		<div class="row" width="90%">
+			<div class="col s12 title text-center">
+				<span>Titulo de la Noticia</span>
+			</div>
+			<div class="col s12 control">
+				<a class="volver" href="#">
+					<image src="/imagenes/portal/icon/left-arrow.png"></image>
+					<span>Volver</span>
+				</a>
+				<a class="siguiente" href="#">
+					<span>Siguiente</span>
+					<image src="/imagenes/portal/icon/right-arrow.png"></image>
+				</a>
+			</div>
+			<div class="col s12 text-center fecha">
+				<label value="03/07/2016"></label>
+			</div>
+			<div class="col s4 text-center">
+				<div sclass="col s12">
+					<image	src="/imagenes/portal/galeria1.png"	sclass="materialboxed img-responsive">	</image>
+				</div>
+				<div sclass="col s12 text-center citas">
+					<div sclass="divTag">
+						<label value="Tag"></label><span sclass="fa fa-circle"></span>
+					</div>
+					<div sclass="divTag">
+						<label value="Tag"></label><span sclass="fa fa-circle"></span>
+					</div>
+					<div sclass="divTag">
+						<label value="Tag"></label><span sclass="fa fa-circle"></span>
+					</div>				
+				</div>
+			</div>
+			<div class="col s8 descripcion">
+				<div class="row">
+					<span>
+						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ex in, 
+						suscipit error temporibus voluptatem enim aperiam excepturi deserunt 
+						necessitatibus praesentium laborum deleniti et. Doloribus eum optio, 
+						officia incidunt quam placeat. Lorem ipsum dolor sit amet, 
+						consectetur adipisicing elit. Enim quod perspiciatis, sed 
+						beatae quasi blanditiis minus dolorem vel ut consequatur 
+						ipsam debitis fugiat, voluptates quaerat libero qui quos, 
+						quibusdam dignissimos. Lorem ipsum dolor sit amet, consectetur 
+						adipisicing elit. Deserunt ab nostrum, quae commodi dolorem officiis.
+						Asperiores esse rerum illo iste voluptate quam odio expedita id, 
+						ratione tempore temporibus sit quas.
+					</span>
+				</div>
+				<div class="row">
+					<span>
+						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ex in, 
+						suscipit error temporibus voluptatem enim aperiam excepturi deserunt 
+						necessitatibus praesentium laborum deleniti et. Doloribus eum optio, 
+						officia incidunt quam placeat. Lorem ipsum dolor sit amet, 
+						consectetur adipisicing elit. Enim quod perspiciatis, sed 
+						beatae quasi blanditiis minus dolorem vel ut consequatur 
+					</span>
+				</div>
+				<div class="row">
+					<span>
+						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ex in, 
+						suscipit error temporibus voluptatem enim aperiam excepturi deserunt 
+						necessitatibus praesentium laborum deleniti et. Doloribus eum optio, 
+						officia incidunt quam placeat. Lorem ipsum dolor sit amet, 
+						consectetur adipisicing elit. Enim quod perspiciatis, sed 
+					</span>
+				</div>						
+			</div>
+		</div>
+	</div>
+</zk>

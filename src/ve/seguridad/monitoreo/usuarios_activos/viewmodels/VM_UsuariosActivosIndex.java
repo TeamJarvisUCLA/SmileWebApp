@@ -8,9 +8,9 @@ import karen.core.util.UtilDialog;
 import lights.core.enums.TypeQuery;
 import lights.core.payload.response.IPayloadResponse;
 import lights.smile.consume.services.S ;
-import lights.seguridad.enums.OperacionEnum;
-import lights.seguridad.dto.Sesion;
-import lights.seguridad.payload.response.PayloadSesionResponse;
+import ve.smile.seguridad.enums.OperacionEnum;
+import ve.smile.seguridad.dto.Sesion;
+import ve.smile.seguridad.payload.response.PayloadSesionResponse;
 
 import org.zkoss.bind.annotation.Init;
 

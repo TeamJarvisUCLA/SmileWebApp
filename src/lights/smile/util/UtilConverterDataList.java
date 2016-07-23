@@ -2,7 +2,7 @@ package lights.smile.util;
 
 import java.util.Calendar;
 
-import lights.seguridad.dto.Sesion;
+import ve.smile.seguridad.dto.Sesion;
 
 public class UtilConverterDataList {
 

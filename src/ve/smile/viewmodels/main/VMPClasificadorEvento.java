@@ -4,7 +4,7 @@ import karen.core.crux.alert.Alert;
 import karen.core.simple_list_principal.viewmodels.VM_WindowSimpleListPrincipal;
 import karen.core.util.payload.UtilPayload;
 import lights.core.payload.response.IPayloadResponse;
-import lights.seguridad.enums.OperacionEnum;
+import ve.smile.seguridad.enums.OperacionEnum;
 import lights.smile.consume.services.S;
 import ve.smile.dto.ClasificadorEvento;
 import ve.smile.payload.response.PayloadClasificadorEventoResponse;

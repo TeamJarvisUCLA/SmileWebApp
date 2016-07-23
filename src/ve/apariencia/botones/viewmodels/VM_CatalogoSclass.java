@@ -16,8 +16,8 @@ import karen.core.dialog.generic.enums.DialogActionEnum;
 import karen.core.util.UtilDialog;
 import karen.core.util.payload.UtilPayload;
 import lights.smile.consume.services.S;
-import lights.seguridad.dto.Sclass;
-import lights.seguridad.payload.response.PayloadSclassResponse;
+import ve.smile.seguridad.dto.Sclass;
+import ve.smile.seguridad.payload.response.PayloadSclassResponse;
 
 public class VM_CatalogoSclass extends VM_GenericCatalogueDialog<Sclass> {
 

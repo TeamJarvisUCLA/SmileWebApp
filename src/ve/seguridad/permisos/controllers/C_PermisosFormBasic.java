@@ -11,10 +11,10 @@ import karen.core.crux.alert.Alert;
 import karen.core.form.controllers.C_WindowForm;
 import karen.core.util.payload.UtilPayload;
 import lights.smile.consume.services.S;
-import lights.seguridad.dto.NodoMenu;
-import lights.seguridad.dto.Operacion;
-import lights.seguridad.dto.PermisoSeguridad;
-import lights.seguridad.payload.response.PayloadPermisoSeguridadResponse;
+import ve.smile.seguridad.dto.NodoMenu;
+import ve.smile.seguridad.dto.Operacion;
+import ve.smile.seguridad.dto.PermisoSeguridad;
+import ve.smile.seguridad.payload.response.PayloadPermisoSeguridadResponse;
 
 @SuppressWarnings({"rawtypes", "unchecked"})
 public class C_PermisosFormBasic extends C_WindowForm {

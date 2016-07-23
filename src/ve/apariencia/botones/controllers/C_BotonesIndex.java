@@ -20,12 +20,12 @@ import karen.core.simple_list_principal.controllers.C_WindowSimpleListPrincipal;
 import karen.core.toolbar.Toolbar;
 import karen.core.util.payload.UtilPayload;
 import lights.smile.consume.services.S;
-import lights.seguridad.dto.Operacion;
-import lights.seguridad.dto.Vista;
-import lights.seguridad.dto.VistaOperacionCustom;
-import lights.seguridad.payload.response.PayloadOperacionResponse;
-import lights.seguridad.payload.response.PayloadRolResponse;
-import lights.seguridad.payload.response.PayloadVistaOperacionCustomResponse;
+import ve.smile.seguridad.dto.Operacion;
+import ve.smile.seguridad.dto.Vista;
+import ve.smile.seguridad.dto.VistaOperacionCustom;
+import ve.smile.seguridad.payload.response.PayloadOperacionResponse;
+import ve.smile.seguridad.payload.response.PayloadRolResponse;
+import ve.smile.seguridad.payload.response.PayloadVistaOperacionCustomResponse;
 
 @SuppressWarnings({"rawtypes", "unchecked"})
 public class C_BotonesIndex extends C_WindowSimpleListPrincipal<Vista> {

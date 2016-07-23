@@ -14,9 +14,9 @@ import karen.core.form.viewmodels.VM_WindowForm;
 import karen.core.util.payload.UtilPayload;
 import karen.core.util.validate.UtilValidate;
 import lights.smile.consume.services.S;
-import lights.seguridad.enums.OperacionEnum;
-import lights.seguridad.payload.response.PayloadRolResponse;
-import lights.seguridad.dto.Rol;
+import ve.smile.seguridad.enums.OperacionEnum;
+import ve.smile.seguridad.payload.response.PayloadRolResponse;
+import ve.smile.seguridad.dto.Rol;
 
 public class VM_RolesFormBasic extends VM_WindowForm {
 	

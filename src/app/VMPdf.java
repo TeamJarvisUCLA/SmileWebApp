@@ -22,7 +22,7 @@ import karen.core.form.buttons.enums.OperacionFormEnum;
 import karen.core.form.buttons.helpers.OperacionFormHelper;
 import karen.core.form.viewmodels.VM_WindowForm;
 import karen.core.util.UtilDialog;
-import lights.seguridad.enums.OperacionEnum;
+import ve.smile.seguridad.enums.OperacionEnum;
 
 public class VMPdf extends VM_WindowForm implements UploadFileSingle {
 

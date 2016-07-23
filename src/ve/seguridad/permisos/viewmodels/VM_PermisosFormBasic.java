@@ -10,8 +10,8 @@ import karen.core.form.buttons.data.OperacionForm;
 import karen.core.form.buttons.enums.OperacionFormEnum;
 import karen.core.form.buttons.helpers.OperacionFormHelper;
 import karen.core.form.viewmodels.VM_WindowForm;
-import lights.seguridad.dto.Rol;
-import lights.seguridad.enums.OperacionEnum;
+import ve.smile.seguridad.dto.Rol;
+import ve.smile.seguridad.enums.OperacionEnum;
 
 public class VM_PermisosFormBasic extends VM_WindowForm {
 	

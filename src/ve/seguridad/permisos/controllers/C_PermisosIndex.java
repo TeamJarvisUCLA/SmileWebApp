@@ -14,12 +14,12 @@ import karen.core.simple_list_principal.controllers.C_WindowSimpleListPrincipal;
 import karen.core.toolbar.Toolbar;
 import karen.core.util.payload.UtilPayload;
 import lights.smile.consume.services.S;
-import lights.seguridad.dto.NodoMenu;
-import lights.seguridad.dto.Operacion;
-import lights.seguridad.dto.Rol;
-import lights.seguridad.enums.TipoNodoMenuEnum;
-import lights.seguridad.payload.response.PayloadNodoMenuResponse;
-import lights.seguridad.payload.response.PayloadOperacionResponse;
+import ve.smile.seguridad.dto.NodoMenu;
+import ve.smile.seguridad.dto.Operacion;
+import ve.smile.seguridad.dto.Rol;
+import ve.smile.seguridad.enums.TipoNodoMenuEnum;
+import ve.smile.seguridad.payload.response.PayloadNodoMenuResponse;
+import ve.smile.seguridad.payload.response.PayloadOperacionResponse;
 
 @SuppressWarnings({"rawtypes", "unchecked"})
 public class C_PermisosIndex extends C_WindowSimpleListPrincipal<Rol> {

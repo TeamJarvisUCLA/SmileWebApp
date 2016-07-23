@@ -6,9 +6,9 @@ import java.util.Map;
 
 import karen.core.crux.alert.Alert;
 import karen.core.util.payload.UtilPayload;
-import lights.seguridad.dto.Operacion;
-import lights.seguridad.dto.Vista;
-import lights.seguridad.payload.response.PayloadVistaResponse;
+import ve.smile.seguridad.dto.Operacion;
+import ve.smile.seguridad.dto.Vista;
+import ve.smile.seguridad.payload.response.PayloadVistaResponse;
 
 import org.zkoss.zk.ui.UiException;
 import org.zkoss.zk.ui.event.Event;

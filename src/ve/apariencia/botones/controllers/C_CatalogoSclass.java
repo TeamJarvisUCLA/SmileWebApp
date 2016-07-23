@@ -1,7 +1,7 @@
 package ve.apariencia.botones.controllers;
 
 import karen.core.dialog.catalogue.generic.controllers.C_GenericCatalogueDialog;
-import lights.seguridad.dto.Sclass;
+import ve.smile.seguridad.dto.Sclass;
 
 public class C_CatalogoSclass extends C_GenericCatalogueDialog<Sclass> {
 

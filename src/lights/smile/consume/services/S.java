@@ -1,21 +1,21 @@
 package lights.smile.consume.services;
 
 import ve.smile.consume.services.ClasificadorEventoService;
-import lights.seguridad.consume.services.MensajeSistemaService;
-import lights.seguridad.consume.services.OperacionService;
-import lights.seguridad.consume.services.SclassService;
-import lights.seguridad.consume.services.VistaOperacionBasicoService;
-import lights.seguridad.consume.services.UsuarioService;
-import lights.seguridad.consume.services.PermisoSeguridadService;
-import lights.seguridad.consume.services.IconSclassService;
-import lights.seguridad.consume.services.VistaOperacionCustomService;
-import lights.seguridad.consume.services.TablaService;
-import lights.seguridad.consume.services.VistaService;
-import lights.seguridad.consume.services.AuditoriaService;
-import lights.seguridad.consume.services.SesionService;
-import lights.seguridad.consume.services.NodoMenuService;
-import lights.seguridad.consume.services.RolService;
-import lights.seguridad.consume.services.MetodoDaoService;
+import ve.smile.seguridad.consume.services.MensajeSistemaService;
+import ve.smile.seguridad.consume.services.OperacionService;
+import ve.smile.seguridad.consume.services.SclassService;
+import ve.smile.seguridad.consume.services.VistaOperacionBasicoService;
+import ve.smile.seguridad.consume.services.UsuarioService;
+import ve.smile.seguridad.consume.services.PermisoSeguridadService;
+import ve.smile.seguridad.consume.services.IconSclassService;
+import ve.smile.seguridad.consume.services.VistaOperacionCustomService;
+import ve.smile.seguridad.consume.services.TablaService;
+import ve.smile.seguridad.consume.services.VistaService;
+import ve.smile.seguridad.consume.services.AuditoriaService;
+import ve.smile.seguridad.consume.services.SesionService;
+import ve.smile.seguridad.consume.services.NodoMenuService;
+import ve.smile.seguridad.consume.services.RolService;
+import ve.smile.seguridad.consume.services.MetodoDaoService;
 
 public class S {
 
@@ -36,7 +36,7 @@ public class S {
 	public static SclassService SclassService;
 	public static ClasificadorEventoService ClasificadorEventoService;
 	
-	public static ModeloService ModeloService;
+
 	
 	static {
 		VistaOperacionBasicoService = new VistaOperacionBasicoService();
@@ -53,7 +53,7 @@ public class S {
 		RolService = new RolService();
 		MetodoDaoService = new MetodoDaoService();
 		MensajeSistemaService = new MensajeSistemaService();
-		ModeloService = new ModeloService();
+		
 		SclassService = new SclassService();
 		ClasificadorEventoService = new ClasificadorEventoService();
 	}

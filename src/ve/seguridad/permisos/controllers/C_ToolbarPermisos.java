@@ -3,8 +3,8 @@ package ve.seguridad.permisos.controllers;
 import java.util.List;
 
 import karen.core.toolbar.ButtonToolbar;
-import lights.seguridad.dto.NodoMenu;
-import lights.seguridad.dto.Operacion;
+import ve.smile.seguridad.dto.NodoMenu;
+import ve.smile.seguridad.dto.Operacion;
 
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.event.Event;

@@ -14,8 +14,8 @@ import karen.core.listfoot.enums.HowToSeeEnum;
 import karen.core.util.payload.UtilPayload;
 import lights.core.enums.TypeQuery;
 import lights.smile.consume.services.S;
-import lights.seguridad.dto.Sesion;
-import lights.seguridad.payload.response.PayloadSesionResponse;
+import ve.smile.seguridad.dto.Sesion;
+import ve.smile.seguridad.payload.response.PayloadSesionResponse;
 
 public class VM_UltimasSesionesActivas extends VM_WindowDialog {
 

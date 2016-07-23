@@ -7,11 +7,11 @@ import karen.core.dialog.generic.enums.DialogActionEnum;
 import karen.core.simple_list_principal.viewmodels.VM_WindowSimpleListPrincipal;
 import karen.core.util.UtilDialog;
 import lights.core.payload.response.IPayloadResponse;
-import lights.seguridad.enums.OperacionEnum;
-import lights.seguridad.dto.IconSclass;
-import lights.seguridad.dto.Operacion;
-import lights.seguridad.dto.Sclass;
-import lights.seguridad.dto.Vista;
+import ve.smile.seguridad.enums.OperacionEnum;
+import ve.smile.seguridad.dto.IconSclass;
+import ve.smile.seguridad.dto.Operacion;
+import ve.smile.seguridad.dto.Sclass;
+import ve.smile.seguridad.dto.Vista;
 
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.Command;

@@ -17,9 +17,9 @@ import karen.core.util.payload.UtilPayload;
 import karen.core.util.validate.UtilValidate;
 import lights.core.payload.response.IPayloadResponse;
 import lights.smile.consume.services.S;
-import lights.seguridad.enums.OperacionEnum;
-import lights.seguridad.payload.response.PayloadMensajeSistemaResponse;
-import lights.seguridad.dto.MensajeSistema;
+import ve.smile.seguridad.enums.OperacionEnum;
+import ve.smile.seguridad.payload.response.PayloadMensajeSistemaResponse;
+import ve.smile.seguridad.dto.MensajeSistema;
 
 public class VM_MensajesSistemaFormBasic extends VM_WindowForm {
 

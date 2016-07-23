@@ -6,7 +6,7 @@ import java.util.List;
 import org.zkoss.bind.annotation.Init;
 
 import karen.core.dialog.catalogue.simple_list.viewmodels.VM_SimpleListCatalogueDialog;
-import lights.seguridad.enums.TipoNodoMenuEnum;
+import ve.smile.seguridad.enums.TipoNodoMenuEnum;
 
 public class VM_CatalogoTipoNodoMenu extends VM_SimpleListCatalogueDialog<TipoNodoMenuEnum> {
 

@@ -22,10 +22,10 @@ import karen.core.util.payload.UtilPayload;
 import karen.core.util.validate.UtilValidate;
 import lights.core.encryptor.UtilEncryptor;
 import lights.smile.consume.services.S;
-import lights.seguridad.enums.OperacionEnum;
-import lights.seguridad.payload.response.PayloadUsuarioResponse;
-import lights.seguridad.dto.Rol;
-import lights.seguridad.dto.Usuario;
+import ve.smile.seguridad.enums.OperacionEnum;
+import ve.smile.seguridad.payload.response.PayloadUsuarioResponse;
+import ve.smile.seguridad.dto.Rol;
+import ve.smile.seguridad.dto.Usuario;
 
 public class VM_UsuariosFormBasic extends VM_WindowForm {
 

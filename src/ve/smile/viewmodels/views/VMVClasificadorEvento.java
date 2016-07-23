@@ -12,8 +12,9 @@ import karen.core.form.buttons.enums.OperacionFormEnum;
 import karen.core.form.buttons.helpers.OperacionFormHelper;
 import karen.core.form.viewmodels.VM_WindowForm;
 import karen.core.util.payload.UtilPayload;
+import karen.core.util.validate.UtilValidate;
 import lights.smile.consume.services.S;
-import lights.seguridad.enums.OperacionEnum;
+import ve.smile.seguridad.enums.OperacionEnum;
 import ve.smile.payload.response.PayloadClasificadorEventoResponse;
 import ve.smile.dto.ClasificadorEvento;
 
@@ -102,7 +103,21 @@ public class VMVClasificadorEvento extends VM_WindowForm {
 
 	public boolean isFormValidated() {
 		//TODO
+		try {
+		UtilValidate.validateString(getClasificadorEvento().getDescripcion(), "Nombres",
+				195);
+
+	//	UtilValidate.validateString(getModelo().getActividades(),
+		//		"Actividades", 195);
+
+		//UtilValidate.validateString(getModelo().getNumero(), "Número", 195);
+
 		return true;
+	} catch (Exception e) {
+		Alert.showMessage(e.getMessage());
+
+		return false;
+	}
 	}
 
 }

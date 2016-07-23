@@ -11,7 +11,7 @@ import karen.core.dialog.message_box.events.MessageBoxDialogCloseEvent;
 import karen.core.listfoot.ListFoot;
 import karen.core.listfoot.enums.HowToSeeEnum;
 import karen.core.util.payload.UtilPayload;
-import lights.seguridad.payload.response.PayloadSesionResponse;
+import ve.smile.seguridad.payload.response.PayloadSesionResponse;
 
 public class C_UltimasSesionesActivas extends C_WindowDialog {
 	

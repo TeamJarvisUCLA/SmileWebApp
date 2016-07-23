@@ -3,8 +3,8 @@ package ve.apariencia.botones.controllers;
 import java.util.List;
 
 import karen.core.toolbar.ButtonToolbar;
-import lights.seguridad.dto.Operacion;
-import lights.seguridad.dto.Vista;
+import ve.smile.seguridad.dto.Operacion;
+import ve.smile.seguridad.dto.Vista;
 
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.event.Event;

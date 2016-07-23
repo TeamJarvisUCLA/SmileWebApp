@@ -65,14 +65,14 @@ public class Login {
 
 		SesionContextHelper.setLogued(true);
 
-		DataCenter.putVentanaDefault(httpSession.getId(),
-				"/views/desktop/prueba.zul");
+//		DataCenter.putVentanaDefault(httpSession.getId(),
+//				"/views/desktop/prueba.zul");
 
 		DataCenter
 				.setUserSecurityData(new UserSecurityData(usuario, String
 						.valueOf(usuario.getFkRol().getIdRol()), idSesion,
 						accessToken));
-
+		
 		Executions.sendRedirect("index.zul");
 	}
 

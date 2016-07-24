@@ -1,4 +1,4 @@
-package lights.smile.consume.services;
+package ve.smile.consume.services;
 
 import ve.smile.consume.services.ClasificadorEventoService;
 import ve.smile.seguridad.consume.services.MensajeSistemaService;

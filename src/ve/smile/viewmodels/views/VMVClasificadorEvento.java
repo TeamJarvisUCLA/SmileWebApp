@@ -13,7 +13,7 @@ import karen.core.form.buttons.helpers.OperacionFormHelper;
 import karen.core.form.viewmodels.VM_WindowForm;
 import karen.core.util.payload.UtilPayload;
 import karen.core.util.validate.UtilValidate;
-import lights.smile.consume.services.S;
+import ve.smile.consume.services.S;
 import ve.smile.seguridad.enums.OperacionEnum;
 import ve.smile.payload.response.PayloadClasificadorEventoResponse;
 import ve.smile.dto.ClasificadorEvento;
@@ -102,22 +102,18 @@ public class VMVClasificadorEvento extends VM_WindowForm {
 	}
 
 	public boolean isFormValidated() {
-		//TODO
 		try {
-		UtilValidate.validateString(getClasificadorEvento().getDescripcion(), "Nombres",
-				195);
+			UtilValidate.validateString(getClasificadorEvento().getNombre(), "Nombres",
+					200);
+			UtilValidate.validateString(getClasificadorEvento().getDescripcion(), "Descripcion",
+					200);
+	
+			return true;
+		} catch (Exception e) {
+			Alert.showMessage(e.getMessage());
 
-	//	UtilValidate.validateString(getModelo().getActividades(),
-		//		"Actividades", 195);
-
-		//UtilValidate.validateString(getModelo().getNumero(), "Número", 195);
-
-		return true;
-	} catch (Exception e) {
-		Alert.showMessage(e.getMessage());
-
-		return false;
-	}
+			return false;
+		}
 	}
 
 }

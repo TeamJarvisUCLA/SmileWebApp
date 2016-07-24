@@ -15,7 +15,7 @@ import karen.core.dialog.catalogue.generic.viewmodels.VM_GenericCatalogueDialog;
 import karen.core.dialog.generic.enums.DialogActionEnum;
 import karen.core.util.UtilDialog;
 import karen.core.util.payload.UtilPayload;
-import lights.smile.consume.services.S;
+import ve.smile.consume.services.S;
 import ve.smile.seguridad.dto.Sclass;
 import ve.smile.seguridad.payload.response.PayloadSclassResponse;
 

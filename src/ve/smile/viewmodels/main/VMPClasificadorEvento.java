@@ -1,11 +1,14 @@
 package ve.smile.viewmodels.main;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import karen.core.crux.alert.Alert;
 import karen.core.simple_list_principal.viewmodels.VM_WindowSimpleListPrincipal;
 import karen.core.util.payload.UtilPayload;
 import lights.core.payload.response.IPayloadResponse;
+import ve.smile.consume.services.S ;
 import ve.smile.seguridad.enums.OperacionEnum;
-import lights.smile.consume.services.S;
 import ve.smile.dto.ClasificadorEvento;
 import ve.smile.payload.response.PayloadClasificadorEventoResponse;
 
@@ -24,6 +27,7 @@ public class VMPClasificadorEvento extends VM_WindowSimpleListPrincipal<Clasific
 
 		PayloadClasificadorEventoResponse payloadClasificadorEventoResponse = 
 				S.ClasificadorEventoService.consultarPaginacion(cantidadRegistrosPagina, pagina);
+
 		return payloadClasificadorEventoResponse;
 	}
 
@@ -43,9 +47,7 @@ public class VMPClasificadorEvento extends VM_WindowSimpleListPrincipal<Clasific
 
 	@Override
 	public String getSrcFileZulForm(OperacionEnum operacionEnum) {
-		return "views/desktop/maestro/view/viewClasificacionEvento.zul";
+		return "views/desktop/maestro/view/ClasificadorEventoFormBasic.zul";
 	}
-
-
 
 }

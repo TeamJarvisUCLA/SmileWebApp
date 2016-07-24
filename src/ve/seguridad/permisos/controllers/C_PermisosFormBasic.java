@@ -10,7 +10,7 @@ import ve.seguridad.permisos.viewmodels.VM_PermisosFormBasic;
 import karen.core.crux.alert.Alert;
 import karen.core.form.controllers.C_WindowForm;
 import karen.core.util.payload.UtilPayload;
-import lights.smile.consume.services.S;
+import ve.smile.consume.services.S;
 import ve.smile.seguridad.dto.NodoMenu;
 import ve.smile.seguridad.dto.Operacion;
 import ve.smile.seguridad.dto.PermisoSeguridad;

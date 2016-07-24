@@ -21,7 +21,7 @@ import karen.core.util.UtilDialog;
 import karen.core.util.payload.UtilPayload;
 import karen.core.util.validate.UtilValidate;
 import lights.core.encryptor.UtilEncryptor;
-import lights.smile.consume.services.S;
+import ve.smile.consume.services.S;
 import ve.smile.seguridad.enums.OperacionEnum;
 import ve.smile.seguridad.payload.response.PayloadUsuarioResponse;
 import ve.smile.seguridad.dto.Rol;

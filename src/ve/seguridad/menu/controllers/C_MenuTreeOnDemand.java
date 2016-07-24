@@ -9,7 +9,7 @@ import java.util.List;
 import karen.core.crux.alert.Alert;
 import karen.core.util.payload.UtilPayload;
 import lights.core.enums.TypeQuery;
-import lights.smile.consume.services.S;
+import ve.smile.consume.services.S;
 import ve.smile.seguridad.dto.NodoMenu;
 import ve.smile.seguridad.enums.TipoNodoMenuEnum;
 import ve.smile.seguridad.payload.response.PayloadNodoMenuResponse;

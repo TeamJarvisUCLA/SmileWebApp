@@ -13,7 +13,7 @@ import karen.core.dialog.generic.viewmodels.VM_WindowDialog;
 import karen.core.listfoot.enums.HowToSeeEnum;
 import karen.core.util.payload.UtilPayload;
 import lights.core.enums.TypeQuery;
-import lights.smile.consume.services.S;
+import ve.smile.consume.services.S;
 import ve.smile.seguridad.dto.Sesion;
 import ve.smile.seguridad.payload.response.PayloadSesionResponse;
 

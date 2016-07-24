@@ -20,7 +20,7 @@ import karen.core.form.viewmodels.VM_WindowForm;
 import karen.core.util.UtilDialog;
 import karen.core.util.payload.UtilPayload;
 import karen.core.util.validate.UtilValidate;
-import lights.smile.consume.services.S;
+import ve.smile.consume.services.S;
 import ve.smile.seguridad.dto.IconSclass;
 import ve.smile.seguridad.dto.NodoMenu;
 import ve.smile.seguridad.dto.Vista;

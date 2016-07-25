@@ -6,6 +6,12 @@
         <dependent-module archiveName="KarenCore-0.0.1.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/KarenCore/KarenCore">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="SmileConsumidor-0.0.1.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/SmileConsumidor/SmileConsumidor">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="SmileDatos-0.0.1.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/SmileDatos/SmileDatos">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="context-root" value="SmileWebApp"/>
         <property name="java-output-path" value="/SmileWebApp/build/classes"/>
     </wb-module>

@@ -1,7 +1,6 @@
 package ve.smile.viewmodels.main;
 
-import java.util.HashMap;
-import java.util.Map;
+
 
 import karen.core.crux.alert.Alert;
 import karen.core.simple_list_principal.viewmodels.VM_WindowSimpleListPrincipal;

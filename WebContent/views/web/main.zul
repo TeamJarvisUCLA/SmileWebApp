@@ -153,19 +153,41 @@
 					<n:div id="conocenos">
 						<div class="col s5 text-center">
 							<div class="row" style="width: 60%">
-								<div class="col s12">
-						        	<image src="/imagenes/portal/icon/icon-people-grande.png"
-										style="height:140px;">
-					   				</image>   
-						         	<n:h6>Fanca</n:h6>
-				         		</div> 
-				         		<div class="col s12"  style="text-align: justify">
-						         	<span>This is the standard version that comes with both the minified and unminified CSS and JavaScript files. 
-						         		This option requires little to no setup. Use this if you are unfamiliar with Sass.
-						            	This option requires little to no setup. Use this if you are unfamiliar with Sass.
-						               
-						         	</span>
-					         	</div>
+								<div class="cube">
+									<div class="face two">
+										<div class="col s12">
+								        	<image src="/imagenes/portal/icon/icon-people-grande.png">
+							   				</image>   
+								         	<n:h6>Fanca</n:h6>
+						         		</div> 
+						         		<div class="col s12 block-ellipsis">
+								         	<span>La Fundación Amigos del Niño con Cáncer  Lara (FANCA) es una institución privada, sin fines de lucro, fundada el 04 de Febrero de 1988, y trabajamos en los centros hospitalarios:  Hospital Universitario de Pediatría “Dr. Agustín Zubillaga” y el Hospital del Seguro Social Pastor Oropeza, ambos en la ciudad de Barquisimeto.  Nace por iniciativa de algunas personas de la sociedad larense, en vista de los grandes problemas que acarrea esta enfermedad. Somos una Fundación autónoma y descentralizada, con 24 años de servicio trabajando en pro  de mejorar la calidad de vida de los pacientes. 
+								         	</span>
+							         	</div>
+							        </div>
+									<div class="face three">
+										<div class="col s12">
+								        	<image src="/imagenes/portal/icon/icon-goals-grande.png">
+							   				</image>   
+								         	<n:h6>Misión</n:h6>
+						         		</div> 
+						         		<div class="col s12 block-ellipsis">
+								         	<span>“Brindar a los niños y adolescentes los medicamentos y exámenes especiales,  faltantes  en los Hospitales, hospedaje y comida en nuestro albergue, ayuda psicológica tanto a los padres como a los niños, escolaridad para los pacientes hospitalizados y orientación a los padres y representantes, para que acudan a los diferentes centros de ayuda (fundaciones públicas y privadas) en la ciudad”
+								         	</span>
+							         	</div>
+							        </div>
+									<div class="face four">
+										<div class="col s12">
+								        	<image src="/imagenes/portal/icon/icon-medical-grande.png">
+							   				</image>   
+								         	<n:h6>Visión</n:h6>
+						         		</div> 
+						         		<div class="col s12 block-ellipsis">
+								         	<span>“Lograr el reconocimiento a nivel nacional e internacional como una Fundación comprometida con la prestación de un servicio integral al paciente infantil y adolescente con cáncer, respaldado por nuestros valores como fundación sin fines de lucro” 
+								         	</span>
+							         	</div>
+							        </div>						        							        							        
+						       	</div>
 								<div class="col s12">
 									<button class="waves-effect waves-light btn" href=""
 										onClick="@command('conocenos')">
@@ -201,7 +223,7 @@
 										</image>
 										<n:br></n:br>
 										<div class="subtitulo text-center">
-											<n:p>Carrera</n:p>
+											<span>Carrera</span>
 										</div>
 										<div class="info">
 											<n:b>Fecha:</n:b>
@@ -222,7 +244,7 @@
 										</image>
 										<n:br></n:br>
 										<div class="subtitulo text-center">
-											<n:p>Vendimia</n:p>
+											<span>Vendimia</span>
 										</div>
 										<div class="info">
 											<n:b>Fecha:</n:b>
@@ -243,7 +265,7 @@
 										</image>
 										<n:br></n:br>
 										<div class="subtitulo text-center">
-											<n:p>Bingo</n:p>
+											<span>Bingo</span>
 										</div>
 										<div class="info">
 											<n:b>Fecha:</n:b>
@@ -274,36 +296,36 @@
 										<image class="img-responsive center-block" src="/imagenes/portal/icon/icon-voluntarios.png" width="128px" height="128px"></image>
 										<n:br></n:br>
 										<div class="subtitulo text-center">
-						           			<n:p>VOLUNTARIADO</n:p>
+						           			<span>VOLUNTARIADO</span>
 						       			</div>
 						       			<div class="info">
-									        <n:p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
+									        <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
 												sed eiusmod tempor incidunt ut labore et dolore magna aliqua.
-						        			</n:p>
+						        			</span>
 							          	</div>
 									</div>
 									<div class="col s4">
 										<image class="img-responsive center-block" src="/imagenes/portal/icon/icon-padrinos.png" width="128px" height="128px"></image>					
 										<n:br></n:br>
 										<div class="subtitulo text-center">
-						           			<n:p>PADRINOS</n:p>
+						           			<span>PADRINOS</span>
 						       			</div>
 						       			<div class="info">
-						       				<n:p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
+						       				<span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
 												sed eiusmod tempor incidunt ut labore et dolore magna aliqua.
-						        			</n:p>
+						        			</span>
 								        </div>
 									</div>
 									<div class="col s4">
 										<image class="img-responsive center-block" src="/imagenes/portal/icon/icon-donaciones.png" width="128px" height="128px"></image>
 										<n:br></n:br>
 										<div class="subtitulo text-center">
-						           			<n:p>DONACIONES</n:p>
+						           			<span>DONACIONES</span>
 						       			</div>
 						       			<div class="info">
-						       				<n:p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
+						       				<span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
 												sed eiusmod tempor incidunt ut labore et dolore magna aliqua.
-						        			</n:p>
+						        			</span>
 							          	</div>
 									</div>
 								</div>
@@ -384,9 +406,17 @@
 				<n:div id="galeria">
 					<div class="col s5">
 						<n:h4>galería de fotos</n:h4>
-						<div class="col s12" onClick="@command('galeria')">
-							<image class="img-responsive" src="/imagenes/portal/galeria1.png"></image>
-							<span>ver mas</span>			
+						<div class="carousel">
+							<div class="carousel-item">
+								<image class="img-responsive" src="/imagenes/portal/galeria1.png"></image>
+							</div>
+							<div class="carousel-item">
+								<image class="img-responsive" src="/imagenes/portal/galeria2.png" ></image>			
+							</div>	
+							<div class="carousel-item">
+								<image class="img-responsive" src="/imagenes/portal/galeria3.jpg"></image>
+							</div>
+							<span  onClick="@command('galeria')">ver mas</span>
 						</div>
 					</div>				
 				</n:div>
@@ -397,6 +427,12 @@
 	
 	<n:script type="text/javascript">
 		$(document).ready(function() {
+		
+		$('.carousel').carousel();
+		
+		setInterval(function(){
+		  $('.carousel').carousel('next');
+		}, 4000);
 		
 		  $('#owlNoticias').owlCarousel({
 		 items:1,
@@ -420,7 +456,47 @@
 			pagination:false, 
 			slideSpeed : 300, paginationSpeed : 400,
 			singleItem:true, autoPlay: true });
+			
+			
+
+			var anchocubo = $(".cube").width();
+			
+			$(".face.two").css("transform", "translateZ("+anchocubo/2+"px)");
+			$(".face.three").css("transform", "rotateY(90deg) translateZ("+anchocubo/2+"px)");
+			$(".face.four").css("transform", "rotateY(180deg) translateZ("+anchocubo/2+"px)");
+			
+			$(".face.two").css("-webkit-transform", "translateZ("+anchocubo/2+"px)");
+			$(".face.three").css("-webkit-transform", "rotateY(90deg) translateZ("+anchocubo/2+"px)");
+			$(".face.four").css("-webkit-transform", "rotateY(180deg) translateZ("+anchocubo/2+"px)");
+			
+			var rot = 90;
+			setInterval(function() {
+			     $(".cube").css("transform", "rotateY(-" + rot + "deg)");
+			     if (rot == 180){
+			       rot = 0
+			     }else {
+			       rot = rot + 90;
+			     }
+			}, 6000);
+	
 
 		});
+		
+		
+		$( window ).resize(function() {
+
+			var anchocubo = $(".cube").width();	
+					
+			$(".face.two").css("transform", "translateZ("+anchocubo/2+"px)");
+			$(".face.three").css("transform", "rotateY(90deg) translateZ("+anchocubo/2+"px)");
+			$(".face.four").css("transform", "rotateY(180deg) translateZ("+anchocubo/2+"px)");
+			
+			$(".face.two").css("-webkit-transform", "translateZ("+anchocubo/2+"px)");
+			$(".face.three").css("-webkit-transform", "rotateY(90deg) translateZ("+anchocubo/2+"px)");
+			$(".face.four").css("-webkit-transform", "rotateY(180deg) translateZ("+anchocubo/2+"px)");	
+	
+		});
+
+					
 	</n:script>
 </zk>

@@ -1,0 +1,30 @@
+
+<?meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"?>
+<?link href="assets/third-party-libraries/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"?>
+<?link href="assets/third-party-libraries/materialize_v0.97.5/css/materialize.min.css" rel="stylesheet" type="text/css"?>
+<?link href="assets/third-party-libraries/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css"?>
+<?link href="assets/css/theme.css" rel="stylesheet" type="text/css"?>
+<?link href="assets/css/karen.css" rel="stylesheet" type="text/css"?>
+<?link href="assets/css/loading.css" rel="stylesheet" type="text/css"?>
+<?link href="assets/third-party-libraries/animate/animate.css" rel="stylesheet" type="text/css"?>
+
+<?link href="resources/css/componentesZK.css" rel="stylesheet" type="text/css"?>
+
+<?script src="assets/third-party-libraries/bootstrap/js/bootstrap.js"?>
+<?script src="assets/third-party-libraries/materialize_v0.97.5/js/materialize.min.js"?>
+
+<?script src="assets/third-party-libraries/shorcut/shorcut.js"?>
+<?script src="assets/third-party-libraries/full-screen-api/full-screen-api.js"?>
+<?script src="assets/js/index.js"?>
+<zk xmlns:n="native" xmlns:w="client">
+	<div apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('ve.smile.web.viewmodels.VM_AbrirPostulado')">
+		<div>
+			<button id="btnAccept" label="Seleccionar"
+				sclass="green waves-effect waves-light btn"
+				iconSclass="fa fa-check" onClick="@command('abrir')">
+			</button>
+			
+		</div>
+	</div>
+</zk>

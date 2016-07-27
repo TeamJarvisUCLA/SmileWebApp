@@ -3,6 +3,26 @@
 
 		<div class="container-fluid galeria" apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('ve.smile.web.viewmodels.VM_Main')">
+		
+
+		<div class="social">
+			<div style="padding: 0px;">
+				<div>
+					<a href="#fotos" sclass="icon"
+						iconSclass="fa fa-picture-o">
+						<span>Fotos</span>
+					</a>
+				</div>
+				<div>
+					<a href="#albumes" sclass="icon"
+						iconSclass="fa fa-picture-o">
+						<span>Álbumes</span>
+					</a>
+				</div>
+			</div>
+		</div>		
+		
+		
 			<n:h4>fotos</n:h4>
 			<n:div id="fotos">
 				<div class="col s12 seccion">

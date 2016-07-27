@@ -15,6 +15,6 @@ public class VM_AbrirPostulado {
 
 		
 		
-		UtilDialog.showDialog("postulado_voluntario.zul", dialogData);
+		UtilDialog.showDialog("/views/web/postulacionVoluntario.zul", dialogData);
 	}
 }

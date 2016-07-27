@@ -164,6 +164,7 @@ h4 {
 .cube .col.block-ellipsis {
 	text-align: initial;	
 	display: -webkit-box;
+	-webkit-line-clamp: 6;
 	-webkit-box-orient: vertical;
 	overflow: hidden;
 	text-overflow: ellipsis;

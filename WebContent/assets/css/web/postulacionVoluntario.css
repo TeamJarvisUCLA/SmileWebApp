@@ -1,0 +1,23 @@
+#modalFormPostulacion .close {
+	opacity: 1;
+	text-align: right;
+}
+#modalFormPostulacion .close span{
+	font-size: 22px;
+	color: black;
+}
+
+#modalFormPostulacion h6{
+	color: #f26b7a;
+	font-weight: bold
+}
+
+#modalFormPostulacion .form div:nth-of-type(4){
+	margin-bottom: 10px;
+}
+
+#modalFormPostulacion input:focus{
+	border-bottom: 1px solid #8AC7DE;
+	box-shadow: 0 1px 0 0 #8AC7DE;
+}
+

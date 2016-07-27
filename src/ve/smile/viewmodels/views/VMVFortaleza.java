@@ -12,6 +12,7 @@ import karen.core.form.buttons.enums.OperacionFormEnum;
 import karen.core.form.buttons.helpers.OperacionFormHelper;
 import karen.core.form.viewmodels.VM_WindowForm;
 import karen.core.util.payload.UtilPayload;
+import karen.core.util.validate.UtilValidate;
 import ve.smile.consume.services.S;
 import ve.smile.seguridad.enums.OperacionEnum;
 import ve.smile.payload.response.PayloadFortalezaResponse;
@@ -101,8 +102,15 @@ public class VMVFortaleza extends VM_WindowForm {
 	}
 
 	public boolean isFormValidated() {
-		//TODO
-		return true;
+		try {
+			UtilValidate.validateString(getFortaleza().getNombre(), "Nombre", 100);
+			UtilValidate.validateString(getFortaleza().getDescripcion(), "Descripcion", 200);
+			return true;
+		} catch (Exception e) {
+			Alert.showMessage(e.getMessage());
+
+			return false;
+		}
 	}
 
 }

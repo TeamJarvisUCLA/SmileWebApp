@@ -10,11 +10,20 @@ import ve.smile.dto.Persona;
 public class VM_AbrirPostulado {
 
 	@Command
-	public void abrir(){
+	public void abrirPostular(){
 		DialogData dialogData = new DialogData();
 
 		
 		
 		UtilDialog.showDialog("/views/web/postulacionVoluntario.zul", dialogData);
+	}
+	
+	@Command
+	public void abrirComentar(){
+		DialogData dialogData = new DialogData();
+
+		
+		
+		UtilDialog.showDialog("/views/web/comentarAlbum.zul", dialogData);
 	}
 }

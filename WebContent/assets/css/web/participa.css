@@ -1,4 +1,23 @@
 
+
+	.medallas {
+		margin-top: 10px;
+	}
+	
+	#comunidad .medallas .fotos {
+		position: relative;
+	}
+	
+	#comunidad .medallas .fotos img:nth-of-type(1){
+		position: absolute;     
+		width: 100px;      
+		height: 100px;    
+		top: 45px;    
+		left: 76px;
+	}
+	
+	
+	
 a:hover,a:focus {
 	text-decoration: none;
 }
@@ -87,15 +106,23 @@ element.style {
 }
 
 .requisitos span {
+	
 	color: #87796f;
 	font-weigth: bold;
-	align:center;
+	padding:110px;
 	text-align: center;
+	text: justify;
 }
 .seccion {
 	margin-top: 20px;
 }
 
+.info span{
+	
+	align:justify; 
+	text-align: justify;
+	text: justify;
+}
 
 .tabsitos a span {
 	background-color: #F0F2DC;

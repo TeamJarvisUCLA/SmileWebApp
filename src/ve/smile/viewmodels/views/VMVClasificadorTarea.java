@@ -15,11 +15,11 @@ import karen.core.util.payload.UtilPayload;
 import karen.core.util.validate.UtilValidate;
 import ve.smile.consume.services.S;
 import ve.smile.seguridad.enums.OperacionEnum;
-import ve.smile.payload.response.PayloadClasificadorTrabajoSocialResponse;
-import ve.smile.dto.ClasificadorTrabajoSocial;
+import ve.smile.payload.response.PayloadClasificadorTareaResponse;
+import ve.smile.dto.ClasificadorTarea;
 import ve.smile.dto.Notificacion;
 
-public class VMVClasificadorTrabajoSocial extends VM_WindowForm {
+public class VMVClasificadorTarea extends VM_WindowForm {
 
 	@Init(superclass = true)
 	public void childInit() {
@@ -56,11 +56,11 @@ public class VMVClasificadorTrabajoSocial extends VM_WindowForm {
 		}
 
 		if (operacionEnum.equals(OperacionEnum.INCLUIR)) {
-			PayloadClasificadorTrabajoSocialResponse payloadClasificadorTrabajoSocialResponse =
-					S.ClasificadorTrabajoSocialService.incluir(getClasificadorTrabajoSocial());
+			PayloadClasificadorTareaResponse payloadClasificadorTareaResponse =
+					S.ClasificadorTareaService.incluir(getClasificadorTarea());
 
-			if(!UtilPayload.isOK(payloadClasificadorTrabajoSocialResponse)) {
-				Alert.showMessage(payloadClasificadorTrabajoSocialResponse);
+			if(!UtilPayload.isOK(payloadClasificadorTareaResponse)) {
+				Alert.showMessage(payloadClasificadorTareaResponse);
 				return true;
 			}
 
@@ -70,11 +70,11 @@ public class VMVClasificadorTrabajoSocial extends VM_WindowForm {
 		}
 
 		if (operacionEnum.equals(OperacionEnum.MODIFICAR)) {
-			PayloadClasificadorTrabajoSocialResponse payloadClasificadorTrabajoSocialResponse =
-					S.ClasificadorTrabajoSocialService.modificar(getClasificadorTrabajoSocial());
+			PayloadClasificadorTareaResponse payloadClasificadorTareaResponse =
+					S.ClasificadorTareaService.modificar(getClasificadorTarea());
 
-			if(!UtilPayload.isOK(payloadClasificadorTrabajoSocialResponse)) {
-				Alert.showMessage(payloadClasificadorTrabajoSocialResponse);
+			if(!UtilPayload.isOK(payloadClasificadorTareaResponse)) {
+				Alert.showMessage(payloadClasificadorTareaResponse);
 				return true;
 			}
 
@@ -98,8 +98,8 @@ public class VMVClasificadorTrabajoSocial extends VM_WindowForm {
 		return actionSalir(operacionEnum);
 	}
 
-	public ClasificadorTrabajoSocial getClasificadorTrabajoSocial() {
-		return (ClasificadorTrabajoSocial) DataCenter.getEntity();
+	public ClasificadorTarea getClasificadorTarea() {
+		return (ClasificadorTarea) DataCenter.getEntity();
 	}
 
 	public Notificacion getNotificacion() {

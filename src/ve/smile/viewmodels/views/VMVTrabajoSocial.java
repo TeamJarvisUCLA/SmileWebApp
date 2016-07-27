@@ -12,9 +12,11 @@ import karen.core.form.buttons.enums.OperacionFormEnum;
 import karen.core.form.buttons.helpers.OperacionFormHelper;
 import karen.core.form.viewmodels.VM_WindowForm;
 import karen.core.util.payload.UtilPayload;
+import karen.core.util.validate.UtilValidate;
 import ve.smile.consume.services.S;
 import ve.smile.seguridad.enums.OperacionEnum;
 import ve.smile.payload.response.PayloadTrabajoSocialResponse;
+import ve.smile.dto.Notificacion;
 import ve.smile.dto.TrabajoSocial;
 
 public class VMVTrabajoSocial extends VM_WindowForm {
@@ -100,9 +102,24 @@ public class VMVTrabajoSocial extends VM_WindowForm {
 		return (TrabajoSocial) DataCenter.getEntity();
 	}
 
+	public Notificacion getNotificacion() {
+		return (Notificacion) DataCenter.getEntity();
+	}
+
 	public boolean isFormValidated() {
-		//TODO
-		return true;
+
+		try {
+			
+			UtilValidate.validateString(getNotificacion().getDescripcion(), "Descripcion", 200);
+			UtilValidate.validateString(getNotificacion().getNombre(), "Nombre", 200);
+			UtilValidate.validateString(getNotificacion().getIcono(), "Icono", 200);
+			return true;
+		} catch (Exception e) {
+			Alert.showMessage(e.getMessage());
+
+			return false;
+		}
+		
 	}
 
 }

@@ -15,11 +15,11 @@ import karen.core.util.payload.UtilPayload;
 import karen.core.util.validate.UtilValidate;
 import ve.smile.consume.services.S;
 import ve.smile.seguridad.enums.OperacionEnum;
-import ve.smile.payload.response.PayloadClasificadorTrabajoSocialResponse;
-import ve.smile.dto.ClasificadorTrabajoSocial;
+import ve.smile.payload.response.PayloadEtiquetaResponse;
+import ve.smile.dto.Etiqueta;
 import ve.smile.dto.Notificacion;
 
-public class VMVClasificadorTrabajoSocial extends VM_WindowForm {
+public class VMVEtiqueta extends VM_WindowForm {
 
 	@Init(superclass = true)
 	public void childInit() {
@@ -56,11 +56,11 @@ public class VMVClasificadorTrabajoSocial extends VM_WindowForm {
 		}
 
 		if (operacionEnum.equals(OperacionEnum.INCLUIR)) {
-			PayloadClasificadorTrabajoSocialResponse payloadClasificadorTrabajoSocialResponse =
-					S.ClasificadorTrabajoSocialService.incluir(getClasificadorTrabajoSocial());
+			PayloadEtiquetaResponse payloadEtiquetaResponse =
+					S.EtiquetaService.incluir(getEtiqueta());
 
-			if(!UtilPayload.isOK(payloadClasificadorTrabajoSocialResponse)) {
-				Alert.showMessage(payloadClasificadorTrabajoSocialResponse);
+			if(!UtilPayload.isOK(payloadEtiquetaResponse)) {
+				Alert.showMessage(payloadEtiquetaResponse);
 				return true;
 			}
 
@@ -70,11 +70,11 @@ public class VMVClasificadorTrabajoSocial extends VM_WindowForm {
 		}
 
 		if (operacionEnum.equals(OperacionEnum.MODIFICAR)) {
-			PayloadClasificadorTrabajoSocialResponse payloadClasificadorTrabajoSocialResponse =
-					S.ClasificadorTrabajoSocialService.modificar(getClasificadorTrabajoSocial());
+			PayloadEtiquetaResponse payloadEtiquetaResponse =
+					S.EtiquetaService.modificar(getEtiqueta());
 
-			if(!UtilPayload.isOK(payloadClasificadorTrabajoSocialResponse)) {
-				Alert.showMessage(payloadClasificadorTrabajoSocialResponse);
+			if(!UtilPayload.isOK(payloadEtiquetaResponse)) {
+				Alert.showMessage(payloadEtiquetaResponse);
 				return true;
 			}
 
@@ -98,8 +98,8 @@ public class VMVClasificadorTrabajoSocial extends VM_WindowForm {
 		return actionSalir(operacionEnum);
 	}
 
-	public ClasificadorTrabajoSocial getClasificadorTrabajoSocial() {
-		return (ClasificadorTrabajoSocial) DataCenter.getEntity();
+	public Etiqueta getEtiqueta() {
+		return (Etiqueta) DataCenter.getEntity();
 	}
 
 	public Notificacion getNotificacion() {

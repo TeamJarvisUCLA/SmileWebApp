@@ -50,19 +50,13 @@
 								value="@bind(vm.persona.correo)">
 							</textbox>
 						</div>
-						
 						<div class="input-field col s6">
 							<n:label for="sexo" class="active">Sexo</n:label>
-							<combobox id="sexo" selectedItem="@bind(vm.persona.sexo)">
-								<comboitem label="Simple and Rich" />
-								<comboitem label="Cool!" />
-								<comboitem label="Thumbs Up!" />
+							<combobox id="sexo">
+								<comboitem label="Masculino" />
+								<comboitem label="Femenino" />
 							</combobox>	
 						</div>							
-						
-			
-						
-										
 					</div>					
 					<div class="col s4 text-center">
 						<image src="/imagenes/portal/conejo.png"></image>

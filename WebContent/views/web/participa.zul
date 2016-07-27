@@ -28,8 +28,8 @@
 				</div>
 			</n:div>
 		</div>
-		<div class="barra-verde " align="center" style="">
-			<span>TU PUEDES SER PARTE DE LA FUNDACION</span>
+		<div class="barra-verde " align="center" style="height: 40px; padding-top:8px; ">
+			<n:h6 style="font-weigth:bold;color:#87796F;">TU PUEDES SER PARTE DE LA FUNDACION</n:h6>
 		</div>
 		<div class=" menu"
 			style="background-image: url(/SmileWebApp/imagenes/portal/fondo.png); background-repeat:repeat; heigth: 50%">
@@ -40,14 +40,13 @@
 					<tab label="Apadrinamiento"></tab>
 					<tab label="Ayuda"></tab>
 				</tabs>
-				<tabpanels width="75%" style="    min-height: 173px;">
+				<tabpanels width="75%" style="line-height:28px;min-height:173px;text-align:justify;">
 					<tabpanel>
-						<span class="requisitos" >
+						<span class="requisitos">
 							INFORMACION GENERAL
-						</span>
-						<n:br/>
-							
-						<span  class="info">
+						</span>	
+						<n:br/>					
+						<span class="info">
 							Dona Una Gota de Amor Se trata de un aporte
 							económico a partir de 500 Bs. vía
 							transferencia, depósito o en efectivo por
@@ -241,8 +240,7 @@
 						<tabbox id="tb" width="100%" 
 							mold="accordion">
 							<tabs >
-								<tab  class="tabsitos"  label="AYUDA 1" />
-								
+								<tab  class="tabsitos"  label="AYUDA 1" />								
 								<tab class="tabsitos" label="AYUDA 2" />
 								<tab class="tabsitos" label="AYUDA 3" />
 							</tabs>
@@ -282,6 +280,7 @@
 												</span>
 											</div>
 											<div class=" col s6">
+										
 												<span
 													class="requisitos">
 													REQUISITOS
@@ -289,8 +288,7 @@
 												<n:br />
 												<span
 													style="color:#F26B7A" class="fa fa-heart fa-1x">
-													<span
-														style="color:#87796f">
+													<span style="color:#87796f">
 														Requisito numero
 														5
 													</span>
@@ -334,6 +332,7 @@
 												</span>
 												<n:br />
 											</div>
+											
 										</div>
 									</div>
 								</tabpanel>
@@ -428,7 +427,7 @@
 								<tabpanel>
 									<div class=" row">
 										<div class="col s12">
-											<div class="col s6">
+											<div class="col s6">							
 												<span class="info">
 													Anim pariatur cliche
 													reprehendfgdfgdfgderit,

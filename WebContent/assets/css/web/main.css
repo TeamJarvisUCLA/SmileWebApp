@@ -171,7 +171,6 @@ h4 {
 	height: 118px;
 }
 
-
 /* estilos para seccion eventos */
 
 	#eventos h4 {
@@ -230,6 +229,16 @@ h4 {
 	.col.s6.participa,.col.s6.eventos {
 		padding: 0;
 	}
+	
+	#participa .block-ellipsis {
+		text-align: initial;	
+		display: -webkit-box;
+		-webkit-line-clamp: 6;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		height: 118px;
+	}	
 
 /* Menu flotante */
 	.social .icon span {

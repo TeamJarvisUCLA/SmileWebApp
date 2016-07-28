@@ -1,51 +1,100 @@
 
-.titulo
+.bodyNoticias .titulo
 {
 	font-size: 35px;
 	color: #60a8c3;
 }
 
+.marcoNoticia {
+	padding: 18px;
+} 
 
-.marcoNoticia
+.box-noticia
 {
+	padding-top: 10px;
 	background-color: #f0f2dc;
-	margin-top: 35px;
+    text-align: -webkit-center;	
+/* 	margin-top: 35px; */
 }
 
-body
+.bodyNoticias
 {
-	background-color: #fbfcf4;
+	background: url("/SmileWebApp/imagenes/portal/fondo-body2.png");
 }
 
 .imgNoticia
 {
-	padding-top:10px;
+	padding:10px;
+    max-height: 180px;	
 }
 
+.info .col.block-ellipsis {
+	text-align: initial;	
+	display: -webkit-box;
+	-webkit-line-clamp: 5;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 98px;
+}
+
+.info {
+	text-align: justify;
+}
 .tituloNoticia
 {
-	
+	font-weight: bold;
 	font-size: 18px;
 	color: #f26b7a;
 }
 
-.fechaNoticia
+.fechaNoticia {
+	margin: 10px 0;
+}
+
+.fechaNoticia span
 {
+    font-weight: bold;
 	color: #60a8c3;
 	font-size: 15px;
 	font-family: 'Roboto-Bold';
 }
 
-.divTag
+.fechaNoticia a
 {
-	background-color: #E5CCFF;
-	border-radius: 20px;
-	width: 30%;
-	height: 10%;
-	padding: 5px;
-	margin-left: 70%;	
-	margin-bottom: 25px;
+    font-weight: bold;
+	color: #60a8c3;
+	font-size: 15px;
 }
+
+.citas {
+	height: 35px;
+	text-align: right;
+}
+
+.citas span.fa {
+	margin-left: 10px;
+	font-size: 7px;
+    vertical-align: text-top;
+}
+
+.divTag {
+    background-color: #E5CCFF;
+    border-radius: 20px;
+    padding: 7px 12px;
+    display: inline;
+}
+
+/* .divTag */
+/* { */
+/* 	background-color: #E5CCFF; */
+/* 	border-radius: 20px; */
+/* 	width: 30%; */
+/* 	height: 10%; */
+/* 	padding: 5px; */
+/* 	margin-left: 70%;	 */
+/* 	margin-bottom: 25px; */
+/* } */
 
 .marcoFooter
 {

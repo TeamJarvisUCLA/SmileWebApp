@@ -2,13 +2,14 @@
 	<n:link href="assets/css/web/detalleNoticia.css" rel="stylesheet"
 		type="text/css">
 	</n:link>
-	<div class="container-fluid detalleNoticia">
+	<div class="container-fluid detalleNoticia" apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('ve.smile.web.viewmodels.VM_Main')">
 		<div class="row" width="90%">
 			<div class="col s12 title text-center">
-				<span>Titulo de la Noticia</span>
+				<span>Torneo de golf a beneficio de Fanca Lara</span>
 			</div>
 			<div class="col s12 control">
-				<a class="volver" href="#">
+				<a class="volver" href="" onClick="@command('noticias')">
 					<image src="/imagenes/portal/icon/left-arrow.png"></image>
 					<span>Volver</span>
 				</a>
@@ -22,7 +23,7 @@
 			</div>
 			<div class="col s4 text-center">
 				<div sclass="col s12">
-					<image	src="/imagenes/portal/galeria1.png"	sclass="materialboxed img-responsive">	</image>
+					<image	src="/imagenes/portal/galeria1.png"	sclass="img-responsive"></image>
 				</div>
 				<div sclass="col s12 text-center citas">
 					<div sclass="divTag">
@@ -39,36 +40,25 @@
 			<div class="col s8 descripcion">
 				<div class="row">
 					<span>
-						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ex in, 
-						suscipit error temporibus voluptatem enim aperiam excepturi deserunt 
-						necessitatibus praesentium laborum deleniti et. Doloribus eum optio, 
-						officia incidunt quam placeat. Lorem ipsum dolor sit amet, 
-						consectetur adipisicing elit. Enim quod perspiciatis, sed 
-						beatae quasi blanditiis minus dolorem vel ut consequatur 
-						ipsam debitis fugiat, voluptates quaerat libero qui quos, 
-						quibusdam dignissimos. Lorem ipsum dolor sit amet, consectetur 
-						adipisicing elit. Deserunt ab nostrum, quae commodi dolorem officiis.
-						Asperiores esse rerum illo iste voluptate quam odio expedita id, 
-						ratione tempore temporibus sit quas.
+						La Fundación Amigos del Niño con Cáncer del estado Lara, Fanca, organizó el décimo primer torneo de golf en las instalaciones del Barquisimeto Golf Club, con la participación de 150 jugadores.
+	
+	Bajo el nombre de “Un juego por la vida”, la finalidad de esta actividad fue la recolección de fondos para la culminación del primer albergue para niños con cáncer.
 					</span>
 				</div>
 				<div class="row">
 					<span>
-						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ex in, 
-						suscipit error temporibus voluptatem enim aperiam excepturi deserunt 
-						necessitatibus praesentium laborum deleniti et. Doloribus eum optio, 
-						officia incidunt quam placeat. Lorem ipsum dolor sit amet, 
-						consectetur adipisicing elit. Enim quod perspiciatis, sed 
-						beatae quasi blanditiis minus dolorem vel ut consequatur 
+							La Lcda. María Elena de Mantovani, integrante del comité organizador del XI Torneo de Golf, destacó que para esta edición lograron una colaboración récord de patrocinantes con 96 colaboradores, además de 150 jugadores, un significativo número de participantes, una muestra de que el torneo se ha convertido en una tradición dentro de los jugadores de golf locales, quienes colaboran por una noble causa.
+	
+	“Aunque la actividad está dirigida a un grupo bastante específico, hemos tenido mucha receptividad y cada año superamos las expectativas de participación. Este año con una gran cantidad de patrocinantes que se unieron a Fanca para llevar a cabo este evento. Es un torneo que siempre se llena y está bastante establecido”.
+	
+	El albergue para niños con cáncer ha sido uno de los objetivo a alcanzar por esta fundación y servirá para brindar alojo a 18 niños con sus madres que acudan desde lugares muy distantes al Hospital Antonio María Pineda para realizarse sus tratamientos. 
 					</span>
 				</div>
 				<div class="row">
 					<span>
-						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ex in, 
-						suscipit error temporibus voluptatem enim aperiam excepturi deserunt 
-						necessitatibus praesentium laborum deleniti et. Doloribus eum optio, 
-						officia incidunt quam placeat. Lorem ipsum dolor sit amet, 
-						consectetur adipisicing elit. Enim quod perspiciatis, sed 
+						Espera ser concluido para los primeros meses del año que viene, gracias a la reconstrucción de una vivienda en la Avenida Concordia, que contará además con salón de clases, parque infantil y áreas de pernocta.
+	
+	“Más del 60% de los niños que tenemos en la fundación vienen de lugares lejanos, de otros municipios y pueblos distantes y tardan aproximadamente tres horas en llegar al Hospital para los tratamientos, por ello dejan de acudir. Queremos darle las facilidades para que los niños no abandonen el tratamiento para el cáncer”. 
 					</span>
 				</div>						
 			</div>

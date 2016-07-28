@@ -14,7 +14,7 @@
 	font-size: 16px;
 }
 
-.eventos .titulo {
+.titulo {
 	color: #F26B7A;
 	font-size: 18px;
 	margin-bottom: 10px;
@@ -57,17 +57,15 @@
 	line-height: 60%;
 }
 
-.view span {
-	text-align: right;
-	color: #84BBCE;
-	padding: 0;
-	margin: 0;
-}
-
 .abc {
 	margin-bottom: 0;
 }
 
+.card-reveal p {
+	margin-top: 30px;
+	text-align: justify;
+	font-size: 14px;
+}
 .view p {
     font-size: 14px;
     position: relative;
@@ -127,6 +125,7 @@
     -o-transition: all 0.2s ease-in-out;
     -ms-transition: all 0.2s ease-in-out;
     transition: all 0.2s ease-in-out;
+    margin: 15px 40px 0px 20px;
 }
 
 .view p { 
@@ -140,6 +139,7 @@
     -o-transition: all 0.2s ease-in-out;
     -ms-transition: all 0.2s ease-in-out;
     transition: all 0.2s ease-in-out;
+    margin-top: 10px;
 }
 
 .view a.info {
@@ -155,7 +155,7 @@
     transition: all 0.2s 0.1s ease-in-out;
 }
 
-.card.small:hover .mask { 
+.view:hover .mask { 
     opacity: 1;
     -webkit-transform: translate(0px, -100px) ;
     -moz-transform: translate(0px, -100px) ;
@@ -164,7 +164,7 @@
     transform: translate(0px, -100px) ;
 }
 
-.card.small:hover h2 { 
+.view:hover h2 { 
     -webkit-transform: translate(0px,0px);
     -moz-transform: translate(0px,0px);
     -o-transform: translate(0px,0px);
@@ -177,7 +177,7 @@
     transition-delay: 0.3s;
 }
 
-.card.small:hover p {
+.view:hover p {
     -webkit-transform: translate(0px,0px);
     -moz-transform: translate(0px,0px);
     -o-transform: translate(0px,0px);
@@ -190,7 +190,7 @@
     transition-delay: 0.4s;
 }
 
-.card.small:hover a.info {
+.view:hover a.info {
     -webkit-transform: translate(0px,0px);
     -moz-transform: translate(0px,0px);
     -o-transform: translate(0px,0px);

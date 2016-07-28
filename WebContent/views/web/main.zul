@@ -95,48 +95,66 @@
 					<n:div id="owlNoticias" class="owl-carousel owl-theme">
 						<div sclass="item" onClick="@command('detalleNoticia')">
 							<div style="padding-bottom: 10px;">
-								<label class="title" value="LOREM IPSUN DOLOR">
+								<label class="title" value="Torneo de golf a beneficio de Fanca Lara">
 								</label>
 							</div>
-							<label
-								value="Muy lejos, más allá de las montañas de palabras, alejados de los países de las vocales y las consonantes, viven los textos simulados. Viven aislados en casas de letras, en la costa de la semántica, un gran océano de lenguas. Un riachuelo llamado Pons fluye por su pueblo y los abastece con las normas necesarias.">
-							</label>
+							<div class="block-ellipsis">
+								<label
+									value="La Fundación Amigos del Niño con Cáncer del estado Lara, Fanca, organizó el décimo primer torneo de golf en las instalaciones del Barquisimeto Golf Club, con la participación de 150 jugadores.
+		
+		Bajo el nombre de “Un juego por la vida”, la finalidad de esta actividad fue la recolección de fondos para la culminación del primer albergue para niños con cáncer.">
+								</label>
+							</div>
 						</div>
 						<div sclass="item" onClick="@command('detalleNoticia')">
 							<div style="padding-bottom: 10px;">
 								<label class="title" value="LOREM IPSUN DOLOR">
 								</label>
 							</div>
-							<label
-								value="Muy lejos, más allá de las montañas de palabras, alejados de los países de las vocales y las consonantes, viven los textos simulados. Viven aislados en casas de letras, en la costa de la semántica, un gran océano de lenguas. Un riachuelo llamado Pons fluye por su pueblo y los abastece con las normas necesarias.">
-							</label>
+							<div class="block-ellipsis">
+								<label
+									value="Muy lejos, más allá de las montañas de palabras, alejados de los países de las vocales y las consonantes, viven los textos simulados. Viven aislados en casas de letras, en la costa de la semántica, un gran océano de lenguas. Un riachuelo llamado Pons fluye por su pueblo y los abastece con las normas necesarias.">
+								</label>
+							</div>
 						</div>									
 						<div sclass="item" onClick="@command('detalleNoticia')">
 							<div style="padding-bottom: 10px;">
 								<label class="title" value="LOREM IPSUN DOLOR">
 								</label>
 							</div>
-							<label
-								value="Muy lejos, más allá de las montañas de palabras, alejados de los países de las vocales y las consonantes, viven los textos simulados. Viven aislados en casas de letras, en la costa de la semántica, un gran océano de lenguas. Un riachuelo llamado Pons fluye por su pueblo y los abastece con las normas necesarias.">
-							</label>
+							<div class="block-ellipsis">
+								<label
+									value="La Fundación Amigos del Niño con Cáncer del estado Lara, Fanca, organizó el décimo primer torneo de golf en las instalaciones del Barquisimeto Golf Club, con la participación de 150 jugadores.
+		
+		Bajo el nombre de “Un juego por la vida”, la finalidad de esta actividad fue la recolección de fondos para la culminación del primer albergue para niños con cáncer.">
+								</label>
+							</div>
 						</div>
 						<div sclass="item" onClick="@command('detalleNoticia')">
 							<div style="padding-bottom: 10px;">
 								<label class="title" value="LOREM IPSUN DOLOR">
 								</label>
 							</div>
-							<label
-								value="Muy lejos, más allá de las montañas de palabras, alejados de los países de las vocales y las consonantes, viven los textos simulados. Viven aislados en casas de letras, en la costa de la semántica, un gran océano de lenguas. Un riachuelo llamado Pons fluye por su pueblo y los abastece con las normas necesarias.">
-							</label>
+							<div class="block-ellipsis">
+								<label
+									value="La Fundación Amigos del Niño con Cáncer del estado Lara, Fanca, organizó el décimo primer torneo de golf en las instalaciones del Barquisimeto Golf Club, con la participación de 150 jugadores.
+		
+		Bajo el nombre de “Un juego por la vida”, la finalidad de esta actividad fue la recolección de fondos para la culminación del primer albergue para niños con cáncer.">
+								</label>
+							</div>
 						</div>
 						<div sclass="item" onClick="@command('detalleNoticia')">
 							<div style="padding-bottom: 10px;">
 								<label class="title" value="LOREM IPSUN DOLOR">
 								</label>
 							</div>
-							<label
-								value="Muy lejos, más allá de las montañas de palabras, alejados de los países de las vocales y las consonantes, viven los textos simulados. Viven aislados en casas de letras, en la costa de la semántica, un gran océano de lenguas. Un riachuelo llamado Pons fluye por su pueblo y los abastece con las normas necesarias.">
-							</label>
+							<div class="block-ellipsis">
+								<label
+									value="La Fundación Amigos del Niño con Cáncer del estado Lara, Fanca, organizó el décimo primer torneo de golf en las instalaciones del Barquisimeto Golf Club, con la participación de 150 jugadores.
+		
+		Bajo el nombre de “Un juego por la vida”, la finalidad de esta actividad fue la recolección de fondos para la culminación del primer albergue para niños con cáncer.">
+								</label>
+							</div>
 						</div>
 					</n:div>
 				</div>

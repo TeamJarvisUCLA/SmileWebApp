@@ -61,6 +61,16 @@ h4 {
 	
 /* estilos para seccion slider_noticias */
 
+#noticias .block-ellipsis {
+	text-align: initial;	
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 41px;
+}
+
 	#noticias h4 {
 		background: #d9eb52;;
 		color: #a0958e;

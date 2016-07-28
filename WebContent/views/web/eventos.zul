@@ -115,17 +115,17 @@
 	                        <div class="card small" style="height: 284px; background-color: #8AC7DE;">
 	                              <div class="card-image waves-effect waves-block waves-light">
 	                              	<div class="view">
-	                                    <n:img class="activator" src="imagenes/portal/galeria1.png"></n:img>
+	                                    <n:img class="activator img-responsive" src="imagenes/portal/fanca-carrera.jpg"></n:img>
 	                                    <div class="mask"></div>
 	                                    <div class="content center">
-	                                    	<n:h2 class="left-align">Titulo <n:span>29/07/2016</n:span></n:h2>
-	                                    	<n:p>Desde el año 2003, Pagani venía trabajando en el desarrollo del proyecto C9, el superdeportivo llamado a sustituir al Pagani Zonda</n:p>
+<!-- 	                                    	<n:h2 class="left-align">Titulo <n:span>29/07/2016</n:span></n:h2> -->
+	                                    	<n:p>Primera Carrera Caminata con el próposito de recaudar fondos para el nuevo albergue</n:p>
 	                                    	<a href="" class="info" onClick="@command('calendario')"><n:img src="imagenes/portal/icon/mas.png"></n:img></a>
 	                                    </div>
 	                                 </div>
 	                              </div>
 	                              <div class="card-content" style="padding: 0 20px;">
-	                                    <n:span class="card-title white-text" style="display: block; font-size: 18px; font-weight: bold; line-height: 25px;">TITULO</n:span><n:i class="material-icons right white-text" style="font-size: 18px; font-weight: bold;">29/07/2016</n:i>
+	                                    <n:span class="card-title white-text" style="display: block; font-size: 18px; font-weight: bold; line-height: 25px; padding-top: 10px;">Carrera 10K y Caminata 6K Fanca 2016</n:span><n:i class="material-icons right white-text" style="font-size: 18px; font-weight: bold;">29/07/2016</n:i>
 
 <!-- 	                                    <n:p><n:a class="white-text" style="font-size: 14px;" href="views/web/noticias.zul">Leer noticia completa</n:a></n:p> -->
 	                              </div>
@@ -150,7 +150,7 @@
 	                                 </div>
 	                              </div>
 	                              <div class="card-content" style="padding: 0 20px;">
-	                                    <n:span class="card-title white-text" style="display: block; font-size: 18px; font-weight: bold; line-height: 25px;">TITULO</n:span><n:i class="material-icons right white-text" style="font-size: 18px; font-weight: bold;">29/07/2016</n:i>
+	                                    <n:span class="card-title white-text" style="display: block; font-size: 18px; font-weight: bold; line-height: 25px; padding-top: 10px;">TITULO</n:span><n:i class="material-icons right white-text" style="font-size: 18px; font-weight: bold;">29/07/2016</n:i>
 
 <!-- 	                                    <n:p><n:a class="white-text" style="font-size: 14px;" href="views/web/noticias.zul">Leer noticia completa</n:a></n:p> -->
 	                              </div>
@@ -175,7 +175,7 @@
 	                                 </div>
 	                              </div>
 	                              <div class="card-content" style="padding: 0 20px;">
-	                                    <n:span class="card-title white-text" style="display: block; font-size: 18px; font-weight: bold; line-height: 25px;">TITULO</n:span><n:i class="material-icons right white-text" style="font-size: 18px; font-weight: bold;">29/07/2016</n:i>
+	                                    <n:span class="card-title white-text" style="display: block; font-size: 18px; font-weight: bold; line-height: 25px; padding-top: 10px;">TITULO</n:span><n:i class="material-icons right white-text" style="font-size: 18px; font-weight: bold;">29/07/2016</n:i>
 
 <!-- 	                                    <n:p><n:a class="white-text" style="font-size: 14px;" href="views/web/noticias.zul">Leer noticia completa</n:a></n:p> -->
 	                              </div>
@@ -211,7 +211,7 @@
 	                                 </div>
 	                              </div>
 	                              <div class="card-content" style="padding: 0 20px;">
-	                                    <n:span class="card-title white-text" style="display: block; font-size: 18px; font-weight: bold; line-height: 25px;">TITULO</n:span><n:i class="material-icons right white-text" style="font-size: 18px; font-weight: bold;">29/07/2016</n:i>
+	                                    <n:span class="card-title white-text" style="display: block; font-size: 18px; font-weight: bold; line-height: 25px; padding-top: 10px;">TITULO</n:span><n:i class="material-icons right white-text" style="font-size: 18px; font-weight: bold;">29/07/2016</n:i>
 <!-- 	                                    <n:p><n:a class="white-text" style="font-size: 14px;" href="views/web/noticias.zul">Leer noticia completa</n:a></n:p> -->
 	                              </div>
 	                              <div class="card-reveal white-text" style="background-color: rgba(135,121,111,0.6);">
@@ -235,7 +235,7 @@
 	                                 </div>
 	                              </div>
 	                              <div class="card-content" style="padding: 0 20px;">
-	                                    <n:span class="card-title white-text" style="display: block; font-size: 18px; font-weight: bold; line-height: 25px;">TITULO</n:span><n:i class="material-icons right white-text" style="font-size: 18px; font-weight: bold;">29/07/2016</n:i>
+	                                    <n:span class="card-title white-text" style="display: block; font-size: 18px; font-weight: bold; line-height: 25px; padding-top: 10px;">TITULO</n:span><n:i class="material-icons right white-text" style="font-size: 18px; font-weight: bold;">29/07/2016</n:i>
 
 <!-- 	                                    <n:p><n:a class="white-text" style="font-size: 14px;" href="views/web/noticias.zul">Leer noticia completa</n:a></n:p> -->
 	                              </div>
@@ -260,7 +260,7 @@
 	                                 </div>
 	                              </div>
 	                              <div class="card-content" style="padding: 0 20px;">
-	                                    <n:span class="card-title white-text" style="display: block; font-size: 18px; font-weight: bold; line-height: 25px;">TITULO</n:span><n:i class="material-icons right white-text" style="font-size: 18px; font-weight: bold;">29/07/2016</n:i>
+	                                    <n:span class="card-title white-text" style="display: block; font-size: 18px; font-weight: bold; line-height: 25px; padding-top: 10px;">TITULO</n:span><n:i class="material-icons right white-text" style="font-size: 18px; font-weight: bold;">29/07/2016</n:i>
 
 <!-- 	                                    <n:p><n:a class="white-text" style="font-size: 14px;" href="views/web/noticias.zul">Leer noticia completa</n:a></n:p> -->
 	                              </div>

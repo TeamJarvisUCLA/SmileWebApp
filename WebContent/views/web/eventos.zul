@@ -1,6 +1,6 @@
 <zk xmlns:n="native" xmlns:w="client">
 		<n:link href="assets/css/web/eventos.css" rel="stylesheet" type="text/css"></n:link>
-<!-- 	<n:link href="assets/css/web/eventosHover.css" rel="stylesheet" type="text/css"></n:link> -->
+		<n:link src="assets/js/eventos.js" type="text/javascript"></n:link>
 
 <!-- ************* TITULO DE LA PAGINA ***************** -->
 <div class="eventos" apply="org.zkoss.bind.BindComposer"
@@ -29,109 +29,269 @@
 	
 <!-- ************* FOTOS ***************** -->
 	
-	<div class="container">
-		<div class="row">					
-			<div class="col s12"> <!-- 			style="margin-bottom: 10px;" -->
-				<n:table>
-					<n:tbody>
-						<n:tr>
-					    	<n:td>
-					        	<div class="view">
-						        	<n:img src="imagenes/foto-ejemplo.png" width="350" height="300px"></n:img>  
-						            <div class="mask"></div>
-						            <div class="content">
-						            	<n:h2>Titulo</n:h2>  
-						                <n:p>Desde el año 2003, Pagani venía trabajando en el desarrollo del proyecto 
-						                C9, el superdeportivo llamado a sustituir al Pagani Zonda.</n:p>  
-						                <n:a href="#" class="info">Leer Más</n:a>    
-		                			</div>
-		            			</div>
-					        </n:td>
-					        
-					        <n:td>
-					        	<div class="view">  
-						        	<n:img src="imagenes/portal/icon/icon-bingo1.png" width="200px" height="250px"></n:img>  
-						            <div class="mask"></div>
-						            <div class="content">
-						            	<n:h2>Pagani Huayra</n:h2>  
-						                <n:p>Desde el año 2003, Pagani venía trabajando en el desarrollo del proyecto C9, el superdeportivo llamado a sustituir al Pagani Zonda</n:p>  
-						                <n:a href="#" class="info">Leer Más</n:a>    
-		                			</div>
-		            			</div>
-					        </n:td>
-					        
-					        <n:td>
-					        	<div class="view">  
-						        	<n:img src="imagenes/foto-ejemplo.png" width="350px" height="250px"></n:img>  
-						            <div class="mask"></div>
-						            <div class="content">
-						            	<n:h2>Pagani Huayra</n:h2>  
-						                <n:p>Desde el año 2003, Pagani venía trabajando en el desarrollo del proyecto C9, el superdeportivo llamado a sustituir al Pagani Zonda</n:p>  
-						                <n:a href="#" class="info">Leer Más</n:a>    
-		                			</div>
-		            			</div>
-					        </n:td>
-					    </n:tr>
-					          
-					          <n:tr>
-					            <n:td>
-					            	<div class="view">  
-										<n:img src="imagenes/portal/icon/icon-flag.png" width="200px" height="250px"></n:img>  						                <div class="mask"></div>
-						                <div class="content">
-						                    <n:h2>Pagani Huayra</n:h2>  
-						                    <n:p>Desde el año 2003, Pagani venía trabajando en el desarrollo del proyecto C9, el superdeportivo llamado a sustituir al Pagani Zonda</n:p>  
-						                    <n:a href="#" class="info">Leer Más</n:a>    
-		                				</div>
-		            				</div>
-					            </n:td>
-					            
-					            <n:td>
-					            	<div class="view">  
-						                <n:img src="imagenes/foto-ejemplo.png" width="350px" height="250px"></n:img>  
-						                <div class="mask"></div>
-						                <div class="content">
-						                    <n:h2>Pagani Huayra</n:h2>  
-						                    <n:p>Desde el año 2003, Pagani venía trabajando en el desarrollo del proyecto C9, el superdeportivo llamado a sustituir al Pagani Zonda</n:p>  
-						                    <n:a href="#" class="info">Leer Más</n:a>    
-		                				</div>
-		            				</div>
-					            </n:td>
-					            
-					            <n:td>
-					            	<div class="view">  
-						                <n:img src="imagenes/portal/galeria1.png" width="350px" height="250px"></n:img>  
-						                <div class="mask"></div>
-						                <div class="content">
-						                    <n:h2>Pagani Huayra</n:h2>  
-						                    <n:p>Desde el año 2003, Pagani venía trabajando en el desarrollo del proyecto C9, el superdeportivo llamado a sustituir al Pagani Zonda</n:p>  
-						                    <n:a href="#" class="info">Leer Más</n:a>    
-		                				</div>
-		            				</div>
-					            </n:td>
-					          </n:tr>
-					        </n:tbody>
-		      			</n:table>
-					</div>
+	
+<!-- 	<div class="container"> -->
+<!--             <div class="row"> -->
+<!--                   <div class="col s12"> -->
+<!--                   		<div class="col s4"> -->
+<!-- 	                        <div class="card small"> -->
+<!-- 	                              <div class="card-image waves-effect waves-block waves-light"> -->
+<!-- 	                              	<div class="view"> -->
+<!-- 	                                    <n:img class="activator" src="imagenes/portal/galeria1.png" width="200px" height="300px"></n:img> -->
+<!-- 	                                    <div class="mask"></div> -->
+<!-- 	                                    <div class="content"> -->
+<!-- 	                                    	<n:h2>Pagani Huayra</n:h2> -->
+<!-- 	                                    	<n:p>Desde el año 2003, Pagani venía trabajando en el desarrollo del proyecto C9, el superdeportivo llamado a sustituir al Pagani Zonda</n:p> -->
+<!-- 	                                    	<n:a href="#" class="info"><n:img src="imagenes/portal/icon/mas.png"></n:img></n:a> -->
+<!-- 	                                    </div> -->
+<!-- 	                                 </div> -->
+<!-- 	                              </div> -->
+<!-- 	                              <div class="card-content"> -->
+<!-- 	                                    <n:span class="card-title activator grey-text text-darken-4">TITULO<n:i class="material-icons right">29/07/2016</n:i></n:span> -->
+<!-- 	                                    <n:p><n:a href="#">Enlace</n:a></n:p> -->
+<!-- 	                              </div> -->
+<!-- 	                              <div class="card-reveal"> -->
+<!-- 	                                    <n:span class="card-title grey-text text-darken-4">TITULO<n:i class="material-icons right">CERRAR</n:i></n:span> -->
+<!-- 	                                    <n:p>Here is some more information about this product that is only revealed once clicked on.</n:p> -->
+<!-- 	                              </div> -->
+<!-- 	                        </div> -->
+<!-- 						</div> -->
+						
+<!-- 						<div class="col s4"> -->
+<!-- 	                        <div class="card small"> -->
+<!-- 	                              <div class="card-image waves-effect waves-block waves-light"> -->
+<!-- 	                              	<div class="view"> -->
+<!-- 	                                    <n:img class="activator" src="imagenes/portal/galeria1.png" width="200px" height="300px"></n:img> -->
+<!-- 	                                    <div class="mask"></div> -->
+<!-- 	                                    <div class="content"> -->
+<!-- 	                                    	<n:h2>Pagani Huayra</n:h2> -->
+<!-- 	                                    	<n:p>Desde el año 2003, Pagani venía trabajando en el desarrollo del proyecto C9, el superdeportivo llamado a sustituir al Pagani Zonda</n:p> -->
+<!-- 	                                    	<n:a href="#" class="info"><n:img src="imagenes/portal/icon/mas.png"></n:img></n:a> -->
+<!-- 	                                    </div> -->
+<!-- 	                                 </div> -->
+<!-- 	                              </div> -->
+<!-- 	                              <div class="card-content"> -->
+<!-- 	                                    <n:span class="card-title activator grey-text text-darken-4">TITULO<n:i class="material-icons right">29/07/2016</n:i></n:span> -->
+<!-- 	                                    <n:p><n:a href="#">Enlace</n:a></n:p> -->
+<!-- 	                              </div> -->
+<!-- 	                              <div class="card-reveal"> -->
+<!-- 	                                    <n:span class="card-title grey-text text-darken-4">TITULO<n:i class="material-icons right">CERRAR</n:i></n:span> -->
+<!-- 	                                    <n:p>Here is some more information about this product that is only revealed once clicked on.</n:p> -->
+<!-- 	                              </div> -->
+<!-- 	                        </div> -->
+<!-- 						</div> -->
+						
+<!-- 						<div class="col s4"> -->
+<!-- 	                        <div class="card small"> -->
+<!-- 	                              <div class="card-image waves-effect waves-block waves-light"> -->
+<!-- 	                              	<div class="view"> -->
+<!-- 	                                    <n:img class="activator" src="imagenes/portal/galeria1.png" width="200px" height="300px"></n:img> -->
+<!-- 	                                    <div class="mask"></div> -->
+<!-- 	                                    <div class="content"> -->
+<!-- 	                                    	<n:h2>Pagani Huayra</n:h2> -->
+<!-- 	                                    	<n:p>Desde el año 2003, Pagani venía trabajando en el desarrollo del proyecto C9, el superdeportivo llamado a sustituir al Pagani Zonda</n:p> -->
+<!-- 	                                    	<n:a href="#" class="info"><n:img src="imagenes/portal/icon/mas.png"></n:img></n:a> -->
+<!-- 	                                    </div> -->
+<!-- 	                                 </div> -->
+<!-- 	                              </div> -->
+<!-- 	                              <div class="card-content"> -->
+<!-- 	                                    <n:span class="card-title activator grey-text text-darken-4">TITULO<n:i class="material-icons right">29/07/2016</n:i></n:span> -->
+<!-- 	                                    <n:p><n:a href="#">Enlace</n:a></n:p> -->
+<!-- 	                              </div> -->
+<!-- 	                              <div class="card-reveal"> -->
+<!-- 	                                    <n:span class="card-title grey-text text-darken-4">TITULO<n:i class="material-icons right">CERRAR</n:i></n:span> -->
+<!-- 	                                    <n:p>Here is some more information about this product that is only revealed once clicked on.</n:p> -->
+<!-- 	                              </div> -->
+<!-- 	                        </div> -->
+<!-- 						</div> -->
+<!--                   </div> -->
+<!--             </div> -->
+<!--       </div> -->
+      
+      <div class="container">
+            <div class="row abc">
+                  <div class="col s12">						
+						<div class="col s4">
+	                        <div class="card small" style="height: 284px; background-color: #8AC7DE;">
+	                              <div class="card-image waves-effect waves-block waves-light">
+	                              	<div class="view">
+	                                    <n:img class="activator" src="imagenes/portal/galeria1.png"></n:img>
+	                                    <div class="mask"></div>
+	                                    <div class="content center">
+	                                    	<n:h2 class="left-align">Titulo <n:span>29/07/2016</n:span></n:h2>
+	                                    	<n:p>Desde el año 2003, Pagani venía trabajando en el desarrollo del proyecto C9, el superdeportivo llamado a sustituir al Pagani Zonda</n:p>
+	                                    	<a href="" class="info" onClick="@command('calendario')"><n:img src="imagenes/portal/icon/mas.png"></n:img></a>
+	                                    </div>
+	                                 </div>
+	                              </div>
+	                              <div class="card-content" style="padding: 0 20px;">
+	                                    <n:span class="card-title white-text" style="display: block; font-size: 18px; font-weight: bold; line-height: 25px;">TITULO</n:span><n:i class="material-icons right white-text" style="font-size: 18px; font-weight: bold;">29/07/2016</n:i>
+
+<!-- 	                                    <n:p><n:a class="white-text" style="font-size: 14px;" href="views/web/noticias.zul">Leer noticia completa</n:a></n:p> -->
+	                              </div>
+	                              <div class="card-reveal white-text" style="background-color: rgba(135,121,111,0.6);">
+	                                    <n:span class="card-title" style="line-height: 5px; font-size: 18px; color: #F26B7A;">TITULO<n:i class="material-icons right" style="color: #84BBCE;">CERRAR</n:i></n:span>
+	                                    <n:p style="font-size: 14px; margin-top: 30px;">Here is some more information about this product that is only revealed once clicked on.</n:p>
+	                              </div>
+	                        </div>
+						</div>
+						
+						<div class="col s4">
+	                        <div class="card small" style="height: 284px; background-color: #8AC7DE;">
+	                              <div class="card-image waves-effect waves-block waves-light">
+	                              	<div class="view">
+	                                    <n:img class="activator" src="imagenes/portal/galeria2.png"></n:img>
+	                                    <div class="mask"></div>
+	                                    <div class="content center">
+	                                    	<n:h2 class="left-align">Titulo <n:span>29/07/2016</n:span></n:h2>
+	                                    	<n:p>Desde el año 2003, Pagani venía trabajando en el desarrollo del proyecto C9, el superdeportivo llamado a sustituir al Pagani Zonda</n:p>
+	                                    	<n:a href="views/web/noticias.zul" class="info"><n:img src="imagenes/portal/icon/mas.png"></n:img></n:a>
+	                                    </div>
+	                                 </div>
+	                              </div>
+	                              <div class="card-content" style="padding: 0 20px;">
+	                                    <n:span class="card-title white-text" style="display: block; font-size: 18px; font-weight: bold; line-height: 25px;">TITULO</n:span><n:i class="material-icons right white-text" style="font-size: 18px; font-weight: bold;">29/07/2016</n:i>
+
+<!-- 	                                    <n:p><n:a class="white-text" style="font-size: 14px;" href="views/web/noticias.zul">Leer noticia completa</n:a></n:p> -->
+	                              </div>
+	                              <div class="card-reveal white-text" style="background-color: rgba(135,121,111,0.6);">
+	                                    <n:span class="card-title" style="line-height: 5px; font-size: 18px; color: #F26B7A;">TITULO<n:i class="material-icons right" style="color: #84BBCE;">CERRAR</n:i></n:span>
+	                                    <n:p style="font-size: 14px; margin-top: 30px;">Here is some more information about this product that is only revealed once clicked on.</n:p>
+	                              </div>
+	                        </div>
+						</div>
+						
+						<div class="col s4">
+	                        <div class="card small" style="height: 284px; background-color: #8AC7DE;">
+	                              <div class="card-image waves-effect waves-block waves-light">
+	                              	<div class="view">
+	                                    <n:img class="activator" src="imagenes/portal/galeria3.jpg"></n:img>
+	                                    <div class="mask"></div>
+	                                    <div class="content center">
+	                                    	<n:h2 class="left-align">Titulo <n:span>29/07/2016</n:span></n:h2>
+	                                    	<n:p>Desde el año 2003, Pagani venía trabajando en el desarrollo del proyecto C9, el superdeportivo llamado a sustituir al Pagani Zonda</n:p>
+	                                    	<n:a href="views/web/noticias.zul" class="info"><n:img src="imagenes/portal/icon/mas.png"></n:img></n:a>
+	                                    </div>
+	                                 </div>
+	                              </div>
+	                              <div class="card-content" style="padding: 0 20px;">
+	                                    <n:span class="card-title white-text" style="display: block; font-size: 18px; font-weight: bold; line-height: 25px;">TITULO</n:span><n:i class="material-icons right white-text" style="font-size: 18px; font-weight: bold;">29/07/2016</n:i>
+
+<!-- 	                                    <n:p><n:a class="white-text" style="font-size: 14px;" href="views/web/noticias.zul">Leer noticia completa</n:a></n:p> -->
+	                              </div>
+	                              <div class="card-reveal white-text" style="background-color: rgba(135,121,111,0.6);">
+	                                    <n:span class="card-title" style="line-height: 5px; font-size: 18px; color: #F26B7A;">TITULO<n:i class="material-icons right" style="color: #84BBCE;">CERRAR</n:i></n:span>
+	                                    <n:p style="font-size: 14px; margin-top: 30px;">Here is some more information about this product that is only revealed once clicked on.</n:p>
+	                              </div>
+	                        </div>
+						</div>
+						
+												
+						
+						
+                  </div>
+            </div>
+      </div>
+      
+      
+      <div class="container">
+            <div class="row abc">
+                  <div class="col s12">						
+						<div class="col s4">
+	                        <div class="card small" style="height: 284px; background-color: #8AC7DE;">
+	                              <div class="card-image waves-effect waves-block waves-light">
+	                              	<div class="view">
+	                                    <n:img class="activator" src="imagenes/portal/galeria3.jpg"></n:img>
+	                                    <div class="mask"></div>
+	                                    <div class="content center">
+	                                    	<n:h2 class="left-align">Titulo <n:span>29/07/2016</n:span></n:h2>
+	                                    	<n:p>Desde el año 2003, Pagani venía trabajando en el desarrollo del proyecto C9, el superdeportivo llamado a sustituir al Pagani Zonda</n:p>
+	                                    	<n:a href="views/web/noticias.zul" class="info"><n:img src="imagenes/portal/icon/mas.png"></n:img></n:a>
+	                                    </div>
+	                                 </div>
+	                              </div>
+	                              <div class="card-content" style="padding: 0 20px;">
+	                                    <n:span class="card-title white-text" style="display: block; font-size: 18px; font-weight: bold; line-height: 25px;">TITULO</n:span><n:i class="material-icons right white-text" style="font-size: 18px; font-weight: bold;">29/07/2016</n:i>
+<!-- 	                                    <n:p><n:a class="white-text" style="font-size: 14px;" href="views/web/noticias.zul">Leer noticia completa</n:a></n:p> -->
+	                              </div>
+	                              <div class="card-reveal white-text" style="background-color: rgba(135,121,111,0.6);">
+	                                    <n:span class="card-title" style="line-height: 5px; font-size: 18px; color: #F26B7A;">TITULO<n:i class="material-icons right" style="color: #84BBCE;">CERRAR</n:i></n:span>
+	                                    <n:p style="font-size: 14px; margin-top: 30px;">Here is some more information about this product that is only revealed once clicked on.</n:p>
+	                              </div>
+	                        </div>
+						</div>
+						
+						<div class="col s4">
+	                        <div class="card small" style="height: 284px; background-color: #8AC7DE;">
+	                              <div class="card-image waves-effect waves-block waves-light">
+	                              	<div class="view">
+	                                    <n:img class="activator" src="imagenes/portal/galeria1.png"></n:img>
+	                                    <div class="mask"></div>
+	                                    <div class="content center">
+	                                    	<n:h2 class="left-align">Titulo <n:span>29/07/2016</n:span></n:h2>
+	                                    	<n:p>Desde el año 2003, Pagani venía trabajando en el desarrollo del proyecto C9, el superdeportivo llamado a sustituir al Pagani Zonda</n:p>
+	                                    	<n:a href="views/web/noticias.zul" class="info"><n:img src="imagenes/portal/icon/mas.png"></n:img></n:a>
+	                                    </div>
+	                                 </div>
+	                              </div>
+	                              <div class="card-content" style="padding: 0 20px;">
+	                                    <n:span class="card-title white-text" style="display: block; font-size: 18px; font-weight: bold; line-height: 25px;">TITULO</n:span><n:i class="material-icons right white-text" style="font-size: 18px; font-weight: bold;">29/07/2016</n:i>
+
+<!-- 	                                    <n:p><n:a class="white-text" style="font-size: 14px;" href="views/web/noticias.zul">Leer noticia completa</n:a></n:p> -->
+	                              </div>
+	                              <div class="card-reveal white-text" style="background-color: rgba(135,121,111,0.6);">
+	                                    <n:span class="card-title" style="line-height: 5px; font-size: 18px; color: #F26B7A;">TITULO<n:i class="material-icons right" style="color: #84BBCE;">CERRAR</n:i></n:span>
+	                                    <n:p style="font-size: 14px; margin-top: 30px;">Here is some more information about this product that is only revealed once clicked on.</n:p>
+	                              </div>
+	                        </div>
+						</div>
+						
+						<div class="col s4">
+	                        <div class="card small" style="height: 284px; background-color: #8AC7DE;">
+	                              <div class="card-image waves-effect waves-block waves-light">
+	                              	<div class="view">
+	                                    <n:img class="activator" src="imagenes/portal/galeria2.png"></n:img>
+	                                    <div class="mask"></div>
+	                                    <div class="content center">
+	                                    	<n:h2 class="left-align">Titulo <n:span>29/07/2016</n:span></n:h2>
+	                                    	<n:p>Desde el año 2003, Pagani venía trabajando en el desarrollo del proyecto C9, el superdeportivo llamado a sustituir al Pagani Zonda</n:p>
+	                                    	<n:a href="views/web/noticias.zul" class="info"><n:img src="imagenes/portal/icon/mas.png"></n:img></n:a>
+	                                    </div>
+	                                 </div>
+	                              </div>
+	                              <div class="card-content" style="padding: 0 20px;">
+	                                    <n:span class="card-title white-text" style="display: block; font-size: 18px; font-weight: bold; line-height: 25px;">TITULO</n:span><n:i class="material-icons right white-text" style="font-size: 18px; font-weight: bold;">29/07/2016</n:i>
+
+<!-- 	                                    <n:p><n:a class="white-text" style="font-size: 14px;" href="views/web/noticias.zul">Leer noticia completa</n:a></n:p> -->
+	                              </div>
+	                              <div class="card-reveal white-text" style="background-color: rgba(135,121,111,0.6);">
+	                                    <n:span class="card-title" style="line-height: 5px; font-size: 18px; color: #F26B7A;">TITULO<n:i class="material-icons right" style="color: #84BBCE;">CERRAR</n:i></n:span>
+	                                    <n:p style="font-size: 14px; margin-top: 30px;">Here is some more information about this product that is only revealed once clicked on.</n:p>
+	                              </div>
+	                        </div>
+						</div>
+                  </div>
+            </div>
+      </div>
+      
+      
+      <div id="divButtonsForm" sclass="row">
+		<div class="col s12 div-buttons-form z-div">
+			<button type="button" id="nEMQo3" onClick="@command('calendario')"
+					class="indigo waves-effect waves-light btn"
+					style="background: #3b85a1 !important; color: #ffffff !important">
+					Calendario
+			</button>
 		</div>
 	</div>
-	
-	
-	<div id="divButtonsForm" sclass="row">
-					<div class="col s12 div-buttons-form z-div">
-						<button type="button" id="nEMQo3" onClick="@command('calendario')"
-							class="indigo waves-effect waves-light btn"
-							style="background: #3b85a1 !important; color: #ffffff !important">
-							Calendario
-						</button>
-					</div>
-				</div>
-	
-	
-	
+			
+
 	<div class="center-align imagen">
 		<n:img class="responsive-img"
 			src="/SmileWebApp/imagenes/portal/img-ninos.png">
 		</n:img>
 	</div>
+	
 </div>
+
 </zk>

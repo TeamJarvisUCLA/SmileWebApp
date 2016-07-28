@@ -8,68 +8,55 @@
 	<div class="social">
 		<div style="padding: 0px;">
 			<div>
-				<a href="#" sclass="icon" iconSclass="fa fa-home ">
-					<span>Inicio</span>
-				</a>
-			</div>
-			<div>
-				<a href="#conocenos" sclass="icon"
+				<a href="#org" sclass="icon"
 					iconSclass="fa fa-bank ">
 					<span>Organización</span>
 				</a>
 			</div>
 			<div>
-				<a href="#galeria" sclass="icon"
-					iconSclass="fa fa-picture-o">
-					<span>Galería</span>
-				</a>
-			</div>
-			<div>
-				<a href="#eventos" sclass="icon"
-					iconSclass="fa fa-picture-o">
-					<span>Eventos</span>
-				</a>
-				
-			</div>
-			<div>
-				<a href="#comunidad" sclass="icon"
+				<a href="#valores" sclass="icon"
 					iconSclass="fa fa-user">
-					<span>Comunidad</span>
+					<span>Valores</span>
 				</a>
-				
+			</div>
+			<div>
+				<a href="#est" sclass="icon"
+					iconSclass="fa fa-line-chart">
+					<span>Estadísticas</span>
+				</a>
 			</div>
 		</div>
 	</div>
-
-	<div class="titulo-organizacion">
-		<n:h5 class="texto-titulo-org">LA ORGANIZACIÓN</n:h5>
-	</div>
-	<div class="cont-org">
-		<div class="container-fluid">
-			<div class="row tam-cont-org">
-				<div class="col s4 text-center">  
-	     			<n:br></n:br>
-		        	<image class="img-cont-org" src="/imagenes/portal/icon/icon-people-grande.png">
-	   				</image>   
-		         	<n:h6 class="text-cont-org" >Fanca</n:h6>
-	         		<n:br></n:br>  
-	         		<div style="text-align: justify;">
-			         	<label class="justificar-label" value="La Fundación Amigos del Niño con Cáncer  Lara (FANCA) es una institución privada, sin fines de lucro, fundada el 04 de Febrero de 1988, y trabajamos en los centros hospitalarios:  Hospital Universitario de Pediatría “Dr. Agustín Zubillaga” y el Hospital del Seguro Social Pastor Oropeza, ambos en la ciudad de Barquisimeto.  Nace por iniciativa de algunas personas de la sociedad larense, en vista de los grandes problemas que acarrea esta enfermedad. Somos una Fundación autónoma y descentralizada, con 24 años de servicio trabajando en pro  de mejorar la calidad de vida de los pacientes.">
-			           </label>
-		           </div>		
-		      	</div>	  
-		      	<div class="col s4 text-center">  
-				    <n:br></n:br> 
-				    <image class="img-cont-org" src="/imagenes/portal/icon/icon-goals-grande.png" >
-				   	</image>
-			      	<n:h6 class="text-cont-org" >Misión</n:h6>
-				    <n:br></n:br>
-				    <div style="text-align: justify;">
-					    <label class="justificar-label" value="“Brindar a los niños y adolescentes los medicamentos y exámenes especiales,  faltantes  en los Hospitales, hospedaje y comida en nuestro albergue, ayuda psicológica tanto a los padres como a los niños, escolaridad para los pacientes hospitalizados y orientación a los padres y representantes, para que acudan a los diferentes centros de ayuda (fundaciones públicas y privadas) en la ciudad”">
-			           </label>
-		           </div>
-				</div>  
-		      	<div class="col s4 text-center">
+	<n:div id="org">
+		<div class="titulo-organizacion">
+			<n:h5 class="texto-titulo-org">LA ORGANIZACIÓN</n:h5>
+		</div>
+		<div class="cont-org">
+			<div class="container-fluid">
+				<div class="row tam-cont-org">
+					<div class="col s4 text-center">  
+		     			<n:br></n:br>
+			        	<image class="img-cont-org" src="/imagenes/portal/icon/icon-people-grande.png">
+		   				</image>   
+			         	<n:h6 class="text-cont-org" >Fanca</n:h6>
+		         		<n:br></n:br>  
+		         		<div style="text-align: justify;">
+				         	<label class="justificar-label" value="La Fundación Amigos del Niño con Cáncer  Lara (FANCA) es una institución privada, sin fines de lucro, fundada el 04 de Febrero de 1988, y trabajamos en los centros hospitalarios:  Hospital Universitario de Pediatría “Dr. Agustín Zubillaga” y el Hospital del Seguro Social Pastor Oropeza, ambos en la ciudad de Barquisimeto.  Nace por iniciativa de algunas personas de la sociedad larense, en vista de los grandes problemas que acarrea esta enfermedad. Somos una Fundación autónoma y descentralizada, con 24 años de servicio trabajando en pro  de mejorar la calidad de vida de los pacientes.">
+				           </label>
+			           </div>		
+			      	</div>	  
+			      	<div class="col s4 text-center">  
+					    <n:br></n:br> 
+					    <image class="img-cont-org" src="/imagenes/portal/icon/icon-goals-grande.png" >
+					   	</image>
+				      	<n:h6 class="text-cont-org" >Misión</n:h6>
+					    <n:br></n:br>
+					    <div style="text-align: justify;">
+						    <label class="justificar-label" value="“Brindar a los niños y adolescentes los medicamentos y exámenes especiales,  faltantes  en los Hospitales, hospedaje y comida en nuestro albergue, ayuda psicológica tanto a los padres como a los niños, escolaridad para los pacientes hospitalizados y orientación a los padres y representantes, para que acudan a los diferentes centros de ayuda (fundaciones públicas y privadas) en la ciudad”">
+				           </label>
+			           </div>
+					</div>  
+			      	<div class="col s4 text-center">
 	      			<n:br></n:br>
 		         	<image class="img-cont-org" src="/imagenes/portal/icon/icon-medical-grande.png">
 			     	</image>  
@@ -89,138 +76,143 @@
 			</div>
 		</div>
 	</div>
-	<div class="titulo-valores">
-		<n:h5 class="texto-titulo-val">VALORES</n:h5>
-	</div>
-	<div class="container-fluid galeria"  >
-		<div class="row">
-			<div class="col-xs-12 fotos">
-				<div class="col-xs-2" align="center">
-					<div class="borde-blanco">
-						<image src="/imagenes/icon-respeto.png"></image>
-						<div class="caption">
-							<n:h5 class="texto-valores">Respeto</n:h5>
-						</div>
-					</div>
-				</div>
-				<div class="col-xs-2" align="center">
-					<div class="borde-blanco">
-						<image src="/imagenes/icon-trabajo-equipo.png"></image>
-						<div class="caption">
-							<n:h5 class="texto-valores">Trabajo en equipo</n:h5>
-						</div>
-					</div>
-				</div>
-				<div class="col-xs-2" align="center">
-					<div class="borde-blanco">
-						<image src="/imagenes/icon-vocacion.png"></image>
-						<div class="caption">
-							<n:h5 class="texto-valores">Vocación</n:h5>
-						</div>
-					</div>
-				</div>	
-				
-				<div class="col-xs-2" align="center">
-					<div class="borde-blanco">
-						<image src="/imagenes/icon-asistencia.png"></image>
-						<div class="caption">
-							<n:h5 class="texto-valores">Asistencia humanizada</n:h5>
-						</div>
-					</div>
-				</div>
-				<div class="col-xs-2" align="center">
-					<div class="borde-blanco">
-						<image src="/imagenes/icon-compromiso.png"></image>
-						<div class="caption">
-							<n:h5 class="texto-valores">Compromiso</n:h5>
-						</div>
-					</div>
-				</div>
-				<div class="col-xs-2" align="center">
-					<div class="borde-blanco">
-						<image src="/imagenes/icon-credibilidad.png"></image>
-						<div class="caption">
-							<n:h5 class="texto-valores">Credibilidad</n:h5>
-						</div>
-					</div>
-				</div>		
-			</div>					
+	</n:div>
+	<n:div id="valores">
+		<div class="titulo-valores">
+			<n:h5 class="texto-titulo-val">VALORES</n:h5>
 		</div>
-	</div>
-	<div class="container-fluid galeria color-fondo borde-beich">
-		<div class="row color-fondo borde-beich">
-				<div class="col-md-9 " align="center">
-					<div class="titulo-estadistica" align="center">
-				    	<n:h5 class="texto-titulo-esta" >ESTADÍSTICAS DE INTERÉS</n:h5>
-					</div>
-					<div class="col-xs-12 color-fondo borde-beich" align="center">
-						<div class="col-xs-4 color-fondo borde-beich" align="center">
-							<div class="thumbnail color-fondo borde-beich">
-								<n:h5 class="text-cont-esta">ESTADÍSTICA 1</n:h5>
-								<n:p class="text-justificado"></n:p>
-								<label class="justificar-label" value="Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
-								sed eiusmod tempor incidunt ut labore et dolore magna aliqua.">
-		           				</label>
-								<div class="circulo" style="background-image: url(/SmileWebApp/imagenes/portal/estadistica3.png)"></div>
-							</div>
-						</div>
-						<div class="col-xs-4 color-fondo borde-beich" align="center">
-							<div class="thumbnail color-fondo borde-beich" >
-								<n:h5 class="text-cont-esta">ESTADÍSTICA 2</n:h5>
-								<label class="justificar-label" value="Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
-								sed eiusmod tempor incidunt ut labore et dolore magna aliqua.">
-		           				</label>
-								<div class="circulo" style="background-image: url(/SmileWebApp/imagenes/portal/estadistica1.png)"></div>	
-							</div>	
-						</div>
-						<div class="col-xs-4 color-fondo borde-beich" align="center">
-							<div class="thumbnail  color-fondo borde-beich" >
-								<n:h5 class="text-cont-esta">ESTADÍSTICA 3</n:h5>
-								<label class="justificar-label" value="Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
-								sed eiusmod tempor incidunt ut labore et dolore magna aliqua.">
-		           				</label>
-								<div class="circulo" style="background-image: url(/SmileWebApp/imagenes/portal/estadistica2.png)"></div>	
+		<div class="container-fluid galeria"  >
+			<div class="row">
+				<div class="col-xs-12 fotos">
+					<div class="col-xs-2" align="center">
+						<div class="borde-blanco">
+							<image src="/imagenes/icon-respeto.png"></image>
+							<div class="caption">
+								<n:h5 class="texto-valores">Respeto</n:h5>
 							</div>
 						</div>
 					</div>
-				</div>
-				<div class="col-ms-3" align="center">
-					<div align="center" class="titulo-descargable">
-						    	<n:h5 class="texto-titulo-desca" >DESCARGABLES</n:h5>
+					<div class="col-xs-2" align="center">
+						<div class="borde-blanco">
+							<image src="/imagenes/icon-trabajo-equipo.png"></image>
+							<div class="caption">
+								<n:h5 class="texto-valores">Trabajo en equipo</n:h5>
 							</div>
-							<n:br></n:br>
-							<div class="col-ms-12 color-fondo borde-beich">
-								<div class="thumbnail color-fondo borde-beich">
-									<label class="justificar-label" value="Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
-									sed eiusmod tempor incidunt ut labore et dolore magna aliqua. 
-									Ut enim ad minim veniam, quis nostrud exercitation ullamco 
-									laboris.">
-			           				</label>
-			           				<n:br></n:br>
-			           				<n:br></n:br>
-			           				<n:br></n:br>
-									<image class="ima-tam" src="/imagenes/icon-download(2).png"></image>
-								</div>	
-			    		</div>	
-				</div>	
-		</div>
-		<div class="container-fluid galeria ">
-<!-- 		coloque el style aqui para resolver para el entregable 2 -->
-		<div class="row" style="margin-bottom: 0">
-			<div class="col-md-9" align="center">
-	          	<div class="boton text-center">
-        			<button type="button" class="color-boton waves-effect waves-light btn">Ver más</button>
-    			</div>
-				<n:br></n:br>
-	    	</div>
-			<div class="col-ms-3" align="center">
-				<div class="boton text-center">
-        			<button type="button" class=" waves-effect waves-light btn color-boton">Ver más</button>
-    			</div>
+						</div>
+					</div>
+					<div class="col-xs-2" align="center">
+						<div class="borde-blanco">
+							<image src="/imagenes/icon-vocacion.png"></image>
+							<div class="caption">
+								<n:h5 class="texto-valores">Vocación</n:h5>
+							</div>
+						</div>
+					</div>	
+					
+					<div class="col-xs-2" align="center">
+						<div class="borde-blanco">
+							<image src="/imagenes/icon-asistencia.png"></image>
+							<div class="caption">
+								<n:h5 class="texto-valores">Asistencia humanizada</n:h5>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-2" align="center">
+						<div class="borde-blanco">
+							<image src="/imagenes/icon-compromiso.png"></image>
+							<div class="caption">
+								<n:h5 class="texto-valores">Compromiso</n:h5>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-2" align="center">
+						<div class="borde-blanco">
+							<image src="/imagenes/icon-credibilidad.png"></image>
+							<div class="caption">
+								<n:h5 class="texto-valores">Credibilidad</n:h5>
+							</div>
+						</div>
+					</div>		
+				</div>					
 			</div>
+		</div>
+	</n:div>
+	<n:div id="est">
+		<div class="container-fluid galeria color-fondo borde-beich">
+			<div class="row color-fondo borde-beich">
+					<div class="col-md-9 " align="center">
+						<div class="titulo-estadistica" align="center">
+					    	<n:h5 class="texto-titulo-esta" >ESTADÍSTICAS DE INTERÉS</n:h5>
+						</div>
+						<div class="col-xs-12 color-fondo borde-beich" align="center">
+							<div class="col-xs-4 color-fondo borde-beich" align="center">
+								<div class="thumbnail color-fondo borde-beich">
+									<n:h5 class="text-cont-esta">ESTADÍSTICA 1</n:h5>
+									<n:p class="text-justificado"></n:p>
+									<label class="justificar-label" value="Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
+									sed eiusmod tempor incidunt ut labore et dolore magna aliqua.">
+			           				</label>
+									<div class="circulo" style="background-image: url(/SmileWebApp/imagenes/portal/estadistica3.png)"></div>
+								</div>
+							</div>
+							<div class="col-xs-4 color-fondo borde-beich" align="center">
+								<div class="thumbnail color-fondo borde-beich" >
+									<n:h5 class="text-cont-esta">ESTADÍSTICA 2</n:h5>
+									<label class="justificar-label" value="Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
+									sed eiusmod tempor incidunt ut labore et dolore magna aliqua.">
+			           				</label>
+									<div class="circulo" style="background-image: url(/SmileWebApp/imagenes/portal/estadistica1.png)"></div>	
+								</div>	
+							</div>
+							<div class="col-xs-4 color-fondo borde-beich" align="center">
+								<div class="thumbnail  color-fondo borde-beich" >
+									<n:h5 class="text-cont-esta">ESTADÍSTICA 3</n:h5>
+									<label class="justificar-label" value="Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
+									sed eiusmod tempor incidunt ut labore et dolore magna aliqua.">
+			           				</label>
+									<div class="circulo" style="background-image: url(/SmileWebApp/imagenes/portal/estadistica2.png)"></div>	
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-ms-3" align="center">
+						<div align="center" class="titulo-descargable">
+							    	<n:h5 class="texto-titulo-desca" >DESCARGABLES</n:h5>
+								</div>
+								<n:br></n:br>
+								<div class="col-ms-12 color-fondo borde-beich">
+									<div class="thumbnail color-fondo borde-beich">
+										<label class="justificar-label" value="Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
+										sed eiusmod tempor incidunt ut labore et dolore magna aliqua. 
+										Ut enim ad minim veniam, quis nostrud exercitation ullamco 
+										laboris.">
+				           				</label>
+				           				<n:br></n:br>
+				           				<n:br></n:br>
+				           				<n:br></n:br>
+										<image class="ima-tam" src="/imagenes/icon-download(2).png"></image>
+									</div>	
+				    		</div>	
+					</div>	
+			</div>
+			<div class="container-fluid galeria ">
+	<!-- 		coloque el style aqui para resolver para el entregable 2 -->
+			<div class="row" style="margin-bottom: 0">
+				<div class="col-md-9" align="center">
+		          	<div class="boton text-center">
+	        			<button type="button" class="color-boton waves-effect waves-light btn">Ver más</button>
+	    			</div>
+					<n:br></n:br>
+		    	</div>
+				<div class="col-ms-3" align="center">
+					<div class="boton text-center">
+	        			<button type="button" class=" waves-effect waves-light btn color-boton">Ver más</button>
+	    			</div>
+				</div>
+			</div>	
 		</div>	
-	</div>	
-	</div>
+		</div>
+	</n:div>
 </zk>
 
 

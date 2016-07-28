@@ -108,7 +108,7 @@
 						</div>
 						<div sclass="item" onClick="@command('detalleNoticia')">
 							<div style="padding-bottom: 10px;">
-								<label class="title" value="LOREM IPSUN DOLOR">
+								<label class="title" value="C.C. LAS TRINITARIAS COMPROMETIDA CON FUNDACIONES LARENSES">
 								</label>
 							</div>
 							<div class="block-ellipsis">
@@ -119,7 +119,7 @@
 						</div>									
 						<div sclass="item" onClick="@command('detalleNoticia')">
 							<div style="padding-bottom: 10px;">
-								<label class="title" value="LOREM IPSUN DOLOR">
+								<label class="title" value="FANCA realiza verbena a favor de niños con cáncer">
 								</label>
 							</div>
 							<div class="block-ellipsis">
@@ -132,7 +132,7 @@
 						</div>
 						<div sclass="item" onClick="@command('detalleNoticia')">
 							<div style="padding-bottom: 10px;">
-								<label class="title" value="LOREM IPSUN DOLOR">
+								<label class="title" value="FANCA realiza verbena a favor de niños con cáncer">
 								</label>
 							</div>
 							<div class="block-ellipsis">
@@ -145,7 +145,7 @@
 						</div>
 						<div sclass="item" onClick="@command('detalleNoticia')">
 							<div style="padding-bottom: 10px;">
-								<label class="title" value="LOREM IPSUN DOLOR">
+								<label class="title" value="Tapas por Vidas realizó su tercer donativo a Fanca Lara">
 								</label>
 							</div>
 							<div class="block-ellipsis">

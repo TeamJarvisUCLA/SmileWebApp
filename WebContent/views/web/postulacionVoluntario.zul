@@ -56,7 +56,17 @@
 								<comboitem label="Masculino" />
 								<comboitem label="Femenino" />
 							</combobox>	
-						</div>							
+						</div>
+						<div class="input-field col s6">
+							<n:label for="fecha_nacimiento" class="active">Fecha de Nacimiento</n:label>
+							<datebox id="db" cols="20" format="yyyy/MM/dd"  onCreate="self.value = new Date()"/>
+						</div>
+						<div class="input-field col s6">
+							<n:label for="telefono_1">Telefono</n:label>
+							<textbox id="telefono_1" type="text"
+								value="">
+							</textbox>
+						</div>																	
 					</div>					
 					<div class="col s4 text-center">
 						<image src="/imagenes/portal/conejo.png"></image>

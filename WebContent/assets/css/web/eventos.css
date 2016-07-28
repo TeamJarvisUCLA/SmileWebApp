@@ -14,29 +14,25 @@
 	font-size: 16px;
 }
 
-.eventos .titulo {
+.titulo {
 	color: #F26B7A;
 	font-size: 18px;
-	margin-bottom: 30px;
-}
-
-.eventos td, th {
-	padding: 0;
+	margin-bottom: 10px;
 }
 
 .view {
-    width: 300px;
-    height: 200px;
+    width: 100%;
+    height: 100%;
     float: left;
     overflow: hidden;
     position: relative;
-    text-align: center;
+/*     text-align: center; */
     box-shadow: 1px 1px 2px #e6e6e6;
     cursor: default;
 }
 
 .view .mask, .view .content {
-    width: 300px;
+    width: 100%;
     height: 200px;
     position: absolute;
     overflow: hidden;
@@ -51,34 +47,36 @@
 
 .view h2 {
     text-transform: uppercase;
-    color: #fff;
-    text-align: center;
-    position: relative;
-    font-size: 17px;
-    padding: 10px;
+    color: #F26B7A;
+	font-size: 18px;
+    text-align: left;
+    padding: 0;
+/*     position: relative; */
     background: hsla(0,0%,0%,0.8);
-    margin: 20px 0 0 0;
+/*     margin: 5px 0 0 0; */
+	line-height: 60%;
+}
+
+.abc {
+	margin-bottom: 0;
 }
 
 .view p {
-    font-size: 12px;
+    font-size: 14px;
     position: relative;
     color: #fff;
-    padding: 10px 20px 20px;
-    text-align: center;
+    padding: 10px 20px;
+    text-align: justify;
+    margin: 0;
 }
 
 .view a.info {
     display: inline-block;
     text-decoration: none;
-    padding: 7px 14px;
-    background: #F26B7A;
+    padding: 0 14px;
+/*     background: #F26B7A; */
     color: #fff;
     text-transform: uppercase;
-}
-
-.view a.info:hover {
-    box-shadow: 0 0 5px #000;
 }
 
 .view img {
@@ -94,7 +92,7 @@
     width: 300px;
     padding: 0;
     height: 300px;
-    background-color: rgba(135,121,111,0.7);
+    background-color: rgba(135,121,111,0.8);
 /*     background-color: hsla(213,33%,59%,0.7); */
     -webkit-transition: all 0.2s ease-in-out;
     -moz-transition: all 0.2s ease-in-out;
@@ -122,6 +120,7 @@
     -o-transition: all 0.2s ease-in-out;
     -ms-transition: all 0.2s ease-in-out;
     transition: all 0.2s ease-in-out;
+    margin: 15px 40px 0px 20px;
 }
 
 .view p { 
@@ -135,6 +134,7 @@
     -o-transition: all 0.2s ease-in-out;
     -ms-transition: all 0.2s ease-in-out;
     transition: all 0.2s ease-in-out;
+    margin-top: 10px;
 }
 
 .view a.info {

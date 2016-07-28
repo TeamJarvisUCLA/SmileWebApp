@@ -17,7 +17,7 @@
 						</a>
 					</div>
 					<div sclass="col s12 text-center">
-						<n:h6>Postulación de Voluntario</n:h6>
+						<n:h6>Postulación de Padrino</n:h6>
 					</div>
 					<div sclass="col s8 form">
 						<div class="input-field col s6">
@@ -66,7 +66,13 @@
 							<textbox id="telefono_1" type="text"
 								value="">
 							</textbox>
-						</div>																	
+						</div>	
+						<div class="input-field col s6">
+							<n:label for="monto">Aporte (BsF.)</n:label>
+							<textbox id="monto" type="text"
+								value="">
+							</textbox>
+						</div>																						
 					</div>					
 					<div class="col s4 text-center">
 						<image src="/imagenes/portal/conejo.png"></image>

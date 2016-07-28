@@ -53,11 +53,10 @@
 	   				</image>   
 		         	<n:h6 class="text-cont-org" >Fanca</n:h6>
 	         		<n:br></n:br>  
-		         	<label class="justificar-label" value="This is the standard version that comes with both the minified and unminified CSS and JavaScript files. 
-		         		This option requires little to no setup. Use this if you are unfamiliar with Sass.
-		            	This option requires little to no setup. Use this if you are unfamiliar with Sass.
-		               This option requires little to no setup. Use this if you are unfamiliar with Sass.">
-		           </label>		
+	         		<div style="text-align: justify;">
+			         	<label class="justificar-label" value="La Fundación Amigos del Niño con Cáncer  Lara (FANCA) es una institución privada, sin fines de lucro, fundada el 04 de Febrero de 1988, y trabajamos en los centros hospitalarios:  Hospital Universitario de Pediatría “Dr. Agustín Zubillaga” y el Hospital del Seguro Social Pastor Oropeza, ambos en la ciudad de Barquisimeto.  Nace por iniciativa de algunas personas de la sociedad larense, en vista de los grandes problemas que acarrea esta enfermedad. Somos una Fundación autónoma y descentralizada, con 24 años de servicio trabajando en pro  de mejorar la calidad de vida de los pacientes.">
+			           </label>
+		           </div>		
 		      	</div>	  
 		      	<div class="col s4 text-center">  
 				    <n:br></n:br> 
@@ -65,11 +64,10 @@
 				   	</image>
 			      	<n:h6 class="text-cont-org" >Misión</n:h6>
 				    <n:br></n:br>
-				    <label class="justificar-label" value="This is the standard version that comes with both the minified and unminified CSS and JavaScript files. 
-		         		This option requires little to no setup. Use this if you are unfamiliar with Sass.
-		            	This option requires little to no setup. Use this if you are unfamiliar with Sass.
-		               This option requires little to no setup. Use this if you are unfamiliar with Sass.">
-		           </label>
+				    <div style="text-align: justify;">
+					    <label class="justificar-label" value="“Brindar a los niños y adolescentes los medicamentos y exámenes especiales,  faltantes  en los Hospitales, hospedaje y comida en nuestro albergue, ayuda psicológica tanto a los padres como a los niños, escolaridad para los pacientes hospitalizados y orientación a los padres y representantes, para que acudan a los diferentes centros de ayuda (fundaciones públicas y privadas) en la ciudad”">
+			           </label>
+		           </div>
 				</div>  
 		      	<div class="col s4 text-center">
 	      			<n:br></n:br>
@@ -77,17 +75,15 @@
 			     	</image>  
 		         	<n:h6 class="text-cont-org" >Visión</n:h6>
 		        	<n:br></n:br>
-			        <label class="justificar-label" value="This is the standard version that comes with both the minified and unminified CSS and JavaScript files. 
-		         		This option requires little to no setup. Use this if you are unfamiliar with Sass.
-		            	This option requires little to no setup. Use this if you are unfamiliar with Sass.
-		               This option requires little to no setup. Use this if you are unfamiliar with Sass.">
-		           </label>
+				    <div style="text-align: justify;">
+					    <label class="justificar-label" value="“Lograr el reconocimiento a nivel nacional e internacional como una Fundación comprometida con la prestación de un servicio integral al paciente infantil y adolescente con cáncer, respaldado por nuestros valores como fundación sin fines de lucro”">
+			           </label>
+		           </div>
 			  	</div>
 
 	  			<div class="col s12 text-center">
 	  				<n:br></n:br>
-					<label class="justificar-label text-other" value="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus at officiis amet 
-						corporis repellendus totam maxime, quod, itaque quam">
+					<label class="justificar-label text-other" value="La generosidad es una de las manifestaciones de “nobleza de espíritu y grandeza de corazón que puede dar una persona“">
 		           </label>
 				</div>	
 			</div>
@@ -165,7 +161,7 @@
 								<label class="justificar-label" value="Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
 								sed eiusmod tempor incidunt ut labore et dolore magna aliqua.">
 		           				</label>
-								<div class="circulo" style="background-image: url(imagenes/estadistica3.png)"></div>
+								<div class="circulo" style="background-image: url(/SmileWebApp/imagenes/portal/estadistica3.png)"></div>
 							</div>
 						</div>
 						<div class="col-xs-4 color-fondo borde-beich" align="center">
@@ -174,7 +170,7 @@
 								<label class="justificar-label" value="Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
 								sed eiusmod tempor incidunt ut labore et dolore magna aliqua.">
 		           				</label>
-								<div class="circulo" style="background-image: url(imagenes/estadistica1.png)"></div>	
+								<div class="circulo" style="background-image: url(/SmileWebApp/imagenes/portal/estadistica1.png)"></div>	
 							</div>	
 						</div>
 						<div class="col-xs-4 color-fondo borde-beich" align="center">
@@ -183,7 +179,7 @@
 								<label class="justificar-label" value="Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
 								sed eiusmod tempor incidunt ut labore et dolore magna aliqua.">
 		           				</label>
-								<div class="circulo" style="background-image: url(imagenes/estadistica2.png)"></div>	
+								<div class="circulo" style="background-image: url(/SmileWebApp/imagenes/portal/estadistica2.png)"></div>	
 							</div>
 						</div>
 					</div>
@@ -209,7 +205,8 @@
 				</div>	
 		</div>
 		<div class="container-fluid galeria ">
-		<div class="row">
+<!-- 		coloque el style aqui para resolver para el entregable 2 -->
+		<div class="row" style="margin-bottom: 0">
 			<div class="col-md-9" align="center">
 	          	<div class="boton text-center">
         			<button type="button" class="color-boton waves-effect waves-light btn">Ver más</button>

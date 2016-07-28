@@ -6,7 +6,7 @@
 		viewModel="@id('vm') @init('ve.smile.web.viewmodels.VM_Main')">
 		<div class="row" width="90%">
 			<div class="col s12 title text-center">
-				<span>nombre del álbum</span>
+				<span>Vendimia 2015</span>
 			</div>
 			<div class="col s12 volver">
 				<a href="" onClick="@command('galeria')">

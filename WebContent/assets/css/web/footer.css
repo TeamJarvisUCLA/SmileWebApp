@@ -49,3 +49,7 @@ footer .footer_b {
 	background: #89a8b2;
 	color: #ffffff;
 }
+
+footer .footer_b .row {
+	margin-bottom: 0;
+}

@@ -57,7 +57,7 @@ public class VMVProfesion extends VM_WindowForm {
 		if (operacionEnum.equals(OperacionEnum.INCLUIR)) {
 			PayloadProfesionResponse payloadProfesionResponse =
 					S.ProfesionService.incluir(getProfesion());
-
+			Alert.showMessage(payloadProfesionResponse);
 			if(!UtilPayload.isOK(payloadProfesionResponse)) {
 				Alert.showMessage(payloadProfesionResponse);
 				return true;
@@ -71,7 +71,7 @@ public class VMVProfesion extends VM_WindowForm {
 		if (operacionEnum.equals(OperacionEnum.MODIFICAR)) {
 			PayloadProfesionResponse payloadProfesionResponse =
 					S.ProfesionService.modificar(getProfesion());
-
+			Alert.showMessage(payloadProfesionResponse);
 			if(!UtilPayload.isOK(payloadProfesionResponse)) {
 				Alert.showMessage(payloadProfesionResponse);
 				return true;

@@ -57,7 +57,7 @@ public class VMVEstado extends VM_WindowForm {
 		if (operacionEnum.equals(OperacionEnum.INCLUIR)) {
 			PayloadEstadoResponse payloadEstadoResponse =
 					S.EstadoService.incluir(getEstado());
-
+			Alert.showMessage(payloadEstadoResponse);
 			if(!UtilPayload.isOK(payloadEstadoResponse)) {
 				Alert.showMessage(payloadEstadoResponse);
 				return true;
@@ -71,7 +71,7 @@ public class VMVEstado extends VM_WindowForm {
 		if (operacionEnum.equals(OperacionEnum.MODIFICAR)) {
 			PayloadEstadoResponse payloadEstadoResponse =
 					S.EstadoService.modificar(getEstado());
-
+			Alert.showMessage(payloadEstadoResponse);
 			if(!UtilPayload.isOK(payloadEstadoResponse)) {
 				Alert.showMessage(payloadEstadoResponse);
 				return true;

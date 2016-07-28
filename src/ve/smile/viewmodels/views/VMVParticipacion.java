@@ -57,7 +57,7 @@ public class VMVParticipacion extends VM_WindowForm {
 		if (operacionEnum.equals(OperacionEnum.INCLUIR)) {
 			PayloadParticipacionResponse payloadParticipacionResponse =
 					S.ParticipacionService.incluir(getParticipacion());
-
+			Alert.showMessage(payloadParticipacionResponse);
 			if(!UtilPayload.isOK(payloadParticipacionResponse)) {
 				Alert.showMessage(payloadParticipacionResponse);
 				return true;
@@ -71,7 +71,7 @@ public class VMVParticipacion extends VM_WindowForm {
 		if (operacionEnum.equals(OperacionEnum.MODIFICAR)) {
 			PayloadParticipacionResponse payloadParticipacionResponse =
 					S.ParticipacionService.modificar(getParticipacion());
-
+			Alert.showMessage(payloadParticipacionResponse);
 			if(!UtilPayload.isOK(payloadParticipacionResponse)) {
 				Alert.showMessage(payloadParticipacionResponse);
 				return true;

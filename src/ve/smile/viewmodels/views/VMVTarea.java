@@ -58,7 +58,7 @@ public class VMVTarea extends VM_WindowForm {
 		if (operacionEnum.equals(OperacionEnum.INCLUIR)) {
 			PayloadTareaResponse payloadTareaResponse =
 					S.TareaService.incluir(getTarea());
-
+			Alert.showMessage(payloadTareaResponse);
 			if(!UtilPayload.isOK(payloadTareaResponse)) {
 				Alert.showMessage(payloadTareaResponse);
 				return true;
@@ -72,7 +72,7 @@ public class VMVTarea extends VM_WindowForm {
 		if (operacionEnum.equals(OperacionEnum.MODIFICAR)) {
 			PayloadTareaResponse payloadTareaResponse =
 					S.TareaService.modificar(getTarea());
-
+			Alert.showMessage(payloadTareaResponse);
 			if(!UtilPayload.isOK(payloadTareaResponse)) {
 				Alert.showMessage(payloadTareaResponse);
 				return true;
@@ -102,17 +102,14 @@ public class VMVTarea extends VM_WindowForm {
 		return (Tarea) DataCenter.getEntity();
 	}
 
-	public Notificacion getNotificacion() {
-		return (Notificacion) DataCenter.getEntity();
-	}
 
 	public boolean isFormValidated() {
 
 		try {
+			UtilValidate.validateString(getTarea().getNombre(), "Nombre", 200);
+			UtilValidate.validateString(getTarea().getDescripcion(), "Descripcion", 300);
 			
-			UtilValidate.validateString(getNotificacion().getDescripcion(), "Descripcion", 200);
-			UtilValidate.validateString(getNotificacion().getNombre(), "Nombre", 200);
-			UtilValidate.validateString(getNotificacion().getIcono(), "Icono", 200);
+		
 			return true;
 		} catch (Exception e) {
 			Alert.showMessage(e.getMessage());

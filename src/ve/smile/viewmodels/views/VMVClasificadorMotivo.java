@@ -58,7 +58,7 @@ public class VMVClasificadorMotivo extends VM_WindowForm {
 		if (operacionEnum.equals(OperacionEnum.INCLUIR)) {
 			PayloadClasificadorMotivoResponse payloadClasificadorMotivoResponse =
 					S.ClasificadorMotivoService.incluir(getClasificadorMotivo());
-
+			Alert.showMessage(payloadClasificadorMotivoResponse);
 			if(!UtilPayload.isOK(payloadClasificadorMotivoResponse)) {
 				Alert.showMessage(payloadClasificadorMotivoResponse);
 				return true;
@@ -72,7 +72,7 @@ public class VMVClasificadorMotivo extends VM_WindowForm {
 		if (operacionEnum.equals(OperacionEnum.MODIFICAR)) {
 			PayloadClasificadorMotivoResponse payloadClasificadorMotivoResponse =
 					S.ClasificadorMotivoService.modificar(getClasificadorMotivo());
-
+			Alert.showMessage(payloadClasificadorMotivoResponse);
 			if(!UtilPayload.isOK(payloadClasificadorMotivoResponse)) {
 				Alert.showMessage(payloadClasificadorMotivoResponse);
 				return true;
@@ -102,17 +102,15 @@ public class VMVClasificadorMotivo extends VM_WindowForm {
 		return (ClasificadorMotivo) DataCenter.getEntity();
 	}
 
-	public Notificacion getNotificacion() {
-		return (Notificacion) DataCenter.getEntity();
-	}
+
 
 	public boolean isFormValidated() {
 
 		try {
 			
-			UtilValidate.validateString(getNotificacion().getDescripcion(), "Descripcion", 200);
-			UtilValidate.validateString(getNotificacion().getNombre(), "Nombre", 200);
-			UtilValidate.validateString(getNotificacion().getIcono(), "Icono", 200);
+			UtilValidate.validateString(getClasificadorMotivo().getDescripcion(), "Descripcion", 200);
+			UtilValidate.validateString(getClasificadorMotivo().getNombre(), "Nombre", 200);
+			
 			return true;
 		} catch (Exception e) {
 			Alert.showMessage(e.getMessage());

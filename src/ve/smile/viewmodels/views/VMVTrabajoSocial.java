@@ -58,7 +58,7 @@ public class VMVTrabajoSocial extends VM_WindowForm {
 		if (operacionEnum.equals(OperacionEnum.INCLUIR)) {
 			PayloadTrabajoSocialResponse payloadTrabajoSocialResponse =
 					S.TrabajoSocialService.incluir(getTrabajoSocial());
-
+			Alert.showMessage(payloadTrabajoSocialResponse);
 			if(!UtilPayload.isOK(payloadTrabajoSocialResponse)) {
 				Alert.showMessage(payloadTrabajoSocialResponse);
 				return true;
@@ -72,7 +72,7 @@ public class VMVTrabajoSocial extends VM_WindowForm {
 		if (operacionEnum.equals(OperacionEnum.MODIFICAR)) {
 			PayloadTrabajoSocialResponse payloadTrabajoSocialResponse =
 					S.TrabajoSocialService.modificar(getTrabajoSocial());
-
+			Alert.showMessage(payloadTrabajoSocialResponse);
 			if(!UtilPayload.isOK(payloadTrabajoSocialResponse)) {
 				Alert.showMessage(payloadTrabajoSocialResponse);
 				return true;
@@ -102,17 +102,14 @@ public class VMVTrabajoSocial extends VM_WindowForm {
 		return (TrabajoSocial) DataCenter.getEntity();
 	}
 
-	public Notificacion getNotificacion() {
-		return (Notificacion) DataCenter.getEntity();
-	}
 
 	public boolean isFormValidated() {
 
 		try {
 			
-			UtilValidate.validateString(getNotificacion().getDescripcion(), "Descripcion", 200);
-			UtilValidate.validateString(getNotificacion().getNombre(), "Nombre", 200);
-			UtilValidate.validateString(getNotificacion().getIcono(), "Icono", 200);
+			UtilValidate.validateString(getTrabajoSocial().getDescripcion(), "Descripcion", 200);
+			UtilValidate.validateString(getTrabajoSocial().getNombre(), "Nombre", 200);
+			
 			return true;
 		} catch (Exception e) {
 			Alert.showMessage(e.getMessage());

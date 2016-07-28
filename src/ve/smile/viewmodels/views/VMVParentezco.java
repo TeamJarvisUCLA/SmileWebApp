@@ -58,7 +58,7 @@ public class VMVParentezco extends VM_WindowForm {
 		if (operacionEnum.equals(OperacionEnum.INCLUIR)) {
 			PayloadParentezcoResponse payloadParentezcoResponse =
 					S.ParentezcoService.incluir(getParentezco());
-
+			Alert.showMessage(payloadParentezcoResponse);
 			if(!UtilPayload.isOK(payloadParentezcoResponse)) {
 				Alert.showMessage(payloadParentezcoResponse);
 				return true;
@@ -72,7 +72,7 @@ public class VMVParentezco extends VM_WindowForm {
 		if (operacionEnum.equals(OperacionEnum.MODIFICAR)) {
 			PayloadParentezcoResponse payloadParentezcoResponse =
 					S.ParentezcoService.modificar(getParentezco());
-
+			Alert.showMessage(payloadParentezcoResponse);
 			if(!UtilPayload.isOK(payloadParentezcoResponse)) {
 				Alert.showMessage(payloadParentezcoResponse);
 				return true;
@@ -102,17 +102,13 @@ public class VMVParentezco extends VM_WindowForm {
 		return (Parentezco) DataCenter.getEntity();
 	}
 
-	public Notificacion getNotificacion() {
-		return (Notificacion) DataCenter.getEntity();
-	}
-
+	
 	public boolean isFormValidated() {
 
 		try {
 			
-			UtilValidate.validateString(getNotificacion().getDescripcion(), "Descripcion", 200);
-			UtilValidate.validateString(getNotificacion().getNombre(), "Nombre", 200);
-			UtilValidate.validateString(getNotificacion().getIcono(), "Icono", 200);
+			UtilValidate.validateString(getParentezco().getNombre(), "Nombre", 200);
+		
 			return true;
 		} catch (Exception e) {
 			Alert.showMessage(e.getMessage());

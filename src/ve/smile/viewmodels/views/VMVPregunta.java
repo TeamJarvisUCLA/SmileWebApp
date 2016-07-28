@@ -57,7 +57,7 @@ public class VMVPregunta extends VM_WindowForm {
 		if (operacionEnum.equals(OperacionEnum.INCLUIR)) {
 			PayloadPreguntaResponse payloadPreguntaResponse =
 					S.PreguntaService.incluir(getPregunta());
-
+			Alert.showMessage(payloadPreguntaResponse);
 			if(!UtilPayload.isOK(payloadPreguntaResponse)) {
 				Alert.showMessage(payloadPreguntaResponse);
 				return true;
@@ -71,7 +71,7 @@ public class VMVPregunta extends VM_WindowForm {
 		if (operacionEnum.equals(OperacionEnum.MODIFICAR)) {
 			PayloadPreguntaResponse payloadPreguntaResponse =
 					S.PreguntaService.modificar(getPregunta());
-
+			Alert.showMessage(payloadPreguntaResponse);
 			if(!UtilPayload.isOK(payloadPreguntaResponse)) {
 				Alert.showMessage(payloadPreguntaResponse);
 				return true;

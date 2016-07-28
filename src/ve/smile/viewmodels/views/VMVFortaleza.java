@@ -58,7 +58,7 @@ public class VMVFortaleza extends VM_WindowForm {
 		if (operacionEnum.equals(OperacionEnum.INCLUIR)) {
 			PayloadFortalezaResponse payloadFortalezaResponse =
 					S.FortalezaService.incluir(getFortaleza());
-
+			Alert.showMessage(payloadFortalezaResponse);
 			if(!UtilPayload.isOK(payloadFortalezaResponse)) {
 				Alert.showMessage(payloadFortalezaResponse);
 				return true;
@@ -72,7 +72,7 @@ public class VMVFortaleza extends VM_WindowForm {
 		if (operacionEnum.equals(OperacionEnum.MODIFICAR)) {
 			PayloadFortalezaResponse payloadFortalezaResponse =
 					S.FortalezaService.modificar(getFortaleza());
-
+			Alert.showMessage(payloadFortalezaResponse);
 			if(!UtilPayload.isOK(payloadFortalezaResponse)) {
 				Alert.showMessage(payloadFortalezaResponse);
 				return true;
@@ -102,17 +102,14 @@ public class VMVFortaleza extends VM_WindowForm {
 		return (Fortaleza) DataCenter.getEntity();
 	}
 
-	public Notificacion getNotificacion() {
-		return (Notificacion) DataCenter.getEntity();
-	}
+	
 
 	public boolean isFormValidated() {
 
 		try {
-			
-			UtilValidate.validateString(getNotificacion().getDescripcion(), "Descripcion", 200);
-			UtilValidate.validateString(getNotificacion().getNombre(), "Nombre", 200);
-			UtilValidate.validateString(getNotificacion().getIcono(), "Icono", 200);
+			UtilValidate.validateString(getFortaleza().getNombre(), "Nombre", 200);
+			UtilValidate.validateString(getFortaleza().getDescripcion(), "Descripcion", 200);
+		
 			return true;
 		} catch (Exception e) {
 			Alert.showMessage(e.getMessage());

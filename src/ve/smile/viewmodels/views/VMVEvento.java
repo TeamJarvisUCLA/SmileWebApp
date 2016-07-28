@@ -58,7 +58,7 @@ public class VMVEvento extends VM_WindowForm {
 		if (operacionEnum.equals(OperacionEnum.INCLUIR)) {
 			PayloadEventoResponse payloadEventoResponse =
 					S.EventoService.incluir(getEvento());
-
+			Alert.showMessage(payloadEventoResponse);
 			if(!UtilPayload.isOK(payloadEventoResponse)) {
 				Alert.showMessage(payloadEventoResponse);
 				return true;
@@ -72,7 +72,7 @@ public class VMVEvento extends VM_WindowForm {
 		if (operacionEnum.equals(OperacionEnum.MODIFICAR)) {
 			PayloadEventoResponse payloadEventoResponse =
 					S.EventoService.modificar(getEvento());
-
+			Alert.showMessage(payloadEventoResponse);
 			if(!UtilPayload.isOK(payloadEventoResponse)) {
 				Alert.showMessage(payloadEventoResponse);
 				return true;
@@ -102,17 +102,14 @@ public class VMVEvento extends VM_WindowForm {
 		return (Evento) DataCenter.getEntity();
 	}
 
-	public Notificacion getNotificacion() {
-		return (Notificacion) DataCenter.getEntity();
-	}
 
 	public boolean isFormValidated() {
 
 		try {
+			UtilValidate.validateString(getEvento().getNombre(), "Nombre", 200);
+			UtilValidate.validateString(getEvento().getDescripcion(), "Descripcion", 200);
+		
 			
-			UtilValidate.validateString(getNotificacion().getDescripcion(), "Descripcion", 200);
-			UtilValidate.validateString(getNotificacion().getNombre(), "Nombre", 200);
-			UtilValidate.validateString(getNotificacion().getIcono(), "Icono", 200);
 			return true;
 		} catch (Exception e) {
 			Alert.showMessage(e.getMessage());

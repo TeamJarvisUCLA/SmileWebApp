@@ -58,7 +58,7 @@ public class VMVRequisito extends VM_WindowForm {
 		if (operacionEnum.equals(OperacionEnum.INCLUIR)) {
 			PayloadRequisitoResponse payloadRequisitoResponse =
 					S.RequisitoService.incluir(getRequisito());
-
+			Alert.showMessage(payloadRequisitoResponse);
 			if(!UtilPayload.isOK(payloadRequisitoResponse)) {
 				Alert.showMessage(payloadRequisitoResponse);
 				return true;
@@ -72,7 +72,7 @@ public class VMVRequisito extends VM_WindowForm {
 		if (operacionEnum.equals(OperacionEnum.MODIFICAR)) {
 			PayloadRequisitoResponse payloadRequisitoResponse =
 					S.RequisitoService.modificar(getRequisito());
-
+			Alert.showMessage(payloadRequisitoResponse);
 			if(!UtilPayload.isOK(payloadRequisitoResponse)) {
 				Alert.showMessage(payloadRequisitoResponse);
 				return true;
@@ -102,17 +102,14 @@ public class VMVRequisito extends VM_WindowForm {
 		return (Requisito) DataCenter.getEntity();
 	}
 
-	public Notificacion getNotificacion() {
-		return (Notificacion) DataCenter.getEntity();
-	}
 
 	public boolean isFormValidated() {
 
 		try {
-			
-			UtilValidate.validateString(getNotificacion().getDescripcion(), "Descripcion", 200);
-			UtilValidate.validateString(getNotificacion().getNombre(), "Nombre", 200);
-			UtilValidate.validateString(getNotificacion().getIcono(), "Icono", 200);
+			UtilValidate.validateString(getRequisito().getNombre(), "Nombre", 100);
+			UtilValidate.validateString(getRequisito().getDescripcion(), "Descripcion", 200);
+		
+		
 			return true;
 		} catch (Exception e) {
 			Alert.showMessage(e.getMessage());

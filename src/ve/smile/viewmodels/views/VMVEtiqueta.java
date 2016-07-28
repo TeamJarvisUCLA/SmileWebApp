@@ -58,7 +58,7 @@ public class VMVEtiqueta extends VM_WindowForm {
 		if (operacionEnum.equals(OperacionEnum.INCLUIR)) {
 			PayloadEtiquetaResponse payloadEtiquetaResponse =
 					S.EtiquetaService.incluir(getEtiqueta());
-
+			Alert.showMessage(payloadEtiquetaResponse);
 			if(!UtilPayload.isOK(payloadEtiquetaResponse)) {
 				Alert.showMessage(payloadEtiquetaResponse);
 				return true;
@@ -72,7 +72,7 @@ public class VMVEtiqueta extends VM_WindowForm {
 		if (operacionEnum.equals(OperacionEnum.MODIFICAR)) {
 			PayloadEtiquetaResponse payloadEtiquetaResponse =
 					S.EtiquetaService.modificar(getEtiqueta());
-
+			Alert.showMessage(payloadEtiquetaResponse);
 			if(!UtilPayload.isOK(payloadEtiquetaResponse)) {
 				Alert.showMessage(payloadEtiquetaResponse);
 				return true;
@@ -102,17 +102,15 @@ public class VMVEtiqueta extends VM_WindowForm {
 		return (Etiqueta) DataCenter.getEntity();
 	}
 
-	public Notificacion getNotificacion() {
-		return (Notificacion) DataCenter.getEntity();
-	}
+	
 
 	public boolean isFormValidated() {
 
 		try {
 			
-			UtilValidate.validateString(getNotificacion().getDescripcion(), "Descripcion", 200);
-			UtilValidate.validateString(getNotificacion().getNombre(), "Nombre", 200);
-			UtilValidate.validateString(getNotificacion().getIcono(), "Icono", 200);
+		
+			UtilValidate.validateString(getEtiqueta().getNombre(), "Nombre", 200);
+			
 			return true;
 		} catch (Exception e) {
 			Alert.showMessage(e.getMessage());

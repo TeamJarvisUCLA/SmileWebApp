@@ -57,7 +57,7 @@ public class VMVNotificacion extends VM_WindowForm {
 		if (operacionEnum.equals(OperacionEnum.INCLUIR)) {
 			PayloadNotificacionResponse payloadNotificacionResponse =
 					S.NotificacionService.incluir(getNotificacion());
-
+			Alert.showMessage(payloadNotificacionResponse);
 			if(!UtilPayload.isOK(payloadNotificacionResponse)) {
 				Alert.showMessage(payloadNotificacionResponse);
 				return true;
@@ -71,7 +71,7 @@ public class VMVNotificacion extends VM_WindowForm {
 		if (operacionEnum.equals(OperacionEnum.MODIFICAR)) {
 			PayloadNotificacionResponse payloadNotificacionResponse =
 					S.NotificacionService.modificar(getNotificacion());
-
+			Alert.showMessage(payloadNotificacionResponse);
 			if(!UtilPayload.isOK(payloadNotificacionResponse)) {
 				Alert.showMessage(payloadNotificacionResponse);
 				return true;

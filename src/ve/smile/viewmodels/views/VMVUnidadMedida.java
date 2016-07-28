@@ -57,7 +57,7 @@ public class VMVUnidadMedida extends VM_WindowForm {
 		if (operacionEnum.equals(OperacionEnum.INCLUIR)) {
 			PayloadUnidadMedidaResponse payloadUnidadMedidaResponse =
 					S.UnidadMedidaService.incluir(getUnidadMedida());
-
+			Alert.showMessage(payloadUnidadMedidaResponse);
 			if(!UtilPayload.isOK(payloadUnidadMedidaResponse)) {
 				Alert.showMessage(payloadUnidadMedidaResponse);
 				return true;
@@ -71,7 +71,7 @@ public class VMVUnidadMedida extends VM_WindowForm {
 		if (operacionEnum.equals(OperacionEnum.MODIFICAR)) {
 			PayloadUnidadMedidaResponse payloadUnidadMedidaResponse =
 					S.UnidadMedidaService.modificar(getUnidadMedida());
-
+			Alert.showMessage(payloadUnidadMedidaResponse);
 			if(!UtilPayload.isOK(payloadUnidadMedidaResponse)) {
 				Alert.showMessage(payloadUnidadMedidaResponse);
 				return true;

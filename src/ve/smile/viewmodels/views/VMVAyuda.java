@@ -58,7 +58,7 @@ public class VMVAyuda extends VM_WindowForm {
 		if (operacionEnum.equals(OperacionEnum.INCLUIR)) {
 			PayloadAyudaResponse payloadAyudaResponse =
 					S.AyudaService.incluir(getAyuda());
-
+			Alert.showMessage(payloadAyudaResponse);
 			if(!UtilPayload.isOK(payloadAyudaResponse)) {
 				Alert.showMessage(payloadAyudaResponse);
 				return true;
@@ -72,7 +72,7 @@ public class VMVAyuda extends VM_WindowForm {
 		if (operacionEnum.equals(OperacionEnum.MODIFICAR)) {
 			PayloadAyudaResponse payloadAyudaResponse =
 					S.AyudaService.modificar(getAyuda());
-
+			Alert.showMessage(payloadAyudaResponse);
 			if(!UtilPayload.isOK(payloadAyudaResponse)) {
 				Alert.showMessage(payloadAyudaResponse);
 				return true;
@@ -101,18 +101,13 @@ public class VMVAyuda extends VM_WindowForm {
 	public Ayuda getAyuda() {
 		return (Ayuda) DataCenter.getEntity();
 	}
-
-	public Notificacion getNotificacion() {
-		return (Notificacion) DataCenter.getEntity();
-	}
+	
 
 	public boolean isFormValidated() {
 
 		try {
-			
-			UtilValidate.validateString(getNotificacion().getDescripcion(), "Descripcion", 200);
-			UtilValidate.validateString(getNotificacion().getNombre(), "Nombre", 200);
-			UtilValidate.validateString(getNotificacion().getIcono(), "Icono", 200);
+			UtilValidate.validateString(getAyuda().getNombre(), "Nombre", 200);
+			UtilValidate.validateString(getAyuda().getDescripcion(), "Descripcion", 200);
 			return true;
 		} catch (Exception e) {
 			Alert.showMessage(e.getMessage());

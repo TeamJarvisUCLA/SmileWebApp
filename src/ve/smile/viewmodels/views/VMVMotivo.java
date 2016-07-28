@@ -58,7 +58,7 @@ public class VMVMotivo extends VM_WindowForm {
 		if (operacionEnum.equals(OperacionEnum.INCLUIR)) {
 			PayloadMotivoResponse payloadMotivoResponse =
 					S.MotivoService.incluir(getMotivo());
-
+			Alert.showMessage(payloadMotivoResponse);
 			if(!UtilPayload.isOK(payloadMotivoResponse)) {
 				Alert.showMessage(payloadMotivoResponse);
 				return true;
@@ -72,7 +72,7 @@ public class VMVMotivo extends VM_WindowForm {
 		if (operacionEnum.equals(OperacionEnum.MODIFICAR)) {
 			PayloadMotivoResponse payloadMotivoResponse =
 					S.MotivoService.modificar(getMotivo());
-
+			Alert.showMessage(payloadMotivoResponse);
 			if(!UtilPayload.isOK(payloadMotivoResponse)) {
 				Alert.showMessage(payloadMotivoResponse);
 				return true;
@@ -102,17 +102,15 @@ public class VMVMotivo extends VM_WindowForm {
 		return (Motivo) DataCenter.getEntity();
 	}
 
-	public Notificacion getNotificacion() {
-		return (Notificacion) DataCenter.getEntity();
-	}
+	
 
 	public boolean isFormValidated() {
 
 		try {
+			UtilValidate.validateString(getMotivo().getNombre(), "Nombre", 200);
+			UtilValidate.validateString(getMotivo().getDescripcion(), "Descripcion", 200);
 			
-			UtilValidate.validateString(getNotificacion().getDescripcion(), "Descripcion", 200);
-			UtilValidate.validateString(getNotificacion().getNombre(), "Nombre", 200);
-			UtilValidate.validateString(getNotificacion().getIcono(), "Icono", 200);
+			
 			return true;
 		} catch (Exception e) {
 			Alert.showMessage(e.getMessage());

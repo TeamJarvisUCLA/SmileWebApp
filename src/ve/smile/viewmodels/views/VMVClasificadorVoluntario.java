@@ -57,7 +57,7 @@ public class VMVClasificadorVoluntario extends VM_WindowForm {
 		if (operacionEnum.equals(OperacionEnum.INCLUIR)) {
 			PayloadClasificadorVoluntarioResponse payloadClasificadorVoluntarioResponse =
 					S.ClasificadorVoluntarioService.incluir(getClasificadorVoluntario());
-
+			Alert.showMessage(payloadClasificadorVoluntarioResponse);
 			if(!UtilPayload.isOK(payloadClasificadorVoluntarioResponse)) {
 				Alert.showMessage(payloadClasificadorVoluntarioResponse);
 				return true;
@@ -71,7 +71,7 @@ public class VMVClasificadorVoluntario extends VM_WindowForm {
 		if (operacionEnum.equals(OperacionEnum.MODIFICAR)) {
 			PayloadClasificadorVoluntarioResponse payloadClasificadorVoluntarioResponse =
 					S.ClasificadorVoluntarioService.modificar(getClasificadorVoluntario());
-
+			Alert.showMessage(payloadClasificadorVoluntarioResponse);
 			if(!UtilPayload.isOK(payloadClasificadorVoluntarioResponse)) {
 				Alert.showMessage(payloadClasificadorVoluntarioResponse);
 				return true;

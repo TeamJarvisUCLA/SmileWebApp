@@ -58,7 +58,7 @@ public class VMVClasificadorTarea extends VM_WindowForm {
 		if (operacionEnum.equals(OperacionEnum.INCLUIR)) {
 			PayloadClasificadorTareaResponse payloadClasificadorTareaResponse =
 					S.ClasificadorTareaService.incluir(getClasificadorTarea());
-
+			Alert.showMessage(payloadClasificadorTareaResponse);
 			if(!UtilPayload.isOK(payloadClasificadorTareaResponse)) {
 				Alert.showMessage(payloadClasificadorTareaResponse);
 				return true;
@@ -72,7 +72,7 @@ public class VMVClasificadorTarea extends VM_WindowForm {
 		if (operacionEnum.equals(OperacionEnum.MODIFICAR)) {
 			PayloadClasificadorTareaResponse payloadClasificadorTareaResponse =
 					S.ClasificadorTareaService.modificar(getClasificadorTarea());
-
+			Alert.showMessage(payloadClasificadorTareaResponse);
 			if(!UtilPayload.isOK(payloadClasificadorTareaResponse)) {
 				Alert.showMessage(payloadClasificadorTareaResponse);
 				return true;
@@ -102,17 +102,15 @@ public class VMVClasificadorTarea extends VM_WindowForm {
 		return (ClasificadorTarea) DataCenter.getEntity();
 	}
 
-	public Notificacion getNotificacion() {
-		return (Notificacion) DataCenter.getEntity();
-	}
+	
 
 	public boolean isFormValidated() {
 
 		try {
-			
-			UtilValidate.validateString(getNotificacion().getDescripcion(), "Descripcion", 200);
-			UtilValidate.validateString(getNotificacion().getNombre(), "Nombre", 200);
-			UtilValidate.validateString(getNotificacion().getIcono(), "Icono", 200);
+			UtilValidate.validateString(getClasificadorTarea().getNombre(), "Nombre", 200);
+			UtilValidate.validateString(getClasificadorTarea().getDescripcion(), "Descripcion", 200);
+		
+	
 			return true;
 		} catch (Exception e) {
 			Alert.showMessage(e.getMessage());

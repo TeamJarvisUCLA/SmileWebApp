@@ -58,7 +58,7 @@ public class VMVClasificadorRecurso extends VM_WindowForm {
 		if (operacionEnum.equals(OperacionEnum.INCLUIR)) {
 			PayloadClasificadorRecursoResponse payloadClasificadorRecursoResponse =
 					S.ClasificadorRecursoService.incluir(getClasificadorRecurso());
-
+			Alert.showMessage(payloadClasificadorRecursoResponse);
 			if(!UtilPayload.isOK(payloadClasificadorRecursoResponse)) {
 				Alert.showMessage(payloadClasificadorRecursoResponse);
 				return true;
@@ -102,17 +102,15 @@ public class VMVClasificadorRecurso extends VM_WindowForm {
 		return (ClasificadorRecurso) DataCenter.getEntity();
 	}
 
-	public Notificacion getNotificacion() {
-		return (Notificacion) DataCenter.getEntity();
-	}
+	
 
 	public boolean isFormValidated() {
 
 		try {
-			
-			UtilValidate.validateString(getNotificacion().getDescripcion(), "Descripcion", 200);
-			UtilValidate.validateString(getNotificacion().getNombre(), "Nombre", 200);
-			UtilValidate.validateString(getNotificacion().getIcono(), "Icono", 200);
+			UtilValidate.validateString(getClasificadorRecurso().getNombre(), "Nombre", 200);
+			UtilValidate.validateString(getClasificadorRecurso().getDescripcion(), "Descripcion", 200);
+	
+		
 			return true;
 		} catch (Exception e) {
 			Alert.showMessage(e.getMessage());

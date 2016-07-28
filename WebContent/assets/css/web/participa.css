@@ -112,8 +112,10 @@ element.style {
 }
 
 .requisitos span {
+	display: block;
+	margin-bottom: -12px;
     color: #87796f;
-    font-weigth: bold;
+    font-weight: bold;
     /* padding: 110px; */
   
 }

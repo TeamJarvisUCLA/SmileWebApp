@@ -29,7 +29,7 @@
 			</n:div>
 		</div>
 		<div class="barra-verde " align="center" style="height: 40px; padding-top:8px; ">
-			<n:h6 style="font-weigth:bold;color:#87796F;">TU PUEDES SER PARTE DE LA FUNDACION</n:h6>
+			<n:h6 style="font-weight:bold;color:#87796F;">TU PUEDES SER PARTE DE LA FUNDACION</n:h6>
 		</div>
 		<div class=" menu"
 			style="background-image: url(/SmileWebApp/imagenes/portal/fondo.png); background-repeat:repeat; heigth: 50%">

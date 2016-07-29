@@ -5,7 +5,7 @@
 			<div class="container">
 				<div class="row">
 					<div sclass="col s12 text-center">
-						<n:h6>Buzón de sugerencia</n:h6>
+						<n:h6>Buzón de sugerencias</n:h6>
 					</div>
 					<div sclass="col s12 form">
 						<div class="input-field col s6">
@@ -40,7 +40,7 @@
 					</div>							
 					<div class="col s12 text-center">
 						<button id="btnAccept" class="waves-effect waves-light btn" href="">
-							aceptar
+							enviar
 						</button>
 					</div>
 				</div>

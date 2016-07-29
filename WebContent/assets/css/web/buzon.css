@@ -1,11 +1,12 @@
 .buzon>.container {
-	width: 60%;
+	width: 55%;
 }
 
 .buzon h6{
 	margin: 30px;
 	color: #f26b7a;
-	font-size: 4em;
+    font-size: 3.5em;
+    text-transform: uppercase;
 }
 
 .buzon input:focus{

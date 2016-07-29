@@ -23,7 +23,8 @@
 		style="display: none;">
 	</div>
 	<div apply="org.zkoss.bind.BindComposer"
-		viewModel="@id('vm') @init('karen.core.crux.session.DataCenter')">
+		viewModel="@id('vm') @init('karen.core.crux.session.DataCenter')"
+		style="background-color: #f5f5f5;">
 		<div if="${vm.logued == true}">
 
 			<hlayout id="main" spacing="0">
@@ -33,7 +34,7 @@
 					<div class="shortcuts">
 						<div class="shortcuts-expanded"
 							style="margin-top: 100px;">
-							<image src="/imagenes/logo_fanca.png"
+							<image src="/imagenes/smiles_webdesktop.png"
 								style="max-width:200px; max-height:200px; margin-top: -90px;">
 							</image>
 						</div>
@@ -69,18 +70,29 @@
 				</div>
 				<vlayout id="vlayout" hflex="1" sclass="content-main">
 					<include src="views/desktop/content/navbar.zul" />
-					<include src="views/desktop/content/breadcrumbs.zul" />
+					<include
+						src="views/desktop/content/breadcrumbs.zul" />
 
-					<include src="views/desktop/content/page_header.zul" />
+					<include
+						src="views/desktop/content/page_header.zul" />
 
 					<!-- Body -->
-					<div>
+					<div
+						style=" background-color: #f5f5f5;    min-height: 275px;">
 						<div id="mainContent"
 							sclass="page-content page-content-main">
 							<include src="@load(vm.srcPageContent)"
 								animation_="animated slideInDown">
 							</include>
 						</div>
+
+					</div>
+					<div sclass="footer"
+						style="    background: #d2ec3f; text-align: right;">
+						<image
+							style="height: 80px; padding: 4px; margin-right: 16px;"
+							src="imagenes/logo_jarvis_vector_footer.png">
+						</image>
 					</div>
 					<!-- End Body -->
 				</vlayout>

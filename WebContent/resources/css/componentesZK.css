@@ -170,6 +170,7 @@
     border: 0;
     margin-top: 15px;
     padding: 0 8px;
+    background: transparent !important;
 }
 
 .z-nav-text:after {
@@ -201,8 +202,10 @@
 }
 
 .nav-user > div .user-menu.z-menubar .z-menu-text {
-    top: 17px;
-    color: #405b73;
+    top: 26px;
+    color: #ff0090;
+    background: transparent !important;
+    font-weight: 500;
 }
 
 .nav-user > div [class*="z-icon-"] {
@@ -403,10 +406,11 @@ nav-list.z-navbar > ul > .z-nav-open > a i, .nav-list.z-navbar > ul > .z-nav-ope
 }
 
 .nav-user > div .user-menu.z-menubar img {
-    margin: -96px -56px 22px 7px;
+    margin: -100px -74px 22px 7px;
     -moz-border-radius: 100%;
     border-radius: 100%;
-    max-width: 46px;
+    max-width: 75px;
+    height: 75px;
 }
 
 .nav-user > div .user-menu.z-menubar .z-menu {
@@ -432,4 +436,13 @@ nav-list.z-navbar > ul > .z-nav-open > a i, .nav-list.z-navbar > ul > .z-nav-ope
 .page-content {
     padding: 8px 20px 0px 20px;
     background-color: #f5f5f5;
+}
+
+.z-menupopup-content .z-menuitem:hover {
+	background: #92857C;
+}
+
+.z-a, .z-label, .z-menu-text, .z-menuitem-text, .z-nav-text, .z-navitem-text {
+    font-family: "Roboto", sans-serif !important;
+    font-size: 13px;
 }

@@ -18,14 +18,14 @@
 		
 		<!-- User menu -->
 		<menubar sclass="user-menu valign-wrapper dropdown-toggle" style="margin-top: 67px;">
-			<menu id="menuImagen" tooltiptext="John's Avatar"
-				label="Welcome, Jason">
+			<menu id="menuImagen" tooltiptext="Andrés Avatar"
+				label="Bienvenido, Andrés">
 				<menupopup>
-					<menuitem label="Settings" iconSclass="z-icon-cog" />
-					<menuitem id="lblProfile" label="Profile"
+					<menuitem label="Configuraciones" iconSclass="z-icon-cog" />
+					<menuitem id="lblProfile" label="Perfil"
 						iconSclass="z-icon-user" />
 					<menuseparator />
-					<menuitem id="lblLogout" label="Logout"
+					<menuitem id="lblLogout" label="Cerrar Sesión"
 						iconSclass="z-icon-off" />
 				</menupopup>
 			</menu>

@@ -2,7 +2,7 @@
 	signature="java.lang.String longToStringSesionTimeAgoCompareWithToday(java.lang.Long)" ?>
 	
 <?xel-method prefix="m" name="getAuditoriaIn0" class="lights.smile.util.UtilConverterDataList" 
-	signature="java.lang.String getAuditoriaIn0(lights.seguridad.dto.Sesion)" ?>
+	signature="java.lang.String getAuditoriaIn0(ve.seguridad.dto.Sesion)" ?>
 
 <zk xmlns:n="native" xmlns:w="client">
 	<div width="100%" class="${arg.animation_}"

@@ -192,7 +192,7 @@
 
 			<a sclass="azulFanca labelNavbar hvr-underline-from-center"
 				target="_self" href="" style="margin-top: 20px;" label="BUZÓN"
-				>
+				onClick="@command('buzon')">
 			</a>
 		</hlayout>
 	</div>

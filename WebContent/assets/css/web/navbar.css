@@ -108,7 +108,7 @@
 	{
 	display: block;
 	padding: 10px 2px;
-	color: #87796F;
+	color: #f26b7a;
 	border-bottom: 1px solid #E4E6E9;
 	text-align: left;
 }
@@ -166,4 +166,9 @@
 
 .menuOpenTop {
 	top: 426px !important
+}
+
+
+.z-popup {
+    border: 0.2px solid rgba(207, 207, 207, 0.46) !important;
 }

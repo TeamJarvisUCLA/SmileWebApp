@@ -1,5 +1,5 @@
 <?xel-method prefix="m" name="sesionToStringSesionTimeConexionTotal" class="lights.smile.util.UtilConverterDataList" 
-	signature="java.lang.String sesionToStringSesionTimeConexionTotal(lights.seguridad.dto.Sesion)" ?>
+	signature="java.lang.String sesionToStringSesionTimeConexionTotal(ve.seguridad.dto.Sesion)" ?>
 
 <zk xmlns:n="native" xmlns:w="client">
 	<window width="80%" sclass="window-dialog" action="show: slideIn;hide: slideOut"

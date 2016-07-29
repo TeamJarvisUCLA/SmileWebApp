@@ -200,7 +200,7 @@
 		width="180px" apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('ve.smile.web.viewmodels.VM_Navbar')">
 		<vlayout spacing="0">
-			<a iconSclass=" no-hover z-icon-comment" class="hide_button"
+			<a class="hide_button"
 				style="top:90px 90px !important"
 				w:onClick="jq(this.$f('login')).slideToggle(500);" onClick=""
 				id="login_button">
@@ -216,10 +216,10 @@
 					}
 				</attribute>
 			</a>
-			<a iconSclass="no-hover z-icon-user" href="#">
+			<a  href="#">
 				<label>Descargar App Móvil</label>
 			</a>
-			<a iconSclass="no-hover z-icon-user" href="" onClick="@command('faq')">
+			<a href="" onClick="@command('faq')">
 				<label>Preguntas Frecuentes</label>
 			</a>
 		</vlayout>

@@ -132,10 +132,11 @@
 			<div sclass="row " align="right">
 				<label>¿Desea hacer su pregunta?</label>
 			</div>
-			<div sclass="row " align="right">
+			<div sclass="row " align="right" apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('ve.smile.web.viewmodels.VM_AbrirPostulado')">
 				<button type="button" iconSclass=""
 					class="indigo waves-effect waves-light btn"
-					style="background-color: #3B85A1 !important; ">
+					style="background-color: #3B85A1 !important; " onClick="@command('abrirFormPregunta')">
 					PREGUNTAR
 				</button>
 			</div>

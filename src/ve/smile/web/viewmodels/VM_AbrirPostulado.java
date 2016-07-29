@@ -35,4 +35,13 @@ public class VM_AbrirPostulado {
 		
 		UtilDialog.showDialog("/views/web/postulacionPadrino.zul", dialogData);
 	}
+	
+	@Command
+	public void abrirFormPregunta(){
+		DialogData dialogData = new DialogData();
+
+		
+		
+		UtilDialog.showDialog("/views/web/formPregunta.zul", dialogData);
+	}
 }

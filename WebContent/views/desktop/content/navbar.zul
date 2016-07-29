@@ -15,16 +15,9 @@
 			</a>
 		-->
 		<vlayout spacing="0" style="padding-bottom: 0px;">
-		<a sclass="pull-left navbar-brand" target="true" href=""
-			style="margin-top: 20px; padding: 0;">
-			<image src="imagenes/usuario.png"
-				style="height:80px; position: relative; border-radius: 100%">
-			</image>
-
-
-		</a>
+		
 		<!-- User menu -->
-		<menubar sclass="user-menu valign-wrapper dropdown-toggle" style="margin-top: 100px;">
+		<menubar sclass="user-menu valign-wrapper dropdown-toggle" style="margin-top: 67px;">
 			<menu id="menuImagen" tooltiptext="John's Avatar"
 				label="Welcome, Jason">
 				<menupopup>

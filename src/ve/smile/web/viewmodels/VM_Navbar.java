@@ -49,9 +49,20 @@ public class VM_Navbar {
 	}
 	
 	@Command
+	public void buzon() {
+		DataCenter.updateSrcPageContent(null, null, "/views/web/buzon.zul");
+		
+	}
+	
+	@Command
 	public void noticias() {
 		DataCenter.updateSrcPageContent(null, null, "/views/web/noticias.zul");
 		
 	}
-
+	
+	@Command
+	public void faq() {
+		DataCenter.updateSrcPageContent(null, null, "/views/web/faq.zul");
+		
+	}
 }

@@ -1,0 +1,55 @@
+<zk xmlns:n="native" xmlns:w="client">
+
+	<window width="80%" sclass="window-dialog"
+		action="show: slideIn;hide: slideOut"
+		use="ve.smile.web.viewmodels.VM_PostuladoVoluntario"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('ve.smile.web.viewmodels.VM_Postulado', dialogData=arg.get('dialogData'))">
+		
+		<n:link href="assets/css/web/formPregunta.css" rel="stylesheet" type="text/css"></n:link>
+		
+		<n:div id="modalFormPregunta">
+			<div class="container-fluid">
+				<div class="row">
+					<div sclass="col s12 close">
+						<a id="btnCancel">
+							<span>x</span>
+						</a>
+					</div>
+					<div sclass="col s12 text-center">
+						<n:h6>Plantea tu pregunta aquí</n:h6>
+					</div>
+					<div sclass="col s8 form">
+						<div class="input-field col s12">
+							<n:label for="nombre">Nombre</n:label>
+							<textbox id="nombre" type="text"
+								value="@bind(vm.persona.nombre)">
+							</textbox>
+						</div>
+						<div class="input-field col s12">
+							<n:label for="correo">Correo</n:label>
+							<textbox id="correo" type="text"
+								value="@bind(vm.persona.correo)">
+							</textbox>
+						</div>
+						<div class="input-field col s12">
+							<n:label for="asunto">Pregunta:</n:label>
+							<textbox id="asunto" type="text"></textbox>
+						</div>													
+					</div>					
+					<div class="col s4 text-center">
+						<image src="/imagenes/portal/icon/question-mark.png"></image>
+					</div>			
+					<div id="divButtonsForm" sclass="row">
+						<div class="col s12 text-center">
+							<button id="btnAccept" class="waves-effect waves-light btn" href="">
+								aceptar
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</n:div>
+	</window>
+
+</zk>

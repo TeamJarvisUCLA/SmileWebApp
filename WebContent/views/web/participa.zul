@@ -28,8 +28,8 @@
 				</div>
 			</n:div>
 		</div>
-		<div class="barra-verde " align="center" style="">
-			<span>TU PUEDES SER PARTE DE LA FUNDACION</span>
+		<div class="barra-verde " align="center" style="height: 40px; padding-top:8px; ">
+			<n:h6 style="font-weight:bold;color:#87796F;">TU PUEDES SER PARTE DE LA FUNDACION</n:h6>
 		</div>
 		<div class=" menu"
 			style="background-image: url(/SmileWebApp/imagenes/portal/fondo.png); background-repeat:repeat; heigth: 50%">
@@ -40,23 +40,25 @@
 					<tab label="Apadrinamiento"></tab>
 					<tab label="Ayuda"></tab>
 				</tabs>
-				<tabpanels width="75%" style="    min-height: 173px;">
+				<tabpanels width="75%" style="line-height:28px;min-height:173px;text-align:justify;">
 					<tabpanel>
 						<span class="requisitos">
 							INFORMACION GENERAL
-						</span>
-						<n:br/>
+						</span>	
+						<n:br/>					
 						<span class="info">
-							Anim pariatur cliche reprehendfgdfgdfgderit,
-							enim eiusmodfghfghfghgfhf high life
-							accusamus terry richardson ad squid. 3 wolf
-							moon officia aute, non cupidatat skateboard
-							dolor brunch. Food truck quinoa nesciunt
-							laborum eiusmod. Brunch 3 wolf moon tempor,
-							sutcher vice lomo. Leggings occaecat craft
-							beer farm-to-table, raw denim aesthetic
-							synth nesciunt you probably haven't heard of
-							them accusamus labore sustainable VHS.
+							Dona Una Gota de Amor Se trata de un aporte
+							económico a partir de 500 Bs. vía
+							transferencia, depósito o en efectivo por
+							nuestra sede administrativa, con la
+							frecuencia que decida la persona que
+							colabora, Además de invitar a 5 amigos o
+							familiares que se únan a éste
+							programa.Donación de cabello Hemos recibido
+							donaciones de cabello para la elaboración de
+							pelucas. En el momento oportuno,
+							anunciaremos cuando de reanudará la donación
+							de cabello
 						</span>
 					</tabpanel>
 					<tabpanel>
@@ -68,37 +70,11 @@
 									</span>
 									<n:br />
 									<span class="info">
-										Anim pariatur cliche
-										reprehendfgdfgdfgderit, enim
-										eiusmodfghfghfghgfhf high life
-										accusamus terry richardson ad
-										squid. 3 wolf moon officia aute,
-										non cupidatat skateboard dolor
-										brunch. Food truck quinoa
-										nesciunt laborum eiusmod. Brunch
-										3 wolf moon tempor, sutcher vice
-										lomo. Leggings
-										occeiusmodfghfghfghgfhf high
-										life accusamus terry richardson
-										ad squid. 3 wolf moon officia
-										aute, non cupidatat skateboard
-										dolor brunch. Food truck quinoa
-										nesciunt laborum eiusmod. Brunch
-										3 wolf moon tempor, sutcher vice
-										lomo. Leggings
-										occeiusmodfghfghfghgfhf high
-										life accusamus terry richardson
-										ad squid. 3 wolf moon officia
-										aute, non cupidatat skateboard
-										dolor brunch. Food truck quinoa
-										nesciunt laborum eiusmod. Brunch
-										3 wolf moon tempor, sutcher vice
-										lomo. Leggings occaecat craft
-										beer farm-to-table, raw denim
-										aesthetic synth nesciunt you
-										probably haven't heard of them
-										accusamus labore sustainable
-										VHS.
+										El Voluntariado de la Fundación Amigos del Niño con Cáncer 
+										 Lara (FANCA), lo integra un grupo de personas que de forma altruista 
+										 están comprometidas con las acciones dirigidas a la atención integral
+										  a niños y  adolecentes con cáncer  y, su familia. La acción voluntaria debe ser solidaria,
+										   intencionada, organizada, sistemática y  respaldada por nuestros valores.
 									</span>
 								</div>
 								<div class=" col s6">
@@ -109,45 +85,45 @@
 									<span style="color:#F26B7A"
 										class="fa fa-heart fa-1x">
 										<span style="color:#87796f">
-											Requisito numero 5
+											Tener Respeto
 										</span>
 									</span>
 									<n:br />
 									<span style="color:#F26B7A"
 										class="fa fa-heart fa-1x">
 										<span style="color:#87796f">
-											Requisito numero 5
+											Ser Solidario
 										</span>
 									</span>
 									<n:br />
 									<span style="color:#F26B7A"
 										class="fa fa-heart fa-1x">
 										<span style="color:#87796f">
-											Requisito numero 5 Requisito
-											numero 5
+											Tener Compromiso
 										</span>
 									</span>
 									<n:br />
 									<span style="color:#F26B7A"
 										class="fa fa-heart fa-1x">
 										<span style="color:#87796f">
-											Requisito numero 5
+											Ser Responsable
 										</span>
 									</span>
 									<n:br />
 									<span style="color:#F26B7A"
 										class="fa fa-heart fa-1x">
 										<span style="color:#87796f">
-											Requisito numero 5
+										Tener Tolerancia
 										</span>
 									</span>
 									<n:br />
 									<n:br />
-									<div class="boton text-center">
+									<div class="boton text-center" apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('ve.smile.web.viewmodels.VM_AbrirPostulado')">
 										<button type="button"
-											class="waves-effect waves-light btn">
+											class="waves-effect waves-light btn" href="" onClick="@command('abrirPostularVoluntario')">
 											PARTICIPA
-										</button>
+										</button>										
 									</div>
 								</div>
 							</div>
@@ -155,35 +131,49 @@
 								<div  align="center">
 										<n:h4 style="color:#E2F83F">VOLUNTARIOS DESTACADOS</n:h4>
 									</div>
-								<div class="row text-center ">
-									<div class="col s4 text-center">
-										<div sclass="row">
-											<image src="/imagenes/portal/medalla.png">
-											</image>
+								<n:div id="comunidad">
+						<div class="comunidad">
+								<div class="col s12 medallas">
+									<div class="row text-center ">
+										<div class="col s4 text-center">
+											<div sclass="row fotos">
+												<image src="/imagenes/portal/foto1.jpg" height="100px" width="100px" sclass="circle responsive-img">
+												</image>											
+												<image class="img-responsive" src="/imagenes/portal/medalla.png">
+												</image>
+											</div>
+											<div sclass="row" style="margin-top:10px">
+												<label sclass="subtitulo " style="color:#F26B7A">Ana Matheus</label>
+											</div>
 										</div>
-										<div sclass="row" style="margin-top:10px">
-											<label sclass="subtitulo " style="color:#F26B7A">Daniel Sanchez</label>
+										<div class="col s4 text-center">
+											<div sclass="row fotos">
+												<image src="/imagenes/portal/foto3.jpg" height="100px" width="100px" sclass="circle responsive-img">
+												</image>
+												<image class="img-responsive" src="/imagenes/portal/medalla.png">
+												</image>
+											</div>
+											<div sclass="row" style="margin-top:10px">
+												<label sclass="subtitulo " style="color:#F26B7A">Rosa Antonieta</label>
+											</div>
+					
 										</div>
-									</div>
-									<div class="col s4 text-center">
-										<div sclass="row">
-											<image src="/imagenes/portal/medalla.png">
-											</image>
+										<div class="col s4 text-center">
+											<div sclass="row fotos">
+												<image src="/imagenes/portal/foto2.jpg" height="100px" width="100px" sclass="circle responsive-img">
+												</image>
+												<image class="img-responsive" src="/imagenes/portal/medalla.png">
+												</image>
+											</div>
+											<div sclass="row" style="margin-top:10px">
+												<label sclass="subtitulo " style="color:#F26B7A">Jesus Sivira</label>
+											</div>
 										</div>
-										<div sclass="row" style="margin-top:10px">
-											<label sclass="subtitulo " style="color:#F26B7A">Ana Matheus</label>
-										</div>				
-									</div>
-									<div class="col s4 text-center">
-										<div sclass="row">
-											<image src="/imagenes/portal/medalla.png">
-											</image>
-										</div>
-										<div sclass="row" style="margin-top:10px">
-											<label sclass="subtitulo " style="color:#F26B7A">Rosa Clark</label>
-										</div>
-									</div>
-								</div>				
+							</div>
+						</div>
+					</div>
+				</n:div>
+							
 							</div>
 						</div>
 					</tabpanel>
@@ -196,21 +186,11 @@
 									</span>
 									<n:br />
 									<span class="info">
-										Anim pariatur cliche
-										reprehendfgdfgdfgderit, enim
-										eiusmodfghfghfghgfhf high life
-										accusamus terry richardson ad
-										squid. 3 wolf moon officia aute,
-										non cupidatat skateboard dolor
-										brunch. Food truck quinoa
-										nesciunt laborum eiusmod. Brunch
-										3 wolf moon tempor, sutcher vice
-										lomo. Leggings occaecat craft
-										beer farm-to-table, raw denim
-										aesthetic synth nesciunt you
-										probably haven't heard of them
-										accusamus labore sustainable
-										VHS.
+										PADRINOS POR LA VIDA te brinda la oportunidad 
+										de participar en la recuperacion de los niños con cancer, de 
+										escasos recursos, mediante una colaboracion monetaria para ayudarlos con:
+										Medicinas y cateteres, tratamientos y examenes especiales, educacion y recreacion de los niños,
+										albergue a los niños en tratamiento ambulatorio y sus madres.
 									</span>
 								</div>
 								<div class=" col s6">
@@ -221,43 +201,36 @@
 									<span style="color:#F26B7A"
 										class="fa fa-heart fa-1x">
 										<span style="color:#87796f">
-											Requisito numero 5
+											Ser responsable con el aporte acordado.
 										</span>
 									</span>
 									<n:br />
 									<span style="color:#F26B7A"
 										class="fa fa-heart fa-1x">
 										<span style="color:#87796f">
-											Requisito numero 5
+											Querer ayudar a los niños.
 										</span>
 									</span>
 									<n:br />
 									<span style="color:#F26B7A"
 										class="fa fa-heart fa-1x">
 										<span style="color:#87796f">
-											Requisito numero 5 Requisito
-											numero 5
+										Correo y telefono para cualquier comunicacion.
 										</span>
 									</span>
 									<n:br />
 									<span style="color:#F26B7A"
 										class="fa fa-heart fa-1x">
 										<span style="color:#87796f">
-											Requisito numero 5
+											Tener compromiso con el programa apadrinamiento.
 										</span>
 									</span>
-									<n:br />
-									<span style="color:#F26B7A"
-										class="fa fa-heart fa-1x">
-										<span style="color:#87796f">
-											Requisito numero 5
-										</span>
-									</span>
-									<n:br />
-									<n:br />
-									<div class="boton text-center">
+	<n:br />
+		<n:br />
+									<div class="boton text-center" apply="org.zkoss.bind.BindComposer"
+										viewModel="@id('vm') @init('ve.smile.web.viewmodels.VM_AbrirPostulado')">
 										<button type="button"
-											class="waves-effect waves-light btn">
+											class="waves-effect waves-light btn" href="" onClick="@command('abrirPostularPadrino')">
 											PARTICIPA
 										</button>
 									</div>
@@ -269,7 +242,7 @@
 						<tabbox id="tb" width="100%" 
 							mold="accordion">
 							<tabs >
-								<tab  class="tabsitos" label="AYUDA 1" />
+								<tab  class="tabsitos"  label="AYUDA 1" />								
 								<tab class="tabsitos" label="AYUDA 2" />
 								<tab class="tabsitos" label="AYUDA 3" />
 							</tabs>
@@ -309,6 +282,7 @@
 												</span>
 											</div>
 											<div class=" col s6">
+										
 												<span
 													class="requisitos">
 													REQUISITOS
@@ -316,8 +290,7 @@
 												<n:br />
 												<span
 													style="color:#F26B7A" class="fa fa-heart fa-1x">
-													<span
-														style="color:#87796f">
+													<span style="color:#87796f">
 														Requisito numero
 														5
 													</span>
@@ -361,6 +334,7 @@
 												</span>
 												<n:br />
 											</div>
+											
 										</div>
 									</div>
 								</tabpanel>
@@ -455,7 +429,7 @@
 								<tabpanel>
 									<div class=" row">
 										<div class="col s12">
-											<div class="col s6">
+											<div class="col s6">							
 												<span class="info">
 													Anim pariatur cliche
 													reprehendfgdfgdfgderit,

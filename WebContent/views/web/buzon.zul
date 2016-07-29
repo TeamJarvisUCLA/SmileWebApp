@@ -1,0 +1,54 @@
+<zk xmlns:n="native" xmlns:w="client">
+	<n:link href="assets/css/web/buzon.css" rel="stylesheet" type="text/css"></n:link>
+		<div style="background-color:	 #c2d62d; height: 10px;"></div>
+		<div class="buzon">
+			<div class="container">
+				<div class="row">
+					<div sclass="col s12 text-center">
+						<n:h6>Buzón de sugerencias</n:h6>
+					</div>
+					<div sclass="col s12 form">
+						<div class="input-field col s6">
+							<n:label for="nombre">Nombre:</n:label>
+							<textbox id="nombre" type="text"
+								value="">
+							</textbox>
+						</div>
+						<div class="input-field col s6">
+							<n:label for="apellido">Apellido:</n:label>
+							<textbox id="apellido" type="text"
+								value="">
+							</textbox>
+						</div>						
+						<div class="input-field col s6">
+							<n:label for="correo">Correo:</n:label>
+							<textbox id="correo" type="text"
+								value="">
+							</textbox>
+						</div>
+						<div class="input-field col s6">
+							<n:label for="asunto" class="active">Asunto:</n:label>
+							<combobox id="asunto">
+								<comboitem label="" />
+								<comboitem label="" />
+							</combobox>	
+						</div>		
+						<div class="input-field col s12">
+							<n:label for="mensaje">Mensaje:</n:label>
+							<textbox id="mensaje" type="text"></textbox>
+						</div>													
+					</div>							
+					<div class="col s12 text-center">
+						<button id="btnAccept" class="waves-effect waves-light btn" href="">
+							enviar
+						</button>
+					</div>
+				</div>
+			</div>
+			<div class="center-align imagen">
+				<n:img class="responsive-img"
+					src="/SmileWebApp/imagenes/portal/img-ninos.png">
+				</n:img>
+			</div>			
+		</div>
+</zk>

@@ -1,0 +1,21 @@
+.buzon>.container {
+	width: 55%;
+}
+
+.buzon h6{
+	margin: 30px;
+	color: #f26b7a;
+    font-size: 3.5em;
+    text-transform: uppercase;
+}
+
+.buzon input:focus{
+	border-bottom: 1px solid #8AC7DE !important;
+	box-shadow: 0 1px 0 0 #8AC7DE !important;
+}
+
+.buzon button {
+	margin: 45px;
+	background: #3b85a1 !important;
+}
+

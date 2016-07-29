@@ -1,4 +1,23 @@
 
+
+	.medallas {
+		margin-top: 10px;
+	}
+	
+	#comunidad .medallas .fotos {
+		position: relative;
+	}
+	
+	#comunidad .medallas .fotos img:nth-of-type(1){
+		position: absolute;     
+		width: 100px;      
+		height: 100px;    
+		top: 45px;    
+		left: 76px;
+	}
+	
+	
+	
 a:hover,a:focus {
 	text-decoration: none;
 }
@@ -42,16 +61,22 @@ a:hover,a:focus {
 	padding: 0px;
 }
 div.barra-verde span {
+	
 	font-weigth: bold;
-	padding-top: 5px;
+	padding-top: 7px;
 	color: #87796F;
 }
-
+.z-button {
+     color:  #FFF !important;
+     background-color:#044159 !important;
+}
 div.barra-verde {
 	width: 100%;
-	/* 	height: 40px; */
+		height: 40px !important; 
 	background-color: #d9eb52;
 	color: #F26B7A;
+	padding-top:13px;
+	
 }
 element.style {
 	/* 	height: 200px; */
@@ -87,15 +112,23 @@ element.style {
 }
 
 .requisitos span {
-	color: #87796f;
-	font-weigth: bold;
-	align:center;
-	text-align: center;
+	display: block;
+	margin-bottom: -12px;
+    color: #87796f;
+    font-weight: bold;
+    /* padding: 110px; */
+  
 }
 .seccion {
 	margin-top: 20px;
 }
 
+
+.info span{
+	
+	text-align: justify;
+
+}
 
 .tabsitos a span {
 	background-color: #F0F2DC;

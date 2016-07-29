@@ -1,245 +1,256 @@
+<?page title="FANCA" contentType="text/html;charset=UTF-8"?>
+<?meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"?>
+<?link href="/resources/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"?>
+<?link href="/resources/materialize_v0.97.5/css/materialize.min.css" rel="stylesheet" type="text/css"?>
+<?link href="/resources/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css"?>
+<?link href="/resources/css/theme.css" rel="stylesheet" type="text/css"?>
+<?link href="/resources/css/karen.css" rel="stylesheet" type="text/css"?>
+<?link href="/resources/css/loading.css" rel="stylesheet" type="text/css"?>
+<?link href="/resources/css/animate.css" rel="stylesheet" type="text/css"?>
+<?link href="/assets/seguridad/css/ultimasSesionesActivas.zul.css" rel="stylesheet" type="text/css"?>
+<?link href="/resources/css/portal/galeria.css" rel="stylesheet" type="text/css"?>
+
+<?link href="/resources/css/portal/main.css" rel="stylesheet" type="text/css"?>
+<?link href="/resources/css/portal/navbar.css" rel="stylesheet" type="text/css"?>
+<?link href="/resources/css/portal/galeriaMain.css" rel="stylesheet" type="text/css"?>
+<?link href="/resources/css/portal/eventosMain.css" rel="stylesheet" type="text/css"?>
+<?link href="/resources/css/portal/participaMain.css" rel="stylesheet" type="text/css"?>
+<?link href="/resources/css/portal/footer.css" rel="stylesheet" type="text/css"?>
+
+<?link href="/resources/owl-carousel/owl.carousel.css" rel="stylesheet" type="text/css"?>
+<?link href="/resources/owl-carousel/owl.theme.css" rel="stylesheet" type="text/css"?>
+
+<?script src="/resources/owl-carousel/owl.carousel.js"?>
+
+<?script src="/resources/bootstrap/js/bootstrap.js"?>
+<?script src="/resources/materialize_v0.97.5/js/materialize.min.js"?>
+
+<?script src="/resources/js/shorcut.js"?>
+<?script src="/resources/js/fullScreenApi.js"?>
+<?script src="/resources/js/index.js"?>
+
 <zk xmlns:n="native" xmlns:w="client">
 
-<div align="center"
-		style="width: 100%;
-    height: 54px;
-    background-color: #d9eb52; margin-top: -12px;">
+	<n:link href="resources/css/portal/conocenos.css" rel="stylesheet" type="text/css"></n:link>
+	<n:link href="assets/css/web/main.css" rel="stylesheet" type="text/css"></n:link>
 
+	<div class="social">
+		<div style="padding: 0px;">
+			<div>
+				<a href="#" sclass="icon" iconSclass="fa fa-home ">
+					<span>Inicio</span>
+				</a>
+			</div>
+			<div>
+				<a href="#conocenos" sclass="icon"
+					iconSclass="fa fa-bank ">
+					<span>Organización</span>
+				</a>
+			</div>
+			<div>
+				<a href="#galeria" sclass="icon"
+					iconSclass="fa fa-picture-o">
+					<span>Galería</span>
+				</a>
+			</div>
+			<div>
+				<a href="#eventos" sclass="icon"
+					iconSclass="fa fa-picture-o">
+					<span>Eventos</span>
+				</a>
+				
+			</div>
+			<div>
+				<a href="#comunidad" sclass="icon"
+					iconSclass="fa fa-user">
+					<span>Comunidad</span>
+				</a>
+				
+			</div>
+		</div>
+	</div>
 
-		<n:h5
-			style="padding-top: 14px; color: #ffffff; font-family: Roboto,sans-serif !important;
-    font-weight: bold;">
-			LA ORGANIZACION
-		</n:h5>
-</div>	
-
-<div 	style="width: 100%;
-	    height: 480px;
-   		background-color: #F0F2DC;">
-   		<div class="container-fluid">
-			<div class="row" style="width: 70%;">
+	<div class="titulo-organizacion">
+		<n:h5 class="texto-titulo-org">LA ORGANIZACIÓN</n:h5>
+	</div>
+	<div class="cont-org">
+		<div class="container-fluid">
+			<div class="row tam-cont-org">
 				<div class="col s4 text-center">  
 	     			<n:br></n:br>
-		        	<image src="/imagenes/portal/icon/icon-people-grande.png"
-						style="height:140px;">
+		        	<image class="img-cont-org" src="/imagenes/portal/icon/icon-people-grande.png">
 	   				</image>   
-		         	<n:h6 style="padding-top: 18px; color: #87796F; font-weight: bold; text-transform: uppercase;"  >Fanca</n:h6>
+		         	<n:h6 class="text-cont-org" >Fanca</n:h6>
 	         		<n:br></n:br>  
-		         	<n:p>This is the standard version that comes with both the minified and unminified CSS and JavaScript files. 
+		         	<label class="justificar-label" value="This is the standard version that comes with both the minified and unminified CSS and JavaScript files. 
 		         		This option requires little to no setup. Use this if you are unfamiliar with Sass.
 		            	This option requires little to no setup. Use this if you are unfamiliar with Sass.
-		               This option requires little to no setup. Use this if you are unfamiliar with Sass.
-		         	</n:p>		
+		               This option requires little to no setup. Use this if you are unfamiliar with Sass.">
+		           </label>		
 		      	</div>	  
 		      	<div class="col s4 text-center">  
 				    <n:br></n:br> 
-				    <image src="/imagenes/portal/icon/icon-goals-grande.png"
-						style="height: 140px" >
+				    <image class="img-cont-org" src="/imagenes/portal/icon/icon-goals-grande.png" >
 				   	</image>
-			      	<n:h6 style="padding-top: 18px; color: #87796F; font-weight: bold; text-transform: uppercase;"  >Misión</n:h6>
+			      	<n:h6 class="text-cont-org" >Misión</n:h6>
 				    <n:br></n:br>
-				    <n:p>This is the standard version that comes with both the minified and unminified CSS and JavaScript files. 
-			        	This option requires little to no setup. Use this if you are unfamiliar with Sass.
-			            This option requires little to no setup. Use this if you are unfamiliar with Sass.
-		               	This option requires little to no setup. Use this if you are unfamiliar with Sass.</n:p>
+				    <label class="justificar-label" value="This is the standard version that comes with both the minified and unminified CSS and JavaScript files. 
+		         		This option requires little to no setup. Use this if you are unfamiliar with Sass.
+		            	This option requires little to no setup. Use this if you are unfamiliar with Sass.
+		               This option requires little to no setup. Use this if you are unfamiliar with Sass.">
+		           </label>
 				</div>  
 		      	<div class="col s4 text-center">
 	      			<n:br></n:br>
-		         	<image src="/imagenes/portal/icon/icon-medical-grande.png"
-						style="height:140px;">
+		         	<image class="img-cont-org" src="/imagenes/portal/icon/icon-medical-grande.png">
 			     	</image>  
-		         	<n:h6 style="padding-top: 18px; color: #87796F; font-weight: bold; text-transform: uppercase;">Visión</n:h6>
+		         	<n:h6 class="text-cont-org" >Visión</n:h6>
 		        	<n:br></n:br>
-			        <n:p>This is the standard version that comes with both the minified and unminified CSS and JavaScript files. 
-			    	    This option requires little to no setup. Use this if you are unfamiliar with Sass.
+			        <label class="justificar-label" value="This is the standard version that comes with both the minified and unminified CSS and JavaScript files. 
+		         		This option requires little to no setup. Use this if you are unfamiliar with Sass.
 		            	This option requires little to no setup. Use this if you are unfamiliar with Sass.
-						This option requires little to no setup. Use this if you are unfamiliar with Sass.</n:p>
+		               This option requires little to no setup. Use this if you are unfamiliar with Sass.">
+		           </label>
 			  	</div>
+
 	  			<div class="col s12 text-center">
-					<n:h5  style="color: #F2707D; font-weight: bold">
-						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus at officiis amet 
-						corporis repellendus totam maxime, quod, itaque quam
-					</n:h5>
+	  				<n:br></n:br>
+					<label class="justificar-label text-other" value="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus at officiis amet 
+						corporis repellendus totam maxime, quod, itaque quam">
+		           </label>
 				</div>	
 			</div>
 		</div>
-	</div>	
-	
-	<div align="center"
-		style="width: 100%; height: 64px; background-color: #8AC7DE;">
-		<n:h5 style="padding-top: 18px; color: #ffffff;">
-			ESTRUCTURA ORGANIZACIONAL
-		</n:h5>
 	</div>
-	<n:br></n:br>
-
-	<div class="container-fluid galeria">
-		<div class="row">
-			<div class="col-xs-12 fotos">
-				<div class="col-xs-6" align="center">
-					<div style="border-color: #ffffff">
-						<image class="img-responsive center-block"
-							src="/imagenes/organigrama.png" width="300px" height="300px">
-						</image>
-					</div>
-				</div>
-				<div class="col-xs-6" align="center">
-					<div style="border-color: #ffffff">
-						<n:p style="text-align: justify">
-							Lorem ipsum dolor sit amet, consectetur
-							adipiscing elit, sed eiusmod tempor incidunt
-							ut labore et dolore magna aliqua. Ut enim ad
-							minim veniam, quis nostrud exercitation
-							ullamco laboris nisi ut aliquid ex ea
-							commodi consequat. Quis aute iure
-							reprehenderit in voluptate velit esse cillum
-							dolore eu fugiat nulla pariatur. Excepteur
-							sint obcaecat cupiditat non proident, sunt
-							in culpa qui officia deserunt mollit anim id
-							est laborum.
-							<n:br></n:br>
-							<n:br></n:br>
-							Lorem ipsum dolor sit amet, consectetur
-							adipiscing elit, sed eiusmod tempor incidunt
-							ut labore et dolore magna aliqua. Ut enim ad
-							minim veniam, quis nostrud exercitation
-							ullamco laboris nisi ut aliquid ex ea
-							commodi consequat. Quis aute iure
-							reprehenderit in voluptate velit esse cillum
-							dolore eu fugiat nulla pariatur. Excepteur
-							sint obcaecat cupiditat non proident, sunt
-							in culpa qui officia deserunt mollit anim id
-							est laborum.
-						</n:p>
-					</div>
-				</div>
-			</div>
-		</div>
+	<div class="titulo-valores">
+		<n:h5 class="texto-titulo-val">VALORES</n:h5>
 	</div>
-	
-	<n:br></n:br>
-	
-	<div align="center" style="width: 100%; height: 64px; background-color: #87796F;">
-    	<n:h5 style="padding-top: 18px; color: #F0F2D6;" >VALORES</n:h5>
-	</div>
-	
-	<n:br></n:br>
-	
 	<div class="container-fluid galeria"  >
 		<div class="row">
 			<div class="col-xs-12 fotos">
 				<div class="col-xs-2" align="center">
-					<div class="thumbnail" style="border-color: #ffffff">
+					<div class="borde-blanco">
 						<image src="/imagenes/icon-respeto.png"></image>
 						<div class="caption">
-							<n:h5 style="padding-top: 18px; color: #87796F;">RESPETO</n:h5>
+							<n:h5 class="texto-valores">Respeto</n:h5>
 						</div>
 					</div>
 				</div>
 				<div class="col-xs-2" align="center">
-					<div class="thumbnail" style="border-color: #ffffff">
+					<div class="borde-blanco">
 						<image src="/imagenes/icon-trabajo-equipo.png"></image>
 						<div class="caption">
-							<n:h5 style="padding-top: 18px; color: #87796F;">TRABAJO EN EQUIPO</n:h5>
+							<n:h5 class="texto-valores">Trabajo en equipo</n:h5>
 						</div>
 					</div>
 				</div>
 				<div class="col-xs-2" align="center">
-					<div class="thumbnail" style="border-color: #ffffff">
+					<div class="borde-blanco">
 						<image src="/imagenes/icon-vocacion.png"></image>
 						<div class="caption">
-							<n:h5 style="padding-top: 18px; color: #87796F;">VOCACIÓN</n:h5>
+							<n:h5 class="texto-valores">Vocación</n:h5>
 						</div>
 					</div>
 				</div>	
 				
 				<div class="col-xs-2" align="center">
-					<div class="thumbnail" style="border-color: #ffffff">
+					<div class="borde-blanco">
 						<image src="/imagenes/icon-asistencia.png"></image>
 						<div class="caption">
-							<n:h5 style="padding-top: 18px; color: #87796F;">ASISTENCIA HUMANIZADA</n:h5>
+							<n:h5 class="texto-valores">Asistencia humanizada</n:h5>
 						</div>
 					</div>
 				</div>
 				<div class="col-xs-2" align="center">
-					<div class="thumbnail" style="border-color: #ffffff">
+					<div class="borde-blanco">
 						<image src="/imagenes/icon-compromiso.png"></image>
 						<div class="caption">
-							<n:h5 style="padding-top: 18px; color: #87796F;">COMPROMISO</n:h5>
+							<n:h5 class="texto-valores">Compromiso</n:h5>
 						</div>
 					</div>
 				</div>
 				<div class="col-xs-2" align="center">
-					<div class="thumbnail" style="border-color: #ffffff">
+					<div class="borde-blanco">
 						<image src="/imagenes/icon-credibilidad.png"></image>
 						<div class="caption">
-							<n:h5 style="padding-top: 18px; color: #87796F;">CREDIBILIDAD</n:h5>
+							<n:h5 class="texto-valores">Credibilidad</n:h5>
 						</div>
 					</div>
-				</div>	
-				
-			</div>
-			
-							
+				</div>		
+			</div>					
 		</div>
 	</div>
-	
-	<div align="center" style="width: 100%; height: 64px; background-color: #D9EB52;">
-    	<n:h5 style="padding-top: 18px; color: #F0F2D6;" >DESCARGABLES</n:h5>
-	</div>
-	<div class="container-fluid galeria"  >
+	<div class="container-fluid galeria color-fondo borde-beich">
+		<div class="row color-fondo borde-beich">
+				<div class="col-md-9 " align="center">
+					<div class="titulo-estadistica" align="center">
+				    	<n:h5 class="texto-titulo-esta" >ESTADÍSTICAS DE INTERÉS</n:h5>
+					</div>
+					<div class="col-xs-12 color-fondo borde-beich" align="center">
+						<div class="col-xs-4 color-fondo borde-beich" align="center">
+							<div class="thumbnail color-fondo borde-beich">
+								<n:h5 class="text-cont-esta">ESTADÍSTICA 1</n:h5>
+								<n:p class="text-justificado"></n:p>
+								<label class="justificar-label" value="Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
+								sed eiusmod tempor incidunt ut labore et dolore magna aliqua.">
+		           				</label>
+								<div class="circulo" style="background-image: url(imagenes/estadistica3.png)"></div>
+							</div>
+						</div>
+						<div class="col-xs-4 color-fondo borde-beich" align="center">
+							<div class="thumbnail color-fondo borde-beich" >
+								<n:h5 class="text-cont-esta">ESTADÍSTICA 2</n:h5>
+								<label class="justificar-label" value="Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
+								sed eiusmod tempor incidunt ut labore et dolore magna aliqua.">
+		           				</label>
+								<div class="circulo" style="background-image: url(imagenes/estadistica1.png)"></div>	
+							</div>	
+						</div>
+						<div class="col-xs-4 color-fondo borde-beich" align="center">
+							<div class="thumbnail  color-fondo borde-beich" >
+								<n:h5 class="text-cont-esta">ESTADÍSTICA 3</n:h5>
+								<label class="justificar-label" value="Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
+								sed eiusmod tempor incidunt ut labore et dolore magna aliqua.">
+		           				</label>
+								<div class="circulo" style="background-image: url(imagenes/estadistica2.png)"></div>	
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-ms-3" align="center">
+					<div align="center" class="titulo-descargable">
+						    	<n:h5 class="texto-titulo-desca" >DESCARGABLES</n:h5>
+							</div>
+							<n:br></n:br>
+							<div class="col-ms-12 color-fondo borde-beich">
+								<div class="thumbnail color-fondo borde-beich">
+									<label class="justificar-label" value="Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
+									sed eiusmod tempor incidunt ut labore et dolore magna aliqua. 
+									Ut enim ad minim veniam, quis nostrud exercitation ullamco 
+									laboris.">
+			           				</label>
+			           				<n:br></n:br>
+			           				<n:br></n:br>
+			           				<n:br></n:br>
+									<image class="ima-tam" src="/imagenes/icon-download(2).png"></image>
+								</div>	
+			    		</div>	
+				</div>	
+		</div>
+		<div class="container-fluid galeria ">
 		<div class="row">
-			<div class="col-xs-12 fotos">
-				<div class="col-xs-4" align="center">
-					<div class="thumbnail" style="border-color: #ffffff">
-						<n:h5 style="padding-top: 18px; color: #87796F;">TITULO 1</n:h5>
-						<n:p style="text-align: justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
-						sed eiusmod tempor incidunt ut labore et dolore magna aliqua. 
-						Ut enim ad minim veniam, quis nostrud exercitation ullamco 
-						laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure 
-						reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
-						Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia 
-						deserunt mollit anim id est laborum.</n:p>
-						<image src="/imagenes/icon-download(2).png"></image>
-						<div class="caption">
-							<n:h5 style="padding-top: 18px; color: #F26B7A;">DESCARGAR</n:h5>
-						</div>
-					</div>
-				</div>
-				<div class="col-xs-4" align="center">
-					<div class="thumbnail" style="border-color: #ffffff">
-						<n:h5 style="padding-top: 18px; color: #87796F;">TITULO 2</n:h5>
-						<n:p style="text-align: justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
-						sed eiusmod tempor incidunt ut labore et dolore magna aliqua. 
-						Ut enim ad minim veniam, quis nostrud exercitation ullamco 
-						laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure 
-						reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
-						Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia 
-						deserunt mollit anim id est laborum.</n:p>
-						<image src="/imagenes/icon-download(2).png"></image>
-						<div class="caption">
-							<n:h5 style="padding-top: 18px; color: #F26B7A;">DESCARGAR</n:h5>
-						</div>
-					</div>
-				</div>
-				<div class="col-xs-4" align="center">
-					<div class="thumbnail" style="border-color: #ffffff">
-						<n:h5 style="padding-top: 18px; color: #87796F;">TITULO 3</n:h5>
-						<n:p style="text-align: justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
-						sed eiusmod tempor incidunt ut labore et dolore magna aliqua. 
-						Ut enim ad minim veniam, quis nostrud exercitation ullamco 
-						laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure 
-						reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
-						Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia 
-						deserunt mollit anim id est laborum.</n:p>
-						<image src="/imagenes/icon-download(2).png"></image>
-						<div class="caption">
-							<n:h5 style="padding-top: 18px; color: #F26B7A;">DESCARGAR</n:h5>
-						</div>
-					</div>
-				</div>	
-			</div>		
-		</div>
+			<div class="col-md-9" align="center">
+	          	<div class="boton text-center">
+        			<button type="button" class="color-boton waves-effect waves-light btn">Ver más</button>
+    			</div>
+				<n:br></n:br>
+	    	</div>
+			<div class="col-ms-3" align="center">
+				<div class="boton text-center">
+        			<button type="button" class=" waves-effect waves-light btn color-boton">Ver más</button>
+    			</div>
+			</div>
+		</div>	
+	</div>	
 	</div>
-	
-</zk>
+</zk>	

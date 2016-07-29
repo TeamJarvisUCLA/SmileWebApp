@@ -190,10 +190,15 @@
 				onClick="@command('contactanos')">
 			</a>
 
+			<a sclass="azulFanca labelNavbar hvr-underline-from-center"
+				target="_self" href="" style="margin-top: 20px;" label="BUZÓN"
+				onClick="@command('buzon')">
+			</a>
 		</hlayout>
 	</div>
 	<popup id="menu" sclass="menu before-reajust menuPop"
-		width="180px">
+		width="180px" apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('ve.smile.web.viewmodels.VM_Navbar')">
 		<vlayout spacing="0">
 			<a iconSclass=" no-hover z-icon-comment" class="hide_button"
 				style="top:90px 90px !important"
@@ -214,7 +219,7 @@
 			<a iconSclass="no-hover z-icon-user" href="#">
 				<label>Descargar App Móvil</label>
 			</a>
-			<a iconSclass="no-hover z-icon-user" href="#">
+			<a iconSclass="no-hover z-icon-user" href="" onClick="@command('faq')">
 				<label>Preguntas Frecuentes</label>
 			</a>
 		</vlayout>

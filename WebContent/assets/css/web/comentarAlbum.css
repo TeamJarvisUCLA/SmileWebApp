@@ -1,0 +1,23 @@
+#modalFormComentario .close {
+	opacity: 1;
+	text-align: right;
+}
+#modalFormComentario .close span{
+	font-size: 22px;
+	color: black;
+}
+
+#modalFormComentario h6{
+	color: #f26b7a;
+	font-weight: bold
+}
+
+#modalFormComentario .form div:nth-of-type(4){
+	margin-bottom: 10px;
+}
+
+#modalFormComentario input:focus{
+	border-bottom: 1px solid #8AC7DE;
+	box-shadow: 0 1px 0 0 #8AC7DE;
+}
+

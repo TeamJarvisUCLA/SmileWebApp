@@ -155,7 +155,7 @@
     transition: all 0.2s 0.1s ease-in-out;
 }
 
-.view:hover .mask { 
+.card.small:hover .mask { 
     opacity: 1;
     -webkit-transform: translate(0px, -100px) ;
     -moz-transform: translate(0px, -100px) ;
@@ -164,7 +164,7 @@
     transform: translate(0px, -100px) ;
 }
 
-.view:hover h2 { 
+.card.small:hover h2 { 
     -webkit-transform: translate(0px,0px);
     -moz-transform: translate(0px,0px);
     -o-transform: translate(0px,0px);
@@ -177,7 +177,7 @@
     transition-delay: 0.3s;
 }
 
-.view:hover p {
+.card.small:hover p {
     -webkit-transform: translate(0px,0px);
     -moz-transform: translate(0px,0px);
     -o-transform: translate(0px,0px);
@@ -190,7 +190,7 @@
     transition-delay: 0.4s;
 }
 
-.view:hover a.info {
+.card.small:hover a.info {
     -webkit-transform: translate(0px,0px);
     -moz-transform: translate(0px,0px);
     -o-transform: translate(0px,0px);

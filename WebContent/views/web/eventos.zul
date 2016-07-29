@@ -48,13 +48,13 @@
 	                                    		</div>
 	                                    	</div>
 	                                    	<n:p>En apoyo a los niños oncológicos del estado Lara se realizó la cuarta caminata recreativa “La Alegría de Vivir”.</n:p>
-	                                    	<n:a href="views/web/noticias.zul" class="info"><n:img src="imagenes/portal/icon/mas.png"></n:img></n:a>
+	                                    	<n:a href="" class="info"><n:img src="imagenes/portal/icon/mas.png"></n:img></n:a>
 	                                    </div>
 	                                 </div>
 	                              </div>
 	                              <div class="card-content" style="padding: 0 20px;">
-	                                    <n:span class="card-title white-text activator" style="font-size: 18px; font-weight: bold;">VERBENA</n:span>
-	                                    <n:p><n:a class="white-text" style="font-size: 14px;" href="views/web/noticias.zul">Ver detalle de evento</n:a></n:p>
+	                                    <n:span class="card-title white-text activator" style="font-size: 18px; font-weight: bold; display: block;">VERBENA</n:span>
+	                                    <a class="white-text" style="font-size: 14px;" href="" onClick="@command('calendario')">Ver detalle de evento</a>
 	                              </div>
 	                              <div class="card-reveal white-text" style="background-color: #8AC7DE;">
 	                              	<n:span class="card-title" style="line-height: 5px; font-size: 18px; font-weight: bold; color: #F26B7A;">
@@ -85,13 +85,13 @@
 	                                    		</div>
 	                                    	</div>
 	                                    	<n:p>En apoyo a los niños oncológicos del estado Lara se realizó la cuarta caminata recreativa “La Alegría de Vivir”.</n:p>
-	                                    	<n:a href="views/web/noticias.zul" class="info"><n:img src="imagenes/portal/icon/mas.png"></n:img></n:a>
+	                                    	<n:a href="" class="info"><n:img src="imagenes/portal/icon/mas.png"></n:img></n:a>
 	                                    </div>
 	                                 </div>
 	                              </div>
 	                              <div class="card-content" style="padding: 0 20px;">
-	                                    <n:span class="card-title white-text activator" style="font-size: 18px; font-weight: bold;">VENDIMIA</n:span>
-	                                    <n:p><n:a class="white-text" style="font-size: 14px;" href="views/web/noticias.zul">Ver detalle de evento</n:a></n:p>
+	                                    <n:span class="card-title white-text activator" style="font-size: 18px; font-weight: bold; display: block;">VENDIMIA</n:span>
+	                                    <a class="white-text" style="font-size: 14px;" href="" onClick="@command('calendario')">Ver detalle de evento</a>
 	                              </div>
 	                              <div class="card-reveal white-text" style="background-color: #8AC7DE;">
 	                                    <n:span class="card-title" style="line-height: 5px; font-size: 18px; font-weight: bold; color: #F26B7A;">
@@ -122,13 +122,13 @@
 	                                    		</div>
 	                                    	</div>
 	                                    	<n:p>En apoyo a los niños oncológicos del estado Lara se realizó la cuarta caminata recreativa “La Alegría de Vivir”.</n:p>
-	                                    	<n:a href="views/web/noticias.zul" class="info"><n:img src="imagenes/portal/icon/mas.png"></n:img></n:a>
+	                                    	<n:a href="" class="info"><n:img src="imagenes/portal/icon/mas.png"></n:img></n:a>
 	                                    </div>
 	                                 </div>
 	                              </div>
 	                              <div class="card-content" style="padding: 0 20px;">
-	                                    <n:span class="card-title white-text activator" style="font-size: 18px; font-weight: bold;">CARRERA 10K</n:span>
-	                                    <n:p><n:a class="white-text" style="font-size: 14px;" href="views/web/noticias.zul">Ver detalle de evento</n:a></n:p>
+	                                    <n:span class="card-title white-text activator" style="font-size: 18px; font-weight: bold; display: block;">CARRERA 10K</n:span>
+	                                    <a class="white-text" style="font-size: 14px;" href="" onClick="@command('calendario')">Ver detalle de evento</a>
 	                              </div>
 	                              <div class="card-reveal white-text" style="background-color: #8AC7DE;">
 	                                    <n:span class="card-title" style="line-height: 5px; font-size: 18px; font-weight: bold; color: #F26B7A;">
@@ -168,13 +168,13 @@
 	                                    		</div>
 	                                    	</div>
 	                                    	<n:p>En apoyo a los niños oncológicos del estado Lara se realizó la cuarta caminata recreativa “La Alegría de Vivir”.</n:p>
-	                                    	<n:a href="views/web/noticias.zul" class="info"><n:img src="imagenes/portal/icon/mas.png"></n:img></n:a>
+	                                    	<n:a href="" class="info"><n:img src="imagenes/portal/icon/mas.png"></n:img></n:a>
 	                                    </div>
 	                                 </div>
 	                              </div>
 	                              <div class="card-content" style="padding: 0 20px;">
-	                                    <n:span class="card-title white-text activator" style="font-size: 18px; font-weight: bold;">TORNEO DE AJEDREZ</n:span>
-	                                    <n:p><n:a class="white-text" style="font-size: 14px;" href="views/web/noticias.zul">Ver detalle de evento</n:a></n:p>
+	                                    <n:span class="card-title white-text activator" style="font-size: 18px; font-weight: bold; display: block;">TORNEO DE AJEDREZ</n:span>
+	                                    <a class="white-text" style="font-size: 14px;" href="" onClick="@command('calendario')">Ver detalle de evento</a>
 	                              </div>
 	                              <div class="card-reveal white-text" style="background-color: #8AC7DE;">
 	                                    <n:span class="card-title" style="line-height: 5px; font-size: 18px; font-weight: bold; color: #F26B7A;">
@@ -205,13 +205,13 @@
 	                                    		</div>
 	                                    	</div>
 	                                    	<n:p>En apoyo a los niños oncológicos del estado Lara se realizó la cuarta caminata recreativa “La Alegría de Vivir”.</n:p>
-	                                    	<n:a href="views/web/noticias.zul" class="info"><n:img src="imagenes/portal/icon/mas.png"></n:img></n:a>
+	                                    	<n:a href="" class="info"><n:img src="imagenes/portal/icon/mas.png"></n:img></n:a>
 	                                    </div>
 	                                 </div>
 	                              </div>
 	                              <div class="card-content" style="padding: 0 20px;">
-	                                    <n:span class="card-title white-text activator" style="font-size: 18px; font-weight: bold;">BALLET 2015</n:span>
-	                                    <n:p><n:a class="white-text" style="font-size: 14px;" href="views/web/noticias.zul">Ver detalle de evento</n:a></n:p>
+	                                    <n:span class="card-title white-text activator" style="font-size: 18px; font-weight: bold; display: block;">BALLET 2015</n:span>
+	                                    <a class="white-text" style="font-size: 14px;" href="" onClick="@command('calendario')">Ver detalle de evento</a>
 	                              </div>
 	                              <div class="card-reveal white-text" style="background-color: #8AC7DE;">
 	                                    <n:span class="card-title" style="line-height: 5px; font-size: 18px; font-weight: bold; color: #F26B7A;">
@@ -242,13 +242,13 @@
 	                                    		</div>
 	                                    	</div>
 	                                    	<n:p>En apoyo a los niños oncológicos del estado Lara se realizó la cuarta caminata recreativa “La Alegría de Vivir”.</n:p>
-	                                    	<n:a href="views/web/noticias.zul" class="info"><n:img src="imagenes/portal/icon/mas.png"></n:img></n:a>
+	                                    	<n:a href="" class="info"><n:img src="imagenes/portal/icon/mas.png"></n:img></n:a>
 	                                    </div>
 	                                 </div>
 	                              </div>
 	                              <div class="card-content" style="padding: 0 20px;">
-	                                    <n:span class="card-title white-text activator" style="font-size: 18px; font-weight: bold;">TORNEO DE GOLF</n:span>
-	                                    <n:p><n:a class="white-text" style="font-size: 14px;" href="views/web/noticias.zul">Ver detalle de evento</n:a></n:p>
+	                                    <n:span class="card-title white-text activator" style="font-size: 18px; font-weight: bold; display: block;">TORNEO DE GOLF</n:span>
+	                                    <a class="white-text" style="font-size: 14px;" href="" onClick="@command('calendario')">Ver detalle de evento</a>
 	                              </div>
 	                              <div class="card-reveal white-text" style="background-color: #8AC7DE;">
 	                                    <n:span class="card-title" style="line-height: 5px; font-size: 18px; font-weight: bold; color: #F26B7A;">

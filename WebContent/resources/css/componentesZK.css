@@ -345,8 +345,8 @@ nav-list.z-navbar > ul > .z-nav-open > a i, .nav-list.z-navbar > ul > .z-nav-ope
 }
 
 .z-listitem.z-listitem-selected > .z-listcell > .z-listcell-content, .z-listitem:HOVER > .z-listcell > .z-listcell-content, .z-treerow-selected > .z-treecell > .z-treecell-content, .z-treerow:HOVER > .z-treecell > .z-treecell-content {
-    background: #78b0e0 !important;
-    color: white !important;
+    background: #ebf8fd  !important;
+    color: #999999 !important;
     max-height: 42px;
     overflow: auto;
 }

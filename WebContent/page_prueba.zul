@@ -1,0 +1,49 @@
+<?page title="SMILE"?>
+<?link rel="shortcut icon" type="image/x-icon" href="imagenes/favicon2.icoo"?>
+<?link rel="icon" type="image/x-icon" href="imagenes/favicon2.ico"?>
+
+<?meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"?>
+<?link href="assets/third-party-libraries/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"?>
+<?link href="assets/third-party-libraries/materialize_v0.97.5/css/materialize.css" rel="stylesheet" type="text/css"?>
+<?link href="assets/third-party-libraries/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css"?>
+<?link href="assets/css/theme.css" rel="stylesheet" type="text/css"?>
+<?link href="assets/css/karen.css" rel="stylesheet" type="text/css"?>
+<?link href="assets/css/loading.css" rel="stylesheet" type="text/css"?>
+<?link href="assets/third-party-libraries/animate/animate.css" rel="stylesheet" type="text/css"?>
+
+
+<?script src="assets/third-party-libraries/bootstrap/js/bootstrap.js"?>
+<?script src="assets/third-party-libraries/materialize_v0.97.5/js/materialize.min.js"?>
+
+<?script src="assets/third-party-libraries/shorcut/shorcut.js"?>
+<?script src="assets/third-party-libraries/full-screen-api/full-screen-api.js"?>
+<?script src="assets/js/index.js"?>
+
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+
+	<div width="100%" class='opacity-0'
+		use="karen.core.simple_list_elements.controllers.C_WindowSimpleListElements"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('ve.smile.web.viewmodels.VMListPrueba')">
+		<div class="row">
+			<div class="col s12">
+				<div class="row" children="@load(vm.objectsList)">
+					<template name="children">
+						<div class="col s4">
+							<image src="/imagenes/portal/galeria1.png"
+								sclass="materialboxed img-responsive">
+
+							</image>
+							<label value="@load(each.nombre)"></label>
+						</div>
+					</template>
+				</div>
+			</div>
+		</div>
+		<toolbar id="toolbarPagination"
+			sclass="pagination-toolbar col s12"
+			use="karen.core.toolbar_pagination.ToolbarPagination">
+		</toolbar>
+	</div>
+</zk>

@@ -942,3 +942,57 @@ table {
 @-moz-document url-prefix() {
     
 }
+
+/* Botones de paginacion + toolbar de los botones de paginacion
+		*/
+.z-button.btn-pagination-toolbar {
+	width: 20px;
+	height: 20px;
+	border-style: none !important;
+	color: #F27382 !important;
+	margin-right: 3px;
+	text-shadow: unset;
+	box-shadow: unset;
+	padding: 0px;
+}
+
+.z-button.btn-pagination-toolbar:HOVER,.z-button.btn-toolbar-right:hover
+	{
+	border-color: transparent;
+	background: #dcd1c9;
+	border-style: none !important;
+	border-radius: 0px;
+}
+
+.z-button.btn-pagination-toolbar[disabled],.z-button.btn-pagination-toolbar[disabled]:hover,.z-button.btn-pagination-toolbar[disabled]:active,.z-button.btn-pagination-toolbar[disabled]:focus
+	{
+	background: transparent !important;
+}
+
+.btn-pagination-toolbar i {
+	font-size: 16px;
+	font-weight: normal;
+}
+
+.pagination-letter-toolbar {
+	color: #A89F99;
+	margin: 0px 10px;
+}
+
+.pagination-registros-toolbar {
+	color: #A89F99;
+	margin-left: 8px;
+	margin-right: 6px;
+}
+
+.pagination-toolbar>.z-toolbar-content span {
+	font-size: 15px;
+	font-weight: 500;
+	text-align: right;
+}
+
+.pagination-toolbar>.z-toolbar-content {
+	width: 100%
+}
+/* Botones de paginacion + toolbar de los botones de paginacion
+		*/

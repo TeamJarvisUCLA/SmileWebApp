@@ -108,10 +108,7 @@ public class VMVClasificadorEvento extends VM_WindowForm {
 		try {
 			UtilValidate.validateString(getClasificadorEvento().getNombre(),
 					"Nombre", 200);
-			UtilValidate.validateString(getClasificadorEvento()
-					.getDescripcion(), "Descripción", 200);
-
-			return true;
+				return true;
 		} catch (Exception e) {
 			Alert.showMessage(e.getMessage());
 

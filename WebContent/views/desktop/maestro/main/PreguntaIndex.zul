@@ -17,8 +17,8 @@
 						</listhead>
 						<template name="model">
 							<listitem>
-								<listcell label="@load(each.titulo)" />
-								<listcell label="@load(each.contenido)" />
+								<listcell label="@load(each.pregunta)" />
+								<listcell label="@load(each.respuesta)" />
 							</listitem>
 						</template>
 						<listfoot>

@@ -5,5 +5,5 @@
 	   	<label value="@load(vm.titleHeaderCenter)"/>
 	</div>
 	
-	<include src="resources/content/alert.zul"/>
+	<include src="views/desktop/content/alert.zul"/>
 </vlayout>

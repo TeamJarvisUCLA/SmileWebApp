@@ -4,14 +4,14 @@
 
 <?meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"?>
 <?link href="assets/third-party-libraries/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"?>
-<?link href="assets/third-party-libraries/materialize_v0.97.5/css/materialize.min.css" rel="stylesheet" type="text/css"?>
+<?link href="assets/third-party-libraries/materialize_v0.97.5/css/materialize.css" rel="stylesheet" type="text/css"?>
 <?link href="assets/third-party-libraries/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css"?>
 <?link href="assets/css/theme.css" rel="stylesheet" type="text/css"?>
 <?link href="assets/css/karen.css" rel="stylesheet" type="text/css"?>
 <?link href="assets/css/loading.css" rel="stylesheet" type="text/css"?>
 <?link href="assets/third-party-libraries/animate/animate.css" rel="stylesheet" type="text/css"?>
 
-<?link href="resources/css/componentesZK.css" rel="stylesheet" type="text/css"?>
+<?link href="assets/css/components-jarvis.css" rel="stylesheet" type="text/css"?>
 
 <?script src="assets/third-party-libraries/bootstrap/js/bootstrap.js"?>
 <?script src="assets/third-party-libraries/materialize_v0.97.5/js/materialize.min.js"?>
@@ -21,78 +21,61 @@
 <?script src="assets/js/index.js"?>
 
 <zk xmlns:n="native">
-	<div apply="karen.core.crux.session.check.CheckIndex"
-		style="display: none;">
+	<div apply="karen.core.crux.session.check.CheckIndex" style="display: none;">
 	</div>
-	<div apply="org.zkoss.bind.BindComposer"
-		viewModel="@id('vm') @init('karen.core.crux.session.DataCenter')"
+	<div apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('karen.core.crux.session.DataCenter')"
 		style="background-color: #f5f5f5;">
 		<div if="${vm.logued == true}">
 
 			<hlayout id="main" spacing="0">
 				<div id="sidebar" sclass="side-nav fixed"
 					apply="karen.core.crux.session.check.CheckIndex">
-					<!-- Shortcuts Button-->
+					<!-- Shortcuts Button -->
 					<div class="shortcuts">
-						<div class="shortcuts-expanded"
-							style="margin-top: 100px;">
+						<div class="shortcuts-expanded" style="margin-top: 100px;">
 							<image src="/imagenes/smiles_webdesktop.png"
 								style="max-width:200px; max-height:200px; margin-top: -90px;">
 							</image>
 						</div>
 
 						<div class="shortcuts-collapsed">
-							<image src="/imagenes/logo_fanca.png"
-								style="max-width:30px; max-height:30px">
+							<image src="/imagenes/logo_fanca.png" style="max-width:30px; max-height:30px">
 							</image>
 						</div>
-						<!-- Display when collapsed 
-							<div class="shortcuts-collapsed">
-							<n:i class="fa fa-bars"></n:i>
-							</div>
-						-->
+						<!-- Display when collapsed <div class="shortcuts-collapsed"> <n:i 
+							class="fa fa-bars"></n:i> </div> -->
 					</div>
 					<!-- Navigation List -->
-					<navbar id="navbar" sclass="nav-list"
-						orient="vertical" use="karen.core.crux.sidebar.NavbarSidebar">
+					<navbar id="navbar" sclass="nav-list" orient="vertical"
+						use="karen.core.crux.sidebar.NavbarSidebar">
 
 					</navbar>
 					<!-- Toggler -->
 					<div sclass="sidebar-collapse">
-						<a id="toggler"
-							iconSclass="z-icon-angle-double-left" />
+						<a id="toggler" iconSclass="z-icon-angle-double-left" />
 					</div>
 					<!-- Tooptip for Calender Navitem -->
-					<popup id="calpp" zclass="tooltip"
-						sclass="right tooltip-error cal">
+					<popup id="calpp" zclass="tooltip" sclass="right tooltip-error cal">
 						<span zclass="tooltip-arrow" />
-						<label zclass="tooltip-inner"
-							value="2 Important Event" />
+						<label zclass="tooltip-inner" value="2 Important Event" />
 					</popup>
 				</div>
 				<vlayout id="vlayout" hflex="1" sclass="content-main">
 					<include src="views/desktop/content/navbar.zul" />
-					<include
-						src="views/desktop/content/breadcrumbs.zul" />
+					<include src="views/desktop/content/breadcrumbs.zul" />
 
-					<include
-						src="views/desktop/content/page_header.zul" />
+					<include src="views/desktop/content/page_header.zul" />
 
 					<!-- Body -->
-					<div
-						style=" background-color: #f5f5f5;    min-height: 275px;">
-						<div id="mainContent"
-							sclass="page-content page-content-main">
-							<include src="@load(vm.srcPageContent)"
-								animation_="animated slideInDown">
+					<div style=" background-color: #f5f5f5;    min-height: 275px;">
+						<div id="mainContent" sclass="page-content page-content-main">
+							<include src="@load(vm.srcPageContent)" animation_="animated fadeInLeft">
 							</include>
 						</div>
 
 					</div>
-					<div sclass="footer"
-						style="    background: #d2ec3f; text-align: right;">
-						<image
-							style="height: 80px; padding: 4px; margin-right: 16px;"
+					<div sclass="footer" style="background: #d2ec3f; text-align: right;">
+						<image style="height: 80px; padding: 4px; margin-right: 16px;"
 							src="imagenes/logo_jarvis_vector_footer.png">
 						</image>
 					</div>

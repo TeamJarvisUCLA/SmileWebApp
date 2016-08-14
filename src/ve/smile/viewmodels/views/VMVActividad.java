@@ -17,7 +17,6 @@ import ve.smile.consume.services.S;
 import ve.smile.seguridad.enums.OperacionEnum;
 import ve.smile.payload.response.PayloadActividadResponse;
 import ve.smile.dto.Actividad;
-import ve.smile.dto.Notificacion;
 
 public class VMVActividad extends VM_WindowForm {
 

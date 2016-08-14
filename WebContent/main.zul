@@ -30,7 +30,7 @@
 
 <zk xmlns:n="native" xmlns:w="client">
 	<include src="/views/web/navbar.zul"></include>
-	<div apply="org.zkoss.bind.BindComposer"
+	<div apply="org.zkoss.bind.BindComposer" id="mainContent"
 		viewModel="@id('vm') @init('karen.core.crux.session.DataCenter')">
 		<include src="@load(vm.srcPageContent)" animation_="animated slideInDown">
 		</include>

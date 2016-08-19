@@ -1,5 +1,5 @@
 <zk xmlns:n="native" xmlns:w="client">
-	<div width="100%" class="${arg.animation_}"
+	<div width="100%" class='opacity-0'
 		use="karen.core.simple_list_principal.controllers.C_WindowSimpleListPrincipal"
 		apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('ve.smile.viewmodels.main.VMPClasificadorCapacitacion')">
@@ -12,8 +12,7 @@
 						selectedItem="@bind(vm.selectedObject)">
 
 						<listhead sizable="true">
-							<listheader width="50%" label="Nombre" />
-							<listheader width="50%" label="Descripcion" />
+							<listheader width="100%" label="Nombre" />
 						</listhead>
 						<template name="model">
 							<listitem>
@@ -21,7 +20,7 @@
 							</listitem>
 						</template>
 						<listfoot>
-							<listfooter id="listFoot" span="2"
+							<listfooter id="listFoot" span="1"
 								use="karen.core.listfoot.ListFoot">
 							</listfooter>
 						</listfoot>

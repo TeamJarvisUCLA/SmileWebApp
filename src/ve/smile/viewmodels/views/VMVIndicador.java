@@ -15,10 +15,10 @@ import karen.core.util.payload.UtilPayload;
 import karen.core.util.validate.UtilValidate;
 import ve.smile.consume.services.S;
 import ve.smile.seguridad.enums.OperacionEnum;
-import ve.smile.payload.response.PayloadMotivoResponse;
-import ve.smile.dto.Motivo;
+import ve.smile.payload.response.PayloadIndicadorResponse;
+import ve.smile.dto.Indicador;
 
-public class VMVMotivo extends VM_WindowForm {
+public class VMVIndicador extends VM_WindowForm {
 
 	@Init(superclass = true)
 	public void childInit() {
@@ -55,11 +55,11 @@ public class VMVMotivo extends VM_WindowForm {
 		}
 
 		if (operacionEnum.equals(OperacionEnum.INCLUIR)) {
-			PayloadMotivoResponse payloadMotivoResponse =
-					S.MotivoService.incluir(getMotivo());
+			PayloadIndicadorResponse payloadIndicadorResponse =
+					S.IndicadorService.incluir(getIndicador());
 
-			if(!UtilPayload.isOK(payloadMotivoResponse)) {
-				Alert.showMessage(payloadMotivoResponse);
+			if(!UtilPayload.isOK(payloadIndicadorResponse)) {
+				Alert.showMessage(payloadIndicadorResponse);
 				return true;
 			}
 
@@ -69,11 +69,11 @@ public class VMVMotivo extends VM_WindowForm {
 		}
 
 		if (operacionEnum.equals(OperacionEnum.MODIFICAR)) {
-			PayloadMotivoResponse payloadMotivoResponse =
-					S.MotivoService.modificar(getMotivo());
+			PayloadIndicadorResponse payloadIndicadorResponse =
+					S.IndicadorService.modificar(getIndicador());
 
-			if(!UtilPayload.isOK(payloadMotivoResponse)) {
-				Alert.showMessage(payloadMotivoResponse);
+			if(!UtilPayload.isOK(payloadIndicadorResponse)) {
+				Alert.showMessage(payloadIndicadorResponse);
 				return true;
 			}
 
@@ -97,15 +97,14 @@ public class VMVMotivo extends VM_WindowForm {
 		return actionSalir(operacionEnum);
 	}
 
-	public Motivo getMotivo() {
-		return (Motivo) DataCenter.getEntity();
+	public Indicador getIndicador() {
+		return (Indicador) DataCenter.getEntity();
 	}
 
 	public boolean isFormValidated() {
 		try {					
-			UtilValidate.validateString(getMotivo().getNombre(), "Nombre", 200);
-			UtilValidate.validateString(getMotivo().getDescripcion(), "Descripciòn", 200);
-			
+			UtilValidate.validateString(getIndicador().getNombre(), "Nombre", 200);
+			UtilValidate.validateString(getIndicador().getDescripcion(), "Descripciòn", 200);
 			return true;
 		} catch (Exception e) {
 			Alert.showMessage(e.getMessage());

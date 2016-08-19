@@ -3,6 +3,8 @@ package ve.smile.viewmodels.views;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.zkoss.bind.annotation.Init;
+
 import karen.core.crux.alert.Alert;
 import karen.core.crux.session.DataCenter;
 import karen.core.form.buttons.data.OperacionForm;
@@ -11,13 +13,10 @@ import karen.core.form.buttons.helpers.OperacionFormHelper;
 import karen.core.form.viewmodels.VM_WindowForm;
 import karen.core.util.payload.UtilPayload;
 import karen.core.util.validate.UtilValidate;
-
-import org.zkoss.bind.annotation.Init;
-
 import ve.smile.consume.services.S;
-import ve.smile.dto.ClasificadorCapacitacion;
-import ve.smile.payload.response.PayloadClasificadorCapacitacionResponse;
 import ve.smile.seguridad.enums.OperacionEnum;
+import ve.smile.payload.response.PayloadClasificadorCapacitacionResponse;
+import ve.smile.dto.ClasificadorCapacitacion;
 
 public class VMVClasificadorCapacitacion extends VM_WindowForm {
 
@@ -58,7 +57,7 @@ public class VMVClasificadorCapacitacion extends VM_WindowForm {
 		if (operacionEnum.equals(OperacionEnum.INCLUIR)) {
 			PayloadClasificadorCapacitacionResponse payloadClasificadorCapacitacionResponse =
 					S.ClasificadorCapacitacionService.incluir(getClasificadorCapacitacion());
-			Alert.showMessage(payloadClasificadorCapacitacionResponse);
+
 			if(!UtilPayload.isOK(payloadClasificadorCapacitacionResponse)) {
 				Alert.showMessage(payloadClasificadorCapacitacionResponse);
 				return true;
@@ -72,7 +71,7 @@ public class VMVClasificadorCapacitacion extends VM_WindowForm {
 		if (operacionEnum.equals(OperacionEnum.MODIFICAR)) {
 			PayloadClasificadorCapacitacionResponse payloadClasificadorCapacitacionResponse =
 					S.ClasificadorCapacitacionService.modificar(getClasificadorCapacitacion());
-			Alert.showMessage(payloadClasificadorCapacitacionResponse);
+
 			if(!UtilPayload.isOK(payloadClasificadorCapacitacionResponse)) {
 				Alert.showMessage(payloadClasificadorCapacitacionResponse);
 				return true;
@@ -103,16 +102,15 @@ public class VMVClasificadorCapacitacion extends VM_WindowForm {
 	}
 
 	public boolean isFormValidated() {
-
-		try {
+		try {					
 			UtilValidate.validateString(getClasificadorCapacitacion().getNombre(), "Nombre", 200);
+			
 			return true;
 		} catch (Exception e) {
 			Alert.showMessage(e.getMessage());
 
 			return false;
 		}
-		
 	}
 
 }

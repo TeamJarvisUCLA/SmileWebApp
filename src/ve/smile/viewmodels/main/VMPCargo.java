@@ -9,12 +9,12 @@ import karen.core.util.payload.UtilPayload;
 import lights.core.payload.response.IPayloadResponse;
 import ve.smile.consume.services.S ;
 import ve.smile.seguridad.enums.OperacionEnum;
-import ve.smile.dto.UnidadMedida;
-import ve.smile.payload.response.PayloadUnidadMedidaResponse;
+import ve.smile.dto.Cargo;
+import ve.smile.payload.response.PayloadCargoResponse;
 
 import org.zkoss.bind.annotation.Init;
 
-public class VMPUnidadMedida extends VM_WindowSimpleListPrincipal<UnidadMedida> {
+public class VMPCargo extends VM_WindowSimpleListPrincipal<Cargo> {
 
 	@Init(superclass = true)
 	public void childInit() {
@@ -22,23 +22,23 @@ public class VMPUnidadMedida extends VM_WindowSimpleListPrincipal<UnidadMedida> 
 	}
 
 	@Override
-	public IPayloadResponse<UnidadMedida> getDataToTable(
+	public IPayloadResponse<Cargo> getDataToTable(
 			Integer cantidadRegistrosPagina, Integer pagina) {
 
-		PayloadUnidadMedidaResponse payloadUnidadMedidaResponse = 
-				S.UnidadMedidaService.consultarPaginacion(cantidadRegistrosPagina, pagina);
+		PayloadCargoResponse payloadCargoResponse = 
+				S.CargoService.consultarPaginacion(cantidadRegistrosPagina, pagina);
 
-		return payloadUnidadMedidaResponse;
+		return payloadCargoResponse;
 	}
 
 	@Override
 	public void doDelete() {
-		PayloadUnidadMedidaResponse payloadUnidadMedidaResponse =
-				S.UnidadMedidaService.eliminar(getSelectedObject().getIdUnidadMedida());
+		PayloadCargoResponse payloadCargoResponse =
+				S.CargoService.eliminar(getSelectedObject().getIdCargo());
 
-		Alert.showMessage(payloadUnidadMedidaResponse);
+		Alert.showMessage(payloadCargoResponse);
 
-		if (UtilPayload.isOK(payloadUnidadMedidaResponse)) {
+		if (UtilPayload.isOK(payloadCargoResponse)) {
 			getControllerWindowSimpleListPrincipal().updateListBoxAndFooter();
 		}
 
@@ -47,7 +47,7 @@ public class VMPUnidadMedida extends VM_WindowSimpleListPrincipal<UnidadMedida> 
 
 	@Override
 	public String getSrcFileZulForm(OperacionEnum operacionEnum) {
-		return "views/desktop/maestro/view/UnidadMedidaFormBasic.zul";
+		return "views/desktop/maestro/view/CargoFormBasic.zul";
 	}
 
 }

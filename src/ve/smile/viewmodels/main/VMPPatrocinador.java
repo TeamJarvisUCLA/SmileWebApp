@@ -9,12 +9,12 @@ import karen.core.util.payload.UtilPayload;
 import lights.core.payload.response.IPayloadResponse;
 import ve.smile.consume.services.S ;
 import ve.smile.seguridad.enums.OperacionEnum;
-import ve.smile.dto.UnidadMedida;
-import ve.smile.payload.response.PayloadUnidadMedidaResponse;
+import ve.smile.dto.Patrocinador;
+import ve.smile.payload.response.PayloadPatrocinadorResponse;
 
 import org.zkoss.bind.annotation.Init;
 
-public class VMPUnidadMedida extends VM_WindowSimpleListPrincipal<UnidadMedida> {
+public class VMPPatrocinador extends VM_WindowSimpleListPrincipal<Patrocinador> {
 
 	@Init(superclass = true)
 	public void childInit() {
@@ -22,23 +22,23 @@ public class VMPUnidadMedida extends VM_WindowSimpleListPrincipal<UnidadMedida> 
 	}
 
 	@Override
-	public IPayloadResponse<UnidadMedida> getDataToTable(
+	public IPayloadResponse<Patrocinador> getDataToTable(
 			Integer cantidadRegistrosPagina, Integer pagina) {
 
-		PayloadUnidadMedidaResponse payloadUnidadMedidaResponse = 
-				S.UnidadMedidaService.consultarPaginacion(cantidadRegistrosPagina, pagina);
+		PayloadPatrocinadorResponse payloadPatrocinadorResponse = 
+				S.PatrocinadorService.consultarPaginacion(cantidadRegistrosPagina, pagina);
 
-		return payloadUnidadMedidaResponse;
+		return payloadPatrocinadorResponse;
 	}
 
 	@Override
 	public void doDelete() {
-		PayloadUnidadMedidaResponse payloadUnidadMedidaResponse =
-				S.UnidadMedidaService.eliminar(getSelectedObject().getIdUnidadMedida());
+		PayloadPatrocinadorResponse payloadPatrocinadorResponse =
+				S.PatrocinadorService.eliminar(getSelectedObject().getIdPatrocinador());
 
-		Alert.showMessage(payloadUnidadMedidaResponse);
+		Alert.showMessage(payloadPatrocinadorResponse);
 
-		if (UtilPayload.isOK(payloadUnidadMedidaResponse)) {
+		if (UtilPayload.isOK(payloadPatrocinadorResponse)) {
 			getControllerWindowSimpleListPrincipal().updateListBoxAndFooter();
 		}
 
@@ -47,7 +47,7 @@ public class VMPUnidadMedida extends VM_WindowSimpleListPrincipal<UnidadMedida> 
 
 	@Override
 	public String getSrcFileZulForm(OperacionEnum operacionEnum) {
-		return "views/desktop/maestro/view/UnidadMedidaFormBasic.zul";
+		return "views/desktop/maestro/view/PatrocinadorFormBasic.zul";
 	}
 
 }

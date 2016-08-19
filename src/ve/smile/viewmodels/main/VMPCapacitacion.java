@@ -1,16 +1,18 @@
 package ve.smile.viewmodels.main;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import karen.core.crux.alert.Alert;
 import karen.core.simple_list_principal.viewmodels.VM_WindowSimpleListPrincipal;
 import karen.core.util.payload.UtilPayload;
 import lights.core.payload.response.IPayloadResponse;
-
-import org.zkoss.bind.annotation.Init;
-
-import ve.smile.consume.services.S;
+import ve.smile.consume.services.S ;
+import ve.smile.seguridad.enums.OperacionEnum;
 import ve.smile.dto.Capacitacion;
 import ve.smile.payload.response.PayloadCapacitacionResponse;
-import ve.smile.seguridad.enums.OperacionEnum;
+
+import org.zkoss.bind.annotation.Init;
 
 public class VMPCapacitacion extends VM_WindowSimpleListPrincipal<Capacitacion> {
 

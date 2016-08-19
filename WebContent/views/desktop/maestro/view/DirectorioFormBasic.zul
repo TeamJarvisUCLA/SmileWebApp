@@ -1,0 +1,77 @@
+<zk xmlns:n="native" xmlns:w="client">
+	<div width="80%" class="container opacity-0"
+		use="karen.core.form.controllers.C_WindowForm"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('ve.smile.viewmodels.views.VMVDirectorio')">
+
+		<div class="row">
+
+				<div class="col s12">
+					<div class="input-field col s6">
+						<n:label class="active" for="fk_ciudad">Ciudad</n:label>
+					<combobox id="fk_ciudad" readonly="true"
+						>
+						<comboitem label="Choice 1" value="c1" />
+						<comboitem label="Choice 2" value="c2" />
+						<comboitem label="Choice 3" value="c3" />
+					</combobox>
+					</div>
+					<div class="input-field col s6">
+						<n:label class="active" for="fk_multimedia">Multimedia</n:label>
+					<combobox id="fk_multimedia" readonly="true"
+						>
+						<comboitem label="Choice 1" value="c1" />
+						<comboitem label="Choice 2" value="c2" />
+						<comboitem label="Choice 3" value="c3" />
+					</combobox>
+					</div>
+				</div>
+				<div class="col s12">
+					<div class="input-field col s6">
+						<n:label for="latitud">Latitud</n:label>
+					<intbox id="latitud"
+						value="@bind(vm.directorio.latitud)">
+					</intbox>
+					</div>
+					<div class="input-field col s6">
+						<n:label for="longitud">Longitud</n:label>
+					<intbox id="longitud"
+						value="@bind(vm.directorio.longitud)">
+					</intbox>
+					</div>
+				</div>
+				<div class="col s12">
+					<div class="input-field col s6">
+						<n:label for="nombre">Nombre</n:label>
+					<textbox id="nombre" type="text"
+						value="@bind(vm.directorio.nombre)">
+					</textbox>
+					</div>
+					<div class="input-field col s6">
+						<n:label for="direccion">Direccion</n:label>
+					<textbox id="direccion" type="text"
+						value="@bind(vm.directorio.direccion)">
+					</textbox>
+					</div>
+				</div>
+				<div class="col s12">
+					<div class="input-field col s6">
+						<n:label for="telefono">Telefono</n:label>
+					<textbox id="telefono" type="text"
+						value="@bind(vm.directorio.telefono)">
+					</textbox>
+					</div>
+					<div class="input-field col s6">
+						<n:label for="url">Url</n:label>
+					<textbox id="url" type="text"
+						value="@bind(vm.directorio.url)">
+					</textbox>
+					</div>
+				</div>
+
+		</div>
+		<div id="divButtonsForm"
+			use="karen.core.form.buttons.containers.DivButtonsForm">
+		</div>
+	</div>
+</zk>

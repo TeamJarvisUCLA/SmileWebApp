@@ -2,7 +2,7 @@
 	<div width="80%" class="container opacity-0"
 		use="karen.core.form.controllers.C_WindowForm"
 		apply="org.zkoss.bind.BindComposer"
-		viewModel="@id('vm') @init('ve.smile.viewmodels.views.VMVCapacitacion')">
+		viewModel="@id('vm') @init('ve.smile.viewmodels.views.VMVClasificadorReconocimiento')">
 
 		<div class="row">
 
@@ -10,25 +10,22 @@
 					<div class="input-field col s6">
 						<n:label for="nombre">Nombre</n:label>
 					<textbox id="nombre" type="text"
-						value="@bind(vm.capacitacion.nombre)">
+						value="@bind(vm.clasificadorReconocimiento.nombre)">
 					</textbox>
 					</div>
 					<div class="input-field col s6">
 						<n:label for="descripcion">Descripcion</n:label>
-						<textbox id="descripcion" type="text"
-						value="@bind(vm.capacitacion.descripcion)">
-						</textbox>
+					<textbox id="descripcion" type="text"
+						value="@bind(vm.clasificadorReconocimiento.descripcion)">
+					</textbox>
 					</div>
 				</div>
 				<div class="col s12">
 					<div class="input-field col s12">
-						<n:label class="active" for="fk_clasificador_capacitacion">Clasificador Capacitacion</n:label>
-					<combobox id="fk_clasificador_capacitacion" readonly="true"
-						>
-						<comboitem label="Choice 1" value="c1" />
-						<comboitem label="Choice 2" value="c2" />
-						<comboitem label="Choice 3" value="c3" />
-					</combobox>
+						<n:label for="tipo_reconocimiento">Tipo Reconocimiento</n:label>
+					<intbox id="tipo_reconocimiento"
+						value="@bind(vm.clasificadorReconocimiento.tipoReconocimiento)">
+					</intbox>
 					</div>
 				</div>
 

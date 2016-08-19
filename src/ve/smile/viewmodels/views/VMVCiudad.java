@@ -15,10 +15,10 @@ import karen.core.util.payload.UtilPayload;
 import karen.core.util.validate.UtilValidate;
 import ve.smile.consume.services.S;
 import ve.smile.seguridad.enums.OperacionEnum;
-import ve.smile.payload.response.PayloadMotivoResponse;
-import ve.smile.dto.Motivo;
+import ve.smile.payload.response.PayloadCiudadResponse;
+import ve.smile.dto.Ciudad;
 
-public class VMVMotivo extends VM_WindowForm {
+public class VMVCiudad extends VM_WindowForm {
 
 	@Init(superclass = true)
 	public void childInit() {
@@ -55,11 +55,11 @@ public class VMVMotivo extends VM_WindowForm {
 		}
 
 		if (operacionEnum.equals(OperacionEnum.INCLUIR)) {
-			PayloadMotivoResponse payloadMotivoResponse =
-					S.MotivoService.incluir(getMotivo());
+			PayloadCiudadResponse payloadCiudadResponse =
+					S.CiudadService.incluir(getCiudad());
 
-			if(!UtilPayload.isOK(payloadMotivoResponse)) {
-				Alert.showMessage(payloadMotivoResponse);
+			if(!UtilPayload.isOK(payloadCiudadResponse)) {
+				Alert.showMessage(payloadCiudadResponse);
 				return true;
 			}
 
@@ -69,11 +69,11 @@ public class VMVMotivo extends VM_WindowForm {
 		}
 
 		if (operacionEnum.equals(OperacionEnum.MODIFICAR)) {
-			PayloadMotivoResponse payloadMotivoResponse =
-					S.MotivoService.modificar(getMotivo());
+			PayloadCiudadResponse payloadCiudadResponse =
+					S.CiudadService.modificar(getCiudad());
 
-			if(!UtilPayload.isOK(payloadMotivoResponse)) {
-				Alert.showMessage(payloadMotivoResponse);
+			if(!UtilPayload.isOK(payloadCiudadResponse)) {
+				Alert.showMessage(payloadCiudadResponse);
 				return true;
 			}
 
@@ -97,15 +97,14 @@ public class VMVMotivo extends VM_WindowForm {
 		return actionSalir(operacionEnum);
 	}
 
-	public Motivo getMotivo() {
-		return (Motivo) DataCenter.getEntity();
+	public Ciudad getCiudad() {
+		return (Ciudad) DataCenter.getEntity();
 	}
 
 	public boolean isFormValidated() {
 		try {					
-			UtilValidate.validateString(getMotivo().getNombre(), "Nombre", 200);
-			UtilValidate.validateString(getMotivo().getDescripcion(), "Descripciòn", 200);
-			
+			UtilValidate.validateString(getCiudad().getNombre(), "Nombre", 200);
+			//falta validar el estado
 			return true;
 		} catch (Exception e) {
 			Alert.showMessage(e.getMessage());

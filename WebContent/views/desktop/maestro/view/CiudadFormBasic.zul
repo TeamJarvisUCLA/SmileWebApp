@@ -2,21 +2,24 @@
 	<div width="80%" class="container opacity-0"
 		use="karen.core.form.controllers.C_WindowForm"
 		apply="org.zkoss.bind.BindComposer"
-		viewModel="@id('vm') @init('ve.smile.viewmodels.views.VMVMotivo')">
+		viewModel="@id('vm') @init('ve.smile.viewmodels.views.VMVCiudad')">
 
 		<div class="row">
 
 				<div class="col s12">
 					<div class="input-field col s6">
-						<n:label for="nombre">Nombre</n:label>
-					<textbox id="nombre" type="text"
-						value="@bind(vm.motivo.nombre)">
-					</textbox>
+						<n:label class="active" for="fk_estado">Estado</n:label>
+					<combobox id="fk_estado" readonly="true"
+						>
+						<comboitem label="Choice 1" value="c1" />
+						<comboitem label="Choice 2" value="c2" />
+						<comboitem label="Choice 3" value="c3" />
+					</combobox>
 					</div>
 					<div class="input-field col s6">
-						<n:label for="descripcion">Descripcion</n:label>
-					<textbox id="descripcion" type="text"
-						value="@bind(vm.motivo.descripcion)">
+						<n:label for="nombre">Nombre</n:label>
+					<textbox id="nombre" type="text"
+						value="@bind(vm.ciudad.nombre)">
 					</textbox>
 					</div>
 				</div>

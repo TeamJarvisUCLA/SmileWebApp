@@ -9,12 +9,12 @@ import karen.core.util.payload.UtilPayload;
 import lights.core.payload.response.IPayloadResponse;
 import ve.smile.consume.services.S ;
 import ve.smile.seguridad.enums.OperacionEnum;
-import ve.smile.dto.UnidadMedida;
-import ve.smile.payload.response.PayloadUnidadMedidaResponse;
+import ve.smile.dto.Indicador;
+import ve.smile.payload.response.PayloadIndicadorResponse;
 
 import org.zkoss.bind.annotation.Init;
 
-public class VMPUnidadMedida extends VM_WindowSimpleListPrincipal<UnidadMedida> {
+public class VMPIndicador extends VM_WindowSimpleListPrincipal<Indicador> {
 
 	@Init(superclass = true)
 	public void childInit() {
@@ -22,23 +22,23 @@ public class VMPUnidadMedida extends VM_WindowSimpleListPrincipal<UnidadMedida> 
 	}
 
 	@Override
-	public IPayloadResponse<UnidadMedida> getDataToTable(
+	public IPayloadResponse<Indicador> getDataToTable(
 			Integer cantidadRegistrosPagina, Integer pagina) {
 
-		PayloadUnidadMedidaResponse payloadUnidadMedidaResponse = 
-				S.UnidadMedidaService.consultarPaginacion(cantidadRegistrosPagina, pagina);
+		PayloadIndicadorResponse payloadIndicadorResponse = 
+				S.IndicadorService.consultarPaginacion(cantidadRegistrosPagina, pagina);
 
-		return payloadUnidadMedidaResponse;
+		return payloadIndicadorResponse;
 	}
 
 	@Override
 	public void doDelete() {
-		PayloadUnidadMedidaResponse payloadUnidadMedidaResponse =
-				S.UnidadMedidaService.eliminar(getSelectedObject().getIdUnidadMedida());
+		PayloadIndicadorResponse payloadIndicadorResponse =
+				S.IndicadorService.eliminar(getSelectedObject().getIdIndicador());
 
-		Alert.showMessage(payloadUnidadMedidaResponse);
+		Alert.showMessage(payloadIndicadorResponse);
 
-		if (UtilPayload.isOK(payloadUnidadMedidaResponse)) {
+		if (UtilPayload.isOK(payloadIndicadorResponse)) {
 			getControllerWindowSimpleListPrincipal().updateListBoxAndFooter();
 		}
 
@@ -47,7 +47,7 @@ public class VMPUnidadMedida extends VM_WindowSimpleListPrincipal<UnidadMedida> 
 
 	@Override
 	public String getSrcFileZulForm(OperacionEnum operacionEnum) {
-		return "views/desktop/maestro/view/UnidadMedidaFormBasic.zul";
+		return "views/desktop/maestro/view/IndicadorFormBasic.zul";
 	}
 
 }

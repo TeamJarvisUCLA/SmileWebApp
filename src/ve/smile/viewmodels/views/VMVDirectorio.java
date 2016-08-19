@@ -15,10 +15,10 @@ import karen.core.util.payload.UtilPayload;
 import karen.core.util.validate.UtilValidate;
 import ve.smile.consume.services.S;
 import ve.smile.seguridad.enums.OperacionEnum;
-import ve.smile.payload.response.PayloadMotivoResponse;
-import ve.smile.dto.Motivo;
+import ve.smile.payload.response.PayloadDirectorioResponse;
+import ve.smile.dto.Directorio;
 
-public class VMVMotivo extends VM_WindowForm {
+public class VMVDirectorio extends VM_WindowForm {
 
 	@Init(superclass = true)
 	public void childInit() {
@@ -55,11 +55,11 @@ public class VMVMotivo extends VM_WindowForm {
 		}
 
 		if (operacionEnum.equals(OperacionEnum.INCLUIR)) {
-			PayloadMotivoResponse payloadMotivoResponse =
-					S.MotivoService.incluir(getMotivo());
+			PayloadDirectorioResponse payloadDirectorioResponse =
+					S.DirectorioService.incluir(getDirectorio());
 
-			if(!UtilPayload.isOK(payloadMotivoResponse)) {
-				Alert.showMessage(payloadMotivoResponse);
+			if(!UtilPayload.isOK(payloadDirectorioResponse)) {
+				Alert.showMessage(payloadDirectorioResponse);
 				return true;
 			}
 
@@ -69,11 +69,11 @@ public class VMVMotivo extends VM_WindowForm {
 		}
 
 		if (operacionEnum.equals(OperacionEnum.MODIFICAR)) {
-			PayloadMotivoResponse payloadMotivoResponse =
-					S.MotivoService.modificar(getMotivo());
+			PayloadDirectorioResponse payloadDirectorioResponse =
+					S.DirectorioService.modificar(getDirectorio());
 
-			if(!UtilPayload.isOK(payloadMotivoResponse)) {
-				Alert.showMessage(payloadMotivoResponse);
+			if(!UtilPayload.isOK(payloadDirectorioResponse)) {
+				Alert.showMessage(payloadDirectorioResponse);
 				return true;
 			}
 
@@ -97,15 +97,16 @@ public class VMVMotivo extends VM_WindowForm {
 		return actionSalir(operacionEnum);
 	}
 
-	public Motivo getMotivo() {
-		return (Motivo) DataCenter.getEntity();
+	public Directorio getDirectorio() {
+		return (Directorio) DataCenter.getEntity();
 	}
 
 	public boolean isFormValidated() {
 		try {					
-			UtilValidate.validateString(getMotivo().getNombre(), "Nombre", 200);
-			UtilValidate.validateString(getMotivo().getDescripcion(), "Descripciòn", 200);
-			
+			UtilValidate.validateString(getDirectorio().getDireccion(), "Direccion", 200);
+			UtilValidate.validateString(getDirectorio().getNombre(), "Nombre", 200);
+			UtilValidate.validateString(getDirectorio().getTelefono(), "Telefono", 200);
+			UtilValidate.validateString(getDirectorio().getUrl(), "URL", 200);
 			return true;
 		} catch (Exception e) {
 			Alert.showMessage(e.getMessage());

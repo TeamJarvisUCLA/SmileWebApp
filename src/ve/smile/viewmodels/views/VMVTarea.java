@@ -3,6 +3,8 @@ package ve.smile.viewmodels.views;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.zkoss.bind.annotation.Init;
+
 import karen.core.crux.alert.Alert;
 import karen.core.crux.session.DataCenter;
 import karen.core.form.buttons.data.OperacionForm;
@@ -11,39 +13,33 @@ import karen.core.form.buttons.helpers.OperacionFormHelper;
 import karen.core.form.viewmodels.VM_WindowForm;
 import karen.core.util.payload.UtilPayload;
 import karen.core.util.validate.UtilValidate;
-
-import org.zkoss.bind.annotation.Init;
-
 import ve.smile.consume.services.S;
-import ve.smile.dto.Tarea;
-import ve.smile.payload.response.PayloadTareaResponse;
 import ve.smile.seguridad.enums.OperacionEnum;
+import ve.smile.payload.response.PayloadTareaResponse;
+import ve.smile.dto.Tarea;
 
 public class VMVTarea extends VM_WindowForm {
 
 	@Init(superclass = true)
 	public void childInit() {
-		// NOTHING OK!
+		//NOTHING OK!
 	}
 
 	@Override
 	public List<OperacionForm> getOperationsForm(OperacionEnum operacionEnum) {
 		List<OperacionForm> operacionesForm = new ArrayList<OperacionForm>();
 
-		if (operacionEnum.equals(OperacionEnum.INCLUIR)
-				|| operacionEnum.equals(OperacionEnum.MODIFICAR)) {
+		if (operacionEnum.equals(OperacionEnum.INCLUIR) ||
+				operacionEnum.equals(OperacionEnum.MODIFICAR)) {
 
-			operacionesForm.add(OperacionFormHelper
-					.getPorType(OperacionFormEnum.GUARDAR));
-			operacionesForm.add(OperacionFormHelper
-					.getPorType(OperacionFormEnum.CANCELAR));
+			operacionesForm.add(OperacionFormHelper.getPorType(OperacionFormEnum.GUARDAR));
+			operacionesForm.add(OperacionFormHelper.getPorType(OperacionFormEnum.CANCELAR));
 
 			return operacionesForm;
 		}
 
 		if (operacionEnum.equals(OperacionEnum.CONSULTAR)) {
-			operacionesForm.add(OperacionFormHelper
-					.getPorType(OperacionFormEnum.SALIR));
+			operacionesForm.add(OperacionFormHelper.getPorType(OperacionFormEnum.SALIR));
 
 			return operacionesForm;
 		}
@@ -54,15 +50,15 @@ public class VMVTarea extends VM_WindowForm {
 
 	@Override
 	public boolean actionGuardar(OperacionEnum operacionEnum) {
-		if (!isFormValidated()) {
+		if(!isFormValidated()) {
 			return true;
 		}
 
 		if (operacionEnum.equals(OperacionEnum.INCLUIR)) {
-			PayloadTareaResponse payloadTareaResponse = S.TareaService
-					.incluir(getTarea());
-			Alert.showMessage(payloadTareaResponse);
-			if (!UtilPayload.isOK(payloadTareaResponse)) {
+			PayloadTareaResponse payloadTareaResponse =
+					S.TareaService.incluir(getTarea());
+
+			if(!UtilPayload.isOK(payloadTareaResponse)) {
 				Alert.showMessage(payloadTareaResponse);
 				return true;
 			}
@@ -73,10 +69,10 @@ public class VMVTarea extends VM_WindowForm {
 		}
 
 		if (operacionEnum.equals(OperacionEnum.MODIFICAR)) {
-			PayloadTareaResponse payloadTareaResponse = S.TareaService
-					.modificar(getTarea());
-			Alert.showMessage(payloadTareaResponse);
-			if (!UtilPayload.isOK(payloadTareaResponse)) {
+			PayloadTareaResponse payloadTareaResponse =
+					S.TareaService.modificar(getTarea());
+
+			if(!UtilPayload.isOK(payloadTareaResponse)) {
 				Alert.showMessage(payloadTareaResponse);
 				return true;
 			}
@@ -106,19 +102,16 @@ public class VMVTarea extends VM_WindowForm {
 	}
 
 	public boolean isFormValidated() {
-
-		try {
+		try {					
 			UtilValidate.validateString(getTarea().getNombre(), "Nombre", 200);
-			UtilValidate.validateString(getTarea().getDescripcion(),
-					"Descripcion", 300);
-
+			UtilValidate.validateString(getTarea().getDescripcion(), "Descripciòn", 200);
+			
 			return true;
 		} catch (Exception e) {
 			Alert.showMessage(e.getMessage());
 
 			return false;
 		}
-
 	}
 
 }

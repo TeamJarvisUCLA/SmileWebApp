@@ -57,7 +57,7 @@ public class VMVUnidadMedida extends VM_WindowForm {
 		if (operacionEnum.equals(OperacionEnum.INCLUIR)) {
 			PayloadUnidadMedidaResponse payloadUnidadMedidaResponse =
 					S.UnidadMedidaService.incluir(getUnidadMedida());
-			Alert.showMessage(payloadUnidadMedidaResponse);
+
 			if(!UtilPayload.isOK(payloadUnidadMedidaResponse)) {
 				Alert.showMessage(payloadUnidadMedidaResponse);
 				return true;
@@ -71,7 +71,7 @@ public class VMVUnidadMedida extends VM_WindowForm {
 		if (operacionEnum.equals(OperacionEnum.MODIFICAR)) {
 			PayloadUnidadMedidaResponse payloadUnidadMedidaResponse =
 					S.UnidadMedidaService.modificar(getUnidadMedida());
-			Alert.showMessage(payloadUnidadMedidaResponse);
+
 			if(!UtilPayload.isOK(payloadUnidadMedidaResponse)) {
 				Alert.showMessage(payloadUnidadMedidaResponse);
 				return true;
@@ -102,10 +102,10 @@ public class VMVUnidadMedida extends VM_WindowForm {
 	}
 
 	public boolean isFormValidated() {
-
-		try {
+		try {					
 			UtilValidate.validateString(getUnidadMedida().getNombre(), "Nombre", 200);
-			UtilValidate.validateString(getUnidadMedida().getDescripcion(), "Descripcion", 300);
+			UtilValidate.validateString(getUnidadMedida().getDescripcion(), "Descripciòn", 200);
+			UtilValidate.validateString(getUnidadMedida().getAbreviatura(), "Abreviatura", 200);
 			return true;
 		} catch (Exception e) {
 			Alert.showMessage(e.getMessage());

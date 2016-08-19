@@ -15,10 +15,10 @@ import karen.core.util.payload.UtilPayload;
 import karen.core.util.validate.UtilValidate;
 import ve.smile.consume.services.S;
 import ve.smile.seguridad.enums.OperacionEnum;
-import ve.smile.payload.response.PayloadMotivoResponse;
-import ve.smile.dto.Motivo;
+import ve.smile.payload.response.PayloadClasificadorReconocimientoResponse;
+import ve.smile.dto.ClasificadorReconocimiento;
 
-public class VMVMotivo extends VM_WindowForm {
+public class VMVClasificadorReconocimiento extends VM_WindowForm {
 
 	@Init(superclass = true)
 	public void childInit() {
@@ -55,11 +55,11 @@ public class VMVMotivo extends VM_WindowForm {
 		}
 
 		if (operacionEnum.equals(OperacionEnum.INCLUIR)) {
-			PayloadMotivoResponse payloadMotivoResponse =
-					S.MotivoService.incluir(getMotivo());
+			PayloadClasificadorReconocimientoResponse payloadClasificadorReconocimientoResponse =
+					S.ClasificadorReconocimientoService.incluir(getClasificadorReconocimiento());
 
-			if(!UtilPayload.isOK(payloadMotivoResponse)) {
-				Alert.showMessage(payloadMotivoResponse);
+			if(!UtilPayload.isOK(payloadClasificadorReconocimientoResponse)) {
+				Alert.showMessage(payloadClasificadorReconocimientoResponse);
 				return true;
 			}
 
@@ -69,11 +69,11 @@ public class VMVMotivo extends VM_WindowForm {
 		}
 
 		if (operacionEnum.equals(OperacionEnum.MODIFICAR)) {
-			PayloadMotivoResponse payloadMotivoResponse =
-					S.MotivoService.modificar(getMotivo());
+			PayloadClasificadorReconocimientoResponse payloadClasificadorReconocimientoResponse =
+					S.ClasificadorReconocimientoService.modificar(getClasificadorReconocimiento());
 
-			if(!UtilPayload.isOK(payloadMotivoResponse)) {
-				Alert.showMessage(payloadMotivoResponse);
+			if(!UtilPayload.isOK(payloadClasificadorReconocimientoResponse)) {
+				Alert.showMessage(payloadClasificadorReconocimientoResponse);
 				return true;
 			}
 
@@ -97,15 +97,14 @@ public class VMVMotivo extends VM_WindowForm {
 		return actionSalir(operacionEnum);
 	}
 
-	public Motivo getMotivo() {
-		return (Motivo) DataCenter.getEntity();
+	public ClasificadorReconocimiento getClasificadorReconocimiento() {
+		return (ClasificadorReconocimiento) DataCenter.getEntity();
 	}
 
 	public boolean isFormValidated() {
 		try {					
-			UtilValidate.validateString(getMotivo().getNombre(), "Nombre", 200);
-			UtilValidate.validateString(getMotivo().getDescripcion(), "Descripciòn", 200);
-			
+			UtilValidate.validateString(getClasificadorReconocimiento().getNombre(), "Nombre", 200);
+			UtilValidate.validateString(getClasificadorReconocimiento().getDescripcion(), "Descripciòn", 200);
 			return true;
 		} catch (Exception e) {
 			Alert.showMessage(e.getMessage());

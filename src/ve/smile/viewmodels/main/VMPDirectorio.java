@@ -9,12 +9,12 @@ import karen.core.util.payload.UtilPayload;
 import lights.core.payload.response.IPayloadResponse;
 import ve.smile.consume.services.S ;
 import ve.smile.seguridad.enums.OperacionEnum;
-import ve.smile.dto.UnidadMedida;
-import ve.smile.payload.response.PayloadUnidadMedidaResponse;
+import ve.smile.dto.Directorio;
+import ve.smile.payload.response.PayloadDirectorioResponse;
 
 import org.zkoss.bind.annotation.Init;
 
-public class VMPUnidadMedida extends VM_WindowSimpleListPrincipal<UnidadMedida> {
+public class VMPDirectorio extends VM_WindowSimpleListPrincipal<Directorio> {
 
 	@Init(superclass = true)
 	public void childInit() {
@@ -22,23 +22,23 @@ public class VMPUnidadMedida extends VM_WindowSimpleListPrincipal<UnidadMedida> 
 	}
 
 	@Override
-	public IPayloadResponse<UnidadMedida> getDataToTable(
+	public IPayloadResponse<Directorio> getDataToTable(
 			Integer cantidadRegistrosPagina, Integer pagina) {
 
-		PayloadUnidadMedidaResponse payloadUnidadMedidaResponse = 
-				S.UnidadMedidaService.consultarPaginacion(cantidadRegistrosPagina, pagina);
+		PayloadDirectorioResponse payloadDirectorioResponse = 
+				S.DirectorioService.consultarPaginacion(cantidadRegistrosPagina, pagina);
 
-		return payloadUnidadMedidaResponse;
+		return payloadDirectorioResponse;
 	}
 
 	@Override
 	public void doDelete() {
-		PayloadUnidadMedidaResponse payloadUnidadMedidaResponse =
-				S.UnidadMedidaService.eliminar(getSelectedObject().getIdUnidadMedida());
+		PayloadDirectorioResponse payloadDirectorioResponse =
+				S.DirectorioService.eliminar(getSelectedObject().getIdDirectorio());
 
-		Alert.showMessage(payloadUnidadMedidaResponse);
+		Alert.showMessage(payloadDirectorioResponse);
 
-		if (UtilPayload.isOK(payloadUnidadMedidaResponse)) {
+		if (UtilPayload.isOK(payloadDirectorioResponse)) {
 			getControllerWindowSimpleListPrincipal().updateListBoxAndFooter();
 		}
 
@@ -47,7 +47,7 @@ public class VMPUnidadMedida extends VM_WindowSimpleListPrincipal<UnidadMedida> 
 
 	@Override
 	public String getSrcFileZulForm(OperacionEnum operacionEnum) {
-		return "views/desktop/maestro/view/UnidadMedidaFormBasic.zul";
+		return "views/desktop/maestro/view/DirectorioFormBasic.zul";
 	}
 
 }

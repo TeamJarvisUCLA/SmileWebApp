@@ -57,7 +57,7 @@ public class VMVCapacitacion extends VM_WindowForm {
 		if (operacionEnum.equals(OperacionEnum.INCLUIR)) {
 			PayloadCapacitacionResponse payloadCapacitacionResponse =
 					S.CapacitacionService.incluir(getCapacitacion());
-			Alert.showMessage(payloadCapacitacionResponse);
+
 			if(!UtilPayload.isOK(payloadCapacitacionResponse)) {
 				Alert.showMessage(payloadCapacitacionResponse);
 				return true;
@@ -71,7 +71,7 @@ public class VMVCapacitacion extends VM_WindowForm {
 		if (operacionEnum.equals(OperacionEnum.MODIFICAR)) {
 			PayloadCapacitacionResponse payloadCapacitacionResponse =
 					S.CapacitacionService.modificar(getCapacitacion());
-			Alert.showMessage(payloadCapacitacionResponse);
+
 			if(!UtilPayload.isOK(payloadCapacitacionResponse)) {
 				Alert.showMessage(payloadCapacitacionResponse);
 				return true;
@@ -102,13 +102,10 @@ public class VMVCapacitacion extends VM_WindowForm {
 	}
 
 	public boolean isFormValidated() {
-		//TODO
-		try {
-			UtilValidate.validateString(getCapacitacion().getNombre(), "Nombre",
-					200);
-			UtilValidate.validateString(getCapacitacion().getDescripcion(), "Descripcion",
-					200);
-	
+		try {					
+			UtilValidate.validateString(getCapacitacion().getNombre(), "Nombre", 200);
+			UtilValidate.validateString(getCapacitacion().getDescripcion(), "Descripciòn", 200);
+			
 			return true;
 		} catch (Exception e) {
 			Alert.showMessage(e.getMessage());

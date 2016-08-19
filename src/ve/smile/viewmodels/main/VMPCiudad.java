@@ -9,12 +9,12 @@ import karen.core.util.payload.UtilPayload;
 import lights.core.payload.response.IPayloadResponse;
 import ve.smile.consume.services.S ;
 import ve.smile.seguridad.enums.OperacionEnum;
-import ve.smile.dto.UnidadMedida;
-import ve.smile.payload.response.PayloadUnidadMedidaResponse;
+import ve.smile.dto.Ciudad;
+import ve.smile.payload.response.PayloadCiudadResponse;
 
 import org.zkoss.bind.annotation.Init;
 
-public class VMPUnidadMedida extends VM_WindowSimpleListPrincipal<UnidadMedida> {
+public class VMPCiudad extends VM_WindowSimpleListPrincipal<Ciudad> {
 
 	@Init(superclass = true)
 	public void childInit() {
@@ -22,23 +22,23 @@ public class VMPUnidadMedida extends VM_WindowSimpleListPrincipal<UnidadMedida> 
 	}
 
 	@Override
-	public IPayloadResponse<UnidadMedida> getDataToTable(
+	public IPayloadResponse<Ciudad> getDataToTable(
 			Integer cantidadRegistrosPagina, Integer pagina) {
 
-		PayloadUnidadMedidaResponse payloadUnidadMedidaResponse = 
-				S.UnidadMedidaService.consultarPaginacion(cantidadRegistrosPagina, pagina);
+		PayloadCiudadResponse payloadCiudadResponse = 
+				S.CiudadService.consultarPaginacion(cantidadRegistrosPagina, pagina);
 
-		return payloadUnidadMedidaResponse;
+		return payloadCiudadResponse;
 	}
 
 	@Override
 	public void doDelete() {
-		PayloadUnidadMedidaResponse payloadUnidadMedidaResponse =
-				S.UnidadMedidaService.eliminar(getSelectedObject().getIdUnidadMedida());
+		PayloadCiudadResponse payloadCiudadResponse =
+				S.CiudadService.eliminar(getSelectedObject().getIdCiudad());
 
-		Alert.showMessage(payloadUnidadMedidaResponse);
+		Alert.showMessage(payloadCiudadResponse);
 
-		if (UtilPayload.isOK(payloadUnidadMedidaResponse)) {
+		if (UtilPayload.isOK(payloadCiudadResponse)) {
 			getControllerWindowSimpleListPrincipal().updateListBoxAndFooter();
 		}
 
@@ -47,7 +47,7 @@ public class VMPUnidadMedida extends VM_WindowSimpleListPrincipal<UnidadMedida> 
 
 	@Override
 	public String getSrcFileZulForm(OperacionEnum operacionEnum) {
-		return "views/desktop/maestro/view/UnidadMedidaFormBasic.zul";
+		return "views/desktop/maestro/view/CiudadFormBasic.zul";
 	}
 
 }

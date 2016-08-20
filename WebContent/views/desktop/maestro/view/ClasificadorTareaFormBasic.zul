@@ -7,16 +7,10 @@
 		<div class="row">
 
 				<div class="col s12">
-					<div class="input-field col s6">
+					<div class="input-field col s12">
 						<n:label for="nombre">Nombre</n:label>
 					<textbox id="nombre" type="text"
 						value="@bind(vm.clasificadorTarea.nombre)">
-					</textbox>
-					</div>
-					<div class="input-field col s6">
-						<n:label for="descripcion">Descripcion</n:label>
-					<textbox id="descripcion" type="text"
-						value="@bind(vm.clasificadorTarea.descripcion)">
 					</textbox>
 					</div>
 				</div>

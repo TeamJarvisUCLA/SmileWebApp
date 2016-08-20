@@ -13,14 +13,14 @@
 
 						<listhead sizable="true">
 							<listheader width="33%" label="Multimedia" />
-							<listheader width="33%" label="Descripcion" />
 							<listheader width="33%" label="Nombre" />
+							<listheader width="33%" label="Descripcion" />
 						</listhead>
 						<template name="model">
 							<listitem>
 								<listcell label="@load(each.fkMultimedia)" />
-								<listcell label="@load(each.descripcion)" />
 								<listcell label="@load(each.nombre)" />
+								<listcell label="@load(each.descripcion)" />
 							</listitem>
 						</template>
 						<listfoot>

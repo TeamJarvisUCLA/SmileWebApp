@@ -3,6 +3,8 @@ package ve.smile.viewmodels.views;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.zkoss.bind.annotation.Init;
+
 import karen.core.crux.alert.Alert;
 import karen.core.crux.session.DataCenter;
 import karen.core.form.buttons.data.OperacionForm;
@@ -11,13 +13,10 @@ import karen.core.form.buttons.helpers.OperacionFormHelper;
 import karen.core.form.viewmodels.VM_WindowForm;
 import karen.core.util.payload.UtilPayload;
 import karen.core.util.validate.UtilValidate;
-
-import org.zkoss.bind.annotation.Init;
-
 import ve.smile.consume.services.S;
-import ve.smile.dto.ClasificadorActividad;
-import ve.smile.payload.response.PayloadClasificadorActividadResponse;
 import ve.smile.seguridad.enums.OperacionEnum;
+import ve.smile.payload.response.PayloadClasificadorActividadResponse;
+import ve.smile.dto.ClasificadorActividad;
 
 public class VMVClasificadorActividad extends VM_WindowForm {
 
@@ -58,7 +57,7 @@ public class VMVClasificadorActividad extends VM_WindowForm {
 		if (operacionEnum.equals(OperacionEnum.INCLUIR)) {
 			PayloadClasificadorActividadResponse payloadClasificadorActividadResponse =
 					S.ClasificadorActividadService.incluir(getClasificadorActividad());
-			Alert.showMessage(payloadClasificadorActividadResponse);
+
 			if(!UtilPayload.isOK(payloadClasificadorActividadResponse)) {
 				Alert.showMessage(payloadClasificadorActividadResponse);
 				return true;
@@ -72,7 +71,7 @@ public class VMVClasificadorActividad extends VM_WindowForm {
 		if (operacionEnum.equals(OperacionEnum.MODIFICAR)) {
 			PayloadClasificadorActividadResponse payloadClasificadorActividadResponse =
 					S.ClasificadorActividadService.modificar(getClasificadorActividad());
-			Alert.showMessage(payloadClasificadorActividadResponse);
+
 			if(!UtilPayload.isOK(payloadClasificadorActividadResponse)) {
 				Alert.showMessage(payloadClasificadorActividadResponse);
 				return true;
@@ -102,19 +101,15 @@ public class VMVClasificadorActividad extends VM_WindowForm {
 		return (ClasificadorActividad) DataCenter.getEntity();
 	}
 
-	
-
 	public boolean isFormValidated() {
-
-		try {					
+		//TODO
+		try{
 			UtilValidate.validateString(getClasificadorActividad().getNombre(), "Nombre", 200);
 			return true;
-		} catch (Exception e) {
+		}catch(Exception e){
 			Alert.showMessage(e.getMessage());
-
 			return false;
-		}
-		
+		}		
 	}
 
 }

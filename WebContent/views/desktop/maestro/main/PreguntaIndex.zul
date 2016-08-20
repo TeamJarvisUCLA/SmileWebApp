@@ -12,8 +12,8 @@
 						selectedItem="@bind(vm.selectedObject)">
 
 						<listhead sizable="true">
-							<listheader width="50%" label="Titulo" />
-							<listheader width="50%" label="Contenido" />
+							<listheader width="50%" label="Pregunta" />
+							<listheader width="50%" label="Respuesta" />
 						</listhead>
 						<template name="model">
 							<listitem>

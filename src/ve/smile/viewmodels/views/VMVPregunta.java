@@ -3,6 +3,8 @@ package ve.smile.viewmodels.views;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.zkoss.bind.annotation.Init;
+
 import karen.core.crux.alert.Alert;
 import karen.core.crux.session.DataCenter;
 import karen.core.form.buttons.data.OperacionForm;
@@ -11,13 +13,10 @@ import karen.core.form.buttons.helpers.OperacionFormHelper;
 import karen.core.form.viewmodels.VM_WindowForm;
 import karen.core.util.payload.UtilPayload;
 import karen.core.util.validate.UtilValidate;
-
-import org.zkoss.bind.annotation.Init;
-
 import ve.smile.consume.services.S;
-import ve.smile.dto.Pregunta;
-import ve.smile.payload.response.PayloadPreguntaResponse;
 import ve.smile.seguridad.enums.OperacionEnum;
+import ve.smile.payload.response.PayloadPreguntaResponse;
+import ve.smile.dto.Pregunta;
 
 public class VMVPregunta extends VM_WindowForm {
 
@@ -58,7 +57,7 @@ public class VMVPregunta extends VM_WindowForm {
 		if (operacionEnum.equals(OperacionEnum.INCLUIR)) {
 			PayloadPreguntaResponse payloadPreguntaResponse =
 					S.PreguntaService.incluir(getPregunta());
-			Alert.showMessage(payloadPreguntaResponse);
+
 			if(!UtilPayload.isOK(payloadPreguntaResponse)) {
 				Alert.showMessage(payloadPreguntaResponse);
 				return true;
@@ -72,7 +71,7 @@ public class VMVPregunta extends VM_WindowForm {
 		if (operacionEnum.equals(OperacionEnum.MODIFICAR)) {
 			PayloadPreguntaResponse payloadPreguntaResponse =
 					S.PreguntaService.modificar(getPregunta());
-			Alert.showMessage(payloadPreguntaResponse);
+
 			if(!UtilPayload.isOK(payloadPreguntaResponse)) {
 				Alert.showMessage(payloadPreguntaResponse);
 				return true;
@@ -104,18 +103,14 @@ public class VMVPregunta extends VM_WindowForm {
 
 	public boolean isFormValidated() {
 		//TODO
-		try {
-			UtilValidate.validateString(getPregunta().getPregunta(), "Pregunta",
-					200);
-			UtilValidate.validateString(getPregunta().getRespuesta(), "Respuesta",
-					200);
-	
+		try{
+			UtilValidate.validateString(getPregunta().getPregunta(), "Pregunta", 200);
+			UtilValidate.validateString(getPregunta().getRespuesta(), "Respuesta", 200);
 			return true;
-		} catch (Exception e) {
+		}catch(Exception e){
 			Alert.showMessage(e.getMessage());
-
 			return false;
-		}
+		}		
 	}
 
 }

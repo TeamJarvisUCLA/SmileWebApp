@@ -20,6 +20,17 @@
 					</textbox>
 					</div>
 				</div>
+				<div class="col s12">
+					<div class="input-field col s12">
+						<n:label class="active" for="fk_clasificador_actividad">Clasificador Actividad</n:label>
+					<combobox id="fk_clasificador_actividad" readonly="true"
+						>
+						<comboitem label="Choice 1" value="c1" />
+						<comboitem label="Choice 2" value="c2" />
+						<comboitem label="Choice 3" value="c3" />
+					</combobox>
+					</div>
+				</div>
 
 		</div>
 		<div id="divButtonsForm"

@@ -12,17 +12,21 @@
 						selectedItem="@bind(vm.selectedObject)">
 
 						<listhead sizable="true">
-							<listheader width="50%" label="Nombre" />
-							<listheader width="50%" label="Descripcion" />
+							<listheader width="25%" label="Nombre" />
+							<listheader width="25%" label="Clasificador Evento" />
+							<listheader width="25%" label="Descripcion" />
+							<listheader width="25%" label="Tipo Evento" />
 						</listhead>
 						<template name="model">
 							<listitem>
 								<listcell label="@load(each.nombre)" />
+								<listcell label="@load(each.fkClasificadorEvento)" />
 								<listcell label="@load(each.descripcion)" />
+								<listcell label="@load(each.tipoEvento)" />
 							</listitem>
 						</template>
 						<listfoot>
-							<listfooter id="listFoot" span="2"
+							<listfooter id="listFoot" span="4"
 								use="karen.core.listfoot.ListFoot">
 							</listfooter>
 						</listfoot>

@@ -22,27 +22,24 @@ public class VMVClasificadorEvento extends VM_WindowForm {
 
 	@Init(superclass = true)
 	public void childInit() {
-		// NOTHING OK!
+		//NOTHING OK!
 	}
 
 	@Override
 	public List<OperacionForm> getOperationsForm(OperacionEnum operacionEnum) {
 		List<OperacionForm> operacionesForm = new ArrayList<OperacionForm>();
 
-		if (operacionEnum.equals(OperacionEnum.INCLUIR)
-				|| operacionEnum.equals(OperacionEnum.MODIFICAR)) {
+		if (operacionEnum.equals(OperacionEnum.INCLUIR) ||
+				operacionEnum.equals(OperacionEnum.MODIFICAR)) {
 
-			operacionesForm.add(OperacionFormHelper
-					.getPorType(OperacionFormEnum.GUARDAR));
-			operacionesForm.add(OperacionFormHelper
-					.getPorType(OperacionFormEnum.CANCELAR));
+			operacionesForm.add(OperacionFormHelper.getPorType(OperacionFormEnum.GUARDAR));
+			operacionesForm.add(OperacionFormHelper.getPorType(OperacionFormEnum.CANCELAR));
 
 			return operacionesForm;
 		}
 
 		if (operacionEnum.equals(OperacionEnum.CONSULTAR)) {
-			operacionesForm.add(OperacionFormHelper
-					.getPorType(OperacionFormEnum.SALIR));
+			operacionesForm.add(OperacionFormHelper.getPorType(OperacionFormEnum.SALIR));
 
 			return operacionesForm;
 		}
@@ -53,15 +50,15 @@ public class VMVClasificadorEvento extends VM_WindowForm {
 
 	@Override
 	public boolean actionGuardar(OperacionEnum operacionEnum) {
-		if (!isFormValidated()) {
+		if(!isFormValidated()) {
 			return true;
 		}
 
 		if (operacionEnum.equals(OperacionEnum.INCLUIR)) {
-			PayloadClasificadorEventoResponse payloadClasificadorEventoResponse = S.ClasificadorEventoService
-					.incluir(getClasificadorEvento());
-			Alert.showMessage(payloadClasificadorEventoResponse);
-			if (!UtilPayload.isOK(payloadClasificadorEventoResponse)) {
+			PayloadClasificadorEventoResponse payloadClasificadorEventoResponse =
+					S.ClasificadorEventoService.incluir(getClasificadorEvento());
+
+			if(!UtilPayload.isOK(payloadClasificadorEventoResponse)) {
 				Alert.showMessage(payloadClasificadorEventoResponse);
 				return true;
 			}
@@ -72,10 +69,10 @@ public class VMVClasificadorEvento extends VM_WindowForm {
 		}
 
 		if (operacionEnum.equals(OperacionEnum.MODIFICAR)) {
-			PayloadClasificadorEventoResponse payloadClasificadorEventoResponse = S.ClasificadorEventoService
-					.modificar(getClasificadorEvento());
-			Alert.showMessage(payloadClasificadorEventoResponse);
-			if (!UtilPayload.isOK(payloadClasificadorEventoResponse)) {
+			PayloadClasificadorEventoResponse payloadClasificadorEventoResponse =
+					S.ClasificadorEventoService.modificar(getClasificadorEvento());
+
+			if(!UtilPayload.isOK(payloadClasificadorEventoResponse)) {
 				Alert.showMessage(payloadClasificadorEventoResponse);
 				return true;
 			}
@@ -105,15 +102,15 @@ public class VMVClasificadorEvento extends VM_WindowForm {
 	}
 
 	public boolean isFormValidated() {
-		try {
-			UtilValidate.validateString(getClasificadorEvento().getNombre(),
-					"Nombre", 200);
-				return true;
-		} catch (Exception e) {
+		//TODO
+		try{
+			UtilValidate.validateString(getClasificadorEvento().getNombre(), "Nombre", 200);
+			UtilValidate.validateString(getClasificadorEvento().getColor(), "Color", 200);
+			return true;
+		}catch(Exception e){
 			Alert.showMessage(e.getMessage());
-
 			return false;
-		}
+		}		
 	}
 
 }

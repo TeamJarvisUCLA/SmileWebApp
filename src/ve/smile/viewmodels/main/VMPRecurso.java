@@ -8,11 +8,11 @@ import karen.core.util.payload.UtilPayload;
 import lights.core.payload.response.IPayloadResponse;
 import ve.smile.consume.services.S ;
 import ve.smile.seguridad.enums.OperacionEnum;
-import ve.smile.dto.TrabajoSocial;
-import ve.smile.payload.response.PayloadTrabajoSocialResponse;
+import ve.smile.dto.Recurso;
+import ve.smile.payload.response.PayloadRecursoResponse;
 import org.zkoss.bind.annotation.Init;
 
-public class VMPTrabajoSocial extends VM_WindowSimpleListPrincipal<TrabajoSocial> {
+public class VMPRecurso extends VM_WindowSimpleListPrincipal<Recurso> {
 
 	@Init(superclass = true)
 	public void childInit() {
@@ -20,23 +20,23 @@ public class VMPTrabajoSocial extends VM_WindowSimpleListPrincipal<TrabajoSocial
 	}
 
 	@Override
-	public IPayloadResponse<TrabajoSocial> getDataToTable(
+	public IPayloadResponse<Recurso> getDataToTable(
 			Integer cantidadRegistrosPagina, Integer pagina) {
 
-		PayloadTrabajoSocialResponse payloadTrabajoSocialResponse = 
-				S.TrabajoSocialService.consultarPaginacion(cantidadRegistrosPagina, pagina);
+		PayloadRecursoResponse payloadRecursoResponse = 
+				S.RecursoService.consultarPaginacion(cantidadRegistrosPagina, pagina);
 
-		return payloadTrabajoSocialResponse;
+		return payloadRecursoResponse;
 	}
 
 	@Override
 	public void doDelete() {
-		PayloadTrabajoSocialResponse payloadTrabajoSocialResponse =
-				S.TrabajoSocialService.eliminar(getSelectedObject().getIdTrabajoSocial());
+		PayloadRecursoResponse payloadRecursoResponse =
+				S.RecursoService.eliminar(getSelectedObject().getIdRecurso());
 
-		Alert.showMessage(payloadTrabajoSocialResponse);
+		Alert.showMessage(payloadRecursoResponse);
 
-		if (UtilPayload.isOK(payloadTrabajoSocialResponse)) {
+		if (UtilPayload.isOK(payloadRecursoResponse)) {
 			getControllerWindowSimpleListPrincipal().updateListBoxAndFooter();
 		}
 
@@ -45,7 +45,7 @@ public class VMPTrabajoSocial extends VM_WindowSimpleListPrincipal<TrabajoSocial
 
 	@Override
 	public String getSrcFileZulForm(OperacionEnum operacionEnum) {
-		return "views/desktop/maestro/view/TrabajoSocialFormBasic.zul";
+		return "views/desktop/maestro/view/RecursoFormBasic.zul";
 	}
 
 }

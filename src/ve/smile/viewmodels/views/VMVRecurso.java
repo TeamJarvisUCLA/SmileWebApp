@@ -15,10 +15,10 @@ import karen.core.util.payload.UtilPayload;
 import karen.core.util.validate.UtilValidate;
 import ve.smile.consume.services.S;
 import ve.smile.seguridad.enums.OperacionEnum;
-import ve.smile.payload.response.PayloadClasificadorRecursoResponse;
-import ve.smile.dto.ClasificadorRecurso;
+import ve.smile.payload.response.PayloadRecursoResponse;
+import ve.smile.dto.Recurso;
 
-public class VMVClasificadorRecurso extends VM_WindowForm {
+public class VMVRecurso extends VM_WindowForm {
 
 	@Init(superclass = true)
 	public void childInit() {
@@ -55,11 +55,11 @@ public class VMVClasificadorRecurso extends VM_WindowForm {
 		}
 
 		if (operacionEnum.equals(OperacionEnum.INCLUIR)) {
-			PayloadClasificadorRecursoResponse payloadClasificadorRecursoResponse =
-					S.ClasificadorRecursoService.incluir(getClasificadorRecurso());
+			PayloadRecursoResponse payloadRecursoResponse =
+					S.RecursoService.incluir(getRecurso());
 
-			if(!UtilPayload.isOK(payloadClasificadorRecursoResponse)) {
-				Alert.showMessage(payloadClasificadorRecursoResponse);
+			if(!UtilPayload.isOK(payloadRecursoResponse)) {
+				Alert.showMessage(payloadRecursoResponse);
 				return true;
 			}
 
@@ -69,11 +69,11 @@ public class VMVClasificadorRecurso extends VM_WindowForm {
 		}
 
 		if (operacionEnum.equals(OperacionEnum.MODIFICAR)) {
-			PayloadClasificadorRecursoResponse payloadClasificadorRecursoResponse =
-					S.ClasificadorRecursoService.modificar(getClasificadorRecurso());
+			PayloadRecursoResponse payloadRecursoResponse =
+					S.RecursoService.modificar(getRecurso());
 
-			if(!UtilPayload.isOK(payloadClasificadorRecursoResponse)) {
-				Alert.showMessage(payloadClasificadorRecursoResponse);
+			if(!UtilPayload.isOK(payloadRecursoResponse)) {
+				Alert.showMessage(payloadRecursoResponse);
 				return true;
 			}
 
@@ -97,14 +97,15 @@ public class VMVClasificadorRecurso extends VM_WindowForm {
 		return actionSalir(operacionEnum);
 	}
 
-	public ClasificadorRecurso getClasificadorRecurso() {
-		return (ClasificadorRecurso) DataCenter.getEntity();
+	public Recurso getRecurso() {
+		return (Recurso) DataCenter.getEntity();
 	}
 
 	public boolean isFormValidated() {
 		//TODO
 		try{
-			UtilValidate.validateString(getClasificadorRecurso().getNombre(), "Nombre", 200);
+			UtilValidate.validateString(getRecurso().getNombre(), "Nombre", 200);
+			UtilValidate.validateString(getRecurso().getDescripcion(), "Descripción", 200);
 			return true;
 		}catch(Exception e){
 			Alert.showMessage(e.getMessage());

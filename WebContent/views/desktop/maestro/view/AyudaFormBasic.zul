@@ -15,7 +15,7 @@
 					</div>
 					<div class="input-field col s6">
 						<n:label for="descripcion">Descripcion</n:label>
-					<textbox id="descripcion" type="text"
+						<textbox id="descripcion" type="text"
 						value="@bind(vm.ayuda.descripcion)">
 					</textbox>
 					</div>

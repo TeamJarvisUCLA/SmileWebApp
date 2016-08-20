@@ -17,17 +17,17 @@
 					</combobox>
 					</div>
 					<div class="input-field col s6">
-						<n:label for="descripcion">Descripcion</n:label>
-					<textbox id="descripcion" type="text"
-						value="@bind(vm.participacion.descripcion)">
+						<n:label for="nombre">Nombre</n:label>
+					<textbox id="nombre" type="text"
+						value="@bind(vm.participacion.nombre)">
 					</textbox>
 					</div>
 				</div>
 				<div class="col s12">
 					<div class="input-field col s12">
-						<n:label for="nombre">Nombre</n:label>
-					<textbox id="nombre" type="text"
-						value="@bind(vm.participacion.nombre)">
+						<n:label for="descripcion">Descripcion</n:label>
+						<textbox id="descripcion" type="text"
+						value="@bind(vm.participacion.descripcion)">
 					</textbox>
 					</div>
 				</div>

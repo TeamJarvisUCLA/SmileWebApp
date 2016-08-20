@@ -3,6 +3,8 @@ package ve.smile.viewmodels.views;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.zkoss.bind.annotation.Init;
+
 import karen.core.crux.alert.Alert;
 import karen.core.crux.session.DataCenter;
 import karen.core.form.buttons.data.OperacionForm;
@@ -11,39 +13,33 @@ import karen.core.form.buttons.helpers.OperacionFormHelper;
 import karen.core.form.viewmodels.VM_WindowForm;
 import karen.core.util.payload.UtilPayload;
 import karen.core.util.validate.UtilValidate;
-
-import org.zkoss.bind.annotation.Init;
-
 import ve.smile.consume.services.S;
-import ve.smile.dto.Requisito;
-import ve.smile.payload.response.PayloadRequisitoResponse;
 import ve.smile.seguridad.enums.OperacionEnum;
+import ve.smile.payload.response.PayloadRequisitoResponse;
+import ve.smile.dto.Requisito;
 
 public class VMVRequisito extends VM_WindowForm {
 
 	@Init(superclass = true)
 	public void childInit() {
-		// NOTHING OK!
+		//NOTHING OK!
 	}
 
 	@Override
 	public List<OperacionForm> getOperationsForm(OperacionEnum operacionEnum) {
 		List<OperacionForm> operacionesForm = new ArrayList<OperacionForm>();
 
-		if (operacionEnum.equals(OperacionEnum.INCLUIR)
-				|| operacionEnum.equals(OperacionEnum.MODIFICAR)) {
+		if (operacionEnum.equals(OperacionEnum.INCLUIR) ||
+				operacionEnum.equals(OperacionEnum.MODIFICAR)) {
 
-			operacionesForm.add(OperacionFormHelper
-					.getPorType(OperacionFormEnum.GUARDAR));
-			operacionesForm.add(OperacionFormHelper
-					.getPorType(OperacionFormEnum.CANCELAR));
+			operacionesForm.add(OperacionFormHelper.getPorType(OperacionFormEnum.GUARDAR));
+			operacionesForm.add(OperacionFormHelper.getPorType(OperacionFormEnum.CANCELAR));
 
 			return operacionesForm;
 		}
 
 		if (operacionEnum.equals(OperacionEnum.CONSULTAR)) {
-			operacionesForm.add(OperacionFormHelper
-					.getPorType(OperacionFormEnum.SALIR));
+			operacionesForm.add(OperacionFormHelper.getPorType(OperacionFormEnum.SALIR));
 
 			return operacionesForm;
 		}
@@ -54,15 +50,15 @@ public class VMVRequisito extends VM_WindowForm {
 
 	@Override
 	public boolean actionGuardar(OperacionEnum operacionEnum) {
-		if (!isFormValidated()) {
+		if(!isFormValidated()) {
 			return true;
 		}
 
 		if (operacionEnum.equals(OperacionEnum.INCLUIR)) {
-			PayloadRequisitoResponse payloadRequisitoResponse = S.RequisitoService
-					.incluir(getRequisito());
-			Alert.showMessage(payloadRequisitoResponse);
-			if (!UtilPayload.isOK(payloadRequisitoResponse)) {
+			PayloadRequisitoResponse payloadRequisitoResponse =
+					S.RequisitoService.incluir(getRequisito());
+
+			if(!UtilPayload.isOK(payloadRequisitoResponse)) {
 				Alert.showMessage(payloadRequisitoResponse);
 				return true;
 			}
@@ -73,10 +69,10 @@ public class VMVRequisito extends VM_WindowForm {
 		}
 
 		if (operacionEnum.equals(OperacionEnum.MODIFICAR)) {
-			PayloadRequisitoResponse payloadRequisitoResponse = S.RequisitoService
-					.modificar(getRequisito());
-			Alert.showMessage(payloadRequisitoResponse);
-			if (!UtilPayload.isOK(payloadRequisitoResponse)) {
+			PayloadRequisitoResponse payloadRequisitoResponse =
+					S.RequisitoService.modificar(getRequisito());
+
+			if(!UtilPayload.isOK(payloadRequisitoResponse)) {
 				Alert.showMessage(payloadRequisitoResponse);
 				return true;
 			}
@@ -106,20 +102,14 @@ public class VMVRequisito extends VM_WindowForm {
 	}
 
 	public boolean isFormValidated() {
-
-		try {
-			UtilValidate.validateString(getRequisito().getNombre(), "Nombre",
-					100);
-			UtilValidate.validateString(getRequisito().getDescripcion(),
-					"Descripcion", 200);
-
+		//TODO
+		try{
+			UtilValidate.validateString(getRequisito().getNombre(), "Nombre", 200);
+			UtilValidate.validateString(getRequisito().getDescripcion(), "Descripción", 200);
 			return true;
-		} catch (Exception e) {
+		}catch(Exception e){
 			Alert.showMessage(e.getMessage());
-
 			return false;
-		}
-
+		}		
 	}
-
 }

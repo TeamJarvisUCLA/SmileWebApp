@@ -2,21 +2,15 @@
 	<div width="80%" class="container opacity-0"
 		use="karen.core.form.controllers.C_WindowForm"
 		apply="org.zkoss.bind.BindComposer"
-		viewModel="@id('vm') @init('ve.smile.viewmodels.views.VMVRequisito')">
+		viewModel="@id('vm') @init('ve.smile.viewmodels.views.VMVParentesco')">
 
 		<div class="row">
 
 				<div class="col s12">
-					<div class="input-field col s6">
+					<div class="input-field col s12">
 						<n:label for="nombre">Nombre</n:label>
 					<textbox id="nombre" type="text"
-						value="@bind(vm.requisito.nombre)">
-					</textbox>
-					</div>
-					<div class="input-field col s6">
-						<n:label for="descripcion">Descripcion</n:label>
-					<textbox id="descripcion" type="text"
-						value="@bind(vm.requisito.descripcion)">
+						value="@bind(vm.parentesco.nombre)">
 					</textbox>
 					</div>
 				</div>

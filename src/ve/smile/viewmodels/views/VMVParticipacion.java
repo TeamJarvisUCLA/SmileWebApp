@@ -57,7 +57,7 @@ public class VMVParticipacion extends VM_WindowForm {
 		if (operacionEnum.equals(OperacionEnum.INCLUIR)) {
 			PayloadParticipacionResponse payloadParticipacionResponse =
 					S.ParticipacionService.incluir(getParticipacion());
-			Alert.showMessage(payloadParticipacionResponse);
+
 			if(!UtilPayload.isOK(payloadParticipacionResponse)) {
 				Alert.showMessage(payloadParticipacionResponse);
 				return true;
@@ -71,7 +71,7 @@ public class VMVParticipacion extends VM_WindowForm {
 		if (operacionEnum.equals(OperacionEnum.MODIFICAR)) {
 			PayloadParticipacionResponse payloadParticipacionResponse =
 					S.ParticipacionService.modificar(getParticipacion());
-			Alert.showMessage(payloadParticipacionResponse);
+
 			if(!UtilPayload.isOK(payloadParticipacionResponse)) {
 				Alert.showMessage(payloadParticipacionResponse);
 				return true;
@@ -102,16 +102,15 @@ public class VMVParticipacion extends VM_WindowForm {
 	}
 
 	public boolean isFormValidated() {
-
-		try {
-			UtilValidate.validateString(getParticipacion().getDescripcion(), "Descripcion", 500);
+		//TODO
+		try{
 			UtilValidate.validateString(getParticipacion().getNombre(), "Nombre", 200);
+			UtilValidate.validateString(getParticipacion()	.getDescripcion(), "Descripción", 200);
 			return true;
-		} catch (Exception e) {
+		}catch(Exception e){
 			Alert.showMessage(e.getMessage());
-
 			return false;
-		}
+		}		
 	}
 
 }

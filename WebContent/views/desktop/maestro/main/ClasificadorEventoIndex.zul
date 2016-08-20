@@ -13,12 +13,12 @@
 
 						<listhead sizable="true">
 							<listheader width="50%" label="Nombre" />
-							<listheader width="50%" label="Descripcion" />
+							<listheader width="50%" label="Color" />
 						</listhead>
 						<template name="model">
 							<listitem>
 								<listcell label="@load(each.nombre)" />
-								<listcell label="@load(each.descripcion)" />
+								<listcell label="@load(each.color)" />
 							</listitem>
 						</template>
 						<listfoot>

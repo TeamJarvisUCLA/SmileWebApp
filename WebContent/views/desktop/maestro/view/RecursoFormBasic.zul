@@ -2,20 +2,23 @@
 	<div width="80%" class="container opacity-0"
 		use="karen.core.form.controllers.C_WindowForm"
 		apply="org.zkoss.bind.BindComposer"
-		viewModel="@id('vm') @init('ve.smile.viewmodels.views.VMVEvento')">
+		viewModel="@id('vm') @init('ve.smile.viewmodels.views.VMVRecurso')">
 
 		<div class="row">
 
 				<div class="col s12">
 					<div class="input-field col s6">
-						<n:label for="nombre">Nombre</n:label>
-					<textbox id="nombre" type="text"
-						value="@bind(vm.evento.nombre)">
-					</textbox>
+						<n:label class="active" for="fk_clasificador_recurso">Clasificador Recurso</n:label>
+					<combobox id="fk_clasificador_recurso" readonly="true"
+						>
+						<comboitem label="Choice 1" value="c1" />
+						<comboitem label="Choice 2" value="c2" />
+						<comboitem label="Choice 3" value="c3" />
+					</combobox>
 					</div>
 					<div class="input-field col s6">
-						<n:label class="active" for="fk_clasificador_evento">Clasificador Evento</n:label>
-					<combobox id="fk_clasificador_evento" readonly="true"
+						<n:label class="active" for="fk_unidad_medida">Unidad Medida</n:label>
+					<combobox id="fk_unidad_medida" readonly="true"
 						>
 						<comboitem label="Choice 1" value="c1" />
 						<comboitem label="Choice 2" value="c2" />
@@ -25,15 +28,15 @@
 				</div>
 				<div class="col s12">
 					<div class="input-field col s6">
-						<n:label for="descripcion">Descripcion</n:label>
-					<textbox id="descripcion" type="text"
-						value="@bind(vm.evento.descripcion)">
+						<n:label for="nombre">Nombre</n:label>
+					<textbox id="nombre" type="text"
+						value="@bind(vm.recurso.nombre)">
 					</textbox>
 					</div>
 					<div class="input-field col s6">
-						<n:label for="tipo_evento">Tipo Evento</n:label>
-					<textbox id="tipo_evento" type="text"
-						value="@bind(vm.evento.tipoEvento)">
+						<n:label for="descripcion">Descripcion</n:label>
+					<textbox id="descripcion" type="text"
+						value="@bind(vm.recurso.descripcion)">
 					</textbox>
 					</div>
 				</div>

@@ -2,7 +2,7 @@
 	<div width="100%" class='opacity-0'
 		use="karen.core.simple_list_principal.controllers.C_WindowSimpleListPrincipal"
 		apply="org.zkoss.bind.BindComposer"
-		viewModel="@id('vm') @init('ve.smile.viewmodels.main.VMPClasificadorPregunta')">
+		viewModel="@id('vm') @init('ve.smile.viewmodels.main.VMPRecurso')">
 
 		<div class="row">
 			<div class="col s12">
@@ -12,15 +12,21 @@
 						selectedItem="@bind(vm.selectedObject)">
 
 						<listhead sizable="true">
-							<listheader width="100%" label="Nombre" />
+							<listheader width="25%" label="Clasificador Recurso" />
+							<listheader width="25%" label="Unidad Medida" />
+							<listheader width="25%" label="Nombre" />
+							<listheader width="25%" label="Descripcion" />
 						</listhead>
 						<template name="model">
 							<listitem>
+								<listcell label="@load(each.fkClasificadorRecurso)" />
+								<listcell label="@load(each.fkUnidadMedida)" />
 								<listcell label="@load(each.nombre)" />
+								<listcell label="@load(each.descripcion)" />
 							</listitem>
 						</template>
 						<listfoot>
-							<listfooter id="listFoot" span="1"
+							<listfooter id="listFoot" span="4"
 								use="karen.core.listfoot.ListFoot">
 							</listfooter>
 						</listfoot>

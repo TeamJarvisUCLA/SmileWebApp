@@ -8,15 +8,15 @@
 
 				<div class="col s12">
 					<div class="input-field col s6">
-						<n:label for="titulo">Titulo</n:label>
-					<textbox id="titulo" type="text"
-						value="@bind(vm.pregunta.titulo)">
+						<n:label for="pregunta">Pregunta</n:label>
+					<textbox id="pregunta" type="text"
+						value="@bind(vm.pregunta.pregunta)">
 					</textbox>
 					</div>
 					<div class="input-field col s6">
-						<n:label for="contenido">Contenido</n:label>
-					<textbox id="contenido" type="text"
-						value="@bind(vm.pregunta.contenido)">
+						<n:label for="respuesta">Respuesta</n:label>
+					<textbox id="respuesta" type="text"
+						value="@bind(vm.pregunta.respuesta)">
 					</textbox>
 					</div>
 				</div>

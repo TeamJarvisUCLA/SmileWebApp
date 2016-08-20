@@ -8,12 +8,23 @@
 
 				<div class="col s12">
 					<div class="input-field col s6">
+						<n:label class="active" for="fk_clasificador_trabajo_social">Clasificador Trabajo Social</n:label>
+					<combobox id="fk_clasificador_trabajo_social" readonly="true"
+						>
+						<comboitem label="Choice 1" value="c1" />
+						<comboitem label="Choice 2" value="c2" />
+						<comboitem label="Choice 3" value="c3" />
+					</combobox>
+					</div>
+					<div class="input-field col s6">
 						<n:label for="nombre">Nombre</n:label>
 					<textbox id="nombre" type="text"
 						value="@bind(vm.trabajoSocial.nombre)">
 					</textbox>
 					</div>
-					<div class="input-field col s6">
+				</div>
+				<div class="col s12">
+					<div class="input-field col s12">
 						<n:label for="descripcion">Descripcion</n:label>
 					<textbox id="descripcion" type="text"
 						value="@bind(vm.trabajoSocial.descripcion)">

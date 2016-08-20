@@ -57,7 +57,7 @@ public class VMVClasificadorPregunta extends VM_WindowForm {
 		if (operacionEnum.equals(OperacionEnum.INCLUIR)) {
 			PayloadClasificadorPreguntaResponse payloadClasificadorPreguntaResponse =
 					S.ClasificadorPreguntaService.incluir(getClasificadorPregunta());
-			Alert.showMessage(payloadClasificadorPreguntaResponse);
+
 			if(!UtilPayload.isOK(payloadClasificadorPreguntaResponse)) {
 				Alert.showMessage(payloadClasificadorPreguntaResponse);
 				return true;
@@ -103,17 +103,13 @@ public class VMVClasificadorPregunta extends VM_WindowForm {
 
 	public boolean isFormValidated() {
 		//TODO
-		try {
-			UtilValidate.validateString(getClasificadorPregunta().getNombre(), "Nombre",
-					254);
-			
-	
+		try{
+			UtilValidate.validateString(getClasificadorPregunta().getNombre(), "Nombre", 200);
 			return true;
-		} catch (Exception e) {
+		}catch(Exception e){
 			Alert.showMessage(e.getMessage());
-
 			return false;
-		}
+		}		
 	}
 
 }

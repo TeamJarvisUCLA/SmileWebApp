@@ -15,10 +15,10 @@ import karen.core.util.payload.UtilPayload;
 import karen.core.util.validate.UtilValidate;
 import ve.smile.consume.services.S;
 import ve.smile.seguridad.enums.OperacionEnum;
-import ve.smile.payload.response.PayloadClasificadorRecursoResponse;
-import ve.smile.dto.ClasificadorRecurso;
+import ve.smile.payload.response.PayloadParentescoResponse;
+import ve.smile.dto.Parentesco;
 
-public class VMVClasificadorRecurso extends VM_WindowForm {
+public class VMVParentesco extends VM_WindowForm {
 
 	@Init(superclass = true)
 	public void childInit() {
@@ -55,11 +55,11 @@ public class VMVClasificadorRecurso extends VM_WindowForm {
 		}
 
 		if (operacionEnum.equals(OperacionEnum.INCLUIR)) {
-			PayloadClasificadorRecursoResponse payloadClasificadorRecursoResponse =
-					S.ClasificadorRecursoService.incluir(getClasificadorRecurso());
+			PayloadParentescoResponse payloadParentescoResponse =
+					S.ParentescoService.incluir(getParentesco());
 
-			if(!UtilPayload.isOK(payloadClasificadorRecursoResponse)) {
-				Alert.showMessage(payloadClasificadorRecursoResponse);
+			if(!UtilPayload.isOK(payloadParentescoResponse)) {
+				Alert.showMessage(payloadParentescoResponse);
 				return true;
 			}
 
@@ -69,11 +69,11 @@ public class VMVClasificadorRecurso extends VM_WindowForm {
 		}
 
 		if (operacionEnum.equals(OperacionEnum.MODIFICAR)) {
-			PayloadClasificadorRecursoResponse payloadClasificadorRecursoResponse =
-					S.ClasificadorRecursoService.modificar(getClasificadorRecurso());
+			PayloadParentescoResponse payloadParentescoResponse =
+					S.ParentescoService.modificar(getParentesco());
 
-			if(!UtilPayload.isOK(payloadClasificadorRecursoResponse)) {
-				Alert.showMessage(payloadClasificadorRecursoResponse);
+			if(!UtilPayload.isOK(payloadParentescoResponse)) {
+				Alert.showMessage(payloadParentescoResponse);
 				return true;
 			}
 
@@ -97,19 +97,18 @@ public class VMVClasificadorRecurso extends VM_WindowForm {
 		return actionSalir(operacionEnum);
 	}
 
-	public ClasificadorRecurso getClasificadorRecurso() {
-		return (ClasificadorRecurso) DataCenter.getEntity();
+	public Parentesco getParentesco() {
+		return (Parentesco) DataCenter.getEntity();
 	}
 
 	public boolean isFormValidated() {
 		//TODO
 		try{
-			UtilValidate.validateString(getClasificadorRecurso().getNombre(), "Nombre", 200);
+			UtilValidate.validateString(getParentesco().getNombre(), "Nombre", 200);
 			return true;
 		}catch(Exception e){
 			Alert.showMessage(e.getMessage());
 			return false;
 		}		
 	}
-
 }

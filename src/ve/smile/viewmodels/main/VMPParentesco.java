@@ -8,11 +8,11 @@ import karen.core.util.payload.UtilPayload;
 import lights.core.payload.response.IPayloadResponse;
 import ve.smile.consume.services.S ;
 import ve.smile.seguridad.enums.OperacionEnum;
-import ve.smile.dto.TrabajoSocial;
-import ve.smile.payload.response.PayloadTrabajoSocialResponse;
+import ve.smile.dto.Parentesco;
+import ve.smile.payload.response.PayloadParentescoResponse;
 import org.zkoss.bind.annotation.Init;
 
-public class VMPTrabajoSocial extends VM_WindowSimpleListPrincipal<TrabajoSocial> {
+public class VMPParentesco extends VM_WindowSimpleListPrincipal<Parentesco> {
 
 	@Init(superclass = true)
 	public void childInit() {
@@ -20,23 +20,23 @@ public class VMPTrabajoSocial extends VM_WindowSimpleListPrincipal<TrabajoSocial
 	}
 
 	@Override
-	public IPayloadResponse<TrabajoSocial> getDataToTable(
+	public IPayloadResponse<Parentesco> getDataToTable(
 			Integer cantidadRegistrosPagina, Integer pagina) {
 
-		PayloadTrabajoSocialResponse payloadTrabajoSocialResponse = 
-				S.TrabajoSocialService.consultarPaginacion(cantidadRegistrosPagina, pagina);
+		PayloadParentescoResponse payloadParentescoResponse = 
+				S.ParentescoService.consultarPaginacion(cantidadRegistrosPagina, pagina);
 
-		return payloadTrabajoSocialResponse;
+		return payloadParentescoResponse;
 	}
 
 	@Override
 	public void doDelete() {
-		PayloadTrabajoSocialResponse payloadTrabajoSocialResponse =
-				S.TrabajoSocialService.eliminar(getSelectedObject().getIdTrabajoSocial());
+		PayloadParentescoResponse payloadParentescoResponse =
+				S.ParentescoService.eliminar(getSelectedObject().getIdParentesco());
 
-		Alert.showMessage(payloadTrabajoSocialResponse);
+		Alert.showMessage(payloadParentescoResponse);
 
-		if (UtilPayload.isOK(payloadTrabajoSocialResponse)) {
+		if (UtilPayload.isOK(payloadParentescoResponse)) {
 			getControllerWindowSimpleListPrincipal().updateListBoxAndFooter();
 		}
 
@@ -45,7 +45,7 @@ public class VMPTrabajoSocial extends VM_WindowSimpleListPrincipal<TrabajoSocial
 
 	@Override
 	public String getSrcFileZulForm(OperacionEnum operacionEnum) {
-		return "views/desktop/maestro/view/TrabajoSocialFormBasic.zul";
+		return "views/desktop/maestro/view/ParentescoFormBasic.zul";
 	}
 
 }

@@ -1,5 +1,5 @@
 <zk xmlns:n="native" xmlns:w="client">
-	<div width="80%" class="container opacity-0"
+	<div width="80%" class="container ${arg.animation_}"
 		use="karen.core.form.controllers.C_WindowForm"
 		apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('ve.smile.viewmodels.views.VMVAyuda')">

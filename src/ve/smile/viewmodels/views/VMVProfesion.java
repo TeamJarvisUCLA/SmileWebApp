@@ -105,7 +105,7 @@ public class VMVProfesion extends VM_WindowForm {
 
 		try {
 			UtilValidate.validateString(getProfesion().getNombre(), "Nombre", 200);
-			UtilValidate.validateString(getProfesion().getDescripcion(), "Descripcion", 200);
+			UtilValidate.validateString(getProfesion().getDescripcion(), "Descripción", 200);
 			return true;
 		} catch (Exception e) {
 			Alert.showMessage(e.getMessage());

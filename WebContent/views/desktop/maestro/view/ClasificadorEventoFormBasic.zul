@@ -15,9 +15,9 @@
 				</div>
 				<div class="input-field col s6">
 					<n:label for="color">Color</n:label>
-					<textbox id="color" type="text"
+					<colorbox id="color"
 						value="@bind(vm.clasificadorEvento.color)">
-					</textbox>
+					</colorbox>
 				</div>
 			</div>
 

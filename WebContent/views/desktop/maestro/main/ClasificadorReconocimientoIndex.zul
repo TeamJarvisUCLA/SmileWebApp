@@ -1,5 +1,5 @@
 <zk xmlns:n="native" xmlns:w="client">
-	<div width="100%" class='opacity-0'
+	<div width="100%" class='${arg.animation_}'
 		use="karen.core.simple_list_principal.controllers.C_WindowSimpleListPrincipal"
 		apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('ve.smile.viewmodels.main.VMPClasificadorReconocimiento')">
@@ -7,20 +7,22 @@
 		<div class="row">
 			<div class="col s12">
 				<div class="col s12">
-					<listbox id="listbox"
-						model="@load(vm.objectsList)"
+					<listbox id="listbox" model="@load(vm.objectsList)"
 						selectedItem="@bind(vm.selectedObject)">
 
-						<listhead sizable="true">
+						<listhead sizable="false">
 							<listheader width="33%" label="Nombre" />
 							<listheader width="33%" label="Descripcion" />
-							<listheader width="33%" label="Tipo Reconocimiento" />
+							<listheader width="33%"
+								label="Tipo Reconocimiento" />
 						</listhead>
 						<template name="model">
 							<listitem>
 								<listcell label="@load(each.nombre)" />
-								<listcell label="@load(each.descripcion)" />
-								<listcell label="@load(each.tipoReconocimiento)" />
+								<listcell
+									label="@load(each.descripcion)" />
+								<listcell
+									label="@load(each.tipoReconocimiento)" />
 							</listitem>
 						</template>
 						<listfoot>
@@ -33,7 +35,8 @@
 			</div>
 		</div>
 
-		<toolbar id="toolbar" align="center" use="karen.core.toolbar.Toolbar">
+		<toolbar id="toolbar" align="center"
+			use="karen.core.toolbar.Toolbar">
 		</toolbar>
 	</div>
 </zk>

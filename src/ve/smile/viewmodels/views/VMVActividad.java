@@ -136,9 +136,11 @@ public class VMVActividad extends VM_WindowForm {
 	public boolean isFormValidated() {
 		try {
 			UtilValidate.validateString(getActividad().getNombre(), "Nombre",
-					80);
+					100);
 			UtilValidate.validateString(getActividad().getDescripcion(),
 					"Descripción", 250);
+			UtilValidate.validateNull(getActividad().getFkClasificadorActividad(),
+					"Clasificador de Actividad");
 			return true;
 		} catch (Exception e) {
 			Alert.showMessage(e.getMessage());

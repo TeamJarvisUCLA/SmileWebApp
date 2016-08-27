@@ -110,7 +110,7 @@ public class VMVEtiqueta extends VM_WindowForm {
 		try {
 
 			UtilValidate.validateString(getEtiqueta().getNombre(), "Nombre",
-					200);
+					50);
 
 			return true;
 		} catch (Exception e) {

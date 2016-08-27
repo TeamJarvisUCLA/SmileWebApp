@@ -7,8 +7,7 @@
 		<div class="row">
 			<div class="col s12">
 				<div class="col s12">
-					<listbox id="listbox"
-						model="@load(vm.objectsList)"
+					<listbox id="listbox" model="@load(vm.objectsList)"
 						selectedItem="@bind(vm.selectedObject)">
 
 						<listhead sizable="true">
@@ -31,7 +30,8 @@
 			</div>
 		</div>
 
-		<toolbar id="toolbar" align="center" use="karen.core.toolbar.Toolbar">
+		<toolbar id="toolbar" align="center"
+			use="karen.core.toolbar.Toolbar">
 		</toolbar>
 	</div>
 </zk>

@@ -91,7 +91,6 @@ public class VMVClasificadorEvento extends VM_WindowForm {
 	@Override
 	public boolean actionSalir(OperacionEnum operacionEnum) {
 		DataCenter.reloadCurrentNodoMenu();
-
 		return true;
 	}
 
@@ -105,7 +104,6 @@ public class VMVClasificadorEvento extends VM_WindowForm {
 	}
 
 	public boolean isFormValidated() {
-		// TODO
 		try {
 			UtilValidate.validateString(getClasificadorEvento().getNombre(),
 					"Nombre", 100);

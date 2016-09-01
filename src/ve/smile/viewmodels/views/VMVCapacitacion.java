@@ -16,14 +16,42 @@ import org.zkoss.bind.annotation.Init;
 
 import ve.smile.consume.services.S;
 import ve.smile.dto.Capacitacion;
+import ve.smile.dto.ClasificadorCapacitacion;
 import ve.smile.payload.response.PayloadCapacitacionResponse;
+import ve.smile.payload.response.PayloadClasificadorCapacitacionResponse;
 import ve.smile.seguridad.enums.OperacionEnum;
 
 public class VMVCapacitacion extends VM_WindowForm {
 
+	private List<ClasificadorCapacitacion> clasificadorCapacitacions;
+
 	@Init(superclass = true)
 	public void childInit() {
 		// NOTHING OK!
+	}
+
+	public List<ClasificadorCapacitacion> getClasificadorCapacitacions() {
+		if (this.clasificadorCapacitacions == null) {
+			this.clasificadorCapacitacions = new ArrayList<>();
+		}
+		if (this.clasificadorCapacitacions.isEmpty()) {
+			PayloadClasificadorCapacitacionResponse payloadClasificadorCapacitacionResponse = S.ClasificadorCapacitacionService
+					.consultarTodos();
+			if (!UtilPayload.isOK(payloadClasificadorCapacitacionResponse)) {
+				Alert.showMessage(payloadClasificadorCapacitacionResponse);
+			} else {
+				this.clasificadorCapacitacions
+						.addAll(payloadClasificadorCapacitacionResponse
+								.getObjetos());
+			}
+
+		}
+		return clasificadorCapacitacions;
+	}
+
+	public void setClasificadorCapacitacions(
+			List<ClasificadorCapacitacion> clasificadorCapacitacions) {
+		this.clasificadorCapacitacions = clasificadorCapacitacions;
 	}
 
 	@Override

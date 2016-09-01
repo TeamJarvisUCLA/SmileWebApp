@@ -1,4 +1,35 @@
 <zk xmlns:n="native" xmlns:w="client">
+	<style>
+
+		.z-colorbox-popup, .z-menu-popup { overflow: hidden; }
+
+
+		.z-colorpalette-input { width: 65px !important; height: 24px
+		!important;}
+
+		.z-colorpicker-input { width: 40px !important; height: 24px
+		!important; }
+
+		.z-colorpicker-button { width: 30px; position: absolute; top:
+		300px; left: 328px; cursor: pointer; border-radius: 100%;
+		height: 30px; border: none; background: #8d7a6f; color: white; }
+
+		.z-colorpicker-button:hover { background: #d2ec3f; }
+		.z-colorpicker-icon { color: #fff; }
+
+		.z-colorbox-button {
+
+		display: none; }
+
+		.z-colorbox { display: inline; width: 100px; height: 30px;
+		border: 1px solid #8d7a6f; -webkit-border-radius: 3px;
+		border-radius: 0px; padding: 0px; background: #fff;
+		vertical-align: middle; position: relative; overflow: hidden;
+		cursor: pointer; }
+
+		.z-colorpicker-hex .z-colorpicker-input { margin-left: 5px;
+		width: 64px !important; }
+	</style>
 	<div width="80%" class="container ${arg.animation_}"
 		use="karen.core.form.controllers.C_WindowForm"
 		apply="org.zkoss.bind.BindComposer"
@@ -7,20 +38,23 @@
 		<div class="row">
 
 			<div class="col s12">
-				<div class="input-field col s6">
+				<div class="input-field offset-s2 col s8">
 					<n:label for="nombre">Nombre</n:label>
-					<textbox id="nombre" type="text"
+					<textbox id="nombre" type="text" maxlength="100"
 						value="@bind(vm.clasificadorEvento.nombre)">
 					</textbox>
 				</div>
-				<div class="input-field col s6">
+			</div>
+			<div sclass="col s12">
+				<div class=" input-field offset-s2 col s1">
 					<n:label for="color">Color</n:label>
+				</div>
+				<div class="col s4">
 					<colorbox id="color"
 						value="@bind(vm.clasificadorEvento.color)">
 					</colorbox>
 				</div>
 			</div>
-
 		</div>
 		<div id="divButtonsForm"
 			use="karen.core.form.buttons.containers.DivButtonsForm">

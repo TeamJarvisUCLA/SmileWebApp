@@ -16,14 +16,50 @@ import org.zkoss.bind.annotation.Init;
 
 import ve.smile.consume.services.S;
 import ve.smile.dto.ClasificadorReconocimiento;
+import ve.smile.enums.TipoReconocimientoEnum;
 import ve.smile.payload.response.PayloadClasificadorReconocimientoResponse;
 import ve.smile.seguridad.enums.OperacionEnum;
 
 public class VMVClasificadorReconocimiento extends VM_WindowForm {
 
+	private List<TipoReconocimientoEnum> tipoReconocimientoEnums;
+
+	private TipoReconocimientoEnum tipoReconocimientoEnum;
+
 	@Init(superclass = true)
 	public void childInit() {
 		// NOTHING OK!
+	}
+
+	public TipoReconocimientoEnum getTipoReconocimientoEnum() {
+		return tipoReconocimientoEnum;
+	}
+
+	public void setTipoReconocimientoEnum(
+			TipoReconocimientoEnum tipoReconocimientoEnum) {
+		this.tipoReconocimientoEnum = tipoReconocimientoEnum;
+		this.getClasificadorReconocimiento().setTipoReconocimiento(
+				tipoReconocimientoEnum.ordinal());
+	}
+
+	public List<TipoReconocimientoEnum> getTipoReconocimientoEnums() {
+		if (this.tipoReconocimientoEnums == null) {
+			this.tipoReconocimientoEnums = new ArrayList<>();
+		}
+
+		if (this.tipoReconocimientoEnums.isEmpty()) {
+			for (TipoReconocimientoEnum tipoReconocimientoEnum : TipoReconocimientoEnum
+					.values()) {
+				this.tipoReconocimientoEnums.add(tipoReconocimientoEnum);
+			}
+		}
+
+		return tipoReconocimientoEnums;
+	}
+
+	public void setTipoReconocimientoEnums(
+			List<TipoReconocimientoEnum> tipoReconocimientoEnums) {
+		this.tipoReconocimientoEnums = tipoReconocimientoEnums;
 	}
 
 	@Override

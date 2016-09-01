@@ -20,7 +20,7 @@
 							<listitem>
 								<listcell label="@load(each.nombre)" />
 								<listcell label="@load(each.descripcion)" />
-								<listcell label="@load(each.fkClasificadorActividad)" />
+								<listcell label="@load(each.fkClasificadorActividad.nombre)" />
 							</listitem>
 						</template>
 						<listfoot>

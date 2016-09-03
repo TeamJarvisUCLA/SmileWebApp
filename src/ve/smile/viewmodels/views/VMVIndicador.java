@@ -136,7 +136,7 @@ public class VMVIndicador extends VM_WindowForm {
 			UtilValidate.validateString(getIndicador().getNombre(), "Nombre",
 					200);
 			UtilValidate.validateString(getIndicador().getDescripcion(),
-					"Descripci�n", 200);
+					"Descripci�n", 250);
 			return true;
 		} catch (Exception e) {
 			Alert.showMessage(e.getMessage());

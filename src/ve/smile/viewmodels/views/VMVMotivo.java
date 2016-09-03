@@ -103,8 +103,8 @@ public class VMVMotivo extends VM_WindowForm {
 
 	public boolean isFormValidated() {
 		try {					
-			UtilValidate.validateString(getMotivo().getNombre(), "Nombre", 200);
-			UtilValidate.validateString(getMotivo().getDescripcion(), "Descripciòn", 200);
+			UtilValidate.validateString(getMotivo().getNombre(), "Nombre", 100);
+			UtilValidate.validateString(getMotivo().getDescripcion(), "Descripciòn", 250);
 			
 			return true;
 		} catch (Exception e) {

@@ -107,8 +107,8 @@ public class VMVFortaleza extends VM_WindowForm {
 	public boolean isFormValidated() {
 
 		try {
-			UtilValidate.validateString(getFortaleza().getNombre(), "Nombre", 200);
-			UtilValidate.validateString(getFortaleza().getDescripcion(), "Descripción", 200);
+			UtilValidate.validateString(getFortaleza().getNombre(), "Nombre", 100);
+			UtilValidate.validateString(getFortaleza().getDescripcion(), "Descripción", 250);
 		
 			return true;
 		} catch (Exception e) {

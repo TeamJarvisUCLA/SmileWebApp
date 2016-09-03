@@ -15,15 +15,44 @@ import karen.core.util.validate.UtilValidate;
 import org.zkoss.bind.annotation.Init;
 
 import ve.smile.consume.services.S;
+import ve.smile.dto.ClasificadorActividad;
+import ve.smile.dto.ClasificadorTarea;
 import ve.smile.dto.Tarea;
+import ve.smile.payload.response.PayloadClasificadorActividadResponse;
+import ve.smile.payload.response.PayloadClasificadorTareaResponse;
 import ve.smile.payload.response.PayloadTareaResponse;
 import ve.smile.seguridad.enums.OperacionEnum;
 
 public class VMVTarea extends VM_WindowForm {
+	
+	private List<ClasificadorTarea> clasificadorTareas;
 
 	@Init(superclass = true)
 	public void childInit() {
 		//NOTHING OK!
+	}
+	
+	public List<ClasificadorTarea> getClasificadorTareas() {
+		if (this.clasificadorTareas == null) {
+			this.clasificadorTareas = new ArrayList<>();
+		}
+		if (this.clasificadorTareas.isEmpty()) {
+			PayloadClasificadorTareaResponse payloadClasificadorTareaResponse = S.ClasificadorTareaService
+					.consultarTodos();
+
+			if (!UtilPayload.isOK(payloadClasificadorTareaResponse)) {
+				Alert.showMessage(payloadClasificadorTareaResponse);
+			}
+
+			this.clasificadorTareas
+					.addAll(payloadClasificadorTareaResponse.getObjetos());
+		}
+		return clasificadorTareas;
+	}
+
+	public void setClasificadorTareas(
+			List<ClasificadorTarea> clasificadorTareas) {
+		this.clasificadorTareas = clasificadorTareas;
 	}
 
 	@Override
@@ -104,8 +133,10 @@ public class VMVTarea extends VM_WindowForm {
 
 	public boolean isFormValidated() {
 		try {					
-			UtilValidate.validateString(getTarea().getNombre(), "Nombre", 200);
-			UtilValidate.validateString(getTarea().getDescripcion(), "Descripciòn", 200);
+			UtilValidate.validateString(getTarea().getNombre(), "Nombre", 100);
+			UtilValidate.validateString(getTarea().getDescripcion(), "Descripciòn", 250);
+			UtilValidate.validateNull(getTarea().getFkClasificadorTarea(),
+					"Clasificador de Tarea");
 			
 			return true;
 		} catch (Exception e) {

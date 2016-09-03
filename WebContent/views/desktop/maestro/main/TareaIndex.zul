@@ -14,13 +14,13 @@
 						<listhead sizable="true">
 							<listheader width="33%" label="Nombre" />
 							<listheader width="33%" label="Descripcion" />
-							<listheader width="33%" label="Clasificador Tarea" />
+							<listheader width="33%" label="Clasificador de Tarea" />
 						</listhead>
 						<template name="model">
 							<listitem>
 								<listcell label="@load(each.nombre)" />
 								<listcell label="@load(each.descripcion)" />
-								<listcell label="@load(each.fkClasificadorTarea)" />
+								<listcell label="@load(each.fkClasificadorTarea.nombre)" />
 							</listitem>
 						</template>
 						<listfoot>

@@ -10,19 +10,47 @@ import karen.core.form.buttons.enums.OperacionFormEnum;
 import karen.core.form.buttons.helpers.OperacionFormHelper;
 import karen.core.form.viewmodels.VM_WindowForm;
 import karen.core.util.payload.UtilPayload;
+import karen.core.util.validate.UtilValidate;
 
 import org.zkoss.bind.annotation.Init;
 
 import ve.smile.consume.services.S;
 import ve.smile.dto.Patrocinador;
+import ve.smile.dto.Persona;
+import ve.smile.payload.response.PayloadPersonaResponse;
 import ve.smile.payload.response.PayloadPatrocinadorResponse;
 import ve.smile.seguridad.enums.OperacionEnum;
 
 public class VMVPatrocinador extends VM_WindowForm {
+	
+	private List<Persona> personas;
 
 	@Init(superclass = true)
 	public void childInit() {
 		//NOTHING OK!
+	}
+	
+	public List<Persona> getPersonas() {
+		if (this.personas == null) {
+			this.personas = new ArrayList<>();
+		}
+		if (this.personas.isEmpty()) {
+			PayloadPersonaResponse payloadPersonaResponse = S.PersonaService
+					.consultarTodos();
+
+			if (!UtilPayload.isOK(payloadPersonaResponse)) {
+				Alert.showMessage(payloadPersonaResponse);
+			}
+
+			this.personas
+					.addAll(payloadPersonaResponse.getObjetos());
+		}
+		return personas;
+	}
+
+	public void setPersonas(
+			List<Persona> personas) {
+		this.personas = personas;
 	}
 
 	@Override
@@ -103,7 +131,8 @@ public class VMVPatrocinador extends VM_WindowForm {
 
 	public boolean isFormValidated() {
 		try {					
-			//falta validar campos
+			UtilValidate.validateNull(getPatrocinador().getFkPersona(),
+					"Persona");
 			return true;
 		} catch (Exception e) {
 			Alert.showMessage(e.getMessage());

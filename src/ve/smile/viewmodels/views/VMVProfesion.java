@@ -104,8 +104,8 @@ public class VMVProfesion extends VM_WindowForm {
 	public boolean isFormValidated() {
 
 		try {
-			UtilValidate.validateString(getProfesion().getNombre(), "Nombre", 200);
-			UtilValidate.validateString(getProfesion().getDescripcion(), "Descripción", 200);
+			UtilValidate.validateString(getProfesion().getNombre(), "Nombre", 100);
+			UtilValidate.validateString(getProfesion().getDescripcion(), "Descripción", 250);
 			return true;
 		} catch (Exception e) {
 			Alert.showMessage(e.getMessage());

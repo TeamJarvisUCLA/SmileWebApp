@@ -14,7 +14,7 @@
 							<listheader width="33%" label="Nombre" />
 							<listheader width="33%" label="Descripcion" />
 							<listheader width="33%"
-								label="Tipo Reconocimiento" />
+								label="Tipo de Reconocimiento" />
 						</listhead>
 						<template name="model">
 							<listitem>

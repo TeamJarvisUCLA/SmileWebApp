@@ -16,16 +16,21 @@ import org.zkoss.bind.annotation.Init;
 
 import ve.smile.consume.services.S;
 import ve.smile.dto.Ciudad;
+import ve.smile.dto.ClasificadorActividad;
 import ve.smile.dto.Directorio;
 import ve.smile.dto.Estado;
+import ve.smile.dto.Multimedia;
+import ve.smile.payload.response.PayloadCiudadResponse;
+import ve.smile.payload.response.PayloadClasificadorActividadResponse;
 import ve.smile.payload.response.PayloadDirectorioResponse;
 import ve.smile.payload.response.PayloadEstadoResponse;
+import ve.smile.payload.response.PayloadMultimediaResponse;
 import ve.smile.seguridad.enums.OperacionEnum;
 
 public class VMVDirectorio extends VM_WindowForm {
 
 	private List<Ciudad> ciudads;
-	private List<Estado> estados;
+	private List<Multimedia> multimedias;
 	private Estado estado;
 
 	@Init(superclass = true)
@@ -37,41 +42,46 @@ public class VMVDirectorio extends VM_WindowForm {
 		if (this.ciudads == null) {
 			this.ciudads = new ArrayList<>();
 		}
+		if (this.ciudads.isEmpty()) {
+			PayloadCiudadResponse payloadCiudadsResponse = S.CiudadService
+					.consultarTodos();
+
+			if (!UtilPayload.isOK(payloadCiudadsResponse)) {
+				Alert.showMessage(payloadCiudadsResponse);
+			}
+
+			this.ciudads
+					.addAll(payloadCiudadsResponse.getObjetos());
+		}
 		return ciudads;
 	}
 
-	public void setCiudads(List<Ciudad> ciudads) {
+	public void setCiudads(
+			List<Ciudad> ciudads) {
 		this.ciudads = ciudads;
 	}
-
-	public List<Estado> getEstados() {
-		return estados;
-	}
-
-	public void setEstados(List<Estado> estados) {
-		this.estados = estados;
-	}
-
-	public Estado getEstado() {
-
-		if (this.estados == null) {
-			this.estados = new ArrayList<>();
+	
+	public List<Multimedia> getMultimedias() {
+		if (this.multimedias == null) {
+			this.multimedias = new ArrayList<>();
 		}
-
-		if (this.estados.isEmpty()) {
-			PayloadEstadoResponse payloadEstadoResponse = S.EstadoService
+		if (this.multimedias.isEmpty()) {
+			PayloadMultimediaResponse payloadMultimediaResponse = S.MultimediaService
 					.consultarTodos();
-			if (!UtilPayload.isOK(payloadEstadoResponse)) {
-				Alert.showMessage(payloadEstadoResponse);
-			}
-			this.estados.addAll(payloadEstadoResponse.getObjetos());
-		}
 
-		return estado;
+			if (!UtilPayload.isOK(payloadMultimediaResponse)) {
+				Alert.showMessage(payloadMultimediaResponse);
+			}
+
+			this.multimedias
+					.addAll(payloadMultimediaResponse.getObjetos());
+		}
+		return multimedias;
 	}
 
-	public void setEstado(Estado estado) {
-		this.estado = estado;
+	public void setMultimedias(
+			List<Multimedia> multimedias) {
+		this.multimedias = multimedias;
 	}
 
 	@Override

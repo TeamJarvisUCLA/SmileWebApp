@@ -5,21 +5,28 @@
 		viewModel="@id('vm') @init('ve.smile.viewmodels.views.VMVClasificadorVoluntario')">
 
 		<div class="row">
-
-			<div class="col s12">
-				<div class="input-field col s6">
+		
+		<div class="col s12">
+				<div class="input-field offset-s2 col s8">
 					<n:label for="nombre">Nombre</n:label>
-					<textbox id="nombre" type="text"
+					<textbox id="nombre" type="text" maxlength="100"
 						value="@bind(vm.clasificadorVoluntario.nombre)">
 					</textbox>
 				</div>
-				<div class="input-field col s6">
-					<n:label for="descripcion">Descripcion</n:label>
-					<textbox id="descripcion" type="text"
+			</div>
+			
+			<div class="col s12">
+				<div class="input-field offset-s2 col s8">
+					<n:label for="descripcion">Descripción</n:label>
+					<textbox id="descripcion" type="text" maxlength="250"
+						sclass="materialize-textarea" multiline="true"
 						value="@bind(vm.clasificadorVoluntario.descripcion)">
 					</textbox>
 				</div>
 			</div>
+
+
+			
 
 		</div>
 		<div id="divButtonsForm"

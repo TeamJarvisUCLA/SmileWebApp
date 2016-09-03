@@ -147,6 +147,8 @@ public class VMVClasificadorReconocimiento extends VM_WindowForm {
 					.getNombre(), "Nombre", 100);
 			UtilValidate.validateString(getClasificadorReconocimiento()
 					.getDescripcion(), "Descripción", 250);
+			UtilValidate.validateNull(getClasificadorReconocimiento().getTipoReconocimiento(),
+					"Tipo de Reconocimiento");
 			return true;
 		} catch (Exception e) {
 			Alert.showMessage(e.getMessage());

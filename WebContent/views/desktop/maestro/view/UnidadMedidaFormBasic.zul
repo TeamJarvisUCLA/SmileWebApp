@@ -4,7 +4,26 @@
 		apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('ve.smile.viewmodels.views.VMVUnidadMedida')">
 		<div class="row">
+		
+		<div class="col s12">
+				<div class="input-field offset-s2 col s8">
+					<n:label for="nombre">Nombre</n:label>
+					<textbox id="nombre" type="text" maxlength="100"
+						value="@bind(vm.unidadMedida.nombre)">
+					</textbox>
+				</div>
+			</div>
+			
 			<div class="col s12">
+				<div class="input-field offset-s2 col s8">
+					<n:label for="abreviatura">Abreviatura</n:label>
+					<textbox id="abreviatura" type="text" maxlength="100"
+						value="@bind(vm.unidadMedida.abreviatura)">
+					</textbox>
+				</div>
+			</div>
+			
+			<!-- <div class="col s12">
 				<div class="input-field col s6">
 					<n:label for="nombre">Nombre</n:label>
 					<textbox id="nombre" type="text"
@@ -18,11 +37,12 @@
 					</textbox>
 				</div>
 			</div>
+			 -->
 			<div class="col s12">
-				<div class="input-field col s12">
+				<div class="input-field offset-s2 col s8">
 					<n:label for="descripcion">Descripción</n:label>
-					<textbox id="descripcion" type="text"
-						multiline="true" sclass="materialize-textarea"
+					<textbox id="descripcion" type="text" maxlength="250"
+						sclass="materialize-textarea" multiline="true"
 						value="@bind(vm.unidadMedida.descripcion)">
 					</textbox>
 				</div>

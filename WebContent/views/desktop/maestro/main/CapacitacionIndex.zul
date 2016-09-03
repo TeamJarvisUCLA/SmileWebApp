@@ -14,7 +14,7 @@
 							<listheader width="33%" label="Nombre" />
 							<listheader width="33%" label="Descripción" />
 							<listheader width="33%"
-								label="Clasificador Capacitacion" />
+								label="Clasificador de Capacitacion" />
 						</listhead>
 						<template name="model">
 							<listitem>

@@ -139,6 +139,8 @@ public class VMVCapacitacion extends VM_WindowForm {
 					"Nombre", 100);
 			UtilValidate.validateString(getCapacitacion().getDescripcion(),
 					"DescripciÃ³n", 250);
+			UtilValidate.validateNull(getCapacitacion().getFkClasificadorCapacitacion(),
+					"Clasificador de Capacitación");
 
 			return true;
 		} catch (Exception e) {

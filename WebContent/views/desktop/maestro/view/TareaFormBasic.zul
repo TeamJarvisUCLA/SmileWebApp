@@ -5,8 +5,8 @@
 		viewModel="@id('vm') @init('ve.smile.viewmodels.views.VMVTarea')">
 
 		<div class="row">
-		
-		<div class="col s12">
+
+			<div class="col s12">
 				<div class="input-field offset-s2 col s8">
 					<n:label for="nombre">Nombre</n:label>
 					<textbox id="nombre" type="text" maxlength="100"
@@ -21,8 +21,8 @@
 						for="fk_clasificador_tarea">
 						Clasificador de Tarea
 					</n:label>
-					<combobox id="fk_clasificador_tarea"
-						readonly="true" model="@bind(vm.clasificadorTareas)"
+					<combobox id="fk_clasificador_tarea" readonly="true"
+						model="@bind(vm.clasificadorTareas)"
 						selectedItem="@bind(vm.tarea.fkClasificadorTarea)">
 						<template name="model">
 							<comboitem label="@load(each.nombre)" />
@@ -34,17 +34,14 @@
 			<div class="col s12">
 				<div class="input-field offset-s2 col s8">
 					<n:label for="descripcion">Descripción</n:label>
-					<textbox id="descripcion" type="text" maxlength="250"
-						sclass="materialize-textarea" multiline="true"
+					<textbox id="descripcion" type="text"
+						maxlength="250" sclass="materialize-textarea" multiline="true"
 						value="@bind(vm.tarea.descripcion)">
 					</textbox>
 				</div>
 			</div>
 		</div>
 
-			
-
-		</div>
 		<div id="divButtonsForm"
 			use="karen.core.form.buttons.containers.DivButtonsForm">
 		</div>

@@ -15,23 +15,21 @@ import karen.core.util.validate.UtilValidate;
 import org.zkoss.bind.annotation.Init;
 
 import ve.smile.consume.services.S;
-import ve.smile.dto.ClasificadorActividad;
 import ve.smile.dto.ClasificadorTarea;
 import ve.smile.dto.Tarea;
-import ve.smile.payload.response.PayloadClasificadorActividadResponse;
 import ve.smile.payload.response.PayloadClasificadorTareaResponse;
 import ve.smile.payload.response.PayloadTareaResponse;
 import ve.smile.seguridad.enums.OperacionEnum;
 
 public class VMVTarea extends VM_WindowForm {
-	
+
 	private List<ClasificadorTarea> clasificadorTareas;
 
 	@Init(superclass = true)
 	public void childInit() {
-		//NOTHING OK!
+		// NOTHING OK!
 	}
-	
+
 	public List<ClasificadorTarea> getClasificadorTareas() {
 		if (this.clasificadorTareas == null) {
 			this.clasificadorTareas = new ArrayList<>();
@@ -44,14 +42,13 @@ public class VMVTarea extends VM_WindowForm {
 				Alert.showMessage(payloadClasificadorTareaResponse);
 			}
 
-			this.clasificadorTareas
-					.addAll(payloadClasificadorTareaResponse.getObjetos());
+			this.clasificadorTareas.addAll(payloadClasificadorTareaResponse
+					.getObjetos());
 		}
 		return clasificadorTareas;
 	}
 
-	public void setClasificadorTareas(
-			List<ClasificadorTarea> clasificadorTareas) {
+	public void setClasificadorTareas(List<ClasificadorTarea> clasificadorTareas) {
 		this.clasificadorTareas = clasificadorTareas;
 	}
 
@@ -59,17 +56,20 @@ public class VMVTarea extends VM_WindowForm {
 	public List<OperacionForm> getOperationsForm(OperacionEnum operacionEnum) {
 		List<OperacionForm> operacionesForm = new ArrayList<OperacionForm>();
 
-		if (operacionEnum.equals(OperacionEnum.INCLUIR) ||
-				operacionEnum.equals(OperacionEnum.MODIFICAR)) {
+		if (operacionEnum.equals(OperacionEnum.INCLUIR)
+				|| operacionEnum.equals(OperacionEnum.MODIFICAR)) {
 
-			operacionesForm.add(OperacionFormHelper.getPorType(OperacionFormEnum.GUARDAR));
-			operacionesForm.add(OperacionFormHelper.getPorType(OperacionFormEnum.CANCELAR));
+			operacionesForm.add(OperacionFormHelper
+					.getPorType(OperacionFormEnum.GUARDAR));
+			operacionesForm.add(OperacionFormHelper
+					.getPorType(OperacionFormEnum.CANCELAR));
 
 			return operacionesForm;
 		}
 
 		if (operacionEnum.equals(OperacionEnum.CONSULTAR)) {
-			operacionesForm.add(OperacionFormHelper.getPorType(OperacionFormEnum.SALIR));
+			operacionesForm.add(OperacionFormHelper
+					.getPorType(OperacionFormEnum.SALIR));
 
 			return operacionesForm;
 		}
@@ -80,15 +80,15 @@ public class VMVTarea extends VM_WindowForm {
 
 	@Override
 	public boolean actionGuardar(OperacionEnum operacionEnum) {
-		if(!isFormValidated()) {
+		if (!isFormValidated()) {
 			return true;
 		}
 
 		if (operacionEnum.equals(OperacionEnum.INCLUIR)) {
-			PayloadTareaResponse payloadTareaResponse =
-					S.TareaService.incluir(getTarea());
+			PayloadTareaResponse payloadTareaResponse = S.TareaService
+					.incluir(getTarea());
 
-			if(!UtilPayload.isOK(payloadTareaResponse)) {
+			if (!UtilPayload.isOK(payloadTareaResponse)) {
 				Alert.showMessage(payloadTareaResponse);
 				return true;
 			}
@@ -99,10 +99,10 @@ public class VMVTarea extends VM_WindowForm {
 		}
 
 		if (operacionEnum.equals(OperacionEnum.MODIFICAR)) {
-			PayloadTareaResponse payloadTareaResponse =
-					S.TareaService.modificar(getTarea());
+			PayloadTareaResponse payloadTareaResponse = S.TareaService
+					.modificar(getTarea());
 
-			if(!UtilPayload.isOK(payloadTareaResponse)) {
+			if (!UtilPayload.isOK(payloadTareaResponse)) {
 				Alert.showMessage(payloadTareaResponse);
 				return true;
 			}
@@ -132,12 +132,13 @@ public class VMVTarea extends VM_WindowForm {
 	}
 
 	public boolean isFormValidated() {
-		try {					
+		try {
 			UtilValidate.validateString(getTarea().getNombre(), "Nombre", 100);
-			UtilValidate.validateString(getTarea().getDescripcion(), "Descripciòn", 250);
+			UtilValidate.validateString(getTarea().getDescripcion(),
+					"DescripciÃ³n", 250);
 			UtilValidate.validateNull(getTarea().getFkClasificadorTarea(),
 					"Clasificador de Tarea");
-			
+
 			return true;
 		} catch (Exception e) {
 			Alert.showMessage(e.getMessage());

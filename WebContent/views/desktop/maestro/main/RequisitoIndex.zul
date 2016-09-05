@@ -13,7 +13,7 @@
 
 						<listhead sizable="true">
 							<listheader width="50%" label="Nombre" />
-							<listheader width="50%" label="Descripcion" />
+							<listheader width="50%" label="Descripción" />
 						</listhead>
 						<template name="model">
 							<listitem>

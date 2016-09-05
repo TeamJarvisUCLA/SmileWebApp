@@ -109,7 +109,6 @@ public class VMVClasificadorTarea extends VM_WindowForm {
 		try {
 			UtilValidate.validateString(getClasificadorTarea().getNombre(),
 					"Nombre", 100);
-
 			return true;
 		} catch (Exception e) {
 			Alert.showMessage(e.getMessage());

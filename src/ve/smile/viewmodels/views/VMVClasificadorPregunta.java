@@ -106,7 +106,6 @@ public class VMVClasificadorPregunta extends VM_WindowForm {
 	}
 
 	public boolean isFormValidated() {
-		// TODO
 		try {
 			UtilValidate.validateString(getClasificadorPregunta().getNombre(),
 					"Nombre", 100);

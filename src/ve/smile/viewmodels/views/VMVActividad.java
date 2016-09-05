@@ -137,11 +137,11 @@ public class VMVActividad extends VM_WindowForm {
 		try {
 			UtilValidate.validateString(getActividad().getNombre(), "Nombre",
 					100);
-			UtilValidate.validateString(getActividad().getDescripcion(),
-					"Descripción", 250);
 			UtilValidate.validateNull(getActividad().getFkClasificadorActividad(),
 					"Clasificador de Actividad");
-			return true;
+			UtilValidate.validateString(getActividad().getDescripcion(),
+					"Descripción", 250);
+		return true;
 		} catch (Exception e) {
 			Alert.showMessage(e.getMessage());
 			return false;

@@ -104,7 +104,7 @@ public class VMVParentesco extends VM_WindowForm {
 	public boolean isFormValidated() {
 		//TODO
 		try{
-			UtilValidate.validateString(getParentesco().getNombre(), "Nombre", 200);
+			UtilValidate.validateString(getParentesco().getNombre(), "Nombre", 100);
 			return true;
 		}catch(Exception e){
 			Alert.showMessage(e.getMessage());

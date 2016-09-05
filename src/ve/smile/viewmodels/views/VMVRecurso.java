@@ -3,8 +3,6 @@ package ve.smile.viewmodels.views;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.zkoss.bind.annotation.Init;
-
 import karen.core.crux.alert.Alert;
 import karen.core.crux.session.DataCenter;
 import karen.core.form.buttons.data.OperacionForm;
@@ -13,18 +11,74 @@ import karen.core.form.buttons.helpers.OperacionFormHelper;
 import karen.core.form.viewmodels.VM_WindowForm;
 import karen.core.util.payload.UtilPayload;
 import karen.core.util.validate.UtilValidate;
+
+import org.zkoss.bind.annotation.Init;
+
 import ve.smile.consume.services.S;
-import ve.smile.seguridad.enums.OperacionEnum;
-import ve.smile.payload.response.PayloadRecursoResponse;
 import ve.smile.dto.Recurso;
+import ve.smile.dto.ClasificadorRecurso;
+import ve.smile.dto.UnidadMedida;
+import ve.smile.payload.response.PayloadRecursoResponse;
+import ve.smile.payload.response.PayloadUnidadMedidaResponse;
+import ve.smile.payload.response.PayloadClasificadorRecursoResponse;
+import ve.smile.seguridad.enums.OperacionEnum;
 
 public class VMVRecurso extends VM_WindowForm {
 
+	private List<ClasificadorRecurso> clasificadorRecursos;
+	private List<UnidadMedida> unidadMedidas;
+	
 	@Init(superclass = true)
 	public void childInit() {
 		//NOTHING OK!
 	}
+	
+	public List<ClasificadorRecurso> getClasificadorRecursos() {
+		if (this.clasificadorRecursos == null) {
+			this.clasificadorRecursos = new ArrayList<>();
+		}
+		if (this.clasificadorRecursos.isEmpty()) {
+			PayloadClasificadorRecursoResponse payloadClasificadorRecursoResponse = S.ClasificadorRecursoService
+					.consultarTodos();
 
+			if (!UtilPayload.isOK(payloadClasificadorRecursoResponse)) {
+				Alert.showMessage(payloadClasificadorRecursoResponse);
+			}
+
+			this.clasificadorRecursos
+					.addAll(payloadClasificadorRecursoResponse.getObjetos());
+		}
+		return clasificadorRecursos;
+	}
+
+	public void setClasificadorRecursos(
+			List<ClasificadorRecurso> clasificadorRecursos) {
+		this.clasificadorRecursos = clasificadorRecursos;
+	}
+	
+	public List<UnidadMedida> getUnidadMedidas() {
+		if (this.unidadMedidas == null) {
+			this.unidadMedidas = new ArrayList<>();
+		}
+		if (this.unidadMedidas.isEmpty()) {
+			PayloadUnidadMedidaResponse payloadUnidadMedidaResponse = S.UnidadMedidaService
+					.consultarTodos();
+
+			if (!UtilPayload.isOK(payloadUnidadMedidaResponse)) {
+				Alert.showMessage(payloadUnidadMedidaResponse);
+			}
+
+			this.unidadMedidas
+					.addAll(payloadUnidadMedidaResponse.getObjetos());
+		}
+		return unidadMedidas;
+	}
+
+	public void setUnidadMedidas(
+			List<UnidadMedida> unidadMedidas) {
+		this.unidadMedidas = unidadMedidas;
+	}
+	
 	@Override
 	public List<OperacionForm> getOperationsForm(OperacionEnum operacionEnum) {
 		List<OperacionForm> operacionesForm = new ArrayList<OperacionForm>();
@@ -39,7 +93,8 @@ public class VMVRecurso extends VM_WindowForm {
 		}
 
 		if (operacionEnum.equals(OperacionEnum.CONSULTAR)) {
-			operacionesForm.add(OperacionFormHelper.getPorType(OperacionFormEnum.SALIR));
+			operacionesForm.add(OperacionFormHelper
+					.getPorType(OperacionFormEnum.SALIR));
 
 			return operacionesForm;
 		}
@@ -102,15 +157,18 @@ public class VMVRecurso extends VM_WindowForm {
 	}
 
 	public boolean isFormValidated() {
-		//TODO
 		try{
-			UtilValidate.validateString(getRecurso().getNombre(), "Nombre", 200);
-			UtilValidate.validateString(getRecurso().getDescripcion(), "Descripción", 200);
+			UtilValidate.validateString(getRecurso().getNombre(), "Nombre",
+				 100);
+			UtilValidate.validateNull(getRecurso().getFkClasificadorRecurso(),
+					"Clasificador de Recurso");
+			UtilValidate.validateNull(getRecurso().getFkUnidadMedida(),
+					"Unidad de Medida");
+			UtilValidate.validateString(getRecurso().getDescripcion(), "Descripción", 250);
 			return true;
 		}catch(Exception e){
 			Alert.showMessage(e.getMessage());
 			return false;
 		}		
 	}
-
 }

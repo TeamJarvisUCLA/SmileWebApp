@@ -15,16 +15,42 @@ import karen.core.util.payload.UtilPayload;
 import karen.core.util.validate.UtilValidate;
 import ve.smile.consume.services.S;
 import ve.smile.seguridad.enums.OperacionEnum;
+import ve.smile.payload.response.PayloadClasificadorTrabajoSocialResponse;
 import ve.smile.payload.response.PayloadTrabajoSocialResponse;
+import ve.smile.dto.ClasificadorTrabajoSocial;
 import ve.smile.dto.TrabajoSocial;
 
 public class VMVTrabajoSocial extends VM_WindowForm {
 
+	private List<ClasificadorTrabajoSocial> clasificadorTrabajoSocials;
+	
 	@Init(superclass = true)
 	public void childInit() {
 		//NOTHING OK!
 	}
+	
+	public List<ClasificadorTrabajoSocial> getClasificadorTrabajoSocials() {
+		if (this.clasificadorTrabajoSocials == null) {
+			this.clasificadorTrabajoSocials = new ArrayList<>();
+		}
+		if (this.clasificadorTrabajoSocials.isEmpty()) {
+			PayloadClasificadorTrabajoSocialResponse payloadClasificadorTrabajoSocialResponse = S.ClasificadorTrabajoSocialService
+					.consultarTodos();
 
+			if (!UtilPayload.isOK(payloadClasificadorTrabajoSocialResponse)) {
+				Alert.showMessage(payloadClasificadorTrabajoSocialResponse);
+			}
+
+			this.clasificadorTrabajoSocials.addAll(payloadClasificadorTrabajoSocialResponse.getObjetos());
+		}
+		return clasificadorTrabajoSocials;
+	}
+
+	public void setClasificadorTrabajoSocials(
+			List<ClasificadorTrabajoSocial> clasificadorTrabajoSocials) {
+		this.clasificadorTrabajoSocials = clasificadorTrabajoSocials;
+	}
+	
 	@Override
 	public List<OperacionForm> getOperationsForm(OperacionEnum operacionEnum) {
 		List<OperacionForm> operacionesForm = new ArrayList<OperacionForm>();
@@ -102,15 +128,18 @@ public class VMVTrabajoSocial extends VM_WindowForm {
 	}
 
 	public boolean isFormValidated() {
-		//TODO
-		try{
-			UtilValidate.validateString(getTrabajoSocial().getNombre(), "Nombre", 200);
-			UtilValidate.validateString(getTrabajoSocial().getDescripcion(), "Descripción", 200);
+		try {
+			UtilValidate.validateString(getTrabajoSocial().getNombre(), "Nombre",
+					100);
+			UtilValidate.validateNull(getTrabajoSocial().getFkClasificadorTrabajoSocial(),
+					"Clasificador de Trabajo Social");
+			UtilValidate.validateString(getTrabajoSocial().getDescripcion(),
+					"Descripción", 250);
+			
 			return true;
-		}catch(Exception e){
+		} catch (Exception e) {
 			Alert.showMessage(e.getMessage());
 			return false;
-		}		
+		}
 	}
-
 }

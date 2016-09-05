@@ -14,7 +14,7 @@
 						<listhead sizable="true">
 							<listheader width="33%" label="Nombre" />
 							<listheader width="33%" label="Descripción" />
-							<listheader width="33%" label="Clasificador Actividad" />
+							<listheader width="33%" label="Clasificador de Actividad" />
 						</listhead>
 						<template name="model">
 							<listitem>

@@ -28,9 +28,6 @@
 									<div sclass="circle-color-event"
 										style="@load('background:'.concat(each.color))">
 									</div>
-									<label
-										value="@load('  '.concat(each.color))">
-									</label>
 								</listcell>
 							</listitem>
 						</template>

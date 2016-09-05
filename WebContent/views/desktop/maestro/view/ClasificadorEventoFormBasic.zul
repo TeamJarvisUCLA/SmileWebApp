@@ -1,35 +1,30 @@
 <zk xmlns:n="native" xmlns:w="client">
-	<style>
+<style>
+		.z-comboitem-selected { background: #AFA197 !important; color:
+		#ffffff !important; } 
+		.z-comboitem:hover,
+		.z-comboitem-selected:hover { 
+		background: #F0F2DC !important;
+		color: #8D7A6F !important; } 
+		
+		.z-comboitem-selected:hover
+		.z-comboitem-text { color: #8D7A6F !important; }
 
-		.z-colorbox-popup, .z-menu-popup { overflow: hidden; }
-
-
-		.z-colorpalette-input { width: 65px !important; height: 24px
-		!important;}
-
-		.z-colorpicker-input { width: 40px !important; height: 24px
+		.z-comboitem-selected .z-comboitem-text { color: #ffffff
 		!important; }
 
-		.z-colorpicker-button { width: 30px; position: absolute; top:
-		300px; left: 328px; cursor: pointer; border-radius: 100%;
-		height: 30px; border: none; background: #8d7a6f; color: white; }
+		.z-comboitem { text-shadow: none !important; }
 
-		.z-colorpicker-button:hover { background: #d2ec3f; }
-		.z-colorpicker-icon { color: #fff; }
-
-		.z-colorbox-button {
-
-		display: none; }
-
-		.z-colorbox { display: inline; width: 100px; height: 30px;
-		border: 1px solid #8d7a6f; -webkit-border-radius: 3px;
-		border-radius: 0px; padding: 0px; background: #fff;
-		vertical-align: middle; position: relative; overflow: hidden;
-		cursor: pointer; }
-
-		.z-colorpicker-hex .z-colorpicker-input { margin-left: 5px;
-		width: 64px !important; }
+		.page-content-main textarea.materialize-textarea { max-height:
+		100px; }
+		
+		.page-content-main textarea.materialize-textarea:hover, 
+		.page-content-main textarea.materialize-textarea:active,
+		.page-content-main textarea.materialize-textarea:focus{
+			overflow-y: auto; 
+		}
 	</style>
+	
 	<div width="80%" class="container ${arg.animation_}"
 		use="karen.core.form.controllers.C_WindowForm"
 		apply="org.zkoss.bind.BindComposer"
@@ -44,18 +39,22 @@
 						value="@bind(vm.clasificadorEvento.nombre)">
 					</textbox>
 				</div>
-			</div>
+			</div>			
+			
+			
 			<div sclass="col s12">
 				<div class=" input-field offset-s2 col s1">
-					<n:label for="color">Color</n:label>
+					<n:label for="color">Color</n:label>			
 				</div>
-				<div class="col s4">
+				<div class="col s7">
 					<colorbox id="color"
 						value="@bind(vm.clasificadorEvento.color)">
 					</colorbox>
 				</div>
 			</div>
+			
 		</div>
+		
 		<div id="divButtonsForm"
 			use="karen.core.form.buttons.containers.DivButtonsForm">
 		</div>

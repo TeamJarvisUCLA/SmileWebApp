@@ -13,16 +13,16 @@
 
 						<listhead sizable="true">
 							<listheader width="25%" label="Nombre" />
-							<listheader width="25%" label="Clasificador Evento" />
-							<listheader width="25%" label="Descripcion" />
-							<listheader width="25%" label="Tipo Evento" />
+							<listheader width="25%" label="Descripción" />
+							<listheader width="25%" label="Tipo de Evento" />
+							<listheader width="25%" label="Clasificador de Evento" />
 						</listhead>
 						<template name="model">
 							<listitem>
 								<listcell label="@load(each.nombre)" />
-								<listcell label="@load(each.fkClasificadorEvento)" />
 								<listcell label="@load(each.descripcion)" />
 								<listcell label="@load(each.tipoEvento)" />
+								<listcell label="@load(each.fkClasificadorEvento.nombre)" />
 							</listitem>
 						</template>
 						<listfoot>

@@ -17,12 +17,39 @@ import ve.smile.consume.services.S;
 import ve.smile.seguridad.enums.OperacionEnum;
 import ve.smile.payload.response.PayloadParticipacionResponse;
 import ve.smile.dto.Participacion;
+import ve.smile.payload.response.PayloadMultimediaResponse;
+import ve.smile.dto.Multimedia;
 
 public class VMVParticipacion extends VM_WindowForm {
 
+	private List<Multimedia> multimedias;
+	
 	@Init(superclass = true)
 	public void childInit() {
 		//NOTHING OK!
+	}
+	
+	public List<Multimedia> getMultimedias() {
+		if (this.multimedias == null) {
+			this.multimedias = new ArrayList<>();
+		}
+		if (this.multimedias.isEmpty()) {
+			PayloadMultimediaResponse payloadMultimediaResponse = S.MultimediaService
+					.consultarTodos();
+
+			if (!UtilPayload.isOK(payloadMultimediaResponse)) {
+				Alert.showMessage(payloadMultimediaResponse);
+			}
+
+			this.multimedias
+					.addAll(payloadMultimediaResponse.getObjetos());
+		}
+		return multimedias;
+	}
+
+	public void setMultimedias(
+			List<Multimedia> multimedias) {
+		this.multimedias = multimedias;
 	}
 
 	@Override
@@ -102,15 +129,14 @@ public class VMVParticipacion extends VM_WindowForm {
 	}
 
 	public boolean isFormValidated() {
-		//TODO
+		//TODO: Validar multimedia
 		try{
-			UtilValidate.validateString(getParticipacion().getNombre(), "Nombre", 200);
-			UtilValidate.validateString(getParticipacion()	.getDescripcion(), "Descripción", 200);
+			UtilValidate.validateString(getParticipacion().getNombre(), "Nombre", 100);
+			UtilValidate.validateString(getParticipacion().getDescripcion(), "Descripción", 250);
 			return true;
 		}catch(Exception e){
 			Alert.showMessage(e.getMessage());
 			return false;
 		}		
 	}
-
 }

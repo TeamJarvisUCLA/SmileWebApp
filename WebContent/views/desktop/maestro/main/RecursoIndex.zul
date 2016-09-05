@@ -1,5 +1,5 @@
 <zk xmlns:n="native" xmlns:w="client">
-	<div width="100%" class='opacity-0'
+	<div width="100%" class="${arg.animation_}"
 		use="karen.core.simple_list_principal.controllers.C_WindowSimpleListPrincipal"
 		apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('ve.smile.viewmodels.main.VMPRecurso')">
@@ -12,17 +12,17 @@
 						selectedItem="@bind(vm.selectedObject)">
 
 						<listhead sizable="true">
-							<listheader width="25%" label="Clasificador Recurso" />
-							<listheader width="25%" label="Unidad Medida" />
 							<listheader width="25%" label="Nombre" />
-							<listheader width="25%" label="Descripcion" />
+							<listheader width="25%" label="Descripción" />
+							<listheader width="25%" label="Unidad de Medida" />
+							<listheader width="25%" label="Clasificador de Recurso" />							
 						</listhead>
 						<template name="model">
 							<listitem>
-								<listcell label="@load(each.fkClasificadorRecurso)" />
-								<listcell label="@load(each.fkUnidadMedida)" />
 								<listcell label="@load(each.nombre)" />
 								<listcell label="@load(each.descripcion)" />
+								<listcell label="@load(each.fkUnidadMedida.nombre)" />
+								<listcell label="@load(each.fkClasificadorRecurso.nombre)" />
 							</listitem>
 						</template>
 						<listfoot>

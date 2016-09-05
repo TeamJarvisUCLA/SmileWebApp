@@ -106,11 +106,9 @@ public class VMVClasificadorTrabajoSocial extends VM_WindowForm {
 	}
 
 	public boolean isFormValidated() {
-		// TODO
 		try {
 			UtilValidate.validateString(getClasificadorTrabajoSocial()
 					.getNombre(), "Nombre", 100);
-
 			return true;
 		} catch (Exception e) {
 			Alert.showMessage(e.getMessage());

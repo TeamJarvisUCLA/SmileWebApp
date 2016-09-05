@@ -1,5 +1,31 @@
 <zk xmlns:n="native" xmlns:w="client">
-	<div width="80%" class="container ${arg.animation_}"
+	<style>
+		.z-comboitem-selected { background: #AFA197 !important; color:
+		#ffffff !important; } 
+		.z-comboitem:hover,
+		.z-comboitem-selected:hover { 
+		background: #F0F2DC !important;
+		color: #8D7A6F !important; } 
+
+			.z-comboitem-selected:hover
+			.z-comboitem-text { color: #8D7A6F !important; }
+
+		.z-comboitem-selected .z-comboitem-text { color: #ffffff
+		!important; }
+
+		.z-comboitem { text-shadow: none !important; }
+
+		.page-content-main textarea.materialize-textarea { max-height:
+		100px; }
+		
+		.page-content-main textarea.materialize-textarea:hover, 
+			.page-content-main textarea.materialize-textarea:active,
+			.page-content-main textarea.materialize-textarea:focus{
+				overflow-y: auto; 
+			}
+	</style>
+
+		<div width="80%" class="container ${arg.animation_}"
 		use="karen.core.form.controllers.C_WindowForm"
 		apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('ve.smile.viewmodels.views.VMVEvento')">
@@ -7,41 +33,50 @@
 		<div class="row">
 
 			<div class="col s12">
-				<div class="input-field col s6">
+				<div class="input-field offset-s2 col s8">
 					<n:label for="nombre">Nombre</n:label>
-					<textbox id="nombre" type="text"
+					<textbox id="nombre" type="text" maxlength="100"
 						value="@bind(vm.evento.nombre)">
 					</textbox>
 				</div>
-				<div class="input-field col s6">
+			</div>
+		
+			<div sclass="col s12">
+				<div class="input-field offset-s2 col s8">
 					<n:label class="active"
 						for="fk_clasificador_evento">
-						Clasificador Evento
+						Clasificador de Evento
 					</n:label>
-					<combobox id="fk_clasificador_evento"
-						readonly="true">
-						<comboitem label="Choice 1" value="c1" />
-						<comboitem label="Choice 2" value="c2" />
-						<comboitem label="Choice 3" value="c3" />
-					</combobox>
+						<combobox id="fk_clasificador_evento"
+							readonly="true" model="@bind(vm.clasificadorEventos)"
+							selectedItem="@bind(vm.evento.fkClasificadorEvento)">
+							<template name="model">
+								<comboitem label="@load(each.nombre)" />
+							</template>
+						</combobox>
 				</div>
 			</div>
-			<div class="col s12">
-				<div class="input-field col s6">
-					<n:label for="descripcion">Descripcion</n:label>
-					<textbox id="descripcion" type="text"
-						value="@bind(vm.evento.descripcion)">
-					</textbox>
-				</div>
-				<div class="input-field col s6">
-					<n:label for="tipo_evento">Tipo Evento</n:label>
-					<textbox id="tipo_evento" type="text"
+		
+	<div class="col s12">
+				<div class="input-field offset-s2 col s8">
+					<n:label for="tipo_evento">Tipo de Evento</n:label>
+					<textbox id="tipo_evento" type="text" maxlength="100"
 						value="@bind(vm.evento.tipoEvento)">
 					</textbox>
 				</div>
+			</div>	
+			
+	<div class="col s12">
+				<div class="input-field offset-s2 col s8">
+					<n:label for="descripcion">Descripción</n:label>
+					<textbox id="descripcion" type="text" maxlength="250"
+						sclass="materialize-textarea" multiline="true"
+						value="@bind(vm.evento.descripcion)">
+					</textbox>
+				</div>
 			</div>
-
 		</div>
+
 		<div id="divButtonsForm"
 			use="karen.core.form.buttons.containers.DivButtonsForm">
 		</div>

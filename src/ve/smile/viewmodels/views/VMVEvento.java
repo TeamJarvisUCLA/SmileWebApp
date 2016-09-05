@@ -16,15 +16,43 @@ import org.zkoss.bind.annotation.Init;
 
 import ve.smile.consume.services.S;
 import ve.smile.dto.Evento;
+import ve.smile.dto.ClasificadorEvento;
 import ve.smile.payload.response.PayloadEventoResponse;
+import ve.smile.payload.response.PayloadClasificadorEventoResponse;
 import ve.smile.seguridad.enums.OperacionEnum;
 
 public class VMVEvento extends VM_WindowForm {
+
+	private List<ClasificadorEvento> clasificadorEventos;
 
 	@Init(superclass = true)
 	public void childInit() {
 		// NOTHING OK!
 	}
+
+	public List<ClasificadorEvento> getClasificadorEventos() {
+		if (this.clasificadorEventos == null) {
+			this.clasificadorEventos = new ArrayList<>();
+		}
+		if (this.clasificadorEventos.isEmpty()) {
+			PayloadClasificadorEventoResponse payloadClasificadorEventoResponse = S.ClasificadorEventoService
+					.consultarTodos();
+
+			if (!UtilPayload.isOK(payloadClasificadorEventoResponse)) {
+				Alert.showMessage(payloadClasificadorEventoResponse);
+			}
+
+			this.clasificadorEventos
+					.addAll(payloadClasificadorEventoResponse.getObjetos());
+		}
+		return clasificadorEventos;
+	}
+
+	public void setClasificadorEventos(
+			List<ClasificadorEvento> clasificadorEventos) {
+		this.clasificadorEventos = clasificadorEventos;
+	}
+
 
 	@Override
 	public List<OperacionForm> getOperationsForm(OperacionEnum operacionEnum) {
@@ -106,18 +134,20 @@ public class VMVEvento extends VM_WindowForm {
 	}
 
 	public boolean isFormValidated() {
-		// TODO
+		//TODO: Validar tipo_evento es de tipo Char
 		try {
 			UtilValidate.validateString(getEvento().getNombre(), "Nombre", 100);
-			UtilValidate.validateString(getEvento().getDescripcion(),
-					"Descripción", 250);
 			UtilValidate.validateNull(getEvento().getFkClasificadorEvento(),
 					"Clasificador de Evento");
+			
+			
+			UtilValidate.validateString(getEvento().getDescripcion(),
+					"Descripción", 250);			
+			
 			return true;
 		} catch (Exception e) {
 			Alert.showMessage(e.getMessage());
 			return false;
 		}
 	}
-
 }

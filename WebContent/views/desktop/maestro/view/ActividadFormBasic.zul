@@ -24,6 +24,7 @@
 			overflow-y: auto; 
 		}
 	</style>
+	
 	<div width="80%" class="container ${arg.animation_}"
 		use="karen.core.form.controllers.C_WindowForm"
 		apply="org.zkoss.bind.BindComposer"
@@ -44,7 +45,7 @@
 				<div class="input-field offset-s2 col s8">
 					<n:label class="active"
 						for="fk_clasificador_actividad">
-						Clasificador Actividad
+						Clasificador de Actividad
 					</n:label>
 					<combobox id="fk_clasificador_actividad"
 						readonly="true" model="@bind(vm.clasificadorActividads)"

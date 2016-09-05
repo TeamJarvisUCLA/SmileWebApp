@@ -108,7 +108,7 @@ public class VMVClasificadorEvento extends VM_WindowForm {
 			UtilValidate.validateString(getClasificadorEvento().getNombre(),
 					"Nombre", 100);
 			UtilValidate.validateString(getClasificadorEvento().getColor(),
-					"Color", 200);
+					"Color", 100);
 			return true;
 		} catch (Exception e) {
 			Alert.showMessage(e.getMessage());

@@ -106,12 +106,11 @@ public class VMVRequisito extends VM_WindowForm {
 	}
 
 	public boolean isFormValidated() {
-		// TODO
 		try {
 			UtilValidate.validateString(getRequisito().getNombre(), "Nombre",
-					200);
+					100);
 			UtilValidate.validateString(getRequisito().getDescripcion(),
-					"Descripción", 200);
+					"DescripciÃ³n", 250);
 			return true;
 		} catch (Exception e) {
 			Alert.showMessage(e.getMessage());

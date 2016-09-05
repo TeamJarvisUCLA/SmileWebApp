@@ -108,7 +108,7 @@ public class VMVPregunta extends VM_WindowForm {
 	public boolean isFormValidated() {
 		try {
 			UtilValidate.validateString(getPregunta().getPregunta(),
-					"Pregunta", 80);
+					"Pregunta", 100);
 			UtilValidate.validateString(getPregunta().getRespuesta(),
 					"Respuesta", 250);
 			return true;

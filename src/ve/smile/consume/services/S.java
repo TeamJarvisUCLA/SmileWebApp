@@ -141,6 +141,9 @@ public class S {
 	public static ClasificadorRecursoService ClasificadorRecursoService;
 	public static PersonaService PersonaService;
 
+	public static PlantillaTsPlanActividadService PlantillaTsPlanActividadService;
+	public static PlantillaTsPlanIndicadorService PlantillaTsPlanIndicadorService;
+
 	static {
 		// Services Seguridad
 		VistaOperacionBasicoService = new VistaOperacionBasicoService();
@@ -264,5 +267,7 @@ public class S {
 		EventPlanPatrocinadorService = new EventPlanPatrocinadorService();
 		ClasificadorRecursoService = new ClasificadorRecursoService();
 		PersonaService = new PersonaService();
+		PlantillaTsPlanActividadService = new PlantillaTsPlanActividadService();
+		PlantillaTsPlanIndicadorService = new PlantillaTsPlanIndicadorService();
 	}
 }

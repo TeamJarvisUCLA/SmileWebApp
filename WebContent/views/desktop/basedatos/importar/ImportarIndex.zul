@@ -1,0 +1,64 @@
+<zk xmlns:n="native" xmlns:w="client">
+	<div width="100%" class="${arg.animation_}"
+		use="karen.core.simple_list_principal.controllers.C_WindowSimpleListPrincipal"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('ve.smile.basedatos.viewmodels.VM_ImportarIndex')">
+
+		<div class="row">
+			<div class="col s12">
+				<div class="col s5">
+					<listbox id="listbox" model="@load(vm.objectsList)"
+					mold="paging"
+						selectedItem="@bind(vm.selectedObject)" pagingPosition="top"
+						pageSize="4" onSelect="@command('onSelectTabla')">
+
+						<listhead sizable="true">
+							<listheader width="49%" label="Nombre" />
+						</listhead>
+						<template name="model">
+							<listitem>
+								<listcell label="@load(each.nombre)" />
+							</listitem>
+						</template>
+						<!-- 						<listfoot> -->
+						<!-- 							<listfooter id="listFoot" span="1" -->
+						<!-- 								use="karen.core.listfoot.ListFoot"> -->
+						<!-- 							</listfooter> -->
+						<!-- 						</listfoot> -->
+					</listbox>
+
+
+				</div>
+				<vbox class="col s1">
+					<image style="cursor:pointer" id="chooseAllBtn"
+						onClick="@command('onChooseItem')"
+						src="imagenes/rightrightarrow_g.png" />
+					<image style="cursor:pointer" id="chooseBtn"
+						src="imagenes/rightarrow_g.png" />
+					<image style="cursor:pointer" id="removeBtn"
+						src="imagenes/leftarrow_g.png" />
+					<image style="cursor:pointer" id="removeAllBtn"
+						src="imagenes/leftleftarrow_g.png" />
+				</vbox>
+				<div class="col s6" style="margin-left:-40px;">
+					<listbox id="listbox2"
+						model="@load(vm.listsTabla)">
+
+						<listhead sizable="true">
+							<listheader width="49%" label="Nombre" />
+						</listhead>
+						<template name="model">
+							<listitem>
+								<listcell label="@load(each.nombre)" />
+							</listitem>
+						</template>
+					</listbox>
+				</div>
+			</div>
+		</div>
+
+		<toolbar id="toolbar" align="center"
+			use="karen.core.toolbar.Toolbar">
+		</toolbar>
+	</div>
+</zk>

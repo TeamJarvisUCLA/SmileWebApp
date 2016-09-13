@@ -49,7 +49,7 @@ public class VM_RequisitoAyudaIndex extends VM_WindowSimpleListPrincipal<Ayuda> 
 
 	@Override
 	public String getSrcFileZulForm(OperacionEnum operacionEnum) {
-		return "views/desktop/configuracion/requisitosAyuda/requisitosAyudaFormBasic.zul";
+		return "views/desktop/configuracion/requisitoAyuda/requisitoAyudaFormBasic.zul";
 	}
 
 	@Command("onSelectAyuda")

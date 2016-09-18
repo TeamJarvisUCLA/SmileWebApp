@@ -3,27 +3,69 @@
 
 		<div class="row">
 			<div class="col s12">
-				<div class="col s12">
-					<listbox id="listbox" model="@load(vm.objectsList)" selectedItem="@bind(vm.selectedObject)">
-
+				<div class="col s6">
+					<listbox id="listbox" model="@load(vm.objectsList)" selectedItem="@bind(vm.selectedObject)" onSelect="@command('onSelectTrabajoSocial')">
 						<listhead sizable="true">
-							<listheader width="30%" label="Nombre" />
-							<listheader width="30%" label="Clasificador de trabajo social" />
-							<listheader width="40%" label="Descripción" />
+							<listheader width="49%" label="Trabajo social" />
 						</listhead>
 						<template name="model">
 							<listitem>
 								<listcell label="@load(each.nombre)" />
-								<listcell label="@load(each.fkClasificadorTrabajoSocial.nombre)" />
-								<listcell label="@load(each.descripcion)" />
 							</listitem>
 						</template>
 						<listfoot>
-							<listfooter id="listFoot" span="4"
+							<listfooter id="listFoot" span="1"
 								use="karen.core.listfoot.ListFoot">
 							</listfooter>
 						</listfoot>
 					</listbox>
+				</div>
+				
+				<div class="col s6">
+					<tabbox class="rtab">
+						<tabs>
+							<tab label="Indicadores" selected="true" />
+							<tab label="Actividades" />
+						</tabs>
+						<tabpanels>
+							<tabpanel>
+								<div class="col s12" style="float: unset; margin-top: 20px;">
+									<div class="row">
+										<div class="col s12">
+											<listbox model="@load(vm.selectedObject.trabajoSocialIndicadors)" selectedItem="@bind(vm.selectedObject)" onSelect="@command('onSelectTrabajoSocial')">
+												<listhead sizable="true">
+													<listheader label="Indicadores" />
+												</listhead>
+												<template name="model">
+													<listitem>
+														<listcell label="@load(each.fkIndicador.nombre)" />
+													</listitem>
+												</template>
+											</listbox>
+										</div>
+									</div>
+								</div>
+							</tabpanel>
+							<tabpanel>
+								<div class="col s12" style="float: unset; margin-top: 20px;">
+									<div class="row">
+										<div class="col s12">
+											<listbox model="@load(vm.selectedObject.trabajoSocialActividades)" selectedItem="@bind(vm.selectedObject)" onSelect="@command('onSelectTrabajoSocial')">
+												<listhead sizable="true">
+													<listheader label="Actividades" />
+												</listhead>
+												<template name="model">
+													<listitem>
+														<listcell label="@load(each.fkActividad.nombre)" />
+													</listitem>
+												</template>
+											</listbox>
+										</div>
+									</div>
+								</div>
+							</tabpanel>
+						</tabpanels>
+					</tabbox>
 				</div>
 			</div>
 		</div>

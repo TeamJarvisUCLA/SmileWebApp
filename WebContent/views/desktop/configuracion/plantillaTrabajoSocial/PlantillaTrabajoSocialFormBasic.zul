@@ -9,9 +9,9 @@
 			</div>
 			
 			<div>
-				<tabbox id="tb">
+				<tabbox id="tb" class="rtab">
     				<tabs id="tabs">
-        				<tab id="tabIndicadores" label="Indicadores" />
+        				<tab id="tabIndicadores" label="Indicadores" selected="true" />
         				<tab id="tabActividades" label="Actividades" />
     				</tabs>
     			
@@ -19,44 +19,56 @@
         				<tabpanel>
 							<hlayout>
 								<vlayout>
-									Indicadores
-									<listbox model="@bind(vm.indicadores)" selectedItems="@bind(vm.indicadoresSel)" multiple="true" width="400px" height="300px"/>
+									<listbox model="@bind(vm.indicadores)" selectedItems="@bind(vm.indicadoresSel)" multiple="true" width="400px" height="300px">
+										<listhead sizable="true">
+											<listheader label="Indicadores" />
+										</listhead>
 										<template name="model">
 											<listitem label="@load(each.nombre)" />
 										</template>
+									</listbox>
 								</vlayout>
 								<vbox vflex="1">
 									<button label="&gt;" onClick="@command('indicadoresAPlantilla')"/>
 									<button label="&lt;" onClick="@command('indicadoresFueraPlantilla')"/>
 								</vbox>
 								<vlayout>
-									Indicadores del trabajo social
-									<listbox model="@bind(vm.plantillaTrabajoSocialIndicadores)" selectedItems="@bind(vm.plantillaTrabajoSocialIndicadoresSel)" multiple="true" width="400px" height="300px"/>
+									<listbox model="@bind(vm.trabajoSocial.trabajoSocialIndicadors)" selectedItems="@bind(vm.trabajoSocialIndicadoresSel)" multiple="true" width="400px" height="300px">
+										<listhead sizable="true">
+											<listheader label="Indicadores del trabajo social" />
+										</listhead>
 										<template name="model">
 											<listitem label="@load(each.fkIndicador.nombre)" />
 										</template>
+									</listbox>
 								</vlayout>
 							</hlayout>
         				</tabpanel>
         				<tabpanel>
 							<hlayout>
 								<vlayout>
-									Actividades
-									<listbox model="@bind(vm.actividades)" selectedItems="@bind(vm.actividadesSel)" multiple="true" width="400px" height="300px"/>
+									<listbox model="@bind(vm.actividades)" selectedItems="@bind(vm.actividadesSel)" multiple="true" width="400px" height="300px">
+										<listhead sizable="true">
+											<listheader label="Actividades" />
+										</listhead>
 										<template name="model">
 											<listitem label="@load(each.nombre)" />
 										</template>
+									</listbox>
 								</vlayout>
 								<vbox vflex="1" pack="middle">
 									<button label="&gt;" onClick="@command('actividadesAPlantilla')"/>
 									<button label="&lt;" onClick="@command('actividadesFueraPlantilla')"/>
 								</vbox>
 								<vlayout>
-									Actividades del evento
-									<listbox model="@bind(vm.plantillaEventoActividades)" selectedItems="@bind(vm.plantillaEventoActividadesSel)" multiple="true" width="400px" height="300px"/>
+									<listbox model="@bind(vm.trabajoSocial.trabajoSocialActividades)" selectedItems="@bind(vm.trabajoSocialActividadesSel)" multiple="true" width="400px" height="300px">
+										<listhead sizable="true">
+											<listheader label="Actividades del trabajo social" />
+										</listhead>
 										<template name="model">
 											<listitem label="@load(each.fkActividad.nombre)" />
 										</template>
+									</listbox>
 								</vlayout>
 							</hlayout>
         				</tabpanel>

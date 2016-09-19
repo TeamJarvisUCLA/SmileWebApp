@@ -141,6 +141,10 @@ public class S {
 	public static ClasificadorRecursoService ClasificadorRecursoService;
 	public static PersonaService PersonaService;
 
+	public static PlantillaTrabajoSocialActividadService PlantillaTrabajoSocialActividadService;
+	public static PlantillaTrabajoSocialIndicadorService PlantillaTrabajoSocialIndicadorService;
+	public static RespaldoTablaService RespaldoTablaService;
+
 	static {
 		// Services Seguridad
 		VistaOperacionBasicoService = new VistaOperacionBasicoService();

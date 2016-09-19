@@ -1,4 +1,4 @@
-<?component name="uploadFileSingle" macroURI="/resources/componentes/upload_file_single.zul"?>
+<?component name="uploadFileSingle" macroURI="/assets/theme/components/upload_file_single.zul"?>
 
 <zk xmlns:n="native" xmlns:w="client">
 	<div width="80%" class="container ${arg.animation_}" use="karen.core.form.controllers.C_WindowForm"

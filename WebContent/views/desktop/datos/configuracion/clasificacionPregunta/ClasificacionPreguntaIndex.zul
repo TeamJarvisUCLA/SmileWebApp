@@ -1,17 +1,20 @@
 <zk xmlns:n="native" xmlns:w="client">
 	<div width="100%" class="${arg.animation_}"
 		use="karen.core.simple_list_principal.controllers.C_WindowSimpleListPrincipal"
-		apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('ve.smile.datos.configuracion.clasificacionPregunta.viewmodels.VM_ClasificacionPreguntaIndex')">
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('ve.smile.datos.configuracion.clasificacion_pregunta.viewmodels.VM_ClasificacionPreguntaIndex')">
 
 		<div class="row">
 			<div class="col s12">
-		
+
 				<div class="col s6">
 					<listbox id="listbox" model="@load(vm.objectsList)"
-						selectedItem="@bind(vm.selectedObject)" onSelect="@command('onSelectClasificadorPregunta')">
+						selectedItem="@bind(vm.selectedObject)"
+						onSelect="@command('onSelectClasificadorPregunta')">
 
 						<listhead sizable="true">
-							<listheader width="49%" label="Clasificador de Pregunta" />
+							<listheader width="49%"
+								label="Clasificador de Pregunta" />
 						</listhead>
 						<template name="model">
 							<listitem>
@@ -25,24 +28,27 @@
 						</listfoot>
 					</listbox>
 				</div>
-				
+
 				<div class="col s6">
-					<listbox model="@load(vm.selectedObject.preguntaClasificadas)">
+					<listbox
+						model="@load(vm.selectedObject.preguntaClasificadas)">
 						<listhead sizable="true">
 							<listheader label="Preguntas" />
 						</listhead>
 						<template name="model">
 							<listitem>
-								<listcell label="@load(each.fkPregunta.pregunta)" />
+								<listcell
+									label="@load(each.fkPregunta.pregunta)" />
 							</listitem>
 						</template>
 					</listbox>
 				</div>
 			</div>
-			
+
 		</div>
 
-		<toolbar id="toolbar" align="center" use="karen.core.toolbar.Toolbar">
+		<toolbar id="toolbar" align="center"
+			use="karen.core.toolbar.Toolbar">
 		</toolbar>
 	</div>
 </zk>

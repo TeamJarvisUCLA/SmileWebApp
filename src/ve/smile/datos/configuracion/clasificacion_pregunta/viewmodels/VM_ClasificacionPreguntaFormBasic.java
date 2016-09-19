@@ -1,9 +1,7 @@
-package ve.smile.datos.configuracion.clasificacionPregunta.viewmodels;
+package ve.smile.datos.configuracion.clasificacion_pregunta.viewmodels;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import org.zkoss.bind.annotation.Init;
 
 import karen.core.crux.alert.Alert;
 import karen.core.crux.session.DataCenter;
@@ -13,16 +11,16 @@ import karen.core.form.buttons.helpers.OperacionFormHelper;
 import karen.core.form.viewmodels.VM_WindowForm;
 import karen.core.util.payload.UtilPayload;
 import karen.core.util.validate.UtilValidate;
+
+import org.zkoss.bind.annotation.Init;
+
 import ve.smile.consume.services.S;
 import ve.smile.dto.ClasificadorPregunta;
-import ve.smile.dto.Pregunta;
 import ve.smile.payload.response.PayloadClasificadorPreguntaResponse;
-import ve.smile.payload.response.PayloadPreguntaResponse;
 import ve.smile.seguridad.enums.OperacionEnum;
-import ve.smile.seguridad.dto.Rol;
 
 public class VM_ClasificacionPreguntaFormBasic extends VM_WindowForm {
-	
+
 	@Init(superclass = true)
 	public void childInit() {
 	}
@@ -31,11 +29,13 @@ public class VM_ClasificacionPreguntaFormBasic extends VM_WindowForm {
 	public List<OperacionForm> getOperationsForm(OperacionEnum operacionEnum) {
 		List<OperacionForm> operacionesForm = new ArrayList<OperacionForm>();
 
-		if (operacionEnum.equals(OperacionEnum.INCLUIR) ||
-				operacionEnum.equals(OperacionEnum.MODIFICAR)) {
+		if (operacionEnum.equals(OperacionEnum.INCLUIR)
+				|| operacionEnum.equals(OperacionEnum.MODIFICAR)) {
 
-			operacionesForm.add(OperacionFormHelper.getPorType(OperacionFormEnum.GUARDAR));
-			operacionesForm.add(OperacionFormHelper.getPorType(OperacionFormEnum.CANCELAR));
+			operacionesForm.add(OperacionFormHelper
+					.getPorType(OperacionFormEnum.GUARDAR));
+			operacionesForm.add(OperacionFormHelper
+					.getPorType(OperacionFormEnum.CANCELAR));
 
 			return operacionesForm;
 		}
@@ -46,15 +46,15 @@ public class VM_ClasificacionPreguntaFormBasic extends VM_WindowForm {
 
 	@Override
 	public boolean actionGuardar(OperacionEnum operacionEnum) {
-		if(!isFormValidated()) {
+		if (!isFormValidated()) {
 			return true;
 		}
 
 		if (operacionEnum.equals(OperacionEnum.INCLUIR)) {
-			PayloadClasificadorPreguntaResponse payloadClasificadorPreguntaResponse =
-							S.ClasificadorPreguntaService.incluir(getClasificadorPregunta());
+			PayloadClasificadorPreguntaResponse payloadClasificadorPreguntaResponse = S.ClasificadorPreguntaService
+					.incluir(getClasificadorPregunta());
 
-			if(!UtilPayload.isOK(payloadClasificadorPreguntaResponse)) {
+			if (!UtilPayload.isOK(payloadClasificadorPreguntaResponse)) {
 				Alert.showMessage(payloadClasificadorPreguntaResponse);
 				return true;
 			}
@@ -65,10 +65,10 @@ public class VM_ClasificacionPreguntaFormBasic extends VM_WindowForm {
 		}
 
 		if (operacionEnum.equals(OperacionEnum.MODIFICAR)) {
-			PayloadClasificadorPreguntaResponse payloadClasificadorPreguntaResponse =
-							S.ClasificadorPreguntaService.modificar(getClasificadorPregunta());
+			PayloadClasificadorPreguntaResponse payloadClasificadorPreguntaResponse = S.ClasificadorPreguntaService
+					.modificar(getClasificadorPregunta());
 
-			if(!UtilPayload.isOK(payloadClasificadorPreguntaResponse)) {
+			if (!UtilPayload.isOK(payloadClasificadorPreguntaResponse)) {
 				Alert.showMessage(payloadClasificadorPreguntaResponse);
 				return true;
 			}
@@ -99,15 +99,17 @@ public class VM_ClasificacionPreguntaFormBasic extends VM_WindowForm {
 
 	public boolean isFormValidated() {
 		try {
-			UtilValidate.validateString(getClasificadorPregunta().getNombre(), "Clasificador de Pregunta", 99);
-			
-			//toUpper
-			getClasificadorPregunta().setNombre(getClasificadorPregunta().getNombre().toUpperCase());
-			
+			UtilValidate.validateString(getClasificadorPregunta().getNombre(),
+					"Clasificador de Pregunta", 99);
+
+			// toUpper
+			getClasificadorPregunta().setNombre(
+					getClasificadorPregunta().getNombre().toUpperCase());
+
 			return true;
 		} catch (Exception e) {
 			Alert.showMessage(e.getMessage());
-			
+
 			return false;
 		}
 	}

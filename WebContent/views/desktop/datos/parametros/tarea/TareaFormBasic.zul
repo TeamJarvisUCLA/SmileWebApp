@@ -1,0 +1,49 @@
+<zk xmlns:n="native" xmlns:w="client">
+	<div width="80%" class="container ${arg.animation_}"
+		use="karen.core.form.controllers.C_WindowForm"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('ve.smile.datos.parametros.tarea.viewmodels.VM_TareaFormBasic')">
+
+		<div class="row">
+
+			<div class="col s12">
+				<div class="input-field offset-s2 col s8">
+					<n:label for="nombre">Nombre</n:label>
+					<textbox id="nombre" type="text" maxlength="100"
+						value="@bind(vm.tarea.nombre)">
+					</textbox>
+				</div>
+			</div>
+
+			<div sclass="col s12">
+				<div class="input-field offset-s2 col s8">
+					<n:label class="active"
+						for="fk_clasificador_tarea">
+						Clasificador de Tarea
+					</n:label>
+					<combobox id="fk_clasificador_tarea" readonly="true"
+						model="@bind(vm.clasificadorTareas)"
+						selectedItem="@bind(vm.tarea.fkClasificadorTarea)">
+						<template name="model">
+							<comboitem label="@load(each.nombre)" />
+						</template>
+					</combobox>
+				</div>
+			</div>
+
+			<div class="col s12">
+				<div class="input-field offset-s2 col s8">
+					<n:label for="descripcion">Descripción</n:label>
+					<textbox id="descripcion" type="text"
+						maxlength="250" sclass="materialize-textarea" rows="1"
+						multiline="true" value="@bind(vm.tarea.descripcion)">
+					</textbox>
+				</div>
+			</div>
+		</div>
+
+		<div id="divButtonsForm"
+			use="karen.core.form.buttons.containers.DivButtonsForm">
+		</div>
+	</div>
+</zk>

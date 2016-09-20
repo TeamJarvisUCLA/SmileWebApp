@@ -1,0 +1,98 @@
+<zk xmlns:n="native" xmlns:w="client">
+	<div width="100%" class="${arg.animation_}"
+		use="karen.core.simple_list_principal.controllers.C_WindowSimpleListPrincipal"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('ve.smile.datos.configuracion.plantilla_evento.viewmodels.VM_PlantillaEventoIndex')">
+
+		<div class="row">
+			<div class="col s12">
+				<div class="col s6">
+					<listbox id="listbox" model="@load(vm.objectsList)"
+						selectedItem="@bind(vm.selectedObject)"
+						onSelect="@command('onSelectEvento')">
+						<listhead sizable="true">
+							<listheader width="49%" label="Evento" />
+						</listhead>
+						<template name="model">
+							<listitem>
+								<listcell label="@load(each.nombre)" />
+							</listitem>
+						</template>
+						<listfoot>
+							<listfooter id="listFoot" span="1"
+								use="karen.core.listfoot.ListFoot">
+							</listfooter>
+						</listfoot>
+					</listbox>
+				</div>
+
+				<div class="col s6">
+					<tabbox class="rtab">
+						<tabs>
+							<tab label="Indicadores" selected="true" />
+							<tab label="Tareas" />
+						</tabs>
+						<tabpanels>
+							<tabpanel>
+								<div class="col s12"
+									style="float: unset; margin-top: 20px;">
+									<div class="row">
+										<div class="col s12">
+											<listbox
+												model="@load(vm.selectedObject.eventoIndicadors)"
+												selectedItem="@bind(vm.selectedObject)"
+												onSelect="@command('onSelectEvento')">
+												<listhead
+													sizable="true">
+													<listheader
+														label="Indicadores" />
+												</listhead>
+												<template
+													name="model">
+													<listitem>
+														<listcell
+															label="@load(each.fkIndicador.nombre)" />
+													</listitem>
+												</template>
+											</listbox>
+										</div>
+									</div>
+								</div>
+							</tabpanel>
+							<tabpanel>
+								<div class="col s12"
+									style="float: unset; margin-top: 20px;">
+									<div class="row">
+										<div class="col s12">
+											<listbox
+												model="@load(vm.selectedObject.eventoTareas)"
+												selectedItem="@bind(vm.selectedObject)"
+												onSelect="@command('onSelectEvento')">
+												<listhead
+													sizable="true">
+													<listheader
+														label="Tareas" />
+												</listhead>
+												<template
+													name="model">
+													<listitem>
+														<listcell
+															label="@load(each.fkTarea.nombre)" />
+													</listitem>
+												</template>
+											</listbox>
+										</div>
+									</div>
+								</div>
+							</tabpanel>
+						</tabpanels>
+					</tabbox>
+				</div>
+			</div>
+		</div>
+
+		<toolbar id="toolbar" align="center"
+			use="karen.core.toolbar.Toolbar">
+		</toolbar>
+	</div>
+</zk>

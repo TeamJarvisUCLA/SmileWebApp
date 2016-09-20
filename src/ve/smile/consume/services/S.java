@@ -268,5 +268,8 @@ public class S {
 		EventPlanPatrocinadorService = new EventPlanPatrocinadorService();
 		ClasificadorRecursoService = new ClasificadorRecursoService();
 		PersonaService = new PersonaService();
+		RespaldoTablaService = new RespaldoTablaService();
+		PlantillaTrabajoSocialActividadService = new PlantillaTrabajoSocialActividadService();
+		PlantillaTrabajoSocialIndicadorService = new PlantillaTrabajoSocialIndicadorService();
 	}
-}
+}

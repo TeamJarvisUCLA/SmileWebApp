@@ -11,58 +11,80 @@ h4 {
 }
 
 /* estilos para seccion slider_twiter */
+#slider_twitter .row {
+	background: #4099FF;
+	width: 100%;
+	height: 100%;
+	margin: 0px
+}
 
-	#slider_twitter .row {
-		background: #4099FF; 
-		width:100%; 
-		height:100%; 
-		margin:0px
-	}
-	
-	#slider_twitter .row {
-		margin-bottom: 0;
-	}
-	#slider_twitter #owlTwitter .item{ display: block; padding: 16px 1px; margin: 5px;
-	-webkit-border-radius: 3px; -moz-border-radius: 3px;
-	border-radius: 3px; text-align: justify; } .owl-theme
-	#slider_twitter .owl-controls .owl-buttons div { padding: 5px 40px; }
-	
-	#slider_twitter .owl-theme .owl-buttons span{ margin-top: 2px; }
-	
-	//To move navigation buttons outside use these settings:
-	
-	#slider_twitter .owl-theme .owl-controls .owl-buttons div { position: absolute;
-	}
-	
-	#slider_twitter .owl-theme .owl-controls .owl-buttons .owl-prev{ left: -50px;
-	top: 50px; position: absolute; }
-	
-	#slider_twitter .owl-theme .owl-controls .owl-buttons .owl-next{ right: -118px;
-	top: 45px; position: absolute; }
-	
-	#slider_twitter .owl-carousel { display: none; position: relative; width: 95%;
-	-ms-touch-action: pan-y; margin-left: 1%; }
-	
-	#slider_twitter .item-twitter span{
-	
-	font-size: 16px; color: white; }
+#slider_twitter .row {
+	margin-bottom: 0;
+}
 
+#slider_twitter #owlTwitter .item {
+	display: block;
+	padding: 16px 1px;
+	margin: 5px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	text-align: justify;
+}
+
+.owl-theme
+	#slider_twitter .owl-controls .owl-buttons div {
+	padding: 5px 40px;
+}
+
+#slider_twitter .owl-theme .owl-buttons span {
+	margin-top: 2px;
+}
+
+//
+To move navigation buttons outside use these settings:
+	
+	#slider_twitter .owl-theme .owl-controls .owl-buttons div {
+	position: absolute;
+}
+
+#slider_twitter .owl-theme .owl-controls .owl-buttons .owl-prev {
+	left: -50px;
+	top: 50px;
+	position: absolute;
+}
+
+#slider_twitter .owl-theme .owl-controls .owl-buttons .owl-next {
+	right: -118px;
+	top: 45px;
+	position: absolute;
+}
+
+#slider_twitter .owl-carousel {
+	display: none;
+	position: relative;
+	width: 95%;
+	-ms-touch-action: pan-y;
+	margin-left: 1%;
+}
+
+#slider_twitter .item-twitter span {
+	font-size: 16px;
+	color: white;
+}
 
 /* estilos para seccion conocenos_twiter */
+#conocenos_twiter .row {
+	margin-bottom: 0;
+}
 
-	#conocenos_twiter .row{
-		margin-bottom: 0;
-	}
-		
-	#conocenos_twiter button{
-		margin-top: 10px;
-	}
-	
-	
+#conocenos_twiter button {
+	margin-top: 10px;
+}
+
 /* estilos para seccion slider_noticias */
-
 #noticias .block-ellipsis {
-	text-align: initial;	
+	text-align: initial;
 	display: -webkit-box;
 	-webkit-line-clamp: 2;
 	-webkit-box-orient: vertical;
@@ -71,46 +93,47 @@ h4 {
 	height: 41px;
 }
 
-	#noticias h4 {
-		background: #d9eb52;;
-		color: #a0958e;
-		margin: 0;
-		padding: 15px 0;
-	}
+#noticias h4 {
+	background: #d9eb52;;
+	color: #a0958e;
+	margin: 0;
+	padding: 15px 0;
+}
 
-	#noticias .row {
-		margin-bottom: 0;
-	    padding: 10px 0 20px 0;
-	    background: #F0F2DC;
-	}
-	
-	#owlNoticias .item {
-		padding: 25px 62px 25px 10px;
-		margin: 5px;
-		-webkit-border-radius: 3px;
-		-moz-border-radius: 3px;
-		border-radius: 3px;
-		text-align: justify;
-	}
-	
-	#noticias #owlNoticias .item:hover{
-		cursor: pointer;
-	}
-	
-	#noticias #owlNoticias .item .title{
-		color: #f26b7a; 
-		font-weight: bold;
-	}
-	 
-	#owlNoticias .owl-theme .owl-controls .owl-buttons div {
-		padding: 5px 40px;
-	}
-	
-	#owlNoticias .owl-theme .owl-buttons span {
-		margin-top: 2px;
-	}
-	 
-	//To move navigation buttons outside use these settings:
+#noticias .row {
+	margin-bottom: 0;
+	padding: 10px 0 20px 0;
+	background: #F0F2DC;
+}
+
+#owlNoticias .item {
+	padding: 25px 62px 25px 10px;
+	margin: 5px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	text-align: justify;
+}
+
+#noticias #owlNoticias .item:hover {
+	cursor: pointer;
+}
+
+#noticias #owlNoticias .item .title {
+	color: #f26b7a;
+	font-weight: bold;
+}
+
+#owlNoticias .owl-theme .owl-controls .owl-buttons div {
+	padding: 5px 40px;
+}
+
+#owlNoticias .owl-theme .owl-buttons span {
+	margin-top: 2px;
+}
+
+//
+To move navigation buttons outside use these settings:
 	 
 	#owlNoticias .owl-theme .owl-controls .owl-buttons div {
 	position: absolute;
@@ -132,25 +155,23 @@ h4 {
 	display: none;
 	position: relative;
 	-ms-touch-action: pan-y;
-		margin-left: 4%;/*nuevo*/
-
+	margin-left: 4%; /*nuevo*/
 }
 /* estilos para seccion conocenos_twitter */
-
 #conocenos .col.s5 {
 	height: 400px;
 }
 
 #conocenos img {
-	height:140px;
+	height: 140px;
 }
-	
-	#conocenos h6 {
-		padding-top: 18px; 
-		color: #87796F; 
-		font-weight: bold; 
-		text-transform: uppercase;
-	}
+
+#conocenos h6 {
+	padding-top: 18px;
+	color: #87796F;
+	font-weight: bold;
+	text-transform: uppercase;
+}
 
 .cube {
 	padding-top: 20px;
@@ -165,14 +186,14 @@ h4 {
 }
 
 .face {
-  position: absolute;
-  height: 316px;
-  width: 100%;
-  background-color: white;
+	position: absolute;
+	height: 316px;
+	width: 100%;
+	background-color: white;
 }
 
 .cube .col.block-ellipsis {
-	text-align: initial;	
+	text-align: initial;
 	display: -webkit-box;
 	-webkit-line-clamp: 6;
 	-webkit-box-orient: vertical;
@@ -182,205 +203,217 @@ h4 {
 }
 
 /* estilos para seccion eventos */
+#eventos h4 {
+	background-color: #d9eb52;
+	color: #a0958e;
+	margin: 0;
+	padding: 15px 0;
+}
 
-	#eventos h4 {
-		background-color: #d9eb52;
-		color: #a0958e;
-		margin: 0;
-		padding: 15px 0;
-	}
-	
-	#eventos .seccion {
-		padding-top: 20px;
-	}
-	
-	#eventos .subtitulo {
-		color: #8ac7de;
-		text-transform: uppercase;
-	}
-	
-	#eventos .subtitulo span{
-		font-size: 1.1em;
-		font-weight: bold;
-	}
-	
-	#eventos .info {
-	    padding: 0 15px;
-	    height: 130px;
-	}
-	
-	#eventos .info b {
-		color: #f26b7a;
-		font-weight: bold;
-	}
+#eventos .seccion {
+	padding-top: 20px;
+}
+
+#eventos .subtitulo {
+	color: #8ac7de;
+	text-transform: uppercase;
+}
+
+#eventos .subtitulo span {
+	font-size: 1.1em;
+	font-weight: bold;
+}
+
+#eventos .info {
+	padding: 0 15px;
+	height: 130px;
+}
+
+#eventos .info b {
+	color: #f26b7a;
+	font-weight: bold;
+}
 
 /* estilos para seccion participa */
-	#participa h4 {
-		background-color: #f26b7a;
-		color: #ffffff;
-		margin: 0;
-		padding: 15px 0;
-	}
-	
-	#participa .seccion {
-		padding-top: 20px;
-	}
-	
-	#participa .subtitulo {
-		color: #8ac7de;
-		text-transform: uppercase;
-	}
+#participa h4 {
+	background-color: #f26b7a;
+	color: #ffffff;
+	margin: 0;
+	padding: 15px 0;
+}
 
-	#participa .subtitulo span{
-		font-size: 1.1em;
-		font-weight: bold;
-	}
+#participa .seccion {
+	padding-top: 20px;
+}
 
-	.col.s6.participa,.col.s6.eventos {
-		padding: 0;
-	}
-	
-	#participa .block-ellipsis {
-		text-align: initial;	
-		display: -webkit-box;
-		-webkit-line-clamp: 6;
-		-webkit-box-orient: vertical;
-		overflow: hidden;
-		text-overflow: ellipsis;
-		height: 118px;
-	}	
+#participa .subtitulo {
+	color: #8ac7de;
+	text-transform: uppercase;
+}
+
+#participa .subtitulo span {
+	font-size: 1.1em;
+	font-weight: bold;
+}
+
+.col.s6.participa,.col.s6.eventos {
+	padding: 0;
+}
+
+#participa .block-ellipsis {
+	text-align: initial;
+	display: -webkit-box;
+	-webkit-line-clamp: 6;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 118px;
+}
 
 /* Menu flotante */
-	.social .icon span {
-		display: none;
-	}
-	
-	.social .icon:hover span {
-		display: initial;
-		margin-left: 5px;
-		text-transform: uppercase;
-	}
-	
-	.social {
-		position: fixed; /* Hacemos que la posición en
+.social .icon span {
+	display: none;
+}
+
+.social .icon:hover span {
+	display: initial;
+	margin-left: 5px;
+	text-transform: uppercase;
+}
+
+.social {
+	position: fixed; /* Hacemos que la posición en
 			pantalla sea fija para que siempre se muestre en pantalla*/
-		left: 0; /* Establecemos la barra en la izquierda */
-		top: 200px;
-		/* Bajamos la barra 200px de arriba a abajo */
-		z-index: 2000; /*
+	left: 0; /* Establecemos la barra en la izquierda */
+	top: 200px;
+	/* Bajamos la barra 200px de arriba a abajo */
+	z-index: 2000; /*
 			Utilizamos la propiedad z-index para que no se superponga algún
 			otro elemento como sliders, galerías, etc */
-	}
-	
-	.social div>div {
-		margin-bottom: 1px;
-	}
-	
-	.social div a {
-		display: inline-block;
-		color: #fff;
-		background: #000;
-		padding: 8px 12px;
-		text-decoration: none;
-		-webkit-transition: all 500ms ease;
-		-o-transition: all 500ms ease;
-		transition: all 500ms ease; /* Establecemos una transición a
+}
+
+.social div>div {
+	margin-bottom: 1px;
+}
+
+.social div a {
+	display: inline-block;
+	color: #fff;
+	background: #000;
+	padding: 8px 12px;
+	text-decoration: none;
+	-webkit-transition: all 500ms ease;
+	-o-transition: all 500ms ease;
+	transition: all 500ms ease; /* Establecemos una transición a
 			todas las propiedades */
-	}
-	
-	.social div .icon {
-		width: 44px;
-		background: #87796F;
-	}
-	
-	.social div .icon i {
-		color: #DB6E78;
-		font-size: 20px;
-	}
-	
-	.social div a:hover {
-		width: auto;
-		background: rgba(135, 121, 111, 0.84);
-		/* Cambiamos el fondo cuando el usuario pase el mouse */
-		padding: 10px 30px; /* Hacemos mas grande el espacio cuando el
+}
+
+.social div .icon {
+	width: 44px;
+	background: #87796F;
+}
+
+.social div .icon i {
+	color: #DB6E78;
+	font-size: 20px;
+}
+
+.social div a:hover {
+	width: auto;
+	background: rgba(135, 121, 111, 0.84);
+	/* Cambiamos el fondo cuando el usuario pase el mouse */
+	padding: 10px 30px; /* Hacemos mas grande el espacio cuando el
 			usuario pase el mouse */
-	}
+}
 
 /* estilos para seccion galeria */
-	
-	#galeria h4 {
-		background: #8ac7de;
-		color: #ffffff;
-		margin: 0;
-		padding: 15px 0;
-	}
-	
-	#galeria {
-		position: relative;
-	}
-	
-	#galeria span {
-	    position: absolute;
-	    top: 50%;
-	    left: 38%;
-	    color: yellow;
-	    text-transform: uppercase;
-	    width: 67px;
-	    font-weight: bold;
-	    background-color:rgba(0, 0, 0, 0.5);
-	    padding: 0 5px;
-	}
-	
-	#galeria .carousel span:hover {
-		cursor: pointer;
-	}
-	
-	#galeria>div.s5 {
-		padding:0px;
-	}
-	
-	#galeria .carousel {
-		height: 300px;
-	}
-	
-	#galeria .carousel .carousel-item {
-	    width: 64%;
-	    margin-left: -15%;
-	}
+#galeria h4 {
+	background: #8ac7de;
+	color: #ffffff;
+	margin: 0;
+	padding: 15px 0;
+}
+
+#galeria {
+	position: relative;
+}
+
+#galeria span {
+	position: absolute;
+	top: 50%;
+	left: 38%;
+	color: yellow;
+	text-transform: uppercase;
+	width: 67px;
+	font-weight: bold;
+	background-color: rgba(0, 0, 0, 0.5);
+	padding: 0 5px;
+}
+
+#galeria .carousel span:hover {
+	cursor: pointer;
+}
+
+#galeria>div.s5 {
+	padding: 0px;
+}
+
+#galeria .carousel {
+	height: 300px;
+}
+
+#galeria .carousel .carousel-item {
+	width: 64%;
+	margin-left: -15%;
+}
 
 /* estilos para seccion comunidad */
-	#comunidad .comunidad .row { 
-		margin-bottom: 0; 
-	}
-	
-	#comunidad .comunidad h4 { 
-		background: #87796f; 
-		color: #ffffff; 
-		margin: 0;
-		padding: 15px 0; 
-	}
-	
-	.medallas {
-		margin-top: 15px;
-	}
-	
-	#comunidad .medallas .fotos {
-		position: relative;
-	}
-	
-	#comunidad .medallas .fotos img:nth-of-type(1){
-		position: absolute;     
-		width: 100px;      
-		height: 100px;    
-		top: 35px;    
-		left: 59px;
-	}
-	
-	
-	position: absolute;     width: 100px;      height: 100px;    top: 35px;    left: 59px;
+#comunidad .comunidad .row {
+	margin-bottom: 0;
+}
 
-	.comunidad_galeria {
-	    margin-bottom: 0;
-	    padding-bottom: 10px;
-	    background: url("/SmileWebApp/imagenes/portal/fondo-body2.png");
-	}
+#comunidad .comunidad h4 {
+	background: #87796f;
+	color: #ffffff;
+	margin: 0;
+	padding: 15px 0;
+}
+
+.medallas {
+	margin-top: 15px;
+}
+
+#comunidad .medallas .fotos {
+	position: relative;
+}
+
+#comunidad .medallas .fotos img:nth-of-type(1) {
+	position: absolute;
+	width: 100px;
+	height: 100px;
+	top: 35px;
+	left: 59px;
+}
+
+.timeline-Header-title {
+	font-size: 17px !important;
+	font-weight: 300;
+	line-height: 17px !important;
+	color: #292F33;
+}
+
+.timeline-Tweet-text {
+	margin-left: 40px;
+	margin-bottom: 0px !important;
+	font-size: 12px !important;
+	line-height: 18px !important;
+	font-weight: 400 !important;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+}
+
+.comunidad_galeria {
+	margin-bottom: 0;
+	padding-bottom: 10px;
+	background: url("/SmileWebApp/imagenes/portal/fondo-body2.png");
+}

@@ -5,8 +5,8 @@
 		viewModel="@id('vm') @init('ve.smile.datos.parametros.clasificador.voluntario.viewmodels.VM_ClasificadorVoluntarioFormBasic')">
 
 		<div class="row">
-		
-		<div class="col s12">
+
+			<div class="col s12">
 				<div class="input-field offset-s2 col s8">
 					<n:label for="nombre">Nombre</n:label>
 					<textbox id="nombre" type="text" maxlength="100"
@@ -14,20 +14,17 @@
 					</textbox>
 				</div>
 			</div>
-			
+
 			<div class="col s12">
 				<div class="input-field offset-s2 col s8">
 					<n:label for="descripcion">Descripción</n:label>
-					<textbox id="descripcion" type="text" maxlength="250"
-						sclass="materialize-textarea" multiline="true"
+					<textbox id="descripcion" type="text"
+						maxlength="250" sclass="materialize-textarea" multiline="true"
 						value="@bind(vm.clasificadorVoluntario.descripcion)">
 					</textbox>
 				</div>
 			</div>
-
-
 			
-
 		</div>
 		<div id="divButtonsForm"
 			use="karen.core.form.buttons.containers.DivButtonsForm">

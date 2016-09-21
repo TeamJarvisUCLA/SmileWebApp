@@ -1,11 +1,4 @@
 <zk xmlns:n="native" xmlns:w="client">
-	<style>
-
-		.circle-color-event{ height: 20px; width: 20px; border-radius:
-		100%; display: inline-block; vertical-align: middle; border: 1px
-		solid; 
-		}
-	</style>
 	<div width="100%" class="${arg.animation_}"
 		use="karen.core.simple_list_principal.controllers.C_WindowSimpleListPrincipal"
 		apply="org.zkoss.bind.BindComposer"

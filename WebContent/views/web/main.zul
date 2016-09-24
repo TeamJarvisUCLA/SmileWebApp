@@ -13,7 +13,7 @@
 	<n:link href="assets/css/web/main.css" rel="stylesheet" type="text/css"></n:link>
 	
 	<div sclass="row" apply="org.zkoss.bind.BindComposer"
-		viewModel="@id('vm') @init('ve.smile.web.viewmodels.VM_Main')">
+		viewModel="@id('vm') @init('ve.smile.web.viewmodels.main.VM_Main')">
 		<div class="social">
 			<div style="padding: 0px;">
 				<div>
@@ -92,71 +92,21 @@
 			</n:h4>
 			<div sclass="row">
 				<div sclass="col s10">
-					<n:div id="owlNoticias" class="owl-carousel owl-theme">
-						<div sclass="item" onClick="@command('detalleNoticia')">
-							<div style="padding-bottom: 10px;">
-								<label class="title" value="Torneo de golf a beneficio de Fanca Lara">
-								</label>
+					<div class="owlNoticias owl-carousel owl-theme" children="@load(vm.noticias)">
+						<template name="children">
+							<div sclass="item" onClick="@command('detalleNoticia')">
+								<div style="padding-bottom: 10px;">
+									<label class="title" value="@load(each.titulo)">
+									</label>
+								</div>
+								<div class="block-ellipsis">
+									<label
+										value="@load(each.descripcion)">
+									</label>
+								</div>
 							</div>
-							<div class="block-ellipsis">
-								<label
-									value="La Fundación Amigos del Niño con Cáncer del estado Lara, Fanca, organizó el décimo primer torneo de golf en las instalaciones del Barquisimeto Golf Club, con la participación de 150 jugadores.
-		
-		Bajo el nombre de “Un juego por la vida”, la finalidad de esta actividad fue la recolección de fondos para la culminación del primer albergue para niños con cáncer.">
-								</label>
-							</div>
-						</div>
-						<div sclass="item" onClick="@command('detalleNoticia')">
-							<div style="padding-bottom: 10px;">
-								<label class="title" value="C.C. LAS TRINITARIAS COMPROMETIDA CON FUNDACIONES LARENSES">
-								</label>
-							</div>
-							<div class="block-ellipsis">
-								<label
-									value="Muy lejos, más allá de las montañas de palabras, alejados de los países de las vocales y las consonantes, viven los textos simulados. Viven aislados en casas de letras, en la costa de la semántica, un gran océano de lenguas. Un riachuelo llamado Pons fluye por su pueblo y los abastece con las normas necesarias.">
-								</label>
-							</div>
-						</div>									
-						<div sclass="item" onClick="@command('detalleNoticia')">
-							<div style="padding-bottom: 10px;">
-								<label class="title" value="FANCA realiza verbena a favor de niños con cáncer">
-								</label>
-							</div>
-							<div class="block-ellipsis">
-								<label
-									value="La Fundación Amigos del Niño con Cáncer del estado Lara, Fanca, organizó el décimo primer torneo de golf en las instalaciones del Barquisimeto Golf Club, con la participación de 150 jugadores.
-		
-		Bajo el nombre de “Un juego por la vida”, la finalidad de esta actividad fue la recolección de fondos para la culminación del primer albergue para niños con cáncer.">
-								</label>
-							</div>
-						</div>
-						<div sclass="item" onClick="@command('detalleNoticia')">
-							<div style="padding-bottom: 10px;">
-								<label class="title" value="FANCA realiza verbena a favor de niños con cáncer">
-								</label>
-							</div>
-							<div class="block-ellipsis">
-								<label
-									value="La Fundación Amigos del Niño con Cáncer del estado Lara, Fanca, organizó el décimo primer torneo de golf en las instalaciones del Barquisimeto Golf Club, con la participación de 150 jugadores.
-		
-		Bajo el nombre de “Un juego por la vida”, la finalidad de esta actividad fue la recolección de fondos para la culminación del primer albergue para niños con cáncer.">
-								</label>
-							</div>
-						</div>
-						<div sclass="item" onClick="@command('detalleNoticia')">
-							<div style="padding-bottom: 10px;">
-								<label class="title" value="Tapas por Vidas realizó su tercer donativo a Fanca Lara">
-								</label>
-							</div>
-							<div class="block-ellipsis">
-								<label
-									value="La Fundación Amigos del Niño con Cáncer del estado Lara, Fanca, organizó el décimo primer torneo de golf en las instalaciones del Barquisimeto Golf Club, con la participación de 150 jugadores.
-		
-		Bajo el nombre de “Un juego por la vida”, la finalidad de esta actividad fue la recolección de fondos para la culminación del primer albergue para niños con cáncer.">
-								</label>
-							</div>
-						</div>
-					</n:div>
+						</template>
+					</div>
 				</div>
 				<div class="col s2 text-center ">
 					<button class="waves-effect waves-light btn" href=""
@@ -171,48 +121,47 @@
 				<div class="row">
 					<n:div id="conocenos">
 						<div class="col s5 text-center">
-							<div class="row" style="width: 60%">
-								<div class="cube">
-									<div class="face two">
-										<div class="col s12">
-								        	<image src="/imagenes/portal/icon/icon-people-grande.png">
-							   				</image>   
-								         	<n:h6>Fanca</n:h6>
-						         		</div> 
-						         		<div class="col s12 block-ellipsis">
-								         	<span>La Fundación Amigos del Niño con Cáncer  Lara (FANCA) es una institución privada, sin fines de lucro, fundada el 04 de Febrero de 1988, y trabajamos en los centros hospitalarios:  Hospital Universitario de Pediatría “Dr. Agustín Zubillaga” y el Hospital del Seguro Social Pastor Oropeza, ambos en la ciudad de Barquisimeto.  Nace por iniciativa de algunas personas de la sociedad larense, en vista de los grandes problemas que acarrea esta enfermedad. Somos una Fundación autónoma y descentralizada, con 24 años de servicio trabajando en pro  de mejorar la calidad de vida de los pacientes. 
-								         	</span>
-							         	</div>
-							        </div>
-									<div class="face three">
-										<div class="col s12">
-								        	<image src="/imagenes/portal/icon/icon-goals-grande.png">
-							   				</image>   
-								         	<n:h6>Misión</n:h6>
-						         		</div> 
-						         		<div class="col s12 block-ellipsis">
-								         	<span>“Brindar a los niños y adolescentes los medicamentos y exámenes especiales,  faltantes  en los Hospitales, hospedaje y comida en nuestro albergue, ayuda psicológica tanto a los padres como a los niños, escolaridad para los pacientes hospitalizados y orientación a los padres y representantes, para que acudan a los diferentes centros de ayuda (fundaciones públicas y privadas) en la ciudad”
-								         	</span>
-							         	</div>
-							        </div>
-									<div class="face four">
-										<div class="col s12">
-								        	<image src="/imagenes/portal/icon/icon-medical-grande.png">
-							   				</image>   
-								         	<n:h6>Visión</n:h6>
-						         		</div> 
-						         		<div class="col s12 block-ellipsis">
-								         	<span>“Lograr el reconocimiento a nivel nacional e internacional como una Fundación comprometida con la prestación de un servicio integral al paciente infantil y adolescente con cáncer, respaldado por nuestros valores como fundación sin fines de lucro” 
-								         	</span>
-							         	</div>
-							        </div>						        							        							        
-						       	</div>
-								<div class="col s12">
-									<button class="waves-effect waves-light btn" href=""
-										onClick="@command('conocenos')">
-										ver mas
-									</button>
-								</div>
+							<div class="row" style="width: 60%" children="@load(vm.organizacion)">
+								<template name="children">
+									<div class="cube">
+										<div class="face two">
+											<div class="col s12">
+									        	<image src="/imagenes/portal/icon/icon-people-grande.png">
+								   				</image>   
+									         	<label class="h6" value="@load(each.nombre)"></label>
+							         		</div> 
+							         		<div class="col s12 block-ellipsis">
+									         	<label value="@load(each.descripcion)"></label>
+								         	</div>
+								        </div>
+										<div class="face three">
+											<div class="col s12">
+									        	<image src="/imagenes/portal/icon/icon-goals-grande.png">
+								   				</image>
+								   				<label class="h6">Misión</label>
+							         		</div> 
+							         		<div class="col s12 block-ellipsis">
+									         	<label value="@load(each.mision)"></label>
+								         	</div>
+								        </div>
+										<div class="face four">
+											<div class="col s12">
+									        	<image src="/imagenes/portal/icon/icon-medical-grande.png">
+								   				</image>
+								   				<label class="h6">Visión</label>
+							         		</div> 
+							         		<div class="col s12 block-ellipsis">
+									         	<label value="@load(each.vision)"></label>
+								         	</div>
+								        </div>						        							        							        
+							       	</div>
+							    </template>
+							</div>
+							<div class="col s12">
+								<button class="waves-effect waves-light btn" href=""
+									onClick="@command('conocenos')">
+									ver mas
+								</button>
 							</div>							
 				      	</div>
 				    </n:div>
@@ -451,7 +400,7 @@
 		  $('.carousel').carousel('next');
 		}, 4000);
 		
-		  $('#owlNoticias').owlCarousel({
+		  $('.owlNoticias').owlCarousel({
 		 items:1,
 		 mouseDrag:false,
 		      navigation : true, // Show next and prev buttons

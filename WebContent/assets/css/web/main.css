@@ -106,7 +106,7 @@ To move navigation buttons outside use these settings:
 	background: #F0F2DC;
 }
 
-#owlNoticias .item {
+.owlNoticias .item {
 	padding: 25px 62px 25px 10px;
 	margin: 5px;
 	-webkit-border-radius: 3px;
@@ -115,43 +115,43 @@ To move navigation buttons outside use these settings:
 	text-align: justify;
 }
 
-#noticias #owlNoticias .item:hover {
+#noticias .owlNoticias .item:hover {
 	cursor: pointer;
 }
 
-#noticias #owlNoticias .item .title {
+#noticias .owlNoticias .item .title {
 	color: #f26b7a;
 	font-weight: bold;
 }
 
-#owlNoticias .owl-theme .owl-controls .owl-buttons div {
+.owlNoticias .owl-theme .owl-controls .owl-buttons div {
 	padding: 5px 40px;
 }
 
-#owlNoticias .owl-theme .owl-buttons span {
+.owlNoticias .owl-theme .owl-buttons span {
 	margin-top: 2px;
 }
 
 //
 To move navigation buttons outside use these settings:
 	 
-	#owlNoticias .owl-theme .owl-controls .owl-buttons div {
+	.owlNoticias .owl-theme .owl-controls .owl-buttons div {
 	position: absolute;
 }
 
-#owlNoticias.owl-theme .owl-controls .owl-buttons .owl-prev {
+.owlNoticias.owl-theme .owl-controls .owl-buttons .owl-prev {
 	left: -50px;
 	top: 60px;
 	position: absolute;
 }
 
-#owlNoticias.owl-theme .owl-controls .owl-buttons .owl-next {
+.owlNoticias.owl-theme .owl-controls .owl-buttons .owl-next {
 	right: -1px;
 	top: 60px;
 	position: absolute;
 }
 
-#owlNoticias.owl-carousel {
+.owlNoticias.owl-carousel {
 	display: none;
 	position: relative;
 	-ms-touch-action: pan-y;
@@ -166,7 +166,13 @@ To move navigation buttons outside use these settings:
 	height: 140px;
 }
 
-#conocenos h6 {
+#conocenos span.h6  {
+	display: block;
+    margin-bottom: 1em;
+    margin-left: 0;
+    margin-right: 0;
+    font-weight: bold;
+	
 	padding-top: 18px;
 	color: #87796F;
 	font-weight: bold;

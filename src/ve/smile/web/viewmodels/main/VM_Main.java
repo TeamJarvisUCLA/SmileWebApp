@@ -16,22 +16,25 @@ import ve.smile.payload.response.PayloadOrganizacionResponse;
 
 public class VM_Main {
 	
-	
+//	se declara una variable noticias de tipo List<Cartelera>	
 	private List<Cartelera> noticias;
+
 	private List<Organizacion> organizacion;
 	
-	
+//  metodo get que retorna la coleccion de elementos a renderizar en la vista	
 	public List<Cartelera> getnoticias(){
 		if (this.noticias == null) {
 			this.noticias = new ArrayList<>();
 		}
 		if (this.noticias.isEmpty()) {
+// uso de servicio consultaCarteleraPorParametro en CarteleraService, aqui se instancian los objetos 
+// devueltos por consultaCarteleraPorParametro como una variable de tipo PayloadCarteleraResponse			
 			PayloadCarteleraResponse payloadCarteleraResponse = S.CarteleraService
 					.consultaCarteleraPorParametro(2, TipoCarteleraEnum.NOTICIAS.ordinal());
-			
+// agregar en lista de noticias todos los objetos contenidos en la variable payloadCarteleraResponse 			
 			this.noticias.addAll(payloadCarteleraResponse.getObjetos());
 		}
-
+// retornar lista
 		return noticias;
 	}
 	

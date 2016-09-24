@@ -11,9 +11,10 @@
 }
 	</style>
 	<n:link href="assets/css/web/main.css" rel="stylesheet" type="text/css"></n:link>
-	
+<!-- 	asociar la capa de Vista con las propiedades y comportamiento de la capa VistaModelo con los atributos apply y viewModel-->
 	<div sclass="row" apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('ve.smile.web.viewmodels.main.VM_Main')">
+<!-- 	asociar la capa de Vista con las propiedades y comportamiento de la capa VistaModelo  -->
 		<div class="social">
 			<div style="padding: 0px;">
 				<div>
@@ -92,7 +93,10 @@
 			</n:h4>
 			<div sclass="row">
 				<div sclass="col s10">
+<!-- 				cargar el div con los objetos del metodo getnoticias en el VM con el atributo children -->
 					<div class="owlNoticias owl-carousel owl-theme" children="@load(vm.noticias)">
+<!-- 				cargar el div con los objetos del metodo getnoticias en el VM con el atributo children -->
+<!-- usaremos la etiqueta template para encapsular cada elemento y definir la forma en que se renderiza					 -->
 						<template name="children">
 							<div sclass="item" onClick="@command('detalleNoticia')">
 								<div style="padding-bottom: 10px;">
@@ -106,6 +110,7 @@
 								</div>
 							</div>
 						</template>
+<!-- usaremos la etiqueta template para encapsular cada elemento y definir la forma en que se renderiza					 -->						
 					</div>
 				</div>
 				<div class="col s2 text-center ">

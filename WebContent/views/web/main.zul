@@ -49,10 +49,12 @@
 				</div>
 			</div>
 		</div>
-		<div class="container-fluid">
-			<image class="responsive-img"
-				src="/imagenes/portal/web-banner.png">
-			</image>
+		<div class="container-fluid" children="@load(vm.organizacion)">
+			<template name="children">
+				<image class="responsive-img"
+					src="@load(each.fkMultimedia.url)">
+				</image>
+			</template>
 		</div>
 		<n:div id="slider_twitter">
 			<div class="container-fluid">

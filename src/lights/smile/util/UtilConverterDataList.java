@@ -1,5 +1,7 @@
 package lights.smile.util;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import ve.smile.seguridad.dto.Sesion;
@@ -84,4 +86,19 @@ public class UtilConverterDataList {
 	private static long secondsBetween(Long diferencia) {
         return (long)(diferencia / MULT_SEGUNDOS);
     }
+	
+	public static String convertirLongATimestamp(Long time) {
+		if (time == 0L) {
+			return "-";
+		}
+		return new SimpleDateFormat("dd/MM/yyyy hh:mm:ss").format(new Timestamp(time).getTime());
+	}
+	
+	public static String convertirLongADate(Long time) {
+		if (time == 0L) {
+			return "-";
+		}
+		return new SimpleDateFormat("dd/MM/yyyy").format(new Timestamp(time).getTime());
+	}
+	
 }

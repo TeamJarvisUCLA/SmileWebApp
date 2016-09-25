@@ -1,6 +1,8 @@
 package ve.smile.datos.configuracion.plantilla_trabajo_social.viewmodels;
 
+import karen.core.crux.alert.Alert;
 import karen.core.simple_list_principal.viewmodels.VM_WindowSimpleListPrincipal;
+import karen.core.util.payload.UtilPayload;
 import lights.core.payload.response.IPayloadResponse;
 
 import org.zkoss.bind.annotation.Command;
@@ -8,6 +10,8 @@ import org.zkoss.bind.annotation.Init;
 
 import ve.smile.consume.services.S;
 import ve.smile.dto.TrabajoSocial;
+import ve.smile.payload.response.PayloadActividadResponse;
+import ve.smile.payload.response.PayloadIndicadorResponse;
 import ve.smile.payload.response.PayloadTrabajoSocialResponse;
 import ve.smile.seguridad.enums.OperacionEnum;
 
@@ -29,9 +33,6 @@ public class VM_PlantillaTrabajoSocialIndex extends
 
 	@Override
 	public void doDelete() {
-		/*
-		 * CONSULTAR LA ELIMINACI�N O NO DE PLANTILLAS
-		 */
 	}
 
 	@Override
@@ -41,36 +42,30 @@ public class VM_PlantillaTrabajoSocialIndex extends
 
 	@Command("onSelectTrabajoSocial")
 	public void onSelectTrabajoSocial() {
-		TrabajoSocial trabajo = getSelectedObject();
-//		if (this.trabajoSocialIndicadores == null) {
-//			this.trabajoSocialIndicadores = new ArrayList<>();
-//		}
-//		if (this.trabajoSocialIndicadores.isEmpty()) {
-//			PayloadPlantillaTrabajoSocialIndicadorResponse payloadPlantillaTrabajoSocialIndicadorResponse = S.PlantillaTrabajoSocialIndicadorService
-//					.consultarPorEvento(evento.getIdEvento());
-//			if (!UtilPayload
-//					.isOK(payloadPlantillaTrabajoSocialIndicadorResponse)) {
-//				Alert.showMessage(payloadPlantillaTrabajoSocialIndicadorResponse);
-//			}
-//			trabajo.setTrabajoSocialIndicadors(payloadPlantillaTrabajoSocialIndicadorResponse
-//					.getObjetos());
-//			this.trabajoSocialIndicadores = trabajo
-//					.getTrabajoSocialIndicadors();
-//		}
-//		if (this.trabajoSocialActividades == null) {
-//			this.trabajoSocialActividades = new ArrayList<>();
-//		}
-//		if (this.trabajoSocialActividades.isEmpty()) {
-//			PayloadPlantillaTrabajoSocialActividadResponse payloadPlantillaTrabajoSocialActividadResponse = S.PlantillaTrabajoSocialActividadService
-//					.consultarPorEvento(evento.getIdEvento());
-//			if (!UtilPayload
-//					.isOK(payloadPlantillaTrabajoSocialActividadResponse)) {
-//				Alert.showMessage(payloadPlantillaTrabajoSocialActividadResponse);
-//			}
-//			trabajo.setTrabajoSocialActividades(payloadPlantillaTrabajoSocialActividadResponse
-//					.getObjetos());
-//			this.trabajoSocialActividades = trabajo
-//					.getTrabajoSocialActividades();
-//		}
+		TrabajoSocial trabajoSocial = getSelectedObject();
+
+		if (trabajoSocial.getTrabajoSocialActividades() == null
+				|| trabajoSocial.getTrabajoSocialActividades().isEmpty()) {
+			PayloadActividadResponse payloadTareaResponse = S.ActividadService
+					.consultarPorTrabajoSocial(trabajoSocial
+							.getIdTrabajoSocial());
+			if (!UtilPayload.isOK(payloadTareaResponse)) {
+				Alert.showMessage(payloadTareaResponse);
+			}
+			trabajoSocial.setTrabajoSocialActividades(payloadTareaResponse
+					.getObjetos());
+
+		}
+		if (trabajoSocial.getTrabajoSocialIndicadores() == null
+				|| trabajoSocial.getTrabajoSocialIndicadores().isEmpty()) {
+			PayloadIndicadorResponse payloadIndicadorResponse = S.IndicadorService
+					.consultarPorTrabajoSocial(trabajoSocial
+							.getIdTrabajoSocial());
+			if (!UtilPayload.isOK(payloadIndicadorResponse)) {
+				Alert.showMessage(payloadIndicadorResponse);
+			}
+			trabajoSocial.setTrabajoSocialIndicadores(payloadIndicadorResponse
+					.getObjetos());
+		}
 	}
 }

@@ -1,16 +1,23 @@
 <zk xmlns:n="native" xmlns:w="client">
-	<div width="100%" class="${arg.animation_}"
-		use="karen.core.simple_list_principal.controllers.C_WindowSimpleListPrincipal"
+	<div width="100%"
 		apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('ve.smile.basedatos.viewmodels.VM_ExportarIndex')">
 
 		<div class="row">
+			<div class="input-field col s4">
+				<n:label for="nombre">Nombre Respaldo</n:label>
+				<textbox id="nombre" type="text" value="@bind(vm.nombre)"/>
+			</div>
+			<div class="input-field col s8">
+				<n:label for="nombre">Descripcion del Respaldo</n:label>
+				<textbox  id="descripcion" type="text" value="@bind(vm.descripcion)"/>
+			</div>
 			<div class="col s12">
 				<div class="col s5">
-					<listbox id="listbox" model="@load(vm.objectsList)"
-						selectedItem="@bind(vm.selectedObject)" pagingPosition="top"
-						onSelect="@command('onSelectTabla')">
-						<listhead sizable="true">
+					<listbox id="listbox" model="@load(vm.objectsList)" 
+					mold="paging" pageSize="10"
+						selectedItem="@bind(vm.selectedObject)">
+						<listhead >
 							<listheader width="49%" label="Nombre" />
 						</listhead>
 						<template name="model">
@@ -18,11 +25,6 @@
 								<listcell label="@load(each.nombre)" />
 							</listitem>
 						</template>
-						<!-- 						<listfoot> -->
-						<!-- 							<listfooter id="listFoot" span="1" -->
-						<!-- 								use="karen.core.listfoot.ListFoot"> -->
-						<!-- 							</listfooter> -->
-						<!-- 						</listfoot> -->
 					</listbox>
 
 
@@ -42,9 +44,7 @@
 				</vbox>
 				<div class="col s6" style="margin-left:-40px;">
 					<listbox id="listbox2" model="@load(vm.listsTabla)"
-						selectedItem="@bind(vm.posibleTabla)"
-						onSelect="@command('onSelectTablaRespaldo')">
-
+						selectedItem="@bind(vm.posibleTabla)" mold="paging" pageSize="10">
 						<listhead sizable="true">
 							<listheader width="49%" label="Nombre" />
 						</listhead>
@@ -56,10 +56,8 @@
 					</listbox>
 				</div>
 			</div>
+			<button mold="os" onClick="@command('respaldarTablas')" label="Respaldar Tablas" style="margin-left:450px;background-color:#65c8e0;width:200px;height: 40px;"></button>
 		</div>
-
-		<toolbar id="toolbar" align="center"
-			use="karen.core.toolbar.Toolbar">
-		</toolbar>
+		
 	</div>
 </zk>

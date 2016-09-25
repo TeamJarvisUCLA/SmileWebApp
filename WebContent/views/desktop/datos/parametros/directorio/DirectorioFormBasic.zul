@@ -1,4 +1,7 @@
 <zk xmlns:n="native" xmlns:w="client">
+
+	<script type="text/javascript"
+		content="zk.googleAPIkey='AIzaSyAh2kLWx3Rtsw1GjYI2pwGNnix4ZwTZTm4'" />
 	<div width="80%" class="container ${arg.animation_}"
 		use="karen.core.form.controllers.C_WindowForm"
 		apply="org.zkoss.bind.BindComposer"
@@ -6,61 +9,45 @@
 
 		<div class="row">
 
-
 			<div class="col s12">
-				<div class="input-field offset-s2 col s8">
-					<n:label for="latitud">Latitud</n:label>
-					<intbox id="latitud"
-						value="@bind(vm.directorio.latitud)">
-					</intbox>
-				</div>
-			</div>
-
-			<div class="col s12">
-				<div class="input-field offset-s2 col s8">
-					<n:label for="longitud">Longitud</n:label>
-					<intbox id="longitud"
-						value="@bind(vm.directorio.longitud)">
-					</intbox>
-				</div>
-			</div>
-
-			<div class="col s12">
-				<div class="input-field offset-s2 col s8">
+				<div class="input-field col s6">
 					<n:label for="nombre">Nombre</n:label>
 					<textbox id="nombre" type="text" maxlength="100"
 						value="@bind(vm.directorio.nombre)">
 					</textbox>
 				</div>
-			</div>
 
 
-
-			<div class="col s12">
-				<div class="input-field offset-s2 col s8">
-					<n:label for="telefono">Telefono</n:label>
+				<div class="input-field col s6">
+					<n:label for="telefono">Teléfono</n:label>
 					<textbox id="telefono" type="text" maxlength="80"
 						value="@bind(vm.directorio.telefono)">
 					</textbox>
 				</div>
-			</div>
 
-			<div class="col s12">
-				<div class="input-field offset-s2 col s8">
-					<n:label for="url">Url</n:label>
-					<textbox id="url" type="text" maxlength="200"
-						value="@bind(vm.directorio.url)">
-					</textbox>
-				</div>
 			</div>
-
 			<div sclass="col s12">
-				<div class="input-field offset-s2 col s8">
+				<div class="input-field col s6">
+					<n:label class="active" for="fk_estado">
+						Estado
+					</n:label>
+					<combobox id="fk_estado" readonly="true"
+						placeholder="Seleccione un Estado"
+						onSelect="@command('changeEstado')" model="@bind(vm.estados)"
+						selectedItem="@bind(vm.estado)">
+						<template name="model">
+							<comboitem label="@load(each.nombre)" />
+						</template>
+					</combobox>
+				</div>
+
+				<div class="input-field col s6">
 					<n:label class="active" for="fk_ciudad">
 						Ciudad
 					</n:label>
 					<combobox id="fk_ciudad" readonly="true"
-						model="@bind(vm.ciudads)"
+						placeholder="Seleccione una ciudad"
+						disabled="@load(empty vm.ciudads)" model="@bind(vm.ciudads)"
 						selectedItem="@bind(vm.directorio.fkCiudad)">
 						<template name="model">
 							<comboitem label="@load(each.nombre)" />
@@ -69,76 +56,53 @@
 				</div>
 			</div>
 
-			<div sclass="col s12">
-				<div class="input-field offset-s2 col s8">
-					<n:label class="active" for="fk_multimedia">
-						Multimedia
-					</n:label>
-					<combobox id="fk_multimedia" readonly="true"
-						model="@bind(vm.multimedias)"
-						selectedItem="@bind(vm.directorio.fkMultimedia)">
-						<template name="model">
-							<comboitem label="@load(each.nombre)" />
-						</template>
-					</combobox>
-				</div>
-			</div>
-
 			<div class="col s12">
-				<div class="input-field offset-s2 col s8">
-					<n:label for="direccion">Direccion</n:label>
+				<div class="input-field  col s12">
+					<n:label for="direccion">Dirección</n:label>
 					<textbox id="direccion" type="text" maxlength="250"
 						sclass="materialize-textarea" multiline="true"
 						value="@bind(vm.directorio.direccion)">
 					</textbox>
 				</div>
 			</div>
+			<div class="col s12">
+				<div class="input-field  col s12">
+					<n:label for="url">Url</n:label>
+					<textbox id="url" type="text" maxlength="200"
+						value="@bind(vm.directorio.url)">
+					</textbox>
+				</div>
+			</div>
+			<div class="col s12">
 
+				<div class="col s8">
+					<gmaps version="3.9" id="gmaps" width="100%"
+						lat="10.0661057" height="400px" showZoomCtrl="true"
+						protocol="http" lng="-69.3144749" showScaleCtrl="true"
+						tooltiptext="Presione la ubicación de su lugar."
+						onMapClick="@command('changeMarker', event = event)">
 
-
-			<!-- <div class="col s12">
-				<div class="input-field col s6">
-				<n:label for="latitud">Latitud</n:label>
-				<intbox id="latitud"
-				value="@bind(vm.directorio.latitud)">
-				</intbox>
+						<gmarker id="marker"
+							lat="@bind(vm.directorio.latitud)" open="true"
+							lng="@bind(vm.directorio.longitud)" draggable="true"
+							droppable="true" content="@bind(vm.directorio.nombre)" />
+					</gmaps>
 				</div>
-				<div class="input-field col s6">
-				<n:label for="longitud">Longitud</n:label>
-				<intbox id="longitud"
-				value="@bind(vm.directorio.longitud)">
-				</intbox>
+				<div class="col s4">
+					<div class="input-field col s12">
+						<n:label for="latitud">Latitud</n:label>
+						<doublebox id="latitud" disabled="true"
+							value="@bind(vm.directorio.latitud)">
+						</doublebox>
+					</div>
+					<div class="input-field col s12">
+						<n:label for="longitud">Longitud</n:label>
+						<doublebox id="longitud" disabled="true"
+							value="@bind(vm.directorio.longitud)">
+						</doublebox>
+					</div>
 				</div>
-				</div>
-				<div class="col s12">
-				<div class="input-field col s6">
-				<n:label for="nombre">Nombre</n:label>
-				<textbox id="nombre" type="text"
-				value="@bind(vm.directorio.nombre)">
-				</textbox>
-				</div>
-				<div class="input-field col s6">
-				<n:label for="direccion">Direccion</n:label>
-				<textbox id="direccion" type="text"
-				value="@bind(vm.directorio.direccion)">
-				</textbox>
-				</div>
-				</div>
-				<div class="col s12">
-				<div class="input-field col s6">
-				<n:label for="telefono">Telefono</n:label>
-				<textbox id="telefono" type="text"
-				value="@bind(vm.directorio.telefono)">
-				</textbox>
-				</div>
-				<div class="input-field col s6">
-				<n:label for="url">Url</n:label>
-				<textbox id="url" type="text"
-				value="@bind(vm.directorio.url)">
-				</textbox>
-				</div>
-				</div>
-			-->
+			</div>
 
 		</div>
 		<div id="divButtonsForm"

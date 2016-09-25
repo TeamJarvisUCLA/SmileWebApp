@@ -8,11 +8,11 @@
 			<div class="col s12">
 				<div class="col s6">
 					<listbox id="listbox" model="@load(vm.objectsList)"
+						emptyMessage="No hay participaciones registradas."
 						selectedItem="@bind(vm.selectedObject)"
 						onSelect="@command('onSelectParticipacion')">
-
-						<listhead sizable="true">
-							<listheader width="49%" label="Nombre" />
+						<listhead>
+							<listheader label="Nombre" />
 						</listhead>
 						<template name="model">
 							<listitem>
@@ -26,17 +26,19 @@
 						</listfoot>
 					</listbox>
 				</div>
-				<div class="col s6">
+				<div class="col s6 animated fadeIn"
+					visible="@load(not empty vm.selectedObject)">
 					<listbox
-						model="@load(vm.selectedObject.requisitoParticipacions)">
+						emptyMessage="No hay requisitos asociados a la participación seleccionada."
+						model="@load(vm.selectedObject.requisitos)">
 						<listhead sizable="true">
 							<listheader
 								label="Requisitos de Participacion" />
 						</listhead>
 						<template name="model">
-							<listitem>
-								<listcell
-									label="@load(each.fkRequisito.nombre)" />
+							<listitem
+								onCreate="self.setDisabled(true)">
+								<listcell label="@load(each.nombre)" />
 							</listitem>
 						</template>
 					</listbox>

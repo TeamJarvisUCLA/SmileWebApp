@@ -1,51 +1,52 @@
 package ve.smile.basedatos.viewmodels;
-
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.Command;
-
-import bsh.util.Util;
+import org.zkoss.bind.annotation.Init;
 import ve.smile.consume.services.S;
 import ve.smile.seguridad.dto.Tabla;
-import ve.smile.seguridad.enums.OperacionEnum;
 import ve.smile.seguridad.payload.response.PayloadTablaResponse;
 import karen.core.crux.alert.Alert;
-import karen.core.simple_list_principal.viewmodels.VM_WindowSimpleListPrincipal;
-import lights.core.payload.response.IPayloadResponse;
+import karen.core.util.validate.UtilValidate;
 
-public class VM_ExportarIndex extends VM_WindowSimpleListPrincipal<Tabla> {
+
+/**
+ * @author Willandherg
+ *
+ */
+public class VM_ExportarIndex {
 	List<Tabla> listsTabla = new ArrayList<>();
 	List<Tabla> listTablaAux = new ArrayList<>();
+	private List<Tabla> objectsList;
+	private String nombre,descripcion;
+	private Tabla selectedObject;
 	Tabla posibleTabla = new Tabla();
 	PayloadTablaResponse payloadTablaResponse = null;
 	boolean controla = true;
-
-	@Override
-	public String getSrcFileZulForm(OperacionEnum operacionEnum) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public IPayloadResponse<Tabla> getDataToTable(
-			Integer cantidadRegistrosPagina, Integer pagina) {
+	@Init(superclass = true)
+	public void childInit() {
+		System.out.println("syso childInit");
 		payloadTablaResponse = S.TablaService.consultarTodos();
-		return payloadTablaResponse;
+		objectsList = payloadTablaResponse.getObjetos();
 	}
-
-	@Command("onSelectTabla")
-	public void onSelectTabla() {
-		Tabla tabla = getSelectedObject();
-		System.out.println(listsTabla.size());
-	}
-
-	@Command("onSelectTablaRespaldo")
-	public void onSelectTablaRespaldo() {
-		Tabla tabla = getPosibleTabla();
-		// Alert.showSuccessMessage("Bien hecho bro", "vamos a guerriar");
-		System.out.println("Tabla Seleccionada  " + tabla.getNombre());
+	@Command("respaldarTablas")
+	public void respaldarTablas() {
+		if(!isFormValidated()){
+			return;
+		}
+		if(!listsTabla.isEmpty()){
+			HashMap<String, Object> parametros = new HashMap<>();
+			parametros.put("nombre", getNombre());
+			parametros.put("descripcion", getDescripcion());
+		PayloadTablaResponse p =	S.TablaService.respaldarTablas(listsTabla,parametros);	
+		Alert.showSuccessMessage("055", "Tablas Respaldadas con Exito");
+		listsTabla = new ArrayList<>();
+		}
+		else{
+			Alert.showErrorMessage("099", "No existen Tablas para Respaldar");
+		}
 	}
 
 	@Command("onChooseItem")
@@ -53,8 +54,7 @@ public class VM_ExportarIndex extends VM_WindowSimpleListPrincipal<Tabla> {
 		if (getSelectedObject() != null) {
 			listsTabla.add(getSelectedObject());
 			System.out.println(objectsList.remove(getSelectedObject()));
-			System.out.println(listsTabla.size());
-			S.TablaService.respaldarTablas(listsTabla, new Tabla());		
+			System.out.println(listsTabla.size());		
 			refreshListsTabla();
 		} else {
 			Alert.showErrorMessage("099", "Debe seleccionar una Tabla");
@@ -97,6 +97,19 @@ public class VM_ExportarIndex extends VM_WindowSimpleListPrincipal<Tabla> {
 		BindUtils.postNotifyChange(null, null, this, "objectsList");
 		BindUtils.postNotifyChange(null, null, this, "listsTabla");
 	}
+	
+	public boolean isFormValidated() {
+		try {
+			UtilValidate.validateString(getNombre(), "Nombre", 100);
+			UtilValidate.validateString(getDescripcion(), "Descripcion",255);
+			UtilValidate.validateList(listsTabla, "lista a respaldar");
+			return true;
+		} catch (Exception e) {
+			Alert.showMessage(e.getMessage());
+
+			return false;
+		}
+	}
 
 	public List<Tabla> getListsTabla() {
 		return listsTabla;
@@ -121,5 +134,38 @@ public class VM_ExportarIndex extends VM_WindowSimpleListPrincipal<Tabla> {
 	public void setPosibleTabla(Tabla posibleTabla) {
 		this.posibleTabla = posibleTabla;
 	}
+
+	public List<Tabla> getObjectsList() {
+		return objectsList;
+	}
+
+	public void setObjectsList(List<Tabla> objectsList) {
+		this.objectsList = objectsList;
+	}
+
+	public Tabla getSelectedObject() {
+		return selectedObject;
+	}
+
+	public void setSelectedObject(Tabla selectedObject) {
+		this.selectedObject = selectedObject;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+	
 
 }

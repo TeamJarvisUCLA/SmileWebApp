@@ -573,3 +573,10 @@ nav-list.z-navbar>ul>.z-nav-open>a i,.nav-list.z-navbar>ul>.z-nav-open>a span
 	vertical-align: middle;
 	border: 1px solid;
 }
+
+.page-content-main .z-listbox-paging-bottom input[type="text"] {
+    width: 15px !important;
+    font-size: 12px !important;
+    text-align: center !important;
+    margin-bottom: 4px !important;
+}

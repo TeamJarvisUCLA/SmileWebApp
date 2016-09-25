@@ -1,30 +1,4 @@
 <zk xmlns:n="native" xmlns:w="client">
-<style>
-		.z-comboitem-selected { background: #AFA197 !important; color:
-		#ffffff !important; } 
-		.z-comboitem:hover,
-		.z-comboitem-selected:hover { 
-		background: #F0F2DC !important;
-		color: #8D7A6F !important; } 
-		
-		.z-comboitem-selected:hover
-		.z-comboitem-text { color: #8D7A6F !important; }
-
-		.z-comboitem-selected .z-comboitem-text { color: #ffffff
-		!important; }
-
-		.z-comboitem { text-shadow: none !important; }
-
-		.page-content-main textarea.materialize-textarea { max-height:
-		100px; }
-		
-		.page-content-main textarea.materialize-textarea:hover, 
-		.page-content-main textarea.materialize-textarea:active,
-		.page-content-main textarea.materialize-textarea:focus{
-			overflow-y: auto; 
-		}
-	</style>
-	
 	<div width="80%" class="container ${arg.animation_}"
 		use="karen.core.form.controllers.C_WindowForm"
 		apply="org.zkoss.bind.BindComposer"
@@ -39,12 +13,12 @@
 						value="@bind(vm.clasificadorEvento.nombre)">
 					</textbox>
 				</div>
-			</div>			
-			
-			
+			</div>
+
+
 			<div sclass="col s12">
 				<div class=" input-field offset-s2 col s1">
-					<n:label for="color">Color</n:label>			
+					<n:label for="color">Color</n:label>
 				</div>
 				<div class="col s7">
 					<colorbox id="color"
@@ -52,9 +26,9 @@
 					</colorbox>
 				</div>
 			</div>
-			
+
 		</div>
-		
+
 		<div id="divButtonsForm"
 			use="karen.core.form.buttons.containers.DivButtonsForm">
 		</div>

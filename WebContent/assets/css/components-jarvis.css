@@ -390,23 +390,15 @@ nav-list.z-navbar>ul>.z-nav-open>a i,.nav-list.z-navbar>ul>.z-nav-open>a span
 }
 
 .z-listheader {
-    border: 0px solid transparent !important;
+	border: 0px solid transparent !important;
 }
 
-
-.z-listitem.z-listitem-selected > .z-listcell,
-.z-listitem.z-listitem-odd > .z-listcell, 
-.z-listitem.z-listitem > .z-listcell,
-.z-listitem:hover > .z-listcell, .z-treerow-selected > .z-treecell, 
-.z-treerow:hover > .z-treecell {
-
-    border: 0px solid transparent !important;
+.z-listitem.z-listitem-selected>.z-listcell,.z-listitem.z-listitem-odd>.z-listcell,.z-listitem.z-listitem>.z-listcell,.z-listitem:hover>.z-listcell,.z-treerow-selected>.z-treecell,.z-treerow:hover>.z-treecell
+	{
+	border: 0px solid transparent !important;
 }
 
-.z-listitem:hover>.z-listcell>.z-listcell-content,
-.z-treerow:hover>.z-treecell>.z-treecell-content,
-.z-treerow-selected:hover>.z-treecell>.z-treecell-content,
-.z-listitem.z-listitem-selected:hover>.z-listcell>.z-listcell-content
+.z-listitem:hover>.z-listcell>.z-listcell-content,.z-treerow:hover>.z-treecell>.z-treecell-content,.z-treerow-selected:hover>.z-treecell>.z-treecell-content,.z-listitem.z-listitem-selected:hover>.z-listcell>.z-listcell-content
 	{
 	background: #F0F2DC !important;
 	color: #8D7A6F !important;
@@ -414,8 +406,7 @@ nav-list.z-navbar>ul>.z-nav-open>a i,.nav-list.z-navbar>ul>.z-nav-open>a span
 	overflow: auto;
 }
 
-.z-listitem.z-listitem-selected>.z-listcell>.z-listcell-content,
-.z-treerow-selected>.z-treecell>.z-treecell-content
+.z-listitem.z-listitem-selected>.z-listcell>.z-listcell-content,.z-treerow-selected>.z-treecell>.z-treecell-content
 	{
 	background: #AFA197 !important;
 	color: #ffffff !important;
@@ -423,64 +414,65 @@ nav-list.z-navbar>ul>.z-nav-open>a i,.nav-list.z-navbar>ul>.z-nav-open>a span
 	overflow: auto;
 }
 
-.z-listcell-content, .z-listgroup-content, .z-listgroupfoot-content {
-    font-family: "Roboto",sans-serif !important;
-    font-size: 1.1em !important;
-    color: #87796f;
+.z-listcell-content,.z-listgroup-content,.z-listgroupfoot-content {
+	font-family: "Roboto", sans-serif !important;
+	font-size: 1.1em !important;
+	color: #87796f;
 }
 
 .z-listhead {
-    border-right: 0px solid Transparent !important;
-    border-top: 0px solid Transparent !important;
-    border-left: 0px solid Transparent !important;
+	border-right: 0px solid Transparent !important;
+	border-top: 0px solid Transparent !important;
+	border-left: 0px solid Transparent !important;
 }
 
 .z-listbox-body table {
-    border-right: 0px solid Transparent !important;
-    border-top: 0px solid Transparent !important;
-    border-left: 0px solid Transparent !important;
+	border-right: 0px solid Transparent !important;
+	border-top: 0px solid Transparent !important;
+	border-left: 0px solid Transparent !important;
 }
-.z-listbox-odd.z-listitem, .z-treerow:nth-child(odd) {
-    background-color: #dcd1c9;
+
+.z-listbox-odd.z-listitem,.z-treerow:nth-child(odd) {
+	background-color: #dcd1c9;
 }
 
 .z-listbox {
-    border: 0px solid transparent !important;
-    border-right: 0px solid transparent !important;
+	border: 0px solid transparent !important;
+	border-right: 0px solid transparent !important;
 }
 
 .z-button.btn-pagination {
-    width: 30px;
-    height: 30px;
-    border-color: #413125;
-    color: #dcd1c9 !important;
-    margin-right: 3px;
-    text-shadow: unset;
-    box-shadow: unset;
+	width: 30px;
+	height: 30px;
+	border-color: #413125;
+	color: #dcd1c9 !important;
+	margin-right: 3px;
+	text-shadow: unset;
+	box-shadow: unset;
 }
 
 .z-button.btn-listfoot-right {
-    width: 28px;
-    height: 30px;
-    border-color: transparent;
-    margin-right: 5px;
-    text-shadow: unset;
-    box-shadow: unset;
-    color: #dcd1c9 !important;
-    padding-right: 21px;
-    text-align: center;
+	width: 28px;
+	height: 30px;
+	border-color: transparent;
+	margin-right: 5px;
+	text-shadow: unset;
+	box-shadow: unset;
+	color: #dcd1c9 !important;
+	padding-right: 21px;
+	text-align: center;
 }
 
-.z-button.btn-pagination:hover, .z-button.btn-listfoot-right:hover {
-    border-color: #3b85a1;
-    background: #3b85a1;
-    color: white !important;
+.z-button.btn-pagination:hover,.z-button.btn-listfoot-right:hover {
+	border-color: #3b85a1;
+	background: #3b85a1;
+	color: white !important;
 }
 
 .pagination-registros {
-    color: #dcd1c9;
-    margin-top: 8px;
-    margin-right: 15px;
+	color: #dcd1c9;
+	margin-top: 8px;
+	margin-right: 15px;
 }
 
 .nav-list.z-navbar>ul>.z-nav>ul>li a:hover i,.z-nav-popup>li a:hover i {
@@ -537,4 +529,80 @@ nav-list.z-navbar>ul>.z-nav-open>a i,.nav-list.z-navbar>ul>.z-nav-open>a span
 	{
 	font-family: "Roboto", sans-serif !important;
 	font-size: 13px;
+}
+
+.z-comboitem-selected {
+	background: #AFA197 !important;
+	color: #ffffff !important;
+}
+
+.z-comboitem:hover,.z-comboitem-selected:hover {
+	background: #F0F2DC !important;
+	color: #8D7A6F !important;
+}
+
+.z-comboitem-selected:hover,.z-comboitem-text {
+	color: #8D7A6F !important;
+}
+
+.z-comboitem-selected .z-comboitem-text {
+	color: #ffffff !important;
+}
+
+.z-comboitem {
+	text-shadow: none !important;
+}
+
+.page-content-main textarea.materialize-textarea {
+	max-height: 100px !important;
+}
+
+.page-content-main textarea.materialize-textarea:hover,.page-content-main textarea.materialize-textarea:active,.page-content-main textarea.materialize-textarea:focus
+	{
+	overflow-y: auto !important;
+}
+
+.circle-color-event {
+	height: 20px;
+	width: 20px;
+	border-radius: 100%;
+	display: inline-block;
+	vertical-align: middle;
+	border: 1px solid;
+}
+
+.page-content-main .z-listbox-paging-bottom input[type="text"] {
+	width: 15px !important;
+	font-size: 12px !important;
+	text-align: center !important;
+	margin-bottom: 4px !important;
+}
+
+.z-listitem.z-listitem-disabled *,.z-listitem.z-listitem-disabled:hover>.z-listcell>.z-listcell-content
+	{
+	color: #aaa !important;
+	cursor: default !important;
+	background: #fafafa !important;
+}
+
+.ltab.z-tabbox .z-tab {
+	float: left !important;
+}
+
+.z-listbox-odd.z-listitem,.z-treerow:nth-child(odd) {
+	background-color: rgba(220, 209, 201, 0.26);
+}
+
+.button-conf {
+	color: #bbd700 !important;
+}
+
+.z-listbox-emptybody td {
+	font-family: Roboto, Sans-serif;
+	font-size: 12px;
+	font-weight: normal;
+	font-style: normal;
+	color: #aaa;
+	font-style: italic;
+	padding: 12px !important;
 }

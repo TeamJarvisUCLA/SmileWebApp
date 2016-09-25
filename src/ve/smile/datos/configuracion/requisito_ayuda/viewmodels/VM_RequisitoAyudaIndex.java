@@ -11,31 +11,30 @@ import org.zkoss.bind.annotation.Init;
 import ve.smile.consume.services.S;
 import ve.smile.dto.Ayuda;
 import ve.smile.payload.response.PayloadAyudaResponse;
-import ve.smile.payload.response.PayloadRequisitoAyudaResponse;
+import ve.smile.payload.response.PayloadRequisitoResponse;
 import ve.smile.seguridad.enums.OperacionEnum;
 
 public class VM_RequisitoAyudaIndex extends VM_WindowSimpleListPrincipal<Ayuda> {
 
 	@Init(superclass = true)
 	public void childInit() {
-		//NOTHING OK!
+		// NOTHING OK!
 	}
 
 	@Override
 	public IPayloadResponse<Ayuda> getDataToTable(
 			Integer cantidadRegistrosPagina, Integer pagina) {
 
-		PayloadAyudaResponse payloadAyudaResponse = 
-				S.AyudaService.consultarPaginacion(cantidadRegistrosPagina, pagina);
+		PayloadAyudaResponse payloadAyudaResponse = S.AyudaService
+				.consultarPaginacion(cantidadRegistrosPagina, pagina);
 
 		return payloadAyudaResponse;
 	}
 
-
 	@Override
 	public void doDelete() {
-		PayloadAyudaResponse payloadAyudaResponse =
-				S.AyudaService.eliminar(getSelectedObject().getIdAyuda());
+		PayloadAyudaResponse payloadAyudaResponse = S.AyudaService
+				.eliminar(getSelectedObject().getIdAyuda());
 
 		Alert.showMessage(payloadAyudaResponse);
 
@@ -53,18 +52,18 @@ public class VM_RequisitoAyudaIndex extends VM_WindowSimpleListPrincipal<Ayuda> 
 	@Command("onSelectAyuda")
 	public void onSelectAyuda() {
 		Ayuda ayuda = getSelectedObject();
-		
-		if (ayuda.getRequisitoAyudas() == null || ayuda.getRequisitoAyudas().size() == 0) {
-			
-			PayloadRequisitoAyudaResponse payloadRequisitoAyudaResponse = 
-					S.RequisitoAyudaService.consultarPorAyuda(ayuda.getIdAyuda());
-			
-			if (!(Boolean)payloadRequisitoAyudaResponse.getInformacion(IPayloadResponse.IS_OK)) {
-				Alert.showMessage(payloadRequisitoAyudaResponse);
+
+		if (ayuda.getRequisitos() == null || ayuda.getRequisitos().size() == 0) {
+
+			PayloadRequisitoResponse payloadRequisitoResponse = S.RequisitoService
+					.consultarPorAyuda(ayuda.getIdAyuda());
+
+			if (!UtilPayload.isOK(payloadRequisitoResponse)) {
+				Alert.showMessage(payloadRequisitoResponse);
 				return;
 			}
-			
-			ayuda.setRequisitoAyudas(payloadRequisitoAyudaResponse.getObjetos());
-		}	
+
+			ayuda.setRequisitos(payloadRequisitoResponse.getObjetos());
+		}
 	}
 }

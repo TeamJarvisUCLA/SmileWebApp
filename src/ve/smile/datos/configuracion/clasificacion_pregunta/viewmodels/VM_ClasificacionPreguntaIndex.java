@@ -11,7 +11,7 @@ import org.zkoss.bind.annotation.Init;
 import ve.smile.consume.services.S;
 import ve.smile.dto.ClasificadorPregunta;
 import ve.smile.payload.response.PayloadClasificadorPreguntaResponse;
-import ve.smile.payload.response.PayloadPreguntaClasificadaResponse;
+import ve.smile.payload.response.PayloadPreguntaResponse;
 import ve.smile.seguridad.enums.OperacionEnum;
 
 public class VM_ClasificacionPreguntaIndex extends
@@ -54,21 +54,20 @@ public class VM_ClasificacionPreguntaIndex extends
 	public void onSelectClasificadorPregunta() {
 		ClasificadorPregunta clasificadorPregunta = getSelectedObject();
 
-		if (clasificadorPregunta.getPreguntaClasificadas() == null
-				|| clasificadorPregunta.getPreguntaClasificadas().size() == 0) {
+		if (clasificadorPregunta.getPreguntasClasificadas() == null
+				|| clasificadorPregunta.getPreguntasClasificadas().size() == 0) {
 
-			PayloadPreguntaClasificadaResponse payloadPreguntaClasificadaResponse = S.PreguntaClasificadaService
-					.consultarPorClasificador(clasificadorPregunta
+			PayloadPreguntaResponse payloadPreguntaResponse = S.PreguntaService
+					.consultarPorClasificadorPregunta(clasificadorPregunta
 							.getIdClasificadorPregunta());
 
-			if (!(Boolean) payloadPreguntaClasificadaResponse
-					.getInformacion(IPayloadResponse.IS_OK)) {
-				Alert.showMessage(payloadPreguntaClasificadaResponse);
+			if (!UtilPayload.isOK(payloadPreguntaResponse)) {
+				Alert.showMessage(payloadPreguntaResponse);
 				return;
 			}
 
 			clasificadorPregunta
-					.setPreguntaClasificadas(payloadPreguntaClasificadaResponse
+					.setPreguntasClasificadas(payloadPreguntaResponse
 							.getObjetos());
 		}
 	}

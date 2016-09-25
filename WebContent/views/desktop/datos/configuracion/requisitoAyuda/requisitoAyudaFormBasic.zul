@@ -6,18 +6,88 @@
 
 		<div class="row">
 			<div class="col s12">
-				<div class="input-field col s12">
-					<n:label for="nombre" class="mandatory">
-						Nombre
-					</n:label>
-					<textbox id="nombre" type="text"
-						value="@bind(vm.ayuda.nombre)">
+				<div class="input-field col s6">
+					<n:label for="nombre">Nombre</n:label>
+					<textbox id="nombre" type="text" maxlength="100"
+						disabled="true" value="@bind(vm.ayuda.nombre)">
+					</textbox>
+				</div>
+
+			</div>
+			<div class="col s12">
+				<div class="input-field  col s12">
+					<n:label for="descripcion">Descripción</n:label>
+					<textbox id="descripcion" type="text"
+						disabled="true" maxlength="250" sclass="materialize-texrequisito"
+						multiline="true" value="@bind(vm.ayuda.descripcion)">
 					</textbox>
 				</div>
 			</div>
+			<div class="col s12">
+				<tabbox id="tb" class="rtab ltab">
+					<tabs id="tabs">
+						
+						<tab id="tabRequisitos" label="Requisitos" />
+					</tabs>
+					<tabpanels>
+						
+						<tabpanel>
+							<div sclass="col s5">
+								<listbox model="@bind(vm.requisitos)"
+									emptyMessage="No hay requisitos registrados."
+									selectedItems="@bind(vm.requisitosSeleccionadas)"
+									multiple="true">
+									<listhead sizable="true">
+										<listheader label="Requisitos" />
+									</listhead>
+									<template name="model">
+										<listitem
+											label="@load(each.nombre)">
+											<zscript>
+	self.setDisabled(vm.disabledRequisito(each));
+</zscript>
+										</listitem>
+									</template>
+								</listbox>
+							</div>
+							<div sclass="col s1">
+								<div sclass="row valign">
+									<button
+										iconSclass="fa fa-angle-double-right" sclass="button-conf"
+										onClick="@command('agregarRequisitosPlantilla')" />
+								</div>
+								<div sclass="row">
+									<button
+										iconSclass="fa fa-angle-double-left" sclass="button-conf"
+										onClick="@command('removerRequisitosPlantilla')" />
+								</div>
+							</div>
+							<div sclass="col s5" style="padding:0px">
+								<listbox model="@bind(vm.ayudaRequisitos)"
+									emptyMessage="No hay requisitos asociadas a la plantilla de la ayuda seleccionado."
+									selectedItems="@bind(vm.ayudaRequisitosSeleccionadas)"
+									multiple="true">
+									<listhead sizable="true">
+										<listheader
+											label="Requisitos de la ayuda" />
+									</listhead>
+									<template name="model">
+										<listitem
+											label="@load(each.nombre)">
+										</listitem>
+									</template>
+								</listbox>
+							</div>
+						</tabpanel>
+					</tabpanels>
+				</tabbox>
+			</div>
 		</div>
+
 		<div id="divButtonsForm"
 			use="karen.core.form.buttons.containers.DivButtonsForm">
+
 		</div>
+
 	</div>
 </zk>

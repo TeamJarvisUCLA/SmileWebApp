@@ -6,107 +6,146 @@
 
 		<div class="row">
 			<div class="col s12">
-				<div class="input-field col s12">
-					<textbox id="nombre" type="text"
-						value="@bind(vm.trabajoSocial.nombre)" readonly="true">
+				<div class="input-field col s6">
+					<n:label for="nombre">Nombre</n:label>
+					<textbox id="nombre" type="text" maxlength="100"
+						disabled="true" value="@bind(vm.trabajoSocial.nombre)">
+					</textbox>
+				</div>
+
+				<div class="input-field  col s6">
+					<n:label class="active"
+						for="fk_clasificador_trabajo_social">
+						Clasificador de trabajo social
+					</n:label>
+					<combobox id="fk_clasificador_trabajo_social"
+						disabled="true" readonly="true"
+						model="@bind(vm.clasificadorTrabajoSociales)"
+						selectedItem="@bind(vm.trabajoSocial.fkClasificadorTrabajoSocial)">
+						<template name="model">
+							<comboitem label="@load(each.nombre)" />
+						</template>
+					</combobox>
+				</div>
+			</div>
+			<div class="col s12">
+				<div class="input-field  col s12">
+					<n:label for="descripcion">Descripción</n:label>
+					<textbox id="descripcion" type="text"
+						disabled="true" maxlength="250" sclass="materialize-textarea"
+						multiline="true" value="@bind(vm.trabajoSocial.descripcion)">
 					</textbox>
 				</div>
 			</div>
-
-			<div>
-				<tabbox id="tb" class="rtab">
+			<div class="col s12">
+				<tabbox id="tb" class="rtab ltab">
 					<tabs id="tabs">
 						<tab id="tabIndicadores" label="Indicadores"
 							selected="true" />
 						<tab id="tabActividades" label="Actividades" />
 					</tabs>
-
 					<tabpanels>
 						<tabpanel>
-							<hlayout>
-								<vlayout>
-									<listbox
-										model="@bind(vm.indicadores)"
-										selectedItems="@bind(vm.indicadoresSel)" multiple="true"
-										width="400px" height="300px">
-										<listhead sizable="true">
-											<listheader
-												label="Indicadores" />
-										</listhead>
-										<template name="model">
-											<listitem
-												label="@load(each.nombre)" />
-										</template>
-									</listbox>
-								</vlayout>
-								<vbox vflex="1">
-									<button label="&gt;"
-										onClick="@command('indicadoresAPlantilla')" />
-									<button label="&lt;"
-										onClick="@command('indicadoresFueraPlantilla')" />
-								</vbox>
-								<vlayout>
-									<listbox
-										model="@bind(vm.trabajoSocial.trabajoSocialIndicadors)"
-										selectedItems="@bind(vm.trabajoSocialIndicadoresSel)"
-										multiple="true" width="400px" height="300px">
-										<listhead sizable="true">
-											<listheader
-												label="Indicadores del trabajo social" />
-										</listhead>
-										<template name="model">
-											<listitem
-												label="@load(each.fkIndicador.nombre)" />
-										</template>
-									</listbox>
-								</vlayout>
-							</hlayout>
+
+							<div sclass="col s5" style="padding:0px">
+								<listbox model="@load(vm.indicadores)"
+									emptyMessage="No hay indicadores registrados."
+									selectedItems="@bind(vm.indicadoresSeleccionados)"
+									multiple="true">
+									<listhead sizable="true">
+										<listheader label="Indicadores" />
+									</listhead>
+									<template name="model">
+										<listitem
+											label="@load(each.nombre)">
+											<zscript>
+	self.setDisabled(vm.disabledIndicador(each));
+</zscript>
+										</listitem>
+									</template>
+								</listbox>
+							</div>
+							<div sclass="col s1" align="center">
+								<div sclass="row">
+									<button sclass="button-conf"
+										iconSclass="fa fa-angle-double-right"
+										onClick="@command('agregarIndicadoresPlantilla')" />
+								</div>
+								<div sclass="row">
+									<button sclass="button-conf"
+										iconSclass="fa fa-angle-double-left"
+										onClick="@command('removerIndicadoresPlantilla')" />
+								</div>
+							</div>
+
+							<div sclass="col s5" style="padding:0px">
+								<listbox
+									emptyMessage="No hay indicadores asociados a la plantilla del trabajo social seleccionado."
+									model="@bind(vm.trabajoSocialIndicadores)"
+									selectedItems="@bind(vm.trabajoSocialIndicadoresSeleccionados)"
+									multiple="true">
+									<listhead sizable="true">
+										<listheader
+											label="Indicadores del trabajo social" />
+									</listhead>
+									<template name="model">
+										<listitem
+											label="@load(each.nombre)" />
+									</template>
+								</listbox>
+							</div>
 						</tabpanel>
 						<tabpanel>
-							<hlayout>
-								<vlayout>
-									<listbox
-										model="@bind(vm.actividades)"
-										selectedItems="@bind(vm.actividadesSel)" multiple="true"
-										width="400px" height="300px">
-										<listhead sizable="true">
-											<listheader
-												label="Actividades" />
-										</listhead>
-										<template name="model">
-											<listitem
-												label="@load(each.nombre)" />
-										</template>
-									</listbox>
-								</vlayout>
-								<vbox vflex="1" pack="middle">
-									<button label="&gt;"
-										onClick="@command('actividadesAPlantilla')" />
-									<button label="&lt;"
-										onClick="@command('actividadesFueraPlantilla')" />
-								</vbox>
-								<vlayout>
-									<listbox
-										model="@bind(vm.trabajoSocial.trabajoSocialActividades)"
-										selectedItems="@bind(vm.trabajoSocialActividadesSel)"
-										multiple="true" width="400px" height="300px">
-										<listhead sizable="true">
-											<listheader
-												label="Actividades del trabajo social" />
-										</listhead>
-										<template name="model">
-											<listitem
-												label="@load(each.fkActividad.nombre)" />
-										</template>
-									</listbox>
-								</vlayout>
-							</hlayout>
+							<div sclass="col s5">
+								<listbox model="@bind(vm.actividades)"
+									emptyMessage="No hay actividades registrados."
+									selectedItems="@bind(vm.actividadesSeleccionadas)"
+									multiple="true">
+									<listhead sizable="true">
+										<listheader label="Actividades" />
+									</listhead>
+									<template name="model">
+										<listitem
+											label="@load(each.nombre)">
+											<zscript>
+	self.setDisabled(vm.disabledActividad(each));
+</zscript>
+										</listitem>
+									</template>
+								</listbox>
+							</div>
+							<div sclass="col s1">
+								<div sclass="row valign">
+									<button
+										iconSclass="fa fa-angle-double-right" sclass="button-conf"
+										onClick="@command('agregarActividadesPlantilla')" />
+								</div>
+								<div sclass="row">
+									<button
+										iconSclass="fa fa-angle-double-left" sclass="button-conf"
+										onClick="@command('removerActividadesPlantilla')" />
+								</div>
+							</div>
+							<div sclass="col s5" style="padding:0px">
+								<listbox model="@bind(vm.trabajoSocialActividades)"
+									emptyMessage="No hay actividades asociadas a la plantilla del trabajo social seleccionado."
+									selectedItems="@bind(vm.trabajoSocialActividadesSeleccionadas)"
+									multiple="true">
+									<listhead sizable="true">
+										<listheader
+											label="Actividades del trabajo social" />
+									</listhead>
+									<template name="model">
+										<listitem
+											label="@load(each.nombre)">
+										</listitem>
+									</template>
+								</listbox>
+							</div>
 						</tabpanel>
 					</tabpanels>
 				</tabbox>
 			</div>
-
-
 		</div>
 
 		<div id="divButtonsForm"

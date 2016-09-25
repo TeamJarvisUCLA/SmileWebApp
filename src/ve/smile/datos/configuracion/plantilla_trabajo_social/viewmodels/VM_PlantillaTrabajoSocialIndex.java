@@ -10,9 +10,9 @@ import org.zkoss.bind.annotation.Init;
 
 import ve.smile.consume.services.S;
 import ve.smile.dto.TrabajoSocial;
-import ve.smile.payload.response.PayloadActividadResponse;
-import ve.smile.payload.response.PayloadIndicadorResponse;
 import ve.smile.payload.response.PayloadTrabajoSocialResponse;
+import ve.smile.payload.response.PayloadIndicadorResponse;
+import ve.smile.payload.response.PayloadActividadResponse;
 import ve.smile.seguridad.enums.OperacionEnum;
 
 public class VM_PlantillaTrabajoSocialIndex extends
@@ -42,30 +42,27 @@ public class VM_PlantillaTrabajoSocialIndex extends
 
 	@Command("onSelectTrabajoSocial")
 	public void onSelectTrabajoSocial() {
-		TrabajoSocial trabajoSocial = getSelectedObject();
+		TrabajoSocial trabajo = getSelectedObject();
 
-		if (trabajoSocial.getTrabajoSocialActividades() == null
-				|| trabajoSocial.getTrabajoSocialActividades().isEmpty()) {
-			PayloadActividadResponse payloadTareaResponse = S.ActividadService
-					.consultarPorTrabajoSocial(trabajoSocial
-							.getIdTrabajoSocial());
-			if (!UtilPayload.isOK(payloadTareaResponse)) {
-				Alert.showMessage(payloadTareaResponse);
+		if (trabajo.getTrabajoSocialActividades() == null
+				|| trabajo.getTrabajoSocialActividades().isEmpty()) {
+			PayloadActividadResponse payloadActividadResponse = S.ActividadService
+					.consultarPorTrabajoSocial(trabajo.getIdTrabajoSocial());
+			if (!UtilPayload.isOK(payloadActividadResponse)) {
+				Alert.showMessage(payloadActividadResponse);
 			}
-			trabajoSocial.setTrabajoSocialActividades(payloadTareaResponse
-					.getObjetos());
+			trabajo.setTrabajoSocialActividades(payloadActividadResponse.getObjetos());
 
 		}
-		if (trabajoSocial.getTrabajoSocialIndicadores() == null
-				|| trabajoSocial.getTrabajoSocialIndicadores().isEmpty()) {
+		if (trabajo.getTrabajoSocialIndicadores() == null
+				|| trabajo.getTrabajoSocialIndicadores().isEmpty()) {
 			PayloadIndicadorResponse payloadIndicadorResponse = S.IndicadorService
-					.consultarPorTrabajoSocial(trabajoSocial
-							.getIdTrabajoSocial());
+					.consultarPorEvento(trabajo.getIdTrabajoSocial());
 			if (!UtilPayload.isOK(payloadIndicadorResponse)) {
 				Alert.showMessage(payloadIndicadorResponse);
 			}
-			trabajoSocial.setTrabajoSocialIndicadores(payloadIndicadorResponse
-					.getObjetos());
+			trabajo.setTrabajoSocialIndicadores(payloadIndicadorResponse.getObjetos());
 		}
+
 	}
 }

@@ -10,10 +10,11 @@
 				<div class="col s6">
 					<listbox id="listbox" model="@load(vm.objectsList)"
 						selectedItem="@bind(vm.selectedObject)"
+						emptyMessage="No hay clasificadores de preguntas registrados."
 						onSelect="@command('onSelectClasificadorPregunta')">
 
-						<listhead sizable="true">
-							<listheader width="49%"
+						<listhead>
+							<listheader
 								label="Clasificador de Pregunta" />
 						</listhead>
 						<template name="model">
@@ -29,16 +30,17 @@
 					</listbox>
 				</div>
 
-				<div class="col s6">
+				<div class="col s6 animated fadeIn"
+					visible="@load(not empty vm.selectedObject)">
 					<listbox
-						model="@load(vm.selectedObject.preguntaClasificadas)">
-						<listhead sizable="true">
+						emptyMessage="No hay preguntas asociadas al clasificador seleccionado."
+						model="@load(vm.selectedObject.preguntasClasificadas)">
+						<listhead>
 							<listheader label="Preguntas" />
 						</listhead>
 						<template name="model">
-							<listitem>
-								<listcell
-									label="@load(each.fkPregunta.pregunta)" />
+							<listitem onCreate="self.setDisabled(true)">
+								<listcell label="@load(each.pregunta)" />
 							</listitem>
 						</template>
 					</listbox>

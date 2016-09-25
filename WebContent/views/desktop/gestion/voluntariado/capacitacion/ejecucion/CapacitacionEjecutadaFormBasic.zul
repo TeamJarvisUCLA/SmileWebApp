@@ -1,0 +1,65 @@
+<zk xmlns:n="native" xmlns:w="client">
+	<div width="80%" class="container ${arg.animation_}"
+		use="karen.core.form.controllers.C_WindowForm"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('ve.smile.gestion.voluntariado.capacitacion.planificacion.viewmodels.VM_CapacitacionPlanificadaFormBasic')">
+
+		<div class="row">
+			<div sclass="col s12 form">
+			
+				<div class="input-field col s6">
+					<n:label class="active" for="fk_capacitacion">Capacitación</n:label>
+					<combobox id="fk_capacitacion" readonly="true" model="@bind(vm.capacitaciones)" selectedItem="@bind(vm.capacitacionPlanificada.fkCapacitacion)">
+						<template name="model">
+							<comboitem label="@load(each.nombre)" />
+						</template>
+					</combobox>
+				</div>
+				
+				<div class="input-field col s6">
+					<n:label class="active" for="fk_directorio">Lugar</n:label>
+					<combobox id="fk_directorio" readonly="true" model="@bind(vm.lugares)" selectedItem="@bind(vm.capacitacionPlanificada.fkDirectorio)">
+						<template name="model">
+							<comboitem label="@load(each.nombre)" />
+						</template>
+					</combobox>
+				</div>
+				
+				<div class="input-field col s6">
+					<n:label for="fecha_planificada" class="active">Fecha planificada</n:label>
+					<datebox id="fecha_planificada" cols="20" format="yyyy/MM/dd" readonly="true" value="@bind(vm.capacitacionPlanificada.fechaPlanificada)"/>
+				</div>
+				
+				<div class="input-field col s6">
+					<n:label for="fecha_ejecutada" class="active">Fecha ejecutada</n:label>
+					<datebox id="fecha_ejecutada" cols="20" format="yyyy/MM/dd" value="@bind(vm.capacitacionPlanificada.fechaEjecutada)"/>
+				</div>
+				
+				<div class="input-field col s6">
+					<n:label for="descripcion">Descripción</n:label>
+					<textbox id="descripcion" type="text" maxlength="250" readonly="true" sclass="materialize-textarea" multiline="true" value="@bind(vm.capacitacionPlanificada.observacion)"></textbox>
+				</div>
+				
+				<div class="input-field col s6">
+					<n:label for="observacion">Observaciones</n:label>
+					<textbox id="observacion" type="text" maxlength="250" sclass="materialize-textarea" multiline="true" value="@bind(vm.capacitacionPlanificada.observacion)"></textbox>
+				</div>
+				
+				<div class="input-field col s6 offset-s3">
+					<n:div class="switch">
+						<n:label>
+							No ejecutado
+							<checkbox checked="@bind(vm.capacitacionPlanificada.ejecucion)"></checkbox>
+							Ejecutado
+						</n:label>
+					</n:div>
+				</div>		
+				
+			</div>
+		</div>
+		
+		<div id="divButtonsForm"
+			use="karen.core.form.buttons.containers.DivButtonsForm">
+		</div>
+	</div>
+</zk>

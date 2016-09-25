@@ -327,50 +327,60 @@
 			</div>
 		</div>
 	
-		<div class="container-fluid comunidad_galeria">
+		<div class="container-fluid patrocinadores_galeria">
 			<div class="row">
-				<n:div id="comunidad">
+				<n:div id="patrocinadores">
 					<div class="col s7" style="padding:0px">
-						<div class="container-fluid comunidad">
+						<div class="container-fluid patrocinadores">
 							<div class="row">
-								<n:h4>COMUNIDAD ACTIVA</n:h4>
-								<div class="col s12 medallas">
-									<div class="row text-center ">
-										<div class="col s4 text-center">
-											<div sclass="row fotos">
-												<image src="/imagenes/portal/foto1.jpg" height="100px" width="100px" sclass="circle responsive-img">
-												</image>											
-												<image class="img-responsive" src="/imagenes/portal/medalla.png">
-												</image>
+								<n:h4>PATROCINADORES</n:h4>
+								<div class="col s12 slider-patrocionadores">
+									<n:div id="owlPatrocinadores" class="owl-carousel owl-theme">
+										<div sclass="item">
+											<div style="padding-bottom: 10px;">
+												<div class="col s4 text-center">
+													<div sclass="row">
+														<image src="/imagenes/portal/alimex.png" height="100px" width="100px" sclass="responsive-img">
+														</image>											
+													</div>
+												</div>
+												<div class="col s4 text-center">
+													<div sclass="row">
+														<image src="/imagenes/portal/p_g.png" height="100px" width="100px" sclass="responsive-img">
+														</image>											
+													</div>
+												</div>
+												<div class="col s4 text-center">
+													<div sclass="row">
+														<image src="/imagenes/portal/macromedia.png" height="100px" width="100px" sclass="responsive-img">
+														</image>											
+													</div>
+												</div>											
 											</div>
-											<div sclass="row" style="margin-top:10px">
-												<label sclass="subtitulo " style="color:#F26B7A">Ana Matheus</label>
+										</div>									
+										<div sclass="item">
+											<div style="padding-bottom: 10px;">
+												<div class="col s4 text-center">
+													<div sclass="row">
+														<image src="/imagenes/portal/alimex.png" height="100px" width="100px" sclass="responsive-img">
+														</image>											
+													</div>
+												</div>
+												<div class="col s4 text-center">
+													<div sclass="row">
+														<image src="/imagenes/portal/p_g.png" height="100px" width="100px" sclass="responsive-img">
+														</image>											
+													</div>
+												</div>
+												<div class="col s4 text-center">
+													<div sclass="row">
+														<image src="/imagenes/portal/macromedia.png" height="100px" width="100px" sclass="responsive-img">
+														</image>											
+													</div>
+												</div>											
 											</div>
 										</div>
-										<div class="col s4 text-center">
-											<div sclass="row fotos">
-												<image src="/imagenes/portal/foto3.jpg" height="100px" width="100px" sclass="circle responsive-img">
-												</image>
-												<image class="img-responsive" src="/imagenes/portal/medalla.png">
-												</image>
-											</div>
-											<div sclass="row" style="margin-top:10px">
-												<label sclass="subtitulo " style="color:#F26B7A">Ana Matheus</label>
-											</div>
-					
-										</div>
-										<div class="col s4 text-center">
-											<div sclass="row fotos">
-												<image src="/imagenes/portal/foto2.jpg" height="100px" width="100px" sclass="circle responsive-img">
-												</image>
-												<image class="img-responsive" src="/imagenes/portal/medalla.png">
-												</image>
-											</div>
-											<div sclass="row" style="margin-top:10px">
-												<label sclass="subtitulo " style="color:#F26B7A">Ana Matheus</label>
-											</div>
-										</div>
-									</div>
+									</n:div>									
 								</div>
 							</div>
 						</div>
@@ -408,6 +418,21 @@
 		}, 4000);
 		
 		  $('.owlNoticias').owlCarousel({
+		 items:1,
+		 mouseDrag:false,
+		      navigation : true, // Show next and prev buttons
+		      slideSpeed : 300,
+		      paginationSpeed : 400,
+		      singleItem: true,
+			  navigationText: [
+			      '<span sclass="fa fa-chevron-left"></span>',
+			    '<span sclass="fa fa-chevron-right"></span>'
+			      ],
+			      autoWidth:true,
+			       autoPlay: true 
+		  });
+		  
+		 $('#owlPatrocinadores').owlCarousel({
 		 items:1,
 		 mouseDrag:false,
 		      navigation : true, // Show next and prev buttons

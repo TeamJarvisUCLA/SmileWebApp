@@ -1,7 +1,9 @@
 package ve.smile.datos.parametros.directorio.viewmodels;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import karen.core.crux.alert.Alert;
 import karen.core.crux.session.DataCenter;
@@ -11,70 +13,65 @@ import karen.core.form.buttons.helpers.OperacionFormHelper;
 import karen.core.form.viewmodels.VM_WindowForm;
 import karen.core.util.payload.UtilPayload;
 import karen.core.util.validate.UtilValidate;
+import lights.core.enums.TypeQuery;
 
+import org.zkoss.bind.annotation.BindingParam;
+import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
+import org.zkoss.bind.annotation.NotifyChange;
+import org.zkoss.gmaps.Gmarker;
+import org.zkoss.gmaps.event.MapMouseEvent;
 
 import ve.smile.consume.services.S;
 import ve.smile.dto.Ciudad;
 import ve.smile.dto.Directorio;
 import ve.smile.dto.Estado;
-import ve.smile.dto.Multimedia;
 import ve.smile.payload.response.PayloadCiudadResponse;
 import ve.smile.payload.response.PayloadDirectorioResponse;
-import ve.smile.payload.response.PayloadMultimediaResponse;
+import ve.smile.payload.response.PayloadEstadoResponse;
 import ve.smile.seguridad.enums.OperacionEnum;
 
 public class VM_DirectorioFormBasic extends VM_WindowForm {
 
 	private List<Ciudad> ciudads;
-	private List<Multimedia> multimedias;
 	private Estado estado;
+
+	private List<Estado> estados;
 
 	@Init(superclass = true)
 	public void childInit() {
 		// NOTHING OK!
+		this.getDirectorio().setLatitud(10.066560);
+		this.getDirectorio().setLongitud(-69.312565);
 	}
 
-	public List<Ciudad> getCiudads() {
-		if (this.ciudads == null) {
-			this.ciudads = new ArrayList<>();
+	@Command("changeEstado")
+	@NotifyChange({ "ciudads" })
+	public void changeEstado() {
+		this.getCiudads().clear();
+		this.getDirectorio().setFkCiudad(new Ciudad());
+		Map<String, String> criterios = new HashMap<>();
+		criterios
+				.put("fkEstado.idEstado", String.valueOf(estado.getIdEstado()));
+		PayloadCiudadResponse payloadCiudadResponse = S.CiudadService
+				.consultarCriterios(TypeQuery.EQUAL, criterios);
+		if (!UtilPayload.isOK(payloadCiudadResponse)) {
+			Alert.showMessage(payloadCiudadResponse);
 		}
-		if (this.ciudads.isEmpty()) {
-			PayloadCiudadResponse payloadCiudadsResponse = S.CiudadService
-					.consultarTodos();
-
-			if (!UtilPayload.isOK(payloadCiudadsResponse)) {
-				Alert.showMessage(payloadCiudadsResponse);
-			}
-
-			this.ciudads.addAll(payloadCiudadsResponse.getObjetos());
-		}
-		return ciudads;
+		this.getCiudads().addAll(payloadCiudadResponse.getObjetos());
 	}
 
-	public void setCiudads(List<Ciudad> ciudads) {
-		this.ciudads = ciudads;
-	}
-
-	public List<Multimedia> getMultimedias() {
-		if (this.multimedias == null) {
-			this.multimedias = new ArrayList<>();
+	@SuppressWarnings("deprecation")
+	@Command
+	@NotifyChange({ "directorio" })
+	public void changeMarker(@BindingParam("event") MapMouseEvent event) {
+		Gmarker gmarker = event.getGmarker();
+		if (gmarker != null) {
+			gmarker.setOpen(true);
+		} else {
+			this.getDirectorio().setLatitud(event.getLat());
+			this.getDirectorio().setLongitud(event.getLng());
 		}
-		if (this.multimedias.isEmpty()) {
-			PayloadMultimediaResponse payloadMultimediaResponse = S.MultimediaService
-					.consultarTodos();
-
-			if (!UtilPayload.isOK(payloadMultimediaResponse)) {
-				Alert.showMessage(payloadMultimediaResponse);
-			}
-
-			this.multimedias.addAll(payloadMultimediaResponse.getObjetos());
-		}
-		return multimedias;
-	}
-
-	public void setMultimedias(List<Multimedia> multimedias) {
-		this.multimedias = multimedias;
 	}
 
 	@Override
@@ -174,6 +171,44 @@ public class VM_DirectorioFormBasic extends VM_WindowForm {
 
 			return false;
 		}
+	}
+
+	public List<Ciudad> getCiudads() {
+		if (this.ciudads == null) {
+			this.ciudads = new ArrayList<>();
+		}
+		return ciudads;
+	}
+
+	public void setCiudads(List<Ciudad> ciudads) {
+		this.ciudads = ciudads;
+	}
+
+	public Estado getEstado() {
+		return estado;
+	}
+
+	public void setEstado(Estado estado) {
+		this.estado = estado;
+	}
+
+	public List<Estado> getEstados() {
+		if (this.estados == null) {
+			this.estados = new ArrayList<>();
+		}
+		if (this.estados.isEmpty()) {
+			PayloadEstadoResponse payloadEstadoResponse = S.EstadoService
+					.consultarTodos();
+			if (!UtilPayload.isOK(payloadEstadoResponse)) {
+				Alert.showMessage(payloadEstadoResponse);
+			}
+			this.estados.addAll(payloadEstadoResponse.getObjetos());
+		}
+		return estados;
+	}
+
+	public void setEstados(List<Estado> estados) {
+		this.estados = estados;
 	}
 
 }

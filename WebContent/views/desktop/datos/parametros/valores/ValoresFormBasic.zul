@@ -1,0 +1,44 @@
+<?component name="uploadImageSingle" macroURI="/assets/theme/components/upload_image_single.zul"?>
+
+<zk xmlns:n="native" xmlns:w="client">
+	<div width="80%" class="container ${arg.animation_}"
+		use="karen.core.form.controllers.C_WindowForm"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('ve.smile.datos.parametros.valores.viewmodels.VM_ValoresFormBasic')">
+
+		<div class="row">
+
+			<div class="col s12">
+				<div class="input-field offset-s2 col s8">
+					<n:label for="nombre">Nombre</n:label>
+					<textbox id="nombre" type="text" maxlength="100"
+						value="@bind(vm.valores.nombre)">
+					</textbox>
+				</div>
+			</div>
+
+			<div class="col s12">
+				<div class="input-field offset-s2 col s8">
+					<n:label class="active" for="fk_estado">Organización</n:label>
+					<combobox id="fk_estado" readonly="true" model="@bind(vm.organizaciones)" selectedItem="@bind(vm.valores.fkOrganizacion)">
+						<template name="model">
+							<comboitem label="@load(each.nombre)" />
+						</template>
+					</combobox>
+				</div>
+			</div>
+					
+			<div class="row" align="center">
+				<div class="col s8">
+					<div class="input-field col s12">
+						<uploadImageSingle maxsize="9000" size="200" idUpload="1" title="Imagen del valor" />
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<div id="divButtonsForm"
+			use="karen.core.form.buttons.containers.DivButtonsForm">
+		</div>
+	</div>
+</zk>

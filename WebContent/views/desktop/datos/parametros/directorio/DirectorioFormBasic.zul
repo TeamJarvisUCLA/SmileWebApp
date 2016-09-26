@@ -1,5 +1,12 @@
-<zk xmlns:n="native" xmlns:w="client">
+<?component name="uploadImageSingle" macroURI="/assets/theme/components/upload_image_single.zul"?>
 
+<zk xmlns:n="native" xmlns:w="client">
+	<style>
+
+		.estilo-preliminar { border: 2px dashed #8d7a6f; height: 120px;
+		width: 140px !important; color: #8d7a6f;}
+
+	</style>
 	<script type="text/javascript"
 		content="zk.googleAPIkey='AIzaSyAh2kLWx3Rtsw1GjYI2pwGNnix4ZwTZTm4'" />
 	<div width="80%" class="container ${arg.animation_}"
@@ -100,6 +107,38 @@
 						<doublebox id="longitud" disabled="true"
 							value="@bind(vm.directorio.longitud)">
 						</doublebox>
+					</div>
+
+					<div class="input-field col s12">
+						<n:label for="responsable" class="active">
+							Imagen:
+						</n:label>
+					</div>
+					<div class="row" align="center">
+
+						<!-- 						<div -->
+						<!-- 							class="input-field col s12 estilo-preliminar"> -->
+
+						<!-- 							<div class="input-field col s12"> -->
+						<!-- 								<button -->
+						<!-- 									sclass="btn-floating waves-effect waves-light btn-medium green darken-1 z-btn-upload-image-single center-transform-y center-transform-x z-button" -->
+						<!-- 									onClick="@command('cargarImagenEvento')" -->
+						<!-- 									iconSclass="fa fa-plus" -->
+						<!-- 									style="background-color: #2AA4EF !important; margin-top: -10px;"> -->
+						<!-- 								</button> -->
+						<!-- 								<div class="input-field col s12" -->
+						<!-- 									align="center"> -->
+						<!-- 									<separator height="40px"></separator> -->
+						<!-- 									<label>Agragar</label> -->
+						<!-- 								</div> -->
+						<!-- 							</div> -->
+						<!-- 						</div> -->
+						<div class="col s12">
+							<div class="input-field col s12">
+								<uploadImageSingle maxsize="9000"
+									size="200" idUpload="1" title="Foto del Lugar" />
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>

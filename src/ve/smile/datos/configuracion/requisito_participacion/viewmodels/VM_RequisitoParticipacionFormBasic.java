@@ -5,10 +5,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.zkoss.bind.annotation.Command;
-import org.zkoss.bind.annotation.Init;
-import org.zkoss.bind.annotation.NotifyChange;
-
 import karen.core.crux.alert.Alert;
 import karen.core.crux.session.DataCenter;
 import karen.core.form.buttons.data.OperacionForm;
@@ -16,6 +12,11 @@ import karen.core.form.buttons.enums.OperacionFormEnum;
 import karen.core.form.buttons.helpers.OperacionFormHelper;
 import karen.core.form.viewmodels.VM_WindowForm;
 import karen.core.util.payload.UtilPayload;
+
+import org.zkoss.bind.annotation.Command;
+import org.zkoss.bind.annotation.Init;
+import org.zkoss.bind.annotation.NotifyChange;
+
 import ve.smile.consume.services.S;
 import ve.smile.dto.Participacion;
 import ve.smile.dto.Requisito;
@@ -25,20 +26,16 @@ import ve.smile.seguridad.enums.OperacionEnum;
 
 public class VM_RequisitoParticipacionFormBasic extends VM_WindowForm {
 
-
 	private List<Requisito> requisitos;
 	private Set<Requisito> requisitosSeleccionadas;
 	private List<Requisito> participacionRequisitos;
 	private Set<Requisito> participacionRequisitosSeleccionadas;
 
-	
 	@Init(superclass = true)
 	public void childInit() {
-		
 
-		this.getParticipacionRequisitos().addAll(this.getParticipacion().getRequisitos());
-
-		
+		this.getParticipacionRequisitos().addAll(
+				this.getParticipacion().getRequisitos());
 
 		if (this.getRequisitos().isEmpty()) {
 			PayloadRequisitoResponse payloadRequisitoResponse = S.RequisitoService
@@ -51,11 +48,9 @@ public class VM_RequisitoParticipacionFormBasic extends VM_WindowForm {
 		}
 	}
 
-	
-
 	@Command
-	@NotifyChange({ "requisitos", "participacionRequisitos", "requisitosSeleccionadas",
-			"participacionRequisitosSeleccionadas" })
+	@NotifyChange({ "requisitos", "participacionRequisitos",
+			"requisitosSeleccionadas", "participacionRequisitosSeleccionadas" })
 	public void agregarRequisitosPlantilla() {
 		if (this.getRequisitosSeleccionadas() != null
 				&& this.getRequisitosSeleccionadas().size() > 0) {
@@ -66,18 +61,17 @@ public class VM_RequisitoParticipacionFormBasic extends VM_WindowForm {
 	}
 
 	@Command
-	@NotifyChange({ "requisitos", "participacionRequisitos", "requisitosSeleccionadas",
-			"participacionRequisitosSeleccionadas" })
+	@NotifyChange({ "requisitos", "participacionRequisitos",
+			"requisitosSeleccionadas", "participacionRequisitosSeleccionadas" })
 	public void removerRequisitosPlantilla() {
 		if (this.getParticipacionRequisitosSeleccionadas() != null
 				&& this.getParticipacionRequisitosSeleccionadas().size() > 0) {
-			this.getParticipacionRequisitos().removeAll(participacionRequisitosSeleccionadas);
+			this.getParticipacionRequisitos().removeAll(
+					participacionRequisitosSeleccionadas);
 			this.getRequisitosSeleccionadas().clear();
 			this.getParticipacionRequisitosSeleccionadas().clear();
 		}
 	}
-
-	
 
 	public boolean disabledRequisito(Requisito requisito) {
 		return this.getParticipacionRequisitos().contains(requisito);
@@ -106,7 +100,8 @@ public class VM_RequisitoParticipacionFormBasic extends VM_WindowForm {
 
 		if (operacionEnum.equals(OperacionEnum.MODIFICAR)) {
 			this.getParticipacion().getRequisitos().clear();
-			this.getParticipacion().getRequisitos().addAll(this.getParticipacionRequisitos());
+			this.getParticipacion().getRequisitos()
+					.addAll(this.getParticipacionRequisitos());
 			PayloadParticipacionResponse payloadParticipacionResponse = S.ParticipacionService
 					.modificar(getParticipacion());
 			if (!UtilPayload.isOK(payloadParticipacionResponse)) {
@@ -163,7 +158,8 @@ public class VM_RequisitoParticipacionFormBasic extends VM_WindowForm {
 		return requisitosSeleccionadas;
 	}
 
-	public void setRequisitosSeleccionadas(Set<Requisito> requisitosSeleccionadas) {
+	public void setRequisitosSeleccionadas(
+			Set<Requisito> requisitosSeleccionadas) {
 		this.requisitosSeleccionadas = requisitosSeleccionadas;
 	}
 
@@ -174,7 +170,8 @@ public class VM_RequisitoParticipacionFormBasic extends VM_WindowForm {
 		return participacionRequisitos;
 	}
 
-	public void setParticipacionRequisitos(List<Requisito> participacionRequisitos) {
+	public void setParticipacionRequisitos(
+			List<Requisito> participacionRequisitos) {
 		this.participacionRequisitos = participacionRequisitos;
 	}
 

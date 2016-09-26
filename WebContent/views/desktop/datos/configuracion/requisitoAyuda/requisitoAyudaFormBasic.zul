@@ -18,7 +18,7 @@
 				<div class="input-field  col s12">
 					<n:label for="descripcion">Descripción</n:label>
 					<textbox id="descripcion" type="text"
-						disabled="true" maxlength="250" sclass="materialize-texrequisito"
+						disabled="true" maxlength="250" sclass="materialize-textarea"
 						multiline="true" value="@bind(vm.ayuda.descripcion)">
 					</textbox>
 				</div>

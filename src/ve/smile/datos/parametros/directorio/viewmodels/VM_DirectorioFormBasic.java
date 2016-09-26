@@ -1,9 +1,17 @@
 package ve.smile.datos.parametros.directorio.viewmodels;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.imageio.ImageIO;
 
 import karen.core.crux.alert.Alert;
 import karen.core.crux.session.DataCenter;
@@ -11,35 +19,46 @@ import karen.core.form.buttons.data.OperacionForm;
 import karen.core.form.buttons.enums.OperacionFormEnum;
 import karen.core.form.buttons.helpers.OperacionFormHelper;
 import karen.core.form.viewmodels.VM_WindowForm;
+import karen.core.util.UtilDialog;
 import karen.core.util.payload.UtilPayload;
 import karen.core.util.validate.UtilValidate;
 import lights.core.enums.TypeQuery;
 
+import org.apache.commons.io.FileUtils;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.gmaps.Gmarker;
 import org.zkoss.gmaps.event.MapMouseEvent;
+import org.zkoss.zk.ui.event.UploadEvent;
 
 import ve.smile.consume.services.S;
 import ve.smile.dto.Ciudad;
 import ve.smile.dto.Directorio;
 import ve.smile.dto.Estado;
+import ve.smile.dto.Multimedia;
+import ve.smile.enums.ExtensionEnum;
+import ve.smile.enums.TipoMultimediaEnum;
 import ve.smile.payload.response.PayloadCiudadResponse;
 import ve.smile.payload.response.PayloadDirectorioResponse;
 import ve.smile.payload.response.PayloadEstadoResponse;
 import ve.smile.seguridad.enums.OperacionEnum;
+import app.UploadImageSingle;
 
-public class VM_DirectorioFormBasic extends VM_WindowForm {
+public class VM_DirectorioFormBasic extends VM_WindowForm implements
+		UploadImageSingle {
 
 	private List<Ciudad> ciudads;
 	private Estado estado;
 
 	private List<Estado> estados;
+	private byte[] bytes = null;
+	private String nameImage;
+	private String extensionImage;
 
 	@Init(superclass = true)
-	public void childInit() {
+	public void childInit_VM_DirectorioFormBasic() {
 		// NOTHING OK!
 		this.getDirectorio().setLatitud(10.066560);
 		this.getDirectorio().setLongitud(-69.312565);
@@ -107,6 +126,21 @@ public class VM_DirectorioFormBasic extends VM_WindowForm {
 		}
 
 		if (operacionEnum.equals(OperacionEnum.INCLUIR)) {
+			String url = "";
+			if (bytes != null) {
+				url = new StringBuilder().append("C:/Smile/Directorio/d_")
+						.append(nameImage).toString();
+				try {
+					FileUtils.writeByteArrayToFile(new File(url), bytes);
+				} catch (IOException e) {
+					UtilDialog
+							.showMessageBoxError("Ha ocurrido un error al guardar la imagen");
+				}
+			}
+			Multimedia multimedia = new Multimedia(url, nameImage,
+					"Directorio", ExtensionEnum.PNG.ordinal(),
+					TipoMultimediaEnum.IMAGEN.ordinal());
+			this.getDirectorio().setFkMultimedia(multimedia);
 			PayloadDirectorioResponse payloadDirectorioResponse = S.DirectorioService
 					.incluir(getDirectorio());
 
@@ -163,8 +197,6 @@ public class VM_DirectorioFormBasic extends VM_WindowForm {
 					"Teléfono", 80);
 			UtilValidate.validateString(getDirectorio().getUrl(), "URL", 200);
 			UtilValidate.validateNull(getDirectorio().getFkCiudad(), "Ciudad");
-			UtilValidate.validateNull(getDirectorio().getFkMultimedia(),
-					"Imagen");
 			return true;
 		} catch (Exception e) {
 			Alert.showMessage(e.getMessage());
@@ -209,6 +241,61 @@ public class VM_DirectorioFormBasic extends VM_WindowForm {
 
 	public void setEstados(List<Estado> estados) {
 		this.estados = estados;
+	}
+
+	@Override
+	public BufferedImage getImageContent() {
+		try {
+			return loadImage();
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
+	@Override
+	public void onUploadImageSingle(UploadEvent event, String idUpload) {
+		org.zkoss.util.media.Media media = event.getMedia();
+
+		if (media instanceof org.zkoss.image.Image) {
+			bytes = media.getByteData();
+			this.nameImage = media.getName();
+			this.extensionImage = media.getFormat();
+		}
+
+	}
+
+	@Override
+	public void onRemoveImageSingle(String idUpload) {
+		bytes = null;
+
+	}
+
+	public byte[] getBytes() {
+		return bytes;
+	}
+
+	public void setBytes(byte[] bytes) {
+		this.bytes = bytes;
+	}
+
+	private BufferedImage loadImage() throws Exception {
+		try {
+
+			Integer idUser = DataCenter.getUserSecurityData().getUsuario()
+					.getIdUsuario();
+
+			Path path = Paths.get("C:/imagenes/u_" + idUser);
+			bytes = Files.readAllBytes(path);
+
+			return ImageIO.read(new File("C:/imagenes/u_" + idUser));
+		} catch (Exception e) {
+			Path path = Paths
+					.get("/home/conamerica97/eclipseKepler/imagene/default");
+			bytes = Files.readAllBytes(path);
+
+			return ImageIO.read(new File(
+					"/home/conamerica97/eclipseKepler/imagen/default"));
+		}
 	}
 
 }

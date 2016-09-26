@@ -18,7 +18,7 @@
 				<div class="input-field  col s12">
 					<n:label for="descripcion">Descripción</n:label>
 					<textbox id="descripcion" type="text"
-						disabled="true" maxlength="250" sclass="materialize-texrequisito"
+						disabled="true" maxlength="250" sclass="materialize-textarea"
 						multiline="true" value="@bind(vm.participacion.descripcion)">
 					</textbox>
 				</div>
@@ -26,11 +26,9 @@
 			<div class="col s12">
 				<tabbox id="tb" class="rtab ltab">
 					<tabs id="tabs">
-						
 						<tab id="tabRequisitos" label="Requisitos" />
 					</tabs>
 					<tabpanels>
-						
 						<tabpanel>
 							<div sclass="col s5">
 								<listbox model="@bind(vm.requisitos)"
@@ -63,7 +61,8 @@
 								</div>
 							</div>
 							<div sclass="col s5" style="padding:0px">
-								<listbox model="@bind(vm.participacionRequisitos)"
+								<listbox
+									model="@bind(vm.participacionRequisitos)"
 									emptyMessage="No hay requisitos asociadas a la plantilla de la participacion seleccionada."
 									selectedItems="@bind(vm.participacionRequisitosSeleccionadas)"
 									multiple="true">

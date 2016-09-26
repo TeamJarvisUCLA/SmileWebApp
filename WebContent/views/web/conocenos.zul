@@ -1,83 +1,134 @@
-<!-- se deben hacer correciones en este codigo -->
+<?page title="FANCA" contentType="text/html;charset=UTF-8"?>
+<?meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"?>
+
+
+<?link href="/resources/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"?>
+<?link href="/resources/materialize_v0.97.5/css/materialize.min.css" rel="stylesheet" type="text/css"?>
+<?link href="/resources/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css"?>
+<?link href="/resources/css/theme.css" rel="stylesheet" type="text/css"?>
+<?link href="/resources/css/karen.css" rel="stylesheet" type="text/css"?>
+<?link href="/resources/css/loading.css" rel="stylesheet" type="text/css"?>
+<?link href="/resources/css/animate.css" rel="stylesheet" type="text/css"?>
+<?link href="/assets/seguridad/css/ultimasSesionesActivas.zul.css" rel="stylesheet" type="text/css"?>
+<?link href="/resources/css/portal/galeria.css" rel="stylesheet" type="text/css"?>
+
+<?link href="/resources/css/portal/main.css" rel="stylesheet" type="text/css"?>
+<?link href="/resources/css/portal/navbar.css" rel="stylesheet" type="text/css"?>
+<?link href="/resources/css/portal/galeriaMain.css" rel="stylesheet" type="text/css"?>
+<?link href="/resources/css/portal/eventosMain.css" rel="stylesheet" type="text/css"?>
+<?link href="/resources/css/portal/participaMain.css" rel="stylesheet" type="text/css"?>
+<?link href="/resources/css/portal/footer.css" rel="stylesheet" type="text/css"?>
+
+<?link href="/resources/owl-carousel/owl.carousel.css" rel="stylesheet" type="text/css"?>
+<?link href="/resources/owl-carousel/owl.theme.css" rel="stylesheet" type="text/css"?>
+
+<?script src="/resources/owl-carousel/owl.carousel.js"?>
+
+<?script src="/resources/bootstrap/js/bootstrap.js"?>
+<?script src="/resources/materialize_v0.97.5/js/materialize.min.js"?>
+
+<?script src="/resources/js/shorcut.js"?>
+<?script src="/resources/js/fullScreenApi.js"?>
+<?script src="/resources/js/index.js"?>
 
 <zk xmlns:n="native" xmlns:w="client">
-
-	<n:link href="resources/css/portal/conocenos.css" rel="stylesheet" type="text/css"></n:link>
+	<n:link href="assets/css/web/conocenos.css" rel="stylesheet" type="text/css"></n:link>
 	<n:link href="assets/css/web/main.css" rel="stylesheet" type="text/css"></n:link>
+	
+	<div sclass="row" apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('ve.smile.web.viewmodels.conocenos.VM_Conocenos')">
 
-	<div class="social">
-		<div style="padding: 0px;">
-			<div>
-				<a href="#org" sclass="icon"
-					iconSclass="fa fa-bank ">
-					<span>Organización</span>
-				</a>
-			</div>
-			<div>
-				<a href="#valores" sclass="icon"
-					iconSclass="fa fa-user">
-					<span>Valores</span>
-				</a>
-			</div>
-			<div>
-				<a href="#est" sclass="icon"
-					iconSclass="fa fa-line-chart">
-					<span>Estadísticas</span>
-				</a>
+		<div class="social">
+			<div style="padding: 0px;">
+				<div>
+					<a href="#" sclass="icon" iconSclass="fa fa-home ">
+						<span>Inicio</span>
+					</a>
+				</div>
+				<div>
+					<a href="#conocenos" sclass="icon"
+						iconSclass="fa fa-bank ">
+						<span>Organización</span>
+					</a>
+				</div>
+				<div>
+					<a href="#galeria" sclass="icon"
+						iconSclass="fa fa-picture-o">
+						<span>Galería</span>
+					</a>
+				</div>
+				<div>
+					<a href="#eventos" sclass="icon"
+						iconSclass="fa fa-picture-o">
+						<span>Eventos</span>
+					</a>
+					
+				</div>
+				<div>
+					<a href="#comunidad" sclass="icon"
+						iconSclass="fa fa-user">
+						<span>Comunidad</span>
+					</a>
+					
+				</div>
 			</div>
 		</div>
-	</div>
-	<n:div id="org">
+	
 		<div class="titulo-organizacion">
 			<n:h5 class="texto-titulo-org">LA ORGANIZACIÓN</n:h5>
 		</div>
-		<div class="cont-org">
-			<div class="container-fluid">
-				<div class="row tam-cont-org">
-					<div class="col s4 text-center">  
-		     			<n:br></n:br>
-			        	<image class="img-cont-org" src="/imagenes/portal/icon/icon-people-grande.png">
-		   				</image>   
-			         	<n:h6 class="text-cont-org" >Fanca</n:h6>
-		         		<n:br></n:br>  
-		         		<div style="text-align: justify;">
-				         	<label class="justificar-label" value="La Fundación Amigos del Niño con Cáncer  Lara (FANCA) es una institución privada, sin fines de lucro, fundada el 04 de Febrero de 1988, y trabajamos en los centros hospitalarios:  Hospital Universitario de Pediatría “Dr. Agustín Zubillaga” y el Hospital del Seguro Social Pastor Oropeza, ambos en la ciudad de Barquisimeto.  Nace por iniciativa de algunas personas de la sociedad larense, en vista de los grandes problemas que acarrea esta enfermedad. Somos una Fundación autónoma y descentralizada, con 24 años de servicio trabajando en pro  de mejorar la calidad de vida de los pacientes.">
-				           </label>
-			           </div>		
-			      	</div>	  
-			      	<div class="col s4 text-center">  
-					    <n:br></n:br> 
-					    <image class="img-cont-org" src="/imagenes/portal/icon/icon-goals-grande.png" >
-					   	</image>
-				      	<n:h6 class="text-cont-org" >Misión</n:h6>
-					    <n:br></n:br>
-					    <div style="text-align: justify;">
-						    <label class="justificar-label" value="“Brindar a los niños y adolescentes los medicamentos y exámenes especiales,  faltantes  en los Hospitales, hospedaje y comida en nuestro albergue, ayuda psicológica tanto a los padres como a los niños, escolaridad para los pacientes hospitalizados y orientación a los padres y representantes, para que acudan a los diferentes centros de ayuda (fundaciones públicas y privadas) en la ciudad”">
-				           </label>
-			           </div>
-					</div>  
-			      	<div class="col s4 text-center">
-	      			<n:br></n:br>
-		         	<image class="img-cont-org" src="/imagenes/portal/icon/icon-medical-grande.png">
-			     	</image>  
-		         	<n:h6 class="text-cont-org" >Visión</n:h6>
-		        	<n:br></n:br>
-				    <div style="text-align: justify;">
-					    <label class="justificar-label" value="“Lograr el reconocimiento a nivel nacional e internacional como una Fundación comprometida con la prestación de un servicio integral al paciente infantil y adolescente con cáncer, respaldado por nuestros valores como fundación sin fines de lucro”">
-			           </label>
-		           </div>
-			  	</div>
-
-	  			<div class="col s12 text-center">
-	  				<n:br></n:br>
-					<label class="justificar-label text-other" value="La generosidad es una de las manifestaciones de “nobleza de espíritu y grandeza de corazón que puede dar una persona“">
-		           </label>
-				</div>	
+		<n:div id="conocenos_sup">
+			<div class="cont-org">
+				<div class="container-fluid">
+					<div class="row tam-cont-org">
+						<n:div id="conocenos">
+							<div class="row" style="width: 60%" children="@load(vm.organizacion)">
+								<template name="children">
+							
+									<div class="col s4 text-center">  
+						     			<n:br></n:br>
+						     			
+						     			
+							        	<image class="img-cont-org" src="/imagenes/portal/icon/icon-people-grande.png">
+						   				</image>   
+							         	<label class="text-cont-org" value="@load(each.nombre)"></label>
+						         		<n:br></n:br>  
+							         	<label class="justificar-label" value="@load(each.descripcion)">
+							           </label>		
+							      	</div>	  
+							      	<div class="col s4 text-center">  
+									    <n:br></n:br> 
+									    <image class="img-cont-org" src="/imagenes/portal/icon/icon-goals-grande.png" >
+									   	</image>
+								      	<n:h6 class="text-cont-org" >Misión</n:h6>
+									    <n:br></n:br>
+									    <label class="justificar-label" value="@load(each.mision)">
+							           </label>
+									</div>  
+							      	<div class="col s4 text-center">
+						      			<n:br></n:br>
+							         	<image class="img-cont-org" src="/imagenes/portal/icon/icon-medical-grande.png">
+								     	</image>  
+							         	<n:h6 class="text-cont-org" >Visión</n:h6>
+							        	<n:br></n:br>
+								        <label class="justificar-label" value="@load(each.vision)">
+							           </label>
+								  	</div>
+					
+						  			<div class="col s12 text-center">
+						  				<n:br></n:br>
+										<label class="justificar-label text-other" value="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus at officiis amet 
+											corporis repellendus totam maxime, quod, itaque quam">
+							           </label>
+									</div>	
+								</template>	
+							</div>
+							
+						</n:div>					
+					</div>
+				</div>
 			</div>
-		</div>
-	</div>
-	</n:div>
-	<n:div id="valores">
+		</n:div>
 		<div class="titulo-valores">
 			<n:h5 class="texto-titulo-val">VALORES</n:h5>
 		</div>
@@ -136,8 +187,6 @@
 				</div>					
 			</div>
 		</div>
-	</n:div>
-	<n:div id="est">
 		<div class="container-fluid galeria color-fondo borde-beich">
 			<div class="row color-fondo borde-beich">
 					<div class="col-md-9 " align="center">
@@ -152,7 +201,7 @@
 									<label class="justificar-label" value="Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
 									sed eiusmod tempor incidunt ut labore et dolore magna aliqua.">
 			           				</label>
-									<div class="circulo" style="background-image: url(/SmileWebApp/imagenes/portal/estadistica3.png)"></div>
+									<div class="circulo" style="background-image: url(imagenes/estadistica3.png)"></div>
 								</div>
 							</div>
 							<div class="col-xs-4 color-fondo borde-beich" align="center">
@@ -161,7 +210,7 @@
 									<label class="justificar-label" value="Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
 									sed eiusmod tempor incidunt ut labore et dolore magna aliqua.">
 			           				</label>
-									<div class="circulo" style="background-image: url(/SmileWebApp/imagenes/portal/estadistica1.png)"></div>	
+									<div class="circulo" style="background-image: url(imagenes/estadistica1.png)"></div>	
 								</div>	
 							</div>
 							<div class="col-xs-4 color-fondo borde-beich" align="center">
@@ -170,7 +219,7 @@
 									<label class="justificar-label" value="Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
 									sed eiusmod tempor incidunt ut labore et dolore magna aliqua.">
 			           				</label>
-									<div class="circulo" style="background-image: url(/SmileWebApp/imagenes/portal/estadistica2.png)"></div>	
+									<div class="circulo" style="background-image: url(imagenes/estadistica2.png)"></div>	
 								</div>
 							</div>
 						</div>
@@ -196,8 +245,7 @@
 					</div>	
 			</div>
 			<div class="container-fluid galeria ">
-	<!-- 		coloque el style aqui para resolver para el entregable 2 -->
-			<div class="row" style="margin-bottom: 0">
+			<div class="row">
 				<div class="col-md-9" align="center">
 		          	<div class="boton text-center">
 	        			<button type="button" class="color-boton waves-effect waves-light btn">Ver más</button>
@@ -212,241 +260,5 @@
 			</div>	
 		</div>	
 		</div>
-	</n:div>
-</zk>
-
-
-
-
-<!-- Luis debe revisar este codigo -->
-
-
-<!-- <zk xmlns:n="native" xmlns:w="client"> -->
-
-<!-- <n:link href="assets/css/web/conocenos.css" rel="stylesheet" type="text/css"></n:link> -->
-
-<!-- <style> -->
-<!-- .circle { -->
-<!--   display: block; -->
-<!--   width: 150px; -->
-<!--   height: 150px; -->
-<!--   margin: 1em auto; -->
-<!--   background-size: cover; -->
-<!--   background-repeat: no-repeat; -->
-<!--   background-position: center center; -->
-<!--   -webkit-border-radius: 99em; -->
-<!--   -moz-border-radius: 99em; -->
-<!--   border-radius: 99em; -->
-<!--   border: 5px solid #87796F; -->
-<!--   box-shadow: 0 3px 2px rgba(0, 0, 0, 0.3);   -->
-<!-- } -->
-<!-- </style> -->
-
-<!-- <div align="center" -->
-<!-- 		style="width: 100%; -->
-<!--     height: 54px; -->
-<!--     background-color: #d9eb52; margin-top: -12px;"> -->
-<!-- 		<n:h5 -->
-<!-- 			style="padding-top: 14px; color: #ffffff; font-family: Roboto,sans-serif !important; -->
-<!--     font-weight: bold;"> -->
-<!-- 			LA ORGANIZACION -->
-<!-- 		</n:h5> -->
-<!-- </div>	 -->
-<!-- <div 	style="width: 100%; -->
-<!-- 	    height: 480px; -->
-<!--    		background-color: #F0F2DC;"> -->
-<!--    		<div class="container-fluid"> -->
-<!-- 			<div class="row" style="width: 70%;"> -->
-<!-- 				<div class="col s4 text-center">   -->
-<!-- 	     			<n:br></n:br> -->
-<!-- 		        	<image src="/imagenes/portal/icon/icon-people-grande.png" -->
-<!-- 						style="height:140px;"> -->
-<!-- 	   				</image>    -->
-<!-- 		         	<n:h6 style="padding-top: 18px; color: #87796F; font-weight: bold; text-transform: uppercase;"  >Fanca</n:h6> -->
-<!-- 	         		<n:br></n:br>   -->
-<!-- 		         	<n:p>This is the standard version that comes with both the minified and unminified CSS and JavaScript files.  -->
-<!-- 		         		This option requires little to no setup. Use this if you are unfamiliar with Sass. -->
-<!-- 		            	This option requires little to no setup. Use this if you are unfamiliar with Sass. -->
-<!-- 		               This option requires little to no setup. Use this if you are unfamiliar with Sass. -->
-<!-- 		         	</n:p>		 -->
-<!-- 		      	</div>	   -->
-<!-- 		      	<div class="col s4 text-center">   -->
-<!-- 				    <n:br></n:br>  -->
-<!-- 				    <image src="/imagenes/portal/icon/icon-goals-grande.png" -->
-<!-- 						style="height: 140px" > -->
-<!-- 				   	</image> -->
-<!-- 			      	<n:h6 style="padding-top: 18px; color: #87796F; font-weight: bold; text-transform: uppercase;"  >Misión</n:h6> -->
-<!-- 				    <n:br></n:br> -->
-<!-- 				    <n:p>This is the standard version that comes with both the minified and unminified CSS and JavaScript files.  -->
-<!-- 			        	This option requires little to no setup. Use this if you are unfamiliar with Sass. -->
-<!-- 			            This option requires little to no setup. Use this if you are unfamiliar with Sass. -->
-<!-- 		               	This option requires little to no setup. Use this if you are unfamiliar with Sass.</n:p> -->
-<!-- 				</div>   -->
-<!-- 		      	<div class="col s4 text-center"> -->
-<!-- 	      			<n:br></n:br> -->
-<!-- 		         	<image src="/imagenes/portal/icon/icon-medical-grande.png" -->
-<!-- 						style="height:140px;"> -->
-<!-- 			     	</image>   -->
-<!-- 		         	<n:h6 style="padding-top: 18px; color: #87796F; font-weight: bold; text-transform: uppercase;">Visión</n:h6> -->
-<!-- 		        	<n:br></n:br> -->
-<!-- 			        <n:p>This is the standard version that comes with both the minified and unminified CSS and JavaScript files.  -->
-<!-- 			    	    This option requires little to no setup. Use this if you are unfamiliar with Sass. -->
-<!-- 		            	This option requires little to no setup. Use this if you are unfamiliar with Sass. -->
-<!-- 						This option requires little to no setup. Use this if you are unfamiliar with Sass.</n:p> -->
-<!-- 			  	</div> -->
-<!-- 	  			<div class="col s12 text-center"> -->
-<!-- 					<n:h5  style="color: #F2707D; font-weight: bold"> -->
-<!-- 						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus at officiis amet  -->
-<!-- 						corporis repellendus totam maxime, quod, itaque quam -->
-<!-- 					</n:h5> -->
-<!-- 				</div>	 -->
-<!-- 			</div> -->
-<!-- 		</div> -->
-<!-- 	</div>	 -->
-<!-- 	<n:br></n:br> -->
-<!-- 	<div align="center" style="width: 100%; height: 64px; background-color: #8AC7DE;"> -->
-<!--     	<n:h5 style="padding-top: 18px; color: #ffffff;" >VALORES</n:h5> -->
-<!-- 	</div> -->
-	
-<!-- 	<n:br></n:br> -->
-	
-<!-- 	<div class="container-fluid galeria"  > -->
-<!-- 		<div class="row"> -->
-<!-- 			<div class="col-xs-12 fotos"> -->
-<!-- 				<div class="col-xs-2" align="center"> -->
-<!-- 					<div class="thumbnail" style="border-color: #ffffff"> -->
-<!-- 						<image src="/imagenes/icon-respeto.png"></image> -->
-<!-- 						<div class="caption"> -->
-<!-- 							<n:h5 style="padding-top: 18px; color: #87796F;">RESPETO</n:h5> -->
-<!-- 						</div> -->
-<!-- 					</div> -->
-<!-- 				</div> -->
-<!-- 				<div class="col-xs-2" align="center"> -->
-<!-- 					<div class="thumbnail" style="border-color: #ffffff"> -->
-<!-- 						<image src="/imagenes/icon-trabajo-equipo.png"></image> -->
-<!-- 						<div class="caption"> -->
-<!-- 							<n:h5 style="padding-top: 18px; color: #87796F;">TRABAJO EN EQUIPO</n:h5> -->
-<!-- 						</div> -->
-<!-- 					</div> -->
-<!-- 				</div> -->
-<!-- 				<div class="col-xs-2" align="center"> -->
-<!-- 					<div class="thumbnail" style="border-color: #ffffff"> -->
-<!-- 						<image src="/imagenes/icon-vocacion.png"></image> -->
-<!-- 						<div class="caption"> -->
-<!-- 							<n:h5 style="padding-top: 18px; color: #87796F;">VOCACIÓN</n:h5> -->
-<!-- 						</div> -->
-<!-- 					</div> -->
-<!-- 				</div>	 -->
-				
-<!-- 				<div class="col-xs-2" align="center"> -->
-<!-- 					<div class="thumbnail" style="border-color: #ffffff"> -->
-<!-- 						<image src="/imagenes/icon-asistencia.png"></image> -->
-<!-- 						<div class="caption"> -->
-<!-- 							<n:h5 style="padding-top: 18px; color: #87796F;">ASISTENCIA HUMANIZADA</n:h5> -->
-<!-- 						</div> -->
-<!-- 					</div> -->
-<!-- 				</div> -->
-<!-- 				<div class="col-xs-2" align="center"> -->
-<!-- 					<div class="thumbnail" style="border-color: #ffffff"> -->
-<!-- 						<image src="/imagenes/icon-compromiso.png"></image> -->
-<!-- 						<div class="caption"> -->
-<!-- 							<n:h5 style="padding-top: 18px; color: #87796F;">COMPROMISO</n:h5> -->
-<!-- 						</div> -->
-<!-- 					</div> -->
-<!-- 				</div> -->
-<!-- 				<div class="col-xs-2" align="center"> -->
-<!-- 					<div class="thumbnail" style="border-color: #ffffff"> -->
-<!-- 						<image src="/imagenes/icon-credibilidad.png"></image> -->
-<!-- 						<div class="caption"> -->
-<!-- 							<n:h5 style="padding-top: 18px; color: #87796F;">CREDIBILIDAD</n:h5> -->
-<!-- 						</div> -->
-<!-- 					</div> -->
-<!-- 				</div>		 -->
-<!-- 			</div>					 -->
-<!-- 		</div> -->
-<!-- 	</div> -->
-<!-- 	<div class="container-fluid galeria"> -->
-<!-- 		<div class="row"> -->
-<!-- 				<div class="col-md-9" align="center"> -->
-<!-- 					<div align="center" style="width: 100%; height: 64px; background-color: #87796F"> -->
-<!-- 				    	<n:h5 style="padding-top: 18px; color: #F0F2D6;" >ESTADÍSTICAS DE INTERES</n:h5> -->
-<!-- 					</div> -->
-<!-- 					<div class="col-xs-12" align="center"> -->
-<!-- 						<div class="col-xs-4" align="center"> -->
-<!-- 							<div class="thumbnail" style="border-color: #ffffff"> -->
-<!-- 								<n:h5 style="padding-top: 18px; color: #87796F;">ESTADÍSTICA 1</n:h5> -->
-<!-- 								<n:p style="text-align: justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit,  -->
-<!-- 								reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.  -->
-<!-- 								Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia  -->
-<!-- 								deserunt mollit anim id est laborum.</n:p> -->
-<!-- 								<image class="circle materialboxed" src="/imagenes/portal/estadistica1.png"></image> -->
-<!-- 							</div> -->
-<!-- 						</div> -->
-<!-- 						<div class="col-xs-4" align="center"> -->
-<!-- 							<div class="thumbnail" style="border-color: #ffffff"> -->
-<!-- 								<n:h5 style="padding-top: 18px; color: #87796F;">ESTADÍSTICA 2</n:h5> -->
-<!-- 								<n:p style="text-align: justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit,  -->
-<!-- 								sed eiusmod tempor incidunt ut labore et dolore magna aliqua.  -->
-<!-- 								Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia  -->
-<!-- 								deserunt mollit anim id est laborum.</n:p> -->
-<!-- 								<image class="circle materialboxed" src="/imagenes/portal/estadistica2.png"></image> -->
-<!-- 							</div>	 -->
-<!-- 						</div> -->
-<!-- 						<div class="col-xs-4" align="center"> -->
-<!-- 							<div class="thumbnail" style="border-color: #ffffff"> -->
-<!-- 								<n:h5 style="padding-top: 18px; color: #87796F;">ESTADÍSTICA 3</n:h5> -->
-<!-- 								<n:p style="text-align: justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit,  -->
-<!-- 								sed eiusmod tempor incidunt ut labore et dolore magna aliqua.  -->
-<!-- 								Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia  -->
-<!-- 								deserunt mollit anim id est laborum.</n:p> -->
-<!-- 								<image class="circle materialboxed" src="/imagenes/portal/estadistica3.png"></image>	 -->
-<!-- 							</div> -->
-<!-- 						</div> -->
-<!-- 					</div> -->
-<!-- 				</div> -->
-<!-- 				<div class="col-ms-3" align="center"> -->
-<!-- 					<div align="center" style="width: 100%; height: 64px; background-color: #594E46"> -->
-<!-- 						    	<n:h5 style="padding-top: 18px; color: #F0F2D6;" >DESCARGABLES</n:h5> -->
-<!-- 							</div> -->
-<!-- 							<n:br></n:br> -->
-<!-- 							<div class="col-ms-12"> -->
-<!-- 								<div class="thumbnail" style="border-color: #ffffff;"> -->
-<!-- 									<n:p style="text-align: justify; margin-left: 2px; margin-rigth: 5px ">Lorem ipsum dolor sit amet, consectetur adipiscing elit,  -->
-<!-- 									sed eiusmod tempor incidunt ut labore et dolore magna aliqua.  -->
-<!-- 									Ut enim ad minim veniam, quis nostrud exercitation ullamco  -->
-<!-- 									laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure  -->
-<!-- 									reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.  -->
-<!-- 									Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia  -->
-<!-- 									deserunt mollit anim id est laborum.</n:p> -->
-<!-- 									<image style="width: 11%; height: 11%;" src="/imagenes/icon-download(2).png"></image> -->
-<!-- 								</div>	 -->
-<!-- 			    		</div>	 -->
-<!-- 				</div>	 -->
-<!-- 		</div> -->
-<!-- 	</div> -->
-<!-- 	<div class="container-fluid galeria"> -->
-<!-- 		<div class="row"> -->
-<!-- 			<div class="col-md-9" align="center"> -->
-<!-- 	          	<div class="boton text-center"> -->
-<!--         			<button type="button" class="waves-effect waves-light btn">Ver más</button> -->
-<!--     			</div> -->
-<!-- 				<n:br></n:br> -->
-<!-- 	    	</div> -->
-<!-- 			<div class="col-ms-3" align="center"> -->
-<!-- 				<div class="boton text-center"> -->
-<!--         			<button type="button" class="waves-effect waves-light btn">Ver más</button> -->
-<!--     			</div> -->
-<!-- 			</div> -->
-<!-- 		</div>	 -->
-<!-- 	</div> -->
-	
-<!-- <n:script type="text/javascript"> -->
-<!-- 	$(document).ready(function() { -->
-	  
-<!-- 	   $('.materialboxed').materialbox(); -->
-	
-<!-- 	}); -->
- 	
-<!-- </n:script>	 -->
-		
-<!-- </zk> -->
+	</div>
+</zk>	

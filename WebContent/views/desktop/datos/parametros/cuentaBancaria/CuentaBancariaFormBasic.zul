@@ -1,0 +1,53 @@
+<zk xmlns:n="native" xmlns:w="client">
+	<div width="80%" class="container ${arg.animation_}"
+		use="karen.core.form.controllers.C_WindowForm"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('ve.smile.datos.parametros.cuentabancaria.viewmodels.VM_CuentaBancariaFormBasic')">
+
+		<div class="row">
+		
+			<div class="input-field col s6">
+				<n:label for="tipo_reconocimiento">Banco</n:label>
+				<combobox id="fk_banco" readonly="true" model="@bind(vm.bancos)" selectedItem="@bind(vm.cuentaBancaria.fkBanco)">
+					<template name="model">
+						<comboitem label="@load(each.nombre)" />
+					</template>
+				</combobox>
+			</div>
+		
+			<div class="input-field col s6">
+				<n:label for="cuentaBancaria">Cuenta bancaria</n:label>
+				<textbox id="cuentaBancaria" type="text" maxlength="40" value="@bind(vm.cuentaBancaria.cuentaBancaria)"></textbox>
+			</div>
+			
+			<div class="input-field col s6">
+				<n:label for="titular">Titular de la cuenta</n:label>
+				<textbox id="titular" type="text" maxlength="150" value="@bind(vm.cuentaBancaria.titular)"></textbox>
+			</div>
+			
+			<div class="input-field col s6">
+				<n:label for="idtitular">Cédula o RIF</n:label>
+				<textbox id="idtitular" type="text" maxlength="35" value="@bind(vm.cuentaBancaria.identificacionTitular)"></textbox>
+			</div>
+			
+			<div class="input-field col s6">
+				<n:label for="correotitular">E-mail del titular</n:label>
+				<textbox id="correotitular" type="text" maxlength="100" value="@bind(vm.cuentaBancaria.correoTitular)"></textbox>
+			</div>
+
+			<div class="input-field col s6">
+				<n:label for="tipo_cuenta">Tipo de cuenta</n:label>
+				<combobox id="fk_tipocuenta" readonly="true" model="@bind(vm.tipoCuentaEnums)" selectedItem="@bind(vm.tipoCuentaEnum)">
+					<template name="model">
+						<comboitem label="@load(each)" />
+					</template>
+				</combobox>
+			</div>
+
+		</div>
+		
+		<div id="divButtonsForm"
+			use="karen.core.form.buttons.containers.DivButtonsForm">
+		</div>
+	</div>
+</zk>

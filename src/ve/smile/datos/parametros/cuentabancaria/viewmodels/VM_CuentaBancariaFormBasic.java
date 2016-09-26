@@ -33,7 +33,8 @@ public class VM_CuentaBancariaFormBasic extends VM_WindowForm {
 		// NOTHING OK!
 	}
 
-	public TipoCuentaEnum getTipoCuentaEnum() {
+	public TipoCuentaEnum getTipoCuentaEnum()
+	{
 		return tipoCuentaEnum;
 	}
 
@@ -49,7 +50,6 @@ public class VM_CuentaBancariaFormBasic extends VM_WindowForm {
 		{
 			this.tipoCuentaEnums = new ArrayList<>();
 		}
-
 		if (this.tipoCuentaEnums.isEmpty())
 		{
 			for (TipoCuentaEnum tipoCuentaEnum : TipoCuentaEnum.values())
@@ -57,12 +57,10 @@ public class VM_CuentaBancariaFormBasic extends VM_WindowForm {
 				this.tipoCuentaEnums.add(tipoCuentaEnum);
 			}
 		}
-
 		return tipoCuentaEnums;
 	}
 
-	public void setTipoCuentaEnums(
-			List<TipoCuentaEnum> tipoCuentaEnums)
+	public void setTipoCuentaEnums(List<TipoCuentaEnum> tipoCuentaEnums)
 	{
 		this.tipoCuentaEnums = tipoCuentaEnums;
 	}

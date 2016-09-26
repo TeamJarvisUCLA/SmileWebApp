@@ -7,18 +7,15 @@
 		<div class="row">
 			<div class="col s12">
 				<div class="col s12">
-					<listbox id="listbox"
-						model="@load(vm.objectsList)"
-						selectedItem="@bind(vm.selectedObject)">
-
+					<listbox id="listbox" model="@load(vm.objectsList)" selectedItem="@bind(vm.selectedObject)">
 						<listhead sizable="true">
-							<listheader width="33%" label="Persona" />
-							<listheader width="33%" label="Fecha Ingreso" />
-							<listheader width="33%" label="Fecha Salida" />
+							<listheader width="50%" label="Patrocinador" />
+							<listheader width="25%" label="Fecha de ingreso" />
+							<listheader width="25%" label="Fecha de egreso" />
 						</listhead>
 						<template name="model">
 							<listitem>
-								<listcell label="@load(each.fkPersona)" />
+								<listcell label="@load(each.fkPersona.nombre)" />
 								<listcell label="@load(each.fechaIngreso)" />
 								<listcell label="@load(each.fechaSalida)" />
 							</listitem>
@@ -33,7 +30,6 @@
 			</div>
 		</div>
 
-		<toolbar id="toolbar" align="center" use="karen.core.toolbar.Toolbar">
-		</toolbar>
+		<toolbar id="toolbar" align="center" use="karen.core.toolbar.Toolbar"> </toolbar>
 	</div>
 </zk>

@@ -36,7 +36,7 @@
 	<n:link href="assets/css/web/main.css" rel="stylesheet" type="text/css"></n:link>
 	
 	<div sclass="row" apply="org.zkoss.bind.BindComposer"
-		viewModel="@id('vm') @init('ve.smile.web.viewmodels.conocenos.VM_Conocenos')">
+		viewModel="@id('vm') @init('ve.smile.web.conocenos.viewmodels.VM_Conocenos')">
 
 		<div class="social">
 			<div style="padding: 0px;">
@@ -201,7 +201,7 @@
 									<label class="justificar-label" value="Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
 									sed eiusmod tempor incidunt ut labore et dolore magna aliqua.">
 			           				</label>
-									<div class="circulo" style="background-image: url(imagenes/estadistica3.png)"></div>
+									<div class="circulo" style="background-image: url(imagenes/portal/estadistica3.png)"></div>
 								</div>
 							</div>
 							<div class="col-xs-4 color-fondo borde-beich" align="center">
@@ -210,7 +210,7 @@
 									<label class="justificar-label" value="Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
 									sed eiusmod tempor incidunt ut labore et dolore magna aliqua.">
 			           				</label>
-									<div class="circulo" style="background-image: url(imagenes/estadistica1.png)"></div>	
+									<div class="circulo" style="background-image: url(imagenes/portal/estadistica1.png)"></div>	
 								</div>	
 							</div>
 							<div class="col-xs-4 color-fondo borde-beich" align="center">
@@ -219,7 +219,7 @@
 									<label class="justificar-label" value="Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
 									sed eiusmod tempor incidunt ut labore et dolore magna aliqua.">
 			           				</label>
-									<div class="circulo" style="background-image: url(imagenes/estadistica2.png)"></div>	
+									<div class="circulo" style="background-image: url(imagenes/portal/estadistica2.png)"></div>	
 								</div>
 							</div>
 						</div>

@@ -41,7 +41,9 @@ import ve.smile.enums.TipoMultimediaEnum;
 import ve.smile.enums.TipoPersonaEnum;
 import ve.smile.payload.response.PayloadCiudadResponse;
 import ve.smile.payload.response.PayloadEstadoResponse;
+import ve.smile.payload.response.PayloadMultimediaResponse;
 import ve.smile.payload.response.PayloadPatrocinadorResponse;
+import ve.smile.payload.response.PayloadPersonaResponse;
 import ve.smile.seguridad.enums.OperacionEnum;
 import ve.smile.seguridad.enums.SexoEnum;
 import app.UploadImageSingle;
@@ -239,7 +241,7 @@ public class VM_PatrocinadorFormBasic extends VM_WindowForm implements
 		this.getCiudades().clear();
 		this.getPersona().setFkCiudad(null);
 		Map<String, String> criterios = new HashMap<>();
-		
+
 		criterios
 				.put("fkEstado.idEstado", String.valueOf(estado.getIdEstado()));
 		PayloadCiudadResponse payloadCiudadResponse = S.CiudadService
@@ -275,6 +277,13 @@ public class VM_PatrocinadorFormBasic extends VM_WindowForm implements
 				multimedia.setUrl(new StringBuilder()
 						.append("/Smile/Patrocinador/").append(nameImage)
 						.toString());
+				multimedia.setExtension(UtilMultimedia
+						.stringToExtensionEnum(
+								nameImage.substring(this.nameImage
+										.lastIndexOf(".") + 1)).ordinal());
+				multimedia.setDescripcion("Imgen del patrocinador.");
+				System.out.println(multimedia.getDescripcion());
+				System.out.println(multimedia.getExtension());
 				this.getPersona().setFkMultimedia(multimedia);
 			} else {
 				this.getPersona().setFkMultimedia(null);
@@ -299,9 +308,7 @@ public class VM_PatrocinadorFormBasic extends VM_WindowForm implements
 	}
 
 	private BufferedImage loadImage() throws Exception {
-
 		try {
-
 			Path path = Paths.get(this.getUrlImagen());
 			bytes = Files.readAllBytes(path);
 			return ImageIO.read(new File(this.getUrlImagen()));
@@ -340,7 +347,34 @@ public class VM_PatrocinadorFormBasic extends VM_WindowForm implements
 		}
 
 		if (operacionEnum.equals(OperacionEnum.INCLUIR)) {
-			this.getPatrocinador().setFkPersona(this.getPersona());
+			Patrocinador patrocinador = this.getPatrocinador();
+			patrocinador.setFechaIngreso(this.getFechaIngreso().getTime());
+			patrocinador.setFechaSalida(new Date().getTime());
+
+			Multimedia multimedia = this.getPersona().getFkMultimedia();
+			
+			PayloadMultimediaResponse payloadMultimediaResponse = S.MultimediaService
+					.incluir(multimedia);
+
+			if (!UtilPayload.isOK(payloadMultimediaResponse)) {
+				Alert.showMessage(payloadMultimediaResponse);
+				return true;
+			}
+
+			multimedia.setIdMultimedia(Integer
+					.valueOf(payloadMultimediaResponse.getInformacion(
+							"idMultimedia").toString()));
+			this.getPersona().setFkMultimedia(multimedia);
+			PayloadPersonaResponse payloadPersonaResponse = S.PersonaService
+					.incluir(this.getPersona());
+			if (!UtilPayload.isOK(payloadPersonaResponse)) {
+				Alert.showMessage(payloadPersonaResponse);
+				return true;
+			}
+			this.getPersona().setIdPersona(
+					Integer.parseInt(payloadPersonaResponse
+							.getInformacion("idPersona").toString()));
+			patrocinador.setFkPersona(this.getPersona());
 			PayloadPatrocinadorResponse payloadPatrocinadorResponse = S.PatrocinadorService
 					.incluir(getPatrocinador());
 			if (!UtilPayload.isOK(payloadPatrocinadorResponse)) {

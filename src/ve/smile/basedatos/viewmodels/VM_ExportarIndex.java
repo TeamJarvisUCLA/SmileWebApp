@@ -2,9 +2,12 @@ package ve.smile.basedatos.viewmodels;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
+import org.zkoss.bind.annotation.NotifyChange;
+
 import ve.smile.consume.services.S;
 import ve.smile.seguridad.dto.Tabla;
 import ve.smile.seguridad.payload.response.PayloadTablaResponse;
@@ -24,25 +27,32 @@ public class VM_ExportarIndex {
 	private Tabla selectedObject;
 	Tabla posibleTabla = new Tabla();
 	PayloadTablaResponse payloadTablaResponse = null;
-	boolean controla = true;
+	HashMap<String, Object> parametros = new HashMap<>();
+	boolean pendiente = false;
 	@Init(superclass = true)
 	public void childInit() {
 		System.out.println("syso childInit");
 		payloadTablaResponse = S.TablaService.consultarTodos();
 		objectsList = payloadTablaResponse.getObjetos();
 	}
+		
 	@Command("respaldarTablas")
+	@NotifyChange({"objectsList","listsTabla","nombre","descripcion"})
 	public void respaldarTablas() {
 		if(!isFormValidated()){
 			return;
 		}
 		if(!listsTabla.isEmpty()){
-			HashMap<String, Object> parametros = new HashMap<>();
+			parametros.put("completo", pendiente);
 			parametros.put("nombre", getNombre());
 			parametros.put("descripcion", getDescripcion());
-		PayloadTablaResponse p =	S.TablaService.respaldarTablas(listsTabla,parametros);	
-		Alert.showSuccessMessage("055", "Tablas Respaldadas con Exito");
-		listsTabla = new ArrayList<>();
+	        S.TablaService.respaldarTablas(listsTabla,parametros);	
+	        payloadTablaResponse = S.TablaService.consultarTodos();
+			objectsList = payloadTablaResponse.getObjetos();
+	        Alert.showSuccessMessage("055", "Tablas Respaldadas con Exito");
+	        nombre = new String();
+	        descripcion = new String();
+	        listsTabla = new ArrayList<>();
 		}
 		else{
 			Alert.showErrorMessage("099", "No existen Tablas para Respaldar");
@@ -50,54 +60,50 @@ public class VM_ExportarIndex {
 	}
 
 	@Command("onChooseItem")
+	@NotifyChange({"objectsList","listsTabla"})
 	public void onChooseItem() {
 		if (getSelectedObject() != null) {
+			pendiente = false;
 			listsTabla.add(getSelectedObject());
-			System.out.println(objectsList.remove(getSelectedObject()));
-			System.out.println(listsTabla.size());		
-			refreshListsTabla();
 		} else {
 			Alert.showErrorMessage("099", "Debe seleccionar una Tabla");
 		}
 	}
 
 	@Command("onRemoveItem")
+	@NotifyChange({"objectsList","listsTabla"})
 	public void onRemoveItem() {
 		if (getPosibleTabla() != null) {
+			pendiente = false;
 			objectsList.add(getPosibleTabla());
 			System.out.println(listsTabla.remove(getPosibleTabla()));
-			refreshListsTabla();
 		} else {
 			Alert.showErrorMessage("099", "Debe seleccionar una Tabla");
 		}
 	}
 
 	@Command("onChooseAllItem")
+	@NotifyChange({"objectsList","listsTabla"})
 	public void onChooseAllItem() {
 		if (!objectsList.isEmpty()) {
+			pendiente = true;
 			listsTabla.addAll(objectsList);
 			objectsList = new ArrayList<Tabla>();
-			refreshListsTabla();
 		}
 
 	}
 
 	@Command("onRemoveAllItem")
+	@NotifyChange({"objectsList","listsTabla"})
 	public void onRemoveAllItem() {
 		if (!listsTabla.isEmpty()) {
+			pendiente = false;
 			objectsList.addAll(listsTabla);
-			refreshListsTabla();
-			listsTabla = new ArrayList<Tabla>();
-			refreshListsTabla();
+			listsTabla = new ArrayList<Tabla>();	
 		}
 
 	}
 
-	public void refreshListsTabla() {
-		BindUtils.postNotifyChange(null, null, this, "objectsList");
-		BindUtils.postNotifyChange(null, null, this, "listsTabla");
-	}
-	
 	public boolean isFormValidated() {
 		try {
 			UtilValidate.validateString(getNombre(), "Nombre", 100);

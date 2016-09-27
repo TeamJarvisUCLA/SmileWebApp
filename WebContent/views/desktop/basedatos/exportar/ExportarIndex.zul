@@ -56,8 +56,7 @@
 					</listbox>
 				</div>
 			</div>
-			<button mold="os" onClick="@command('respaldarTablas')" label="Respaldar Tablas" style="margin-left:450px;background-color:#65c8e0;width:200px;height: 40px;"></button>
-		</div>
-		
+			<button iconSclass="fa fa-download" class="indigo waves-effect waves-light btn" mold="os" onClick="@command('respaldarTablas')" label="Respaldar" style="margin-left:410px;background-color:#65c8e0;width:200px;height: 40px; padding: 0 1em !important;"></button>
+		</div>	
 	</div>
 </zk>

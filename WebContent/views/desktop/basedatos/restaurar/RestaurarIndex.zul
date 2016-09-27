@@ -1,0 +1,57 @@
+<?xel-method prefix="m" name="convertirLongATimestamp" class="lights.smile.util.UtilConverterDataList" 
+	signature="java.lang.String convertirLongATimestamp(java.lang.Long)" ?>
+<zk xmlns:n="native" xmlns:w="client">
+	<div width="100%" class='opacity-0'
+		use="karen.core.simple_list_principal.controllers.C_WindowSimpleListPrincipal"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('ve.smile.basedatos.viewmodels.VM_RestaurarIndex')">
+
+		<div class="row">
+			<div class="col s12">
+				<div class="col s8">
+					<listbox id="listbox" model="@load(vm.objectsList)"
+						selectedItem="@bind(vm.selectedObject)">
+						<auxhead>
+							<auxheader>
+								<div sclass="col s12">
+									<span
+										class="prefix filter fa fa-filter">
+									</span>
+									<textbox instant="true" 
+									onChange="@command('changeFilter')"
+									value="@bind(vm.nombre)"></textbox>
+								</div>
+							</auxheader>
+						</auxhead>
+						<listhead sizable="true">
+							<listheader width="50%"
+								label="Nombre Respaldo" />
+							<listheader width="50%"
+								label="Fecha Respaldo" />
+						</listhead>
+						<template name="model">
+							<listitem>
+								<listcell
+									label="@load(each.fkMultimedia.nombre)" />
+
+								<listcell
+									label="${m:convertirLongATimestamp(each.fechaRespaldo)}" />
+							</listitem>
+						</template>
+						<listfoot>
+							<listfooter id="listFoot" span="2"
+								use="karen.core.listfoot.ListFoot">
+							</listfooter>
+						</listfoot>
+					</listbox>
+				</div>
+				<div class="col s4">
+				</div>
+			</div>
+		</div>
+
+		<toolbar id="toolbar" align="center"
+			use="karen.core.toolbar.Toolbar">
+		</toolbar>
+	</div>
+</zk>

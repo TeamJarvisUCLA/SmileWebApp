@@ -75,9 +75,12 @@
 					</div>			
 					<div id="divButtonsForm" sclass="row">
 						<div class="col s12 text-center">
-							<button id="btnAccept" class="waves-effect waves-light btn" href="">
+							<button label="Aceptar" id="btnAccept" class="waves-effect waves-light btn" href="">
 								Aceptar
-							</button>
+              <!--   <attribute name="onClick"><![CDATA[
+    Messagebox.show("Postulacion Enviada", "Aceptar", Messagebox.OK, Messagebox.INFORMATION);
+]]></attribute>-->
+           		</button>
 						</div>
 					</div>
 				</div>

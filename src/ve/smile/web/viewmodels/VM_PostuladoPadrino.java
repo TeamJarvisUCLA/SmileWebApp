@@ -48,18 +48,16 @@ public class VM_PostuladoPadrino extends C_WindowDialog {
 		VM_Postulado postuladoPadrino = (VM_Postulado) vm();
 		Persona persona = postuladoPadrino.getPersona();
 		persona.setFacebook("face.com");
-		persona.setEstatus('P');	
-	
+		persona.setEstatus('P');		
 		PayloadPersonaResponse payloadPersonaResponse =  S.PersonaService.savePostuladoPadrino(persona);
-	
 		close(dialogCloseEvent);		
 
 	}
 	public void onEvent(Event event) {		
-		            Persona p= new Persona();
+    	            Persona p= new Persona();
 		            Comboitem ci=new Comboitem();
 		            p.setSexo(Integer.parseInt(ci.getValue().toString()));
-		      
+		           
 		       }
 		                  
 	
@@ -73,6 +71,9 @@ public class VM_PostuladoPadrino extends C_WindowDialog {
 			UtilValidate.validateString(getPersona().getNombre(), "Nombre", 100 );
 			UtilValidate.validateInteger(getPersona().getEdad(),
 					"Edad", ValidateOperator.GREATER_THAN, 0);
+			UtilValidate.validateNull(getPersona().getEdad(), "Edad");
+			UtilValidate.validateNull(getPersona().getDireccion(), "Direccion");
+			UtilValidate.validateNull(getPersona().getNombre(), "Nombre");
 			//fecha
 			   // string today = getPersona().getFechaNacimiento();
 			    //DateFormat ft = new SimpleDateFormat("dd/MM/yyyy");
@@ -90,24 +91,15 @@ public class VM_PostuladoPadrino extends C_WindowDialog {
 		}
 	}
 
-
 	@Override
 	public void onCancel(Event event) {
-		close(new MessageBoxDialogCloseEvent(event, DialogActionEnum.CANCELAR));
-		
+		close(new MessageBoxDialogCloseEvent(event, DialogActionEnum.CANCELAR));	
 	}
 
 	@Override
 	public void doOnCreate() {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub		
 	}
 
-
-
-
-
-
-	
 
 }

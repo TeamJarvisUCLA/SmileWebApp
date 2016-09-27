@@ -52,9 +52,9 @@
 						</div>
 						<div class="input-field col s6">
 							<n:label for="sexo" class="active">Sexo</n:label>
-							<combobox id="sexo">
-								<comboitem label="Masculino" />
-								<comboitem label="Femenino" />
+							<combobox id="sexo" selectedItem="@bind(vm.persona.sexo)" value="@bind(vm.persona.sexo)"							>
+								<comboitem label="Masculino" value="1"/>
+								<comboitem label="Femenino" value="2"/>
 							</combobox>	
 						</div>
 						<div class="input-field col s6">

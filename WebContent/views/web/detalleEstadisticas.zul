@@ -1,0 +1,123 @@
+<zk xmlns:n="native" xmlns:w="client">
+	<n:link href="assets/css/web/participa.css" rel="stylesheet"
+		type="text/css">
+	</n:link>
+	<div class="participas">
+		<div class="barra-verde " align="center" style="height: 40px; padding-top:8px; ">
+			<n:h6 style="font-weight:bold;color:#87796F;">ESTADÍSTICAS DE INTERÉS</n:h6>
+		</div>
+		<div class=" menu"
+			style="background-image: url(/SmileWebApp/imagenes/portal/fondo.png); background-repeat:repeat; heigth: 50%">
+			<tabbox sclass="nav_tabs" id="tb3" orient="vertical">
+				<tabs width="25%" class="menuPrincipal">
+					<tab label="Estadística 1"></tab>
+					<tab label="Estadística 2"></tab>
+					<tab label="Estadística 3"></tab>
+					
+				</tabs>
+				<tabpanels width="75%" style="line-height:28px;min-height:173px;text-align:center;">
+					<tabpanel>
+						<span class="requisitos">
+							Estadística 1 
+						</span>	
+						<n:br/>					
+						<span class="info">
+							Dona Una Gota de Amor Se trata de un aporte
+							económico a partir de 500 Bs. vía
+							transferencia, depósito o en efectivo por
+							nuestra sede administrativa, con la
+							frecuencia que decida la persona que
+							colabora, Además de invitar a 5 amigos o
+							familiares que se únan a éste
+							programa.Donación de cabello Hemos recibido
+							donaciones de cabello para la elaboración de
+							pelucas. En el momento oportuno,
+							anunciaremos cuando de reanudará la donación
+							de cabello
+						</span>
+						<div class="container-fluid">
+							<image class="responsive-img"
+								src="/imagenes/portal/estadistica3.png">
+							</image>
+						</div>
+					
+						
+					</tabpanel>
+					<tabpanel>
+						<span class="requisitos">
+							Estadística 2 
+						</span>	
+						<n:br/>					
+						<span class="info">
+							Dona Una Gota de Amor Se trata de un aporte
+							económico a partir de 500 Bs. vía
+							transferencia, depósito o en efectivo por
+							nuestra sede administrativa, con la
+							frecuencia que decida la persona que
+							colabora, Además de invitar a 5 amigos o
+							familiares que se únan a éste
+							programa.Donación de cabello Hemos recibido
+							donaciones de cabello para la elaboración de
+							pelucas. En el momento oportuno,
+							anunciaremos cuando de reanudará la donación
+							de cabello
+						</span>
+						<div class="container-fluid">
+							<image class="responsive-img"
+								src="/imagenes/portal/estadistica1.png">
+							</image>
+						</div>
+					
+						
+					</tabpanel>
+					<tabpanel>
+						<span class="requisitos">
+							Estadística 3 
+						</span>	
+						<n:br/>					
+						<span class="info">
+							Dona Una Gota de Amor Se trata de un aporte
+							económico a partir de 500 Bs. vía
+							transferencia, depósito o en efectivo por
+							nuestra sede administrativa, con la
+							frecuencia que decida la persona que
+							colabora, Además de invitar a 5 amigos o
+							familiares que se únan a éste
+							programa.Donación de cabello Hemos recibido
+							donaciones de cabello para la elaboración de
+							pelucas. En el momento oportuno,
+							anunciaremos cuando de reanudará la donación
+							de cabello
+						</span>
+						<div class="container-fluid">
+							<image class="responsive-img"
+								src="/imagenes/portal/estadistica2.png">
+							</image>
+						</div>
+					
+						
+					</tabpanel>
+					
+					
+					
+					
+				</tabpanels>
+			</tabbox>
+		</div>
+	</div>
+	<n:script type="text/javascript">	
+		$(document).ready(function(){		
+		  $('#owlDemo').owlCarousel({		
+		      navigation : true, // Show next and prev buttons
+		      slideSpeed : 300,
+		      paginationSpeed : 400,
+		      singleItem:true,
+			navigationText: [
+		      '<span sclass="fa fa-chevron-left"></span>',
+		    '<span sclass="fa fa-chevron-right"></span>'
+		      ],		
+		  });		  
+		   $('.materialboxed').materialbox();
+}); 	
+</n:script>
+</zk>

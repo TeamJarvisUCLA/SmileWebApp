@@ -1,11 +1,13 @@
 package ve.smile.web.viewmodels;
 
 import karen.core.dialog.generic.viewmodels.VM_WindowDialog;
+import ve.smile.dto.Padrino;
 import ve.smile.dto.Persona;
 
 public class VM_Postulado extends VM_WindowDialog{
 	
 	private Persona persona = new Persona();
+	
 
 	public Persona getPersona() {
 		return persona;
@@ -20,6 +22,7 @@ public class VM_Postulado extends VM_WindowDialog{
 		// TODO Auto-generated method stub
 		
 	}
+
 	
 	
 

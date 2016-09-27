@@ -122,60 +122,12 @@
 		viewModel="@id('vm') @init('ve.smile.web.viewmodels.VM_AbrirPostulado')">
 										<button type="button"
 											class="waves-effect waves-light btn" href="" onClick="@command('abrirPostularVoluntario')">
-											PARTICIPA
+											POSTÚLATE
 										</button>										
 									</div>
 								</div>
 							</div>
-							<div class="col s12 seccion">
-								<div  align="center">
-										<n:h4 style="color:#E2F83F">VOLUNTARIOS DESTACADOS</n:h4>
-									</div>
-								<n:div id="comunidad">
-						<div class="comunidad">
-								<div class="col s12 medallas">
-									<div class="row text-center ">
-										<div class="col s4 text-center">
-											<div sclass="row fotos">
-												<image src="/imagenes/portal/foto1.jpg" height="100px" width="100px" sclass="circle responsive-img">
-												</image>											
-												<image class="img-responsive" src="/imagenes/portal/medalla.png">
-												</image>
-											</div>
-											<div sclass="row" style="margin-top:10px">
-												<label sclass="subtitulo " style="color:#F26B7A">Ana Matheus</label>
-											</div>
-										</div>
-										<div class="col s4 text-center">
-											<div sclass="row fotos">
-												<image src="/imagenes/portal/foto3.jpg" height="100px" width="100px" sclass="circle responsive-img">
-												</image>
-												<image class="img-responsive" src="/imagenes/portal/medalla.png">
-												</image>
-											</div>
-											<div sclass="row" style="margin-top:10px">
-												<label sclass="subtitulo " style="color:#F26B7A">Rosa Antonieta</label>
-											</div>
-					
-										</div>
-										<div class="col s4 text-center">
-											<div sclass="row fotos">
-												<image src="/imagenes/portal/foto2.jpg" height="100px" width="100px" sclass="circle responsive-img">
-												</image>
-												<image class="img-responsive" src="/imagenes/portal/medalla.png">
-												</image>
-											</div>
-											<div sclass="row" style="margin-top:10px">
-												<label sclass="subtitulo " style="color:#F26B7A">Jesus Sivira</label>
-											</div>
-										</div>
-							</div>
-						</div>
-					</div>
-				</n:div>
-							
-							</div>
-						</div>
+								</div>
 					</tabpanel>
 					<tabpanel>
 						<div class=" row">
@@ -231,7 +183,7 @@
 										viewModel="@id('vm') @init('ve.smile.web.viewmodels.VM_AbrirPostulado')">
 										<button type="button"
 											class="waves-effect waves-light btn" href="" onClick="@command('abrirPostularPadrino')">
-											PARTICIPA
+											POSTÚLATE
 										</button>
 									</div>
 								</div>

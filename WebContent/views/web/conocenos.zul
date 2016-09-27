@@ -35,7 +35,7 @@
 	<n:link href="assets/css/web/conocenos.css" rel="stylesheet" type="text/css"></n:link>
 	<n:link href="assets/css/web/main.css" rel="stylesheet" type="text/css"></n:link>
 	
-	<div sclass="row" apply="org.zkoss.bind.BindComposer"
+	<div apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('ve.smile.web.conocenos.viewmodels.VM_Conocenos')">
 
 		<div class="social">
@@ -82,7 +82,7 @@
 				<div class="container-fluid">
 					<div class="row tam-cont-org">
 						<n:div id="conocenos">
-							<div class="row" style="width: 60%" children="@load(vm.organizacion)">
+							<div class="row" children="@load(vm.organizacion)">
 								<template name="children">
 							
 									<div class="col s4 text-center">  
@@ -90,11 +90,13 @@
 						     			
 						     			
 							        	<image class="img-cont-org" src="/imagenes/portal/icon/icon-people-grande.png">
-						   				</image>   
-							         	<label class="text-cont-org" value="@load(each.nombre)"></label>
-						         		<n:br></n:br>  
-							         	<label class="justificar-label" value="@load(each.descripcion)">
-							           </label>		
+						   				</image>
+						   				<n:h6 class="text-cont-org" ><label class="text-cont-org" value="@load(each.nombre)"></label></n:h6>
+						         		<n:br></n:br> 
+						         		<div style="text-align: justify;"> 
+								         	<label class="justificar-label" value="@load(each.descripcion)">
+								           </label>
+							          	</div>
 							      	</div>	  
 							      	<div class="col s4 text-center">  
 									    <n:br></n:br> 
@@ -102,8 +104,10 @@
 									   	</image>
 								      	<n:h6 class="text-cont-org" >Misión</n:h6>
 									    <n:br></n:br>
-									    <label class="justificar-label" value="@load(each.mision)">
-							           </label>
+									    <div style="text-align: justify;">
+										    <label class="justificar-label" value="@load(each.mision)">
+								           </label>
+									    </div>							           
 									</div>  
 							      	<div class="col s4 text-center">
 						      			<n:br></n:br>
@@ -111,8 +115,10 @@
 								     	</image>  
 							         	<n:h6 class="text-cont-org" >Visión</n:h6>
 							        	<n:br></n:br>
-								        <label class="justificar-label" value="@load(each.vision)">
-							           </label>
+							        	<div style="text-align: justify;">
+									        <label class="justificar-label" value="@load(each.vision)">
+								           </label>
+								        </div>
 								  	</div>
 					
 						  			<div class="col s12 text-center">
@@ -245,7 +251,7 @@
 					</div>	
 			</div>
 			<div class="container-fluid galeria ">
-			<div class="row">
+			<div class="row" style="margin-bottom: 0">
 				<div class="col-md-9" align="center">
 		          	<div class="boton text-center">
 	        			<button type="button" class="color-boton waves-effect waves-light btn">Ver más</button>

@@ -51,11 +51,16 @@
 							</textbox>
 						</div>
 						<div class="input-field col s6">
-							<n:label for="sexo" class="active">Sexo</n:label>
-							<combobox id="sexo" selectedItem="@bind(vm.persona.sexo)" value="@bind(vm.persona.sexo)"							>
-								<comboitem label="Masculino" value="1"/>
-								<comboitem label="Femenino" value="2"/>
-							</combobox>	
+							<n:label for="sexo" class="active">
+								Sexo
+							</n:label>
+							<combobox id="sexo"
+								selectedItem="@bind(vm.sexoEnum)"
+								model="@bind(vm.sexoEnums)">
+								<template name="model">
+									<comboitem label="@bind(each)"/>
+								</template>
+							</combobox>
 						</div>
 						<div class="input-field col s6">
 							<n:label for="fecha_nacimiento" class="active">Fecha de Nacimiento</n:label>

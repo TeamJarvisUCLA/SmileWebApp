@@ -5,9 +5,11 @@
 		use="ve.smile.web.viewmodels.VM_PostuladoVoluntario"
 		apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('ve.smile.web.viewmodels.VM_Postulado', dialogData=arg.get('dialogData'))">
-		
-		<n:link href="assets/css/web/postulacion.css" rel="stylesheet" type="text/css"></n:link>
-		
+
+		<n:link href="assets/css/web/postulacion.css" rel="stylesheet"
+			type="text/css">
+		</n:link>
+
 		<n:div id="modalFormPostulacion">
 			<div class="container-fluid">
 				<div class="row">
@@ -27,7 +29,9 @@
 							</textbox>
 						</div>
 						<div class="input-field col s6">
-							<n:label for="identificacion">Cedula</n:label>
+							<n:label for="identificacion">
+								Cedula
+							</n:label>
 							<textbox id="identificacion" type="text"
 								value="@bind(vm.persona.identificacion)">
 							</textbox>
@@ -37,7 +41,7 @@
 							<textbox id="edad" type="text"
 								value="@bind(vm.persona.edad)">
 							</textbox>
-						</div>											
+						</div>
 						<div class="input-field col s6">
 							<n:label for="direccion">Dirección</n:label>
 							<textbox id="direcion" type="text"
@@ -51,29 +55,39 @@
 							</textbox>
 						</div>
 						<div class="input-field col s6">
-							<n:label for="sexo" class="active">Sexo</n:label>
-							<combobox id="sexo" selectedItem="@bind(vm.persona.sexo)" value="@bind(vm.persona.sexo)"							>
-								<comboitem label="Masculino" value="1"/>
-								<comboitem label="Femenino" value="2"/>
-							</combobox>	
+							<n:label for="sexo" class="active">
+								Sexo
+							</n:label>
+							<combobox id="sexo"
+								selectedItem="@bind(vm.sexoEnum)"
+								model="@bind(vm.sexoEnums)">
+								<template name="model">
+									<comboitem label="@bind(each)"/>
+								</template>
+							</combobox>
 						</div>
 						<div class="input-field col s6">
-							<n:label for="fecha_nacimiento" class="active">Fecha de Nacimiento</n:label>
-							<datebox id="db" cols="20" format="yyyy/MM/dd"  onCreate="self.value = new Date()"/>
+							<n:label for="fecha_nacimiento"
+								class="active">
+								Fecha de Nacimiento
+							</n:label>
+							<datebox id="db" cols="20"
+								format="yyyy/MM/dd" onCreate="self.value = new Date()" />
 						</div>
 						<div class="input-field col s6">
 							<n:label for="telefono_1">Telefono</n:label>
 							<textbox id="telefono_1" type="text"
 								value="">
 							</textbox>
-						</div>																	
-					</div>					
+						</div>
+					</div>
 					<div class="col s4 text-center">
 						<image src="/imagenes/portal/conejo.png"></image>
-					</div>			
+					</div>
 					<div id="divButtonsForm" sclass="row">
 						<div class="col s12 text-center">
-							<button id="btnAccept" class="waves-effect waves-light btn" href="">
+							<button id="btnAccept"
+								class="waves-effect waves-light btn" href="">
 								aceptar
 							</button>
 						</div>

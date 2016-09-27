@@ -1,4 +1,4 @@
-package ve.smile.gestion.voluntariado.maestro.viewmodels;
+package ve.smile.gestion.voluntariado.voluntario.viewmodels;
 
 import karen.core.crux.alert.Alert;
 import karen.core.simple_list_principal.viewmodels.VM_WindowSimpleListPrincipal;
@@ -42,7 +42,7 @@ public class VM_VoluntarioIndex extends VM_WindowSimpleListPrincipal<Voluntario>
 	@Override
 	public String getSrcFileZulForm(OperacionEnum operacionEnum)
 	{
-		return "views/desktop/gestion/voluntariado/maestro/VoluntarioFormBasic.zul";
+		return "views/desktop/gestion/voluntariado/voluntario/VoluntarioFormBasic.zul";
 	}
 
 }

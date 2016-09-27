@@ -1,0 +1,148 @@
+<zk xmlns:n="native" xmlns:w="client">
+	<div width="80%" class="container ${arg.animation_}"
+		use="karen.core.form.controllers.C_WindowForm"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('ve.smile.gestion.voluntariado.voluntario.viewmodels.VM_VoluntarioFormBasic')">
+
+		<div class="row">
+			<div sclass="col s12 form">
+			
+				<tabbox id="tb" class="rtab">
+					<tabs id="tabs">
+						<tab id="tabDatosPersonales" label="Datos personales" selected="true" />
+						<tab id="tabContacto" label="Información de contacto" />
+					</tabs>
+
+					<tabpanels>
+						<tabpanel>
+			
+							<div class="input-field col s6">
+								<n:label for="nombre">Nombre</n:label>
+								<textbox id="nombre" type="text" value="@bind(vm.voluntario.fkPersona.nombre)"> </textbox>
+							</div>
+				
+							<div class="input-field col s6">
+								<n:label for="apellido">Apellido</n:label>
+								<textbox id="apellido" type="text" value="@bind(vm.voluntario.fkPersona.apellido)"> </textbox>
+							</div>
+				
+							<div class="input-field col s6">
+								<n:label for="identificacion">Cedula</n:label>
+								<textbox id="identificacion" type="text" value="@bind(vm.voluntario.fkPersona.identificacion)"> </textbox>
+							</div>
+							
+							<div class="input-field col s6">
+								<n:label class="active" for="fk_estado"> Ciudad </n:label>
+								<combobox id="fk_ciudad" readonly="true" model="@bind(vm.ciudades)" selectedItem="@bind(vm.voluntario.fkPersona.fkCiudad)">
+									<template name="model">
+										<comboitem label="@load(each.nombre)" />
+									</template>
+								</combobox>
+							</div>
+							
+							<div class="input-field col s6">
+								<n:label for="imagen">Imagen</n:label>
+								<textbox id="imagen" type="text" value="@bind(vm.voluntario.fkPersona.fkMultimedia)"> </textbox>
+							</div>
+							
+							<div class="input-field col s6">
+								<n:label for="sexo" class="active">Sexo</n:label>
+								<combobox id="sexo" readonly="true" model="@bind(vm.sexoEnums)" selectedItem="@bind(vm.voluntario.fkPersona.sexo)">
+									<template name="model">
+										<comboitem label="@load(each)" />
+									</template>
+								</combobox>	
+							</div>
+
+							<div class="input-field col s6">
+								<n:label for="fecha_nacimiento" class="active">Fecha de nacimiento</n:label>
+								<datebox id="db" cols="20" format="yyyy/MM/dd" value="@bind(vm.voluntario.fkPersona.fechaNacimiento)"/>
+							</div>
+							
+							<div class="input-field col s6">
+								<n:label for="direccion">Dirección</n:label>
+								<textbox id="direccion" type="text" value="@bind(vm.voluntario.fkPersona.direccion)"> </textbox>
+							</div>
+				
+							<div class="input-field col s6">
+								<n:label for="fecha_ingreso" class="active">Fecha de ingreso</n:label>
+								<datebox id="fecha_ingreso" cols="20" format="yyyy/MM/dd" value="@bind(vm.voluntario.fechaIngreso)"/>
+							</div>
+				
+							<div class="input-field col s6">
+								<n:label for="fecha_egreso" class="active">Fecha de egreso</n:label>
+								<datebox id="fecha_egreso" cols="20" format="yyyy/MM/dd" value="@bind(vm.voluntario.fechaEgreso)"/>
+							</div>
+							
+							<div class="input-field col s6">
+								<n:label for="tipo_persona" class="active">Tipo de persona</n:label>
+								<combobox id="tipo_persona" readonly="true" selectedItem="@bind(vm.voluntario.fkPersona.tipoPersona)">
+									<comboitem label="Natural" />
+									<comboitem label="Jurídica" />
+								</combobox>	
+							</div>
+						
+						</tabpanel>
+						
+						<tabpanel>
+						
+							<div class="input-field col s6">
+								<n:label for="telefono_1">Teléfono 1</n:label>
+								<textbox id="telefono_1" type="text" value="@bind(vm.voluntario.fkPersona.telefono1)"> </textbox>
+							</div>
+				
+							<div class="input-field col s6">
+								<n:label for="telefono_2">Teléfono 2</n:label>
+								<textbox id="telefono_2" type="text" value="@bind(vm.voluntario.fkPersona.telefono2)"> </textbox>
+							</div>
+				
+							<div class="input-field col s6">
+								<n:label for="twitter">Twitter</n:label>
+								<textbox id="twitter" type="text" value="@bind(vm.voluntario.fkPersona.twitter)"> </textbox>
+							</div>
+				
+							<div class="input-field col s6">
+								<n:label for="instagram">Instagram</n:label>
+								<textbox id="instagram" type="text" value="@bind(vm.voluntario.fkPersona.instagram)"> </textbox>
+							</div>
+				
+							<div class="input-field col s6">
+								<n:label for="linkedin">LinkedIn</n:label>
+								<textbox id="linkedin" type="text" value="@bind(vm.voluntario.fkPersona.linkedin)"> </textbox>
+							</div>
+				
+							<div class="input-field col s6">
+								<n:label for="sitioWeb">Sitio web</n:label>
+								<textbox id="sitioWeb" type="text" value="@bind(vm.voluntario.fkPersona.sitioWeb)"> </textbox>
+							</div>
+				
+							<div class="input-field col s6">
+								<n:label for="fax">Fax</n:label>
+								<textbox id="fax" type="text" value="@bind(vm.voluntario.fkPersona.fax)"> </textbox>
+							</div>
+				
+							<div class="input-field col s6">
+								<n:label for="correo">Corrreo electrónico</n:label>
+								<textbox id="correo" type="text" value="@bind(vm.voluntario.fkPersona.correo)"> </textbox>
+							</div>
+				
+							<div class="input-field col s6">
+								<n:label for="facebook">Facebook</n:label>
+								<textbox id="facebook" type="text" value="@bind(vm.voluntario.fkPersona.facebook)"> </textbox>
+							</div>
+						
+						</tabpanel>
+					
+					</tabpanels>
+				
+				</tabbox>
+				
+				
+			</div>
+		</div>
+		
+		<div id="divButtonsForm"
+			use="karen.core.form.buttons.containers.DivButtonsForm">
+		</div>
+	</div>
+</zk>

@@ -1,4 +1,4 @@
-package ve.smile.gestion.voluntariado.maestro.viewmodels;
+package ve.smile.gestion.voluntariado.voluntario.viewmodels;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,15 +20,50 @@ import ve.smile.dto.Ciudad;
 import ve.smile.payload.response.PayloadVoluntarioResponse;
 import ve.smile.payload.response.PayloadCiudadResponse;
 import ve.smile.seguridad.enums.OperacionEnum;
+import ve.smile.seguridad.enums.SexoEnum;
 
-public class VM_VoluntarioFormBasic extends VM_WindowForm {
-
+public class VM_VoluntarioFormBasic extends VM_WindowForm
+{
+	private List<SexoEnum> sexoEnums;
+	private SexoEnum sexoEnum;
 	private List<Ciudad> ciudades;
 
 	@Init(superclass = true)
 	public void childInit()
 	{
 		// NOTHING OK!
+	}
+	
+	public List<SexoEnum> getSexoEnums()
+	{ 	
+		if (this.sexoEnums == null)
+		{
+			this.sexoEnums = new ArrayList<>();
+		}
+		if (this.sexoEnums.isEmpty())
+		{
+			for (SexoEnum sexoEnum : SexoEnum.values())
+			{
+				this.sexoEnums.add(sexoEnum);
+			}
+		}
+		return sexoEnums;
+	}
+	
+	public void setSexoEnums(List<SexoEnum> sexoEnums)
+	{
+		this.sexoEnums = sexoEnums;
+	}
+	
+	public SexoEnum getSexoEnum()
+	{
+		return sexoEnum;
+	}
+	
+	public void setSexoEnum(SexoEnum sexoEnum)
+	{
+		this.sexoEnum = sexoEnum;
+		getVoluntario().getFkPersona().setSexo(sexoEnum.ordinal()); 
 	}
 
 	public List<Ciudad> getCiudades()

@@ -1,23 +1,79 @@
 <zk xmlns:n="native" xmlns:w="client">
 	<div width="80%" class="container ${arg.animation_}"
-		use="karen.core.form.controllers.C_WindowForm"
+				use="karen.core.form.controllers.C_WindowForm"
 		apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('ve.smile.datos.configuracion.clasificacion_pregunta.viewmodels.VM_ClasificacionPreguntaFormBasic')">
 
 		<div class="row">
-			<div class="col s12">
-				<div class="input-field col s12">
-					<n:label for="nombre" class="mandatory">
-						Nombre
-					</n:label>
-					<textbox id="nombre" type="text"
-						value="@bind(vm.clasificadorPregunta.nombre)">
+ 			<div class="col s12">
+				<div class="input-field col s6">
+					<n:label for="nombre">Nombre</n:label>
+					<textbox id="nombre" type="text" maxlength="100"
+						disabled="true" value="@bind(vm.clasificadorPregunta.nombre)">
 					</textbox>
-				</div>
+				</div>			
+
+		</div>
+			<div class="col s12">
+				<tabbox id="tb" class="rtab ltab">
+					<tabs id="tabs">
+						<tab id="tabPreguntas" label="Preguntas" />
+					</tabs>
+					<tabpanels>
+						<tabpanel>
+							<div sclass="col s5">
+								<listbox model="@bind(vm.preguntas)"
+									emptyMessage="No hay preguntas registradas."
+									selectedItems="@bind(vm.preguntasSeleccionadas)"
+									multiple="true">
+										<listhead sizable="true">
+											<listheader label="Preguntas" />
+										</listhead>
+									<template name="model">
+										<listitem label="@load(each.pregunta)">
+											<zscript>
+												self.setDisabled(vm.disabledPregunta(each));
+											</zscript>
+										</listitem>
+									</template>
+								</listbox>
+							</div>
+							<div sclass="col s1">
+								<div sclass="row valign">
+										<button
+											iconSclass="fa fa-angle-double-right" sclass="button-conf"
+											onClick="@command('agregarPreguntasClasificador')" />
+									</div>
+									<div sclass="row">
+										<button
+											iconSclass="fa fa-angle-double-left" sclass="button-conf"
+											onClick="@command('removerPreguntasClasificador')" />
+									</div>
+							</div>
+							<div sclass="col s5" style="padding:0px">
+								<listbox model="@bind(vm.clasificadorPreguntas)"
+									emptyMessage="No hay preguntas asociadas al clasificador seleccionado."
+									selectedItems="@bind(vm.clasificadorPreguntasSeleccionadas)"
+									multiple="true">
+									<listhead sizable="true">
+										<listheader label="Preguntas de clasificador" />
+									</listhead>
+									<template name="model">
+										<listitem
+											label="@load(each.nombre)">
+										</listitem>
+									</template>
+								</listbox>
+							</div>
+						</tabpanel>
+					</tabpanels>
+				</tabbox>
 			</div>
 		</div>
+
 		<div id="divButtonsForm"
 			use="karen.core.form.buttons.containers.DivButtonsForm">
 		</div>
+
 	</div>
 </zk>

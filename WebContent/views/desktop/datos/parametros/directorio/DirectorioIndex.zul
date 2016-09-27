@@ -1,5 +1,5 @@
 <zk xmlns:n="native" xmlns:w="client">
-	<div width="100%" class='opacity-0'
+	<div width="100%" class='${arg.animation_}'
 		use="karen.core.simple_list_principal.controllers.C_WindowSimpleListPrincipal"
 		apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('ve.smile.datos.parametros.directorio.viewmodels.VM_DirectorioIndex')">
@@ -11,26 +11,23 @@
 						selectedItem="@bind(vm.selectedObject)">
 
 						<listhead sizable="true">
-							<listheader width="12%" label="Ciudad" />
-							<listheader width="12%" label="Multimedia" />
-							<listheader width="12%" label="Latitud" />
-							<listheader width="12%" label="Longitud" />
-							<listheader width="12%" label="Nombre" />
-							<listheader width="12%" label="Direccion" />
-							<listheader width="12%" label="Telefono" />
-							<listheader width="12%" label="Url" />
+							<listheader width="20%" label="Nombre" />
+							<listheader width="30%" label="Dirección" />
+							<listheader width="15%" label="Ciudad" />
+							<listheader width="15%" label="Estado" />
+							<listheader width="20%" label="Telefono" />
 						</listhead>
 						<template name="model">
 							<listitem>
-								<listcell label="@load(each.fkCiudad)" />
-								<listcell
-									label="@load(each.fkMultimedia)" />
-								<listcell label="@load(each.latitud)" />
-								<listcell label="@load(each.longitud)" />
 								<listcell label="@load(each.nombre)" />
+
 								<listcell label="@load(each.direccion)" />
+								<listcell
+									label="@load(each.fkCiudad.nombre)" />
+								<listcell
+									label="@load(each.fkCiudad.fkEstado.nombre)" />
 								<listcell label="@load(each.telefono)" />
-								<listcell label="@load(each.url)" />
+
 							</listitem>
 						</template>
 						<listfoot>

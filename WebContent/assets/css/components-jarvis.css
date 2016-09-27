@@ -606,3 +606,11 @@ nav-list.z-navbar>ul>.z-nav-open>a i,.nav-list.z-navbar>ul>.z-nav-open>a span
 	font-style: italic;
 	padding: 12px !important;
 }
+
+.z-popup-content{
+	padding:10px !important;
+}
+
+.help-icon{
+	color:#3b85a1;
+}

@@ -44,8 +44,8 @@ public class VM_PlantillaEventoIndex extends
 	public void onSelectEvento() {
 		Evento evento = getSelectedObject();
 
-		if (evento.getEventoIndicadores() == null
-				|| evento.getEventoIndicadores().isEmpty()) {
+		if (evento.getEventoTareas() == null
+				|| evento.getEventoTareas().isEmpty()) {
 			PayloadTareaResponse payloadTareaResponse = S.TareaService
 					.consultarPorEvento(evento.getIdEvento());
 			if (!UtilPayload.isOK(payloadTareaResponse)) {
@@ -54,8 +54,8 @@ public class VM_PlantillaEventoIndex extends
 			evento.setEventoTareas(payloadTareaResponse.getObjetos());
 
 		}
-		if (evento.getEventoTareas() == null
-				|| evento.getEventoTareas().isEmpty()) {
+		if (evento.getEventoIndicadores() == null
+				|| evento.getEventoIndicadores().isEmpty()) {
 			PayloadIndicadorResponse payloadIndicadorResponse = S.IndicadorService
 					.consultarPorEvento(evento.getIdEvento());
 			if (!UtilPayload.isOK(payloadIndicadorResponse)) {

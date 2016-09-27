@@ -13,6 +13,7 @@
 						value="@bind(vm.clasificadorEvento.nombre)">
 					</textbox>
 				</div>
+				<span style="cursor: help" sclass="fa fa-question-circle fa-lg help-icon" tooltip="pop_nombre, position=after_end"/>
 			</div>
 
 
@@ -25,9 +26,26 @@
 						value="@bind(vm.clasificadorEvento.color)">
 					</colorbox>
 				</div>
+				<span style="cursor: help" sclass="fa fa-question-circle fa-lg help-icon" tooltip="pop_color, position=after_end"/>
 			</div>
 
 		</div>
+		
+		
+		<popup id="pop_nombre" width="200px">
+        	<html><![CDATA[
+            	Por favor, indique el nombre del clasificador que desea 
+            	registrar.<br /><font color="#3b85a1">Ejemplo: Deportivo.</font>
+        	]]></html>
+    	</popup>
+    	
+    	<popup id="pop_color" width="200px">
+        	<html><![CDATA[
+            	Por favor, seleccione un color para que esté asociado al clasificador
+            	del evento que desea registrar.<br /><font color="#3b85a1">Ejemplo:#333366.</font>
+        	]]></html>
+    	</popup>
+    	
 
 		<div id="divButtonsForm"
 			use="karen.core.form.buttons.containers.DivButtonsForm">

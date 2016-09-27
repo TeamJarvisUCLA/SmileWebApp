@@ -66,9 +66,7 @@ public class VM_ClasificacionPreguntaIndex extends
 				return;
 			}
 
-			clasificadorPregunta
-					.setPreguntasClasificadas(payloadPreguntaResponse
-							.getObjetos());
+			clasificadorPregunta.setPreguntasClasificadas(payloadPreguntaResponse.getObjetos());
 		}
 	}
 }

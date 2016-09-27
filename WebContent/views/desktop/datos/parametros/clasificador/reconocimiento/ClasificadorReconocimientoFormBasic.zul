@@ -13,8 +13,9 @@
 						value="@bind(vm.clasificadorReconocimiento.nombre)">
 					</textbox>
 				</div>
-
+				<span style="cursor: help" sclass="fa fa-question-circle fa-lg help-icon" tooltip="pop_nombre, position=after_end"/>
 			</div>
+			
 			<div class="col s12">
 				<div class="input-field offset-s2 col s8">
 					<n:label for="descripcion">Descripción</n:label>
@@ -23,13 +24,14 @@
 						value="@bind(vm.clasificadorReconocimiento.descripcion)">
 					</textbox>
 				</div>
+				<span style="cursor: help" sclass="fa fa-question-circle fa-lg help-icon" tooltip="pop_descripcion, position=after_end"/>
 			</div>
+			
 			<div class="col s12">
 				<div class="input-field offset-s2 col s8">
 					<n:label for="tipo_reconocimiento">
 						Tipo de Reconocimiento
 					</n:label>
-
 					<combobox id="fk_estado" readonly="true"
 						model="@bind(vm.tipoReconocimientoEnums)"
 						selectedItem="@bind(vm.tipoReconocimientoEnum)">
@@ -38,9 +40,35 @@
 						</template>
 					</combobox>
 				</div>
+				<span style="cursor: help" sclass="fa fa-question-circle fa-lg help-icon" tooltip="pop_tipo, position=after_end"/>
 			</div>
-
+			
 		</div>
+		
+		
+		<popup id="pop_nombre" width="200px">
+        	<html><![CDATA[
+            	Por favor, indique el nombre del clasificador que desea 
+            	registrar.<br /><font color="#3b85a1">Ejemplo: Voluntario Destacado.</font>
+        	]]></html>
+    	</popup>
+    	
+    	<popup id="pop_tipo" width="200px">
+        	<html><![CDATA[
+            	Por favor, indique el tipo de clasificador de reconocimiento que desea
+            	registrar.<br /><font color="#3b85a1">Ejemplo:Motivacional.</font>
+        	]]></html>
+    	</popup>
+    	
+    	<popup id="pop_descripcion" width="200px">
+        	<html><![CDATA[
+            	Por favor, indique una descripción breve, sobre el clasificador del
+            	reconocimiento que desea registrar.<br /><font color="#3b85a1">Ejemplo:
+            	Para los voluntarios que cumplen una labor extraordinaria en la fundación.</font>
+        	]]></html>
+    	</popup>
+    	
+    	
 		<div id="divButtonsForm"
 			use="karen.core.form.buttons.containers.DivButtonsForm">
 		</div>

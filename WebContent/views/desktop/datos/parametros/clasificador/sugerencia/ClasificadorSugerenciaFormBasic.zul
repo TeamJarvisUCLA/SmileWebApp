@@ -13,9 +13,19 @@
 						value="@bind(vm.clasificadorSugerencia.nombre)">
 					</textbox>
 				</div>
+				<span style="cursor: help" sclass="fa fa-question-circle fa-lg help-icon" tooltip="pop_nombre, position=after_end"/>
 			</div>
-
 		</div>
+		
+		
+		<popup id="pop_nombre" width="200px">
+        	<html><![CDATA[
+            	Por favor, indique el nombre del clasificador que desea 
+            	registrar.<br /><font color="#3b85a1">Ejemplo: Crítica.</font>
+        	]]></html>
+    	</popup>
+    	
+    	
 		<div id="divButtonsForm"
 			use="karen.core.form.buttons.containers.DivButtonsForm">
 		</div>

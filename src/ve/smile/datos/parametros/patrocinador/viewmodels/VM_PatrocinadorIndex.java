@@ -12,35 +12,31 @@ import ve.smile.dto.Patrocinador;
 import ve.smile.payload.response.PayloadPatrocinadorResponse;
 import ve.smile.seguridad.enums.OperacionEnum;
 
-public class VM_PatrocinadorIndex extends
-		VM_WindowSimpleListPrincipal<Patrocinador> {
+public class VM_PatrocinadorIndex extends VM_WindowSimpleListPrincipal<Patrocinador>
+{
 
 	@Init(superclass = true)
-	public void childInit() {
+	public void childInit()
+	{
 		// NOTHING OK!
 	}
 
 	@Override
-	public IPayloadResponse<Patrocinador> getDataToTable(
-			Integer cantidadRegistrosPagina, Integer pagina) {
-
-		PayloadPatrocinadorResponse payloadPatrocinadorResponse = S.PatrocinadorService
-				.consultarPaginacion(cantidadRegistrosPagina, pagina);
-
+	public IPayloadResponse<Patrocinador> getDataToTable(Integer cantidadRegistrosPagina, Integer pagina)
+	{
+		PayloadPatrocinadorResponse payloadPatrocinadorResponse = S.PatrocinadorService.consultarPaginacion(cantidadRegistrosPagina, pagina);
 		return payloadPatrocinadorResponse;
 	}
 
 	@Override
-	public void doDelete() {
-		PayloadPatrocinadorResponse payloadPatrocinadorResponse = S.PatrocinadorService
-				.eliminar(getSelectedObject().getIdPatrocinador());
-
+	public void doDelete()
+	{
+		PayloadPatrocinadorResponse payloadPatrocinadorResponse = S.PatrocinadorService.eliminar(getSelectedObject().getIdPatrocinador());
 		Alert.showMessage(payloadPatrocinadorResponse);
-
-		if (UtilPayload.isOK(payloadPatrocinadorResponse)) {
+		if (UtilPayload.isOK(payloadPatrocinadorResponse))
+		{
 			getControllerWindowSimpleListPrincipal().updateListBoxAndFooter();
 		}
-
 	}
 
 	@Override

@@ -1,10 +1,13 @@
 package ve.smile.basedatos.viewmodels;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
+import org.zkoss.bind.annotation.NotifyChange;
 
 import com.sun.org.apache.xpath.internal.axes.HasPositionalPredChecker;
 
@@ -15,6 +18,7 @@ import karen.core.util.payload.UtilPayload;
 import ve.smile.consume.services.S;
 import ve.smile.dto.Respaldo;
 import ve.smile.payload.response.PayloadRespaldoResponse;
+import ve.smile.seguridad.dto.Tabla;
 import ve.smile.seguridad.enums.OperacionEnum;
 import lights.core.enums.TypeQuery;
 import lights.core.payload.response.IPayloadResponse;
@@ -22,7 +26,7 @@ import lights.core.payload.response.IPayloadResponse;
 public class VM_RestaurarIndex extends VM_WindowSimpleListPrincipal<Respaldo> {
 	private String nombre;
 	private Date fecha;
-
+	private List<Tabla> listsTabla = new ArrayList<>();
 	@Init(superclass = true)
 	public void childInit() {
 		// NOTHING OK!
@@ -41,7 +45,16 @@ public class VM_RestaurarIndex extends VM_WindowSimpleListPrincipal<Respaldo> {
 						TypeQuery.LIKE, criterios);
 		return payloadRespaldoResponse;
 	}
-
+	@Command("findByRespaldo")
+	@NotifyChange({"listsTabla"})
+	public void findByRespaldo(){
+		System.out.println("Entro al findByRespaldo");
+		getSelectedObject().getFechaRespaldo();
+		System.out.println(getSelectedObject().getFechaRespaldo());
+		System.out.println(getSelectedObject().getIdRespaldo());
+		listsTabla = S.TablaService.consultarPorRespaldo(getSelectedObject().getIdRespaldo()).getObjetos();
+	}
+	
 	@Override
 	public void doDelete() {
 		PayloadRespaldoResponse payloadRespaldoTablaResponse = S.RespaldoService
@@ -63,7 +76,6 @@ public class VM_RestaurarIndex extends VM_WindowSimpleListPrincipal<Respaldo> {
 
 	@Command
 	public void changeFilter() {
-		System.out.println("escuchar bro" + this.nombre);
 		this.updateListBox(1, HowToSeeEnum.NORMAL);
 	}
 
@@ -82,5 +94,21 @@ public class VM_RestaurarIndex extends VM_WindowSimpleListPrincipal<Respaldo> {
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
+
+	public List<Tabla> getListsTabla() {
+		return listsTabla;
+	}
+
+	public void setListsTabla(List<Tabla> listsTabla) {
+		this.listsTabla = listsTabla;
+	}
+
+//	@Override
+//	public IPayloadResponse<Respaldo> getDataToTableListFoxGeneral(
+//			Integer cantidadRegistrosPagina, Integer pagina) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+	
 
 }

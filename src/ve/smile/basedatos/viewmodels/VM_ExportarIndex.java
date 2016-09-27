@@ -31,7 +31,6 @@ public class VM_ExportarIndex {
 	boolean pendiente = false;
 	@Init(superclass = true)
 	public void childInit() {
-		System.out.println("syso childInit");
 		payloadTablaResponse = S.TablaService.consultarTodos();
 		objectsList = payloadTablaResponse.getObjetos();
 	}

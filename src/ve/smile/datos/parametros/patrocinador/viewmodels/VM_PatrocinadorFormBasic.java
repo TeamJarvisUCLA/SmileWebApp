@@ -239,6 +239,7 @@ public class VM_PatrocinadorFormBasic extends VM_WindowForm implements
 		this.getCiudades().clear();
 		this.getPersona().setFkCiudad(null);
 		Map<String, String> criterios = new HashMap<>();
+		
 		criterios
 				.put("fkEstado.idEstado", String.valueOf(estado.getIdEstado()));
 		PayloadCiudadResponse payloadCiudadResponse = S.CiudadService

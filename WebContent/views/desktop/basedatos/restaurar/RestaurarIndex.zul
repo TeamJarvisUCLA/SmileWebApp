@@ -9,7 +9,7 @@
 		<div class="row">
 			<div class="col s12">
 				<div class="col s8">
-					<listbox id="listbox" model="@load(vm.objectsList)"
+					<listbox id="listbox" model="@load(vm.objectsList)" onSelect="@command('findByRespaldo')"
 						selectedItem="@bind(vm.selectedObject)">
 						<auxhead>
 							<auxheader>
@@ -17,9 +17,10 @@
 									<span
 										class="prefix filter fa fa-filter">
 									</span>
-									<textbox instant="true" 
-									onChange="@command('changeFilter')"
-									value="@bind(vm.nombre)"></textbox>
+									<textbox instant="true"
+										onChange="@command('changeFilter')"
+										value="@bind(vm.nombre)">
+									</textbox>
 								</div>
 							</auxheader>
 						</auxhead>
@@ -44,9 +45,24 @@
 							</listfooter>
 						</listfoot>
 					</listbox>
+
 				</div>
-				<div class="col s4">
-				</div>
+									<div class="col s4" style="margin-left:-40px;">
+						<listbox id="listbox2"
+							model="@load(vm.listsTabla)"
+							 mold="paging"
+							pageSize="10">
+							<listhead sizable="true">
+								<listheader width="49%" label="Nombre" />
+							</listhead>
+							<template name="model">
+								<listitem>
+									<listcell
+										label="@load(each.nombre)" />
+								</listitem>
+							</template>
+						</listbox>
+					</div>
 			</div>
 		</div>
 

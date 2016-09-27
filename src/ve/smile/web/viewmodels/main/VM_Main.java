@@ -5,6 +5,7 @@ import java.util.List;
 
 import karen.core.crux.session.DataCenter;
 
+import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 
 import ve.smile.consume.services.S;
@@ -30,7 +31,7 @@ public class VM_Main {
 // uso de servicio consultaCarteleraPorParametro en CarteleraService, aqui se instancian los objetos 
 // devueltos por consultaCarteleraPorParametro como una variable de tipo PayloadCarteleraResponse			
 			PayloadCarteleraResponse payloadCarteleraResponse = S.CarteleraService
-					.consultaCarteleraPorParametro(2, TipoCarteleraEnum.NOTICIAS.ordinal());
+					.consultaCarteleraPorParametro(3, TipoCarteleraEnum.NOTICIAS.ordinal());
 // agregar en lista de noticias todos los objetos contenidos en la variable payloadCarteleraResponse 			
 			this.noticias.addAll(payloadCarteleraResponse.getObjetos());
 		}
@@ -83,8 +84,9 @@ public class VM_Main {
 	}
 	
 	@Command
-	public void detalleNoticia() {
-		DataCenter.updateSrcPageContent(null, null, "/views/web/detalleNoticia.zul");
+	public void detalleNoticia(@BindingParam("noticia") Cartelera noticia ) {
+
+		DataCenter.updateSrcPageContent(noticia, null, "/views/web/detalleNoticia.zul");
 		
 	}
 	

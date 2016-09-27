@@ -12,7 +12,7 @@
 	</style>
 	<n:link href="assets/css/web/main.css" rel="stylesheet" type="text/css"></n:link>
 <!-- 	asociar la capa de Vista con las propiedades y comportamiento de la capa VistaModelo con los atributos apply y viewModel-->
-	<div sclass="row" apply="org.zkoss.bind.BindComposer"
+	<div apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('ve.smile.web.viewmodels.main.VM_Main')">
 <!-- 	asociar la capa de Vista con las propiedades y comportamiento de la capa VistaModelo  -->
 		<div class="social">
@@ -100,7 +100,7 @@
 <!-- 				cargar el div con los objetos del metodo getnoticias en el VM con el atributo children -->
 <!-- usaremos la etiqueta template para encapsular cada elemento y definir la forma en que se renderiza					 -->
 						<template name="children">
-							<div sclass="item" onClick="@command('detalleNoticia')">
+							<div sclass="item" onClick="@command('detalleNoticia', noticia=each)">
 								<div style="padding-bottom: 10px;">
 									<label class="title" value="@load(each.titulo)">
 									</label>

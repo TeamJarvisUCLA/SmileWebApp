@@ -1,5 +1,5 @@
 <zk xmlns:n="native" xmlns:w="client">
-<div sclass="row" apply="org.zkoss.bind.BindComposer"
+<div apply="org.zkoss.bind.BindComposer"
 	viewModel="@id('vm') @init('ve.smile.web.viewmodels.footer.VM_Footer')">
 	<n:footer>
 		<div class="footer_a">

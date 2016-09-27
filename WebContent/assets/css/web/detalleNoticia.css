@@ -1,5 +1,10 @@
 .detalleNoticia {
 	background: #f0f2dc;
+	min-height: calc(100vh - 337px);
+}
+
+button {
+	background: #3b85a1 !important;
 }
 
 .detalleNoticia>.row {
@@ -12,6 +17,11 @@
 .title span {
     color: #f26b7a;
     font-size: 1.5em;
+}
+
+.volver {
+	float: right;
+	margin-right: 40px;
 }
 
 .siguiente {

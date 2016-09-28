@@ -615,3 +615,11 @@ nav-list.z-navbar>ul>.z-nav-open>a i,.nav-list.z-navbar>ul>.z-nav-open>a span
 	color:#3b85a1;
 	cursor: help !important;
 }
+.help-icon-special{
+	color:#3b85a1;
+	cursor: help !important;
+	float: right;
+	position: absolute;
+	left: 92%;
+	bottom: 50px;
+}

@@ -13,7 +13,7 @@
 						value="@bind(vm.clasificadorReconocimiento.nombre)">
 					</textbox>
 				</div>
-				<span style="cursor: help" sclass="fa fa-question-circle fa-lg help-icon" tooltip="pop_nombre, position=after_end"/>
+				<span sclass="fa fa-question-circle fa-lg help-icon" tooltip="pop_nombre, position=after_end"/>
 			</div>
 			
 			<div class="col s12">
@@ -24,7 +24,7 @@
 						value="@bind(vm.clasificadorReconocimiento.descripcion)">
 					</textbox>
 				</div>
-				<span style="cursor: help" sclass="fa fa-question-circle fa-lg help-icon" tooltip="pop_descripcion, position=after_end"/>
+				<span sclass="fa fa-question-circle fa-lg help-icon" tooltip="pop_descripcion, position=after_end"/>
 			</div>
 			
 			<div class="col s12">
@@ -40,7 +40,7 @@
 						</template>
 					</combobox>
 				</div>
-				<span style="cursor: help" sclass="fa fa-question-circle fa-lg help-icon" tooltip="pop_tipo, position=after_end"/>
+				<span sclass="fa fa-question-circle fa-lg help-icon" tooltip="pop_tipo, position=after_end"/>
 			</div>
 			
 		</div>

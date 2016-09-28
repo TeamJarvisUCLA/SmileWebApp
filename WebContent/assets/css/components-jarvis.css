@@ -613,4 +613,5 @@ nav-list.z-navbar>ul>.z-nav-open>a i,.nav-list.z-navbar>ul>.z-nav-open>a span
 
 .help-icon{
 	color:#3b85a1;
+	cursor: help !important;
 }

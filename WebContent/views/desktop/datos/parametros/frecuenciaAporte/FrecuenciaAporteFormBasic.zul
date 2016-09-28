@@ -13,6 +13,7 @@
 						value="@bind(vm.frecuenciaAporte.nombre)">
 					</textbox>
 				</div>
+				<span sclass="fa fa-question-circle fa-lg help-icon" tooltip="pop_nombre, position=after_end"/>
 			</div>
 
 			<div sclass="col s12">
@@ -28,6 +29,7 @@
 						</template>
 					</combobox>
 				</div>
+				<span sclass="fa fa-question-circle fa-lg help-icon" tooltip="pop_unidad, position=after_end"/>
 			</div>
 
 			<div class="col s12">
@@ -40,9 +42,36 @@
 						value="@bind(vm.frecuenciaAporte.frecuencia)">
 					</spinner>
 				</div>
+				<span style="padding-left:30px" sclass="fa fa-question-circle fa-lg help-icon" tooltip="pop_frecuencia, position=after_end"/>
 			</div>
-
+			
 		</div>
+
+
+		<popup id="pop_nombre" width="200px">
+			<html>
+				<![CDATA[ Por favor, indique un nombre que represente el
+				aporte que desea registrar.<br /><font
+				color="#3b85a1">Ejemplo: Económico.</font> ]]>
+			</html>
+		</popup>
+
+		<popup id="pop_unidad" width="200px">
+			<html>
+				<![CDATA[ Por favor, indique la unidad de medida que
+				desea usar para el aporte que desea registrar.<br
+				/><font color="#3b85a1">Ejemplo:Meses.</font> ]]>
+			</html>
+		</popup>
+
+		<popup id="pop_frecuencia" width="200px">
+			<html>
+				<![CDATA[ Por favor, indique la frecuencia que desea
+				usar para el aporte que desea registrar.<br /><font
+				color="#3b85a1">Ejemplo:Trimestral.</font> ]]>
+			</html>
+		</popup>
+
 
 		<div id="divButtonsForm"
 			use="karen.core.form.buttons.containers.DivButtonsForm">

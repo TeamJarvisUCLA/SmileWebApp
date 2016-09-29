@@ -607,10 +607,23 @@ nav-list.z-navbar>ul>.z-nav-open>a i,.nav-list.z-navbar>ul>.z-nav-open>a span
 	padding: 12px !important;
 }
 
-.z-popup-content{
-	padding:10px !important;
+.z-popup-content {
+	padding: 10px !important;
 }
 
-.help-icon{
-	color:#3b85a1;
+.help-icon {
+	color: #3b85a1;
+}
+
+.z-listcell-content {
+	font-family: "Roboto", sans-serif !important;
+	font-size: 1.1em !important;
+	color: #87796f;
+	text-align: initial;
+	display: -webkit-box;
+	-webkit-line-clamp: 1;
+	-webkit-box-orient: vertical;
+	overflow: hidden !important;
+	text-overflow: ellipsis;
+	height: 39px;
 }

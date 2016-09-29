@@ -1,3 +1,4 @@
+<!-- 
 <?page title="FANCA" contentType="text/html;charset=UTF-8"?>
 <?meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"?>
 
@@ -31,9 +32,13 @@
 <?script src="/resources/js/fullScreenApi.js"?>
 <?script src="/resources/js/index.js"?>
 
+ -->
+
+
+
 <zk xmlns:n="native" xmlns:w="client">
 	<n:link href="assets/css/web/conocenos.css" rel="stylesheet" type="text/css"></n:link>
-	<n:link href="assets/css/web/main.css" rel="stylesheet" type="text/css"></n:link>
+	<n:link src="assets/js/conocenos.js" type="text/javascript"></n:link>
 	
 	<div apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('ve.smile.web.conocenos.viewmodels.VM_Conocenos')">
@@ -52,25 +57,12 @@
 					</a>
 				</div>
 				<div>
-					<a href="#galeria" sclass="icon"
-						iconSclass="fa fa-picture-o">
-						<span>Galería</span>
+					<a href="#valores" sclass="icon"
+						iconSclass="fa fa-diamond">
+						<span>Valores</span>
 					</a>
 				</div>
-				<div>
-					<a href="#eventos" sclass="icon"
-						iconSclass="fa fa-picture-o">
-						<span>Eventos</span>
-					</a>
-					
-				</div>
-				<div>
-					<a href="#comunidad" sclass="icon"
-						iconSclass="fa fa-user">
-						<span>Comunidad</span>
-					</a>
-					
-				</div>
+				
 			</div>
 		</div>
 	
@@ -123,8 +115,7 @@
 					
 						  			<div class="col s12 text-center">
 						  				<n:br></n:br>
-										<label class="justificar-label text-other" value="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus at officiis amet 
-											corporis repellendus totam maxime, quod, itaque quam">
+										<label class="justificar-label text-other" value="@load(each.slogan)">
 							           </label>
 									</div>	
 								</template>	
@@ -138,61 +129,141 @@
 		<div class="titulo-valores">
 			<n:h5 class="texto-titulo-val">VALORES</n:h5>
 		</div>
-		<div class="container-fluid galeria"  >
-			<div class="row">
-				<div class="col-xs-12 fotos">
-					<div class="col-xs-2" align="center">
-						<div class="borde-blanco">
-							<image src="/imagenes/icon-respeto.png"></image>
-							<div class="caption">
-								<n:h5 class="texto-valores">Respeto</n:h5>
-							</div>
-						</div>
-					</div>
-					<div class="col-xs-2" align="center">
-						<div class="borde-blanco">
-							<image src="/imagenes/icon-trabajo-equipo.png"></image>
-							<div class="caption">
-								<n:h5 class="texto-valores">Trabajo en equipo</n:h5>
-							</div>
-						</div>
-					</div>
-					<div class="col-xs-2" align="center">
-						<div class="borde-blanco">
-							<image src="/imagenes/icon-vocacion.png"></image>
-							<div class="caption">
-								<n:h5 class="texto-valores">Vocación</n:h5>
-							</div>
-						</div>
-					</div>	
-					
-					<div class="col-xs-2" align="center">
-						<div class="borde-blanco">
-							<image src="/imagenes/icon-asistencia.png"></image>
-							<div class="caption">
-								<n:h5 class="texto-valores">Asistencia humanizada</n:h5>
-							</div>
-						</div>
-					</div>
-					<div class="col-xs-2" align="center">
-						<div class="borde-blanco">
-							<image src="/imagenes/icon-compromiso.png"></image>
-							<div class="caption">
-								<n:h5 class="texto-valores">Compromiso</n:h5>
-							</div>
-						</div>
-					</div>
-					<div class="col-xs-2" align="center">
-						<div class="borde-blanco">
-							<image src="/imagenes/icon-credibilidad.png"></image>
-							<div class="caption">
-								<n:h5 class="texto-valores">Credibilidad</n:h5>
-							</div>
-						</div>
-					</div>		
-				</div>					
+		<n:div id="valores">
+		
+			<div class="container">
+			  <div class="row">
+			    <div class="col-md-12">
+			      <div class="carousel slide multi-item-carousel" id="theCarousel">
+			        <div class="carousel-inner">
+			          <div class="item active">
+			            <div class="col-xs-4">
+			          	  <a href="#1">
+			          	  	<image src="/imagenes/icon-respeto.png" class="img-responsive"></image>
+								<div class="caption">
+									<n:h5 class="texto-valores">Respeto</n:h5>
+								</div>
+			           	  </a>
+			            </div>
+			          </div>
+			          <div class="item">
+			            <div class="col-xs-4">
+			            	<a href="#1">
+			            		<image src="/imagenes/icon-respeto.png" class="img-responsive"></image>
+								<div class="caption">
+									<n:h5 class="texto-valores">Respeto</n:h5>
+								</div>
+			            	</a>
+			            </div>
+			          </div>
+			          <div class="item">
+			            <div class="col-xs-4">
+			            	<a href="#1">
+			            		<image src="/imagenes/icon-respeto.png" class="img-responsive"></image>
+								<div class="caption">
+									<n:h5 class="texto-valores">Respeto</n:h5>
+								</div>
+			            	</a>
+			            </div>
+			          </div>
+			          <div class="item">
+			            <div class="col-xs-4">
+			            	<a href="#1">
+			            		<image src="/imagenes/icon-respeto.png" class="img-responsive"></image>
+								<div class="caption">
+									<n:h5 class="texto-valores">Respeto</n:h5>
+								</div>
+			            	</a>
+			            </div>
+			          </div>
+			          <div class="item">
+			            <div class="col-xs-4">
+			            	<a href="#1">
+			            		<image src="/imagenes/icon-respeto.png" class="img-responsive"></image>
+								<div class="caption">
+									<n:h5 class="texto-valores">Respeto</n:h5>
+								</div>
+			            	</a>
+			            </div>
+			          </div>
+			          <div class="item">
+			            <div class="col-xs-4">
+			            	<a href="#1">
+			            		<image src="/imagenes/icon-respeto.png" class="img-responsive"></image>
+								<div class="caption">
+									<n:h5 class="texto-valores">Respeto</n:h5>
+								</div>
+			            	</a>
+			            </div>
+			          </div>
+			        </div>
+			        <a class="left carousel-control" href="#theCarousel" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
+			        <a class="right carousel-control" href="#theCarousel" data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a>
+			      </div>
+			    </div>
+			  </div>
 			</div>
-		</div>
+		
+		
+		
+		
+		<!-- 	<div class="container-fluid galeria" id="valores" >
+				<div class="row">
+					<div class="col-xs-12 fotos">
+						<div class="col-xs-2" align="center">
+							<div class="borde-blanco">
+								<image src="/imagenes/icon-respeto.png"></image>
+								<div class="caption">
+									<n:h5 class="texto-valores">Respeto</n:h5>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-2" align="center">
+							<div class="borde-blanco">
+								<image src="/imagenes/icon-trabajo-equipo.png"></image>
+								<div class="caption">
+									<n:h5 class="texto-valores">Trabajo en equipo</n:h5>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-2" align="center">
+							<div class="borde-blanco">
+								<image src="/imagenes/icon-vocacion.png"></image>
+								<div class="caption">
+									<n:h5 class="texto-valores">Vocación</n:h5>
+								</div>
+							</div>
+						</div>	
+						
+						<div class="col-xs-2" align="center">
+							<div class="borde-blanco">
+								<image src="/imagenes/icon-asistencia.png"></image>
+								<div class="caption">
+									<n:h5 class="texto-valores">Asistencia humanizada</n:h5>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-2" align="center">
+							<div class="borde-blanco">
+								<image src="/imagenes/icon-compromiso.png"></image>
+								<div class="caption">
+									<n:h5 class="texto-valores">Compromiso</n:h5>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-2" align="center">
+							<div class="borde-blanco">
+								<image src="/imagenes/icon-credibilidad.png"></image>
+								<div class="caption">
+									<n:h5 class="texto-valores">Credibilidad</n:h5>
+								</div>
+							</div>
+						</div>		
+					</div>					
+				</div>
+			</div> -->
+		</n:div>
+		<!-- 
 		<div class="container-fluid galeria color-fondo borde-beich">
 			<div class="row color-fondo borde-beich">
 					<div class="col-md-9 " align="center">
@@ -265,6 +336,6 @@
 				</div>
 			</div>	
 		</div>	
-		</div>
+		</div> -->
 	</div>
 </zk>	

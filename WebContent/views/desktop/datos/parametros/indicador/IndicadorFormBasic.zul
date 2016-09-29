@@ -14,6 +14,7 @@
 						value="@bind(vm.indicador.nombre)">
 					</textbox>
 				</div>
+				<span sclass="fa fa-question-circle fa-lg help-icon" tooltip="pop_nombre, position=after_end"/>
 			</div>
 
 			<div sclass="col s12">
@@ -30,6 +31,7 @@
 						</template>
 					</combobox>
 				</div>
+				<span sclass="fa fa-question-circle fa-lg help-icon" tooltip="pop_unidad, position=after_end"/>
 			</div>
 
 			<div class="col s12">
@@ -40,9 +42,37 @@
 						value="@bind(vm.indicador.descripcion)">
 					</textbox>
 				</div>
+				<span sclass="fa fa-question-circle fa-lg help-icon" tooltip="pop_descripcion, position=after_end"/>
 			</div>
-
 		</div>
+		
+		
+		<popup id="pop_nombre" width="200px">
+			<html>
+				<![CDATA[ Por favor, indique el nombre del indicador que
+				desea registrar.<br /><font color="#3b85a1">Ejemplo:
+				Cantidad vendida.</font> ]]>
+			</html>
+		</popup>
+
+		<popup id="pop_unidad" width="200px">
+			<html>
+				<![CDATA[ Por favor, provea la unidad de medida para el
+				indicador que desea registrar.<br /><font
+				color="#3b85a1">Ejemplo:Unidades.</font> ]]>
+			</html>
+		</popup>
+
+		<popup id="pop_descripcion" width="200px">
+			<html>
+				<![CDATA[ Por favor, indique una descripción breve,
+				sobre el indicador que desea registrar.<br /><font
+				color="#3b85a1">Ejemplo:Indicará la cantidad de
+				productos vendidos</font> ]]>
+			</html>
+		</popup>
+
+
 		<div id="divButtonsForm"
 			use="karen.core.form.buttons.containers.DivButtonsForm">
 		</div>

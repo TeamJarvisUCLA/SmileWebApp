@@ -14,7 +14,7 @@
 						value="@bind(vm.clasificadorRecurso.nombre)">
 					</textbox>
 				</div>
-				<span style="cursor: help" sclass="fa fa-question-circle fa-lg help-icon" tooltip="pop_nombre, position=after_end"/>
+				<span sclass="fa fa-question-circle fa-lg help-icon" tooltip="pop_nombre, position=after_end"/>
 			</div>
 		</div>
 		

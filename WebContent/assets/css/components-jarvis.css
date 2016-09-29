@@ -611,8 +611,18 @@ nav-list.z-navbar>ul>.z-nav-open>a i,.nav-list.z-navbar>ul>.z-nav-open>a span
 	padding: 10px !important;
 }
 
-.help-icon {
-	color: #3b85a1;
+.help-icon{
+	color:#3b85a1;
+	cursor: help !important;
+}
+
+.help-icon-special{
+	color:#3b85a1;
+	cursor: help !important;
+	float: right;
+	position: absolute;
+	left: 92%;
+	bottom: 50px;
 }
 
 .z-listcell-content {
@@ -627,3 +637,5 @@ nav-list.z-navbar>ul>.z-nav-open>a i,.nav-list.z-navbar>ul>.z-nav-open>a span
 	text-overflow: ellipsis;
 	height: 39px;
 }
+
+

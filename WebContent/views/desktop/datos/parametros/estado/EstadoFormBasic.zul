@@ -12,8 +12,19 @@
 						value="@bind(vm.estado.nombre)">
 					</textbox>
 				</div>
+				<span sclass="fa fa-question-circle fa-lg help-icon" tooltip="pop_nombre, position=after_end"/>
 			</div>
 		</div>
+		
+		
+		<popup id="pop_nombre" width="200px">
+        	<html><![CDATA[
+            	Por favor, indique el nombre del estado que desea 
+            	registrar.<br /><font color="#3b85a1">Ejemplo: Lara.</font>
+        	]]></html>
+    	</popup>
+		
+		
 		<div id="divButtonsForm"
 			use="karen.core.form.buttons.containers.DivButtonsForm">
 		</div>

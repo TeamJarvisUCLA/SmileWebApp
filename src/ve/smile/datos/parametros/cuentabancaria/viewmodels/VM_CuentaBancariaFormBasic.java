@@ -17,7 +17,7 @@ import org.zkoss.bind.annotation.Init;
 import ve.smile.consume.services.S;
 import ve.smile.dto.Banco;
 import ve.smile.dto.CuentaBancaria;
-import ve.smile.enums.TipoCuentaEnum;
+import ve.smile.enums.PropietarioEnum;
 import ve.smile.payload.response.PayloadBancoResponse;
 import ve.smile.payload.response.PayloadCuentaBancariaResponse;
 import ve.smile.seguridad.enums.OperacionEnum;
@@ -25,26 +25,26 @@ import ve.smile.seguridad.enums.OperacionEnum;
 public class VM_CuentaBancariaFormBasic extends VM_WindowForm {
 
 	private List<Banco> bancos;
-	private List<TipoCuentaEnum> tipoCuentaEnums;
-	private TipoCuentaEnum tipoCuentaEnum;
+	private List<PropietarioEnum> tipoCuentaEnums;
+	private PropietarioEnum tipoCuentaEnum;
 
 	@Init(superclass = true)
 	public void childInit() {
 		// NOTHING OK!
 	}
 
-	public TipoCuentaEnum getTipoCuentaEnum()
+	public PropietarioEnum getTipoCuentaEnum()
 	{
 		return tipoCuentaEnum;
 	}
 
-	public void setTipoCuentaEnum(TipoCuentaEnum tipoCuentaEnum)
+	public void setTipoCuentaEnum(PropietarioEnum tipoCuentaEnum)
 	{
 		this.tipoCuentaEnum = tipoCuentaEnum;
 		this.getCuentaBancaria().setPropietario(tipoCuentaEnum.ordinal());
 	}
 
-	public List<TipoCuentaEnum> getTipoCuentaEnums()
+	public List<PropietarioEnum> getTipoCuentaEnums()
 	{
 		if (this.tipoCuentaEnums == null)
 		{
@@ -52,7 +52,7 @@ public class VM_CuentaBancariaFormBasic extends VM_WindowForm {
 		}
 		if (this.tipoCuentaEnums.isEmpty())
 		{
-			for (TipoCuentaEnum tipoCuentaEnum : TipoCuentaEnum.values())
+			for (PropietarioEnum tipoCuentaEnum : PropietarioEnum.values())
 			{
 				this.tipoCuentaEnums.add(tipoCuentaEnum);
 			}
@@ -60,7 +60,7 @@ public class VM_CuentaBancariaFormBasic extends VM_WindowForm {
 		return tipoCuentaEnums;
 	}
 
-	public void setTipoCuentaEnums(List<TipoCuentaEnum> tipoCuentaEnums)
+	public void setTipoCuentaEnums(List<PropietarioEnum> tipoCuentaEnums)
 	{
 		this.tipoCuentaEnums = tipoCuentaEnums;
 	}

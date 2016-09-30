@@ -19,7 +19,7 @@ import ve.smile.dto.Voluntario;
 import ve.smile.payload.response.PayloadVoluntarioResponse;
 import ve.smile.seguridad.enums.OperacionEnum;
 import ve.smile.seguridad.enums.SexoEnum;
-import ve.smile.enums.EstatusPostuladoEnum;
+import ve.smile.enums.EstatusVoluntarioEnum;
 
 public class VM_EvaluacionPostuladoFormBasic extends VM_WindowForm
 {
@@ -27,8 +27,8 @@ public class VM_EvaluacionPostuladoFormBasic extends VM_WindowForm
 	private List<SexoEnum> sexoEnums;
 	private SexoEnum sexoEnum;
 	
-	private List<EstatusPostuladoEnum> estatusPostuladoEnums;
-	private EstatusPostuladoEnum estatusPostuladoEnum;
+	private List<EstatusVoluntarioEnum> estatusPostuladoEnums;
+	private EstatusVoluntarioEnum estatusPostuladoEnum;
 
 	@Init(superclass = true)
 	public void childInit()
@@ -68,7 +68,7 @@ public class VM_EvaluacionPostuladoFormBasic extends VM_WindowForm
 		this.getVoluntario().getFkPersona().setSexo(sexoEnum.ordinal()); 
 	}
 	
-	public List<EstatusPostuladoEnum> getEstatusPostuladoEnums()
+	public List<EstatusVoluntarioEnum> getEstatusPostuladoEnums()
 	{ 	
 		if (this.estatusPostuladoEnums == null)
 		{
@@ -76,7 +76,7 @@ public class VM_EvaluacionPostuladoFormBasic extends VM_WindowForm
 		}
 		if (this.estatusPostuladoEnums.isEmpty())
 		{
-			for (EstatusPostuladoEnum estatusPostuladoEnum : EstatusPostuladoEnum.values())
+			for (EstatusVoluntarioEnum estatusPostuladoEnum : EstatusVoluntarioEnum.values())
 			{
 				this.estatusPostuladoEnums.add(estatusPostuladoEnum);
 			}
@@ -84,17 +84,17 @@ public class VM_EvaluacionPostuladoFormBasic extends VM_WindowForm
 		return estatusPostuladoEnums;
 	}
 	
-	public void setEstatusPostuladoEnums(List<EstatusPostuladoEnum> estatusPostuladoEnums)
+	public void setEstatusPostuladoEnums(List<EstatusVoluntarioEnum> estatusPostuladoEnums)
 	{
 		this.estatusPostuladoEnums = estatusPostuladoEnums;
 	}
 	
-	public EstatusPostuladoEnum getEstatusPostuladoEnum()
+	public EstatusVoluntarioEnum getEstatusPostuladoEnum()
 	{
 		return estatusPostuladoEnum;
 	}
 	
-	public void setEstatusPostuladoEnum(EstatusPostuladoEnum estatusPostuladoEnum)
+	public void setEstatusPostuladoEnum(EstatusVoluntarioEnum estatusPostuladoEnum)
 	{
 		this.estatusPostuladoEnum = estatusPostuladoEnum;
 		this.getVoluntario().getFkPersona().setSexo(sexoEnum.ordinal()); 

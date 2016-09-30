@@ -69,9 +69,6 @@ public class VM_PostuladoPadrino extends C_WindowDialog {
 		// TODO
 		try {
 			UtilValidate.validateString(getPersona().getNombre(), "Nombre", 100 );
-			UtilValidate.validateInteger(getPersona().getEdad(),
-					"Edad", ValidateOperator.GREATER_THAN, 0);
-			UtilValidate.validateNull(getPersona().getEdad(), "Edad");
 			UtilValidate.validateNull(getPersona().getDireccion(), "Direccion");
 			UtilValidate.validateNull(getPersona().getNombre(), "Nombre");
 			//fecha

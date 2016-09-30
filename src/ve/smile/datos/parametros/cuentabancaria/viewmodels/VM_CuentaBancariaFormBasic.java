@@ -41,7 +41,7 @@ public class VM_CuentaBancariaFormBasic extends VM_WindowForm {
 	public void setTipoCuentaEnum(TipoCuentaEnum tipoCuentaEnum)
 	{
 		this.tipoCuentaEnum = tipoCuentaEnum;
-		this.getCuentaBancaria().setTipoCuenta(tipoCuentaEnum.ordinal());
+		this.getCuentaBancaria().setPropietario(tipoCuentaEnum.ordinal());
 	}
 
 	public List<TipoCuentaEnum> getTipoCuentaEnums()

@@ -38,7 +38,7 @@
 
 <zk xmlns:n="native" xmlns:w="client">
 	<n:link href="assets/css/web/conocenos.css" rel="stylesheet" type="text/css"></n:link>
-	<n:link src="assets/js/conocenos.js" type="text/javascript"></n:link>
+	
 	
 	<div apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('ve.smile.web.conocenos.viewmodels.VM_Conocenos')">
@@ -129,85 +129,41 @@
 		<div class="titulo-valores">
 			<n:h5 class="texto-titulo-val">VALORES</n:h5>
 		</div>
+		
 		<n:div id="valores">
 		
-			<div class="container">
-			  <div class="row">
-			    <div class="col-md-12">
-			      <div class="carousel slide multi-item-carousel" id="theCarousel">
-			        <div class="carousel-inner">
-			          <div class="item active">
-			            <div class="col-xs-4">
-			          	  <a href="#1">
-			          	  	<image src="/imagenes/icon-respeto.png" class="img-responsive"></image>
-								<div class="caption">
-									<n:h5 class="texto-valores">Respeto</n:h5>
+		
+		
+			<div sclass="row">
+				<div sclass="col s10">
+<!-- 				cargar el div con los objetos del metodo getnoticias en el VM con el atributo children -->
+					<div class="owlNoticias owl-carousel owl-theme" children="@load(vm.noticias)">
+<!-- 				cargar el div con los objetos del metodo getnoticias en el VM con el atributo children -->
+<!-- usaremos la etiqueta template para encapsular cada elemento y definir la forma en que se renderiza					 -->
+						<template name="children">
+							<div sclass="item" onClick="@command('detalleNoticia', noticia=each)">
+								<div style="padding-bottom: 10px;">
+									<label class="title" value="@load(each.titulo)">
+									</label>
 								</div>
-			           	  </a>
-			            </div>
-			          </div>
-			          <div class="item">
-			            <div class="col-xs-4">
-			            	<a href="#1">
-			            		<image src="/imagenes/icon-respeto.png" class="img-responsive"></image>
-								<div class="caption">
-									<n:h5 class="texto-valores">Respeto</n:h5>
+								<div class="block-ellipsis">
+									<label
+										value="@load(each.descripcion)">
+									</label>
 								</div>
-			            	</a>
-			            </div>
-			          </div>
-			          <div class="item">
-			            <div class="col-xs-4">
-			            	<a href="#1">
-			            		<image src="/imagenes/icon-respeto.png" class="img-responsive"></image>
-								<div class="caption">
-									<n:h5 class="texto-valores">Respeto</n:h5>
-								</div>
-			            	</a>
-			            </div>
-			          </div>
-			          <div class="item">
-			            <div class="col-xs-4">
-			            	<a href="#1">
-			            		<image src="/imagenes/icon-respeto.png" class="img-responsive"></image>
-								<div class="caption">
-									<n:h5 class="texto-valores">Respeto</n:h5>
-								</div>
-			            	</a>
-			            </div>
-			          </div>
-			          <div class="item">
-			            <div class="col-xs-4">
-			            	<a href="#1">
-			            		<image src="/imagenes/icon-respeto.png" class="img-responsive"></image>
-								<div class="caption">
-									<n:h5 class="texto-valores">Respeto</n:h5>
-								</div>
-			            	</a>
-			            </div>
-			          </div>
-			          <div class="item">
-			            <div class="col-xs-4">
-			            	<a href="#1">
-			            		<image src="/imagenes/icon-respeto.png" class="img-responsive"></image>
-								<div class="caption">
-									<n:h5 class="texto-valores">Respeto</n:h5>
-								</div>
-			            	</a>
-			            </div>
-			          </div>
-			        </div>
-			        <a class="left carousel-control" href="#theCarousel" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
-			        <a class="right carousel-control" href="#theCarousel" data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a>
-			      </div>
-			    </div>
-			  </div>
+							</div>
+						</template>
+<!-- usaremos la etiqueta template para encapsular cada elemento y definir la forma en que se renderiza					 -->						
+					</div>
+				</div>
+				
 			</div>
 		
 		
 		
 		
-		<!-- 	<div class="container-fluid galeria" id="valores" >
+		<!-- 
+			<div class="container-fluid galeria" id="valores" >
 				<div class="row">
 					<div class="col-xs-12 fotos">
 						<div class="col-xs-2" align="center">
@@ -261,8 +217,11 @@
 						</div>		
 					</div>					
 				</div>
-			</div> -->
+			</div>
+			
+			-->
 		</n:div>
+		 
 		<!-- 
 		<div class="container-fluid galeria color-fondo borde-beich">
 			<div class="row color-fondo borde-beich">
@@ -338,4 +297,96 @@
 		</div>	
 		</div> -->
 	</div>
+	
+	
+	<n:script type="text/javascript">
+		$(document).ready(function() {
+		
+		$('.carousel').carousel();
+		
+		setInterval(function(){
+		  $('.carousel').carousel('next');
+		}, 4000);
+		
+		  $('.owlNoticias').owlCarousel({
+		 items:4,
+		 mouseDrag:false,
+		      navigation : true, // Show next and prev buttons
+		      slideSpeed : 300,
+		      paginationSpeed : 400,
+		      singleItem: false,
+			  navigationText: [
+			      '<span sclass="fa fa-chevron-left"></span>',
+			    '<span sclass="fa fa-chevron-right"></span>'
+			      ],
+			      autoWidth:true,
+			       autoPlay: true 
+		  });
+		  
+		 $('#owlPatrocinadores').owlCarousel({
+		 items:1,
+		 mouseDrag:false,
+		      navigation : true, // Show next and prev buttons
+		      slideSpeed : 300,
+		      paginationSpeed : 400,
+		      singleItem: true,
+			  navigationText: [
+			      '<span sclass="fa fa-chevron-left"></span>',
+			    '<span sclass="fa fa-chevron-right"></span>'
+			      ],
+			      autoWidth:true,
+			       autoPlay: true 
+		  });
+
+		$('#owlTwitter').owlCarousel({
+			 items:1,
+			 mouseDrag:false,
+			navigation : false, // Show next and prev buttons
+			pagination:false, 
+			slideSpeed : 300, paginationSpeed : 400,
+			singleItem:true, autoPlay: true });
+			
+			
+
+			var anchocubo = $(".cube").width();
+			
+			$(".face.two").css("transform", "translateZ("+anchocubo/2+"px)");
+			$(".face.three").css("transform", "rotateY(90deg) translateZ("+anchocubo/2+"px)");
+			$(".face.four").css("transform", "rotateY(180deg) translateZ("+anchocubo/2+"px)");
+			
+			$(".face.two").css("-webkit-transform", "translateZ("+anchocubo/2+"px)");
+			$(".face.three").css("-webkit-transform", "rotateY(90deg) translateZ("+anchocubo/2+"px)");
+			$(".face.four").css("-webkit-transform", "rotateY(180deg) translateZ("+anchocubo/2+"px)");
+			
+			var rot = 90;
+			setInterval(function() {
+			     $(".cube").css("transform", "rotateY(-" + rot + "deg)");
+			     if (rot == 180){
+			       rot = 0
+			     }else {
+			       rot = rot + 90;
+			     }
+			}, 6000);
+	
+
+		});
+		
+		
+		$( window ).resize(function() {
+
+			var anchocubo = $(".cube").width();	
+					
+			$(".face.two").css("transform", "translateZ("+anchocubo/2+"px)");
+			$(".face.three").css("transform", "rotateY(90deg) translateZ("+anchocubo/2+"px)");
+			$(".face.four").css("transform", "rotateY(180deg) translateZ("+anchocubo/2+"px)");
+			
+			$(".face.two").css("-webkit-transform", "translateZ("+anchocubo/2+"px)");
+			$(".face.three").css("-webkit-transform", "rotateY(90deg) translateZ("+anchocubo/2+"px)");
+			$(".face.four").css("-webkit-transform", "rotateY(180deg) translateZ("+anchocubo/2+"px)");	
+	
+		});
+
+					
+	</n:script>
+	
 </zk>	

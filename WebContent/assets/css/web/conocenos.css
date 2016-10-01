@@ -71,11 +71,29 @@
 
 .borde-blanco{
 	border-color: #ffffff;
+	/*padding-left: 50px;*/
+	align: center;
 }
+.centrada{
+	/*align: center;*/
+	/*display: block;*/
+    margin: auto;
+}
+
+/*.center {
+    margin: auto;
+    width: 50%;
+    border: 3px solid green;
+    padding: 10px;
+    padding: 25px 120px 25px 10px;
+	margin: 5px;
+}*/
 
 .texto-valores{
 	padding-top: 18px; 
 	color: #87796F;
+	text-align: center;
+	/*padding-left: 13px;*/
 }
 
 /* encabezado de estadisticas */
@@ -178,3 +196,101 @@
 	margin-bottom: 0px;
 }
 
+/*Menu flotante*/
+
+.social .icon span {
+		display: none;
+	}
+	
+	.social .icon:hover span {
+		display: initial;
+		margin-left: 5px;
+		text-transform: uppercase;
+	}
+	
+	.social {
+		position: fixed; /* Hacemos que la posición en
+			pantalla sea fija para que siempre se muestre en pantalla*/
+		left: 0; /* Establecemos la barra en la izquierda */
+		top: 200px;
+		/* Bajamos la barra 200px de arriba a abajo */
+		z-index: 2000; /*
+			Utilizamos la propiedad z-index para que no se superponga algún
+			otro elemento como sliders, galerías, etc */
+	}
+	
+	.social div>div {
+		margin-bottom: 1px;
+	}
+	
+	.social div a {
+		display: inline-block;
+		color: #fff;
+		background: #000;
+		padding: 8px 12px;
+		text-decoration: none;
+		-webkit-transition: all 500ms ease;
+		-o-transition: all 500ms ease;
+		transition: all 500ms ease; /* Establecemos una transición a
+			todas las propiedades */
+	}
+	
+	.social div .icon {
+		width: 44px;
+		background: #87796F;
+	}
+	
+	.social div .icon i {
+		color: #DB6E78;
+		font-size: 20px;
+	}
+	
+	.social div a:hover {
+		width: auto;
+		background: rgba(135, 121, 111, 0.84);
+		/* Cambiamos el fondo cuando el usuario pase el mouse */
+		padding: 10px 30px; /* Hacemos mas grande el espacio cuando el
+			usuario pase el mouse */
+	}
+	
+/*  Estilos Slider*/
+	.owlNoticias .owl-theme .owl-controls .owl-buttons div {
+	position: absolute;
+}
+
+.owlNoticias.owl-theme .owl-controls .owl-buttons .owl-prev {
+	left: -50px;
+	top: 60px;
+	position: absolute;
+}
+
+.owlNoticias.owl-theme .owl-controls .owl-buttons .owl-next {
+	right: 50px;
+	top: 60px;
+	position: absolute;
+}
+
+.owlNoticias.owl-carousel {
+	display: none;
+	position: relative;
+	-ms-touch-action: pan-y;
+	margin-left: 4%; /*nuevo*/
+}
+
+
+.owlNoticias .owl-theme .owl-controls .owl-buttons div {
+	padding: 5px 40px;
+}
+
+.owlNoticias .owl-theme .owl-buttons span {
+	margin-top: 2px;
+}
+
+.owlNoticias .item {
+	padding: 25px 62px 25px 10px;
+	margin: 5px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	text-align: center;
+}

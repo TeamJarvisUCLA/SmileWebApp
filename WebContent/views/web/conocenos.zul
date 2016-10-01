@@ -1,3 +1,4 @@
+<!-- 
 <?page title="FANCA" contentType="text/html;charset=UTF-8"?>
 <?meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"?>
 
@@ -31,9 +32,13 @@
 <?script src="/resources/js/fullScreenApi.js"?>
 <?script src="/resources/js/index.js"?>
 
+ -->
+
+
+
 <zk xmlns:n="native" xmlns:w="client">
 	<n:link href="assets/css/web/conocenos.css" rel="stylesheet" type="text/css"></n:link>
-	<n:link href="assets/css/web/main.css" rel="stylesheet" type="text/css"></n:link>
+<!--  	<n:link href="assets/css/web/main.css" rel="stylesheet" type="text/css"></n:link> -->
 	
 	<div apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('ve.smile.web.conocenos.viewmodels.VM_Conocenos')">
@@ -52,25 +57,12 @@
 					</a>
 				</div>
 				<div>
-					<a href="#galeria" sclass="icon"
-						iconSclass="fa fa-picture-o">
-						<span>Galería</span>
+					<a href="#valores" sclass="icon"
+						iconSclass="fa fa-diamond">
+						<span>Valores</span>
 					</a>
 				</div>
-				<div>
-					<a href="#eventos" sclass="icon"
-						iconSclass="fa fa-picture-o">
-						<span>Eventos</span>
-					</a>
-					
-				</div>
-				<div>
-					<a href="#comunidad" sclass="icon"
-						iconSclass="fa fa-user">
-						<span>Comunidad</span>
-					</a>
-					
-				</div>
+				
 			</div>
 		</div>
 	
@@ -123,8 +115,7 @@
 					
 						  			<div class="col s12 text-center">
 						  				<n:br></n:br>
-										<label class="justificar-label text-other" value="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus at officiis amet 
-											corporis repellendus totam maxime, quod, itaque quam">
+										<label class="justificar-label text-other" value="@load(each.slogan)">
 							           </label>
 									</div>	
 								</template>	
@@ -138,61 +129,98 @@
 		<div class="titulo-valores">
 			<n:h5 class="texto-titulo-val">VALORES</n:h5>
 		</div>
-		<div class="container-fluid galeria"  >
-			<div class="row">
-				<div class="col-xs-12 fotos">
-					<div class="col-xs-2" align="center">
-						<div class="borde-blanco">
-							<image src="/imagenes/icon-respeto.png"></image>
-							<div class="caption">
-								<n:h5 class="texto-valores">Respeto</n:h5>
+		
+		<n:div id="valores">
+		
+		
+		
+			<div sclass="row">
+				<div sclass="col s12">
+<!-- 				cargar el div con los objetos del metodo getnoticias en el VM con el atributo children -->
+					<div class="owlNoticias owl-carousel owl-theme" children="@load(vm.valores)">
+<!-- 				cargar el div con los objetos del metodo getnoticias en el VM con el atributo children -->
+<!-- usaremos la etiqueta template para encapsular cada elemento y definir la forma en que se renderiza					 -->
+						<template name="children">
+							<div class="borde-blanco">
+								<image class="img-responsive center-block" src="@load(each.fkMultimedia.url)"></image>
+								<div class="caption">
+									<label class="texto-valores center-block" value="@load(each.nombre)"></label>
+									
+								</div>
 							</div>
-						</div>
+							
+							
+						</template>
+<!-- usaremos la etiqueta template para encapsular cada elemento y definir la forma en que se renderiza					 -->						
 					</div>
-					<div class="col-xs-2" align="center">
-						<div class="borde-blanco">
-							<image src="/imagenes/icon-trabajo-equipo.png"></image>
-							<div class="caption">
-								<n:h5 class="texto-valores">Trabajo en equipo</n:h5>
-							</div>
-						</div>
-					</div>
-					<div class="col-xs-2" align="center">
-						<div class="borde-blanco">
-							<image src="/imagenes/icon-vocacion.png"></image>
-							<div class="caption">
-								<n:h5 class="texto-valores">Vocación</n:h5>
-							</div>
-						</div>
-					</div>	
-					
-					<div class="col-xs-2" align="center">
-						<div class="borde-blanco">
-							<image src="/imagenes/icon-asistencia.png"></image>
-							<div class="caption">
-								<n:h5 class="texto-valores">Asistencia humanizada</n:h5>
-							</div>
-						</div>
-					</div>
-					<div class="col-xs-2" align="center">
-						<div class="borde-blanco">
-							<image src="/imagenes/icon-compromiso.png"></image>
-							<div class="caption">
-								<n:h5 class="texto-valores">Compromiso</n:h5>
-							</div>
-						</div>
-					</div>
-					<div class="col-xs-2" align="center">
-						<div class="borde-blanco">
-							<image src="/imagenes/icon-credibilidad.png"></image>
-							<div class="caption">
-								<n:h5 class="texto-valores">Credibilidad</n:h5>
-							</div>
-						</div>
-					</div>		
-				</div>					
+				</div>
+				
 			</div>
-		</div>
+		
+		
+		
+		
+		<!-- 
+			<div class="container-fluid galeria" id="valores" >
+				<div class="row">
+					<div class="col-xs-12 fotos">
+						<div class="col-xs-2" align="center">
+							<div class="borde-blanco">
+								<image src="/imagenes/icon-respeto.png"></image>
+								<div class="caption">
+									<n:h5 class="texto-valores">Respeto</n:h5>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-2" align="center">
+							<div class="borde-blanco">
+								<image src="/imagenes/icon-trabajo-equipo.png"></image>
+								<div class="caption">
+									<n:h5 class="texto-valores">Trabajo en equipo</n:h5>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-2" align="center">
+							<div class="borde-blanco">
+								<image src="/imagenes/icon-vocacion.png"></image>
+								<div class="caption">
+									<n:h5 class="texto-valores">Vocación</n:h5>
+								</div>
+							</div>
+						</div>	
+						
+						<div class="col-xs-2" align="center">
+							<div class="borde-blanco">
+								<image src="/imagenes/icon-asistencia.png"></image>
+								<div class="caption">
+									<n:h5 class="texto-valores">Asistencia humanizada</n:h5>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-2" align="center">
+							<div class="borde-blanco">
+								<image src="/imagenes/icon-compromiso.png"></image>
+								<div class="caption">
+									<n:h5 class="texto-valores">Compromiso</n:h5>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-2" align="center">
+							<div class="borde-blanco">
+								<image src="/imagenes/icon-credibilidad.png"></image>
+								<div class="caption">
+									<n:h5 class="texto-valores">Credibilidad</n:h5>
+								</div>
+							</div>
+						</div>		
+					</div>					
+				</div>
+			</div>
+			
+			-->
+		</n:div>
+		 
+		<!-- 
 		<div class="container-fluid galeria color-fondo borde-beich">
 			<div class="row color-fondo borde-beich">
 					<div class="col-md-9 " align="center">
@@ -265,6 +293,98 @@
 				</div>
 			</div>	
 		</div>	
-		</div>
+		</div> -->
 	</div>
+	
+	
+	<n:script type="text/javascript">
+		$(document).ready(function() {
+		
+		$('.carousel').carousel();
+		
+		setInterval(function(){
+		  $('.carousel').carousel('next');
+		}, 4000);
+		
+		  $('.owlNoticias').owlCarousel({
+		 items:4,
+		 mouseDrag:false,
+		      navigation : true, // Show next and prev buttons
+		      slideSpeed : 300,
+		      paginationSpeed : 400,
+		      singleItem: false,
+			  navigationText: [
+			      '<span sclass="fa fa-chevron-left"></span>',
+			    '<span sclass="fa fa-chevron-right"></span>'
+			      ],
+			      autoWidth:true,
+			       autoPlay: true 
+		  });
+		  
+		 $('#owlPatrocinadores').owlCarousel({
+		 items:1,
+		 mouseDrag:false,
+		      navigation : true, // Show next and prev buttons
+		      slideSpeed : 300,
+		      paginationSpeed : 400,
+		      singleItem: true,
+			  navigationText: [
+			      '<span sclass="fa fa-chevron-left"></span>',
+			    '<span sclass="fa fa-chevron-right"></span>'
+			      ],
+			      autoWidth:true,
+			       autoPlay: true 
+		  });
+
+		$('#owlTwitter').owlCarousel({
+			 items:1,
+			 mouseDrag:false,
+			navigation : false, // Show next and prev buttons
+			pagination:false, 
+			slideSpeed : 300, paginationSpeed : 400,
+			singleItem:true, autoPlay: true });
+			
+			
+
+			var anchocubo = $(".cube").width();
+			
+			$(".face.two").css("transform", "translateZ("+anchocubo/2+"px)");
+			$(".face.three").css("transform", "rotateY(90deg) translateZ("+anchocubo/2+"px)");
+			$(".face.four").css("transform", "rotateY(180deg) translateZ("+anchocubo/2+"px)");
+			
+			$(".face.two").css("-webkit-transform", "translateZ("+anchocubo/2+"px)");
+			$(".face.three").css("-webkit-transform", "rotateY(90deg) translateZ("+anchocubo/2+"px)");
+			$(".face.four").css("-webkit-transform", "rotateY(180deg) translateZ("+anchocubo/2+"px)");
+			
+			var rot = 90;
+			setInterval(function() {
+			     $(".cube").css("transform", "rotateY(-" + rot + "deg)");
+			     if (rot == 180){
+			       rot = 0
+			     }else {
+			       rot = rot + 90;
+			     }
+			}, 6000);
+	
+
+		});
+		
+		
+		$( window ).resize(function() {
+
+			var anchocubo = $(".cube").width();	
+					
+			$(".face.two").css("transform", "translateZ("+anchocubo/2+"px)");
+			$(".face.three").css("transform", "rotateY(90deg) translateZ("+anchocubo/2+"px)");
+			$(".face.four").css("transform", "rotateY(180deg) translateZ("+anchocubo/2+"px)");
+			
+			$(".face.two").css("-webkit-transform", "translateZ("+anchocubo/2+"px)");
+			$(".face.three").css("-webkit-transform", "rotateY(90deg) translateZ("+anchocubo/2+"px)");
+			$(".face.four").css("-webkit-transform", "rotateY(180deg) translateZ("+anchocubo/2+"px)");	
+	
+		});
+
+					
+	</n:script>
+	
 </zk>	

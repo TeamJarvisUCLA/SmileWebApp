@@ -2,7 +2,7 @@
 	<div width="80%" class="container ${arg.animation_}"
 		use="karen.core.form.controllers.C_WindowForm"
 		apply="org.zkoss.bind.BindComposer"
-		viewModel="@id('vm') @init('ve.smile.gestion.apadrinamiento.evaluacion.viewmodels.VM_EvaluacionPostuladoFormBasic')">
+		viewModel="@id('vm') @init('ve.smile.gestion.apadrinamiento.postulacion.viewmodels.VM_PostulacionFormBasic')">
 
 		<div class="row">
 			<div sclass="col s12 form">
@@ -18,7 +18,7 @@
 				
 							<div class="input-field col s6">
 								<n:label for="frecuencia">Frecuencia de aporte</n:label>
-								<textbox id="frecuencia" type="text" value="@bind(vm.padrino.fkFrecuenciaAporte)"> </textbox>
+								<textbox id="frecuencia" type="text" value="@bind(vm.padrino.fkFrecuenciaAporte.nombre)"> </textbox>
 							</div>
 							
 							<div class="input-field col s6">
@@ -31,10 +31,6 @@
 								<textbox id="monto" type="text" value="@bind(vm.padrino.monto)"> </textbox>
 							</div>
 							
-							<div class="input-field col s6">
-								<n:label for="condicion" class="active">Condición</n:label>
-								<textbox id="condicion" type="text" value="@bind(vm.padrino.estatusPostulado)"> </textbox>
-							</div>
 		
 			</div>
 		</div>

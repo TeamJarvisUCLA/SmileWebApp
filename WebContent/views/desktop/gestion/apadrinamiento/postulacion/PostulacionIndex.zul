@@ -2,7 +2,7 @@
 	<div width="100%" class='${arg.animation_}'
 		use="karen.core.simple_list_principal.controllers.C_WindowSimpleListPrincipal"
 		apply="org.zkoss.bind.BindComposer"
-		viewModel="@id('vm') @init('ve.smile.gestion.apadrinamiento.evaluacion.viewmodels.VM_EvaluacionPostuladoIndex')">
+		viewModel="@id('vm') @init('ve.smile.gestion.apadrinamiento.postulacion.viewmodels.VM_PostulacionIndex')">
 
 		<div class="row">
 			<div class="col s12">
@@ -13,14 +13,14 @@
 							<listheader width="25%" label="Nombre" />
 							<listheader width="25%" label="Apellido" />
 							<listheader width="25%" label="Fecha de ingreso" />
-							<listheader width="25%" label="Condición" />
+							<listheader width="25%" label="Frecuencia de Aporte" />
 						</listhead>
 						<template name="model">
 							<listitem>
 								<listcell label="@load(each.fkPersona.nombre)" />
 								<listcell label="@load(each.fkPersona.apellido)" />
 								<listcell label="@load(each.fechaIngreso)" />
-								<listcell label="@load(each.estatusPostulado)" />
+								<listcell label="@load(each.fkFrecuenciaAporte.nombre)" />
 							</listitem>
 						</template>
 						<listfoot>

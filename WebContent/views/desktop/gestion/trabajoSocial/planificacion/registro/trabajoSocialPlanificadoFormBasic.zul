@@ -1,0 +1,84 @@
+<?component name="uploadImageSingle" macroURI="/assets/theme/components/upload_image_single.zul"?>
+
+<zk xmlns:n="native" xmlns:w="client">
+	<div sclass="animated fadeInLeft">
+		<div class="row">
+			<div class="col s6">
+				<div class="row">
+					<div class="input-field col s12">
+						<n:label for="direccion">Descripción</n:label>
+						<span
+							sclass="fa fa-question-circle fa-lg help-icon-special"
+							tooltip="pop_direccion, position=after_end" />
+						<textbox id="direccion" type="text"
+							sclass="materialize-textarea" multiline="true"
+							value="@bind(vm.tsPlan.descripcion)">
+						</textbox>
+					</div>
+				</div>
+				<div class="row">
+
+					<div class="input-field col s12">
+						<n:label for="fecha_trabajo_social"
+							class="active">
+							Fecha Planificada:
+						</n:label>
+						<datebox id="fecha_trabajo_social"
+							readonly="true" cols="20" format="dd/MM/yyyy"
+							value="@bind(vm.fechaPlanificada)" />
+					</div>
+
+				</div>
+				<div class="row">
+
+					<div class="input-field col s11">
+						<n:label for="lugar" class="active">
+							Lugar:
+						</n:label>
+						<textbox id="lugar" type="text" disabled="true"
+							value="@bind(vm.directorio.direccion)">
+						</textbox>
+					</div>
+					<div class="input-field col s1"
+						style="font-size: 2em;">
+						<button
+							sclass="teal lighten-1 waves-effect waves-light"
+							onClick="@command('buscarDirectorio')" iconSclass="fa fa-search"
+							style="padding: 5px 15px; background-color: #2AA4EF !important">
+						</button>
+
+					</div>
+				</div>
+
+
+				<div class="row">
+
+					<div class="input-field col s11">
+						<n:label for="responsable" class="active">
+							Responsable:
+						</n:label>
+						<textbox id="responsable" type="text"
+							disabled="true" value="@bind(vm.voluntario.fkPersona.nombre)">
+						</textbox>
+					</div>
+					<div class="input-field col s1"
+						style="font-size: 2em;">
+						<button
+							sclass="teal lighten-1 waves-effect waves-light"
+							onClick="@command('buscarVoluntario')" iconSclass="fa fa-search"
+							style="padding: 5px 15px; background-color: #2AA4EF !important">
+						</button>
+					</div>
+
+				</div>
+			</div>
+			<div class="input-field col s5">
+				<div class="input-field col s12">
+					<uploadImageSingle maxsize="9000" size="200"
+						idUpload="1" title="Imagen del Trabajo Social" />
+				</div>
+			</div>
+
+		</div>
+	</div>
+</zk>

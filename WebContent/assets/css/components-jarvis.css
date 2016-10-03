@@ -611,17 +611,17 @@ nav-list.z-navbar>ul>.z-nav-open>a i,.nav-list.z-navbar>ul>.z-nav-open>a span
 	padding: 10px !important;
 }
 
-.help-icon{
-	color:#3b85a1;
+.help-icon {
+	color: #3b85a1;
 	cursor: help !important;
 }
 
-.help-icon-special{
-	color:#3b85a1;
+.help-icon-special {
+	color: #3b85a1;
 	cursor: help !important;
 	float: right;
 	position: absolute;
-	left: 92%;
+	left: 97.8%;
 	bottom: 50px;
 }
 
@@ -638,4 +638,46 @@ nav-list.z-navbar>ul>.z-nav-open>a i,.nav-list.z-navbar>ul>.z-nav-open>a span
 	height: 39px;
 }
 
+.toolbarToSee_ button {
+	margin-bottom: 5px;
+}
 
+.toolbarToSee_
+		.ka-toolbar {
+	margin-top: 0px !important;
+	max-width: 36px;
+	margin: 0 auto;
+}
+
+.estilo-color-selected {
+	-webkit-border-radius: 30px 30px 30px 30px;
+	border-radius: 30px 30px 30px 30px;
+	height: 25px;
+	width: 25px;
+	margin-top: 5px;
+}
+
+/* Toolbar de la lista */
+.toolbar-custom-buttons .btn-floating.btn-small {
+	width: 25px;
+	height: 25px;
+}
+
+.toolbar-custom-buttons {
+	margin: 0px !important;
+	padding: 0px !important;
+	text-align: center;
+}
+
+.toolbar-custom-buttons button i {
+	margin-top: -1em;
+}
+
+.toolbar-custom-buttons button {
+	font-size: 0em !important;
+}
+
+.tree-full-ventanas .z-treecell-content {
+	min-height: 40px;
+	line-height: 25px;
+}

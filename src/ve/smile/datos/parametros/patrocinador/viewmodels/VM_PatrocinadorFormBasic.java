@@ -90,7 +90,7 @@ public class VM_PatrocinadorFormBasic extends VM_WindowForm implements
 		} else {
 
 			this.getPersona().setFkMultimedia(new Multimedia());
-			this.setUrlImagen("/Smile/default-image.jpg");
+
 		}
 	}
 
@@ -313,9 +313,7 @@ public class VM_PatrocinadorFormBasic extends VM_WindowForm implements
 			bytes = Files.readAllBytes(path);
 			return ImageIO.read(new File(this.getUrlImagen()));
 		} catch (Exception e) {
-			Path path = Paths.get("/Smile/default-image.jpg");
-			bytes = Files.readAllBytes(path);
-			return ImageIO.read(new File("/Smile/default-image.jpg"));
+			return null;
 		}
 	}
 
@@ -352,7 +350,7 @@ public class VM_PatrocinadorFormBasic extends VM_WindowForm implements
 			patrocinador.setFechaSalida(new Date().getTime());
 
 			Multimedia multimedia = this.getPersona().getFkMultimedia();
-			
+
 			PayloadMultimediaResponse payloadMultimediaResponse = S.MultimediaService
 					.incluir(multimedia);
 
@@ -361,9 +359,8 @@ public class VM_PatrocinadorFormBasic extends VM_WindowForm implements
 				return true;
 			}
 
-			multimedia.setIdMultimedia(Integer
-					.valueOf(payloadMultimediaResponse.getInformacion(
-							"idMultimedia").toString()));
+			multimedia.setIdMultimedia(((Double) payloadMultimediaResponse
+					.getInformacion("id")).intValue());
 			this.getPersona().setFkMultimedia(multimedia);
 			PayloadPersonaResponse payloadPersonaResponse = S.PersonaService
 					.incluir(this.getPersona());
@@ -372,8 +369,8 @@ public class VM_PatrocinadorFormBasic extends VM_WindowForm implements
 				return true;
 			}
 			this.getPersona().setIdPersona(
-					Integer.parseInt(payloadPersonaResponse
-							.getInformacion("idPersona").toString()));
+					((Double) payloadPersonaResponse.getInformacion("id"))
+							.intValue());
 			patrocinador.setFkPersona(this.getPersona());
 			PayloadPatrocinadorResponse payloadPatrocinadorResponse = S.PatrocinadorService
 					.incluir(getPatrocinador());
@@ -417,18 +414,26 @@ public class VM_PatrocinadorFormBasic extends VM_WindowForm implements
 		try {
 			UtilValidate.validateInteger(this.getPersona().getTipoPersona(),
 					"Tipo de persona", ValidateOperator.LESS_THAN, 2);
-			UtilValidate.validateString(this.getPersona().getIdentificacion(),
-					"Cédula/RIF", 35);
-			UtilValidate.validateString(this.getPersona().getNombre(),
-					"Nombre", 150);
-			UtilValidate.validateString(this.getPersona().getApellido(),
-					"Apellido", 150);
-			UtilValidate.validateInteger(this.getPersona().getSexo(), "Sexo",
-					ValidateOperator.LESS_THAN, 2);
-			UtilValidate.validateDate(this.getPersona().getFechaNacimiento(),
-					"Fecha de nacimiento", ValidateOperator.LESS_THAN,
-					new SimpleDateFormat("yyyy-MM-dd").format(new Date()),
-					"DD/MM/YYYY");
+
+			if (this.getTipoPersonaEnum().equals(TipoPersonaEnum.NATURAL)) {
+				UtilValidate.validateString(this.getPersona()
+						.getIdentificacion(), "Cédula", 35);
+				UtilValidate.validateString(this.getPersona().getNombre(),
+						"Nombre", 150);
+				UtilValidate.validateString(this.getPersona().getApellido(),
+						"Apellido", 150);
+				UtilValidate.validateInteger(this.getPersona().getSexo(),
+						"Sexo", ValidateOperator.LESS_THAN, 2);
+				UtilValidate.validateDate(this.getPersona()
+						.getFechaNacimiento(), "Fecha de nacimiento",
+						ValidateOperator.LESS_THAN, new SimpleDateFormat(
+								"yyyy-MM-dd").format(new Date()), "DD/MM/YYYY");
+			} else {
+				UtilValidate.validateString(this.getPersona()
+						.getIdentificacion(), "RIF", 35);
+				UtilValidate.validateString(this.getPersona().getNombre(),
+						"Nombre", 150);
+			}
 
 			UtilValidate
 					.validateNull(this.getPersona().getFkCiudad(), "Ciudad");
@@ -441,23 +446,11 @@ public class VM_PatrocinadorFormBasic extends VM_WindowForm implements
 			UtilValidate.validateNull(this.getPersona().getFkMultimedia(),
 					"Imagen");
 			UtilValidate.validateString(this.getPersona().getTelefono1(),
-					"Telfono 1", 25);
-			UtilValidate.validateString(this.getPersona().getTelefono2(),
-					"Telfono 2", 25);
+					"Teléfono 1", 25);
+			
 			UtilValidate.validateString(this.getPersona().getFax(), "Fax", 100);
 			UtilValidate.validateString(this.getPersona().getCorreo(),
 					"Correo", 100);
-
-			UtilValidate.validateString(this.getPersona().getTwitter(),
-					"Twitter", 100);
-			UtilValidate.validateString(this.getPersona().getInstagram(),
-					"Instagram", 100);
-			UtilValidate.validateString(this.getPersona().getFacebook(),
-					"Facebook", 100);
-			UtilValidate.validateString(this.getPersona().getLinkedin(),
-					"LinkedIn", 100);
-			UtilValidate.validateString(this.getPersona().getSitioWeb(),
-					"Sitio web", 100);
 
 			return true;
 		} catch (Exception e) {

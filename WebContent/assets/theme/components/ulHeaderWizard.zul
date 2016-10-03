@@ -1,0 +1,24 @@
+<zk xmlns:n="native">
+
+<div class="wizard" align="center">
+	<div class="wizard-inner">
+		<div class="connecting-line"></div>
+		<n:ul class="nav nav-tabs">
+		
+			<n:li role="presentation" class="${each.liClass}" forEach="${arg.get('lis')}" 
+				style="${each.liStyle}">
+				<n:a class="not-active"
+					data-toggle="tab" aria-controls="${each.aAria}" role="tab"
+					title="${each.aTitle}">
+					<n:span class="round-tab">
+						<n:i
+							class="${each.iClass}">
+						</n:i>
+					</n:span>
+				</n:a>
+			</n:li>
+			
+		</n:ul>
+	</div>
+</div>
+</zk>

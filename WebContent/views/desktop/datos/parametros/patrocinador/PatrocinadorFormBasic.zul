@@ -25,7 +25,7 @@
 									class="active">
 									Tipo de persona
 								</n:label>
-								<span sclass="fa fa-question-circle fa-lg help-icon-special" tooltip="pop_persona, position=after_end" />
+
 								<combobox id="tipo_persona"
 									readonly="true" model="@bind(vm.tipoPersonaEnums)"
 									selectedItem="@bind(vm.tipoPersonaEnum)">
@@ -33,60 +33,106 @@
 										<comboitem label="@load(each)" />
 									</template>
 								</combobox>
+								<span
+									sclass="fa fa-question-circle fa-lg help-icon-special"
+									tooltip="pop_persona, position=after_end" />
 							</div>
 
-							<div class="input-field col s6">
-								<n:label for="identificacion">
-									Cédula/RIF
-								</n:label>
-								<span sclass="fa fa-question-circle fa-lg help-icon-special" tooltip="pop_identificacion, position=after_end" />
-								<textbox id="identificacion" type="text"
-									value="@bind(vm.persona.identificacion)">
-								</textbox>
+							<div
+								visible="@load(empty vm.tipoPersonaEnum || vm.tipoPersonaEnum eq 'NATURAL' )">
+								<div class="input-field col s6">
+									<n:label for="identificacion">
+										Cédula
+									</n:label>
+
+									<textbox id="identificacion"
+										type="text" value="@bind(vm.persona.identificacion)">
+									</textbox>
+									<span
+										sclass="fa fa-question-circle fa-lg help-icon-special"
+										tooltip="pop_identificacion, position=after_end" />
+								</div>
+								<div class="input-field col s6">
+									<n:label for="nombre">
+										Nombre
+									</n:label>
+									<span
+										sclass="fa fa-question-circle fa-lg help-icon-special"
+										tooltip="pop_nombre, position=after_end" />
+									<textbox id="nombre" type="text"
+										value="@bind(vm.persona.nombre)">
+									</textbox>
+								</div>
+								<div class="input-field col s6">
+									<n:label for="apellido">
+										Apellido
+									</n:label>
+									<span
+										sclass="fa fa-question-circle fa-lg help-icon-special"
+										tooltip="pop_apellido, position=after_end" />
+									<textbox id="apellido" type="text"
+										value="@bind(vm.persona.apellido)">
+									</textbox>
+								</div>
+								<div class="input-field col s6">
+									<n:label for="sexo"
+										class="active">
+										Sexo
+									</n:label>
+									<span
+										sclass="fa fa-question-circle fa-lg help-icon-special"
+										tooltip="pop_sexo, position=after_end" />
+									<combobox id="sexo" readonly="true"
+										model="@bind(vm.sexoEnums)"
+										selectedItem="@bind(vm.sexoEnum)">
+										<template name="model"
+											var="sexo">
+											<comboitem
+												label="@bind(sexo)" />
+										</template>
+									</combobox>
+								</div>
+
+								<div class="input-field col s6">
+									<n:label for="fecha_nacimiento"
+										class="active">
+										Fecha de nacimiento
+									</n:label>
+									<span
+										sclass="fa fa-question-circle fa-lg help-icon-special"
+										tooltip="pop_fecha_nacimiento, position=after_end" />
+									<datebox id="db" cols="20"
+										readonly="true" format="dd/MM/yyyy"
+										value="@bind(vm.fechaNacimiento)" />
+								</div>
 							</div>
 
-							<div class="input-field col s6">
-								<n:label for="nombre">Nombre</n:label>
-								<span sclass="fa fa-question-circle fa-lg help-icon-special" tooltip="pop_nombre, position=after_end" />
-								<textbox id="nombre" type="text"
-									value="@bind(vm.persona.nombre)">
-								</textbox>
-							</div>
+							<div
+								visible="@load(not empty (vm.tipoPersonaEnum) and vm.tipoPersonaEnum eq 'JURIDICA')">
+								<div class="input-field col s6">
+									<n:label for="identificacionRif">
+										RIF
+									</n:label>
+									<textbox id="identificacionRif"
+										type="text" value="@bind(vm.persona.identificacion)">
+									</textbox>
+									<span
+										sclass="fa fa-question-circle fa-lg help-icon-special"
+										tooltip="pop_identificacion_rif, position=after_end" />
+								</div>
+								<div class="input-field col s12">
+									<n:label for="nombreJuridico">
+										Nombre
+									</n:label>
 
-							<div class="input-field col s6">
-								<n:label for="apellido">
-									Apellido
-								</n:label>
-								<span sclass="fa fa-question-circle fa-lg help-icon-special" tooltip="pop_apellido, position=after_end" />
-								<textbox id="apellido" type="text"
-									value="@bind(vm.persona.apellido)">
-								</textbox>
-							</div>
+									<textbox id="nombreJuridico"
+										type="text" value="@bind(vm.persona.nombre)">
 
-							<div class="input-field col s6">
-								<n:label for="sexo" class="active">
-									Sexo
-								</n:label>
-								<span sclass="fa fa-question-circle fa-lg help-icon-special" tooltip="pop_sexo, position=after_end" />
-								<combobox id="sexo" readonly="true"
-									model="@bind(vm.sexoEnums)"
-									selectedItem="@bind(vm.sexoEnum)">
-									<template name="model" var="sexo">
-										<comboitem label="@bind(sexo)" />
-									</template>
-								</combobox>
-							</div>
-
-							<div class="input-field col s6">
-								<n:label for="fecha_nacimiento"
-									class="active">
-									Fecha de nacimiento
-								</n:label>
-								<span sclass="fa fa-question-circle fa-lg help-icon-special" 
-								tooltip="pop_fecha_nacimiento, position=after_end" />
-								<datebox id="db" cols="20"
-									readonly="true" format="dd/MM/yyyy"
-									value="@bind(vm.fechaNacimiento)" />
+									</textbox>
+									<span style="left:99%"
+										sclass="fa fa-question-circle fa-lg help-icon-special"
+										tooltip="pop_nombre, position=after_end" />
+								</div>
 							</div>
 
 							<div class="input-field col s6">
@@ -94,8 +140,9 @@
 									for="fk_estado">
 									Estado
 								</n:label>
-								<span sclass="fa fa-question-circle fa-lg help-icon-special"
-								tooltip="pop_estado, position=after_end" />
+								<span
+									sclass="fa fa-question-circle fa-lg help-icon-special"
+									tooltip="pop_estado, position=after_end" />
 								<combobox id="fk_estado" readonly="true"
 									placeholder="Seleccione un Estado" instant="true"
 									onSelect="@command('changeEstado')" model="@bind(vm.estados)"
@@ -112,8 +159,9 @@
 									for="fk_ciudad">
 									Ciudad
 								</n:label>
-								<span sclass="fa fa-question-circle fa-lg help-icon-special"
-								tooltip="pop_ciudad, position=after_end" />
+								<span
+									sclass="fa fa-question-circle fa-lg help-icon-special"
+									tooltip="pop_ciudad, position=after_end" />
 								<combobox id="fk_ciudad" readonly="true"
 									placeholder="Seleccione una ciudad"
 									disabled="@load(empty vm.ciudades)" model="@bind(vm.ciudades)"
@@ -133,8 +181,9 @@
 										class="active">
 										Fecha de ingreso
 									</n:label>
-									<span sclass="fa fa-question-circle fa-lg help-icon-special"
-									tooltip="pop_fecha_ingreso, position=after_end" />
+									<span
+										sclass="fa fa-question-circle fa-lg help-icon-special"
+										tooltip="pop_fecha_ingreso, position=after_end" />
 									<datebox id="fecha_ingreso"
 										cols="20" format="dd/MM/yyyy" readonly="true"
 										value="@bind(vm.fechaIngreso)" />
@@ -144,8 +193,9 @@
 									<n:label for="direccion">
 										Dirección
 									</n:label>
-									<span sclass="fa fa-question-circle fa-lg help-icon-special" 
-									tooltip="pop_direccion, position=after_end" />
+									<span
+										sclass="fa fa-question-circle fa-lg help-icon-special"
+										tooltip="pop_direccion, position=after_end" />
 									<textbox id="direccion" type="text"
 										sclass="materialize-textarea" multiline="true"
 										value="@bind(vm.persona.direccion)">
@@ -154,13 +204,14 @@
 							</div>
 							<div class="col s6" style="padding:0px;">
 								<div class="input-field col s12">
-								<span style="float:right" sclass="fa fa-question-circle fa-lg help-icon" 
-									tooltip="pop_imagen, position=after_end" />
+									<span style="float:right"
+										sclass="fa fa-question-circle fa-lg help-icon"
+										tooltip="pop_imagen, position=after_end" />
 									<uploadImageSingle maxsize="9000"
 										size="200" idUpload="1" title="Imagen del patrocinador" />
 								</div>
 							</div>
-							
+
 						</tabpanel>
 
 						<tabpanel>
@@ -169,7 +220,8 @@
 								<n:label for="telefono_1">
 									Teléfono 1
 								</n:label>
-								<span sclass="fa fa-question-circle fa-lg help-icon-special" 
+								<span
+									sclass="fa fa-question-circle fa-lg help-icon-special"
 									tooltip="pop_telefono1, position=after_end" />
 								<textbox id="telefono_1" type="text"
 									value="@bind(vm.persona.telefono1)">
@@ -180,7 +232,8 @@
 								<n:label for="telefono_2">
 									Teléfono 2
 								</n:label>
-								<span sclass="fa fa-question-circle fa-lg help-icon-special" 
+								<span
+									sclass="fa fa-question-circle fa-lg help-icon-special"
 									tooltip="pop_telefono2, position=after_end" />
 								<textbox id="telefono_2" type="text"
 									value="@bind(vm.persona.telefono2)">
@@ -189,7 +242,8 @@
 
 							<div class="input-field col s6">
 								<n:label for="fax">Fax</n:label>
-								<span sclass="fa fa-question-circle fa-lg help-icon-special" 
+								<span
+									sclass="fa fa-question-circle fa-lg help-icon-special"
 									tooltip="pop_fax, position=after_end" />
 								<textbox id="fax" type="text"
 									value="@bind(vm.persona.fax)">
@@ -200,7 +254,8 @@
 								<n:label for="correo">
 									Correo electrónico
 								</n:label>
-								<span sclass="fa fa-question-circle fa-lg help-icon-special" 
+								<span
+									sclass="fa fa-question-circle fa-lg help-icon-special"
 									tooltip="pop_correo, position=after_end" />
 								<textbox id="correo" type="text"
 									value="@bind(vm.persona.correo)">
@@ -209,7 +264,8 @@
 
 							<div class="input-field col s6">
 								<n:label for="twitter">Twitter</n:label>
-								<span sclass="fa fa-question-circle fa-lg help-icon-special" 
+								<span
+									sclass="fa fa-question-circle fa-lg help-icon-special"
 									tooltip="pop_twitter, position=after_end" />
 								<textbox id="twitter" type="text"
 									value="@bind(vm.persona.twitter)">
@@ -220,7 +276,8 @@
 								<n:label for="instagram">
 									Instagram
 								</n:label>
-								<span sclass="fa fa-question-circle fa-lg help-icon-special" 
+								<span
+									sclass="fa fa-question-circle fa-lg help-icon-special"
 									tooltip="pop_instagram, position=after_end" />
 								<textbox id="instagram" type="text"
 									value="@bind(vm.persona.instagram)">
@@ -231,7 +288,8 @@
 								<n:label for="facebook">
 									Facebook
 								</n:label>
-								<span sclass="fa fa-question-circle fa-lg help-icon-special" 
+								<span
+									sclass="fa fa-question-circle fa-lg help-icon-special"
 									tooltip="pop_facebook, position=after_end" />
 								<textbox id="facebook" type="text"
 									value="@bind(vm.persona.facebook)">
@@ -242,7 +300,8 @@
 								<n:label for="linkedin">
 									LinkedIn
 								</n:label>
-								<span sclass="fa fa-question-circle fa-lg help-icon-special" 
+								<span
+									sclass="fa fa-question-circle fa-lg help-icon-special"
 									tooltip="pop_linkedin, position=after_end" />
 								<textbox id="linkedin" type="text"
 									value="@bind(vm.persona.linkedin)">
@@ -253,7 +312,8 @@
 								<n:label for="sitioWeb">
 									Sitio web
 								</n:label>
-								<span sclass="fa fa-question-circle fa-lg help-icon-special" 
+								<span
+									sclass="fa fa-question-circle fa-lg help-icon-special"
 									tooltip="pop_web, position=after_end" />
 								<textbox id="sitioWeb" type="text"
 									value="@bind(vm.persona.sitioWeb)">
@@ -272,169 +332,220 @@
 
 		<!-- Popups ayuda -->
 		<popup id="pop_persona" width="200px">
-        	<html>
-        		<![CDATA[ Por favor, indique el tipo de persona del
-        		patrocinador que desea registrar.<br /><font
-        		color="#3b85a1">Ejemplo: Natural.</font> ]]>
+			<html>
+
+				<![CDATA[ Por favor, indique el tipo de persona del
+				patrocinador que desea registrar.<br /><font
+				color="#3b85a1">Ejemplo: Natural.</font> ]]>
+				
+				
         	</html>
 		</popup>
-    	
-    	<popup id="pop_identificacion" width="200px">
-        	<html>
-        		<![CDATA[ Por favor, indique una identificación para el
-        		patrocinador que desea registrar.<br /><font
-        		color="#3b85a1">Ejemplo: 19302871.</font> ]]>
+
+		<popup id="pop_identificacion" width="200px">
+			<html>
+
+				<![CDATA[ Por favor, indique la Cédula del
+				patrocinador que desea registrar.<br /><font
+				color="#3b85a1">Ejemplo: V-19302871.</font> ]]>
+	</html>
+		</popup>
+
+		<popup id="pop_identificacion_rif" width="200px">
+			<html>
+
+				<![CDATA[ Por favor, indique el RIF del
+				patrocinador que desea registrar.<br /><font
+				color="#3b85a1">Ejemplo: J-19302871-8.</font> ]]>
+	</html>
+		</popup>
+		<popup id="pop_nombre" width="200px">
+			<html>
+
+				<![CDATA[ Por favor, indique el nombre del patrocinador
+				que desea registrar.<br /><font color="#3b85a1">Ejemplo:
+				Christopher o Constructora S.A.</font> ]]>
+	
         	</html>
-    	</popup>
-    	
-    	<popup id="pop_nombre" width="200px">
-        	<html>
-        		<![CDATA[ Por favor, indique el nombre del patrocinador
-        		que desea registrar.<br /><font color="#3b85a1">Ejemplo:
-        		Christopher.</font> ]]>
+		</popup>
+
+		<popup id="pop_apellido" width="200px">
+			<html>
+
+				<![CDATA[ Por favor, indique el apellido del
+				patrocinador que desea registrar.<br /><font
+				color="#3b85a1">Ejemplo: Hemsworth.</font> ]]>
+
+				
         	</html>
-    	</popup>
-    	
-    	<popup id="pop_apellido" width="200px">
-        	<html>
-        		<![CDATA[ Por favor, indique el apellido del
-        		patrocinador que desea registrar.<br /><font
-        		color="#3b85a1">Ejemplo: Hemsworth.</font> ]]>
+		</popup>
+
+		<popup id="pop_sexo" width="200px">
+			<html>
+
+				<![CDATA[ Por favor, indique el género del patrocinador
+				que desea registrar.<br /><font
+				color="#3b85a1">Ejemplos: Masculino.</font> ]]>
+
         	</html>
-    	</popup>
-    	
-    	<popup id="pop_sexo" width="200px">
-        	<html>
-        		<![CDATA[ Por favor, indique el género del patrocinador
-        		que desea registrar.<br /><font
-        		color="#3b85a1">Ejemplos: Masculino/ M /Male.</font> ]]>
+		</popup>
+
+		<popup id="pop_fecha_nacimiento" width="200px">
+			<html>
+
+				<![CDATA[ Por favor, indique la fecha de nacimiento del
+				patrocinador que desea registrar, usando el selector de
+				fechas.<br /> <font color="#3b85a1">Ejemplo:
+				11/08/1983.</font> ]]>
+
         	</html>
-    	</popup>
-    	
-    	<popup id="pop_fecha_nacimiento" width="200px">
-        	<html>
-        		<![CDATA[ Por favor, indique la fecha de nacimiento del
-        		patrocinador que desea registrar, usando el selector de
-        		fechas.<br /> <font color="#3b85a1">Ejemplo:
-        		11/08/1983.</font> ]]>
+		</popup>
+
+		<popup id="pop_estado" width="200px">
+			<html>
+				
+				<![CDATA[ Por favor, indique el estado donde reside el
+				patrocinador que desea registrar.<br /><font
+				color="#3b85a1">Ejemplo: Lara.</font> ]]>
+	
         	</html>
-    	</popup>
-    	
-    	<popup id="pop_estado" width="200px">
-        	<html>
-        		<![CDATA[ Por favor, indique el estado donde reside el
-        		patrocinador que desea registrar.<br /><font
-        		color="#3b85a1">Ejemplo: Lara.</font> ]]>
+		</popup>
+
+		<popup id="pop_ciudad" width="200px">
+			<html>
+
+				<![CDATA[ Por favor, indique la ciudad donde reside el
+				patrocinador que desea registrar.<br /><font
+				color="#3b85a1">Ejemplo: Cabudare.</font> ]]>
+
         	</html>
-    	</popup>
-    	
-    	<popup id="pop_ciudad" width="200px">
-        	<html>
-        		<![CDATA[ Por favor, indique la ciudad donde reside el
-        		patrocinador que desea registrar.<br /><font
-        		color="#3b85a1">Ejemplo: Cabudare.</font> ]]>
+		</popup>
+
+		<popup id="pop_fecha_ingreso" width="200px">
+			<html>
+
+				
+				<![CDATA[ Por favor, indique la fecha de ingreso al
+				sistema del patrocinador que desea registrar, usando el
+				selector de fechas.<br /> <font color="#3b85a1">Ejemplo:
+				28/09/2016.</font> ]]>
+				
         	</html>
-    	</popup>
-    	
-    	<popup id="pop_fecha_ingreso" width="200px">
-        	<html>
-        		<![CDATA[ Por favor, indique la fecha de ingreso al
-        		sistema del patrocinador que desea registrar, usando el
-        		selector de fechas.<br /> <font color="#3b85a1">Ejemplo:
-        		28/09/2016.</font> ]]>
+		</popup>
+
+		<popup id="pop_direccion" width="200px">
+			<html>
+				
+				<![CDATA[ Por favor, indique la dirección donde reside
+				el patrocinador que desea registrar.<br /><font
+				color="#3b85a1">Ejemplo: Urb. Los Cerezos Casa
+				30.</font> ]]>
+
+				
         	</html>
-    	</popup>
-    	
-    	<popup id="pop_direccion" width="200px">
-        	<html>
-        		<![CDATA[ Por favor, indique la dirección donde reside
-        		el patrocinador que desea registrar.<br /><font
-        		color="#3b85a1">Ejemplo: Urb. Los Cerezos Casa
-        		30.</font> ]]>
-        	</html>
-    	</popup>
-    	
-    	<popup id="pop_imagen" width="200px">
-    		<html>
-    			<![CDATA[ Por favor, usando el icono de 'agregar' de
-    			color verde, anexe una imagen del patrocinador que
-    			desea registrar.]]>
+		</popup>
+
+		<popup id="pop_imagen" width="200px">
+			<html>
+
+				<![CDATA[ Por favor, usando el icono de 'agregar' de
+				color verde, anexe una imagen del patrocinador que desea
+				registrar.]]>
+	
     		</html>
-    	</popup>
-    	
-    	<popup id="pop_telefono1" width="200px">
-    		<html>
-    			<![CDATA[ Por favor, indique el teléfono principal del
-    			patrocinador que desea registrar.<br /><font
-    			color="#3b85a1">Ejemplo: 04166556221.</font> ]]>
+		</popup>
+
+		<popup id="pop_telefono1" width="200px">
+			<html>
+
+				<![CDATA[ Por favor, indique el teléfono principal del
+				patrocinador que desea registrar.<br /><font
+				color="#3b85a1">Ejemplo: 04166556221.</font> ]]>
+				
     		</html>
-    	</popup>
+		</popup>
 
 		<popup id="pop_telefono2" width="200px">
-    		<html>
-    			<![CDATA[ Por favor, indique un teléfono secundario del
-    			patrocinador que desea registrar.<br /><font
-    			color="#3b85a1">Ejemplo: 02516354816.</font> ]]>
+			<html>
+
+				<![CDATA[ Por favor, indique un teléfono secundario del
+				patrocinador que desea registrar.<br /><font
+				color="#3b85a1">Ejemplo: 02516354816.</font> ]]>
+
     		</html>
-    	</popup>
-    	
-    	<popup id="pop_fax" width="200px">
-    		<html>
-    			<![CDATA[ Por favor, indique el número de fax del
-    			patrocinador que desea registrar.<br /><font
-    			color="#3b85a1">Ejemplo: 02516354816.</font> ]]>
+		</popup>
+
+		<popup id="pop_fax" width="200px">
+			<html>
+
+				<![CDATA[ Por favor, indique el número de fax del
+				patrocinador que desea registrar.<br /><font
+				color="#3b85a1">Ejemplo: 02516354816.</font> ]]>
+
     		</html>
-    	</popup>
-    	
-    	<popup id="pop_correo" width="200px">
-    		<html>
-    			<![CDATA[ Por favor, indique un correo electrónico del
-    			patrocinador que desea registrar.<br /><font
-    			color="#3b85a1">Ejemplo: 02516354816.</font> ]]>
+		</popup>
+
+		<popup id="pop_correo" width="200px">
+			<html>
+
+				
+				<![CDATA[ Por favor, indique un correo electrónico del
+				patrocinador que desea registrar.<br /><font
+				color="#3b85a1">Ejemplo: 02516354816.</font> ]]>
+
     		</html>
-    	</popup>
-    	
-    	<popup id="pop_twitter" width="200px">
-    		<html>
-    			<![CDATA[ Por favor, indique la cuenta del Twitter del
-    			patrocinador que desea registrar.<br /><font
-    			color="#3b85a1">Ejemplo: @Nombre.</font> ]]>
+		</popup>
+
+		<popup id="pop_twitter" width="200px">
+			<html>
+
+				<![CDATA[ Por favor, indique la cuenta del Twitter del
+				patrocinador que desea registrar.<br /><font
+				color="#3b85a1">Ejemplo: @Nombre.</font> ]]>
+
     		</html>
-    	</popup>
-    	
-    	<popup id="pop_instagram" width="200px">
-    		<html>
-    			<![CDATA[ Por favor, indique la cuenta de Instagram del
-    			patrocinador que desea registrar.<br /><font
-    			color="#3b85a1">Ejemplo: NombreCuenta.</font> ]]>
+		</popup>
+
+		<popup id="pop_instagram" width="200px">
+			<html>
+
+				<![CDATA[ Por favor, indique la cuenta de Instagram del
+				patrocinador que desea registrar.<br /><font
+				color="#3b85a1">Ejemplo: NombreCuenta.</font> ]]>
+
     		</html>
-    	</popup>
-    	
-    	<popup id="pop_facebook" width="200px">
-    		<html>
-    			<![CDATA[ Por favor, indique la cuenta de Facebook del
-    			patrocinador que desea registrar.<br /><font
-    			color="#3b85a1">Ejemplo: NombreCuenta.</font> ]]>
+		</popup>
+
+		<popup id="pop_facebook" width="200px">
+			<html>
+
+				<![CDATA[ Por favor, indique la cuenta de Facebook del
+				patrocinador que desea registrar.<br /><font
+				color="#3b85a1">Ejemplo: NombreCuenta.</font> ]]>
+
     		</html>
-    	</popup>
-    	
-    	<popup id="pop_linkedin" width="200px">
-    		<html>
-    			<![CDATA[ Por favor, indique la cuenta de LinkedIn del
-    			patrocinador que desea registrar.<br /><font
-    			color="#3b85a1">Ejemplo: NombreCuenta.</font> ]]>
+		</popup>
+
+		<popup id="pop_linkedin" width="200px">
+			<html>
+
+				<![CDATA[ Por favor, indique la cuenta de LinkedIn del
+				patrocinador que desea registrar.<br /><font
+				color="#3b85a1">Ejemplo: NombreCuenta.</font> ]]>
+
     		</html>
-    	</popup>
-    	
-    	<popup id="pop_web" width="200px">
-    		<html>
-    			<![CDATA[ Por favor, indique la dirección url del sitio
-    			web del patrocinador que desea registrar.<br /><font
-    			color="#3b85a1">Ejemplo: www.sitioweb.com.</font> ]]>
+		</popup>
+
+		<popup id="pop_web" width="200px">
+			<html>
+				<![CDATA[ Por favor, indique la dirección url del sitio
+				web del patrocinador que desea registrar.<br /><font
+				color="#3b85a1">Ejemplo: www.sitioweb.com.</font> ]]>
+
     		</html>
-    	</popup>
-    	<!-- fin popups -->
-    	
+		</popup>
+		<!-- fin popups -->
+
 		<div id="divButtonsForm"
 			use="karen.core.form.buttons.containers.DivButtonsForm">
 		</div>

@@ -178,3 +178,95 @@
 	margin-bottom: 0px;
 }
 
+/*Menu flotante*/
+
+.social .icon span {
+		display: none;
+	}
+	
+	.social .icon:hover span {
+		display: initial;
+		margin-left: 5px;
+		text-transform: uppercase;
+	}
+	
+	.social {
+		position: fixed; /* Hacemos que la posición en
+			pantalla sea fija para que siempre se muestre en pantalla*/
+		left: 0; /* Establecemos la barra en la izquierda */
+		top: 200px;
+		/* Bajamos la barra 200px de arriba a abajo */
+		z-index: 2000; /*
+			Utilizamos la propiedad z-index para que no se superponga algún
+			otro elemento como sliders, galerías, etc */
+	}
+	
+	.social div>div {
+		margin-bottom: 1px;
+	}
+	
+	.social div a {
+		display: inline-block;
+		color: #fff;
+		background: #000;
+		padding: 8px 12px;
+		text-decoration: none;
+		-webkit-transition: all 500ms ease;
+		-o-transition: all 500ms ease;
+		transition: all 500ms ease; /* Establecemos una transición a
+			todas las propiedades */
+	}
+	
+	.social div .icon {
+		width: 44px;
+		background: #87796F;
+	}
+	
+	.social div .icon i {
+		color: #DB6E78;
+		font-size: 20px;
+	}
+	
+	.social div a:hover {
+		width: auto;
+		background: rgba(135, 121, 111, 0.84);
+		/* Cambiamos el fondo cuando el usuario pase el mouse */
+		padding: 10px 30px; /* Hacemos mas grande el espacio cuando el
+			usuario pase el mouse */
+	}
+
+/*Estilos para el slider */
+.multi-item-carousel{
+  .carousel-inner{
+    > .item{
+      transition: 500ms ease-in-out left;
+    }
+    .active{
+      &.left{
+        left:-33%;
+      }
+      &.right{
+        left:33%;
+      }
+    }
+    .next{
+      left: 33%;
+    }
+    .prev{
+      left: -33%;
+    }
+    @media all and (transform-3d), (-webkit-transform-3d) {
+      > .item{
+        // use your favourite prefixer here
+        transition: 500ms ease-in-out all;
+        backface-visibility: visible;
+        transform: none!important;
+      }
+    }
+  }
+  .carouse-control{
+    &.left, &.right{
+      background-image: none;
+    }
+  }
+}

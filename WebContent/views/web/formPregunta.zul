@@ -2,9 +2,9 @@
 
 	<window width="80%" sclass="window-dialog"
 		action="show: slideIn;hide: slideOut"
-		use="ve.smile.web.viewmodels.VM_PostuladoVoluntario"
+		use="ve.smile.web.viewmodels.faq.C_Pregunta"
 		apply="org.zkoss.bind.BindComposer"
-		viewModel="@id('vm') @init('ve.smile.web.viewmodels.VM_Postulado', dialogData=arg.get('dialogData'))">
+		viewModel="@id('vm') @init('ve.smile.web.viewmodels.faq.VM_Pregunta', dialogData=arg.get('dialogData'))">
 		
 		<n:link href="assets/css/web/formPregunta.css" rel="stylesheet" type="text/css"></n:link>
 		
@@ -20,21 +20,29 @@
 						<n:h6>Plantea tu pregunta aquí</n:h6>
 					</div>
 					<div sclass="col s8 form">
-						<div class="input-field col s12">
+						<div class="input-field col s6">
 							<n:label for="nombre">Nombre</n:label>
 							<textbox id="nombre" type="text"
-								value="@bind(vm.persona.nombre)">
+								value="@bind(vm.comunidad.nombre)">
+							</textbox>
+						</div>
+						<div class="input-field col s6">
+							<n:label for="apellido">Apellido</n:label>
+							<textbox id="apellido" type="text"
+								value="@bind(vm.comunidad.apellido)">
 							</textbox>
 						</div>
 						<div class="input-field col s12">
 							<n:label for="correo">Correo</n:label>
 							<textbox id="correo" type="text"
-								value="@bind(vm.persona.correo)">
+								value="@bind(vm.comunidad.correo)">
 							</textbox>
 						</div>
 						<div class="input-field col s12">
 							<n:label for="asunto">Pregunta:</n:label>
-							<textbox id="asunto" type="text"></textbox>
+							<textbox id="asunto" type="text"
+							value="@bind(vm.contactoPortal.contenido)"
+							></textbox>
 						</div>													
 					</div>					
 					<div class="col s4 text-center">

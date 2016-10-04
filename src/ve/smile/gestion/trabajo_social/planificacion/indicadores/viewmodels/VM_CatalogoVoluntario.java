@@ -1,4 +1,4 @@
-package ve.smile.gestion.trabajo_social.planificacion.viewmodels;
+package ve.smile.gestion.trabajo_social.planificacion.indicadores.viewmodels;
 
 import java.util.HashMap;
 import java.util.Map;

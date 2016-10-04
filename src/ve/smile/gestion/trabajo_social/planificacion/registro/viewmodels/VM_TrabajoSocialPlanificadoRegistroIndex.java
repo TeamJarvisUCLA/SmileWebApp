@@ -1,4 +1,4 @@
-package ve.smile.gestion.trabajo_social.planificacion.viewmodels;
+package ve.smile.gestion.trabajo_social.planificacion.registro.viewmodels;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -249,12 +249,6 @@ public class VM_TrabajoSocialPlanificadoRegistroIndex extends
 
 	@Override
 	public String isValidPreconditionsFinalizar(Integer currentStep) {
-		if (currentStep == 2) {
-			if (selectedObject == null) {
-				return "E:Error Code 5-Debe seleccionar un <b>Taller Conversacional</b>";
-			}
-		}
-
 		if (currentStep == 2) {
 			try {
 				UtilValidate.validateDate(this.getFechaPlanificada().getTime(),

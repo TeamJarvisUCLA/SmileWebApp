@@ -1,15 +1,14 @@
+
 <zk xmlns:n="native" xmlns:w="client">
 
 	<window width="80%" sclass="window-dialog"
 		action="show: slideIn;hide: slideOut"
-		use="ve.smile.web.viewmodels.VM_PostuladoVoluntario"
+		use="ve.smile.web.postulacion.controllers.C_PostuladoVoluntario"
 		apply="org.zkoss.bind.BindComposer"
-		viewModel="@id('vm') @init('ve.smile.web.viewmodels.VM_Postulado', dialogData=arg.get('dialogData'))">
-
-		<n:link href="assets/css/web/postulacion.css" rel="stylesheet"
-			type="text/css">
-		</n:link>
-
+		viewModel="@id('vm') @init('ve.smile.web.postulacion.viewmodels.VM_Postulado', dialogData=arg.get('dialogData'))">
+		
+		<n:link href="assets/css/web/postulacion.css" rel="stylesheet" type="text/css"></n:link>
+		
 		<n:div id="modalFormPostulacion">
 			<div class="container-fluid">
 				<div class="row">
@@ -19,9 +18,23 @@
 						</a>
 					</div>
 					<div sclass="col s12 text-center">
-						<n:h6>Postulación de Voluntario</n:h6>
+						<n:h6>Postulación de Persona</n:h6>
 					</div>
+					
+					
 					<div sclass="col s8 form">
+					<div class="input-field col s6">
+							<n:label for="sexo" class="active">
+								Tipo de Persona
+							</n:label>
+							<combobox id="TPersona"
+								selectedItem="@bind(vm.tPersonaEnums)"
+								model="@bind(vm.tPersonaEnum)">
+								<template name="model">
+									<comboitem label="@bind(each)"/>
+								</template>
+							</combobox>
+						</div>
 						<div class="input-field col s6">
 							<n:label for="nombre">Nombre</n:label>
 							<textbox id="nombre" type="text"
@@ -29,31 +42,17 @@
 							</textbox>
 						</div>
 						<div class="input-field col s6">
-							<n:label for="identificacion">
-								Cedula
-							</n:label>
+							<n:label for="apellido">Apellido</n:label><!-- no se muestra si el tipo es juridico, propiedad zk revisar visible -->
+							<textbox id="apellido" type="text"
+								value="@bind(vm.persona.apellido)">
+							</textbox>
+						</div>						
+						<div class="input-field col s6">
+							<n:label for="identificacion">Cedula</n:label>
 							<textbox id="identificacion" type="text"
 								value="@bind(vm.persona.identificacion)">
 							</textbox>
-						</div>
-						<div class="input-field col s6">
-							<n:label for="edad">Edad</n:label>
-							<textbox id="edad" type="text"
-								value="@bind(vm.persona.edad)">
-							</textbox>
-						</div>
-						<div class="input-field col s6">
-							<n:label for="direccion">Dirección</n:label>
-							<textbox id="direcion" type="text"
-								value="@bind(vm.persona.direccion)">
-							</textbox>
-						</div>
-						<div class="input-field col s6">
-							<n:label for="correo">Correo</n:label>
-							<textbox id="correo" type="text"
-								value="@bind(vm.persona.correo)">
-							</textbox>
-						</div>
+						</div>										
 						<div class="input-field col s6">
 							<n:label for="sexo" class="active">
 								Sexo
@@ -67,29 +66,76 @@
 							</combobox>
 						</div>
 						<div class="input-field col s6">
-							<n:label for="fecha_nacimiento"
-								class="active">
-								Fecha de Nacimiento
-							</n:label>
-							<datebox id="db" cols="20"
-								format="yyyy/MM/dd" onCreate="self.value = new Date()" />
-						</div>
-						<div class="input-field col s6">
 							<n:label for="telefono_1">Telefono</n:label>
 							<textbox id="telefono_1" type="text"
-								value="">
+								value="@bind(vm.persona.telefono1)">
+							</textbox>
+						</div>						
+						<div class="input-field col s6">
+							<n:label for="fecha_nacimiento" class="active">Fecha de Nacimiento</n:label>
+							<datebox id="myFecha" cols="20" format="yyyy/MM/dd"
+							 value="@bind(vm.myFecha)"
+							/>
+						</div>						
+						<div class="input-field col s6">
+								<n:label class="active"
+									for="fk_estado">
+									Estado
+								</n:label>
+								<combobox id="fk_estado" readonly="true"
+									placeholder="Seleccione un Estado" instant="true"
+									onSelect="@command('changeEstado')" model="@bind(vm.estados)"
+									selectedItem="@bind(vm.estado)">
+									<template name="model">
+										<comboitem
+											label="@load(each.nombre)" />
+									</template>
+								</combobox>
+							</div>
+
+							<div class="input-field col s6">
+								<n:label class="active"
+									for="fk_ciudad">
+									Ciudad
+								</n:label>
+								<combobox id="fk_ciudad" readonly="true"
+									placeholder="Seleccione una ciudad"
+									disabled="@load(empty vm.ciudades)" model="@bind(vm.ciudades)"
+									selectedItem="@bind(vm.persona.fkCiudad)">
+									<template name="model">
+										<comboitem
+											label="@load(each.nombre)" />
+									</template>
+								</combobox>
+							</div>
+		
+						
+						<div class="input-field col s6">
+							<n:label for="direccion">Dirección</n:label>
+							<textbox id="direcion" type="text"
+								value="@bind(vm.persona.direccion)">
 							</textbox>
 						</div>
-					</div>
+						
+						<div class="input-field col s6">
+							<n:label for="correo">Correo</n:label>
+							<textbox id="correo" type="text"
+								value="@bind(vm.persona.correo)">
+							</textbox>
+						</div>
+																																				
+					</div>					
 					<div class="col s4 text-center">
 						<image src="/imagenes/portal/conejo.png"></image>
-					</div>
+					</div>			
 					<div id="divButtonsForm" sclass="row">
 						<div class="col s12 text-center">
-							<button id="btnAccept"
-								class="waves-effect waves-light btn" href="">
-								aceptar
-							</button>
+							<button label="Aceptar" id="btnAccept" class="waves-effect waves-light btn" href="">
+								Aceptar
+              <!--   <attribute name="onClick"><![CDATA[
+    Messagebox.show("Postulacion Enviada", "Aceptar", Messagebox.OK, Messagebox.INFORMATION);
+]]></attribute>-->
+           		</button>
 						</div>
 					</div>
 				</div>
@@ -98,3 +144,5 @@
 	</window>
 
 </zk>
+
+

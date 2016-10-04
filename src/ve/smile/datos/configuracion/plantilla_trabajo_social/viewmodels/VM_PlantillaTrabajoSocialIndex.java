@@ -42,26 +42,30 @@ public class VM_PlantillaTrabajoSocialIndex extends
 
 	@Command("onSelectTrabajoSocial")
 	public void onSelectTrabajoSocial() {
-		TrabajoSocial trabajo = getSelectedObject();
+		TrabajoSocial trabajoSocial = getSelectedObject();
 
-		if (trabajo.getTrabajoSocialActividades() == null
-				|| trabajo.getTrabajoSocialActividades().isEmpty()) {
+		if (trabajoSocial.getTrabajoSocialActividades() == null
+				|| trabajoSocial.getTrabajoSocialActividades().isEmpty()) {
 			PayloadActividadResponse payloadActividadResponse = S.ActividadService
-					.consultarPorTrabajoSocial(trabajo.getIdTrabajoSocial());
+					.consultarPorTrabajoSocial(trabajoSocial
+							.getIdTrabajoSocial());
 			if (!UtilPayload.isOK(payloadActividadResponse)) {
 				Alert.showMessage(payloadActividadResponse);
 			}
-			trabajo.setTrabajoSocialActividades(payloadActividadResponse.getObjetos());
+			trabajoSocial.setTrabajoSocialActividades(payloadActividadResponse
+					.getObjetos());
 
 		}
-		if (trabajo.getTrabajoSocialIndicadores() == null
-				|| trabajo.getTrabajoSocialIndicadores().isEmpty()) {
+		if (trabajoSocial.getTrabajoSocialIndicadores() == null
+				|| trabajoSocial.getTrabajoSocialIndicadores().isEmpty()) {
 			PayloadIndicadorResponse payloadIndicadorResponse = S.IndicadorService
-					.consultarPorEvento(trabajo.getIdTrabajoSocial());
+					.consultarPorTrabajoSocial(trabajoSocial
+							.getIdTrabajoSocial());
 			if (!UtilPayload.isOK(payloadIndicadorResponse)) {
 				Alert.showMessage(payloadIndicadorResponse);
 			}
-			trabajo.setTrabajoSocialIndicadores(payloadIndicadorResponse.getObjetos());
+			trabajoSocial.setTrabajoSocialIndicadores(payloadIndicadorResponse
+					.getObjetos());
 		}
 
 	}

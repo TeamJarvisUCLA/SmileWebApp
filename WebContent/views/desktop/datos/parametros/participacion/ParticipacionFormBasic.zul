@@ -13,6 +13,7 @@
 						value="@bind(vm.participacion.nombre)">
 					</textbox>
 				</div>
+				<span sclass="fa fa-question-circle fa-lg help-icon" tooltip="pop_nombre, position=after_end"/>
 			</div>
 
 			<div sclass="col s12">
@@ -28,6 +29,7 @@
 						</template>
 					</combobox>
 				</div>
+				<span sclass="fa fa-question-circle fa-lg help-icon" tooltip="pop_multimedia, position=after_end"/>
 			</div>
 
 			<div class="col s12">
@@ -38,9 +40,35 @@
 						value="@bind(vm.participacion.descripcion)">
 					</textbox>
 				</div>
+				<span sclass="fa fa-question-circle fa-lg help-icon" tooltip="pop_descripcion, position=after_end"/>
 			</div>
 
 		</div>
+		
+		
+		<popup id="pop_nombre" width="200px">
+			<html>
+				<![CDATA[ Por favor, indique el nombre de la participación
+				que desea registrar.<br /><font color="#3b85a1">Ejemplo:
+				Voluntariado Extra Hospitalario.</font> ]]>
+			</html>
+		</popup>
+
+		<popup id="pop_multimedia" width="200px">
+			<html>
+				<![CDATA[ Por favor, seleccione un archivo multimedia.]]>
+			</html>
+		</popup>
+
+		<popup id="pop_descripcion" width="200px">
+			<html>
+				<![CDATA[ Por favor, indique una descripción breve,
+				sobre la participación que desea registrar.<br /><font
+				color="#3b85a1">Ejemplo:Participan en las actividades
+				que realiza la fundación fuera del hospital.</font> ]]>
+			</html>
+		</popup>
+
 
 		<div id="divButtonsForm"
 			use="karen.core.form.buttons.containers.DivButtonsForm">

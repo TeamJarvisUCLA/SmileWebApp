@@ -11,15 +11,17 @@ import org.zkoss.bind.annotation.Command;
 import ve.smile.consume.services.S;
 import ve.smile.dto.Cartelera;
 import ve.smile.dto.Organizacion;
+import ve.smile.dto.Participacion;
 import ve.smile.enums.TipoCarteleraEnum;
 import ve.smile.payload.response.PayloadCarteleraResponse;
 import ve.smile.payload.response.PayloadOrganizacionResponse;
+import ve.smile.payload.response.PayloadParticipacionResponse;
 
 public class VM_Main {
 	
 //	se declara una variable noticias de tipo List<Cartelera>	
 	private List<Cartelera> noticias;
-
+	private List<Participacion> participacion;
 	private List<Organizacion> organizacion;
 	
 //  metodo get que retorna la coleccion de elementos a renderizar en la vista	
@@ -51,6 +53,19 @@ public class VM_Main {
 		}
 
 		return organizacion;
+	}
+	
+	public List<Participacion> getparticipacion(){
+		if (this.participacion == null) {
+			this.participacion = new ArrayList<>();
+		}
+		if (this.participacion.isEmpty()) {
+			PayloadParticipacionResponse payloadParticipacionResponse = S.ParticipacionService.consultaCantidadParticipacion(3);
+			
+			this.participacion.addAll(payloadParticipacionResponse.getObjetos());
+		}
+
+		return participacion;
 	}
 	
 	@Command

@@ -1,0 +1,69 @@
+<zk xmlns:n="native" xmlns:w="client">
+	<n:link href="assets/css/web/DescargaAppMovil.css" rel="stylesheet" type="text/css"></n:link>
+		
+	<div sclass="container-fluid">
+		<div class="cinta"></div>
+	</div>
+	<div class="container-fluid bajar" style="Background-color: #F0F2DC;" 
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('ve.smile.web.viewmodels.VM_Main')">
+		<div class="row" style="margin-bottom: 0;">
+			<div sclass="col s12">
+				<div class="titulo center-align">
+					<n:h4>Descarga Nuestra Aplicación Móvil</n:h4>
+				</div>
+			</div>
+		</div>
+			
+			<div sclass="col s12">
+				<div class="col-md-1"></div>
+				<div class="col-md-5"
+					style="padding: 8px; padding-top: 0px;">
+					<n:div ></n:div>
+					<image class="img-responsive center-block" src="/imagenes/smiles_mobile.png"></image>
+				</div>
+				<div class="col-md-5"
+					style="background: white;border: 8px solid #D9EB52;padding: 0px !important; margin-left: 15px !important;">
+					
+					<div sclass="row">
+						<div sclass="col s12" align="justify">
+							<div sclass="row">
+								<image class="img-responsive center-block" src="/imagenes/smiles_mobile.png"></image>
+							</div>
+						<div sclass="col s12" align="justify">
+							<div sclass="row">
+								<label value="Las inscripciones serán a través de la página web mirunning.net y 
+								algunos puntos manuales como colegios y el Sambil. Estas iniciarán la primera 
+								semana de marzo y tendrán costos desde 700 a 900 bolívares, según las diferentes 
+								etapas de pago.
+								En el evento se premiará primer, segundo y tercer lugar masculino y femenino con 
+								doce, diez, y ocho mil bolívares, respectivamente. Los ganadores de las ocho 
+								categorías, que van desde niños hasta adultos mayores de 65 años, recibirán un trofeo.">
+								</label>
+							</div>
+							<div sclass="row center-align" style="margin-bottom:0pc">
+								<button type="button" id="nEMQo3" 
+									iconSclass="" class="indigo waves-effect waves-light btn"
+									style="background-color: #3B85A1 !important; ">
+									Descargar
+								</button>
+							</div>
+
+						</div>
+					</div>
+				</div>
+				<div class="col-md-1"></div>
+			</div>
+		</div>
+			<n:br></n:br>
+	<n:br></n:br>
+	</div>
+	<n:br></n:br>
+	<n:br></n:br>
+	<div class="center-align imagen bajar_un_poco">
+		<n:img class="responsive-img bajar_un_poco"
+			src="/SmileWebApp/imagenes/portal/img-ninos.png">
+		</n:img>
+	</div>
+
+</zk>

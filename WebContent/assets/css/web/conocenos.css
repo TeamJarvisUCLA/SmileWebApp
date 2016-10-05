@@ -71,11 +71,29 @@
 
 .borde-blanco{
 	border-color: #ffffff;
+	/*padding-left: 50px;*/
+	align: center;
 }
+.centrada{
+	/*align: center;*/
+	/*display: block;*/
+    margin: auto;
+}
+
+/*.center {
+    margin: auto;
+    width: 50%;
+    border: 3px solid green;
+    padding: 10px;
+    padding: 25px 120px 25px 10px;
+	margin: 5px;
+}*/
 
 .texto-valores{
 	padding-top: 18px; 
 	color: #87796F;
+	text-align: center;
+	/*padding-left: 13px;*/
 }
 
 /* encabezado de estadisticas */
@@ -234,39 +252,45 @@
 		padding: 10px 30px; /* Hacemos mas grande el espacio cuando el
 			usuario pase el mouse */
 	}
+	
+/*  Estilos Slider*/
+	.owlNoticias .owl-theme .owl-controls .owl-buttons div {
+	position: absolute;
+}
 
-/*Estilos para el slider */
-.multi-item-carousel{
-  .carousel-inner{
-    > .item{
-      transition: 500ms ease-in-out left;
-    }
-    .active{
-      &.left{
-        left:-33%;
-      }
-      &.right{
-        left:33%;
-      }
-    }
-    .next{
-      left: 33%;
-    }
-    .prev{
-      left: -33%;
-    }
-    @media all and (transform-3d), (-webkit-transform-3d) {
-      > .item{
-        // use your favourite prefixer here
-        transition: 500ms ease-in-out all;
-        backface-visibility: visible;
-        transform: none!important;
-      }
-    }
-  }
-  .carouse-control{
-    &.left, &.right{
-      background-image: none;
-    }
-  }
+.owlNoticias.owl-theme .owl-controls .owl-buttons .owl-prev {
+	left: -50px;
+	top: 60px;
+	position: absolute;
+}
+
+.owlNoticias.owl-theme .owl-controls .owl-buttons .owl-next {
+	right: 50px;
+	top: 60px;
+	position: absolute;
+}
+
+.owlNoticias.owl-carousel {
+	display: none;
+	position: relative;
+	-ms-touch-action: pan-y;
+	margin-left: 4%; /*nuevo*/
+}
+
+
+.owlNoticias .owl-theme .owl-controls .owl-buttons div {
+	padding: 5px 40px;
+}
+
+.owlNoticias .owl-theme .owl-buttons span {
+	margin-top: 2px;
+}
+
+.owlNoticias .item {
+	padding: 25px 62px 25px 10px;
+	margin: 5px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	text-align: center;
 }

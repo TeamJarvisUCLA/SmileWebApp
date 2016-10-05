@@ -65,4 +65,11 @@ public class VM_Navbar {
 		DataCenter.updateSrcPageContent(null, null, "/views/web/faq.zul");
 		
 	}
+	
+	@Command
+	public void app() {
+		DataCenter.updateSrcPageContent(null, null, "/views/web/descargaAppMovil.zul");
+		
+	}
+	
 }

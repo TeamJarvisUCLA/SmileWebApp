@@ -216,7 +216,7 @@
 					}
 				</attribute>
 			</a>
-			<a  href="#">
+			<a  href="#" onClick="@command('app')">
 				<label>Descargar App Móvil</label>
 			</a>
 			<a href="" onClick="@command('faq')">

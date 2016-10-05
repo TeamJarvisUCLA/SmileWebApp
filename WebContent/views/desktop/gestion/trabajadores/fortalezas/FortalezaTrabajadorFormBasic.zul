@@ -1,0 +1,78 @@
+<zk xmlns:n="native" xmlns:w="client">
+	<div width="80%" class="container ${arg.animation_}"
+				use="karen.core.form.controllers.C_WindowForm"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('ve.smile.gestion.trabajadores.fortalezas.viewmodels.VM_FortalezaTrabajadorFormBasic')">
+
+		<div class="row">
+ 			<div class="col s12">
+				<div class="input-field col s6">
+						<n:label for="nombre">Nombre</n:label>
+						<textbox id="nombre" type="text" maxlength="100"
+							disabled="true" value="@bind(vm.trabajador.fkPersona.nombre)">
+						</textbox>
+				</div>			
+			</div>
+		
+				<tabbox id="tb" class="rtab ltab">
+					<tabs id="tabs">
+						<tab id="tabFortalezas" label="Fortalezas" />
+					</tabs>
+					<tabpanels>
+						<tabpanel>
+							<div sclass="col s5">
+								<listbox model="@bind(vm.fortalezas)"
+									emptyMessage="No hay fortalezas registradas."
+									selectedItems="@bind(vm.fortalezasSeleccionadas)"
+									multiple="true">
+										<listhead sizable="true">
+											<listheader label="Fortalezas" />
+										</listhead>
+									<template name="model">
+										<listitem label="@load(each.nombre)">
+											<zscript>
+												self.setDisabled(vm.disabledFortaleza(each));
+											</zscript>
+										</listitem>
+									</template>
+								</listbox>
+							</div>
+							<div sclass="col s1">
+								<div sclass="row valign">
+										<button
+											iconSclass="fa fa-angle-double-right" sclass="button-conf"
+											onClick="@command('agregarFortalezasTrabajador')" />
+									</div>
+									<div sclass="row">
+										<button
+											iconSclass="fa fa-angle-double-left" sclass="button-conf"
+											onClick="@command('removerFortalezasTrabajador')" />
+									</div>
+							</div>
+							<div sclass="col s5" style="padding:0px">
+								<listbox model="@bind(vm.trabajadorFortalezas)"
+									emptyMessage="No hay fortalezas asociadas al trabajador seleccionado."
+									selectedItems="@bind(vm.trabajadorFortalezasSeleccionadas)"
+									multiple="true">
+									<listhead sizable="true">
+										<listheader label="Fortalezas asignadas" />
+									</listhead>
+									<template name="model">
+										<listitem
+											label="@load(each.nombre)">
+										</listitem>
+									</template>
+								</listbox>
+							</div>
+						</tabpanel>
+					</tabpanels>
+				</tabbox>
+			</div>
+		
+
+		<div id="divButtonsForm"
+			use="karen.core.form.buttons.containers.DivButtonsForm">
+		</div>
+
+	</div>
+</zk>

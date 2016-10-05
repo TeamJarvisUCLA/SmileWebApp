@@ -1,0 +1,13 @@
+<zk xmlns:n="native" xmlns:w="client">
+	<div>
+		<div hflex="1" style='text-align: center; margin-top: 10px;'>
+			
+			<div height="100%" width="60%" class="container divFormulario">
+				<div class="row">					
+					Paso 2
+				</div>
+			</div>
+			
+		</div>
+	</div>
+</zk>

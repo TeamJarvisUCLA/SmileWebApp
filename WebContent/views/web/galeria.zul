@@ -2,7 +2,7 @@
 <n:link href="assets/css/web/galeria.css" rel="stylesheet" type="text/css"></n:link>
 
 		<div class="container-fluid galeria" apply="org.zkoss.bind.BindComposer"
-		viewModel="@id('vm') @init('ve.smile.web.viewmodels.VM_Main')">
+		viewModel="@id('vm') @init('ve.smile.web.viewmodels.galeria.VM_Galeria')">
 		
 
 		<div class="social">
@@ -29,7 +29,7 @@
 					<div class="col s12">
 						<div class="row fotos">
 							<div class="col s4">
-								<image src="/imagenes/portal/galeria1.png" sclass="materialboxed"></image>
+								<image src="/imagenes/portal/web-banner.png" sclass="materialboxed"></image>
 							</div>
 							<div class="col s4">
 								<image src="/imagenes/portal/galeria2.png" sclass="materialboxed"></image>
@@ -61,69 +61,40 @@
 			<n:div id="albumes">
 				<div class="col s12 seccion">
 					<div class="col s12">
-						<div class="row albumes">
-							<div class="col s4">
-								<div class="subtitulo text-center">
-				           			<span>Vendimia 2015</span>
-				       			</div>
-								<image src="/imagenes/portal/galeria1.png"></image>
-								<span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus at officiis amet</span>
-								<div class="col s12 link">
-									<a onClick="@command('album')">8 Fotos</a>
+						<div class="row">
+							<div class="albumes" children="@load(vm.albumes)">
+							<template name="children">
+								<div class="col s4">
+									<div class="subtitulo text-center">
+										<label value="@load(each.titulo)"></label>
+					       			</div>
+					       			<div sclass="box-img-album">
+										<image class="img-responsive">
+											<zscript>
+												self.src = (vm.primerImgAlbum(each.idAlbum));
+											</zscript>
+										</image>
+									</div>
+									<label value="@load(each.descripcion)"></label>
+									<div class="col s12 link">
+										<a onClick="@command('album', album=each)">
+											<zscript>
+												self.label = (vm.cant(each.idAlbum));
+											</zscript>										 
+										 	<label style="font-size: 1em;"> Fotos</label>
+										 </a>
+									</div>
 								</div>
-							</div>
-							<div class="col s4">
-								<div class="subtitulo text-center">
-				           			<span>Juego de Golf</span>
-				       			</div>
-								<image src="/imagenes/portal/galeria2.png"></image>
-								<span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus at officiis amet</span>
-								<div class="col s12 link">
-									<a onClick="@command('album')">30 Fotos</a>
-								</div>							
-							</div>
-							<div class="col s4">
-								<div class="subtitulo text-center">
-				           			<span>Segundo Taller Motivacional</span>
-				       			</div>						
-								<image src="/imagenes/portal/galeria3.jpg"></image>
-								<span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus at officiis amet</span>
-								<div class="col s12 link">
-									<a onClick="@command('album')">12 Fotos</a>
-								</div>							
-							</div>	
-						</div>
-					</div>
-					<div class="col s12">
-						<div class="row albumes">
-							<div class="col s4">
-								<div class="subtitulo text-center">
-				           			<span>Vendimia 2016</span>
-				       			</div>						
-								<image src="/imagenes/portal/galeria1.png"></image>
-								<span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus at officiis amet</span>
-								<div class="col s12 link">
-									<a onClick="@command('album')">16 Fotos</a>
-								</div>							
-							</div>
-							<div class="col s4">
-								<div class="subtitulo text-center">
-				           			<span>Paseo</span>
-				       			</div>						
-								<image src="/imagenes/portal/galeria2.png"></image>
-								<span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus at officiis amet</span>
-								<div class="col s12 link">
-									<a onClick="@command('album')">5 Fotos</a>
-								</div>							
+							</template>
 							</div>
 							<div class="col s4 icon">
 								<a><image src="/imagenes/portal/icon/icon-plus.png"></image></a>
 								<div class="col s12">
 									<a>Ver más</a>
 								</div>
-							</div>	
+							</div>
 						</div>
-					</div>		
+					</div>	
 				</div>
 			</n:div>
 		

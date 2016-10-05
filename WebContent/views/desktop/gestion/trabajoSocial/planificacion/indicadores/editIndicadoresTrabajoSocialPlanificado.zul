@@ -18,7 +18,7 @@
 					emptyMessage="No hay indicadores asociados al del trabajo social."
 					model="@bind(vm.indicadorTsPlans)">
 					<listhead sizable="true">
-						<listheader label="Indicador"  />
+						<listheader label="Indicador" />
 						<listheader label="Unidad de Medida" />
 						<listheader label="Valor Esperado"
 							align="center" />
@@ -34,8 +34,8 @@
 
 							<listcell>
 								<intbox
-									style="    height: 1em; border: 1px solid #999999; border-radius: 7px; font-size:1.2em;  text-align: center;"
-									value="@load(each.valorEsperado)">
+									style="height: 1em; border: 1px solid #999999; border-radius: 7px; font-size:1.2em;  text-align: center;"
+									value="@bind(each.valorEsperado)">
 								</intbox>
 							</listcell>
 						</listitem>

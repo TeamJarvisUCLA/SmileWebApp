@@ -14,19 +14,17 @@
 							<listheader width="25%" label="Apellido" />
 							<listheader width="25%" label="Frecuencia de aporte" />
 							<listheader width="25%" label="Fecha de ingreso" />
-							<listheader width="25%" label="Fecha de egreso" />
 							<listheader width="25%" label="Monto" />
-							<listheader width="25%" label="Condición" />
+							
 						</listhead>
 						<template name="model">
 							<listitem>
 								<listcell label="@load(each.fkPersona.nombre)" />
 								<listcell label="@load(each.fkPersona.apellido)" />
-								<listcell label="@load(each.frecuenciaAporte)" />
+								<listcell label="@load(each.fkFrecuenciaAporte.nombre)" />
 								<listcell label="@load(each.fechaIngreso)" />
-								<listcell label="@load(each.fechaSalida)" />
 								<listcell label="@load(each.monto)" />
-								<listcell label="@load(each.estatusPostulado)" />
+								
 							</listitem>
 						</template>
 						<listfoot>

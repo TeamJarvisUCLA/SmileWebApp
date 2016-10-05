@@ -202,8 +202,7 @@ public class VM_IndicadoresTrabajoSocialPlanificadoIndex extends
 			String indicadores = "";
 			for (IndicadorTsPlan indicadorTsPlan : this.getIndicadorTsPlans()) {
 				if (indicadorTsPlan.getValorEsperado() == null
-						|| indicadorTsPlan.getValorEsperado().equalsIgnoreCase(
-								"")) {
+						|| indicadorTsPlan.getValorEsperado() == 0) {
 					indicadores += indicadorTsPlan.getFkIndicador().getNombre()
 							+ ",  ";
 				}

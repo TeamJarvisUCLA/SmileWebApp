@@ -1,11 +1,13 @@
 <zk xmlns:n="native" xmlns:w="client">
-<window width="100%" sclass="window-dialog"
+	<window width="100%" sclass="window-dialog"
 		action="show: slideIn;hide: slideOut"
 		use="ve.smile.web.viewmodels.buzon.C_Sugerencia"
 		apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('ve.smile.web.viewmodels.buzon.VM_Sugerencia', dialogData=arg.get('dialogData'))">
-		
-	<n:link href="assets/css/web/buzon.css" rel="stylesheet" type="text/css"></n:link>
+
+		<n:link href="assets/css/web/buzon.css" rel="stylesheet"
+			type="text/css">
+		</n:link>
 		<div style="background-color:	 #c2d62d; height: 10px;"></div>
 		<div class="buzon">
 			<div class="container">
@@ -34,30 +36,32 @@
 						</div>
 
 						<div class="input-field col s6">
-								<n:label class="active"
-									for="fk_clasificadorSugerencia">
-									Motivo
-								</n:label>
-								<combobox id="fk_clasificadorSugerencia" readonly="true"
-									placeholder="Seleccione un motivo"
-									disabled="@load(empty vm.cSugerencias)" model="@bind(vm.cSugerencias)"
-									selectedItem="@bind(vm.cSugerencia)">
-									<template name="model">
-										<comboitem
-											label="@load(each.nombre)" />
-									</template>
-								</combobox>
-							</div>
+							<n:label class="active"
+								for="fk_clasificadorSugerencia">
+								Asunto
+							</n:label>
+							<combobox id="fk_clasificadorSugerencia"
+								readonly="true" placeholder="Seleccione un motivo"
+								disabled="@load(empty vm.cSugerencias)"
+								model="@bind(vm.cSugerencias)"
+								selectedItem="@bind(vm.cSugerencia)">
+								<template name="model">
+									<comboitem
+										label="@load(each.nombre)" />
+								</template>
+							</combobox>
+						</div>
 						<div class="input-field col s12">
 							<n:label for="mensaje">Mensaje</n:label>
 							<textbox id="mensaje" type="text"
-							value="@bind(vm.contactoPortal.contenido)"
-							></textbox>
-						</div>												
-					</div>							
+								value="@bind(vm.contactoPortal.contenido)">
+							</textbox>
+						</div>
+					</div>
 					<div class="col s12 text-center">
-						<button id="btnAccept" class="waves-effect waves-light btn" href="">
-							enviar
+						<button id="btnAccept"
+							class="waves-effect waves-light btn" href="">
+							ENVIAR
 						</button>
 					</div>
 				</div>
@@ -66,7 +70,7 @@
 				<n:img class="responsive-img"
 					src="/SmileWebApp/imagenes/portal/img-ninos.png">
 				</n:img>
-			</div>			
+			</div>
 		</div>
-		</window>
+	</window>
 </zk>

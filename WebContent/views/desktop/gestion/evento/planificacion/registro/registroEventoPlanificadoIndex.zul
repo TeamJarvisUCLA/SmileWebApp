@@ -2,7 +2,7 @@
 	<div class="wizard ${arg.animation_} container"
 		use="karen.core.simple_list.wizard.controllers.C_WindowWizard"
 		apply="org.zkoss.bind.BindComposer"
-		viewModel="@id('vm') @init('ve.smile.gestion.evento.planificaion.registro.viewmodels.VM_EventoPlanificadoIndicadorIndex')">
+		viewModel="@id('vm') @init('ve.smile.gestion.evento.planificaion.registro.viewmodels.VM_EventoPlanificadoRegistroIndex')">
 		<div class="row">
 			<div id="ulHeaderWizard"
 				use="karen.core.simple_list.wizard.buttons.containers.UlHeaderWizard">

@@ -347,7 +347,7 @@ public class VM_ColaboradorFormBasic extends VM_WindowForm implements
 		if (operacionEnum.equals(OperacionEnum.INCLUIR)) {
 			Colaborador colaborador = this.getColaborador();
 			colaborador.setFechaIngreso(this.getFechaIngreso().getTime());
-			colaborador.setFechaSalida(new Date().getTime());
+			colaborador.setFechaEgreso(new Date().getTime());
 
 			Multimedia multimedia = this.getPersona().getFkMultimedia();
 

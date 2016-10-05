@@ -1,0 +1,53 @@
+ <?xel-method prefix="m" name="convertirLongATimestamp" class="lights.smile.util.UtilConverterDataList" 
+	signature="java.lang.String convertirLongATimestamp(java.lang.Long)" ?> 
+<zk xmlns:n="native" xmlns:w="client">
+	<div width="100%" class="${arg.animation_}"
+		use="karen.core.simple_list_principal.controllers.C_WindowSimpleListPrincipal"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('ve.smile.gestion.ayudas.solicitudes.VM_SolicitudesIndex')">
+
+		<div class="row">
+			<div class="col s12">
+				<div class="col s12">
+					<listbox id="listbox" model="@load(vm.objectsList)"
+						selectedItem="@bind(vm.selectedObject)">
+
+						<listhead sizable="true">
+							<listheader width="12%" label="Titulo de Solicitud" />
+							<listheader width="12%" label="Estatus de Solicitud" />
+							<listheader width="12%" label="Nombre Beneficiario" />
+							<listheader width="12%" label="Urgencia" />
+							<listheader width="12%" label="Ayuda Aportada" />
+							<listheader width="12%" label="Fecha" />
+							<listheader width="12%" label="Observacion" />
+							
+						</listhead>
+						<template name="model">
+							<listitem>
+								<listcell label="@load(each.titulo)" />
+								<listcell label="@load(each.estatusSolicitudEnum)" />
+								<listcell label="@load(each.fkBeneficiario.fkPersona.nombre)" />
+								<listcell label="@load(each.urgenciaEnum)" />
+								<listcell label="@load(each.fkAyuda.nombre)" />
+								  <listcell label="${m:convertirLongATimestamp(each.fecha)}" />  
+								<listcell label="@load(each.observacion)" />
+								
+								
+								
+							</listitem>
+						</template>
+						<listfoot>
+							<listfooter id="listFoot" span="6"
+								use="karen.core.listfoot.ListFoot">
+							</listfooter>
+						</listfoot>
+					</listbox>
+				</div>
+			</div>
+		</div>
+
+		<toolbar id="toolbar" align="center"
+			use="karen.core.toolbar.Toolbar">
+		</toolbar>
+	</div>
+</zk>

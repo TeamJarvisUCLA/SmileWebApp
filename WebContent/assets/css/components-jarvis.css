@@ -681,3 +681,11 @@ nav-list.z-navbar>ul>.z-nav-open>a i,.nav-list.z-navbar>ul>.z-nav-open>a span
 	min-height: 40px;
 	line-height: 25px;
 }
+
+.buttonPlantilla {
+	color: #3b85a1 !important;
+	border: 1px solid #3b85a1 !important;
+	border-radius: 0px;
+	margin-bottom: 10px;
+	float: right;
+}

@@ -1,4 +1,10 @@
 <zk xmlns:n="native" xmlns:w="client">
+<window width="100%" sclass="window-dialog"
+		action="show: slideIn;hide: slideOut"
+		use="ve.smile.web.viewmodels.buzon.C_Sugerencia"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('ve.smile.web.viewmodels.buzon.VM_Sugerencia', dialogData=arg.get('dialogData'))">
+		
 	<n:link href="assets/css/web/buzon.css" rel="stylesheet" type="text/css"></n:link>
 		<div style="background-color:	 #c2d62d; height: 10px;"></div>
 		<div class="buzon">
@@ -9,34 +15,45 @@
 					</div>
 					<div sclass="col s12 form">
 						<div class="input-field col s6">
-							<n:label for="nombre">Nombre:</n:label>
+							<n:label for="nombre">Nombre</n:label>
 							<textbox id="nombre" type="text"
-								value="">
+								value="@bind(vm.comunidad.nombre)">
 							</textbox>
 						</div>
 						<div class="input-field col s6">
-							<n:label for="apellido">Apellido:</n:label>
+							<n:label for="apellido">Apellido</n:label>
 							<textbox id="apellido" type="text"
-								value="">
-							</textbox>
-						</div>						
-						<div class="input-field col s6">
-							<n:label for="correo">Correo:</n:label>
-							<textbox id="correo" type="text"
-								value="">
+								value="@bind(vm.comunidad.apellido)">
 							</textbox>
 						</div>
-						<div class="input-field col s6">
-							<n:label for="asunto" class="active">Asunto:</n:label>
-							<combobox id="asunto">
-								<comboitem label="" />
-								<comboitem label="" />
-							</combobox>	
-						</div>		
 						<div class="input-field col s12">
-							<n:label for="mensaje">Mensaje:</n:label>
-							<textbox id="mensaje" type="text"></textbox>
-						</div>													
+							<n:label for="correo">Correo</n:label>
+							<textbox id="correo" type="text"
+								value="@bind(vm.comunidad.correo)">
+							</textbox>
+						</div>
+
+						<div class="input-field col s6">
+								<n:label class="active"
+									for="fk_clasificadorSugerencia">
+									Motivo
+								</n:label>
+								<combobox id="fk_clasificadorSugerencia" readonly="true"
+									placeholder="Seleccione un motivo"
+									disabled="@load(empty vm.cSugerencias)" model="@bind(vm.cSugerencias)"
+									selectedItem="@bind(vm.cSugerencia)">
+									<template name="model">
+										<comboitem
+											label="@load(each.nombre)" />
+									</template>
+								</combobox>
+							</div>
+						<div class="input-field col s12">
+							<n:label for="mensaje">Mensaje</n:label>
+							<textbox id="mensaje" type="text"
+							value="@bind(vm.contactoPortal.contenido)"
+							></textbox>
+						</div>												
 					</div>							
 					<div class="col s12 text-center">
 						<button id="btnAccept" class="waves-effect waves-light btn" href="">
@@ -51,4 +68,5 @@
 				</n:img>
 			</div>			
 		</div>
+		</window>
 </zk>

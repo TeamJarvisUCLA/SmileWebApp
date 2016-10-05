@@ -185,7 +185,7 @@ public class VM_ColaboradorFormBasic extends VM_WindowForm implements
 		this.fechaIngreso = fechaIngreso;
 		this.getColaborador().setFechaIngreso(fechaIngreso.getTime());
 	}
-
+//..
 	public String getNameImage() {
 		return nameImage;
 	}

@@ -1,4 +1,4 @@
-package ve.smile.gestion.trabajo_social.planificacion.indicadores.viewmodels;
+package ve.smile.gestion.trabajo_social.planificacion.actividades.asignacion.viewmodels;
 
 import karen.core.dialog.catalogue.list_pagination.viewmodels.VM_ListPaginationCatalogueDialog;
 import lights.core.payload.response.IPayloadResponse;

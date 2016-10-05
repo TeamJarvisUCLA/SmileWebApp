@@ -25,6 +25,7 @@ import ve.smile.dto.Indicador;
 import ve.smile.dto.IndicadorTsPlan;
 import ve.smile.dto.TsPlan;
 import ve.smile.payload.response.PayloadIndicadorResponse;
+import ve.smile.payload.response.PayloadIndicadorTsPlanResponse;
 import ve.smile.payload.response.PayloadTsPlanResponse;
 
 public class VM_IndicadoresTrabajoSocialPlanificadoIndex extends
@@ -182,6 +183,7 @@ public class VM_IndicadoresTrabajoSocialPlanificadoIndex extends
 				for (Indicador indicador : this.getTrabajoSocialIndicadores()) {
 					IndicadorTsPlan indicadorTsPlan = new IndicadorTsPlan();
 					indicadorTsPlan.setFkIndicador(indicador);
+					indicadorTsPlan.setFkTsPlan(this.getSelectedObject());
 					this.getIndicadorTsPlans().add(indicadorTsPlan);
 				}
 				BindUtils
@@ -196,20 +198,19 @@ public class VM_IndicadoresTrabajoSocialPlanificadoIndex extends
 	@Override
 	public String isValidPreconditionsFinalizar(Integer currentStep) {
 
-		if (currentStep == 2) {
-			try {
-				// UtilValidate.validateDate(this.getFechaPlanificada().getTime(),
-				// "Fecha Planificada", ValidateOperator.GREATER_THAN,
-				// new SimpleDateFormat("yyyy-MM-dd").format(new Date()),
-				// "dd/MM/yyyy");
-				// UtilValidate.validateNull(this.getVoluntario()
-				// .getIdVoluntario(), "Responsable");
-				// UtilValidate.validateNull(this.getDirectorio()
-				// .getIdDirectorio(), "Directorio");
-				// UtilValidate.validateNull(this.getTsPlan().getFkMultimedia(),
-				// "Imagen");
-			} catch (Exception e) {
-				return e.getMessage();
+		if (currentStep == 3) {
+			String indicadores = "";
+			for (IndicadorTsPlan indicadorTsPlan : this.getIndicadorTsPlans()) {
+				if (indicadorTsPlan.getValorEsperado() == null
+						|| indicadorTsPlan.getValorEsperado().equalsIgnoreCase(
+								"")) {
+					indicadores += indicadorTsPlan.getFkIndicador().getNombre()
+							+ ",  ";
+				}
+			}
+			if (indicadores.equalsIgnoreCase("")) {
+				return "E:Error Code 5-Debe ingresar el valor esperado de los siguientes indicadores: <b>"
+						+ indicadores + "</b>";
 			}
 
 		}
@@ -219,45 +220,32 @@ public class VM_IndicadoresTrabajoSocialPlanificadoIndex extends
 	@Override
 	public String executeFinalizar(Integer currentStep) {
 		if (currentStep == 3) {
-			// this.getTsPlan().setFechaPlanificada(
-			// this.getFechaPlanificada().getTime());
-			// this.getTsPlan().setFkDirectorio(this.getDirectorio());
-			// this.getTsPlan().setFkPersona(this.getVoluntario().getFkPersona());
-			// this.getTsPlan().setPublicoPortal(true);
-			//
-			// Multimedia multimedia = this.getTsPlan().getFkMultimedia();
-			//
-			// PayloadMultimediaResponse payloadMultimediaResponse =
-			// S.MultimediaService
-			// .incluir(multimedia);
-			// if (!UtilPayload.isOK(payloadMultimediaResponse)) {
-			// return (String) payloadMultimediaResponse
-			// .getInformacion(IPayloadResponse.MENSAJE);
-			// }
-			// multimedia.setIdMultimedia(((Double) payloadMultimediaResponse
-			// .getInformacion("id")).intValue());
-			// this.getTsPlan().setFkMultimedia(multimedia);
-			// PayloadTsPlanResponse payloadTsPlanResponse = S.TsPlanService
-			// .incluir(this.tsPlan);
-			// if (UtilPayload.isOK(payloadTsPlanResponse)) {
-			// restartWizard();
-			// this.setTsPlan(new TsPlan());
-			// this.setDirectorio(new Directorio());
-			// this.setFechaPlanificada(new Date());
-			// this.setSelectedObject(new TsPlan());
-			// this.setVoluntario(new Voluntario());
-			// BindUtils.postNotifyChange(null, null, this, "directorio");
-			// BindUtils.postNotifyChange(null, null, this, "tsPlan");
-			// BindUtils
-			// .postNotifyChange(null, null, this, "fechaPlanificada");
-			// BindUtils.postNotifyChange(null, null, this, "selectedObject");
-			// BindUtils.postNotifyChange(null, null, this, "voluntario");
-			// }
-			// return (String) payloadTsPlanResponse
-			// .getInformacion(IPayloadResponse.MENSAJE);
+			for (IndicadorTsPlan indicadorTsPlan : this.getIndicadorTsPlans()) {
+				PayloadIndicadorTsPlanResponse payloadIndicadorTsPlanResponse = S.IndicadorTsPlanService
+						.incluir(indicadorTsPlan);
+				if (!UtilPayload.isOK(payloadIndicadorTsPlanResponse)) {
+					return (String) payloadIndicadorTsPlanResponse
+							.getInformacion(IPayloadResponse.MENSAJE);
+				}
+			}
+
 			goToNextStep();
 		}
 
+		return "";
+	}
+
+	@Override
+	public String executeCustom1(Integer currentStep) {
+		this.setIndicadorTsPlans(null);
+		this.setTrabajoSocialIndicadores(null);
+		this.setSelectedObject(new TsPlan());
+
+		BindUtils.postNotifyChange(null, null, this, "indicadorTsPlans");
+		BindUtils
+				.postNotifyChange(null, null, this, "trabajoSocialIndicadores");
+		BindUtils.postNotifyChange(null, null, this, "selectedObject");
+		restartWizard();
 		return "";
 	}
 

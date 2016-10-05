@@ -1,0 +1,68 @@
+
+<zk xmlns:n="native" xmlns:w="client">
+	<div sclass="animated fadeInLeft">
+		<div class="row">
+			<div class="col s12">
+				
+				
+				
+				<div class="row">
+
+					<div class="input-field col s11">
+						<n:label for="recurso" class="active">
+							Recurso:
+						</n:label>
+						<textbox id="recurso" type="text"
+							disabled="true" value="@bind(vm.recurso.nombre)">
+						</textbox>
+					</div>
+					<div class="input-field col s1"
+						style="font-size: 2em;">
+						<button
+							sclass="teal lighten-1 waves-effect waves-light"
+							onClick="@command('buscarRecurso')" iconSclass="fa fa-search"
+							style="padding: 5px 15px; background-color: #2AA4EF !important">
+						</button>
+					</div>
+
+				</div>
+				
+				<div class="row">
+
+					<div class="input-field col s11">
+						<n:label for="cantidad" class="active">
+							Cantidad:
+						</n:label>
+						<intbox id="cantidad" constraint="no negative,no empty" value="@bind(vm.solicitudAyudaRecurso.cantidad)"/>
+						
+					</div>
+					
+
+				</div>
+				
+				
+				<div class="row">
+
+					<div class="input-field col s12">
+						<n:label for="fecha"
+							class="active">
+							Fecha de Asignación:
+						</n:label>
+						<datebox id="fecha"
+							readonly="true" cols="20" format="dd/MM/yyyy"
+							value="@bind(vm.fechaAsignacion)" />
+					</div>
+
+				</div>
+				
+				
+				
+
+
+				
+			</div>
+			
+
+		</div>
+	</div>
+</zk>

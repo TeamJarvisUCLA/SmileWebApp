@@ -1,0 +1,52 @@
+ <?xel-method prefix="m" name="convertirLongATimestamp" class="lights.smile.util.UtilConverterDataList" 
+	signature="java.lang.String convertirLongATimestamp(java.lang.Long)" ?> 
+<zk xmlns:n="native" xmlns:w="client">
+	<div sclass="animated fadeInLeft">
+		<div class="row">
+			<div class="col s12" align="center"
+				style="margin-bottom: 15px;">
+				<label value="Seleccione el Beneficiario"
+					sclass="label-medium-500">
+				</label>
+			</div>
+
+		</div>
+		<div width="100%">
+
+			<div class="row">
+				<div class="col s12">
+					<div class="col s12">
+						<listbox id="listbox"
+							model="@load(vm.objectsList)"
+							selectedItem="@bind(vm.selectedObject)">
+
+
+							<listhead sizable="true">
+							<listheader label="Nombre" />
+				<listheader label="Apellido" />
+				<listheader label="Direccion" />
+				<listheader label="Fecha de Nacimiento" />
+				<listheader label="Sexo" />
+							</listhead>
+							<template name="model">
+								<listitem>
+									<listcell label="@load(each.fkPersona.nombre)" />
+					<listcell label="@load(each.fkPersona.apellido)" />
+					<listcell label="@load(each.fkPersona.direccion)" />
+					<listcell label="@load(each.fkPersona.fechaNacimiento)" />
+					<listcell label="@load(each.fkPersona.sexo)" />
+									
+								</listitem>
+							</template>
+							<listfoot>
+								<listfooter id="listFoot" span="5"
+									use="karen.core.listfoot.ListFoot">
+								</listfooter>
+							</listfoot>
+						</listbox>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</zk>

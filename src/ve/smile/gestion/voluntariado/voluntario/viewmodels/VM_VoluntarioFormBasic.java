@@ -1,7 +1,18 @@
 package ve.smile.gestion.voluntariado.voluntario.viewmodels;
 
-import java.util.ArrayList;
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.awt.image.BufferedImage;
 import java.util.List;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.Map;
+import java.text.SimpleDateFormat;
+
+import javax.imageio.ImageIO;
 
 import karen.core.crux.alert.Alert;
 import karen.core.crux.session.DataCenter;
@@ -12,28 +23,112 @@ import karen.core.form.viewmodels.VM_WindowForm;
 import karen.core.util.payload.UtilPayload;
 import karen.core.util.validate.UtilValidate;
 
+import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
+import org.zkoss.bind.annotation.NotifyChange;
+import org.zkoss.zk.ui.event.UploadEvent;
 
+import app.UploadImageSingle;
 import ve.smile.consume.services.S;
-import ve.smile.dto.Voluntario;
 import ve.smile.dto.Ciudad;
-import ve.smile.payload.response.PayloadVoluntarioResponse;
+import ve.smile.dto.Estado;
+import ve.smile.dto.Persona;
+import ve.smile.dto.Multimedia;
+import ve.smile.dto.Voluntario;
+import ve.smile.enums.TipoPersonaEnum;
+import ve.smile.enums.TipoMultimediaEnum;
 import ve.smile.payload.response.PayloadCiudadResponse;
-import ve.smile.seguridad.enums.OperacionEnum;
+import ve.smile.payload.response.PayloadEstadoResponse;
+import ve.smile.payload.response.PayloadPersonaResponse;
+import ve.smile.payload.response.PayloadMultimediaResponse;
+import ve.smile.payload.response.PayloadVoluntarioResponse;
 import ve.smile.seguridad.enums.SexoEnum;
+import ve.smile.seguridad.enums.OperacionEnum;
+import lights.core.enums.TypeQuery;
+import lights.smile.util.UtilMultimedia;
 
-public class VM_VoluntarioFormBasic extends VM_WindowForm
+public class VM_VoluntarioFormBasic extends VM_WindowForm implements UploadImageSingle 
 {
-	private List<SexoEnum> sexoEnums;
-	private SexoEnum sexoEnum;
-	private List<Ciudad> ciudades;
+	// Objetos locales
+	private Estado estado;
+	private Persona persona;
+	
+	// Datos
+	private Date fechaEgreso;
+	private Date fechaIngreso;
+	private Date fechaNacimiento;
 
+	// Manejo de multimedia
+	private byte[] bytes = null;
+	private String nameImage;
+	private String extensionImage;
+	private String urlImagen;
+	
+	private List<Ciudad> ciudades;
+	private List<Estado> estados;
+	private List<SexoEnum> sexoEnums;
+	private List<TipoPersonaEnum> tipoPersonaEnums;
+	
+	private SexoEnum sexoEnum;
+	private TipoPersonaEnum tipoPersonaEnum;
+	
 	@Init(superclass = true)
 	public void childInit()
 	{
-		// NOTHING OK!
+		this.setPersona(this.getVoluntario().getFkPersona());
+		if (this.persona.getSexo() != null)
+		{
+			this.setSexoEnum(SexoEnum.values()[this.persona.getSexo()]);
+		}
+		if (this.persona.getTipoPersona() != null)
+		{
+			this.setTipoPersonaEnum(TipoPersonaEnum.values()[this.persona.getTipoPersona()]);
+		}
+		if (this.getVoluntario().getFkPersona() != null && this.getVoluntario().getFkPersona().getFkMultimedia() != null)
+		{
+			this.setUrlImagen(this.getVoluntario().getFkPersona().getFkMultimedia().getUrl());
+		}
+		else
+		{
+			this.getPersona().setFkMultimedia(new Multimedia());
+			this.setUrlImagen("/Smile/default-image.jpg");
+		}
 	}
 	
+	// ENUM TIPO PERSONA
+	public TipoPersonaEnum getTipoPersonaEnum()
+	{
+		return tipoPersonaEnum;
+	}
+
+	public void setTipoPersonaEnum(TipoPersonaEnum tipoPersonaEnum)
+	{
+		this.tipoPersonaEnum = tipoPersonaEnum;
+		this.getPersona().setTipoPersona(tipoPersonaEnum.ordinal());
+	}
+
+	public List<TipoPersonaEnum> getTipoPersonaEnums()
+	{
+		if (this.tipoPersonaEnums == null)
+		{
+			this.tipoPersonaEnums = new ArrayList<>();
+		}
+		if (this.tipoPersonaEnums.isEmpty())
+		{
+			for (TipoPersonaEnum tipoPersonaEnum : TipoPersonaEnum.values())
+			{
+				this.tipoPersonaEnums.add(tipoPersonaEnum);
+			}
+		}
+		return tipoPersonaEnums;
+	}
+
+	public void setTipoPersonaEnums(List<TipoPersonaEnum> tipoPersonaEnums)
+	{
+		this.tipoPersonaEnums = tipoPersonaEnums;
+	}
+	
+	// ENUM SEXO
 	public List<SexoEnum> getSexoEnums()
 	{ 	
 		if (this.sexoEnums == null)
@@ -66,19 +161,12 @@ public class VM_VoluntarioFormBasic extends VM_WindowForm
 		getVoluntario().getFkPersona().setSexo(sexoEnum.ordinal()); 
 	}
 
+	// CIUDADES
 	public List<Ciudad> getCiudades()
 	{
 		if (this.ciudades == null)
 		{
 			this.ciudades = new ArrayList<>();
-		}
-		if (this.ciudades.isEmpty())
-		{
-			PayloadCiudadResponse payloadCiudadResponse = S.CiudadService.consultarTodos();
-			if (!UtilPayload.isOK(payloadCiudadResponse)) {
-				Alert.showMessage(payloadCiudadResponse);
-			}
-			this.ciudades.addAll(payloadCiudadResponse.getObjetos());
 		}
 		return ciudades;
 	}
@@ -86,6 +174,213 @@ public class VM_VoluntarioFormBasic extends VM_WindowForm
 	public void setCiudades(List<Ciudad> ciudades) {
 		this.ciudades = ciudades;
 	}
+	
+	// ESTADOS
+	public Estado getEstado()
+	{
+		return estado;
+	}
+
+	public void setEstado(Estado estado)
+	{
+		this.estado = estado;
+	}
+
+	public List<Estado> getEstados()
+	{
+		if (this.estados == null)
+		{
+			this.estados = new ArrayList<>();
+		}
+		if (this.estados.isEmpty())
+		{
+			PayloadEstadoResponse payloadEstadoResponse = S.EstadoService.consultarTodos();
+			if (!UtilPayload.isOK(payloadEstadoResponse))
+			{
+				Alert.showMessage(payloadEstadoResponse);
+			}
+			this.estados.addAll(payloadEstadoResponse.getObjetos());
+		}
+		return estados;
+	}
+
+	public void setEstados(List<Estado> estados)
+	{
+		this.estados = estados;
+	}
+	
+	// Filtra las ciudades al seleccionar el estado
+	@Command("changeEstado")
+	@NotifyChange({ "ciudades", "persona" })
+	public void changeEstado()
+	{
+		this.getCiudades().clear();
+		this.getPersona().setFkCiudad(null);
+		Map<String, String> criterios = new HashMap<>();
+		criterios.put("fkEstado.idEstado", String.valueOf(estado.getIdEstado()));
+		PayloadCiudadResponse payloadCiudadResponse = S.CiudadService.consultarCriterios(TypeQuery.EQUAL, criterios);
+		if (!UtilPayload.isOK(payloadCiudadResponse))
+		{
+			Alert.showMessage(payloadCiudadResponse);
+		}
+		this.getCiudades().addAll(payloadCiudadResponse.getObjetos());
+	}
+	
+	// PERSONA
+	public Persona getPersona()
+	{
+		return persona;
+	}
+
+	public void setPersona(Persona persona)
+	{
+		if (persona == null)
+		{
+			persona = new Persona();
+		}
+		this.persona = persona;
+	}
+	
+	// FECHAS
+	public Date getFechaNacimiento()
+	{
+		return fechaNacimiento;
+	}
+
+	public void setFechaNacimiento(Date fechaNacimiento)
+	{
+		this.fechaNacimiento = fechaNacimiento;
+		this.getPersona().setFechaNacimiento(fechaNacimiento.getTime());
+	}
+
+	public Date getFechaIngreso()
+	{
+		return fechaIngreso;
+	}
+
+	public void setFechaIngreso(Date fechaIngreso)
+	{
+		this.fechaIngreso = fechaIngreso;
+		this.getVoluntario().setFechaIngreso(fechaIngreso.getTime());
+	}
+	
+	public Date getFechaEgreso()
+	{
+		return fechaEgreso;
+	}
+
+	public void setFechaEgreso(Date fechaEgreso)
+	{
+		this.fechaEgreso = fechaEgreso;
+		this.getVoluntario().setFechaEgreso(fechaEgreso.getTime());
+	}
+	
+	// MULTIMEDIA
+	public String getNameImage()
+	{
+		return nameImage;
+	}
+
+	public void setNameImage(String nameImage)
+	{
+		this.nameImage = nameImage;
+	}
+
+	public String getExtensionImage()
+	{
+		return extensionImage;
+	}
+
+	public void setExtensionImage(String extensionImage)
+	{
+		this.extensionImage = extensionImage;
+	}
+	
+	public String getUrlImagen()
+	{
+		return urlImagen;
+	}
+
+	public void setUrlImagen(String urlImagen)
+	{
+		this.urlImagen = urlImagen;
+	}
+	
+	public byte[] getBytes()
+	{
+		return bytes;
+	}
+
+	public void setBytes(byte[] bytes)
+	{
+		this.bytes = bytes;
+	}
+	
+	@Override
+	public void onRemoveImageSingle(String idUpload)
+	{
+		bytes = null;
+	}
+	
+	@Override
+	public BufferedImage getImageContent()
+	{
+		try
+		{
+			return loadImage();
+		}
+		catch (Exception e)
+		{
+			return null;
+		}
+	}
+
+	@Override
+	public void onUploadImageSingle(UploadEvent event, String idUpload)
+	{
+		org.zkoss.util.media.Media media = event.getMedia();
+		if (media instanceof org.zkoss.image.Image)
+		{
+			bytes = media.getByteData();
+			this.nameImage = media.getName();
+			this.extensionImage = media.getFormat();
+			if (UtilMultimedia.validateFile(nameImage.substring(this.nameImage.lastIndexOf(".") + 1)))
+			{
+				Multimedia multimedia = new Multimedia();
+				multimedia.setNombre(nameImage);
+				multimedia.setTipoMultimedia(TipoMultimediaEnum.IMAGEN.ordinal());
+				multimedia.setUrl(new StringBuilder().append("/Smile/Patrocinador/").append(nameImage).toString());
+				multimedia.setExtension(UtilMultimedia.stringToExtensionEnum(nameImage.substring(this.nameImage.lastIndexOf(".") + 1)).ordinal());
+				multimedia.setDescripcion("Imagen del voluntario");
+				System.out.println(multimedia.getDescripcion());
+				System.out.println(multimedia.getExtension());
+				this.getPersona().setFkMultimedia(multimedia);
+			}
+			else
+			{
+				this.getPersona().setFkMultimedia(null);
+				Alert.showMessage("E: Error Code: 100-El formato de la <b>imagen</b> es inválido");
+			}
+		}
+	}
+
+	private BufferedImage loadImage() throws Exception
+	{
+		try
+		{
+			Path path = Paths.get(this.getUrlImagen());
+			bytes = Files.readAllBytes(path);
+			return ImageIO.read(new File(this.getUrlImagen()));
+		}
+		catch (Exception e)
+		{
+			Path path = Paths.get("/Smile/default-image.jpg");
+			bytes = Files.readAllBytes(path);
+			return ImageIO.read(new File("/Smile/default-image.jpg"));
+		}
+	}
+	
+	// OPERACIONES DEL FORMULARIO
 
 	@Override
 	public List<OperacionForm> getOperationsForm(OperacionEnum operacionEnum)

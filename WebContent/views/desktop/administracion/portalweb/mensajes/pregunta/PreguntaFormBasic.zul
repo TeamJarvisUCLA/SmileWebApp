@@ -1,0 +1,49 @@
+<zk xmlns:n="native" xmlns:w="client">
+	<div width="80%" class="container ${arg.animation_}"
+		use="karen.core.form.controllers.C_WindowForm"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('ve.smile.administracion.portalweb.mensajes.pregunta.viewmodels.VM_PreguntaFormBasic')">
+
+		<div class="row">
+			<div sclass="col s12 form">
+							<div class="input-field col s6">
+								<n:label for="nombre">Nombre</n:label>
+								<textbox id="nombre" type="text" value="@bind(vm.contactoPortal.fkComunidad.nombre)"> </textbox>
+							</div>
+				
+							<div class="input-field col s6">
+								<n:label for="apellido">Apellido</n:label>
+								<textbox id="apellido" type="text" value="@bind(vm.contactoPortal.fkComunidad.apellido)"> </textbox>
+							</div>
+							
+							<div class="input-field col s6">
+								<n:label for="correo">Correo</n:label>
+								<textbox id="correo" type="text" value="@bind(vm.contactoPortal.fkComunidad.correo)"> </textbox>
+							</div>
+				
+							<div class="input-field col s6">
+								<n:label for="frecuencia">Clasificador</n:label>
+								<textbox id="frecuencia" type="text" value="@bind(vm.contactoPortal.fkClasificadorSugerencia.nombre)"> </textbox>
+							</div>
+							<div class="input-field col s6">
+								<n:label for="contenido" class="active">Contenido</n:label>
+								<textbox id="contenido" type="text" value="@bind(vm.contactoPortal.contenido)"> </textbox>
+							</div>
+							
+							<div class="input-field col s6">
+								<n:label for="fecha" class="active">Fecha de Creación</n:label>
+								<datebox id="fecha" cols="20" format="yyyy/MM/dd" value="@bind(vm.contactoPortal.fecha)"/>
+							</div>
+							<div class="input-field col s12">
+								<n:label for="respuesta">Respuesta</n:label>
+								<textbox id="respuesta" type="text" value="@load(each.respuesta)"> </textbox>
+							</div>
+							
+			</div>
+		</div>
+		
+		<div id="divButtonsForm"
+			use="karen.core.form.buttons.containers.DivButtonsForm">
+		</div>
+	</div>
+</zk>

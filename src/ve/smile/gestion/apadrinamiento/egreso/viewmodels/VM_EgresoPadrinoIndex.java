@@ -40,7 +40,5 @@ public class VM_EgresoPadrinoIndex extends VM_WindowSimpleListPrincipal<Padrino>
 		}
 	
 	}
-	
-	
 
 }

@@ -1,0 +1,42 @@
+<zk xmlns:n="native" xmlns:w="client">
+	<div width="80%" class="container opacity-0"
+		use="karen.core.form.controllers.C_WindowForm"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('ve.smile.gestion.donativo.colaborador.viewmodels.VM_ColaboradorFormBasic')">
+
+		<div class="row">
+
+				<div class="col s12">
+					<div class="input-field col s6">
+						<n:label class="active" for="fk_persona">Persona</n:label>
+					<combobox id="fk_persona" readonly="true"
+						>
+						<comboitem label="Choice 1" value="c1" />
+						<comboitem label="Choice 2" value="c2" />
+						<comboitem label="Choice 3" value="c3" />
+					</combobox>
+					</div>
+					<div class="input-field col s6">
+						<n:label for="fecha_ingreso">Fecha Ingreso</n:label>
+					<textbox id="fecha_ingreso" type="text"
+						value="@bind(vm.colaborador.fechaIngreso)">
+					</textbox>
+					</div>
+				</div>
+				<div class="col s12">
+					<div class="input-field col s12">
+						<n:label for="fecha_egreso">Fecha Egreso</n:label>
+					<textbox id="fecha_egreso" type="text"
+						value="@bind(vm.colaborador.fechaEgreso)">
+					</textbox>
+					</div>
+				</div>
+
+		</div>
+		<div id="divButtonsForm"
+			use="karen.core.form.buttons.containers.DivButtonsForm">
+		</div>
+	</div>
+</zk>
+
+

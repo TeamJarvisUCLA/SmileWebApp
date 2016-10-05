@@ -1,0 +1,63 @@
+<zk xmlns:n="native" xmlns:w="client">
+	<div sclass="animated fadeInLeft">
+		<div class="row">
+			<div class="col s12" align="center"
+				style="margin-bottom: 15px;">
+				<label value="Seleccione las tareas para el evento"
+					sclass="label-medium-500">
+				</label>
+			</div>
+
+		</div>
+		<div width="100%">
+
+			<div class="row">
+				<div class="col s12">
+					<div class="col s12">
+						<grid id="listbox"
+							model="@load(vm.listEventPlanTareas)">
+
+							<columns sizable="true">
+
+								<column width="30%" label="Nombre" />
+								<column width="30%" label="Descripción" />
+								<column width="25%"
+									label="Fecha planificada" />
+								<column width="15%" label="" />
+							</columns>
+							<template name="model">
+								<row>
+									<cell>
+										<label
+											value="@load(each.fkTarea.nombre)" />
+									</cell>
+									<cell>
+										<label
+											value="@load(each.fkTarea.descripcion)" />
+									</cell>
+									<cell>
+										<datebox readonly="true" style="width: 160px;"
+											cols="20" format="dd/MM/yyyy" value="@bind(vm.fechaPlanificada)" onChange="@command('date', tarea=each)"/>
+									</cell>
+									<cell>
+										<button
+											onClick="@command('buscarDirectorio', eventoTarea=each)"
+											sclass="btn-sm-grid btn-warning" tooltiptext="Modificar"
+											iconSclass="fa fa-edit"
+											>
+										</button>
+									</cell>
+								</row>
+							</template>
+							<!-- <foot>
+								<footer id="listFoot" span="3"
+								use="karen.core.listfoot.ListFoot">
+								</footer>
+								</foot> -->
+						</grid>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</zk>

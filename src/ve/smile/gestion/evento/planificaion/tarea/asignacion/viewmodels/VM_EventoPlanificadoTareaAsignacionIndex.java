@@ -1,13 +1,11 @@
-package ve.smile.gestion.evento.planificaion.viewmodels;
+package ve.smile.gestion.evento.planificaion.tarea.asignacion.viewmodels;
 
 import karen.core.crux.alert.Alert;
 import karen.core.crux.session.DataCenter;
 import karen.core.simple_list_principal.viewmodels.VM_WindowSimpleListPrincipal;
 import karen.core.util.payload.UtilPayload;
 import lights.core.payload.response.IPayloadResponse;
-
 import org.zkoss.bind.annotation.Init;
-
 import ve.smile.consume.services.S;
 import ve.smile.dto.EventoPlanificado;
 import ve.smile.payload.response.PayloadEventoPlanificadoResponse;
@@ -55,7 +53,7 @@ public class VM_EventoPlanificadoTareaAsignacionIndex extends VM_WindowSimpleLis
 	@Override
 	public String getSrcFileZulForm(OperacionEnum operacionEnum) {
 		if (operacionEnum.equals(OperacionEnum.CUSTOM1)) {
-		return "views/desktop/gestion/evento/planificacion/eventoTarea.zul";
+		return "views/desktop/gestion/evento/planificacion/tarea/asignacion/asignacionTareaIndex.zul";
 		}
 		return "";
 	}
@@ -68,6 +66,9 @@ public class VM_EventoPlanificadoTareaAsignacionIndex extends VM_WindowSimpleLis
 		return "";
 	}
 
+	
+
+	
 
 
 }

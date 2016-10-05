@@ -1,4 +1,4 @@
-package ve.smile.gestion.evento.planificaion.viewmodels;
+package ve.smile.gestion.evento.planificaion.registro.viewmodels;
 
 import java.util.HashMap;
 import java.util.Map;

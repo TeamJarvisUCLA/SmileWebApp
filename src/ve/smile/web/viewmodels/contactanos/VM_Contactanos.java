@@ -4,17 +4,21 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import karen.core.dialog.generic.viewmodels.VM_WindowDialog;
+import karen.core.util.UtilDialog;
+import karen.core.util.validate.UtilValidate;
 
 import org.zkoss.bind.BindUtils;
+import org.zkoss.bind.annotation.Command;
 
 import ve.smile.consume.services.S;
 import ve.smile.dto.ClasificadorSugerencia;
 import ve.smile.dto.Comunidad;
 import ve.smile.dto.ContactoPortal;
+import ve.smile.enums.ProcedenciaEnum;
+import ve.smile.enums.TipoContactoPortalEnum;
 import ve.smile.payload.response.PayloadClasificadorSugerenciaResponse;
 
-public class VM_Contactanos extends VM_WindowDialog {
+public class VM_Contactanos {
 
 	private Comunidad comunidad = new Comunidad();
 	private ContactoPortal contactoPortal = new ContactoPortal();
@@ -83,10 +87,40 @@ public class VM_Contactanos extends VM_WindowDialog {
 
 	}
 
-	@Override
-	public void afterChildInit() {
-		// TODO Auto-generated method stub
+	@Command("incluir")
+	public void incluir() {
+		if (!isFormValidate()) {
+			return;
+		}
+		ContactoPortal contactoPortal = this.getContactoPortal();
+		ClasificadorSugerencia cSugerencia = this.getcSugerencia();
+		contactoPortal.setFkClasificadorSugerencia(cSugerencia);
+		Comunidad comunidad = new Comunidad();
+		comunidad.setFechaCreacion(this.getMyFecha());
+		contactoPortal.setFecha(this.getMyFecha());
+		contactoPortal.setProcedencia(ProcedenciaEnum.TRABAJO_SOCIAL.ordinal());
+		contactoPortal.setTipoContactoPortal(TipoContactoPortalEnum.CONTACTO
+				.ordinal());
 
+		contactoPortal.setFkComunidad(comunidad);
+		comunidad.setApellido(this.getComunidad().getApellido());
+		comunidad.setCorreo(this.getComunidad().getCorreo());
+		comunidad.setNombre(this.getComunidad().getNombre());
+		UtilDialog
+				.showMessageBoxSuccess("Gracias por contactarnos. Su información será procesada.");
+	}
+
+	public boolean isFormValidate() {
+
+		try {
+			UtilValidate.validateString(contactoPortal.getContenido(),
+					"mensaje");
+			return false;
+		} catch (Exception e) {
+			UtilDialog.showMessageBoxError(e.getMessage());
+		}
+
+		return true;
 	}
 
 	public void limpiar() {

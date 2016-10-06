@@ -1,12 +1,10 @@
 <zk xmlns:n="native" xmlns:w="client">
-	<window sclass="window-dialog" action="show: slideIn;hide: slideOut"
-		use="ve.smile.web.viewmodels.contactanos.C_Contactanos"
-		apply="org.zkoss.bind.BindComposer"
-		viewModel="@id('vm') @init('ve.smile.web.viewmodels.contactanos.VM_Contactanos', dialogData=arg.get('dialogData'))">
 
-		<n:link href="assets/css/web/contactanos.css" rel="stylesheet"
-			type="text/css">
-		</n:link>
+	<n:link href="assets/css/web/contactanos.css" rel="stylesheet"
+		type="text/css">
+	</n:link>
+	<div apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('ve.smile.web.viewmodels.contactanos.VM_Contactanos', dialogData=arg.get('dialogData'))">
 
 		<div class="contactanos">
 
@@ -143,7 +141,7 @@
 
 						<div id="divButtonsForm"
 							class="col s12 text-center" sclass="row">
-							<button id="btnAccept"
+							<button id="btnAccept" onClick="@command('incluir')"
 								style="background: #3b85a1 !important; color: #ffffff !important"
 								class="waves-effect waves-light btn" href="">
 								enviar
@@ -211,5 +209,5 @@
 			</div>
 
 		</div>
-	</window>
+	</div>
 </zk>

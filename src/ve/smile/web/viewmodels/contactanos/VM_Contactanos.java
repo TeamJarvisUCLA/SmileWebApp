@@ -15,8 +15,10 @@ import ve.smile.dto.ClasificadorSugerencia;
 import ve.smile.dto.Comunidad;
 import ve.smile.dto.ContactoPortal;
 import ve.smile.enums.ProcedenciaEnum;
+import ve.smile.enums.ProcedenciaMensajeEnum;
 import ve.smile.enums.TipoContactoPortalEnum;
 import ve.smile.payload.response.PayloadClasificadorSugerenciaResponse;
+import ve.smile.payload.response.PayloadContactoPortalResponse;
 
 public class VM_Contactanos {
 
@@ -98,14 +100,20 @@ public class VM_Contactanos {
 		Comunidad comunidad = new Comunidad();
 		comunidad.setFechaCreacion(this.getMyFecha());
 		contactoPortal.setFecha(this.getMyFecha());
-		contactoPortal.setProcedencia(ProcedenciaEnum.TRABAJO_SOCIAL.ordinal());
+		contactoPortal.setProcedencia(ProcedenciaMensajeEnum.PORTAL.ordinal());
 		contactoPortal.setTipoContactoPortal(TipoContactoPortalEnum.CONTACTO
 				.ordinal());
 
+		System.out.println("hola");
 		contactoPortal.setFkComunidad(comunidad);
 		comunidad.setApellido(this.getComunidad().getApellido());
 		comunidad.setCorreo(this.getComunidad().getCorreo());
 		comunidad.setNombre(this.getComunidad().getNombre());
+
+		PayloadContactoPortalResponse payloadContactoPortalResponse = S.ContactoPortalService
+				.incluirContactoPortal(contactoPortal);
+		System.out.println("hola2");
+		this.limpiar();
 		UtilDialog
 				.showMessageBoxSuccess("Gracias por contactarnos. Su información será procesada.");
 	}
@@ -115,9 +123,11 @@ public class VM_Contactanos {
 		try {
 			UtilValidate.validateString(contactoPortal.getContenido(),
 					"mensaje");
-			return false;
+
 		} catch (Exception e) {
+
 			UtilDialog.showMessageBoxError(e.getMessage());
+			return false;
 		}
 
 		return true;

@@ -1,23 +1,19 @@
+.medallas {
+	margin-top: 10px;
+}
 
+#comunidad .medallas .fotos {
+	position: relative;
+}
 
-	.medallas {
-		margin-top: 10px;
-	}
-	
-	#comunidad .medallas .fotos {
-		position: relative;
-	}
-	
-	#comunidad .medallas .fotos img:nth-of-type(1){
-		position: absolute;     
-		width: 100px;      
-		height: 100px;    
-		top: 45px;    
-		left: 76px;
-	}
-	
-	
-	
+#comunidad .medallas .fotos img:nth-of-type(1) {
+	position: absolute;
+	width: 100px;
+	height: 100px;
+	top: 45px;
+	left: 76px;
+}
+
 a:hover,a:focus {
 	text-decoration: none;
 }
@@ -41,51 +37,56 @@ a:hover,a:focus {
 	background-color: #044159;
 	border-radius: 4px;
 }
+
 .participa {
-    padding: 0;
-    background-color: #e4e6e9;
-    min-height: 100%;
-    font-family: "Roboto",sans-serif !important;
-    font-size: 12px; 
-    color: #393939;
-    line-height: 1.72;
+	padding: 0;
+	background-color: #e4e6e9;
+	min-height: 100%;
+	font-family: "Roboto", sans-serif !important;
+	font-size: 12px;
+	color: #393939;
+	line-height: 1.72;
 }
+
 .carousel {
 	position: relative;
 	/* 	height: 235px; */
 }
+
 .container.menu {
 	width: 100%;
 	/* 	height: 450px; */
 	margin: 0px;
 	padding: 0px;
 }
+
 div.barra-verde span {
-	
 	font-weigth: bold;
 	padding-top: 7px;
 	color: #87796F;
 }
+
 .z-button {
-     color:  #FFF !important;
-     background-color:#044159 !important;
+	color: #FFF !important;
+	background-color: #044159 !important;
 }
+
 div.barra-verde {
 	width: 100%;
-		height: 40px !important; 
+	height: 40px !important;
 	background-color: #d9eb52;
 	color: #F26B7A;
-	padding-top:13px;
-	
+	padding-top: 13px;
 }
+
 element.style {
 	/* 	height: 200px; */
 	display: block;
 }
+
 .info span {
 	color: #87796f;
 }
-
 
 .menuPrincipal .z-tabs {
 	background-color: #87796f;
@@ -114,20 +115,17 @@ element.style {
 .requisitos span {
 	display: block;
 	margin-bottom: -12px;
-    color: #87796f;
-    font-weight: bold;
-    /* padding: 110px; */
-  
+	color: #87796f;
+	font-weight: bold;
+	/* padding: 110px; */
 }
+
 .seccion {
 	margin-top: 20px;
 }
 
-
-.info span{
-	
+.info span {
 	text-align: justify;
-
 }
 
 .tabsitos a span {
@@ -172,13 +170,13 @@ element.style {
 }
 
 .z-tabbox {
-   min-height: 300px !important;
-}
-
-.z-tabs{
-	
 	min-height: 300px !important;
 }
+
+.z-tabs {
+	min-height: 300px !important;
+}
+
 .z-tabbox-left>.z-tabpanels {
 	border: 0px;
 	border-left: 0px;
@@ -198,7 +196,6 @@ element.style {
 	border: 0px;
 	padding: 2px;
 }
-
 
 .z-tabbox-left>.z-tabpanels>.z-tabpanel {
 	border: 0;
@@ -246,9 +243,7 @@ element.style {
 	border-top: 0;
 	padding: 5px;
 	zoom: 1;
-		
 }
-
 
 .z-tab-text {
 	font-style: normal;
@@ -258,8 +253,6 @@ element.style {
 	line-height: 24px;
 	overflow: hidden;
 }
-
-
 
 .z-tabbox-accordion .z-tabpanel>.z-tab {
 	border-width: 1px 1px 1px;
@@ -280,11 +273,9 @@ element.style {
 	padding: 1px 1px 1px 1px;
 }
 
-
 .z-tabbox-left>.z-tabs .z-tabs-content {
 	display: block;
 	height: 4096px;
 	border-right: none !important;
 	background: #87796f;
 }
-

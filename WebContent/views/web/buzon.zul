@@ -1,13 +1,11 @@
 <zk xmlns:n="native" xmlns:w="client">
-	<window width="100%" sclass="window-dialog"
-		action="show: slideIn;hide: slideOut"
-		use="ve.smile.web.viewmodels.buzon.C_Sugerencia"
-		apply="org.zkoss.bind.BindComposer"
-		viewModel="@id('vm') @init('ve.smile.web.viewmodels.buzon.VM_Sugerencia', dialogData=arg.get('dialogData'))">
-
+	
 		<n:link href="assets/css/web/buzon.css" rel="stylesheet"
 			type="text/css">
 		</n:link>
+		<div apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('ve.smile.web.viewmodels.buzon.VM_Sugerencia', dialogData=arg.get('dialogData'))">
+		
 		<div style="background-color:	 #c2d62d; height: 10px;"></div>
 		<div class="buzon">
 			<div class="container">
@@ -58,12 +56,14 @@
 							</textbox>
 						</div>
 					</div>
-					<div class="col s12 text-center">
-						<button id="btnAccept"
-							class="waves-effect waves-light btn" href="">
-							ENVIAR
-						</button>
-					</div>
+					<div id="divButtonsForm"
+							class="col s12 text-center" sclass="row">
+							<button id="btnAccept" onClick="@command('incluir')"
+								style="background: #3b85a1 !important; color: #ffffff !important"
+								class="waves-effect waves-light btn" href="">
+								Enviar
+							</button>
+						</div>
 				</div>
 			</div>
 			<div class="center-align imagen">
@@ -71,6 +71,7 @@
 					src="/SmileWebApp/imagenes/portal/img-ninos.png">
 				</n:img>
 			</div>
+			</div>
 		</div>
-	</window>
+
 </zk>

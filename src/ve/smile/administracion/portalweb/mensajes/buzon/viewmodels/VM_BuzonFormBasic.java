@@ -20,7 +20,7 @@ import karen.core.util.payload.UtilPayload;
 import karen.core.util.validate.UtilValidate;
 
 public class VM_BuzonFormBasic extends VM_WindowForm{
-	
+	private  String respuesta;
 	@Init(superclass = true)
 	public void childInit() {
 		
@@ -30,8 +30,8 @@ public class VM_BuzonFormBasic extends VM_WindowForm{
 	public List<OperacionForm> getOperationsForm(OperacionEnum operacionEnum) {
 		List<OperacionForm> operacionesForm = new ArrayList<OperacionForm>();
 		if(operacionEnum.equals(OperacionEnum.CUSTOM1)) {
-			operacionesForm.add(OperacionFormHelper.getPorType(OperacionFormEnum.APROBAR));
-			operacionesForm.add(OperacionFormHelper.getPorType(OperacionFormEnum.RECHAZAR));
+			OperacionForm operacionForm = new OperacionForm(OperacionEnum.CUSTOM1.ordinal(), "Procesar", "Custom1", "fa fa-cog", "indigo");
+			operacionesForm.add(operacionForm);
 			operacionesForm.add(OperacionFormHelper.getPorType(OperacionFormEnum.CANCELAR));
 			return operacionesForm;
 		}
@@ -41,8 +41,9 @@ public class VM_BuzonFormBasic extends VM_WindowForm{
 	
 
 	@Override
-	public boolean actionAprobar(OperacionEnum operacionEnum) {
+	public boolean actionCustom1(OperacionEnum operacionEnum) {
 		getContactoPortal().setEstatusContacto(EstatusContactoEnum.PROCESADA.ordinal());
+		getContactoPortal().setRespuesta(respuesta);
 		PayloadContactoPortalResponse payloadContactoPortalResponse =S.ContactoPortalService.modificar(getContactoPortal());
 		if (!UtilPayload.isOK(payloadContactoPortalResponse)) {
 			Alert.showMessage(payloadContactoPortalResponse);
@@ -52,17 +53,6 @@ public class VM_BuzonFormBasic extends VM_WindowForm{
 		return true;
 	}
 
-	@Override
-	public boolean actionRechazar(OperacionEnum operacionEnum) {
-		getContactoPortal().setEstatusContacto(EstatusContactoEnum.DECLINADA.ordinal());
-		PayloadContactoPortalResponse payloadContactoPortalResponse =S.ContactoPortalService.modificar(getContactoPortal());
-		if (!UtilPayload.isOK(payloadContactoPortalResponse)) {
-			Alert.showMessage(payloadContactoPortalResponse);
-			return true;
-		}
-		DataCenter.reloadCurrentNodoMenu();
-		return true;
-	}
 
 	public ContactoPortal getContactoPortal() {
 		return (ContactoPortal) DataCenter.getEntity();

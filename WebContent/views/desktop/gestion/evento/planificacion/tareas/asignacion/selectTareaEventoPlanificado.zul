@@ -65,7 +65,7 @@
 							</div>
 							<div sclass="col s5" style="padding:0px">
 								<listbox
-									model="@bind(vm.trabajoSocialActividades)"
+									model="@bind(vm.eventoTareas)"
 									emptyMessage="No hay tareas asociadas a la plantilla del evento seleccionado."
 									selectedItems="@bind(vm.eventoTareasSeleccionadas)"
 									multiple="true">

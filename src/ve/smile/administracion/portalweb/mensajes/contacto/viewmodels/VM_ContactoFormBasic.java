@@ -31,6 +31,7 @@ public class VM_ContactoFormBasic extends VM_WindowForm {
 		if(operacionEnum.equals(OperacionEnum.CUSTOM1)) {
 			operacionesForm.add(OperacionFormHelper.getPorType(OperacionFormEnum.APROBAR));
 			operacionesForm.add(OperacionFormHelper.getPorType(OperacionFormEnum.RECHAZAR));
+			operacionesForm.add(OperacionFormHelper.getPorType(OperacionFormEnum.CANCELAR));
 			return operacionesForm;
 		}
 		return operacionesForm;
@@ -45,7 +46,7 @@ public class VM_ContactoFormBasic extends VM_WindowForm {
 			return true;
 		}
 		DataCenter.reloadCurrentNodoMenu();
-		return false;
+		return true;
 	}
 
 	@Override
@@ -57,7 +58,7 @@ public class VM_ContactoFormBasic extends VM_WindowForm {
 			return true;
 		}
 		DataCenter.reloadCurrentNodoMenu();
-		return false;
+		return true;
 	}
 
 	public ContactoPortal getContactoPortal() {

@@ -265,7 +265,7 @@
 }
 
 .owlNoticias.owl-theme .owl-controls .owl-buttons .owl-next {
-	right: 50px;
+	right: -45px;
 	top: 60px;
 	position: absolute;
 }
@@ -274,7 +274,7 @@
 	display: none;
 	position: relative;
 	-ms-touch-action: pan-y;
-	margin-left: 4%; /*nuevo*/
+	margin-left: 5%; /*nuevo*/
 }
 
 

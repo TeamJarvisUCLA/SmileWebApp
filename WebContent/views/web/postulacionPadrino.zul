@@ -1,4 +1,3 @@
-
 <zk xmlns:n="native" xmlns:w="client">
 
 	<window width="80%" sclass="window-dialog"
@@ -6,24 +5,25 @@
 		use="ve.smile.web.postulacion.controllers.C_PostuladoPadrino"
 		apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('ve.smile.web.postulacion.viewmodels.VM_Postulado', dialogData=arg.get('dialogData'))">
-		
-		<n:link href="assets/css/web/postulacion.css" rel="stylesheet" type="text/css"></n:link>
-		
+
+		<n:link href="assets/css/web/postulacion.css" rel="stylesheet"
+			type="text/css">
+		</n:link>
+
 		<n:div id="modalFormPostulacion">
 			<div class="container-fluid">
 				<div class="row">
 					<div sclass="col s12 close">
-						<a id="btnCancel">
+						<a id="btnCancel"
+							sclass="waves-effect waves-light">
 							<span>x</span>
 						</a>
 					</div>
 					<div sclass="col s12 text-center">
-						<n:h6>Postulación de Padrino</n:h6>
+						<n:h5>Postúlate a Padrino</n:h5>
 					</div>
-					
-					
-					<div sclass="col s8 form">
-					<div class="input-field col s6">
+					<div sclass="col s9 form">
+						<div class="input-field col s6">
 							<n:label for="sexo" class="active">
 								Tipo de Persona
 							</n:label>
@@ -31,92 +31,79 @@
 								selectedItem="@bind(vm.tPersonaEnums)"
 								model="@bind(vm.tPersonaEnum)">
 								<template name="model">
-									<comboitem label="@bind(each)"/>
+									<comboitem label="@bind(each)" />
 								</template>
 							</combobox>
 						</div>
-						<div class="input-field col s6">
-							<n:label for="nombre">Nombre</n:label>
-							<textbox id="nombre" type="text"
-								value="@bind(vm.persona.nombre)">
-							</textbox>
-						</div>
-						<div class="input-field col s6">
-							<n:label for="apellido">Apellido</n:label><!-- no se muestra si el tipo es juridico, propiedad zk revisar visible -->
-							<textbox id="apellido" type="text"
-								value="@bind(vm.persona.apellido)">
-							</textbox>
-						</div>						
-						<div class="input-field col s6">
-							<n:label for="identificacion">Cedula</n:label>
-							<textbox id="identificacion" type="text"
-								value="@bind(vm.persona.identificacion)">
-							</textbox>
-						</div>										
-						<div class="input-field col s6">
-							<n:label for="sexo" class="active">
-								Sexo
-							</n:label>
-							<combobox id="sexo"
-								selectedItem="@bind(vm.sexoEnum)"
-								model="@bind(vm.sexoEnums)">
-								<template name="model">
-									<comboitem label="@bind(each)"/>
-								</template>
-							</combobox>
-						</div>
-						<div class="input-field col s6">
-							<n:label for="telefono_1">Telefono</n:label>
-							<textbox id="telefono_1" type="text"
-								value="@bind(vm.persona.telefono1)">
-							</textbox>
-						</div>						
-						<div class="input-field col s6">
-							<n:label for="fecha_nacimiento" class="active">Fecha de Nacimiento</n:label>
-							<datebox id="myFecha" cols="20" format="yyyy/MM/dd"
-							 value="@bind(vm.myFecha)"
-							/>
-						</div>						
-						<div class="input-field col s6">
-								<n:label class="active"
-									for="fk_estado">
-									Estado
+						<div
+							visible="@load(vm.tPersonaEnums eq 'JURIDICA' )">
+							<div class="input-field col s6">
+								<n:label for="identificacionRif"
+									class="active">
+									RIF
 								</n:label>
-								<combobox id="fk_estado" readonly="true"
-									placeholder="Seleccione un Estado" instant="true"
-									onSelect="@command('changeEstado')" model="@bind(vm.estados)"
-									selectedItem="@bind(vm.estado)">
-									<template name="model">
-										<comboitem
-											label="@load(each.nombre)" />
-									</template>
-								</combobox>
+								<textbox id="identificacionRif"
+									placeholder="J-1234567-8" type="text"
+									value="@bind(vm.persona.identificacion)">
+								</textbox>
+							</div>
+							<div class="input-field col s12">
+								<n:label for="nombreJuridico">
+									Nombre
+								</n:label>
+								<textbox id="nombreJuridico" type="text"
+									value="@bind(vm.persona.nombre)">
+								</textbox>
+							</div>
+						</div>
+						<div
+							visible="@load(empty vm.tPersonaEnums|| vm.tPersonaEnums eq 'NATURAL' )">
+							<div class="input-field col s6">
+								<n:label for="identificacion"
+									class="active">
+									Cédula
+								</n:label>
+								<textbox id="identificacion" type="text"
+									placeholder="V-1234567"
+									value="@bind(vm.persona.identificacion)">
+								</textbox>
+							</div>
+							<div class="input-field col s6">
+								<n:label for="nombre">Nombre</n:label>
+								<textbox id="nombre" type="text"
+									value="@bind(vm.persona.nombre)">
+								</textbox>
+							</div>
+							<div class="input-field col s6">
+								<n:label for="apellido">
+									Apellido
+								</n:label><!-- no se muestra si el tipo es juridico, propiedad zk revisar visible -->
+								<textbox id="apellido" type="text"
+									value="@bind(vm.persona.apellido)">
+								</textbox>
 							</div>
 
 							<div class="input-field col s6">
-								<n:label class="active"
-									for="fk_ciudad">
-									Ciudad
+								<n:label for="fecha_nacimiento"
+									class="active">
+									Fecha de Nacimiento
 								</n:label>
-								<combobox id="fk_ciudad" readonly="true"
-									placeholder="Seleccione una ciudad"
-									disabled="@load(empty vm.ciudades)" model="@bind(vm.ciudades)"
-									selectedItem="@bind(vm.persona.fkCiudad)">
+								<datebox id="myFecha" cols="20"
+									format="yyyy/MM/dd" value="@bind(vm.myFecha)" />
+							</div>
+							<div class="input-field col s6">
+								<n:label for="sexo" class="active">
+									Sexo
+								</n:label>
+								<combobox id="sexo"
+									selectedItem="@bind(vm.sexoEnum)"
+									model="@bind(vm.sexoEnums)">
 									<template name="model">
-										<comboitem
-											label="@load(each.nombre)" />
+										<comboitem label="@bind(each)" />
 									</template>
 								</combobox>
 							</div>
-		
-						
-						<div class="input-field col s6">
-							<n:label for="direccion">Dirección</n:label>
-							<textbox id="direcion" type="text"
-								value="@bind(vm.persona.direccion)">
-							</textbox>
 						</div>
-						
 						<div class="input-field col s6">
 							<n:label for="correo">Correo</n:label>
 							<textbox id="correo" type="text"
@@ -124,47 +111,94 @@
 							</textbox>
 						</div>
 						<div class="input-field col s6">
-								<n:label class="active"
-									for="fk_frecuenciaAporte">
-									Frecuencia Aporte
-								</n:label>
-								<combobox id="fk_frecuenciaAporte" readonly="true"
-									placeholder="Seleccione una frecuencia aporte"
-									disabled="@load(empty vm.frecuenciaAporte)" model="@bind(vm.frecuenciaAporte)"
-									selectedItem="@bind(vm.faporte)">
-									<template name="model">
-										<comboitem
-											label="@load(each.nombre)" />
-									</template>
-								</combobox>
-							</div>
-		
-							<div class="input-field col s6">
-							<n:label for="monto">monto</n:label>
+							<n:label for="telefono_1">Teléfono</n:label>
+							<textbox id="telefono_1" type="text"
+								value="@bind(vm.persona.telefono1)">
+							</textbox>
+						</div>
+						<div class="input-field col s6">
+							<n:label class="active" for="fk_estado">
+								Estado
+							</n:label>
+							<combobox id="fk_estado" readonly="true"
+								placeholder="Seleccione un Estado" instant="true"
+								onSelect="@command('changeEstado')" model="@bind(vm.estados)"
+								selectedItem="@bind(vm.estado)">
+								<template name="model">
+									<comboitem
+										label="@load(each.nombre)" />
+								</template>
+							</combobox>
+						</div>
+
+						<div class="input-field col s6">
+							<n:label class="active" for="fk_ciudad">
+								Ciudad
+							</n:label>
+							<combobox id="fk_ciudad" readonly="true"
+								placeholder="Seleccione una ciudad"
+								disabled="@load(empty vm.ciudades)" model="@bind(vm.ciudades)"
+								selectedItem="@bind(vm.persona.fkCiudad)">
+								<template name="model">
+									<comboitem
+										label="@load(each.nombre)" />
+								</template>
+							</combobox>
+						</div>
+
+
+						<div class="input-field col s12">
+							<n:label for="direccion">Dirección</n:label>
+							<textbox id="direcion" type="text"
+								multiline="true" maxlength="200"
+								value="@bind(vm.persona.direccion)"
+								sclass="materialize-textarea">
+							</textbox>
+						</div>
+
+
+						<div class="input-field col s6">
+							<n:label class="active"
+								for="fk_frecuenciaAporte">
+								Frecuencia Aporte
+							</n:label>
+							<combobox id="fk_frecuenciaAporte"
+								readonly="true" placeholder="Seleccione una frecuencia aporte"
+								disabled="@load(empty vm.frecuenciaAporte)"
+								model="@bind(vm.frecuenciaAporte)"
+								selectedItem="@bind(vm.faporte)">
+								<template name="model">
+									<comboitem
+										label="@load(each.nombre)" />
+								</template>
+							</combobox>
+						</div>
+
+						<div class="input-field col s6">
+							<n:label for="monto" class="active">
+								Monto
+							</n:label>
 							<doublebox id="monto"
 								value="@bind(vm.padrino.monto)">
 							</doublebox>
 						</div>
-																																
-					</div>					
-					<div class="col s4 text-center">
+
+					</div>
+					<div class="col s3 text-center">
 						<image src="/imagenes/portal/conejo.png"></image>
-					</div>			
+					</div>
 					<div id="divButtonsForm" sclass="row">
 						<div class="col s12 text-center">
-							<button label="Aceptar" id="btnAccept" class="waves-effect waves-light btn" href="">
+							<button label="Aceptar" id="btnAccept"
+								class="waves-effect waves-light btn">
 								Aceptar
-              <!--   <attribute name="onClick"><![CDATA[
-    Messagebox.show("Postulacion Enviada", "Aceptar", Messagebox.OK, Messagebox.INFORMATION);
-]]></attribute>-->
-           		</button>
+							</button>
 						</div>
 					</div>
 				</div>
 			</div>
 		</n:div>
 	</window>
-
 </zk>
 
 

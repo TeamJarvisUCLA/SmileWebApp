@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import karen.core.crux.alert.Alert;
 import karen.core.dialog.generic.viewmodels.VM_WindowDialog;
-import karen.core.util.payload.UtilPayload;
 
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.NotifyChange;
@@ -15,37 +13,31 @@ import ve.smile.consume.services.S;
 import ve.smile.dto.Ciudad;
 import ve.smile.dto.Estado;
 import ve.smile.dto.FrecuenciaAporte;
-import ve.smile.dto.Multimedia;
 import ve.smile.dto.Padrino;
-import ve.smile.dto.Patrocinador;
 import ve.smile.dto.Persona;
 import ve.smile.enums.TipoPersonaEnum;
 import ve.smile.payload.response.PayloadCiudadResponse;
 import ve.smile.payload.response.PayloadEstadoResponse;
 import ve.smile.payload.response.PayloadFrecuenciaAporteResponse;
-import ve.smile.payload.response.PayloadMultimediaResponse;
-import ve.smile.payload.response.PayloadPersonaResponse;
 import ve.smile.seguridad.enums.SexoEnum;
 
-public class VM_Postulado extends VM_WindowDialog{
-	
-	
-	private Persona persona = new Persona();	
+public class VM_Postulado extends VM_WindowDialog {
+
+	private Persona persona = new Persona();
 	private Padrino padrino = new Padrino();
 	private List<SexoEnum> sexoEnums;
 	private SexoEnum sexoEnum;
 	private List<TipoPersonaEnum> tPersonaEnum;
 	private TipoPersonaEnum tPersonaEnums;
-	private Date myFecha;	
+	private Date myFecha;
 	private Estado estado;
 	private List<Estado> estados;
 	private List<Ciudad> ciudades;
 	private List<FrecuenciaAporte> frecuenciaAporte;
 	private FrecuenciaAporte faporte;
-	
-	
+
 	public FrecuenciaAporte getFaporte() {
-		
+
 		return faporte;
 	}
 
@@ -58,11 +50,13 @@ public class VM_Postulado extends VM_WindowDialog{
 			this.frecuenciaAporte = new ArrayList<>();
 		}
 		if (this.frecuenciaAporte.isEmpty()) {
-			PayloadFrecuenciaAporteResponse payloadFrecuenciaAporteResponse = S.FrecuenciaAporteService.consultaFrecuenciaAporteSinSession();
-		
-			this.frecuenciaAporte.addAll(payloadFrecuenciaAporteResponse.getObjetos());
+			PayloadFrecuenciaAporteResponse payloadFrecuenciaAporteResponse = S.FrecuenciaAporteService
+					.consultaFrecuenciaAporteSinSession();
+
+			this.frecuenciaAporte.addAll(payloadFrecuenciaAporteResponse
+					.getObjetos());
 		}
-		
+
 		return frecuenciaAporte;
 	}
 
@@ -70,9 +64,6 @@ public class VM_Postulado extends VM_WindowDialog{
 		this.frecuenciaAporte = frecuenciaAporte;
 	}
 
-
-	
-	
 	public Estado getEstado() {
 		return estado;
 	}
@@ -86,14 +77,15 @@ public class VM_Postulado extends VM_WindowDialog{
 			this.estados = new ArrayList<>();
 		}
 		if (this.estados.isEmpty()) {
-			PayloadEstadoResponse payloadEstadoResponse = S.EstadoService.consultaEstadoSinSession();
-		
+			PayloadEstadoResponse payloadEstadoResponse = S.EstadoService
+					.consultaEstadoSinSession();
+
 			this.estados.addAll(payloadEstadoResponse.getObjetos());
 		}
 		return estados;
-	
+
 	}
-	
+
 	public void setEstados(List<Estado> estados) {
 		this.estados = estados;
 	}
@@ -108,6 +100,7 @@ public class VM_Postulado extends VM_WindowDialog{
 	public void setCiudades(List<Ciudad> ciudades) {
 		this.ciudades = ciudades;
 	}
+
 	@Command("changeEstado")
 	@NotifyChange({ "ciudades", "persona" })
 	public void changeEstado() {
@@ -115,13 +108,12 @@ public class VM_Postulado extends VM_WindowDialog{
 		this.getPersona().setFkCiudad(null);
 		PayloadCiudadResponse payloadCiudadResponse = S.CiudadService
 				.consultaCiudadPorEstadoSinSession(estado.getIdEstado());
-			this.getCiudades().addAll(payloadCiudadResponse.getObjetos());
+		this.getCiudades().addAll(payloadCiudadResponse.getObjetos());
 	}
 
 	public Date getMyFecha() {
-		if(myFecha==null)
-		{
-			myFecha= new Date();
+		if (myFecha == null) {
+			myFecha = new Date();
 		}
 		System.out.print(myFecha);
 
@@ -132,42 +124,42 @@ public class VM_Postulado extends VM_WindowDialog{
 		this.myFecha = myFecha;
 	}
 
-	//TipoPErsonaEnums
+	// TipoPErsonaEnums
 
 	public TipoPersonaEnum gettPersonaEnums() {
 		return tPersonaEnums;
 	}
 
 	public void settPersonaEnums(TipoPersonaEnum tPersonaEnums) {
-		this.tPersonaEnums = tPersonaEnums;	
+		this.tPersonaEnums = tPersonaEnums;
 		this.getPersona().setTipoPersona(tPersonaEnums.ordinal());
-		
+
 	}
 
 	public List<TipoPersonaEnum> gettPersonaEnum() {
 		if (this.tPersonaEnum == null) {
 			tPersonaEnum = new ArrayList<TipoPersonaEnum>();
 		}
-		if (this.tPersonaEnum.isEmpty()){
+		if (this.tPersonaEnum.isEmpty()) {
 			for (TipoPersonaEnum tPersonaEnums : TipoPersonaEnum.values()) {
 				this.tPersonaEnum.add(tPersonaEnums);
 			}
 		}
-	
+
 		return tPersonaEnum;
 	}
 
 	public void settPersonaEnum(List<TipoPersonaEnum> tPersonaEnum) {
 		this.tPersonaEnum = tPersonaEnum;
 	}
-	
-	//SexoEnum
+
+	// SexoEnum
 
 	public List<SexoEnum> getSexoEnums() {
 		if (this.sexoEnums == null) {
 			sexoEnums = new ArrayList<SexoEnum>();
 		}
-		if (this.sexoEnums.isEmpty()){
+		if (this.sexoEnums.isEmpty()) {
 			for (SexoEnum sexoEnum : SexoEnum.values()) {
 				this.sexoEnums.add(sexoEnum);
 			}
@@ -187,7 +179,6 @@ public class VM_Postulado extends VM_WindowDialog{
 		this.sexoEnum = sexoEnum;
 		this.getPersona().setSexo(sexoEnum.ordinal());
 	}
-	
 
 	public Persona getPersona() {
 		return persona;
@@ -200,9 +191,8 @@ public class VM_Postulado extends VM_WindowDialog{
 	@Override
 	public void afterChildInit() {
 		// TODO Auto-generated method stub
-		
-	}
 
+	}
 
 	public Padrino getPadrino() {
 		return padrino;
@@ -215,8 +205,5 @@ public class VM_Postulado extends VM_WindowDialog{
 		this.padrino = padrino;
 
 	}
-
-	
-	
 
 }

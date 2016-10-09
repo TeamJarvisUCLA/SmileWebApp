@@ -4,7 +4,7 @@
 	<div style="background:#FBFCF4" apply="org.zkoss.bind.BindComposer"
 				viewModel="@id('vm') @init('ve.smile.web.viewmodels.faq.VM_Faq')">
 		<div style=" width:100%; height:10px;"></div>
-		<div class="container" style="background:F0F2DC">
+		<div class="container animated fadeIn" style="background:F0F2DC">
 			<div class="row">
 				<div class="col s12 text-center"
 					style="margin-top:30px;">
@@ -14,7 +14,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="container">
+		<div class="container animated fadeIn">
 			<div class="row" >
 				<div class="col s4">
 					<div sclass=" text-center"
@@ -23,21 +23,12 @@
 							style="color: white; font-size:15px; line-height: 37px; ">
 						</label>
 					</div>
-
-					<!--  <listbox   model="@bind(vm.pClasificadas)" 
-						selectedItems="@bind(vm.pClasificada)" >
-						<template name="model" var="item" status="s">
-						<listitem>
-						<listcell label="@bind(item.fkClasificadorPregunta.nombre)"/>
-						</listitem>
-						</template>
-						</listbox>-->
-
 					<listbox model="@load(vm.cPreguntas)"
 						selectedItem="@bind(vm.cPregunta)" onSelect="@command('seleccionar')">
 						<template name="model" var="item">
-							<listitem>
+							<listitem >
 								<listcell
+								
 									label="@bind(item.nombre)" />
 							</listitem>
 						</template>

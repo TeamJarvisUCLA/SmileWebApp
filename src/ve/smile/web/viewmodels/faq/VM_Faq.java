@@ -42,7 +42,7 @@ public class VM_Faq {
 	}
 
 	public ClasificadorPregunta getcPregunta() {
-		return (ClasificadorPregunta) DataCenter.getEntity();
+		return this.cPregunta;
 	}
 
 	public List<PreguntaClasificada> getpClasificadas() {

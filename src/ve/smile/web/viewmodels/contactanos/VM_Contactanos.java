@@ -104,7 +104,6 @@ public class VM_Contactanos {
 		contactoPortal.setTipoContactoPortal(TipoContactoPortalEnum.CONTACTO
 				.ordinal());
 
-		System.out.println("hola");
 		contactoPortal.setFkComunidad(comunidad);
 		comunidad.setApellido(this.getComunidad().getApellido());
 		comunidad.setCorreo(this.getComunidad().getCorreo());
@@ -112,10 +111,8 @@ public class VM_Contactanos {
 
 		PayloadContactoPortalResponse payloadContactoPortalResponse = S.ContactoPortalService
 				.incluirContactoPortal(contactoPortal);
-		System.out.println("hola2");
 		this.limpiar();
-		UtilDialog
-				.showMessageBoxSuccess("Gracias por contactarnos. Su información será procesada.");
+		UtilDialog.showMessageBoxSuccess("Gracias por contactarnos. Su informacion sera procesada.");
 	}
 
 	public boolean isFormValidate() {

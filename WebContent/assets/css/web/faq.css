@@ -2,6 +2,10 @@
 	min-height: 300px !important;
 }
 
+.z-listitem.z-listitem-selected > .z-listcell, .z-listitem:HOVER > .z-listcell, .z-treerow-selected > .z-treecell, .z-treerow:HOVER > .z-treecell {
+    background: #87796f !important;
+    overflow: auto;
+}
 button {
 	background: #3b85a1 !important;
 }

@@ -41,7 +41,7 @@ import ve.smile.dto.Multimedia;
 import ve.smile.dto.EstudioSocioEconomico;
 import ve.smile.dto.EstudioSocioEconomico;
 import ve.smile.dto.Trabajador;
-import ve.smile.dto.SolicitudAyuda;
+import ve.smile.dto.EstudioSocioEconomico;
 import ve.smile.dto.Voluntario;
 import ve.smile.enums.EstatusSolicitudEnum;
 import ve.smile.enums.TipoMultimediaEnum;
@@ -49,66 +49,38 @@ import ve.smile.payload.response.PayloadMultimediaResponse;
 import ve.smile.payload.response.PayloadEstudioSocioEconomicoResponse;
 import ve.smile.payload.response.PayloadEstudioSocioEconomicoResponse;
 import ve.smile.payload.response.PayloadTrabajadorResponse;
-import ve.smile.payload.response.PayloadSolicitudAyudaResponse;
+import ve.smile.payload.response.PayloadEstudioSocioEconomicoResponse;
 import app.UploadImageSingle;
 
-public class VM_EstudioSocioEconomicoIndex extends
-		VM_WindowWizard<SolicitudAyuda>  {
+public class VM_EstudioSocioEconomicoRealizadoIndex extends
+		VM_WindowWizard<EstudioSocioEconomico>  {
 
 	private EstudioSocioEconomico estudioSocioEconomico;
 	
-	private SolicitudAyuda solicitudAyuda;
+	private EstudioSocioEconomico solicitudAyuda;
 	
-	private Date fecha = new Date();
+	private Date fechaEjecutada = new Date();
 	
-	private List<Trabajador> trabajadores ;
 
 	@Init(superclass = true)
 	public void childInit() {
 		// NOTHING OK!
-		setSolicitudAyuda(new SolicitudAyuda());
-		estudioSocioEconomico = new EstudioSocioEconomico();
-		fecha = new Date();
+		setEstudioSocioEconomico(new EstudioSocioEconomico());
+		fechaEjecutada = new Date();
 	}
 
 	
-	public List<Trabajador> getTrabajadores() {
-		if (this.trabajadores == null) {
-			this.trabajadores = new ArrayList<>();
-		}
-		if (this.trabajadores.isEmpty()) {
-			PayloadTrabajadorResponse payloadTrabajadorResponse = S.TrabajadorService
-					.consultarTodos();
 
-			if (!UtilPayload.isOK(payloadTrabajadorResponse)) {
-				Alert.showMessage(payloadTrabajadorResponse);
-			}
-
-			this.trabajadores.addAll(payloadTrabajadorResponse.getObjetos());
-		}
-
-		return trabajadores;
-	}
-
-	public void setTrabajadores(List<Trabajador> trabajadores) {
-		this.trabajadores = trabajadores;
-	}
 	
-	public EstudioSocioEconomico getEstudioSocioEconomico() {
-		return estudioSocioEconomico;
+	
+
+
+	public Date getFechaEjecutada() {
+		return fechaEjecutada;
 	}
 
-	public void setEstudioSocioEconomico(EstudioSocioEconomico estudioSocioEconomico) {
-		this.estudioSocioEconomico = estudioSocioEconomico;
-	}
-
-
-	public Date getFecha() {
-		return fecha;
-	}
-
-	public void setFecha(Date fecha) {
-		this.fecha = fecha;
+	public void setFechaEjecutada(Date fechaEjecutada) {
+		this.fechaEjecutada = fechaEjecutada;
 	}
 
 	
@@ -123,12 +95,14 @@ public class VM_EstudioSocioEconomicoIndex extends
 
 		botones.put(1, listOperacionWizard1);
 		
-		List<OperacionWizard> listOperacionWizard2 = new ArrayList<OperacionWizard>();
+		
+
+		List<OperacionWizard> listOperacionWizard2= new ArrayList<OperacionWizard>();
 		listOperacionWizard2.add(OperacionWizardHelper
 				.getPorType(OperacionWizardEnum.ATRAS));
 		
 		listOperacionWizard2.add(OperacionWizardHelper
-				.getPorType(OperacionWizardEnum.SIGUIENTE));
+				.getPorType(OperacionWizardEnum.FINALIZAR));
 		listOperacionWizard2.add(OperacionWizardHelper
 				.getPorType(OperacionWizardEnum.CANCELAR));
 
@@ -136,20 +110,9 @@ public class VM_EstudioSocioEconomicoIndex extends
 
 		List<OperacionWizard> listOperacionWizard3 = new ArrayList<OperacionWizard>();
 		listOperacionWizard3.add(OperacionWizardHelper
-				.getPorType(OperacionWizardEnum.ATRAS));
-		
-		listOperacionWizard3.add(OperacionWizardHelper
-				.getPorType(OperacionWizardEnum.FINALIZAR));
-		listOperacionWizard3.add(OperacionWizardHelper
-				.getPorType(OperacionWizardEnum.CANCELAR));
-
-		botones.put(3, listOperacionWizard3);
-
-		List<OperacionWizard> listOperacionWizard4 = new ArrayList<OperacionWizard>();
-		listOperacionWizard4.add(OperacionWizardHelper
 				.getPorType(OperacionWizardEnum.CUSTOM1));
 
-		botones.put(4, listOperacionWizard4);
+		botones.put(3, listOperacionWizard3);
 
 		return botones;
 	}
@@ -167,7 +130,6 @@ public class VM_EstudioSocioEconomicoIndex extends
 
 		iconos.add("fa fa-pencil-square-o");
 		iconos.add("fa fa-pencil-square-o");
-		iconos.add("fa fa-pencil-square-o");
 		// iconos.add("fa fa-check-square-o");
 
 		return iconos;
@@ -177,9 +139,8 @@ public class VM_EstudioSocioEconomicoIndex extends
 	public List<String> getUrlPageToStep() {
 		List<String> urls = new ArrayList<String>();
 
-		urls.add("views/desktop/gestion/ayudas/estudioSocioEconomico/selectSolicitudAyuda.zul");
-		urls.add("views/desktop/gestion/ayudas/estudioSocioEconomico/selectEvaluador.zul");
-		urls.add("views/desktop/gestion/ayudas/estudioSocioEconomico/EstudioSocioEconomicoFormBasic.zul");
+		urls.add("views/desktop/gestion/ayudas/estudioSocioEconomico/selectEstudioSocioEconomico.zul");
+		urls.add("views/desktop/gestion/ayudas/estudioSocioEconomico/EstudioSocioEconomicoRealizadoFormBasic.zul");
 		// urls.add("views/desktop/gestion/trabajoSocial/planificacion/registro/successRegistroEstudioSocioEconomicoPlanificado.zul");
 
 		return urls;
@@ -200,12 +161,12 @@ public class VM_EstudioSocioEconomicoIndex extends
 	}
 
 	@Override
-	public IPayloadResponse<SolicitudAyuda> getDataToTable(
+	public IPayloadResponse<EstudioSocioEconomico> getDataToTable(
 			Integer cantidadRegistrosPagina, Integer pagina) {
 
-		PayloadSolicitudAyudaResponse payloadSolicitudAyudaResponse = S.SolicitudAyudaService
+		PayloadEstudioSocioEconomicoResponse payloadEstudioSocioEconomicoResponse = S.EstudioSocioEconomicoService
 				.consultarPaginacion(cantidadRegistrosPagina, pagina);
-		return payloadSolicitudAyudaResponse;
+		return payloadEstudioSocioEconomicoResponse;
 	}
 
 	@Override
@@ -213,17 +174,13 @@ public class VM_EstudioSocioEconomicoIndex extends
 		
 		if (currentStep == 1) {
 			if (selectedObject == null) {
-				return "E:Error Code 5-Debe seleccionar una <b>Solicitud de Ayuda</b>";
+				return "E:Error Code 5-Debe seleccionar un <b>Estudio Socio Economico</b>";
 			}
 		}
 		
-		if (currentStep == 2) {
-			if (this.getEstudioSocioEconomico().getFkTrabajador() == null) {
-				return "E:Error Code 5-Debe seleccionar un <b>Evaluador</b>";
-			}
-		}
+	
 
-		if (currentStep == 3) {
+		if (currentStep == 2) {
 			return "E:Error Code 5-No hay otro paso";
 		}
 
@@ -237,8 +194,8 @@ public class VM_EstudioSocioEconomicoIndex extends
 		
 		if (currentStep == 3) {
 			try {
-				UtilValidate.validateDate(this.getFecha().getTime(),
-						"Fecha Planificada", ValidateOperator.GREATER_THAN,
+				UtilValidate.validateDate(this.getFechaEjecutada().getTime(),
+						"FechaEjecutada Planificada", ValidateOperator.GREATER_THAN,
 						new SimpleDateFormat("yyyy-MM-dd").format(new Date()),
 						"dd/MM/yyyy");
 			} catch (Exception e) {
@@ -252,27 +209,16 @@ public class VM_EstudioSocioEconomicoIndex extends
 
 	@Override
 	public String executeFinalizar(Integer currentStep) {
-		if (currentStep == 3) {
-			this.getEstudioSocioEconomico().setFecha(
-					this.getFecha().getTime());
+		if (currentStep == 2) {
+			this.getEstudioSocioEconomico().setFechaEjecutada(
+					this.getFechaEjecutada().getTime());
 			
-			this.getEstudioSocioEconomico().setFkSolicitudAyuda(selectedObject);
-			this.getSolicitudAyuda().setEstatusSolicitud(EstatusSolicitudEnum.EN_PROCESO.ordinal());
+		
 			
-			selectedObject.setEstatusSolicitud(EstatusSolicitudEnum.EN_PROCESO.ordinal());
-			PayloadEstudioSocioEconomicoResponse payloadEstudioSocioEconomicoResponse = S.EstudioSocioEconomicoService
-					.incluir(this.estudioSocioEconomico);
-			PayloadSolicitudAyudaResponse payloadSolicitudAyudaResponse = S.SolicitudAyudaService.modificar(selectedObject);
+			PayloadEstudioSocioEconomicoResponse payloadEstudioSocioEconomicoResponse = S.EstudioSocioEconomicoService.modificar(selectedObject);
 			if (UtilPayload.isOK(payloadEstudioSocioEconomicoResponse)) {
 				restartWizard();
-				this.setEstudioSocioEconomico(new EstudioSocioEconomico());
-				this.setFecha(new Date());
-				this.setSelectedObject(new SolicitudAyuda());
-				BindUtils.postNotifyChange(null, null, this, "estudioSocioEconomico");
-				BindUtils
-						.postNotifyChange(null, null, this, "fecha");
-				BindUtils.postNotifyChange(null, null, this, "selectedObject");
-				BindUtils.postNotifyChange(null, null, this, "solicitudAyuda");
+				
 			}
 			return (String) payloadEstudioSocioEconomicoResponse
 					.getInformacion(IPayloadResponse.MENSAJE);
@@ -288,15 +234,21 @@ public class VM_EstudioSocioEconomicoIndex extends
 			this.getControllerWindowWizard().updateListBoxAndFooter();
 			BindUtils.postNotifyChange(null, null, this, "objectsList");
 		}
+		
+		if(currentStep==2){
+			
+			this.setEstudioSocioEconomico(selectedObject);	
+			
+		}
 	}
 
 
-	public SolicitudAyuda getSolicitudAyuda() {
+	public EstudioSocioEconomico getEstudioSocioEconomico() {
 		return solicitudAyuda;
 	}
 
 
-	public void setSolicitudAyuda(SolicitudAyuda solicitudAyuda) {
+	public void setEstudioSocioEconomico(EstudioSocioEconomico solicitudAyuda) {
 		this.solicitudAyuda = solicitudAyuda;
 	}
 

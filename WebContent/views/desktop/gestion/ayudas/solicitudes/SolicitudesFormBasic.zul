@@ -7,24 +7,27 @@
 		<div class="row">
 		
 		
-			
 			<div class="col s12">
 				<div class="input-field offset-s2 col s8">
-					<n:label for="observacion">Observacion</n:label>
-					<textbox id="observacion" type="text" maxlength="100"
-						value="@bind(vm.solicitudAyuda.observacion)">
+					<n:label for="titulo">Titulo de Solicitud</n:label>
+					<textbox id="titulo" type="text" maxlength="100"
+						value="@bind(vm.solicitudAyuda.titulo)">
 					</textbox>
 				</div>
 			</div>
 			
+			
+			
 			<div class="input-field offset-s2 col s8">
 					<n:label for="beneficiario">Beneficiario:</n:label>
-					<textbox id="beneficiario" type="text" value="@bind(vm.beneficiario.fkPersona.nombre)" disabled="true"></textbox>
+					<textbox id="beneficiario" type="text" value="@bind(vm.beneficiarioFamiliar.fkBeneficiario.fkPersona.nombre)" disabled="true"></textbox>
+					<n:label for="beneficiario2">Beneficiario:</n:label>
+					<textbox id="beneficiario2" type="text" value="@bind(vm.beneficiarioFamiliar.fkBeneficiario.fkPersona.apellido)" disabled="true"></textbox>
 				</div>
 				<div class="input-field col s1"
 					style="font-size: 2em;">
 					<button
-						sclass="teal lighten-1 waves-effect waves-light" onClick="@command('buscarBeneficiario')"
+						sclass="teal lighten-1 waves-effect waves-light" onClick="@command('buscarBeneficiarioFamiliar')"
 						iconSclass="fa fa-search" style="padding: 5px 15px; background-color: #2AA4EF !important">
 					</button>
 				</div>
@@ -53,7 +56,7 @@
 									EStatus De Solicitud
 								</n:label>
 
-								<combobox id="estatus_solicitud"
+								<combobox disabled="true" id="estatus_solicitud"
 									readonly="true" model="@bind(vm.estatusSolicitudEnums)"
 									selectedItem="@bind(vm.estatusSolicitudEnum)">
 									<template name="model">
@@ -101,7 +104,15 @@
 			
 								
 			
-			
+			<div class="col s12">
+				<div class="input-field offset-s2 col s8">
+					<n:label for="observacion">Observacion</n:label>
+					<textbox type="text"
+							sclass="materialize-textarea" multiline="true"
+						value="@bind(vm.solicitudAyuda.observacion)">
+					</textbox>
+				</div>
+			</div>
 			
 			
 					

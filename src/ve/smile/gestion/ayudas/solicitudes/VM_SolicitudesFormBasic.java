@@ -25,6 +25,7 @@ import org.zkoss.bind.annotation.Init;
 import ve.smile.consume.services.S;
 import ve.smile.dto.Ayuda;
 import ve.smile.dto.Beneficiario;
+import ve.smile.dto.BeneficiarioFamiliar;
 import ve.smile.dto.SolicitudAyuda;
 import ve.smile.enums.EstatusSolicitudEnum;
 import ve.smile.enums.UrgenciaEnum;
@@ -40,10 +41,12 @@ public class VM_SolicitudesFormBasic extends VM_WindowForm {
 	private UrgenciaEnum urgenciaEnum;
 
 	private SolicitudAyuda solicitudAyuda;
+	
+	private Beneficiario beneficiario = new Beneficiario();
 
 	private Date fecha;
 
-	private Beneficiario beneficiario = new Beneficiario();
+	private BeneficiarioFamiliar beneficiarioFamiliar = new BeneficiarioFamiliar();
 
 	private Ayuda ayuda = new Ayuda();
 
@@ -145,34 +148,34 @@ public class VM_SolicitudesFormBasic extends VM_WindowForm {
 		this.getSolicitudAyuda().setFecha(fecha.getTime());
 	}
 
-	public void refreshBeneficiario() {
+	public void refreshBeneficiarioFamiliar() {
 		this.getSolicitudAyuda().setFkBeneficiario(this.getBeneficiario());
-		BindUtils.postNotifyChange(null, null, this, "beneficiario");
+		BindUtils.postNotifyChange(null, null, this, "beneficiarioFamiliar");
 		BindUtils.postNotifyChange(null, null, this, "solicitudAyuda");
 	}
 
-	@Command("buscarBeneficiario")
-	public void buscarBeneficiario() {
-		CatalogueDialogData<Beneficiario> catalogueDialogData = new CatalogueDialogData<Beneficiario>();
+	@Command("buscarBeneficiarioFamiliar")
+	public void buscarBeneficiarioFamiliar() {
+		CatalogueDialogData<BeneficiarioFamiliar> catalogueDialogData = new CatalogueDialogData<BeneficiarioFamiliar>();
 		catalogueDialogData
-				.addCatalogueDialogCloseListeners(new CatalogueDialogCloseListener<Beneficiario>() {
+				.addCatalogueDialogCloseListeners(new CatalogueDialogCloseListener<BeneficiarioFamiliar>() {
 
 					@Override
 					public void onClose(
-							CatalogueDialogCloseEvent<Beneficiario> catalogueDialogCloseEvent) {
+							CatalogueDialogCloseEvent<BeneficiarioFamiliar> catalogueDialogCloseEvent) {
 						if (catalogueDialogCloseEvent.getDialogAction().equals(
 								DialogActionEnum.CANCELAR)) {
 							return;
 						}
-						beneficiario = catalogueDialogCloseEvent.getEntity();
-						refreshBeneficiario();
+						beneficiarioFamiliar = catalogueDialogCloseEvent.getEntity();
+						refreshBeneficiarioFamiliar();
 
 					}
 				});
 
 		UtilDialog
 				.showDialog(
-						"views/desktop/gestion/ayudas/solicitudes/catalogoBeneficiario.zul",
+						"views/desktop/gestion/ayudas/solicitudes/catalogoBeneficiarioFamiliar.zul",
 						catalogueDialogData);
 	}
 
@@ -241,6 +244,7 @@ public class VM_SolicitudesFormBasic extends VM_WindowForm {
 		if (operacionEnum.equals(OperacionEnum.INCLUIR)) {
 
 			SolicitudAyuda solicitudAyuda = this.getSolicitudAyuda();
+			solicitudAyuda.setFkBeneficiario(this.getBeneficiarioFamiliar().getFkBeneficiario());
 			solicitudAyuda.setFecha(new Date().getTime());
 
 			PayloadSolicitudAyudaResponse payloadSolicitudAyudaResponse = S.SolicitudAyudaService
@@ -259,6 +263,7 @@ public class VM_SolicitudesFormBasic extends VM_WindowForm {
 		if (operacionEnum.equals(OperacionEnum.MODIFICAR)) {
 
 			SolicitudAyuda solicitudAyuda = this.getSolicitudAyuda();
+			solicitudAyuda.setFkBeneficiario(this.getBeneficiarioFamiliar().getFkBeneficiario());
 			solicitudAyuda.setFecha(new Date().getTime());
 
 			PayloadSolicitudAyudaResponse payloadSolicitudAyudaResponse = S.SolicitudAyudaService
@@ -309,12 +314,12 @@ public class VM_SolicitudesFormBasic extends VM_WindowForm {
 		}
 	}
 
-	public Beneficiario getBeneficiario() {
-		return beneficiario;
+	public BeneficiarioFamiliar getBeneficiarioFamiliar() {
+		return beneficiarioFamiliar;
 	}
 
-	public void setBeneficiario(Beneficiario beneficiario) {
-		this.beneficiario = beneficiario;
+	public void setBeneficiarioFamiliar(BeneficiarioFamiliar beneficiarioFamiliar) {
+		this.beneficiarioFamiliar = beneficiarioFamiliar;
 	}
 
 	public Ayuda getAyuda() {
@@ -323,6 +328,14 @@ public class VM_SolicitudesFormBasic extends VM_WindowForm {
 
 	public void setAyuda(Ayuda ayuda) {
 		this.ayuda = ayuda;
+	}
+
+	public Beneficiario getBeneficiario() {
+		return beneficiario;
+	}
+
+	public void setBeneficiario(Beneficiario beneficiario) {
+		this.beneficiario = beneficiario;
 	}
 
 }

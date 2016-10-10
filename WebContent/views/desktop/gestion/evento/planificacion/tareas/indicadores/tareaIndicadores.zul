@@ -1,0 +1,110 @@
+<panel border="none" sclass="transparent" collapsible="true"
+	open="true">
+	<caption label="Periodos Vacacionales"></caption>
+	<panelchildren>
+		<div sclass="row section">
+			<div sclass="col s12">
+				<grid id="Grid" sclass="periodo grid"
+					model="@bind(vm.listEventPlanTareas)">
+					<columns sclass="header-periodo-vacacional">
+						<column width="5%" />
+						<column label="Nombre" sort="auto(nombre)"
+							width="25%" />
+						<column label="Descripción"
+							sort="auto(descripcion)" align="center" width="35%" />
+						<column label="Clasificador de Tarea"
+							sort="auto(clasificadoTarea)" align="center" width="23%" />
+						<column label="Indicadores" align="center"
+							width="12%">
+
+						</column>
+					</columns>
+					<template name="model">
+						<row style="overflow:auto; max-height:200px"
+							sclass="row-vacaciones">
+
+
+							<detail open="false" fulfill="onOpen">
+
+								<grid sclass="vacacion"
+									model="@bind(each.listIndicadors)">
+									<columns
+										sclass="header-periodo-disfute">
+										<column label="Nombre"
+											width="22%" />
+										<column label="Descripción"
+											align="center" width="30%" />
+										<column label="Unidad de Medida"
+											align="center" width="25%" />
+										<column label="Valor"
+											align="center" width="23%">
+
+										</column>
+										<column label="eliminar"
+											align="left" width="10%">
+
+										</column>
+									</columns>
+									<template name="model">
+										<row sclass="last">
+											<cell sclass="vacacion">
+												<label
+													value="@bind(each.nombre)" />
+											</cell>
+											<cell sclass="vacacion">
+												<label
+													value="@bind(each.descripcion)" />
+											</cell>
+											<cell sclass="vacacion">
+												<label
+													value="@bind(each.fkUnidadMedida.nombre)" />
+											</cell>
+											<cell sclass="vacacion">
+												<intbox
+													style="height: 1em; border: 1px solid #999999; border-radius: 7px; font-size:1.2em;  text-align: center;"
+													value="@bind(each.valorEsperado)">
+												</intbox>
+											</cell>
+											<cell sclass="vacacion"
+												style="    border-left: 2px solid #EEEEEE !important;">
+												<button
+													onClick="@command('eliminarPeriodoDisfrute', periodoDisfrute=each)"
+													sclass="btn-sm-grid btn-pink " style="margin-left: 3px;"
+													tooltiptext="Eliminar" iconSclass="fa fa-trash">
+												</button>
+											</cell>
+										</row>
+									</template>
+								</grid>
+							</detail>
+
+							<cell sclass="periodo">
+								<label
+									value="@bind(each.fkTarea.nombre) " />
+							</cell>
+
+							<cell sclass="periodo">
+								<label
+									value="@bind(each.fkTarea.descripcion)" />
+							</cell>
+							<cell sclass="periodo">
+								<label
+									value="@bind(each.fkTarea.fkClasificadorTarea.nombre)" />
+							</cell>
+							<cell sclass="periodo">							
+								<button
+									sclass="teal lighten-1 waves-effect waves-light"
+									onClick="@command('buscarIndicadores', index=forEachStatus.index)"
+									iconSclass="fa fa-search" tooltiptext="Editar Lugar"
+									style="/padding: 5px 6px; background-color: #2AA4EF !important; float: center">
+								</button>
+							</cell>
+						</row>
+					</template>
+				</grid>
+			</div>
+
+		</div>
+
+	</panelchildren>
+</panel>

@@ -3,26 +3,26 @@
 	<window width="80%" sclass="window-dialog" action="show: slideIn;hide: slideOut"
 		use="karen.core.dialog.catalogue.list_pagination.controllers.C_ListPaginationCatalogueDialog"
 		apply="org.zkoss.bind.BindComposer"
-		viewModel="@id('vm') @init('ve.smile.gestion.evento.planificaion.registro.viewmodels.VM_CatalogoDirectorio', dialogData=arg.get('dialogData'))">
-		<caption label="DIRECTORIO" style="margin-left: 40%;"/>
+		viewModel="@id('vm') @init('ve.smile.gestion.evento.planificaion.tarea.indicadores.viewmodels.VM_CatalogoIndicadores', dialogData=arg.get('dialogData'))">
+		<caption label="INDICADORES" style="margin-left: 40%;"/>
 		<separator height="20px"></separator>
-		<n:h6 style="margin-left: 5%;">Por favor seleccione una dirección:</n:h6>
+		<n:h6 style="margin-left: 5%;">Por favor seleccione los indicadores para la tarea:</n:h6>
 		<separator height="20px"></separator>
 		<listbox id="listbox" model="@load(vm.objectList)"
-			selectedItem="@bind(vm.selectedObject)" style="width: 90%; margin-left: 5%;padding-bottom: 5%;">
+			selectedItem="@bind(vm.selectedObject)" style="width: 90%; margin-left: 5%;padding-bottom: 5%;" multiple="true" checkmark="true">
 
 			<listhead sizable="true">
-				<listheader label="Nombre" />
-				<listheader label="Estado" />
-				<listheader label="Ciudad" />
-				<listheader label="Dirección" />
+				<listheader width="5%" label="" />
+				<listheader width="25%" label="Nombre" />
+				<listheader width="40%" label="Descripcion" />
+				<listheader width="30%" label="Unidad de medida" />				
 			</listhead>
 			<template name="model">
 				<listitem>
+					<listcell label="" />
 					<listcell label="@load(each.nombre)" />
-					<listcell label="@load(each.fkCiudad.fkEstado.nombre)" />
-					<listcell label="@load(each.fkCiudad.nombre)" />
-					<listcell label="@load(each.direccion)" />
+					<listcell label="@load(each.descripcion)" />
+					<listcell label="@load(each.fkUnidadMedida.nombre)" />				
 				</listitem>
 			</template>
 			<listfoot>

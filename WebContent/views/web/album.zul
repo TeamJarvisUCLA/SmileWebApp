@@ -75,53 +75,24 @@
 			</div>
 			<div class="col s12 comentarios">
 				<n:h4>Comentarios</n:h4>
-				<div class="row">
-					<div class="col s12">
-						<label
-							value="Reina en mi espíritu una alegría admirable, muy parecida a las dulces alboradas de la primavera, de que gozo aquí con delicia. Estoy solo, y me felicito de vivir en este país, el más a propósito para almas como la mía, soy tan dichoso, mi querido amigo, me sojuzga de tal modo la idea de reposar, que no me ocupo de mi arte. Ahora no sabría dibujar, ni siquiera hacer una línea con el lápiz; y, sin">
-						</label>
-					</div>
-					<div class="col s12 star-mail">
-						<span sclass="fa fa-star-o fa-2x"></span>
-						<span sclass="fa fa-star-o fa-2x"></span>
-						<span sclass="fa fa-star-o fa-2x"></span>
-						<span sclass="fa fa-star-o fa-2x"></span>
-						<span sclass="fa fa-star fa-2x"></span>
-						<span class="email">maria@gmail.com</span>
-					</div>	
-				</div>	
-				<div class="row">
-					<div class="col s12">
-						<label
-							value="Reina en mi espíritu una alegría admirable, muy parecida a las dulces alboradas de la primavera, de que gozo aquí con delicia. Estoy solo, y me felicito de vivir en este país, el más a propósito para almas como la mía, soy tan dichoso, mi querido amigo, me sojuzga de tal modo la idea de reposar, que no me ocupo de mi arte. Ahora no sabría dibujar, ni siquiera hacer una línea con el lápiz; y, sin">
-						</label>
-					</div>
-					<div class="col s12 star-mail">
-						<span sclass="fa fa-star-o fa-2x"></span>
-						<span sclass="fa fa-star-o fa-2x"></span>
-						<span sclass="fa fa-star fa-2x"></span>
-						<span sclass="fa fa-star-o fa-2x"></span>
-						<span sclass="fa fa-star-o fa-2x"></span>						
-						<span class="email">pedro@gmail.com</span>
-					</div>							
-				</div>		
-				<div class="row">
-					<div class="col s12">
-						<label
-							value="Ahora no sabría dibujar, ni siquiera hacer una línea con el lápiz; y, sin">
-						</label>
-					</div>
-					<div class="col s12 star-mail">
-						<span sclass="fa fa-star-o fa-2x"></span>
-						<span sclass="fa fa-star fa-2x"></span>
-						<span sclass="fa fa-star-o fa-2x"></span>
-						<span sclass="fa fa-star-o fa-2x"></span>
-						<span sclass="fa fa-star-o fa-2x"></span>
-						<span class="email">annitagil@gmail.com</span>
-					</div>								
+				<div children="@load(vm.comentarioalbum)">
+					<template name="children">
+						<div class="row">
+							<div class="col s12">
+								<label
+									value="@load(each.comentario)">
+								</label>
+							</div>
+							<div class="col s12 star-mail">
+								<label class="stars" value="@load(each.puntuacion)"></label>
+<!-- 								<span sclass="fa fa-star-o fa-2x"></span> -->
+<!-- 								<span sclass="fa fa-star fa-2x"></span> -->
+								<label class="email" value="@load(each.fkComunidad.correo)"></label>
+							</div>	
+						</div>	
+					</template>
 				</div>				
-				<div class="col s12" apply="org.zkoss.bind.BindComposer"
-		viewModel="@id('vm') @init('ve.smile.web.viewmodels.VM_AbrirPostulado')">
+				<div class="col s12">
 					<button class="waves-effect waves-light btn" href="" onClick="@command('abrirComentar')">
 						comentar
 					</button>
@@ -135,8 +106,17 @@
 	$(document).ready(function() {
 	  
 	   $('.materialboxed').materialbox();
+	   
+	   	$.fn.stars = function() {
+		    return $(this).each(function() {
+		        $(this).html($('<span />').width(Math.max(0, (Math.min(5, parseFloat($(this).html())))) * 16));
+		    });
+		}
 	
 	});
  	
+	$(function() {
+    	$('span.stars').stars();
+	});
 </n:script>	
 </zk>

@@ -106,7 +106,7 @@
 			<div class="input-field col s5">
 				<div class="input-field col s12">
 					<uploadImageSingle maxsize="9000" size="200"
-						idUpload="1" title="Imagen del Trabajo Social" />
+						idUpload="1" title="Imagen del Evento" />
 				</div>
 			</div>
 

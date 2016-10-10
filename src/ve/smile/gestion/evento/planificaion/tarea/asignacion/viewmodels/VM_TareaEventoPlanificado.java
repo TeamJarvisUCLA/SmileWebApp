@@ -12,11 +12,16 @@ import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 
+import ve.smile.consume.services.S;
 import ve.smile.dto.Actividad;
 import ve.smile.dto.Directorio;
+import ve.smile.dto.EventPlanTarea;
 import ve.smile.dto.EventoPlanificado;
 import ve.smile.dto.Tarea;
 import ve.smile.dto.TsPlanActividad;
+import ve.smile.payload.response.PayloadEventPlanPatrocinadorResponse;
+import ve.smile.payload.response.PayloadEventoPlanificadoResponse;
+import ve.smile.payload.response.PayloadTsPlanResponse;
 import karen.core.dialog.catalogue.generic.data.CatalogueDialogData;
 import karen.core.dialog.catalogue.generic.events.CatalogueDialogCloseEvent;
 import karen.core.dialog.catalogue.generic.events.listeners.CatalogueDialogCloseListener;
@@ -36,7 +41,7 @@ VM_WindowWizard<EventoPlanificado>{
 	private List<Tarea> eventoTareas;
 	private Set<Tarea> eventoTareasSeleccionadas;
 	// forEachStatus.index
-	private List<TsPlanActividad> eventoPlanificadotareas;
+	private List<EventPlanTarea> eventoPlanificadotareas;
 
 	private List<Tarea> eventoTareasAux;
 
@@ -148,10 +153,11 @@ VM_WindowWizard<EventoPlanificado>{
 	}
 
 	@Override
-	public IPayloadResponse<EventoPlanificado> getDataToTable(Integer arg0,
-			Integer arg1) {
-		// TODO Auto-generated method stub
-		return null;
+	public IPayloadResponse<EventoPlanificado> getDataToTable(Integer cantidadRegistrosPagina,
+			Integer pagina) {
+		PayloadEventoPlanificadoResponse payloadEventoPlanificadoResponse = S.EventoPlanificadoService
+				.consultarPaginacion(cantidadRegistrosPagina, pagina);
+		return payloadEventoPlanificadoResponse;
 	}
 
 	@Override
@@ -169,13 +175,36 @@ VM_WindowWizard<EventoPlanificado>{
 	public List<String> getUrlPageToStep() {
 		List<String> urls = new ArrayList<String>();
 
-		urls.add("views/desktop/gestion/trabajoSocial/planificacion/tareas/asignacion/selectEventoPlanificado.zul");
-		urls.add("views/desktop/gestion/trabajoSocial/planificacion/tareas/asignacion/selectTareaEventoPlanificado.zul");
-		urls.add("views/desktop/gestion/trabajoSocial/planificacion/tareas/asignacion/editTareaEventoPlanificado.zul");
-		urls.add("views/desktop/gestion/trabajoSocial/planificacion/tareas/asignacion/registroCompletado.zul");
+		urls.add("views/desktop/gestion/evento/planificacion/tareas/asignacion/selectEventoPlanificado.zul");
+		urls.add("views/desktop/gestion/evento/planificacion/tareas/asignacion/selectTareaEventoPlanificado.zul");
+		urls.add("views/desktop/gestion/evento/planificacion/tareas/asignacion/editTareaEventoPlanificado.zul");
+		urls.add("views/desktop/gestion/evento/planificacion/tareas/asignacion/registroCompletado.zul");
 		return urls;
 	}
+	
+	
 
+	@Override
+	public void comeIn(Integer currentStep) {
+		if (currentStep == 1) {
+			this.getControllerWindowWizard().updateListBoxAndFooter();
+			BindUtils.postNotifyChange(null, null, this, "objectsList");
+		}
+	}
+
+	@Override
+	public String executeSiguiente(Integer currentStep) {
+		goToNextStep();
+
+		return "";
+	}
+
+	@Override
+	public String executeAtras(Integer currentStep) {
+		goToPreviousStep();
+
+		return "";
+	}
 	public List<Tarea> getTareas() {
 		return tareas;
 	}
@@ -208,12 +237,12 @@ VM_WindowWizard<EventoPlanificado>{
 		this.eventoTareasSeleccionadas = eventoTareasSeleccionadas;
 	}
 
-	public List<TsPlanActividad> getEventoPlanificadotareas() {
+	public List<EventPlanTarea> getEventoPlanificadotareas() {
 		return eventoPlanificadotareas;
 	}
 
 	public void setEventoPlanificadotareas(
-			List<TsPlanActividad> eventoPlanificadotareas) {
+			List<EventPlanTarea> eventoPlanificadotareas) {
 		this.eventoPlanificadotareas = eventoPlanificadotareas;
 	}
 

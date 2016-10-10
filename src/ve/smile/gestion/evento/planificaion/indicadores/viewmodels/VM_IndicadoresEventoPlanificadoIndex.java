@@ -16,7 +16,9 @@ import ve.smile.dto.EventoPlanificado;
 import ve.smile.dto.Indicador;
 import ve.smile.dto.IndicadorEventoPlanificado;
 import ve.smile.dto.IndicadorTsPlan;
+import ve.smile.payload.response.PayloadEventoPlanificadoResponse;
 import ve.smile.payload.response.PayloadIndicadorResponse;
+import ve.smile.payload.response.PayloadTsPlanResponse;
 import karen.core.crux.alert.Alert;
 import karen.core.simple_list.wizard.buttons.data.OperacionWizard;
 import karen.core.simple_list.wizard.buttons.enums.OperacionWizardEnum;
@@ -108,10 +110,11 @@ VM_WindowWizard<EventoPlanificado>{
 	}
 
 	@Override
-	public IPayloadResponse<EventoPlanificado> getDataToTable(Integer arg0,
-			Integer arg1) {
-		// TODO Auto-generated method stub
-		return null;
+	public IPayloadResponse<EventoPlanificado> getDataToTable(Integer cantidadRegistrosPagina,
+			Integer pagina) {
+		PayloadEventoPlanificadoResponse payloadEventoPlanificadoResponse = S.EventoPlanificadoService
+				.consultarPaginacion(cantidadRegistrosPagina, pagina);
+		return payloadEventoPlanificadoResponse;
 	}
 
 	@Override
@@ -129,10 +132,10 @@ VM_WindowWizard<EventoPlanificado>{
 	public List<String> getUrlPageToStep() {
 		List<String> urls = new ArrayList<String>();
 
-		urls.add("views/desktop/gestion/trabajoSocial/planificacion/indicadores/selectTrabajoSocialPlanificado.zul");
-		urls.add("views/desktop/gestion/trabajoSocial/planificacion/indicadores/selectIndicadoresTrabajoSocialPlanificado.zul");
-		urls.add("views/desktop/gestion/trabajoSocial/planificacion/indicadores/editIndicadoresTrabajoSocialPlanificado.zul");
-		urls.add("views/desktop/gestion/trabajoSocial/planificacion/indicadores/registroCompletado.zul");
+		urls.add("views/desktop/gestion/evento/planificacion/indicadores/selectEventoPlanificado.zul");
+		urls.add("views/desktop/gestion/evento/planificacion/indicadores/selectIndicadoresEventoPlanificado.zul");
+		urls.add("views/desktop/gestion/evento/planificacion/indicadores/editIndicadoresEventoPlanificado.zul");
+		urls.add("views/desktop/gestion/evento/planificacion/indicadores/registroCompletado.zul");
 		return urls;
 	}
 	
@@ -189,6 +192,7 @@ VM_WindowWizard<EventoPlanificado>{
 		return "";
 	}
 	
+
 	@Override
 	public void comeIn(Integer currentStep) {
 		if (currentStep == 1) {

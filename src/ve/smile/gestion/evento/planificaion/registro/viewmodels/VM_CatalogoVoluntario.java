@@ -29,7 +29,7 @@ public class VM_CatalogoVoluntario extends VM_ListPaginationCatalogueDialog<Volu
 	public IPayloadResponse<Voluntario> getObjectListToLoad(Integer cantidadRegistrosPagina,
 			Integer pagina) {
 		Map<String, String> criterios = new HashMap<String, String>();
-		criterios.put("estatusPostulado", EstatusVoluntarioEnum.ACTIVO.ordinal()+"");
+		criterios.put("estatusVoluntario", EstatusVoluntarioEnum.ACTIVO.ordinal()+"");
 		PayloadVoluntarioResponse payloadVoluntarioResponse  = 
 				S.VoluntarioService.consultarPaginacionCriterios(cantidadRegistrosPagina, pagina, TypeQuery.EQUAL, criterios);
 		return payloadVoluntarioResponse;

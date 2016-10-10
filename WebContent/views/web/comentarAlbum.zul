@@ -2,11 +2,12 @@
 
 	<window width="80%" sclass="window-dialog"
 		action="show: slideIn;hide: slideOut"
-		use="ve.smile.web.viewmodels.VM_PostuladoVoluntario"
+		use="ve.smile.web.viewmodels.albumes.C_ComentarioAlbum"
 		apply="org.zkoss.bind.BindComposer"
-		viewModel="@id('vm') @init('ve.smile.web.viewmodels.VM_Postulado', dialogData=arg.get('dialogData'))">
+		viewModel="@id('vm') @init('ve.smile.web.viewmodels.albumes.VM_ComentarioAlbum', dialogData=arg.get('dialogData'))">
 		
 		<n:link href="assets/css/web/comentarAlbum.css" rel="stylesheet" type="text/css"></n:link>
+		<n:link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"></n:link>
 		
 		<n:div id="modalFormComentario">
 			<div class="container-fluid">
@@ -20,32 +21,42 @@
 						<n:h6>Plantea tu comentario aquí</n:h6>
 					</div>
 					<div sclass="col s8 form">
-						<div class="input-field col s12">
+						<div class="input-field col s6">
 							<n:label for="nombre">Nombre</n:label>
 							<textbox id="nombre" type="text"
-								value="@bind(vm.persona.nombre)">
+								value="@bind(vm.comunidad.nombre)">
+							</textbox>
+						</div>
+						<div class="input-field col s6">
+							<n:label for="apellido">Apellido</n:label>
+							<textbox id="apellido" type="text"
+								value="@bind(vm.comunidad.apellido)">
 							</textbox>
 						</div>
 						<div class="input-field col s12">
 							<n:label for="correo">Correo</n:label>
 							<textbox id="correo" type="text"
-								value="@bind(vm.persona.correo)">
+								value="@bind(vm.comunidad.correo)">
 							</textbox>
 						</div>
 						<div class="input-field col s12">
 							<n:label for="asunto">Comentario:</n:label>
-							<textbox id="asunto" type="text"></textbox>
+							<textbox id="asunto" type="text"
+								value="@bind(vm.comentarioAlbum.comentario)">
+							</textbox>
 						</div>
 						<div sclass="col s12">
 							<span>Califica este evento:</span>
 						</div>
-						<div class="col s12 star">
-							<span sclass="fa fa-star-o fa-2x"></span>
-							<span sclass="fa fa-star-o fa-2x"></span>
-							<span sclass="fa fa-star-o fa-2x"></span>
-							<span sclass="fa fa-star-o fa-2x"></span>
-							<span sclass="fa fa-star-o fa-2x"></span>
-						</div>													
+						<radiogroup id="sv1" selectedItem="@bind(vm.comentarioAlbum.puntuacion)" />
+				            <div class="stars">
+				                <radio name="star" id="ra1" radiogroup="sv1" value="1" />
+				                <radio name="star" id="ra2" radiogroup="sv1" value="2" />
+				                <radio name="star" id="ra3" radiogroup="sv1" value="3" />
+				                <radio name="star" id="ra4" radiogroup="sv1" value="4" />
+				                <radio name="star" id="ra5" radiogroup="sv1" value="5" />
+				            </div>
+														
 					</div>					
 					<div class="col s4 text-center">
 						<image src="/imagenes/portal/conejo.png"></image>

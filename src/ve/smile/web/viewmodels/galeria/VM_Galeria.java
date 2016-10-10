@@ -10,15 +10,19 @@ import karen.core.crux.session.DataCenter;
 import karen.core.util.payload.UtilPayload;
 import ve.smile.consume.services.S;
 import ve.smile.dto.Album;
+import ve.smile.dto.Multimedia;
 import ve.smile.dto.MultimediaAlbum;
 import ve.smile.enums.EstatusAlbumEnum;
+import ve.smile.enums.TipoMultimediaEnum;
 import ve.smile.payload.response.PayloadAlbumResponse;
 import ve.smile.payload.response.PayloadMultimediaAlbumResponse;
+import ve.smile.payload.response.PayloadMultimediaResponse;
 
 public class VM_Galeria {
 
 	private List<Album> albumes;
 	private List<MultimediaAlbum> multimediaAlbum;
+	private List<Multimedia> multiemdiaGaleria;
 
 	public List<Album> getalbumes() {
 		if (this.albumes == null) {
@@ -33,6 +37,21 @@ public class VM_Galeria {
 		}
 
 		return albumes;
+	}
+	
+	public List<Multimedia> getmultiemdiaGaleria() {
+		if (this.multiemdiaGaleria == null) {
+			this.multiemdiaGaleria = new ArrayList<>();
+		}
+		if (this.multiemdiaGaleria.isEmpty()) {
+
+			PayloadMultimediaResponse payloadMultimediaResponse = S.MultimediaService
+					.consultarMultimediaTipo(5, TipoMultimediaEnum.GALERIA.ordinal());
+
+			this.multiemdiaGaleria.addAll(payloadMultimediaResponse.getObjetos());
+		}
+
+		return multiemdiaGaleria;
 	}
 
 	public List<MultimediaAlbum> getmultimediaalbum(Integer album) {

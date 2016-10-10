@@ -8,8 +8,12 @@
 	text-align: center;
 	text-transform: uppercase;	
 }
-#albumes .albumes .s4:nth-child(4n) {
+#albumes .albumes .s4:nth-child(4n), #fotos .fotos .s4:nth-child(4n) {
    	clear: left;
+}
+
+.fotos .info {
+	background: rgba(138, 199, 222, 0.27);
 }
 
 #fotos .seccion {

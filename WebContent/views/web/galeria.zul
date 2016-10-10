@@ -28,33 +28,27 @@
 				<div class="col s12 seccion">
 					<div class="col s12">
 						<div class="row fotos">
-							<div class="col s4">
-								<image src="/imagenes/portal/web-banner.png" sclass="materialboxed"></image>
-							</div>
-							<div class="col s4">
-								<image src="/imagenes/portal/galeria2.png" sclass="materialboxed"></image>
-							</div>
-							<div class="col s4">
-								<image src="/imagenes/portal/galeria3.jpg" sclass="materialboxed"></image>
-							</div>	
-						</div>
-					</div>	
-					<div class="col s12">
-						<div class="row fotos">
-							<div class="col s4">
-								<image src="/imagenes/portal/galeria1.png"></image>
-							</div>
-							<div class="col s4">
-								<image src="/imagenes/portal/galeria2.png"></image>
+							<div children="@load(vm.multiemdiaGaleria)">
+								<template name="children">					
+									<div class="col s4">
+										<div class="subtitulo text-center">
+											<label value="@load(each.nombre)"></label>
+						       			</div>
+						       			<div class="info block-ellipsis">
+									        <label value="@load(each.descripcion)"></label>
+							          	</div>
+										<image src="@load(each.url)" sclass="materialboxed"></image>						
+									</div>
+								</template>
 							</div>
 							<div class="col s4 icon">
 								<a><image src="/imagenes/portal/icon/icon-plus.png"></image></a>
 								<div class="col s12">
 									<a>Ver más</a>
 								</div>
-							</div>	
+							</div>
 						</div>
-					</div>		
+					</div>			
 				</div>
 			</n:div>
 			<n:h4>álbumes</n:h4>

@@ -1,4 +1,4 @@
-package ve.smile.gestion.voluntariado.fortalezas.viewmodels;
+package ve.smile.gestion.voluntariado.clasificacion.viewmodels;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,35 +22,37 @@ import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 
 import ve.smile.consume.services.S;
-import ve.smile.dto.Fortaleza;
 import ve.smile.dto.Voluntario;
+import ve.smile.dto.ClasificadorVoluntario;
 import ve.smile.enums.EstatusVoluntarioEnum;
-import ve.smile.payload.response.PayloadFortalezaResponse;
 import ve.smile.payload.response.PayloadVoluntarioResponse;
+import ve.smile.payload.response.PayloadClasificadorVoluntarioResponse;
 
-public class VM_FortalezaVoluntarioIndex extends VM_WindowWizard<Voluntario>
+public class VM_ClasificacionVoluntarioIndex extends VM_WindowWizard <Voluntario>
 {
 	private Voluntario voluntario;
 	
-	private List<Fortaleza> fortalezas;
-	private Set <Fortaleza> fortalezasSeleccionadas;
-	private List<Fortaleza> voluntarioFortalezas;
-	private Set <Fortaleza> voluntarioFortalezasSeleccionadas;
+	private List<ClasificadorVoluntario> clasificaciones;
+	private Set <ClasificadorVoluntario> clasificacionesSeleccionadas;
+	private List<ClasificadorVoluntario> voluntarioClasificaciones;
+	private Set <ClasificadorVoluntario> voluntarioClasificacionesSeleccionadas;
 
 	@Init(superclass = true)
 	public void childInit()
 	{
-		// FORTALEZAS
-		if (this.getFortalezas().isEmpty())
+		//voluntario = new Voluntario();
+		
+		// CLASIFICACIONES
+		if (this.getClasificaciones().isEmpty())
 		{
-			PayloadFortalezaResponse payloadFortalezaResponse = S.FortalezaService.consultarTodos();
-			if (!UtilPayload.isOK(payloadFortalezaResponse))
+			PayloadClasificadorVoluntarioResponse payloadClasificadorVoluntarioResponse = S.ClasificadorVoluntarioService.consultarTodos();
+			if (!UtilPayload.isOK(payloadClasificadorVoluntarioResponse))
 			{
-				Alert.showMessage(payloadFortalezaResponse);
+				Alert.showMessage(payloadClasificadorVoluntarioResponse);
 			}
 			else
 			{
-				fortalezas.addAll(payloadFortalezaResponse.getObjetos());
+				clasificaciones.addAll(payloadClasificadorVoluntarioResponse.getObjetos());
 			}		
 		}
 	}
@@ -67,89 +69,89 @@ public class VM_FortalezaVoluntarioIndex extends VM_WindowWizard<Voluntario>
 	}
 	
 	// MÉTODOS DE LAS LISTAS
-	public boolean disabledFortaleza(Fortaleza fortaleza)
+	
+	public boolean disabledClasificaciones(ClasificadorVoluntario clasificaciones)
 	{
-		return this.getVoluntarioFortalezas().contains(fortaleza);
+		return this.getVoluntarioClasificaciones().contains(clasificaciones);
 	}
 	
-	public List<Fortaleza> getFortalezas()
+	public List<ClasificadorVoluntario> getClasificaciones()
 	{
-		if (this.fortalezas == null)
+		if (this.clasificaciones == null)
 		{
-			this.fortalezas = new ArrayList<>();
+			this.clasificaciones = new ArrayList<>();
 		}
-
-		return fortalezas;
+		return clasificaciones;
 	}
 
-	public void setFortalezas(List<Fortaleza> fortalezas)
+	public void setClasificaciones(List<ClasificadorVoluntario> clasificaciones)
 	{
-		this.fortalezas = fortalezas;
+		this.clasificaciones = clasificaciones;
 	}
 
-	public Set<Fortaleza> getFortalezasSeleccionadas()
+	public Set<ClasificadorVoluntario> getClasificacionesSeleccionadas()
 	{
-		if (this.fortalezasSeleccionadas == null)
+		if (this.clasificacionesSeleccionadas == null)
 		{
-			this.fortalezasSeleccionadas = new HashSet<>();
+			this.clasificacionesSeleccionadas = new HashSet<>();
 		}
-		return fortalezasSeleccionadas;
+		return clasificacionesSeleccionadas;
 	}
 
-	public void setFortalezasSeleccionadas(Set<Fortaleza> fortalezasSeleccionadas)
+	public void setClasificacionesSeleccionadas(Set<ClasificadorVoluntario> clasificacionesSeleccionadas)
 	{
-		this.fortalezasSeleccionadas = fortalezasSeleccionadas;
+		this.clasificacionesSeleccionadas = clasificacionesSeleccionadas;
 	}
 	
-	public List<Fortaleza> getVoluntarioFortalezas()
+	public List<ClasificadorVoluntario> getVoluntarioClasificaciones()
 	{
-		if (this.voluntarioFortalezas == null)
+		if (this.voluntarioClasificaciones == null)
 		{
-			voluntarioFortalezas = new ArrayList<>();
+			voluntarioClasificaciones = new ArrayList<>();
 		}
-		return voluntarioFortalezas;
+		return voluntarioClasificaciones;
 	}
 
-	public void setVoluntarioFortalezas (List<Fortaleza> voluntarioFortalezas)
+	public void setVoluntarioClasificaciones (List<ClasificadorVoluntario> voluntarioClasificaciones)
 	{
-		this.voluntarioFortalezas = voluntarioFortalezas;
+		this.voluntarioClasificaciones = voluntarioClasificaciones;
 	}
 
-	public Set<Fortaleza> getVoluntarioFortalezasSeleccionadas()
+	public Set<ClasificadorVoluntario> getVoluntarioClasificacionesSeleccionadas()
 	{
-		if (this.voluntarioFortalezasSeleccionadas == null)
+		if (this.voluntarioClasificacionesSeleccionadas == null)
 		{
-			this.voluntarioFortalezasSeleccionadas = new HashSet<>();
+			this.voluntarioClasificacionesSeleccionadas = new HashSet<>();
 		}
-		return voluntarioFortalezasSeleccionadas;
+		return voluntarioClasificacionesSeleccionadas;
 	}
 
-	public void setVoluntarioFortalezasSeleccionadas(Set<Fortaleza> voluntarioFortalezasSeleccionadas)
+	public void setVoluntarioClasificacionesSeleccionadas(Set<ClasificadorVoluntario> voluntarioClasificacionesSeleccionadas)
 	{
-		this.voluntarioFortalezasSeleccionadas = voluntarioFortalezasSeleccionadas;
+		this.voluntarioClasificacionesSeleccionadas = voluntarioClasificacionesSeleccionadas;
 	}
 	
-	@Command("agregarFortalezas")
-	@NotifyChange({"fortalezas", "voluntarioFortalezas", "fortalezasSeleccionadas", "voluntarioFortalezasSeleccionadas" })
-	public void agregarFortalezas()
+	@Command("agregarClasificacion")
+	@NotifyChange({"clasificaciones", "voluntarioClasificaciones", "clasificacionesSeleccionadas", "voluntarioClasificacionesSeleccionadas"})
+	public void agregarClasificacion()
 	{
-		if (this.getFortalezasSeleccionadas() != null && this.getFortalezasSeleccionadas().size() > 0)
+		if (this.getClasificacionesSeleccionadas() != null && this.getClasificacionesSeleccionadas().size() > 0)
 		{
-			this.getVoluntarioFortalezas().addAll(fortalezasSeleccionadas);
-			this.getFortalezasSeleccionadas().clear();
-			this.getVoluntarioFortalezasSeleccionadas().clear();
+			this.getVoluntarioClasificaciones().addAll(clasificacionesSeleccionadas);
+			this.getClasificacionesSeleccionadas().clear();
+			this.getVoluntarioClasificacionesSeleccionadas().clear();
 		}
 	}
 
-	@Command("removerFortalezas")
-	@NotifyChange({"fortalezas", "voluntarioFortalezas", "fortalezasSeleccionadas", "voluntarioFortalezasSeleccionadas" })
-	public void removerFortalezas()
+	@Command("removerClasificacion")
+	@NotifyChange({"clasificaciones", "voluntarioClasificaciones", "clasificacionesSeleccionadas", "voluntarioClasificacionesSeleccionadas"})
+	public void removerClasificacion()
 	{
-		if (this.getVoluntarioFortalezasSeleccionadas() != null && this.getVoluntarioFortalezasSeleccionadas().size() > 0)
+		if (this.getVoluntarioClasificacionesSeleccionadas() != null && this.getVoluntarioClasificacionesSeleccionadas().size() > 0)
 		{
-			this.getVoluntarioFortalezas().removeAll(voluntarioFortalezasSeleccionadas);
-			this.getFortalezasSeleccionadas().clear();
-			this.getVoluntarioFortalezasSeleccionadas().clear();
+			this.getVoluntarioClasificaciones().removeAll(voluntarioClasificacionesSeleccionadas);
+			this.getClasificacionesSeleccionadas().clear();
+			this.getVoluntarioClasificacionesSeleccionadas().clear();
 		}
 	}
 	
@@ -158,12 +160,15 @@ public class VM_FortalezaVoluntarioIndex extends VM_WindowWizard<Voluntario>
 	public Map<Integer, List<OperacionWizard>> getButtonsToStep()
 	{
 		Map<Integer, List<OperacionWizard>> botones = new HashMap<Integer, List<OperacionWizard>>();
+		
 		List<OperacionWizard> listOperacionWizard1 = new ArrayList<OperacionWizard>();
+		listOperacionWizard1.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.CANCELAR));
 		listOperacionWizard1.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.SIGUIENTE));
 		botones.put(1, listOperacionWizard1);
 
 		List<OperacionWizard> listOperacionWizard2 = new ArrayList<OperacionWizard>();
 		listOperacionWizard2.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.ATRAS));
+		listOperacionWizard2.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.CANCELAR));
 		listOperacionWizard2.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.FINALIZAR));
 		botones.put(2, listOperacionWizard2);
 
@@ -183,8 +188,8 @@ public class VM_FortalezaVoluntarioIndex extends VM_WindowWizard<Voluntario>
 	public List<String> getUrlPageToStep()
 	{
 		List<String> urls = new ArrayList<String>();
-		urls.add("views/desktop/gestion/voluntariado/fortalezas/selectVoluntario.zul");
-		urls.add("views/desktop/gestion/voluntariado/fortalezas/listaFortalezas.zul");
+		urls.add("views/desktop/gestion/voluntariado/clasificacion/selectVoluntario.zul");
+		urls.add("views/desktop/gestion/voluntariado/clasificacion/listaClasificacion.zul");
 		return urls;
 	}
 
@@ -193,7 +198,7 @@ public class VM_FortalezaVoluntarioIndex extends VM_WindowWizard<Voluntario>
 	{
 		if (currentStep == 2)
 		{
-			voluntarioFortalezas.addAll(this.selectedObject.getFortalezas());
+			// NOTHING
 		}
 		goToNextStep();
 		return "";
@@ -251,8 +256,8 @@ public class VM_FortalezaVoluntarioIndex extends VM_WindowWizard<Voluntario>
 	{
 		if (currentStep == 2)
 		{
-			this.selectedObject.getFortalezas().clear();
-			this.selectedObject.getFortalezas().addAll(this.getVoluntarioFortalezas());
+			this.getVoluntario().getClasificaciones().clear();
+			this.getVoluntario().getClasificaciones().addAll(this.getVoluntarioClasificaciones());
 			PayloadVoluntarioResponse payloadVoluntarioResponse = S.VoluntarioService.modificar(this.selectedObject);
 			if (UtilPayload.isOK(payloadVoluntarioResponse))
 			{

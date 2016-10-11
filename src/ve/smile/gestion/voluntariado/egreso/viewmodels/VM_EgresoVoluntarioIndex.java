@@ -1,4 +1,4 @@
-package ve.smile.gestion.voluntariado.postulacion.viewmodels;
+package ve.smile.gestion.voluntariado.egreso.viewmodels;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -37,7 +37,7 @@ import ve.smile.payload.response.PayloadEstadoResponse;
 import ve.smile.payload.response.PayloadMotivoResponse;
 import ve.smile.payload.response.PayloadVoluntarioResponse;
 
-public class VM_VoluntarioPostuladoIndex extends VM_WindowWizard<Voluntario>
+public class VM_EgresoVoluntarioIndex extends VM_WindowWizard<Voluntario>
 {
 	private List<EstatusVoluntarioEnum> estatusVoluntarioEnums;
 	private EstatusVoluntarioEnum estatusVoluntarioEnum;
@@ -232,7 +232,7 @@ public class VM_VoluntarioPostuladoIndex extends VM_WindowWizard<Voluntario>
 		this.getSelectedObject().getFkPersona().setFechaNacimiento(fechaNacimiento.getTime());
 	}
 	
-	// ESTATUS POSTULADO
+	// ESTATUS VOLUNTARIO
 	public EstatusVoluntarioEnum getEstatusVoluntarioEnum()
 	{
 		return estatusVoluntarioEnum;
@@ -310,11 +310,10 @@ public class VM_VoluntarioPostuladoIndex extends VM_WindowWizard<Voluntario>
 		botones.put(1, listOperacionWizard1);
 		
 		List<OperacionWizard> listOperacionWizard2 = new ArrayList<OperacionWizard>();
-		OperacionWizard operacionWizardCustom1 = new OperacionWizard(OperacionWizardEnum.CUSTOM1.ordinal(), "RECHAZAR",  "Custom1", "z-icon-times", "deep-orange", "RECHAZAR");
-		OperacionWizard operacionWizardCustom2 = new OperacionWizard(OperacionWizardEnum.CUSTOM2.ordinal(), "APROBAR",  "Custom2", "fa fa-check-square-o", "green", "APROBAR");
-		listOperacionWizard2.add(operacionWizardCustom1);
-		listOperacionWizard2.add(operacionWizardCustom2);
+		OperacionWizard operacionWizardCustom1 = new OperacionWizard(OperacionWizardEnum.CUSTOM1.ordinal(), "EGRESAR",  "Custom1", "z-icon-times", "deep-orange", "EGRESAR");
+		listOperacionWizard2.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.ATRAS));
 		listOperacionWizard2.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.CANCELAR));
+		listOperacionWizard2.add(operacionWizardCustom1);
 		botones.put(2, listOperacionWizard2);
 		
 		List<OperacionWizard> listOperacionWizard3 = new ArrayList<OperacionWizard>();
@@ -345,10 +344,10 @@ public class VM_VoluntarioPostuladoIndex extends VM_WindowWizard<Voluntario>
 	public List<String> getUrlPageToStep()
 	{
 		List<String> urls = new ArrayList<String>();
-		urls.add("views/desktop/gestion/voluntariado/postulacion/selectPostulado.zul");
-		urls.add("views/desktop/gestion/voluntariado/postulacion/datosPostulado.zul");
-		urls.add("views/desktop/gestion/voluntariado/postulacion/registroMotivo.zul");
-		urls.add("views/desktop/gestion/voluntariado/postulacion/registroCompletado.zul");
+		urls.add("views/desktop/gestion/voluntariado/egreso/selectVoluntario.zul");
+		urls.add("views/desktop/gestion/voluntariado/egreso/datosVoluntario.zul");
+		urls.add("views/desktop/gestion/voluntariado/egreso/registroMotivo.zul");
+		urls.add("views/desktop/gestion/voluntariado/egreso/registroCompletado.zul");
 		return urls;
 	}
 	
@@ -369,7 +368,7 @@ public class VM_VoluntarioPostuladoIndex extends VM_WindowWizard<Voluntario>
 	{
 		Map<String, String> criterios = new HashMap<>();
 		EstatusVoluntarioEnum.POSTULADO.ordinal();
-		criterios.put("estatusVoluntario", String.valueOf(EstatusVoluntarioEnum.POSTULADO.ordinal()));
+		criterios.put("estatusVoluntario", String.valueOf(EstatusVoluntarioEnum.ACTIVO.ordinal()));
 		PayloadVoluntarioResponse payloadVoluntarioResponse = S.VoluntarioService.consultarPaginacionCriterios(cantidadRegistrosPagina, pagina,	TypeQuery.EQUAL, criterios);
 		return payloadVoluntarioResponse;
 	}
@@ -392,7 +391,7 @@ public class VM_VoluntarioPostuladoIndex extends VM_WindowWizard<Voluntario>
 		{
 			if (selectedObject == null)
 			{
-				return "E:Error Code 5-Debe seleccionar un <b>postulado</b>";
+				return "E:Error Code 5-Debe seleccionar un <b>voluntario</b>";
 			}
 		}
 		return "";
@@ -428,16 +427,7 @@ public class VM_VoluntarioPostuladoIndex extends VM_WindowWizard<Voluntario>
 	public String executeCustom1(Integer currentStep)
 	{
 		// RECHAZADO
-		this.selectedObject.setEstatusVoluntario(EstatusVoluntarioEnum.RECHAZADO.ordinal());
-		goToNextStep();
-		return "";
-	}
-	
-	@Override
-	public String executeCustom2(Integer currentStep)
-	{
-		// POR COMPLETAR DATOS
-		this.selectedObject.setEstatusVoluntario(EstatusVoluntarioEnum.POR_COMPLETAR.ordinal());
+		this.selectedObject.setEstatusVoluntario(EstatusVoluntarioEnum.INACTIVO.ordinal());
 		goToNextStep();
 		return "";
 	}

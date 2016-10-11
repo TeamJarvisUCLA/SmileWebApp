@@ -162,6 +162,15 @@ public class VM_RegistroVoluntarioIndex extends VM_WindowWizard<Voluntario> impl
 		{
 			this.ciudades = new ArrayList<>();
 		}
+		if (this.ciudades.isEmpty())
+		{
+			PayloadCiudadResponse payloadCiudadResponse = S.CiudadService.consultarTodos();
+			if (!UtilPayload.isOK(payloadCiudadResponse))
+			{
+				Alert.showMessage(payloadCiudadResponse);
+			}
+			this.ciudades.addAll(payloadCiudadResponse.getObjetos());
+		}
 		return ciudades;
 	}
 
@@ -256,11 +265,13 @@ public class VM_RegistroVoluntarioIndex extends VM_WindowWizard<Voluntario> impl
 
 		List<OperacionWizard> listOperacionWizard2 = new ArrayList<OperacionWizard>();
 		listOperacionWizard2.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.ATRAS));
+		listOperacionWizard2.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.CANCELAR));
 		listOperacionWizard2.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.SIGUIENTE));
 		botones.put(2, listOperacionWizard2);
 
 		List<OperacionWizard> listOperacionWizard3 = new ArrayList<OperacionWizard>();
 		listOperacionWizard3.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.ATRAS));
+		listOperacionWizard3.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.CANCELAR));
 		listOperacionWizard3.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.FINALIZAR));
 		botones.put(3, listOperacionWizard3);
 		return botones;
@@ -325,31 +336,6 @@ public class VM_RegistroVoluntarioIndex extends VM_WindowWizard<Voluntario> impl
 				return "E:Error Code 5-Debe seleccionar un <b>voluntario</b>";
 			}
 		}
-		/*
-		 * if (currentStep == 2) { try {
-		 * UtilValidate.validateNull(this.getVoluntario
-		 * ().getFkPersona().getNombre(), "Nombre");
-		 * UtilValidate.validateNull(this
-		 * .getVoluntario().getFkPersona().getApellido(), "Apellido");
-		 * UtilValidate
-		 * .validateNull(this.getVoluntario().getFkPersona().getTipoPersonaEnum
-		 * (), "Tipo de persona");
-		 * UtilValidate.validateNull(this.getVoluntario()
-		 * .getFkPersona().getIdentificacion(), "Cédula"); // FECHA DE
-		 * NACIMIENTO
-		 * UtilValidate.validateNull(this.getVoluntario().getFkPersona
-		 * ().getSexo(), "Sexo");
-		 * UtilValidate.validateNull(this.getVoluntario().
-		 * getFkPersona().getFkCiudad().getFkEstado(), "Estado");
-		 * UtilValidate.validateNull
-		 * (this.getVoluntario().getFkPersona().getFkCiudad(), "Ciudad"); //
-		 * FECHA DE INGRESO
-		 * UtilValidate.validateNull(this.getVoluntario().getFkPersona
-		 * ().getDireccion(), "Dirección");
-		 * UtilValidate.validateNull(this.getVoluntario
-		 * ().getFkPersona().getFkMultimedia(), "Imagen"); } catch (Exception e)
-		 * { return e.getMessage(); } }
-		 */
 		return "";
 	}
 
@@ -393,13 +379,15 @@ public class VM_RegistroVoluntarioIndex extends VM_WindowWizard<Voluntario> impl
 			this.getVoluntario().getFkPersona().setFkMultimedia(multimedia);
 			*/
 
-			// VOLUNTARIO
+			// PERSONA
 			PayloadPersonaResponse payloadPersonaResponse = S.PersonaService.modificar(this.selectedObject.getFkPersona());
 			if (UtilPayload.isOK(payloadPersonaResponse))
 			{
 				// OK
 			}
 			
+			// VOLUNTARIO
+			this.selectedObject.setEstatusVoluntario(EstatusVoluntarioEnum.ACTIVO.ordinal());
 			PayloadVoluntarioResponse payloadVoluntarioResponse = S.VoluntarioService.modificar(this.selectedObject);
 			if (UtilPayload.isOK(payloadVoluntarioResponse))
 			{

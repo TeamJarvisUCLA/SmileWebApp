@@ -360,7 +360,7 @@ public class VM_ReporteVoluntarioIndex extends VM_WindowWizard {
 	@Override
 	public String isValidPreconditionsCustom1(Integer currentStep) {
 		if (currentStep == 1) {
-			String sql = "SELECT v FROM Voluntario v  WHERE  v.idVoluntario = v.idVoluntario ";
+			String sql = "SELECT DISTINCT v FROM Voluntario v  WHERE  v.idVoluntario = v.idVoluntario ";
 
 			if (porCompletar || postulado || egresado || activo) {
 				String estatusVoluntarios = "";

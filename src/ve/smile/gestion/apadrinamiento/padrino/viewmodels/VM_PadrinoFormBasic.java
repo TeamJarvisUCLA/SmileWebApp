@@ -446,8 +446,8 @@ public class VM_PadrinoFormBasic extends VM_WindowForm  implements UploadImageSi
 		//			"DD/MM/YYYY"); 
 			UtilValidate.validateString(this.getPersona().getDireccion(),
 					"Dirección", 250);
-			UtilValidate.validateNull(this.getPersona().getFkMultimedia(),
-					"Imagen");
+//			UtilValidate.validateNull(this.getPersona().getFkMultimedia(),
+//					"Imagen");
 			UtilValidate.validateString(this.getPersona().getTelefono1(),
 					"Teléfono 1", 25);
 			

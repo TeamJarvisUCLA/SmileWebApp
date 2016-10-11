@@ -61,6 +61,7 @@ public class VM_TrabajadoresFormBasic extends VM_WindowForm implements
 
 	private Date fechaNacimiento;
 	private Date fechaIngreso;
+	
 	private Persona persona;
 
 	private byte[] bytes = null;
@@ -80,18 +81,27 @@ public class VM_TrabajadoresFormBasic extends VM_WindowForm implements
 		this.setPersona(this.getTrabajador().getFkPersona());
 		if (this.persona.getSexo() != null) {
 			this.setSexoEnum(SexoEnum.values()[this.persona.getSexo()]);
+			
+			//De long a date
+			Date fechaIng = new Date(this.getTrabajador().getFechaIngreso());
+			Date fechaNac = new Date(this.getPersona().getFechaNacimiento());
+			
+			this.setFechaIngreso(fechaIng);
+			this.setFechaNacimiento(fechaNac);
+			this.getCiudades().add(this.getPersona().getFkCiudad());
+			
+//TODO: Falta inicializar el el estado, falta en el servicio uno que busque un estado a partir de una ciudad 
+			
 		}
 		if (this.getTrabajador().getFkPersona() != null
 				&& this.getTrabajador().getFkPersona().getFkMultimedia() != null) {
 			this.setUrlImagen(this.getTrabajador().getFkPersona()
 					.getFkMultimedia().getUrl());
 		} else {
-
 			this.getPersona().setFkMultimedia(new Multimedia());
-
 		}
 	}
-
+	
 	public List<Ciudad> getCiudades() {
 		if (this.ciudades == null) {
 			this.ciudades = new ArrayList<>();

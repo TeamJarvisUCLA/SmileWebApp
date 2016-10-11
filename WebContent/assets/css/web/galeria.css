@@ -8,13 +8,17 @@
 	text-align: center;
 	text-transform: uppercase;	
 }
-#albumes .albumes .s4:nth-child(4n) {
+#albumes .albumes .s4:nth-child(3n+1), #fotos .fotos .s4:nth-child(3n+1) {
    	clear: left;
+}
+
+.fotos .info {
+	background: rgba(138, 199, 222, 0.27);
 }
 
 #fotos .seccion {
 	padding: 20px 0;
-	background: url("/SmileWebApp/imagenes/portal/fondo-body2.png") no-repeat;
+	background: url("/SmileWebApp/imagenes/portal/fondo-body2.png");
 }
 
 #albumes .seccion {

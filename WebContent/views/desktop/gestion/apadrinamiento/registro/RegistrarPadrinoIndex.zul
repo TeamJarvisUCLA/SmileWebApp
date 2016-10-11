@@ -10,7 +10,7 @@
 			<div sclass="col s12">
 				<include id="include" src="@bind(vm.srcPageContent)"></include>
 			</div>
-
+ 
 		</div>
 
 		<div class="row">

@@ -20,7 +20,6 @@ import ve.smile.dto.Fortaleza;
 import ve.smile.dto.Profesion;
 import ve.smile.dto.Voluntario;
 import ve.smile.enums.EstatusVoluntarioEnum;
-import ve.smile.payload.request.PayloadVoluntarioRequest;
 import ve.smile.payload.response.PayloadVoluntarioResponse;
 import ve.smile.reporte.Reporte;
 
@@ -43,12 +42,12 @@ public class VM_ReporteVoluntarioIndex extends VM_WindowWizard {
 	private boolean activo = false;
 
 	private boolean egresado = false;
-	
+
 	private String type;
-	
+
 	private String source;
-	
-	private Map<String, Object> parametros =  new HashMap<>();
+
+	private Map<String, Object> parametros = new HashMap<>();
 
 	private List<ClasificadorVoluntario> listClasificadorVoluntario = new ArrayList<>();
 
@@ -65,6 +64,8 @@ public class VM_ReporteVoluntarioIndex extends VM_WindowWizard {
 	private List<Profesion> listProfesion = new ArrayList<>();
 
 	private Set<Profesion> profesionesSeleccionadas;
+
+	private List<Voluntario> voluntarios;
 
 	public Set<ClasificadorVoluntario> getClasificadorVoluntariosSeleccionados() {
 		return clasificadorVoluntariosSeleccionados;
@@ -288,7 +289,7 @@ public class VM_ReporteVoluntarioIndex extends VM_WindowWizard {
 
 		urls.add("views/desktop/reporte/voluntario/selectOpcionesReporteVoluntario.zul");
 		urls.add("views/desktop/reporte/voluntario/selectCompletado.zul");
-		// urls.add("views/desktop/gestion/trabajoSocial/planificacion/registro/successRegistroTrabajoSocialPlanificado.zul");
+		urls.add("views/desktop/reporte/voluntario/listVoluntario.zul");
 
 		return urls;
 	}
@@ -345,6 +346,9 @@ public class VM_ReporteVoluntarioIndex extends VM_WindowWizard {
 		if (currentStep == 1) {
 			goToNextStep();
 		}
+		if (currentStep == 2) {
+			goToNextStep();
+		}
 		return "";
 	}
 
@@ -360,27 +364,31 @@ public class VM_ReporteVoluntarioIndex extends VM_WindowWizard {
 
 			if (porCompletar || postulado || egresado || activo) {
 				String estatusVoluntarios = "";
-				if(porCompletar){
-					estatusVoluntarios += EstatusVoluntarioEnum.POR_COMPLETAR.ordinal()+",";
+				if (porCompletar) {
+					estatusVoluntarios += EstatusVoluntarioEnum.POR_COMPLETAR
+							.ordinal() + ",";
 				}
-				if(postulado){
-					estatusVoluntarios += EstatusVoluntarioEnum.POSTULADO.ordinal()+",";
+				if (postulado) {
+					estatusVoluntarios += EstatusVoluntarioEnum.POSTULADO
+							.ordinal() + ",";
 				}
-				if(egresado){
-					estatusVoluntarios += EstatusVoluntarioEnum.INACTIVO.ordinal()+",";
+				if (egresado) {
+					estatusVoluntarios += EstatusVoluntarioEnum.INACTIVO
+							.ordinal() + ",";
 				}
-				if(activo){
-					estatusVoluntarios += EstatusVoluntarioEnum.ACTIVO.ordinal()+",";
+				if (activo) {
+					estatusVoluntarios += EstatusVoluntarioEnum.ACTIVO
+							.ordinal() + ",";
 				}
 				int tamano = estatusVoluntarios.length();
-				
+
 				char[] tmp = estatusVoluntarios.toCharArray();
-				
-				tmp[tamano -1] = ' ';
-				
+
+				tmp[tamano - 1] = ' ';
+
 				estatusVoluntarios = new String(tmp);
 
-				sql += "and v.estatusVoluntario in("+estatusVoluntarios+")";
+				sql += "and v.estatusVoluntario in(" + estatusVoluntarios + ")";
 			}
 			if (profesionVoluntario) {
 				if (profesionesSeleccionadas != null) {
@@ -395,7 +403,8 @@ public class VM_ReporteVoluntarioIndex extends VM_WindowWizard {
 							profesiones += ",";
 						}
 					}
-					sql = sql.replace("WHERE", ", VoluntarioProfesion pv WHERE");
+					sql = sql
+							.replace("WHERE", ", VoluntarioProfesion pv WHERE");
 					sql += " and pv.fkVoluntario.idVoluntario = v.idVoluntario and pv.fkProfesion.idProfesion in ("
 							+ profesiones + ")";
 				}
@@ -413,7 +422,8 @@ public class VM_ReporteVoluntarioIndex extends VM_WindowWizard {
 							fortalezas += ",";
 						}
 					}
-					sql = sql.replace("WHERE", ", VoluntarioFortaleza vf WHERE");
+					sql = sql
+							.replace("WHERE", ", VoluntarioFortaleza vf WHERE");
 					sql += " and vf.fkVoluntario.idVoluntario = v.idVoluntario and vf.fkFortaleza.idFortaleza in ("
 							+ fortalezas + ")";
 				}
@@ -424,29 +434,40 @@ public class VM_ReporteVoluntarioIndex extends VM_WindowWizard {
 					String voluntarioClasificado = "";
 					int i = 0;
 
-					for ( ClasificadorVoluntario clasificadorVoluntario : clasificadorVoluntariosSeleccionados) {
+					for (ClasificadorVoluntario clasificadorVoluntario : clasificadorVoluntariosSeleccionados) {
 						i++;
-						voluntarioClasificado += clasificadorVoluntario.getIdClasificadorVoluntario();
+						voluntarioClasificado += clasificadorVoluntario
+								.getIdClasificadorVoluntario();
 
 						if (i != clasificadorVoluntariosSeleccionados.size()) {
 							voluntarioClasificado += ",";
 						}
 					}
-					sql = sql.replace("WHERE", ", VoluntarioClasificado vc WHERE");
+					sql = sql.replace("WHERE",
+							", VoluntarioClasificado vc WHERE");
 					sql += " and vc.fkVoluntario.idVoluntario = v.idVoluntario and vc.fkClasificadorVoluntario.idClasificadorVoluntario in ("
 							+ voluntarioClasificado + ")";
 				}
 
 			}
-			PayloadVoluntarioResponse payloadVoluntarioResponse = S.VoluntarioService.consultaVoluntariosParametrizado(sql);
-			List<Voluntario> listVoluntarios = payloadVoluntarioResponse.getObjetos();
+			PayloadVoluntarioResponse payloadVoluntarioResponse = S.VoluntarioService
+					.consultaVoluntariosParametrizado(sql);
+			List<Voluntario> listVoluntarios = payloadVoluntarioResponse
+					.getObjetos();
+			this.getVoluntarios().addAll(listVoluntarios);
+
 			System.out.println(sql);
+
+			System.out.println(listVoluntarios.toString());
 		}
 		System.out.println(currentStep);
-		if(currentStep==2){
-			parametros.put("SUBREPORT_DIR", Reporte.class.getResource("reportDetalleVoluntarioParametrizado.jasper").getPath().replace("reportDetalleVoluntarioParametrizado.jasper", ""));
-			source = "reporte/reportVoluntariosParametrizados.jasper";
-			Executions.getCurrent().sendRedirect("reporteVoluntariosParametrizados.zul", "_blank");
+		if (currentStep == 2) {
+			// parametros.put("SUBREPORT_DIR",
+			// Reporte.class.getResource("reportDetalleVoluntarioParametrizado.jasper").getPath().replace("reportDetalleVoluntarioParametrizado.jasper",
+			// ""));
+			// source = "reporte/reportVoluntariosParametrizados.jasper";
+			// Executions.getCurrent().sendRedirect("reporteVoluntariosParametrizados.zul",
+			// "_blank");
 		}
 
 		return "";
@@ -481,5 +502,16 @@ public class VM_ReporteVoluntarioIndex extends VM_WindowWizard {
 	public void setParametros(Map<String, Object> parametros) {
 		this.parametros = parametros;
 	}
-	
+
+	public List<Voluntario> getVoluntarios() {
+		if (this.voluntarios == null) {
+			this.voluntarios = new ArrayList<>();
+		}
+		return voluntarios;
+	}
+
+	public void setVoluntarios(List<Voluntario> voluntarios) {
+		this.voluntarios = voluntarios;
+	}
+
 }

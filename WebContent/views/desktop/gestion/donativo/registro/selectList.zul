@@ -1,0 +1,5 @@
+<zk xmlns:n="native" xmlns:w="client">
+
+	<include src="@bind(vm.srcList)"></include>
+</zk>
+

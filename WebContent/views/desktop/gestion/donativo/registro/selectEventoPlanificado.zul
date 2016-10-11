@@ -3,7 +3,8 @@
 		<div class="row">
 			<div class="col s12" align="center"
 				style="margin-bottom: 15px;">
-				<label value="Seleccione el Evento Planificado del que provino el Donativo"
+				<label
+					value="Seleccione el Evento Planificado del que provino el Donativo"
 					sclass="label-medium-500">
 				</label>
 			</div>
@@ -14,12 +15,11 @@
 			<div class="row">
 				<div class="col s12">
 					<div class="col s12">
-						<listbox id="listbox"
-							model="@load(vm.objectsList)"
-							selectedItem="@bind(vm.selectedObject)">
+						<listbox model="@load(vm.eventoPlanificados)"
+							selectedItem="@bind(vm.eventoPlanificado)">
 
 							<listhead sizable="true">
-								<listheader width="33%" label="Nombre" />
+								<listheader width="33%" label="Evento" />
 								<listheader width="33%"
 									label="Fecha Inicio" />
 								<listheader width="33%"
@@ -28,18 +28,14 @@
 							<template name="model">
 								<listitem>
 									<listcell
-										label="@load(each.eventoPlanificado.fkEvento.nombre)" />
+										label="@load(each.fkEvento.nombre)" />
 									<listcell
-										label="@load(each.eventoPlanificado.fechaInicio)" />
+										label="@load(each.fechaInicio)" />
 									<listcell
-										label="@load(each.eventoPlanificado.fechaFin)" /> 
+										label="@load(each.fechaFin)" />
 								</listitem>
 							</template>
-							<listfoot>
-								<listfooter id="listFoot" span="3"
-									use="karen.core.listfoot.ListFoot">
-								</listfooter>
-							</listfoot>
+
 						</listbox>
 					</div>
 				</div>

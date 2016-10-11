@@ -112,6 +112,16 @@ public class VM_IndicadoresActividadesTrabajoSocialPlanificado extends
 		BindUtils.postNotifyChange(null, null, this, "listTsPlanActividads");
 	}
 
+	@Command("eliminarIndicador")
+	public void eliminarIndicador(
+			@BindingParam("indicadorTsPlanActividad") IndicadorTsPlanActividad indicadorTsPlanActividad,
+			@BindingParam("index") int index) {
+		this.getListTsPlanActividads().get(index)
+				.getIndicadorTsPlanActividads()
+				.remove(indicadorTsPlanActividad);
+		BindUtils.postNotifyChange(null, null, this, "listTsPlanActividads");
+	}
+
 	@Override
 	public Map<Integer, List<OperacionWizard>> getButtonsToStep() {
 		Map<Integer, List<OperacionWizard>> botones = new HashMap<Integer, List<OperacionWizard>>();
@@ -257,7 +267,7 @@ public class VM_IndicadoresActividadesTrabajoSocialPlanificado extends
 							indicadorTsPlanActividad.getValorEsperado(),
 							new Double(0));
 
-					 payloadIndicadorTsPlanActividadResponse = S.IndicadorTsPlanActividadService
+					payloadIndicadorTsPlanActividadResponse = S.IndicadorTsPlanActividadService
 							.incluir(indicadorTsPlanActividad2);
 
 					if (!UtilPayload

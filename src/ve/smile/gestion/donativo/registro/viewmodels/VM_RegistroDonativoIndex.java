@@ -1,85 +1,69 @@
 package ve.smile.gestion.donativo.registro.viewmodels;
 
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.imageio.ImageIO;
-
-import karen.core.crux.alert.Alert;
-import karen.core.dialog.catalogue.generic.data.CatalogueDialogData;
-import karen.core.dialog.catalogue.generic.events.CatalogueDialogCloseEvent;
-import karen.core.dialog.catalogue.generic.events.listeners.CatalogueDialogCloseListener;
-import karen.core.dialog.generic.enums.DialogActionEnum;
-import karen.core.form.buttons.data.OperacionForm;
-import karen.core.form.buttons.enums.OperacionFormEnum;
-import karen.core.form.buttons.helpers.OperacionFormHelper;
-import karen.core.simple_list.wizard.buttons.data.OperacionWizard;
-import karen.core.simple_list.wizard.buttons.enums.OperacionWizardEnum;
-import karen.core.simple_list.wizard.buttons.helpers.OperacionWizardHelper;
-import karen.core.simple_list.wizard.viewmodels.VM_WindowWizard;
-import karen.core.util.UtilDialog;
 import karen.core.util.payload.UtilPayload;
-import karen.core.util.validate.UtilValidate;
-import karen.core.util.validate.UtilValidate.ValidateOperator;
+import karen.core.wizard.buttons.data.OperacionWizard;
+import karen.core.wizard.buttons.enums.OperacionWizardEnum;
+import karen.core.wizard.buttons.helpers.OperacionWizardHelper;
+import karen.core.wizard.viewmodels.VM_WindowWizard;
 import lights.core.payload.response.IPayloadResponse;
-import lights.smile.util.UtilMultimedia;
-import ve.smile.enums.ProcedenciaEnum;
-import ve.smile.enums.PropietarioEnum;
-import ve.smile.enums.TipoMultimediaEnum;
 
 import org.zkoss.bind.BindUtils;
-import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
-import org.zkoss.zk.ui.event.UploadEvent;
 
 import ve.smile.consume.services.S;
+import ve.smile.dto.Colaborador;
 import ve.smile.dto.Directorio;
 import ve.smile.dto.DonativoCuentaBancaria;
 import ve.smile.dto.DonativoRecurso;
 import ve.smile.dto.EventoPlanificado;
-import ve.smile.dto.TsPlan;
 import ve.smile.dto.Padrino;
-import ve.smile.dto.Colaborador;
 import ve.smile.dto.Patrocinador;
-import ve.smile.dto.Multimedia;
-import ve.smile.dto.Directorio;
-import ve.smile.payload.response.PayloadDonativoCuentaBancariaResponse;
+import ve.smile.dto.Recurso;
+import ve.smile.dto.TsPlan;
+import ve.smile.enums.ProcedenciaEnum;
+import ve.smile.enums.RecepcionEnum;
+import ve.smile.payload.response.PayloadColaboradorResponse;
 import ve.smile.payload.response.PayloadDonativoRecursoResponse;
 import ve.smile.payload.response.PayloadEventoPlanificadoResponse;
-import ve.smile.payload.response.PayloadMultimediaResponse;
-import ve.smile.payload.response.PayloadPatrocinadorResponse;
 import ve.smile.payload.response.PayloadPadrinoResponse;
+import ve.smile.payload.response.PayloadPatrocinadorResponse;
+import ve.smile.payload.response.PayloadRecursoResponse;
 import ve.smile.payload.response.PayloadTsPlanResponse;
-import ve.smile.payload.response.PayloadColaboradorResponse;
-import ve.smile.seguridad.enums.OperacionEnum;
-import app.UploadImageSingle;
 
-public class VM_RegistroDonativoIndex extends
-VM_WindowWizard<DonativoRecurso> implements UploadImageSingle{
-	
+public class VM_RegistroDonativoIndex extends VM_WindowWizard {
+
 	private DonativoRecurso donativoRecurso;
 	private DonativoCuentaBancaria donativoCuentaBancaria;
-	
-	private byte[] bytes;
-	private String nameImage;
-	private String urlImagen;
-	
+
 	private List<ProcedenciaEnum> tipoProcedenciaEnums;
 	private ProcedenciaEnum procedenciaEnums;
+
+	private List<RecepcionEnum> recepcionEnums;
+	private RecepcionEnum recepcionEnum;
+
 	private EventoPlanificado eventoPlanificado;
 	private TsPlan tsPlan;
 	private Padrino padrino;
 	private Colaborador colaborador;
 	private Patrocinador patrocinador;
 	private Directorio directorio;
+
+	private boolean cuentaBancaria;
+
+	private List<EventoPlanificado> eventoPlanificados;
+
+	private List<TsPlan> tsPlans;
+	private List<Padrino> padrinos;
+	private List<Colaborador> colaboradores;
+	private List<Patrocinador> patrocinadores;
+
+	private String srcList;
+	private List<Recurso> recursos;
 
 	@Init(superclass = true)
 	public void childInit() {
@@ -93,62 +77,60 @@ VM_WindowWizard<DonativoRecurso> implements UploadImageSingle{
 		patrocinador = new Patrocinador();
 		directorio = new Directorio();
 	}
-	
-	public void setTsPlan(TsPlan tsPlan){
+
+	public void setTsPlan(TsPlan tsPlan) {
 		this.tsPlan = tsPlan;
 	}
-	
-	public TsPlan getTsPlan(){
+
+	public TsPlan getTsPlan() {
 		return tsPlan;
 	}
-	
-	public void setDirectorio(Directorio directorio){
+
+	public void setDirectorio(Directorio directorio) {
 		this.directorio = directorio;
 	}
-	
-	public Directorio getDirectorio(){
+
+	public Directorio getDirectorio() {
 		return directorio;
 	}
-	
-	public void setPatrocindor(Patrocinador patrocinador){
+
+	public void setPatrocindor(Patrocinador patrocinador) {
 		this.patrocinador = patrocinador;
 	}
-	
-	public Patrocinador getPatrocinador(){
+
+	public Patrocinador getPatrocinador() {
 		return patrocinador;
 	}
-	
-	public void setColaborador(Colaborador colaborador){
+
+	public void setColaborador(Colaborador colaborador) {
 		this.colaborador = colaborador;
 	}
-	
-	public Colaborador getColaborador(){
+
+	public Colaborador getColaborador() {
 		return colaborador;
 	}
-	
-	public void setPadrino(Padrino padrino){
+
+	public void setPadrino(Padrino padrino) {
 		this.padrino = padrino;
 	}
-	
-	public Padrino getPadrino(){
+
+	public Padrino getPadrino() {
 		return padrino;
 	}
-	
-	public void setEventoPlanificado(EventoPlanificado eventoPlanificado){
+
+	public void setEventoPlanificado(EventoPlanificado eventoPlanificado) {
 		this.eventoPlanificado = eventoPlanificado;
 	}
-	
-	public EventoPlanificado getEventoPlanificado(){
-	   return eventoPlanificado;
+
+	public EventoPlanificado getEventoPlanificado() {
+		return eventoPlanificado;
 	}
-	
-	public ProcedenciaEnum getProcedenciaEnums()
-	{
+
+	public ProcedenciaEnum getProcedenciaEnums() {
 		return procedenciaEnums;
 	}
 
-	public void setProcedenciaEnums(ProcedenciaEnum procedenciaEnums)
-	{
+	public void setProcedenciaEnums(ProcedenciaEnum procedenciaEnums) {
 		this.procedenciaEnums = procedenciaEnums;
 		this.getDonativoRecurso().setProcedencia(procedenciaEnums.ordinal());
 	}
@@ -164,58 +146,26 @@ VM_WindowWizard<DonativoRecurso> implements UploadImageSingle{
 	public DonativoCuentaBancaria getDonativoCuentaBancaria() {
 		return donativoCuentaBancaria;
 	}
-	
-	public void setDonativoCuentaBancaria(DonativoCuentaBancaria donativoCuentaBancaria) {
+
+	public void setDonativoCuentaBancaria(
+			DonativoCuentaBancaria donativoCuentaBancaria) {
 		this.donativoCuentaBancaria = donativoCuentaBancaria;
 	}
 
-	@Command("buscarDirectorio")
-	public void buscarDirectorio() {
-		CatalogueDialogData<Directorio> catalogueDialogData = new CatalogueDialogData<Directorio>();
-		catalogueDialogData
-				.addCatalogueDialogCloseListeners(new CatalogueDialogCloseListener<Directorio>() {
-
-					@Override
-					public void onClose(
-							CatalogueDialogCloseEvent<Directorio> catalogueDialogCloseEvent) {
-						if (catalogueDialogCloseEvent.getDialogAction().equals(
-								DialogActionEnum.CANCELAR)) {
-							return;
-						}
-						Directorio directorio = catalogueDialogCloseEvent.getEntity();
-						refreshDirectorio();
-
-					}
-				});
-
-		UtilDialog
-				.showDialog(
-						"views/desktop/gestion/trabajoSocial/planificacion/registro/catalogoDirectorio.zul",
-						catalogueDialogData);
-	}
-	
-	public void refreshDirectorio() {
-		BindUtils.postNotifyChange(null, null, this, "directorio");
-	}
-	
-	public List<ProcedenciaEnum> getTipoProcedenciaEnums()
-	{
-		if (this.tipoProcedenciaEnums == null)
-		{
+	public List<ProcedenciaEnum> getTipoProcedenciaEnums() {
+		if (this.tipoProcedenciaEnums == null) {
 			this.tipoProcedenciaEnums = new ArrayList<>();
 		}
-		if (this.tipoProcedenciaEnums.isEmpty())
-		{
-			for (ProcedenciaEnum procedenciaEnums : ProcedenciaEnum.values())
-			{
+		if (this.tipoProcedenciaEnums.isEmpty()) {
+			for (ProcedenciaEnum procedenciaEnums : ProcedenciaEnum.values()) {
 				this.tipoProcedenciaEnums.add(procedenciaEnums);
 			}
 		}
 		return tipoProcedenciaEnums;
 	}
-	
-	public void setTipoProcedenciaEnums(List<ProcedenciaEnum> tipoProcedenciaEnums)
-	{
+
+	public void setTipoProcedenciaEnums(
+			List<ProcedenciaEnum> tipoProcedenciaEnums) {
 		this.tipoProcedenciaEnums = tipoProcedenciaEnums;
 	}
 
@@ -244,7 +194,7 @@ VM_WindowWizard<DonativoRecurso> implements UploadImageSingle{
 				.getPorType(OperacionWizardEnum.SIGUIENTE));
 
 		botones.put(3, listOperacionWizard3);
-		
+
 		List<OperacionWizard> listOperacionWizard4 = new ArrayList<OperacionWizard>();
 		listOperacionWizard4.add(OperacionWizardHelper
 				.getPorType(OperacionWizardEnum.CUSTOM1));
@@ -258,10 +208,11 @@ VM_WindowWizard<DonativoRecurso> implements UploadImageSingle{
 	public List<String> getIconsToStep() {
 		List<String> iconos = new ArrayList<String>();
 
-		iconos.add("fa fa-heart"); //seleccionar Procedencia
-		iconos.add("fa fa-pencil-square-o"); //seleccionar objeto de la Procedencia
-		iconos.add("fa fa-pencil-square-o"); //formulario de registro
-		iconos.add("fa fa-check-square-o");  //registro finalizado
+		iconos.add("fa fa-heart"); // seleccionar Procedencia
+		iconos.add("fa fa-pencil-square-o"); // seleccionar objeto de la
+												// Procedencia
+		iconos.add("fa fa-pencil-square-o"); // formulario de registro
+		iconos.add("fa fa-check-square-o"); // registro finalizado
 
 		return iconos;
 	}
@@ -270,24 +221,45 @@ VM_WindowWizard<DonativoRecurso> implements UploadImageSingle{
 	public List<String> getUrlPageToStep() {
 		List<String> urls = new ArrayList<String>();
 
-		urls.add("views/desktop/gestion/donativo/registro/selectProcedencia.zul"); //seleccionar Procedencia
-		
-		//if(urls){ //seleccionar objeto de la procedencia
-		urls.add("views/desktop/gestion/donativo/registro/selectEventoPlanificado.zul");
-		//urls.add("views/desktop/gestion/donativo/registro/selectTrabajoSocialPlanificado.zul");
-		//urls.add("views/desktop/gestion/donativo/registro/selectColaborador.zul");
-		//urls.add("views/desktop/gestion/donativo/registro/selectPatrocinador.zul");
-		//urls.add("views/desktop/gestion/donativo/registro/selectPadrino.zul");
-		//}
-		
-		urls.add("views/desktop/gestion/donativo/registro/RegistroDonativoFormBasic.zul"); //formulario de registro
-		urls.add("views/desktop/gestion/donativo/registro/registroCompletado.zul"); //registro completado
+		urls.add("views/desktop/gestion/donativo/registro/selectProcedencia.zul"); // seleccionar
+																					// Procedencia
+
+		// if(urls){ //seleccionar objeto de la procedencia
+		urls.add("views/desktop/gestion/donativo/registro/selectList.zul");
+		// urls.add("views/desktop/gestion/donativo/registro/selectTrabajoSocialPlanificado.zul");
+		// urls.add("views/desktop/gestion/donativo/registro/selectColaborador.zul");
+		// urls.add("views/desktop/gestion/donativo/registro/selectPatrocinador.zul");
+		// urls.add("views/desktop/gestion/donativo/registro/selectPadrino.zul");
+		// }
+
+		urls.add("views/desktop/gestion/donativo/registro/RegistroDonativoFormBasic.zul"); // formulario
+																							// de
+																							// registro
+		urls.add("views/desktop/gestion/donativo/registro/registroCompletado.zul"); // registro
+																					// completado
 		return urls;
 	}
-	
 
 	@Override
 	public String executeSiguiente(Integer currentStep) {
+		if (currentStep == 1) {
+			if (procedenciaEnums.equals(ProcedenciaEnum.COLABORADOR)) {
+				this.setSrcList("views/desktop/gestion/donativo/registro/selectColaborador.zul");
+			}
+			if (procedenciaEnums.equals(ProcedenciaEnum.EVENTO)) {
+				this.setSrcList("views/desktop/gestion/donativo/registro/selectEventoPlanificado.zul");
+			}
+			if (procedenciaEnums.equals(ProcedenciaEnum.PADRINO)) {
+				this.setSrcList("views/desktop/gestion/donativo/registro/selectPadrino.zul");
+			}
+			if (procedenciaEnums.equals(ProcedenciaEnum.PATROCINADOR)) {
+				this.setSrcList("views/desktop/gestion/donativo/registro/selectPatrocinador.zul");
+			}
+			if (procedenciaEnums.equals(ProcedenciaEnum.TRABAJO_SOCIAL)) {
+				this.setSrcList("views/desktop/gestion/donativo/registro/selectTrabajoSocialPlanificado.zul");
+			}
+			BindUtils.postNotifyChange(null, null, this, "*");
+		}
 		goToNextStep();
 
 		return "";
@@ -309,7 +281,6 @@ VM_WindowWizard<DonativoRecurso> implements UploadImageSingle{
 		return payloadDonativoRecursoResponse;
 	}
 
-	
 	@Override
 	public String isValidPreconditionsSiguiente(Integer currentStep) {
 		if (currentStep == 1) {
@@ -319,9 +290,29 @@ VM_WindowWizard<DonativoRecurso> implements UploadImageSingle{
 		}
 
 		if (currentStep == 2) {
-			return "E:Error Code 5-Debe seleccionar un <b>Item</b>";
+			if (procedenciaEnums.equals(ProcedenciaEnum.COLABORADOR)
+					&& colaborador.getIdColaborador() == null) {
+				return "E:Error Code 5-Debe seleccionar un <b>Colaborador</b>";
+			}
+			if (procedenciaEnums.equals(ProcedenciaEnum.EVENTO)
+					&& eventoPlanificado.getIdEventoPlanificado() == null) {
+				return "E:Error Code 5-Debe seleccionar un <b>Evento Planificador</b>";
+			}
+			if (procedenciaEnums.equals(ProcedenciaEnum.PADRINO)
+					&& padrino.getIdPadrino() == null) {
+				return "E:Error Code 5-Debe seleccionar un <b>Padrino</b>";
+			}
+			if (procedenciaEnums.equals(ProcedenciaEnum.PATROCINADOR)
+					&& patrocinador.getIdPatrocinador() == null) {
+				return "E:Error Code 5-Debe seleccionar un <b>Patrocinador</b>";
+			}
+			if (procedenciaEnums.equals(ProcedenciaEnum.TRABAJO_SOCIAL)
+					&& tsPlan.getIdTsPlan() == null) {
+				return "E:Error Code 5-Debe seleccionar un <b>Trabajo Social Planificador</b>";
+			}
+
 		}
-		
+
 		if (currentStep == 3) {
 			return "E:Error Code 5-Debe llenar todos los campos";
 		}
@@ -332,11 +323,6 @@ VM_WindowWizard<DonativoRecurso> implements UploadImageSingle{
 	@Override
 	public String isValidPreconditionsFinalizar(Integer currentStep) {
 		if (currentStep == 3) {
-			try {
-				UtilValidate.validateNull(donativoRecurso.getRecepcion(), "Recepcion");
-							} catch (Exception e) {
-				return e.getMessage();
-			}
 
 		}
 		return "";
@@ -345,146 +331,173 @@ VM_WindowWizard<DonativoRecurso> implements UploadImageSingle{
 	@Override
 	public String executeFinalizar(Integer currentStep) {
 		if (currentStep == 2) {
-			this.getDonativoRecurso().getDescripcion();
-			this.getDonativoRecurso().getFechaDonativo();
-			this.getDonativoRecurso().getFkEventoPlanificado();
-			this.getDonativoRecurso().getFkPersona();
-			this.getDonativoRecurso().getFkTsPlan();
-			this.getDonativoRecurso().getProcedencia();
-			this.getDonativoRecurso().getProcedenciaEnum();
-			this.getDonativoRecurso().getRecepcion();
-			this.getDonativoRecurso().getRecepcionEnum();
-			this.getDonativoCuentaBancaria().getFkDonativoRecurso();
-			
+		}
+
+		return "";
+	}
+
+	public String getSrcList() {
+		return srcList;
+	}
+
+	public void setSrcList(String srcList) {
+		this.srcList = srcList;
+	}
+
+	public List<EventoPlanificado> getEventoPlanificados() {
+		if (this.eventoPlanificados == null) {
+			this.eventoPlanificados = new ArrayList<>();
+		}
+		if (this.eventoPlanificados.isEmpty()) {
 			PayloadEventoPlanificadoResponse payloadEventoPlanificadoResponse = S.EventoPlanificadoService
-					.incluir(this.eventoPlanificado);
+					.consultarTodos();
 			if (UtilPayload.isOK(payloadEventoPlanificadoResponse)) {
-				restartWizard();
-				this.setEventoPlanificado(new EventoPlanificado());
-				BindUtils.postNotifyChange(null, null, this, "selectedObject");
-			
-			return (String) payloadEventoPlanificadoResponse
-					.getInformacion(IPayloadResponse.MENSAJE);
-		}
-
-		PayloadTsPlanResponse payloadTsPlanResponse = S.TsPlanService
-				.incluir(this.tsPlan);
-		if (UtilPayload.isOK(payloadTsPlanResponse)) {
-			restartWizard();
-			BindUtils.postNotifyChange(null, null, this, "selectedObject");
-		
-		return (String) payloadTsPlanResponse
-				.getInformacion(IPayloadResponse.MENSAJE);
-	}
-	
-	PayloadPadrinoResponse payloadPadrinoResponse = S.PadrinoService
-			.incluir(this.padrino);
-	if (UtilPayload.isOK(payloadPadrinoResponse)) {
-		restartWizard();
-		BindUtils.postNotifyChange(null, null, this, "selectedObject");
-	
-	return (String) payloadPadrinoResponse
-			.getInformacion(IPayloadResponse.MENSAJE);
-}
-
-	PayloadColaboradorResponse payloadColaboradorResponse = S.ColaboradorService
-			.incluir(this.colaborador);
-	if (UtilPayload.isOK(payloadColaboradorResponse)) {
-		restartWizard();
-		BindUtils.postNotifyChange(null, null, this, "selectedObject");
-	
-	return (String) payloadColaboradorResponse
-			.getInformacion(IPayloadResponse.MENSAJE);
-}
-
-	PayloadPatrocinadorResponse payloadPatrocinadorResponse = S.PatrocinadorService
-	.incluir(this.patrocinador);
-	if (UtilPayload.isOK(payloadPatrocinadorResponse)) {
-	restartWizard();
-	BindUtils.postNotifyChange(null, null, this, "selectedObject");
-	}
-	return (String) payloadPatrocinadorResponse
-	.getInformacion(IPayloadResponse.MENSAJE);
-	}
-
-
-return "";
-	}
-
-	@Override
-	public void comeIn(Integer currentStep) {
-		if (currentStep == 1) {
-			this.getControllerWindowWizard().updateListBoxAndFooter();
-			BindUtils.postNotifyChange(null, null, this, "objectsList");
-		}
-	}
-
-	@Override
-	public BufferedImage getImageContent() {
-		try {
-			return loadImage();
-		} catch (Exception e) {
-			return null;
-		}
-	}
-
-	@Override
-	public void onUploadImageSingle(UploadEvent event, String idUpload) {
-		org.zkoss.util.media.Media media = event.getMedia();
-		if (media instanceof org.zkoss.image.Image) {
-			bytes = media.getByteData();
-			this.nameImage = media.getName();
-			if (UtilMultimedia.validateFile(nameImage.substring(this.nameImage
-					.lastIndexOf(".") + 1))) {
-				Multimedia multimedia = new Multimedia();
-				multimedia.setNombre(nameImage);
-				multimedia.setTipoMultimedia(TipoMultimediaEnum.IMAGEN
-						.ordinal());
-				multimedia.setUrl(new StringBuilder()
-						.append("/Smile/Patrocinador/").append(nameImage)
-						.toString());
-				multimedia.setExtension(UtilMultimedia
-						.stringToExtensionEnum(
-								nameImage.substring(this.nameImage
-										.lastIndexOf(".") + 1)).ordinal());
-				
-			} else {
-				//...
-
+				this.eventoPlanificados.addAll(payloadEventoPlanificadoResponse
+						.getObjetos());
 			}
 
 		}
-	}
-	
-	@Override
-	public void onRemoveImageSingle(String idUpload) {
-     //...
+		return eventoPlanificados;
 	}
 
-	public byte[] getBytes() {
-		return bytes;
+	public void setEventoPlanificados(List<EventoPlanificado> eventoPlanificados) {
+		this.eventoPlanificados = eventoPlanificados;
 	}
 
-	public void setBytes(byte[] bytes) {
-		this.bytes = bytes;
+	public List<TsPlan> getTsPlans() {
+		if (this.tsPlans == null) {
+			this.tsPlans = new ArrayList<>();
+		}
+		if (this.tsPlans.isEmpty()) {
+			PayloadTsPlanResponse payloadTsPlanResponse = S.TsPlanService
+					.consultarTodos();
+			this.tsPlans.addAll(payloadTsPlanResponse.getObjetos());
+		}
+		return tsPlans;
 	}
 
-	private BufferedImage loadImage() throws Exception {
-		try {
-			Path path = Paths.get(this.getUrlImagen());
-			bytes = Files.readAllBytes(path);
-			return ImageIO.read(new File(this.getUrlImagen()));
-		} catch (Exception e) {
-			return null;
+	public void setTsPlans(List<TsPlan> tsPlans) {
+		this.tsPlans = tsPlans;
+	}
+
+	public List<Padrino> getPadrinos() {
+		if (this.padrinos == null) {
+			this.padrinos = new ArrayList<>();
+		}
+		if (this.padrinos.isEmpty()) {
+			PayloadPadrinoResponse payloadPadrinoResponse = S.PadrinoService
+					.consultarTodos();
+			if (UtilPayload.isOK(payloadPadrinoResponse)) {
+				this.padrinos.addAll(payloadPadrinoResponse.getObjetos());
+			}
+		}
+
+		return padrinos;
+	}
+
+	public void setPadrinos(List<Padrino> padrinos) {
+		this.padrinos = padrinos;
+	}
+
+	public List<Colaborador> getColaboradores() {
+		if (this.colaboradores == null) {
+			this.colaboradores = new ArrayList<>();
+		}
+		if (this.colaboradores.isEmpty()) {
+			PayloadColaboradorResponse payloadColaboradorResponse = S.ColaboradorService
+					.consultarTodos();
+			if (UtilPayload.isOK(payloadColaboradorResponse)) {
+				this.colaboradores.addAll(payloadColaboradorResponse
+						.getObjetos());
+			}
+		}
+		return colaboradores;
+	}
+
+	public void setColaboradores(List<Colaborador> colaboradores) {
+		this.colaboradores = colaboradores;
+	}
+
+	public List<Patrocinador> getPatrocinadores() {
+		if (this.patrocinadores == null) {
+			this.patrocinadores = new ArrayList<>();
+		}
+		if (this.patrocinadores.isEmpty()) {
+
+			PayloadPatrocinadorResponse payloadPatrocinadorResponse = S.PatrocinadorService
+					.consultarTodos();
+			if (UtilPayload.isOK(payloadPatrocinadorResponse)) {
+				this.patrocinadores.addAll(payloadPatrocinadorResponse
+						.getObjetos());
+			}
+		}
+
+		return patrocinadores;
+	}
+
+	public void setPatrocinadores(List<Patrocinador> patrocinadores) {
+		this.patrocinadores = patrocinadores;
+	}
+
+	public void setPatrocinador(Patrocinador patrocinador) {
+		this.patrocinador = patrocinador;
+	}
+
+	public List<RecepcionEnum> getRecepcionEnums() {
+		if (this.recepcionEnums == null) {
+			this.recepcionEnums = new ArrayList<>();
+		}
+		if (this.recepcionEnums.isEmpty()) {
+			for (RecepcionEnum recepcionEnum : RecepcionEnum.values()) {
+				this.recepcionEnums.add(recepcionEnum);
+			}
+		}
+		return recepcionEnums;
+	}
+
+	public void setRecepcionEnums(List<RecepcionEnum> recepcionEnums) {
+		this.recepcionEnums = recepcionEnums;
+	}
+
+	public RecepcionEnum getRecepcionEnum() {
+		return recepcionEnum;
+	}
+
+	public void setRecepcionEnum(RecepcionEnum recepcionEnum) {
+		this.recepcionEnum = recepcionEnum;
+		if (recepcionEnum.equals(RecepcionEnum.TRANSACCION_BANCARIA)) {
+			setCuentaBancaria(true);
+		}
+		if (recepcionEnum.equals(RecepcionEnum.OTRO)) {
+			setCuentaBancaria(true);
 		}
 	}
 
-	public String getUrlImagen() {
-		return urlImagen;
+	public boolean isCuentaBancaria() {
+		return cuentaBancaria;
 	}
 
-	public void setUrlImagen(String urlImagen) {
-		this.urlImagen = urlImagen;
+	public void setCuentaBancaria(boolean cuentaBancaria) {
+		this.cuentaBancaria = cuentaBancaria;
+	}
+
+	public List<Recurso> getRecursos() {
+		if (this.recursos == null) {
+			recursos = new ArrayList<>();
+		}
+		if (this.recursos.isEmpty()) {
+			PayloadRecursoResponse payloadRecursoResponse = S.RecursoService
+					.consultarTodos();
+			if (UtilPayload.isOK(payloadRecursoResponse)) {
+				recursos.addAll(payloadRecursoResponse.getObjetos());
+			}
+
+		}
+		return recursos;
+	}
+
+	public void setRecursos(List<Recurso> recursos) {
+		this.recursos = recursos;
 	}
 
 }

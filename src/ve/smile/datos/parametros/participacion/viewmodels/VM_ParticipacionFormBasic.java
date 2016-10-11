@@ -1,11 +1,9 @@
 package ve.smile.datos.parametros.participacion.viewmodels;
 
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.zkoss.bind.annotation.Init;
-
-import app.UploadImageSingle;
 import karen.core.crux.alert.Alert;
 import karen.core.crux.session.DataCenter;
 import karen.core.form.buttons.data.OperacionForm;
@@ -14,12 +12,14 @@ import karen.core.form.buttons.helpers.OperacionFormHelper;
 import karen.core.form.viewmodels.VM_WindowForm;
 import karen.core.util.payload.UtilPayload;
 import karen.core.util.validate.UtilValidate;
+
+import org.zkoss.bind.annotation.Init;
+
 import ve.smile.consume.services.S;
-import ve.smile.seguridad.enums.OperacionEnum;
-import ve.smile.payload.response.PayloadParticipacionResponse;
 import ve.smile.dto.Participacion;
-import ve.smile.payload.response.PayloadMultimediaResponse;
-import ve.smile.dto.Multimedia;
+import ve.smile.payload.response.PayloadParticipacionResponse;
+import ve.smile.seguridad.enums.OperacionEnum;
+import app.UploadImageSingle;
 
 public class VM_ParticipacionFormBasic extends VM_WindowForm implements
 		UploadImageSingle {
@@ -122,5 +122,12 @@ public class VM_ParticipacionFormBasic extends VM_WindowForm implements
 			Alert.showMessage(e.getMessage());
 			return false;
 		}
+	}
+
+
+	@Override
+	public BufferedImage getImageContent() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

@@ -1,3 +1,4 @@
+<?component name="uploadImageSingle" macroURI="/assets/theme/components/upload_image_single.zul"?>
 <zk xmlns:n="native" xmlns:w="client">
 	<div width="80%" class="container ${arg.animation_}"
 		use="karen.core.form.controllers.C_WindowForm"
@@ -13,23 +14,8 @@
 						value="@bind(vm.participacion.nombre)">
 					</textbox>
 				</div>
-				<span sclass="fa fa-question-circle fa-lg help-icon" tooltip="pop_nombre, position=after_end"/>
-			</div>
-
-			<div sclass="col s12">
-				<div class="input-field offset-s2 col s8">
-					<n:label class="active" for="fk_multimedia">
-						Multimedia
-					</n:label>
-					<combobox id="fk_multimedia" readonly="true"
-						model="@bind(vm.multimedias)"
-						selectedItem="@bind(vm.participacion.fkMultimedia)">
-						<template name="model">
-							<comboitem label="@load(each.nombre)" />
-						</template>
-					</combobox>
-				</div>
-				<span sclass="fa fa-question-circle fa-lg help-icon" tooltip="pop_multimedia, position=after_end"/>
+				<span sclass="fa fa-question-circle fa-lg help-icon"
+					tooltip="pop_nombre, position=after_end" />
 			</div>
 
 			<div class="col s12">
@@ -40,32 +26,56 @@
 						value="@bind(vm.participacion.descripcion)">
 					</textbox>
 				</div>
-				<span sclass="fa fa-question-circle fa-lg help-icon" tooltip="pop_descripcion, position=after_end"/>
+				<span sclass="fa fa-question-circle fa-lg help-icon"
+					tooltip="pop_descripcion, position=after_end" />
+			</div>
+
+			<div class="row" align="center">
+				<div class="col s12">
+					<div class="input-field col s12">
+						<uploadImageSingle maxsize="9000" size="200"
+							idUpload="1" title="Imagen del valor" />
+					</div>
+				</div>
 			</div>
 
 		</div>
-		
-		
+
+
 		<popup id="pop_nombre" width="200px">
 			<html>
-				<![CDATA[ Por favor, indique el nombre de la participación
-				que desea registrar.<br /><font color="#3b85a1">Ejemplo:
-				Voluntariado Extra Hospitalario.</font> ]]>
+
+				
+				<![CDATA[ Por favor, indique el nombre de la
+				participación que desea registrar.<br /><font
+				color="#3b85a1">Ejemplo: Voluntariado Extra
+				Hospitalario.</font> ]]>
+				
+				
 			</html>
 		</popup>
 
 		<popup id="pop_multimedia" width="200px">
 			<html>
-				<![CDATA[ Por favor, seleccione un archivo multimedia.]]>
+
+				
+				<![CDATA[ Por favor, seleccione un archivo
+				multimedia.]]>
+				
+				
 			</html>
 		</popup>
 
 		<popup id="pop_descripcion" width="200px">
 			<html>
+
+				
 				<![CDATA[ Por favor, indique una descripción breve,
 				sobre la participación que desea registrar.<br /><font
 				color="#3b85a1">Ejemplo:Participan en las actividades
 				que realiza la fundación fuera del hospital.</font> ]]>
+				
+				
 			</html>
 		</popup>
 

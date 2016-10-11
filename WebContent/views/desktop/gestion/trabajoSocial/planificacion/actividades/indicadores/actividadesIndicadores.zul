@@ -1,0 +1,159 @@
+<div sclass="row section" style="background: #FFFFFF"
+	sclass="animated fadeInLeft">
+
+	<style>
+		.z-row .z-detail-outer { width: 40px; min-width: 40px;
+		border-top: 1px solid #cfcfcf; padding: 18px 6px; line-height:
+		normal; background: transparent !important; vertical-align: top;
+		}
+
+		.z-grid .z-column-content { font-family: 'Roboto'; font-size:
+		13px; color: #707070; }
+
+		.z-auxhead:hover .z-auxheader-content { background: #EEEEEE
+		!important; }
+
+
+		.z-auxheader-content { background: #EEEEEE !important;
+		border-right: 1px solid #E5F4FB; height: 41px; }
+
+		.z-detail { font-size: 14px; width: 16px; height: 16px; border:
+		none !important; padding: 0; line-height: 14px; background:
+		transparent !important; text-align: center; overflow: hidden;
+		white-space: nowrap; cursor: pointer; }
+
+		tr.row-vacaciones { border-bottom: 1px solid #CFCFCF; }
+
+		.z-columns th:first-child { border-left: none; border-right:
+		none !important; }
+
+		.z-row .z-detail-outer+td, .z-row .z-detail-inner :first-child {
+		border-left: none; }
+
+		tr.header-periodo-disfute { background-color: rgba(192, 192,
+		193, 0.27); }
+
+
+		.z-messagebox .z-label { font-family: Arial, Sans-serif;
+		font-size: 15px !important; color: #363636; }
+
+		.z-cell .vacacion { background-color: #fff !important;
+		border-left: 1px solid #cfcfcf !important; }
+
+		.z-cell .periodo { background-color: #fff !important; }
+
+		.z-grid .vacacion { border: 1px solid rgba(128, 128, 128, 0.33)
+		!important; }
+
+		.z-grid-odd>.z-row-inner, .z-grid-odd>.z-cell { background:
+		#FFFFFF !important; }
+
+		.z-foot .vacacion { background-color: rgb(238, 238, 238)
+		!important; }
+
+		.z-grid.periodo>div.z-grid-body { overflow: auto; max-height:
+		320px !important; }
+
+	</style>
+	<div sclass="col s12">
+		<grid id="Grid" sclass="periodo grid"
+			model="@bind(vm.listTsPlanActividads)">
+			<columns sclass="header-periodo-vacacional">
+				<column width="5%" />
+				<column label="Nombre" sort="auto(nombre)" width="25%" />
+				<column label="Descripción" sort="auto(descripcion)"
+					align="center" width="35%" />
+				<column label="Clasificador de Tarea"
+					sort="auto(clasificadoTarea)" align="center" width="23%" />
+				<column label="Indicadores" align="center"
+					width="12%">
+
+				</column>
+			</columns>
+			<template name="model">
+				<row style="overflow:auto; max-height:200px"
+					sclass="row-vacaciones">
+
+
+					<detail open="false" fulfill="onOpen">
+
+						<grid sclass="vacacion"
+							model="@bind(each.indicadorTsPlanActividads)">
+							<auxhead>
+								<auxheader colspan="4" align="center"
+									label="INDICADORES ASOCIADOS">
+								</auxheader>
+							</auxhead>
+							<columns sclass="header-periodo-disfute">
+
+								<column label="Nombre" width="20%" />
+
+								<column label="Unidad de Medida"
+									align="center" width="30%" />
+								<column label="Valor Esperado"
+									align="center" width="20%">
+
+								</column>
+								<column label="Eliminar" align="center"
+									width="10%">
+
+								</column>
+							</columns>
+							<template name="model">
+								<row sclass="last"
+									value="INDICADORES">
+
+									<cell sclass="vacacion">
+										<label
+											value="@bind(each.fkIndicador.nombre)" />
+									</cell>
+
+									<cell sclass="vacacion">
+										<label
+											value="@bind(each.fkIndicador.fkUnidadMedida.nombre)" />
+									</cell>
+									<cell sclass="vacacion">
+										<intbox
+											style="height: 1em; border: 1px solid #999999; border-radius: 7px; font-size:1.2em;  text-align: center;"
+											value="@bind(each.valorEsperado)">
+										</intbox>
+									</cell>
+									<cell sclass="vacacion"
+										style="    border-left: 2px solid #EEEEEE !important;">
+										<button
+											onClick="@command('eliminarPeriodoDisfrute', periodoDisfrute=each)"
+											sclass="btn-sm-grid btn-pink " style="margin-left: 3px;"
+											tooltiptext="Eliminar" iconSclass="fa fa-trash">
+										</button>
+									</cell>
+								</row>
+							</template>
+						</grid>
+					</detail>
+
+					<cell sclass="periodo">
+						<label value="@bind(each.fkActividad.nombre) " />
+					</cell>
+
+					<cell sclass="periodo">
+						<label
+							value="@bind(each.fkActividad.descripcion)" />
+					</cell>
+					<cell sclass="periodo">
+						<label
+							value="@bind(each.fkActividad.fkClasificadorActividad.nombre)" />
+					</cell>
+					<cell sclass="periodo">
+						<button
+							sclass="teal lighten-1 waves-effect waves-light"
+							onClick="@command('buscarIndicadores', index=forEachStatus.index)"
+							iconSclass="fa fa-search" tooltiptext="Editar Lugar"
+							style="/padding: 5px 6px; background-color: #2AA4EF !important; float: center">
+						</button>
+					</cell>
+				</row>
+			</template>
+		</grid>
+	</div>
+
+</div>

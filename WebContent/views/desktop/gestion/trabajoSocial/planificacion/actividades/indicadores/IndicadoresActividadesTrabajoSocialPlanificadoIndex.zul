@@ -1,8 +1,8 @@
 <zk xmlns:n="native" xmlns:w="client">
-	<div class="wizard ${arg.animation_} container"
+	<div class="wizard ${arg.animation_}" style="padding:0px auto"
 		use="karen.core.wizard.controllers.C_WindowWizard"
 		apply="org.zkoss.bind.BindComposer"
-		viewModel="@id('vm') @init('ve.smile.gestion.trabajo_social.planificacion.registro.viewmodels.VM_TrabajoSocialPlanificadoRegistroIndex')">
+		viewModel="@id('vm') @init('ve.smile.gestion.trabajo_social.planificacion.actividades.indicadores.viewmodels.VM_IndicadoresActividadesTrabajoSocialPlanificado')">
 		<div class="row">
 			<div id="ulHeaderWizard"
 				use="karen.core.wizard.buttons.containers.UlHeaderWizard">

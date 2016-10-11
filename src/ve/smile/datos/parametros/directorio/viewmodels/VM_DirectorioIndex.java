@@ -22,7 +22,7 @@ import ve.smile.payload.response.PayloadTsPlanResponse;
 import ve.smile.seguridad.enums.OperacionEnum;
 
 public class VM_DirectorioIndex extends
-VM_WindowSimpleListPrincipal<Directorio> {
+		VM_WindowSimpleListPrincipal<Directorio> {
 
 	@Init(superclass = true)
 	public void childInit() {
@@ -63,89 +63,102 @@ VM_WindowSimpleListPrincipal<Directorio> {
 			return "I:Information Code: 905-Debe seleccionar un Directorio";
 		}
 
-		Map<String, String> criterios =
-				new HashMap<String, String>();
+		Map<String, String> criterios = new HashMap<String, String>();
 
-		criterios.put("fkDirectorio.idDirectorio", String.valueOf(getSelectedObject().getIdDirectorio()));
+		criterios.put("fkDirectorio.idDirectorio",
+				String.valueOf(getSelectedObject().getIdDirectorio()));
 
-		//Table Relation CapacitacionPlanificada
-		PayloadCapacitacionPlanificadaResponse payloadCapacitacionPlanificadaResponse =
-				S.CapacitacionPlanificadaService.contarCriterios(TypeQuery.EQUAL,
-						criterios);
+		// Table Relation CapacitacionPlanificada
+		PayloadCapacitacionPlanificadaResponse payloadCapacitacionPlanificadaResponse = S.CapacitacionPlanificadaService
+				.contarCriterios(TypeQuery.EQUAL, criterios);
 
 		if (!UtilPayload.isOK(payloadCapacitacionPlanificadaResponse)) {
-			return String.valueOf(payloadCapacitacionPlanificadaResponse.getInformacion(IPayloadResponse.MENSAJE));
+			return String.valueOf(payloadCapacitacionPlanificadaResponse
+					.getInformacion(IPayloadResponse.MENSAJE));
 		}
 
-		Integer countCapacitacionesPlanificadas = 
-				Double.valueOf(String.valueOf(payloadCapacitacionPlanificadaResponse.getInformacion(IPayloadResponse.COUNT))).intValue();
+		Integer countCapacitacionesPlanificadas = Double.valueOf(
+				String.valueOf(payloadCapacitacionPlanificadaResponse
+						.getInformacion(IPayloadResponse.COUNT))).intValue();
 
-		//Table Relation EventPlanTarea
-		PayloadEventPlanTareaResponse payloadEventPlanTareaResponse =
-				S.EventPlanTareaService.contarCriterios(TypeQuery.EQUAL,
-						criterios);
+		// Table Relation EventPlanTarea
+		PayloadEventPlanTareaResponse payloadEventPlanTareaResponse = S.EventPlanTareaService
+				.contarCriterios(TypeQuery.EQUAL, criterios);
 
 		if (!UtilPayload.isOK(payloadEventPlanTareaResponse)) {
-			return String.valueOf(payloadEventPlanTareaResponse.getInformacion(IPayloadResponse.MENSAJE));
+			return String.valueOf(payloadEventPlanTareaResponse
+					.getInformacion(IPayloadResponse.MENSAJE));
 		}
 
-		Integer countEventosPlanificadosTareas = 
-				Double.valueOf(String.valueOf(payloadEventPlanTareaResponse.getInformacion(IPayloadResponse.COUNT))).intValue();
+		Integer countEventosPlanificadosTareas = Double.valueOf(
+				String.valueOf(payloadEventPlanTareaResponse
+						.getInformacion(IPayloadResponse.COUNT))).intValue();
 
-		//Table Relation EventoPlanificado
-		PayloadEventoPlanificadoResponse payloadEventoPlanificadoResponse =
-				S.EventoPlanificadoService.contarCriterios(TypeQuery.EQUAL,
-						criterios);
+		// Table Relation EventoPlanificado
+		PayloadEventoPlanificadoResponse payloadEventoPlanificadoResponse = S.EventoPlanificadoService
+				.contarCriterios(TypeQuery.EQUAL, criterios);
 
 		if (!UtilPayload.isOK(payloadEventoPlanificadoResponse)) {
-			return String.valueOf(payloadEventoPlanificadoResponse.getInformacion(IPayloadResponse.MENSAJE));
+			return String.valueOf(payloadEventoPlanificadoResponse
+					.getInformacion(IPayloadResponse.MENSAJE));
 		}
 
-		Integer countEventosPlanificados = 
-				Double.valueOf(String.valueOf(payloadEventoPlanificadoResponse.getInformacion(IPayloadResponse.COUNT))).intValue();
+		Integer countEventosPlanificados = Double.valueOf(
+				String.valueOf(payloadEventoPlanificadoResponse
+						.getInformacion(IPayloadResponse.COUNT))).intValue();
 
-		//Table Relation TsPlan
-		PayloadTsPlanResponse payloadTsPlanResponse =
-				S.TsPlanService.contarCriterios(TypeQuery.EQUAL,
-						criterios);
+		// Table Relation TsPlan
+		PayloadTsPlanResponse payloadTsPlanResponse = S.TsPlanService
+				.contarCriterios(TypeQuery.EQUAL, criterios);
 
 		if (!UtilPayload.isOK(payloadTsPlanResponse)) {
-			return String.valueOf(payloadTsPlanResponse.getInformacion(IPayloadResponse.MENSAJE));
+			return String.valueOf(payloadTsPlanResponse
+					.getInformacion(IPayloadResponse.MENSAJE));
 		}
 
-		Integer countTsPlanificados = 
-				Double.valueOf(String.valueOf(payloadTsPlanResponse.getInformacion(IPayloadResponse.COUNT))).intValue();
+		Integer countTsPlanificados = Double.valueOf(
+				String.valueOf(payloadTsPlanResponse
+						.getInformacion(IPayloadResponse.COUNT))).intValue();
 
-		//Table Relation TsPlanActividad
-		PayloadTsPlanActividadResponse payloadTsPlanActividadResponse =
-				S.TsPlanActividadService.contarCriterios(TypeQuery.EQUAL,
-						criterios);
+		// Table Relation TsPlanActividad
+		PayloadTsPlanActividadResponse payloadTsPlanActividadResponse = S.TsPlanActividadService
+				.contarCriterios(TypeQuery.EQUAL, criterios);
 
 		if (!UtilPayload.isOK(payloadTsPlanActividadResponse)) {
-			return String.valueOf(payloadTsPlanActividadResponse.getInformacion(IPayloadResponse.MENSAJE));
+			return String.valueOf(payloadTsPlanActividadResponse
+					.getInformacion(IPayloadResponse.MENSAJE));
 		}
 
-		Integer countTsPlanActividades = 
-				Double.valueOf(String.valueOf(payloadTsPlanActividadResponse.getInformacion(IPayloadResponse.COUNT))).intValue();
+		Integer countTsPlanActividades = Double.valueOf(
+				String.valueOf(payloadTsPlanActividadResponse
+						.getInformacion(IPayloadResponse.COUNT))).intValue();
 
 		if (countTsPlanActividades > 0) {
-			return "E:Error 0:No se puede eliminar el <b>Directorio</b> seleccionado ya que está siendo utilizado en " + countTsPlanActividades + " Actividades de Trabajos Sociales Planificados";
+			return "E:Error 0:No se puede eliminar el <b>Directorio</b> seleccionado ya que estï¿½ siendo utilizado en "
+					+ countTsPlanActividades
+					+ " Actividades de Trabajos Sociales Planificados";
 		}
 
 		if (countTsPlanificados > 0) {
-			return "E:Error 0:No se puede eliminar el <b>Directorio</b> seleccionado ya que está siendo utilizado en " + countTsPlanificados + " Trabajos Sociales Planificados";
+			return "E:Error 0:No se puede eliminar el <b>Directorio</b> seleccionado ya que estï¿½ siendo utilizado en "
+					+ countTsPlanificados + " Trabajos Sociales Planificados";
 		}
 
 		if (countEventosPlanificados > 0) {
-			return "E:Error 0:No se puede eliminar el <b>Directorio</b> seleccionado ya que está siendo utilizado en " + countEventosPlanificados + " Eventos Planificados";
+			return "E:Error 0:No se puede eliminar el <b>Directorio</b> seleccionado ya que estï¿½ siendo utilizado en "
+					+ countEventosPlanificados + " Eventos Planificados";
 		}
 
 		if (countEventosPlanificadosTareas > 0) {
-			return "E:Error 0:No se puede eliminar el <b>Directorio</b> seleccionado ya que está siendo utilizado en " + countEventosPlanificadosTareas + " Tareas de Eventos Planificados";
+			return "E:Error 0:No se puede eliminar el <b>Directorio</b> seleccionado ya que estï¿½ siendo utilizado en "
+					+ countEventosPlanificadosTareas
+					+ " Tareas de Eventos Planificados";
 		}
 
 		if (countCapacitacionesPlanificadas > 0) {
-			return "E:Error 0:No se puede eliminar el <b>Directorio</b> seleccionado ya que está siendo utilizado en " + countCapacitacionesPlanificadas + " Capacitaciones Planificadas";
+			return "E:Error 0:No se puede eliminar el <b>Directorio</b> seleccionado ya que estï¿½ siendo utilizado en "
+					+ countCapacitacionesPlanificadas
+					+ " Capacitaciones Planificadas";
 		}
 
 		return "";

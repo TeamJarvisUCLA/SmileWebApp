@@ -10,17 +10,25 @@
 					<listbox id="listbox" model="@load(vm.objectsList)"
 						selectedItem="@bind(vm.selectedObject)">
 						<listhead sizable="true">
-							<listheader width="50%" label="Banco" />
-							<listheader width="50%" label="Número de cuenta" />
+							<listheader width="25%" label="Banco" />
+							<listheader width="25%"
+								label="Número de cuenta" />
+							<listheader width="25%" label="Titular" />
+							<listheader width="25%" label="Propietario" />
 						</listhead>
 						<template name="model">
 							<listitem>
-								<listcell label="@load(each.fkBanco.nombre)" />
-								<listcell label="@load(each.cuentaBancaria)" />
+								<listcell
+									label="@load(each.fkBanco.nombre)" />
+								<listcell
+									label="@load(each.cuentaBancaria)" />
+								<listcell label="@load(each.titular)" />
+								<listcell
+									label="@load(each.propietarioEnum)" />
 							</listitem>
 						</template>
 						<listfoot>
-							<listfooter id="listFoot" span="2"
+							<listfooter id="listFoot" span="4"
 								use="karen.core.listfoot.ListFoot">
 							</listfooter>
 						</listfoot>
@@ -29,6 +37,8 @@
 			</div>
 		</div>
 
-		<toolbar id="toolbar" align="center" use="karen.core.toolbar.Toolbar"> </toolbar>
+		<toolbar id="toolbar" align="center"
+			use="karen.core.toolbar.Toolbar">
+		</toolbar>
 	</div>
 </zk>

@@ -5,10 +5,10 @@ import org.zkoss.bind.annotation.Init;
 import karen.core.dialog.catalogue.list_pagination.viewmodels.VM_ListPaginationCatalogueDialog;
 import lights.core.payload.response.IPayloadResponse;
 import ve.smile.consume.services.S;
-import ve.smile.dto.Beneficiario;
-import ve.smile.payload.response.PayloadBeneficiarioResponse;
+import ve.smile.dto.BeneficiarioFamiliar;
+import ve.smile.payload.response.PayloadBeneficiarioFamiliarResponse;
 
-public class VM_CatalogoBeneficiario extends VM_ListPaginationCatalogueDialog<Beneficiario>{
+public class VM_CatalogoBeneficiarioFamiliar extends VM_ListPaginationCatalogueDialog<BeneficiarioFamiliar>{
 
 	@Init(superclass=true)
     public void childInit_VM_CatalogoIconSclass() {
@@ -21,11 +21,11 @@ public class VM_CatalogoBeneficiario extends VM_ListPaginationCatalogueDialog<Be
 	}
 	
 	@Override
-	public IPayloadResponse<Beneficiario> getObjectListToLoad(
+	public IPayloadResponse<BeneficiarioFamiliar> getObjectListToLoad(
 			Integer cantidadRegistrosPagina, Integer pagina) {
-		PayloadBeneficiarioResponse payloadBeneficiarioResponse  = 
-				S.BeneficiarioService.consultarPaginacion(cantidadRegistrosPagina, pagina);
-		return payloadBeneficiarioResponse;
+		PayloadBeneficiarioFamiliarResponse payloadBeneficiarioFamiliarResponse  = 
+				S.BeneficiarioFamiliarService.consultarPaginacion(cantidadRegistrosPagina, pagina);
+		return payloadBeneficiarioFamiliarResponse;
 	}
 	
 }

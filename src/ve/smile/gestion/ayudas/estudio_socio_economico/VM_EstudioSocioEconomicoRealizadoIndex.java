@@ -57,6 +57,7 @@ public class VM_EstudioSocioEconomicoRealizadoIndex extends
 
 	private EstudioSocioEconomico estudioSocioEconomico;
 	
+	private EstudioSocioEconomico solicitudAyuda;
 	
 	private Date fechaEjecutada = new Date();
 	
@@ -243,12 +244,12 @@ public class VM_EstudioSocioEconomicoRealizadoIndex extends
 
 
 	public EstudioSocioEconomico getEstudioSocioEconomico() {
-		return estudioSocioEconomico;
+		return solicitudAyuda;
 	}
 
 
-	public void setEstudioSocioEconomico(EstudioSocioEconomico estudioSocioEconomico) {
-		this.estudioSocioEconomico = estudioSocioEconomico;
+	public void setEstudioSocioEconomico(EstudioSocioEconomico solicitudAyuda) {
+		this.solicitudAyuda = solicitudAyuda;
 	}
 
 

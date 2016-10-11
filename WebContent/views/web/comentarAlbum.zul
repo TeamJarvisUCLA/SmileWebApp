@@ -48,13 +48,13 @@
 						<div sclass="col s12">
 							<span>Califica este evento:</span>
 						</div>
-						<radiogroup id="sv1" selectedItem="@bind(vm.comentarioAlbum.puntuacion)" />
+						<radiogroup id="sv1" onCheck="@command('changeValor', valor = self.selectedItem.value)" />
 				            <div class="stars">
-				                <radio name="star" id="ra1" radiogroup="sv1" value="1" />
-				                <radio name="star" id="ra2" radiogroup="sv1" value="2" />
-				                <radio name="star" id="ra3" radiogroup="sv1" value="3" />
-				                <radio name="star" id="ra4" radiogroup="sv1" value="4" />
-				                <radio name="star" id="ra5" radiogroup="sv1" value="5" />
+				                <radio name="star" id="ra1" radiogroup="sv1" value="1" label="1" />
+				                <radio name="star" id="ra2" radiogroup="sv1" value="2" label="2" />
+				                <radio name="star" id="ra3" radiogroup="sv1" value="3" label="3" />
+				                <radio name="star" id="ra4" radiogroup="sv1" value="4" label="4" />
+				                <radio name="star" id="ra5" radiogroup="sv1" value="5" label="5" />
 				            </div>
 														
 					</div>					

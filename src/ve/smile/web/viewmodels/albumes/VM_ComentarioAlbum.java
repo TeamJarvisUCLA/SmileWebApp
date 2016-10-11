@@ -6,6 +6,8 @@ import karen.core.crux.session.DataCenter;
 import karen.core.dialog.generic.viewmodels.VM_WindowDialog;
 
 import org.zkoss.bind.BindUtils;
+import org.zkoss.bind.annotation.BindingParam;
+import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.util.Clients;
 
@@ -68,6 +70,11 @@ public class VM_ComentarioAlbum extends VM_WindowDialog {
 	public void afterChildInit() {
 		// TODO Auto-generated method stub
 
+	}
+	
+	@Command
+	public void changeValor(@BindingParam("valor") int valor){
+		this.comentarioAlbum.setPuntuacion(valor);
 	}
 
 	public void limpiar() {

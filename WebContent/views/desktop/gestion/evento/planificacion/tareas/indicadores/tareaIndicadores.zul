@@ -27,7 +27,7 @@
 							<detail open="false" fulfill="onOpen">
 
 								<grid sclass="vacacion"
-									model="@bind(each.listIndicadors)">
+									model="@bind(each.indicadorEventoPlanTareas)">
 									<columns
 										sclass="header-periodo-disfute">
 										<column label="Nombre"
@@ -49,15 +49,15 @@
 										<row sclass="last">
 											<cell sclass="vacacion">
 												<label
-													value="@bind(each.nombre)" />
+													value="@bind(each.fkIndicador.nombre)" />
 											</cell>
 											<cell sclass="vacacion">
 												<label
-													value="@bind(each.descripcion)" />
+													value="@bind(each.fkIndicador.descripcion)" />
 											</cell>
 											<cell sclass="vacacion">
 												<label
-													value="@bind(each.fkUnidadMedida.nombre)" />
+													value="@bind(each.fkIndicador.fkUnidadMedida.nombre)" />
 											</cell>
 											<cell sclass="vacacion">
 												<intbox

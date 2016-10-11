@@ -7,6 +7,7 @@ import karen.core.dialog.generic.viewmodels.VM_WindowDialog;
 
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.NotifyChange;
+import org.zkoss.zk.ui.util.Clients;
 
 import ve.smile.dto.Album;
 import ve.smile.dto.ComentarioAlbum;
@@ -74,6 +75,7 @@ public class VM_ComentarioAlbum extends VM_WindowDialog {
 		this.setComentarioAlbum(new ComentarioAlbum());
 		BindUtils.postNotifyChange(null, null, this, "comentarioAlbum");
 		BindUtils.postNotifyChange(null, null, this, "comunidad");
+		Clients.evalJavaScript("f_test();");
 	}
 
 }

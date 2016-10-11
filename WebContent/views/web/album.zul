@@ -118,5 +118,9 @@
 	$(function() {
     	$('span.stars').stars();
 	});
+	
+	function f_test(){ 
+       $('span.stars').stars();
+    }
 </n:script>	
 </zk>

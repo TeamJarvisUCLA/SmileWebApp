@@ -8,6 +8,8 @@ import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
 
 import karen.core.crux.session.DataCenter;
+import karen.core.dialog.generic.data.DialogData;
+import karen.core.util.UtilDialog;
 import karen.core.util.payload.UtilPayload;
 import ve.smile.consume.services.S;
 import ve.smile.dto.Album;
@@ -89,6 +91,11 @@ public class VM_Faq {
 
 	}
 
+	@Command
+	public void abrirFormPregunta(){
+		DialogData dialogData = new DialogData();
+		UtilDialog.showDialog("/views/web/formPregunta.zul", dialogData);
+	}
 }
 
 // if(item.equales(cd.getItem){

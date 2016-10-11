@@ -41,10 +41,12 @@
 									</div>
 								</template>
 							</div>
-							<div class="col s4 icon">
-								<a><image src="/imagenes/portal/icon/icon-plus.png"></image></a>
+							<div class="col s12 icon">
+								<a onClick="@command('verMas')"><image src="/imagenes/portal/icon/icon-plus.png"></image></a>
 								<div class="col s12">
-									<a>Ver más</a>
+									<a onClick="@command('verMas')">
+										Ver más
+									</a>
 								</div>
 							</div>
 						</div>
@@ -100,6 +102,10 @@
 	   $('.materialboxed').materialbox();
 	
 	});
+	
+	function f_zoom(){ 
+       $('.materialboxed').materialbox();
+    }
  	
 </n:script>
 		

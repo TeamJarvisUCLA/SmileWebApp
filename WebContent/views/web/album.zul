@@ -119,7 +119,7 @@
     	$('span.stars').stars();
 	});
 	
-	function f_test(){ 
+	function f_star(){ 
        $('span.stars').stars();
     }
 </n:script>	

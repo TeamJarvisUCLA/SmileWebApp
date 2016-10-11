@@ -75,7 +75,7 @@ public class VM_ComentarioAlbum extends VM_WindowDialog {
 		this.setComentarioAlbum(new ComentarioAlbum());
 		BindUtils.postNotifyChange(null, null, this, "comentarioAlbum");
 		BindUtils.postNotifyChange(null, null, this, "comunidad");
-		Clients.evalJavaScript("f_test();");
+		Clients.evalJavaScript("f_star();");
 	}
 
 }

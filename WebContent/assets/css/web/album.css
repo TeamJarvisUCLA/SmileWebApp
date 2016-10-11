@@ -2,7 +2,7 @@
 	background: url("/SmileWebApp/imagenes/portal/fondo.png");
 }
 
-#fotos .s4:nth-child(4n) {
+#fotos .s4:nth-child(3n+1) {
    	clear: left;
 }
 

@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
+import org.zkoss.bind.annotation.NotifyChange;
+import org.zkoss.zk.ui.util.Clients;
 
 import karen.core.crux.session.DataCenter;
 import karen.core.util.payload.UtilPayload;
@@ -23,6 +25,7 @@ public class VM_Galeria {
 	private List<Album> albumes;
 	private List<MultimediaAlbum> multimediaAlbum;
 	private List<Multimedia> multiemdiaGaleria;
+	private Integer cantMultGaleria = 6;
 
 	public List<Album> getalbumes() {
 		if (this.albumes == null) {
@@ -46,7 +49,7 @@ public class VM_Galeria {
 		if (this.multiemdiaGaleria.isEmpty()) {
 
 			PayloadMultimediaResponse payloadMultimediaResponse = S.MultimediaService
-					.consultarMultimediaTipo(5, TipoMultimediaEnum.GALERIA.ordinal());
+					.consultarMultimediaTipo(cantMultGaleria, TipoMultimediaEnum.GALERIA.ordinal());
 
 			this.multiemdiaGaleria.addAll(payloadMultimediaResponse.getObjetos());
 		}
@@ -90,6 +93,24 @@ public class VM_Galeria {
 	public void album(@BindingParam("album") Album album ) {
 		DataCenter.updateSrcPageContent(album, null, "/views/web/album.zul");
 		
+	}
+	
+	@Command
+	@NotifyChange({"multiemdiaGaleria"})
+	public void verMas() {
+		cantMultGaleria += 3;
+		if (this.multiemdiaGaleria == null) {
+			this.multiemdiaGaleria = new ArrayList<>();
+		}
+		this.multiemdiaGaleria.clear();
+		if (this.multiemdiaGaleria.isEmpty()) {
+
+			PayloadMultimediaResponse payloadMultimediaResponse = S.MultimediaService
+					.consultarMultimediaTipo(cantMultGaleria, TipoMultimediaEnum.GALERIA.ordinal());
+
+			this.multiemdiaGaleria.addAll(payloadMultimediaResponse.getObjetos());
+		}
+		Clients.evalJavaScript("f_zoom();");
 	}
 
 }

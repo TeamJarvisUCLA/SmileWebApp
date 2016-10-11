@@ -1,4 +1,4 @@
-package ve.smile.gestion.ayudas.beneficiarios_y_familiares;
+package ve.smile.gestion.ayudas.estudio_socio_economico;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -38,52 +38,49 @@ import org.zkoss.zk.ui.event.UploadEvent;
 import ve.smile.consume.services.S;
 import ve.smile.dto.Directorio;
 import ve.smile.dto.Multimedia;
-import ve.smile.dto.BeneficiarioFamiliar;
-import ve.smile.dto.BeneficiarioFamiliar;
-import ve.smile.dto.Persona;
-import ve.smile.dto.Beneficiario;
+import ve.smile.dto.EstudioSocioEconomico;
+import ve.smile.dto.EstudioSocioEconomico;
+import ve.smile.dto.Trabajador;
+import ve.smile.dto.EstudioSocioEconomico;
 import ve.smile.dto.Voluntario;
+import ve.smile.enums.EstatusSolicitudEnum;
 import ve.smile.enums.TipoMultimediaEnum;
 import ve.smile.payload.response.PayloadMultimediaResponse;
-import ve.smile.payload.response.PayloadBeneficiarioFamiliarResponse;
-import ve.smile.payload.response.PayloadBeneficiarioFamiliarResponse;
-import ve.smile.payload.response.PayloadPersonaResponse;
-import ve.smile.payload.response.PayloadBeneficiarioResponse;
+import ve.smile.payload.response.PayloadEstudioSocioEconomicoResponse;
+import ve.smile.payload.response.PayloadEstudioSocioEconomicoResponse;
+import ve.smile.payload.response.PayloadTrabajadorResponse;
+import ve.smile.payload.response.PayloadEstudioSocioEconomicoResponse;
 import app.UploadImageSingle;
 
-public class VM_BeneficiarioYFamiliarIndex extends
-		VM_WindowWizard<Beneficiario> implements
-		UploadImageSingle {
+public class VM_EstudioSocioEconomicoRealizadoIndex extends
+		VM_WindowWizard<EstudioSocioEconomico>  {
 
-	private BeneficiarioFamiliar beneficiarioFamiliar;
+	private EstudioSocioEconomico estudioSocioEconomico;
 	
-	private Date fecha = new Date();
+	private EstudioSocioEconomico solicitudAyuda;
+	
+	private Date fechaEjecutada = new Date();
 	
 
 	@Init(superclass = true)
 	public void childInit() {
 		// NOTHING OK!
-		beneficiarioFamiliar = new BeneficiarioFamiliar();
-		fecha = new Date();
+		setEstudioSocioEconomico(new EstudioSocioEconomico());
+		fechaEjecutada = new Date();
 	}
 
 	
 
-	public BeneficiarioFamiliar getBeneficiarioFamiliar() {
-		return beneficiarioFamiliar;
+	
+	
+
+
+	public Date getFechaEjecutada() {
+		return fechaEjecutada;
 	}
 
-	public void setBeneficiarioFamiliar(BeneficiarioFamiliar beneficiarioFamiliar) {
-		this.beneficiarioFamiliar = beneficiarioFamiliar;
-	}
-
-
-	public Date getFecha() {
-		return fecha;
-	}
-
-	public void setFecha(Date fecha) {
-		this.fecha = fecha;
+	public void setFechaEjecutada(Date fechaEjecutada) {
+		this.fechaEjecutada = fechaEjecutada;
 	}
 
 	
@@ -98,13 +95,16 @@ public class VM_BeneficiarioYFamiliarIndex extends
 
 		botones.put(1, listOperacionWizard1);
 		
+		
 
-
-		List<OperacionWizard> listOperacionWizard2 = new ArrayList<OperacionWizard>();
+		List<OperacionWizard> listOperacionWizard2= new ArrayList<OperacionWizard>();
 		listOperacionWizard2.add(OperacionWizardHelper
 				.getPorType(OperacionWizardEnum.ATRAS));
+		
 		listOperacionWizard2.add(OperacionWizardHelper
 				.getPorType(OperacionWizardEnum.FINALIZAR));
+		listOperacionWizard2.add(OperacionWizardHelper
+				.getPorType(OperacionWizardEnum.CANCELAR));
 
 		botones.put(2, listOperacionWizard2);
 
@@ -116,6 +116,13 @@ public class VM_BeneficiarioYFamiliarIndex extends
 
 		return botones;
 	}
+	
+	@Override
+	public String executeCancelar(Integer currentStep) {
+		// TODO Auto-generated method stub
+		restartWizard();
+		return "";
+	}
 
 	@Override
 	public List<String> getIconsToStep() {
@@ -123,7 +130,6 @@ public class VM_BeneficiarioYFamiliarIndex extends
 
 		iconos.add("fa fa-pencil-square-o");
 		iconos.add("fa fa-pencil-square-o");
-	
 		// iconos.add("fa fa-check-square-o");
 
 		return iconos;
@@ -133,9 +139,9 @@ public class VM_BeneficiarioYFamiliarIndex extends
 	public List<String> getUrlPageToStep() {
 		List<String> urls = new ArrayList<String>();
 
-		urls.add("views/desktop/gestion/ayudas/beneficiarioYFamiliares/selectBeneficiario.zul");
-		urls.add("views/desktop/gestion/ayudas/beneficiarioYFamiliares/BeneficiarioYFamiliarFormBasic.zul");
-		// urls.add("views/desktop/gestion/trabajoSocial/planificacion/registro/successRegistroBeneficiarioFamiliarPlanificado.zul");
+		urls.add("views/desktop/gestion/ayudas/estudioSocioEconomico/selectEstudioSocioEconomico.zul");
+		urls.add("views/desktop/gestion/ayudas/estudioSocioEconomico/EstudioSocioEconomicoRealizadoFormBasic.zul");
+		// urls.add("views/desktop/gestion/trabajoSocial/planificacion/registro/successRegistroEstudioSocioEconomicoPlanificado.zul");
 
 		return urls;
 	}
@@ -143,7 +149,7 @@ public class VM_BeneficiarioYFamiliarIndex extends
 	@Override
 	public String executeSiguiente(Integer currentStep) {
 		goToNextStep();
-		
+
 		return "";
 	}
 
@@ -155,18 +161,29 @@ public class VM_BeneficiarioYFamiliarIndex extends
 	}
 
 	@Override
-	public IPayloadResponse<Beneficiario> getDataToTable(
+	public IPayloadResponse<EstudioSocioEconomico> getDataToTable(
 			Integer cantidadRegistrosPagina, Integer pagina) {
 
-		PayloadBeneficiarioResponse payloadBeneficiarioResponse = S.BeneficiarioService
+		PayloadEstudioSocioEconomicoResponse payloadEstudioSocioEconomicoResponse = S.EstudioSocioEconomicoService
 				.consultarPaginacion(cantidadRegistrosPagina, pagina);
-		return payloadBeneficiarioResponse;
+		return payloadEstudioSocioEconomicoResponse;
 	}
 
 	@Override
 	public String isValidPreconditionsSiguiente(Integer currentStep) {
 		
+		if (currentStep == 1) {
+			if (selectedObject == null) {
+				return "E:Error Code 5-Debe seleccionar un <b>Estudio Socio Economico</b>";
+			}
+		}
 		
+	
+
+		if (currentStep == 2) {
+			return "E:Error Code 5-No hay otro paso";
+		}
+
 		
 		
 		return "";
@@ -175,7 +192,17 @@ public class VM_BeneficiarioYFamiliarIndex extends
 	@Override
 	public String isValidPreconditionsFinalizar(Integer currentStep) {
 		
-		
+		if (currentStep == 3) {
+			try {
+				UtilValidate.validateDate(this.getFechaEjecutada().getTime(),
+						"FechaEjecutada Planificada", ValidateOperator.GREATER_THAN,
+						new SimpleDateFormat("yyyy-MM-dd").format(new Date()),
+						"dd/MM/yyyy");
+			} catch (Exception e) {
+				return e.getMessage();
+			}
+
+		}
 		
 		return "";
 	}
@@ -183,25 +210,17 @@ public class VM_BeneficiarioYFamiliarIndex extends
 	@Override
 	public String executeFinalizar(Integer currentStep) {
 		if (currentStep == 2) {
-			//this.getBeneficiarioFamiliar().setFecha(this.getFecha().getTime());
+			this.getEstudioSocioEconomico().setFechaEjecutada(
+					this.getFechaEjecutada().getTime());
 			
-			this.getBeneficiarioFamiliar().setFkBeneficiario(selectedObject);
+		
 			
-			
-			PayloadBeneficiarioFamiliarResponse payloadBeneficiarioFamiliarResponse = S.BeneficiarioFamiliarService
-					.incluir(this.beneficiarioFamiliar);
-			if (UtilPayload.isOK(payloadBeneficiarioFamiliarResponse)) {
+			PayloadEstudioSocioEconomicoResponse payloadEstudioSocioEconomicoResponse = S.EstudioSocioEconomicoService.modificar(selectedObject);
+			if (UtilPayload.isOK(payloadEstudioSocioEconomicoResponse)) {
 				restartWizard();
-				this.setBeneficiarioFamiliar(new BeneficiarioFamiliar());
-				this.setFecha(new Date());
-				this.setSelectedObject(new Beneficiario());
-				BindUtils.postNotifyChange(null, null, this, "beneficiarioFamiliar");
-				BindUtils
-						.postNotifyChange(null, null, this, "fecha");
-				BindUtils.postNotifyChange(null, null, this, "selectedObject");
-				BindUtils.postNotifyChange(null, null, this, "solicitudAyuda");
+				
 			}
-			return (String) payloadBeneficiarioFamiliarResponse
+			return (String) payloadEstudioSocioEconomicoResponse
 					.getInformacion(IPayloadResponse.MENSAJE);
 
 		}
@@ -215,30 +234,22 @@ public class VM_BeneficiarioYFamiliarIndex extends
 			this.getControllerWindowWizard().updateListBoxAndFooter();
 			BindUtils.postNotifyChange(null, null, this, "objectsList");
 		}
-	}
-
-
-
-	@Override
-	public BufferedImage getImageContent() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-
-	@Override
-	public void onUploadImageSingle(UploadEvent event, String idUpload) {
-		// TODO Auto-generated method stub
 		
+		if(currentStep==2){
+			
+			this.setEstudioSocioEconomico(selectedObject);	
+			
+		}
 	}
 
 
+	public EstudioSocioEconomico getEstudioSocioEconomico() {
+		return solicitudAyuda;
+	}
 
-	@Override
-	public void onRemoveImageSingle(String idUpload) {
-		// TODO Auto-generated method stub
-		
+
+	public void setEstudioSocioEconomico(EstudioSocioEconomico solicitudAyuda) {
+		this.solicitudAyuda = solicitudAyuda;
 	}
 
 

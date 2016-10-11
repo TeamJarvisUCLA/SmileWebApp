@@ -40,14 +40,15 @@ import ve.smile.dto.Directorio;
 import ve.smile.dto.Multimedia;
 import ve.smile.dto.EstudioSocioEconomico;
 import ve.smile.dto.EstudioSocioEconomico;
-import ve.smile.dto.Persona;
+import ve.smile.dto.Trabajador;
 import ve.smile.dto.SolicitudAyuda;
 import ve.smile.dto.Voluntario;
+import ve.smile.enums.EstatusSolicitudEnum;
 import ve.smile.enums.TipoMultimediaEnum;
 import ve.smile.payload.response.PayloadMultimediaResponse;
 import ve.smile.payload.response.PayloadEstudioSocioEconomicoResponse;
 import ve.smile.payload.response.PayloadEstudioSocioEconomicoResponse;
-import ve.smile.payload.response.PayloadPersonaResponse;
+import ve.smile.payload.response.PayloadTrabajadorResponse;
 import ve.smile.payload.response.PayloadSolicitudAyudaResponse;
 import app.UploadImageSingle;
 
@@ -56,38 +57,41 @@ public class VM_EstudioSocioEconomicoIndex extends
 
 	private EstudioSocioEconomico estudioSocioEconomico;
 	
+	private SolicitudAyuda solicitudAyuda;
+	
 	private Date fecha = new Date();
 	
-	private List<Persona> personas ;
+	private List<Trabajador> trabajadores ;
 
 	@Init(superclass = true)
 	public void childInit() {
 		// NOTHING OK!
+		setSolicitudAyuda(new SolicitudAyuda());
 		estudioSocioEconomico = new EstudioSocioEconomico();
 		fecha = new Date();
 	}
 
 	
-	public List<Persona> getPersonas() {
-		if (this.personas == null) {
-			this.personas = new ArrayList<>();
+	public List<Trabajador> getTrabajadores() {
+		if (this.trabajadores == null) {
+			this.trabajadores = new ArrayList<>();
 		}
-		if (this.personas.isEmpty()) {
-			PayloadPersonaResponse payloadPersonaResponse = S.PersonaService
+		if (this.trabajadores.isEmpty()) {
+			PayloadTrabajadorResponse payloadTrabajadorResponse = S.TrabajadorService
 					.consultarTodos();
 
-			if (!UtilPayload.isOK(payloadPersonaResponse)) {
-				Alert.showMessage(payloadPersonaResponse);
+			if (!UtilPayload.isOK(payloadTrabajadorResponse)) {
+				Alert.showMessage(payloadTrabajadorResponse);
 			}
 
-			this.personas.addAll(payloadPersonaResponse.getObjetos());
+			this.trabajadores.addAll(payloadTrabajadorResponse.getObjetos());
 		}
 
-		return personas;
+		return trabajadores;
 	}
 
-	public void setPersonas(List<Persona> personas) {
-		this.personas = personas;
+	public void setTrabajadores(List<Trabajador> trabajadores) {
+		this.trabajadores = trabajadores;
 	}
 	
 	public EstudioSocioEconomico getEstudioSocioEconomico() {
@@ -121,15 +125,23 @@ public class VM_EstudioSocioEconomicoIndex extends
 		
 		List<OperacionWizard> listOperacionWizard2 = new ArrayList<OperacionWizard>();
 		listOperacionWizard2.add(OperacionWizardHelper
+				.getPorType(OperacionWizardEnum.ATRAS));
+		
+		listOperacionWizard2.add(OperacionWizardHelper
 				.getPorType(OperacionWizardEnum.SIGUIENTE));
+		listOperacionWizard2.add(OperacionWizardHelper
+				.getPorType(OperacionWizardEnum.CANCELAR));
 
 		botones.put(2, listOperacionWizard2);
 
 		List<OperacionWizard> listOperacionWizard3 = new ArrayList<OperacionWizard>();
 		listOperacionWizard3.add(OperacionWizardHelper
 				.getPorType(OperacionWizardEnum.ATRAS));
+		
 		listOperacionWizard3.add(OperacionWizardHelper
 				.getPorType(OperacionWizardEnum.FINALIZAR));
+		listOperacionWizard3.add(OperacionWizardHelper
+				.getPorType(OperacionWizardEnum.CANCELAR));
 
 		botones.put(3, listOperacionWizard3);
 
@@ -140,6 +152,13 @@ public class VM_EstudioSocioEconomicoIndex extends
 		botones.put(4, listOperacionWizard4);
 
 		return botones;
+	}
+	
+	@Override
+	public String executeCancelar(Integer currentStep) {
+		// TODO Auto-generated method stub
+		restartWizard();
+		return "";
 	}
 
 	@Override
@@ -199,7 +218,7 @@ public class VM_EstudioSocioEconomicoIndex extends
 		}
 		
 		if (currentStep == 2) {
-			if (this.getEstudioSocioEconomico().getFkPersona() == null) {
+			if (this.getEstudioSocioEconomico().getFkTrabajador() == null) {
 				return "E:Error Code 5-Debe seleccionar un <b>Evaluador</b>";
 			}
 		}
@@ -222,7 +241,6 @@ public class VM_EstudioSocioEconomicoIndex extends
 						"Fecha Planificada", ValidateOperator.GREATER_THAN,
 						new SimpleDateFormat("yyyy-MM-dd").format(new Date()),
 						"dd/MM/yyyy");
-				UtilValidate.validateString(this.getEstudioSocioEconomico().getResultado(), "Resutlado", 100);
 			} catch (Exception e) {
 				return e.getMessage();
 			}
@@ -239,10 +257,12 @@ public class VM_EstudioSocioEconomicoIndex extends
 					this.getFecha().getTime());
 			
 			this.getEstudioSocioEconomico().setFkSolicitudAyuda(selectedObject);
+			this.getSolicitudAyuda().setEstatusSolicitud(EstatusSolicitudEnum.EN_PROCESO.ordinal());
 			
-			
+			selectedObject.setEstatusSolicitud(EstatusSolicitudEnum.EN_PROCESO.ordinal());
 			PayloadEstudioSocioEconomicoResponse payloadEstudioSocioEconomicoResponse = S.EstudioSocioEconomicoService
 					.incluir(this.estudioSocioEconomico);
+			PayloadSolicitudAyudaResponse payloadSolicitudAyudaResponse = S.SolicitudAyudaService.modificar(selectedObject);
 			if (UtilPayload.isOK(payloadEstudioSocioEconomicoResponse)) {
 				restartWizard();
 				this.setEstudioSocioEconomico(new EstudioSocioEconomico());
@@ -268,6 +288,16 @@ public class VM_EstudioSocioEconomicoIndex extends
 			this.getControllerWindowWizard().updateListBoxAndFooter();
 			BindUtils.postNotifyChange(null, null, this, "objectsList");
 		}
+	}
+
+
+	public SolicitudAyuda getSolicitudAyuda() {
+		return solicitudAyuda;
+	}
+
+
+	public void setSolicitudAyuda(SolicitudAyuda solicitudAyuda) {
+		this.solicitudAyuda = solicitudAyuda;
 	}
 
 

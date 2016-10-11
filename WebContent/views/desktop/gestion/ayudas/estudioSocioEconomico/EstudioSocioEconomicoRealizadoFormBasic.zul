@@ -13,16 +13,16 @@
 					<div class="input-field col s12">
 						<n:label for="fecha"
 							class="active">
-							Fecha Planificada:
+							Fecha de Estudio Realizado:
 						</n:label>
 						<datebox id="fecha"
 							readonly="true" cols="20" format="dd/MM/yyyy"
-							value="@bind(vm.fecha)" />
+							value="@bind(vm.fechaEjecutada)" />
 					</div>
 
 				</div>
 				
-				<!-- 
+				
 				<div class="row">
 					<div class="input-field col s12">
 						<n:label for="resultado">Resultado</n:label>
@@ -35,7 +35,7 @@
 						</textbox>
 					</div>
 				</div>
-				 -->
+				
 				
 				
 

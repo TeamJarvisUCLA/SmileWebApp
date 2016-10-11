@@ -1,4 +1,4 @@
-package ve.smile.gestion.ayudas.egreso_beneficiario;
+package ve.smile.gestion.ayudas.egreso_familiar;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -28,6 +28,7 @@ import karen.core.util.UtilDialog;
 import karen.core.util.payload.UtilPayload;
 import karen.core.util.validate.UtilValidate;
 import karen.core.util.validate.UtilValidate.ValidateOperator;
+import lights.core.enums.TypeQuery;
 import lights.core.payload.response.IPayloadResponse;
 import lights.smile.util.UtilMultimedia;
 
@@ -38,34 +39,36 @@ import org.zkoss.zk.ui.event.UploadEvent;
 
 import ve.smile.consume.services.S;
 import ve.smile.dto.Ayuda;
-import ve.smile.dto.Beneficiario;
+import ve.smile.dto.BeneficiarioFamiliar;
+import ve.smile.dto.Familiar;
 import ve.smile.dto.Ciudad;
 import ve.smile.dto.Directorio;
 import ve.smile.dto.Estado;
 import ve.smile.dto.Motivo;
 import ve.smile.dto.Multimedia;
-import ve.smile.dto.Beneficiario;
-import ve.smile.dto.Beneficiario;
+import ve.smile.dto.Familiar;
+import ve.smile.dto.Familiar;
 import ve.smile.dto.Persona;
-import ve.smile.dto.Beneficiario;
+import ve.smile.dto.Familiar;
 import ve.smile.dto.TsPlan;
 import ve.smile.dto.Voluntario;
 import ve.smile.enums.EstatusSolicitudEnum;
 import ve.smile.enums.TipoMultimediaEnum;
 import ve.smile.enums.TipoPersonaEnum;
 import ve.smile.enums.UrgenciaEnum;
+import ve.smile.payload.response.PayloadBeneficiarioFamiliarResponse;
 import ve.smile.payload.response.PayloadEstadoResponse;
 import ve.smile.payload.response.PayloadMotivoResponse;
 import ve.smile.payload.response.PayloadMultimediaResponse;
-import ve.smile.payload.response.PayloadBeneficiarioResponse;
-import ve.smile.payload.response.PayloadBeneficiarioResponse;
+import ve.smile.payload.response.PayloadFamiliarResponse;
+import ve.smile.payload.response.PayloadFamiliarResponse;
 import ve.smile.payload.response.PayloadPersonaResponse;
-import ve.smile.payload.response.PayloadBeneficiarioResponse;
+import ve.smile.payload.response.PayloadFamiliarResponse;
 import ve.smile.seguridad.enums.SexoEnum;
 import app.UploadImageSingle;
 
-public class VM_EgresoBeneficiarioIndex extends
-		VM_WindowWizard<Beneficiario> implements
+public class VM_EgresoFamiliarIndex extends
+		VM_WindowWizard<Familiar> implements
 		UploadImageSingle  {
 	
 	private List<Ciudad> ciudades;
@@ -90,14 +93,14 @@ public class VM_EgresoBeneficiarioIndex extends
 	private List<Estado> estados;
 	
 
-	private Beneficiario beneficiario;
+	private Familiar familiar;
 
 
 
 	@Init(superclass = true)
 	public void childInit() {
 		// NOTHING OK!
-		beneficiario = new Beneficiario();
+		familiar = new Familiar();
 		
 		
 	}
@@ -191,7 +194,7 @@ public class VM_EgresoBeneficiarioIndex extends
 
 	public void setFechaIngreso(Date fechaIngreso) {
 		this.fechaIngreso = fechaIngreso;
-		this.getBeneficiario().setFechaIngreso(fechaIngreso.getTime());
+		this.getFamiliar().setFechaIngreso(fechaIngreso.getTime());
 	}
 
 	public String getNameImage() {
@@ -243,12 +246,12 @@ public class VM_EgresoBeneficiarioIndex extends
 		this.urlImagen = urlImagen;
 	}
 	
-	public Beneficiario getBeneficiario() {
-		return beneficiario;
+	public Familiar getFamiliar() {
+		return familiar;
 	}
 
-	public void setBeneficiario(Beneficiario beneficiario) {
-		this.beneficiario = beneficiario;
+	public void setFamiliar(Familiar familiar) {
+		this.familiar = familiar;
 	}
 
 
@@ -312,9 +315,9 @@ public class VM_EgresoBeneficiarioIndex extends
 	public List<String> getUrlPageToStep() {
 		List<String> urls = new ArrayList<String>();
 
-		urls.add("views/desktop/gestion/ayudas/egresoBeneficiario/selectBeneficiario.zul");
-		urls.add("views/desktop/gestion/ayudas/egresoBeneficiario/BeneficiarioFormBasic.zul");
-		// urls.add("views/desktop/gestion/trabajoSocial/planificacion/registro/successRegistroBeneficiarioPlanificado.zul");
+		urls.add("views/desktop/gestion/ayudas/egresoFamiliar/selectFamiliar.zul");
+		urls.add("views/desktop/gestion/ayudas/egresoFamiliar/FamiliarFormBasic.zul");
+		// urls.add("views/desktop/gestion/trabajoSocial/planificacion/registro/successRegistroFamiliarPlanificado.zul");
 
 		return urls;
 	}
@@ -334,12 +337,12 @@ public class VM_EgresoBeneficiarioIndex extends
 	}
 
 	@Override
-	public IPayloadResponse<Beneficiario> getDataToTable(
+	public IPayloadResponse<Familiar> getDataToTable(
 			Integer cantidadRegistrosPagina, Integer pagina) {
 
-		PayloadBeneficiarioResponse payloadBeneficiarioResponse = S.BeneficiarioService
+		PayloadFamiliarResponse payloadFamiliarResponse = S.FamiliarService
 				.consultarPaginacion(cantidadRegistrosPagina, pagina);
-		return payloadBeneficiarioResponse;
+		return payloadFamiliarResponse;
 	}
 
 	@Override
@@ -347,7 +350,7 @@ public class VM_EgresoBeneficiarioIndex extends
 		
 		if (currentStep == 1) {
 			if (selectedObject == null) {
-				return "E:Error Code 5-Debe seleccionar un <b>Beneficiario</b>";
+				return "E:Error Code 5-Debe seleccionar un <b>Familiar</b>";
 			}
 		}
 		
@@ -367,7 +370,7 @@ public class VM_EgresoBeneficiarioIndex extends
 						"Fecha Planificada", ValidateOperator.GREATER_THAN,
 						new SimpleDateFormat("yyyy-MM-dd").format(new Date()),
 						"dd/MM/yyyy");
-				UtilValidate.validateString(this.getBeneficiario().getResultado(), "Resutlado", 100);
+				UtilValidate.validateString(this.getFamiliar().getResultado(), "Resutlado", 100);
 			} catch (Exception e) {
 				return e.getMessage();
 			}
@@ -380,14 +383,33 @@ public class VM_EgresoBeneficiarioIndex extends
 	@Override
 	public String executeFinalizar(Integer currentStep) {
 		if (currentStep == 2) {
-			Persona persona = this.getBeneficiario().getFkPersona();
+			Persona persona = this.getFamiliar().getFkPersona();
 			persona.setEstatus('0');
-			PayloadPersonaResponse payloadPersonaResponse = S.PersonaService.modificar(persona);
-			/*Beneficiario beneficiario = this.getBeneficiario();
-			beneficiario.getFkPersona().setEstatus('0');
+			
+			Map<String, String> criterios = new HashMap<String, String>();
+			criterios.put("fkFamiliar.idFamiliar",
+			String.valueOf(persona.getIdPersona()));
 
-			PayloadBeneficiarioResponse payloadBeneficiarioResponse = S.BeneficiarioService
-					.modificar(beneficiario);*/
+			PayloadBeneficiarioFamiliarResponse payloadBeneficiarioFamiliarResponse = 
+
+			S.BeneficiarioFamiliarService.consultarCriterios(TypeQuery.EQUAL, criterios);
+			
+			List<BeneficiarioFamiliar> list = payloadBeneficiarioFamiliarResponse.getObjetos();
+			
+			System.out.println(list);
+			for(BeneficiarioFamiliar elemento:list){
+				//System.out.println(elemento.getFkBeneficiario().getFkPersona().getNombre() + elemento.getFkBeneficiario().getFkPersona().getApellido() );
+				Persona personaBeneficiario = elemento.getFkBeneficiario().getFkPersona();
+				personaBeneficiario.setEstatus('0');
+				PayloadPersonaResponse payloadPersonaResponse = S.PersonaService.modificar(personaBeneficiario);
+			}
+			//PayloadBeneficiarioFamiliarResponse payloadBeneficiarioFamiliarResponse = S.BeneficiarioFamiliarService.consultarCriterios(typeQuery, criterios);
+			PayloadPersonaResponse payloadPersonaResponse = S.PersonaService.modificar(persona);
+			/*Familiar familiar = this.getFamiliar();
+			familiar.getFkPersona().setEstatus('0');
+
+			PayloadFamiliarResponse payloadFamiliarResponse = S.FamiliarService
+					.modificar(familiar);*/
 			
 			if (!UtilPayload.isOK(payloadPersonaResponse)) {
 				Alert.showMessage(payloadPersonaResponse);
@@ -396,7 +418,7 @@ public class VM_EgresoBeneficiarioIndex extends
 			
 			if (UtilPayload.isOK(payloadPersonaResponse)) {
 				restartWizard();
-				return "Beneficiario Egresado con Exito";
+				return "Familiar Egresado con Exito";
 			}
 
 		}
@@ -413,9 +435,9 @@ public class VM_EgresoBeneficiarioIndex extends
 		
 		if(currentStep==2){
 			
-			this.setBeneficiario(selectedObject);
+			this.setFamiliar(selectedObject);
 			
-			this.setPersona(this.getBeneficiario().getFkPersona());
+			this.setPersona(this.getFamiliar().getFkPersona());
 			
 			//if()
 			if (this.persona.getSexo() != null) {
@@ -425,9 +447,9 @@ public class VM_EgresoBeneficiarioIndex extends
 				this.setTipoPersonaEnum(TipoPersonaEnum.values()[this.persona
 						.getTipoPersona()]);
 			}
-			if (this.getBeneficiario().getFkPersona() != null
-					&& this.getBeneficiario().getFkPersona().getFkMultimedia() != null) {
-				this.setUrlImagen(this.getBeneficiario().getFkPersona()
+			if (this.getFamiliar().getFkPersona() != null
+					&& this.getFamiliar().getFkPersona().getFkMultimedia() != null) {
+				this.setUrlImagen(this.getFamiliar().getFkPersona()
 						.getFkMultimedia().getUrl());
 			} else {
 
@@ -509,17 +531,17 @@ public class VM_EgresoBeneficiarioIndex extends
 	public String executeCustom1(Integer currentStep) {
 		
 		
-		Beneficiario beneficiario = this.getBeneficiario();
+		Familiar familiar = this.getFamiliar();
 
-		PayloadBeneficiarioResponse payloadBeneficiarioResponse = S.BeneficiarioService
-				.modificar(beneficiario);
+		PayloadFamiliarResponse payloadFamiliarResponse = S.FamiliarService
+				.modificar(familiar);
 		
-		if (!UtilPayload.isOK(payloadBeneficiarioResponse)) {
-			Alert.showMessage(payloadBeneficiarioResponse);
+		if (!UtilPayload.isOK(payloadFamiliarResponse)) {
+			Alert.showMessage(payloadFamiliarResponse);
 			
 		}
 		
-		if (UtilPayload.isOK(payloadBeneficiarioResponse)) {
+		if (UtilPayload.isOK(payloadFamiliarResponse)) {
 			restartWizard();
 			return "Solicitud Aprobada Con Exito";
 		}

@@ -137,8 +137,11 @@ public class VM_AsignacionAyudaIndex extends
 		List<OperacionWizard> listOperacionWizard2 = new ArrayList<OperacionWizard>();
 		listOperacionWizard2.add(OperacionWizardHelper
 				.getPorType(OperacionWizardEnum.ATRAS));
+		
 		listOperacionWizard2.add(OperacionWizardHelper
 				.getPorType(OperacionWizardEnum.FINALIZAR));
+		listOperacionWizard2.add(OperacionWizardHelper
+				.getPorType(OperacionWizardEnum.CANCELAR));
 
 		botones.put(2, listOperacionWizard2);
 
@@ -149,6 +152,13 @@ public class VM_AsignacionAyudaIndex extends
 		botones.put(3, listOperacionWizard3);
 
 		return botones;
+	}
+	
+	@Override
+	public String executeCancelar(Integer currentStep) {
+		// TODO Auto-generated method stub
+		restartWizard();
+		return "";
 	}
 
 	@Override

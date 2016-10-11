@@ -1,8 +1,7 @@
 <?component name="uploadImageSingle" macroURI="/assets/theme/components/upload_image_single.zul"?>
-
 <zk xmlns:n="native" xmlns:w="client">
 	<div sclass="animated fadeInLeft">
-				<div class="row">
+			<div class="row">
 			<div sclass="col s12 form">
 
 				<tabbox id="tb" class="rtab ltab">
@@ -116,7 +115,19 @@
 										sclass="fa fa-question-circle fa-lg help-icon-special"
 										tooltip="pop_identificacion_rif, position=after_end" />
 								</div>
-								
+								<div class="input-field col s12">
+									<n:label for="nombreJuridico">
+										Nombre
+									</n:label>
+
+									<textbox id="nombreJuridico"
+										type="text" value="@bind(vm.persona.nombre)">
+
+									</textbox>
+									<span style="left:99%"
+										sclass="fa fa-question-circle fa-lg help-icon-special"
+										tooltip="pop_nombre, position=after_end" />
+								</div>
 							</div>
 
 							<div class="input-field col s6">
@@ -192,7 +203,7 @@
 										sclass="fa fa-question-circle fa-lg help-icon"
 										tooltip="pop_imagen, position=after_end" />
 									<uploadImageSingle maxsize="9000"
-										size="200" idUpload="1" title="Imagen del beneficiario" />
+										size="200" idUpload="1" title="Imagen del Beneficiario" />
 								</div>
 							</div>
 

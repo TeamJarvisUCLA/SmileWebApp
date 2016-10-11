@@ -1,94 +1,48 @@
 <zk xmlns:n="native" xmlns:w="client">
-	<div width="80%" class="container ${arg.animation_}"
-		use="karen.core.form.controllers.C_WindowForm"
-		apply="org.zkoss.bind.BindComposer"
-		viewModel="@id('vm') @init('ve.smile.gestion.donativo.asignacion.viewmodels.VM_AsignacionRecursoFormBasic')">
-
+	<div sclass="animated fadeInLeft">
 		<div class="row">
-			<div sclass="col s12 form">
-			
-				<tabbox id="tb" class="rtab">
-					<tabs id="tabs">
-						<tab id="tabDatosRecursoEventoPlanif" label="Datos Recurso para Evento Planificado" selected="true" />
-					</tabs>
+			<div class="col s12">
 
-					<tabpanels>
-						<tabpanel>
-			
-							<div class="input-field col s6">
-								<n:label for="nombre_rec1">Descripción</n:label>
-								<textbox id="nombre_rec1" type="text" value="@bind(vm.donativoRecurso.descripcion)"> </textbox>
-							</div>
-							
-							<div class="input-field col s6">
-								<n:label for="cantidad_rec1">Cantidad</n:label>
-								<textbox id="cantidad_rec1" type="text" value="@bind(vm.donativoRecurso.cantidad)"> </textbox>
-							</div>
-							
-							<div class="input-field col s6">
-								<n:label for="nombre_event">Evento Planificado</n:label>
-								<textbox id="nombre_event" type="text" value="@bind(vm.eventoPlanificado.fkEvento.nombre)"> </textbox>
-							</div>	
-							
-							<div class="input-field col s6">
-								<n:label for="dir_event">Dirección</n:label>
-								<textbox id="dir_event" type="text" value="@bind(vm.eventoPlanificado.fkDirectorio.direccion)"> </textbox>
-							</div>>	
-							
-						
-						</tabpanel>
-					
-					</tabpanels>
-				
-				</tabbox>
-				
-			</div>
-		</div>
-		
-		
-		<div class="row">
-			<div sclass="col s12 form">
-			
-				<tabbox id="tb2" class="rtab">
-					<tabs id="tabs2">
-						<tab id="tabDatosRecursoTrabSocPlanif" label="Datos Recurso para Trabajo Social Planificado" selected="true" />
-					</tabs>
+				<div class="row">
 
-					<tabpanels>
-						<tabpanel>
-			
-							<div class="input-field col s6">
-								<n:label for="nombre_rec2">Descripción</n:label>
-								<textbox id="nombre_rec2" type="text" value="@bind(vm.donativoRecurso.descripcion)"> </textbox>
-							</div>
-							
-							<div class="input-field col s6">
-								<n:label for="cantidad_rec2">Cantidad</n:label>
-								<textbox id="cantidad_rec2" type="text" value="@bind(vm.donativoRecurso.cantidad)"> </textbox>
-							</div>
-							
-							<div class="input-field col s6">
-								<n:label for="nombre_ts_planif">Trabajo Social Planificado</n:label>
-								<textbox id="nombre_ts_planif" type="text" value="@bind(vm.tsPlan.descripcion)"> </textbox>
-							</div>	
-							
-							<div class="input-field col s6">
-								<n:label for="dir_ts_planif">Dirección</n:label>
-								<textbox id="dir_ts_planif" type="text" value="@bind(vm.tsPlan.fkDirectorio.direccion)"> </textbox>
-							</div>>	
-							
-						
-						</tabpanel>
-					
-					</tabpanels>
-				
-				</tabbox>
-				
+					<div class="input-field col s5">
+						<n:label for="lugar" class="active">
+							Lugar:
+						</n:label>
+						<textbox id="lugar" type="text" disabled="true"
+							value="@bind(vm.directorio.direccion)">
+						</textbox>
+					</div>
+					<div class="input-field col s1"
+						style="font-size: 2em;">
+						<button
+							sclass="teal lighten-1 waves-effect waves-light"
+							onClick="@command('buscarDirectorio')" iconSclass="fa fa-search"
+							style="padding: 5px 15px; background-color: #2AA4EF !important">
+						</button>
+
+					</div>
+				</div>
+				<div class="row">
+					<div class="input-field col s6">
+						<n:label for="cantidad">Cantidad</n:label>
+						<span
+							sclass="fa fa-question-circle fa-lg help-icon-special"
+							tooltip="pop_direccion, position=after_end" />
+						<textbox id="nombre" type="text"
+							sclass="materialize-textarea" multiline="true"
+							value="@bind(vm.donativo.cantidad)">
+						</textbox>
+					</div>
+				</div>
+
+
+
+				</div>
 			</div>
-		</div>
-		
-		<div id="divButtonsForm"
-			use="karen.core.form.buttons.containers.DivButtonsForm">
+	
+
 		</div>
 	</div>
 </zk>
+

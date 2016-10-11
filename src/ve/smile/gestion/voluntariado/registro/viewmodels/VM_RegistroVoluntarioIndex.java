@@ -296,6 +296,15 @@ public class VM_RegistroVoluntarioIndex extends VM_WindowWizard<Voluntario> impl
 		urls.add("views/desktop/gestion/voluntariado/registro/datosContactoVoluntario.zul");
 		return urls;
 	}
+	
+	// CANCELAR
+	
+	@Override
+	public String executeCancelar(Integer currentStep)
+	{
+		restartWizard();
+		return "";
+	}
 
 	@Override
 	public String executeSiguiente(Integer currentStep)

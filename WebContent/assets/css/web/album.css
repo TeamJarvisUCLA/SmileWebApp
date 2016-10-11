@@ -113,8 +113,7 @@ button {
 
 .comentarios button {
 	float: right;
-	margin: 0 1rem;
-	margin-top: 18px;
+	margin: 18px 1rem;	
 }
 
 /* estilos para el modal */

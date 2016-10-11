@@ -19,36 +19,32 @@ import karen.core.form.viewmodels.VM_WindowForm;
 import karen.core.util.payload.UtilPayload;
 import karen.core.util.validate.UtilValidate;
 
-public class VM_BuzonFormBasic extends VM_WindowForm {
-	private String respuesta;
-
+public class VM_BuzonFormBasic extends VM_WindowForm{
+	private  String respuesta;
 	@Init(superclass = true)
 	public void childInit() {
-
+		
 	}
 
 	@Override
 	public List<OperacionForm> getOperationsForm(OperacionEnum operacionEnum) {
 		List<OperacionForm> operacionesForm = new ArrayList<OperacionForm>();
-		if (operacionEnum.equals(OperacionEnum.CUSTOM1)) {
-			OperacionForm operacionForm = new OperacionForm(
-					OperacionEnum.CUSTOM1.ordinal(), "Procesar", "Custom1",
-					"fa fa-cog", "indigo");
+		if(operacionEnum.equals(OperacionEnum.CUSTOM1)) {
+			OperacionForm operacionForm = new OperacionForm(OperacionEnum.CUSTOM1.ordinal(), "Procesar", "Custom1", "fa fa-cog", "indigo");
 			operacionesForm.add(operacionForm);
-			operacionesForm.add(OperacionFormHelper
-					.getPorType(OperacionFormEnum.CANCELAR));
+			operacionesForm.add(OperacionFormHelper.getPorType(OperacionFormEnum.CANCELAR));
 			return operacionesForm;
 		}
 		return operacionesForm;
 	}
 
+	
+
 	@Override
 	public boolean actionCustom1(OperacionEnum operacionEnum) {
-		getContactoPortal().setEstatusContacto(
-				EstatusContactoEnum.PROCESADA.ordinal());
+		getContactoPortal().setEstatusContacto(EstatusContactoEnum.PROCESADA.ordinal());
 		getContactoPortal().setRespuesta(respuesta);
-		PayloadContactoPortalResponse payloadContactoPortalResponse = S.ContactoPortalService
-				.modificar(getContactoPortal());
+		PayloadContactoPortalResponse payloadContactoPortalResponse =S.ContactoPortalService.modificar(getContactoPortal());
 		if (!UtilPayload.isOK(payloadContactoPortalResponse)) {
 			Alert.showMessage(payloadContactoPortalResponse);
 			return true;
@@ -57,25 +53,20 @@ public class VM_BuzonFormBasic extends VM_WindowForm {
 		return true;
 	}
 
+
 	public ContactoPortal getContactoPortal() {
 		return (ContactoPortal) DataCenter.getEntity();
 	}
 
 	public boolean isFormValidated() {
 		try {
-			UtilValidate.validateString(getContactoPortal().getFkComunidad()
-					.getNombre(), "Nombre", 200);
-			UtilValidate.validateString(getContactoPortal()
-					.getFkClasificadorSugerencia().getNombre(), "Nombre", 200);
-			UtilValidate.validateString(getContactoPortal().getContenido(),
-					"Contenido", 300);
-			// UtilValidate.validateDate(getContactoPortal().getFecha(),
-			// "Fecha", validateOperator, date_8601, formatToShow);
-			// UtilValidate.validateInteger(getContactoPortal().getTipoContactoPortal(),
-			// "Tipo Contacto", validateOperator, valueToCompare);
-			UtilValidate.validateNull(getContactoPortal()
-					.getEstatusContactoEnum(), "Estatus");
-
+			UtilValidate.validateString(getContactoPortal().getFkComunidad().getNombre(), "Nombre", 200);
+			UtilValidate.validateString(getContactoPortal().getFkClasificadorSugerencia().getNombre(), "Nombre", 200);
+			UtilValidate.validateString(getContactoPortal().getContenido(), "Contenido", 300);
+			//UtilValidate.validateDate(getContactoPortal().getFecha(), "Fecha", validateOperator, date_8601, formatToShow);
+			//UtilValidate.validateInteger(getContactoPortal().getTipoContactoPortal(), "Tipo Contacto", validateOperator, valueToCompare);
+			UtilValidate.validateNull(getContactoPortal().getEstatusContactoEnum(), "Estatus");
+			
 			return true;
 		} catch (Exception e) {
 			Alert.showMessage(e.getMessage());
@@ -92,13 +83,5 @@ public class VM_BuzonFormBasic extends VM_WindowForm {
 	public boolean actionSalir(OperacionEnum operacionEnum) {
 		DataCenter.reloadCurrentNodoMenu();
 		return true;
-	}
-
-	public String getRespuesta() {
-		return respuesta;
-	}
-
-	public void setRespuesta(String respuesta) {
-		this.respuesta = respuesta;
 	}
 }

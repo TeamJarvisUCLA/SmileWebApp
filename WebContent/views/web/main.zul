@@ -315,52 +315,14 @@
 							<div class="row">
 								<n:h4>PATROCINADORES</n:h4>
 								<div class="col s12 slider-patrocionadores">
-									<n:div id="owlPatrocinadores" class="owl-carousel owl-theme">
-										<div sclass="item">
+									<div class="owlPatrocinadores owl-carousel owl-theme" children="@load(vm.patrocinadores)">
+										<template name="children">
 											<div style="padding-bottom: 10px;">
-												<div class="col s4 text-center">
-													<div sclass="row">
-														<image src="/imagenes/portal/alimex.png" height="100px" width="100px" sclass="responsive-img">
-														</image>											
-													</div>
-												</div>
-												<div class="col s4 text-center">
-													<div sclass="row">
-														<image src="/imagenes/portal/p_g.png" height="100px" width="100px" sclass="responsive-img">
-														</image>											
-													</div>
-												</div>
-												<div class="col s4 text-center">
-													<div sclass="row">
-														<image src="/imagenes/portal/macromedia.png" height="100px" width="100px" sclass="responsive-img">
-														</image>											
-													</div>
-												</div>											
+												<image src="@load(each.fkPersona.fkMultimedia.url)" height="100px" width="100px" sclass="responsive-img">
+												</image>
 											</div>
-										</div>									
-										<div sclass="item">
-											<div style="padding-bottom: 10px;">
-												<div class="col s4 text-center">
-													<div sclass="row">
-														<image src="/imagenes/portal/alimex.png" height="100px" width="100px" sclass="responsive-img">
-														</image>											
-													</div>
-												</div>
-												<div class="col s4 text-center">
-													<div sclass="row">
-														<image src="/imagenes/portal/p_g.png" height="100px" width="100px" sclass="responsive-img">
-														</image>											
-													</div>
-												</div>
-												<div class="col s4 text-center">
-													<div sclass="row">
-														<image src="/imagenes/portal/macromedia.png" height="100px" width="100px" sclass="responsive-img">
-														</image>											
-													</div>
-												</div>											
-											</div>
-										</div>
-									</n:div>									
+										</template>								
+									</div>									
 								</div>
 							</div>
 						</div>
@@ -408,13 +370,12 @@
 			       autoPlay: true 
 		  });
 		  
-		 $('#owlPatrocinadores').owlCarousel({
-		 items:1,
+		 $('.owlPatrocinadores').owlCarousel({
+		 items:3,
 		 mouseDrag:false,
 		      navigation : true, // Show next and prev buttons
 		      slideSpeed : 300,
 		      paginationSpeed : 400,
-		      singleItem: true,
 			  navigationText: [
 			      '<span sclass="fa fa-chevron-left"></span>',
 			    '<span sclass="fa fa-chevron-right"></span>'

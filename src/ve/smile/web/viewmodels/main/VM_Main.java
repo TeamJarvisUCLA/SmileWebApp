@@ -13,12 +13,14 @@ import ve.smile.dto.Cartelera;
 import ve.smile.dto.Multimedia;
 import ve.smile.dto.Organizacion;
 import ve.smile.dto.Participacion;
+import ve.smile.dto.Patrocinador;
 import ve.smile.enums.TipoCarteleraEnum;
 import ve.smile.enums.TipoMultimediaEnum;
 import ve.smile.payload.response.PayloadCarteleraResponse;
 import ve.smile.payload.response.PayloadMultimediaResponse;
 import ve.smile.payload.response.PayloadOrganizacionResponse;
 import ve.smile.payload.response.PayloadParticipacionResponse;
+import ve.smile.payload.response.PayloadPatrocinadorResponse;
 
 public class VM_Main {
 		
@@ -26,7 +28,24 @@ public class VM_Main {
 	private List<Participacion> participacion;
 	private List<Organizacion> organizacion;
 	private List<Multimedia> multiemdiaGaleria;
+	private List<Patrocinador> patrocinadores;
 		
+	public List<Patrocinador> getPatrocinadores() {
+		if (this.patrocinadores == null) {
+			this.patrocinadores = new ArrayList<>();
+		}
+		if (this.patrocinadores.isEmpty()) {		
+			PayloadPatrocinadorResponse payloadPatrocinadorResponse = S.PatrocinadorService
+					.consultarAllPatrocinador();
+			this.patrocinadores.addAll(payloadPatrocinadorResponse.getObjetos());
+		}
+		return patrocinadores;
+	}
+
+	public void setPatrocinadores(List<Patrocinador> patrocinadores) {
+		this.patrocinadores = patrocinadores;
+	}
+
 	public List<Cartelera> getnoticias(){
 		if (this.noticias == null) {
 			this.noticias = new ArrayList<>();

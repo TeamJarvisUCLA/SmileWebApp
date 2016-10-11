@@ -47,3 +47,4 @@ public class VM_TrabajadoresIndex extends VM_WindowSimpleListPrincipal<Trabajado
 	}
 
 }
+

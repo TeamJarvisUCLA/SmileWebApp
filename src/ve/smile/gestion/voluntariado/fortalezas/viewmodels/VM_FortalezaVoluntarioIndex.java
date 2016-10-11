@@ -164,6 +164,7 @@ public class VM_FortalezaVoluntarioIndex extends VM_WindowWizard<Voluntario>
 
 		List<OperacionWizard> listOperacionWizard2 = new ArrayList<OperacionWizard>();
 		listOperacionWizard2.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.ATRAS));
+		listOperacionWizard2.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.CANCELAR));
 		listOperacionWizard2.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.FINALIZAR));
 		botones.put(2, listOperacionWizard2);
 
@@ -187,13 +188,20 @@ public class VM_FortalezaVoluntarioIndex extends VM_WindowWizard<Voluntario>
 		urls.add("views/desktop/gestion/voluntariado/fortalezas/listaFortalezas.zul");
 		return urls;
 	}
+	
+	@Override
+	public String executeCancelar(Integer currentStep)
+	{
+		restartWizard();
+		return "";
+	}
 
 	@Override
 	public String executeSiguiente(Integer currentStep)
 	{
 		if (currentStep == 2)
 		{
-			voluntarioFortalezas.addAll(this.selectedObject.getFortalezas());
+			// NOTHING
 		}
 		goToNextStep();
 		return "";
@@ -251,6 +259,7 @@ public class VM_FortalezaVoluntarioIndex extends VM_WindowWizard<Voluntario>
 	{
 		if (currentStep == 2)
 		{
+			this.selectedObject.setFortalezas(new ArrayList<Fortaleza>());
 			this.selectedObject.getFortalezas().clear();
 			this.selectedObject.getFortalezas().addAll(this.getVoluntarioFortalezas());
 			PayloadVoluntarioResponse payloadVoluntarioResponse = S.VoluntarioService.modificar(this.selectedObject);

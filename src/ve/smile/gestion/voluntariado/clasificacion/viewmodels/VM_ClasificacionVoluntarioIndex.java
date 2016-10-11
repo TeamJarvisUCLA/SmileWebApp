@@ -22,6 +22,7 @@ import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 
 import ve.smile.consume.services.S;
+import ve.smile.dto.Fortaleza;
 import ve.smile.dto.Voluntario;
 import ve.smile.dto.ClasificadorVoluntario;
 import ve.smile.enums.EstatusVoluntarioEnum;
@@ -162,7 +163,6 @@ public class VM_ClasificacionVoluntarioIndex extends VM_WindowWizard <Voluntario
 		Map<Integer, List<OperacionWizard>> botones = new HashMap<Integer, List<OperacionWizard>>();
 		
 		List<OperacionWizard> listOperacionWizard1 = new ArrayList<OperacionWizard>();
-		listOperacionWizard1.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.CANCELAR));
 		listOperacionWizard1.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.SIGUIENTE));
 		botones.put(1, listOperacionWizard1);
 
@@ -191,6 +191,13 @@ public class VM_ClasificacionVoluntarioIndex extends VM_WindowWizard <Voluntario
 		urls.add("views/desktop/gestion/voluntariado/clasificacion/selectVoluntario.zul");
 		urls.add("views/desktop/gestion/voluntariado/clasificacion/listaClasificacion.zul");
 		return urls;
+	}
+	
+	@Override
+	public String executeCancelar(Integer currentStep)
+	{
+		restartWizard();
+		return "";
 	}
 
 	@Override
@@ -256,8 +263,9 @@ public class VM_ClasificacionVoluntarioIndex extends VM_WindowWizard <Voluntario
 	{
 		if (currentStep == 2)
 		{
-			this.getVoluntario().getClasificaciones().clear();
-			this.getVoluntario().getClasificaciones().addAll(this.getVoluntarioClasificaciones());
+			this.selectedObject.setClasificaciones(new ArrayList<ClasificadorVoluntario>());
+			this.selectedObject.getClasificaciones().clear();
+			this.selectedObject.getClasificaciones().addAll(this.getVoluntarioClasificaciones());
 			PayloadVoluntarioResponse payloadVoluntarioResponse = S.VoluntarioService.modificar(this.selectedObject);
 			if (UtilPayload.isOK(payloadVoluntarioResponse))
 			{

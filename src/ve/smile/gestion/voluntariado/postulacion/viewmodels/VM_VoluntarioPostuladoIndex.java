@@ -383,6 +383,15 @@ public class VM_VoluntarioPostuladoIndex extends VM_WindowWizard<Voluntario>
 		return "";
 	}
 	
+	// CANCELAR
+	
+	@Override
+	public String executeCancelar(Integer currentStep)
+	{
+		restartWizard();
+		return "";
+	}
+	
 	// SIGUIENTE
 	
 	@Override

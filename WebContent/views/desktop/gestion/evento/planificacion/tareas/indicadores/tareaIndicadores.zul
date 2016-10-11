@@ -1,8 +1,59 @@
-<panel border="none" sclass="transparent" collapsible="true"
-	open="true">
-	<caption label="Periodos Vacacionales"></caption>
-	<panelchildren>
-		<div sclass="row section">
+<div sclass="row section" style="background: #FFFFFF"
+	sclass="animated fadeInLeft">
+<style>
+		.z-row .z-detail-outer { width: 40px; min-width: 40px;
+		border-top: 1px solid #cfcfcf; padding: 18px 6px; line-height:
+		normal; background: transparent !important; vertical-align: top;
+		}
+
+		.z-grid .z-column-content { font-family: 'Roboto'; font-size:
+		13px; color: #707070; }
+
+		.z-auxhead:hover .z-auxheader-content { background: #EEEEEE
+		!important; }
+
+
+		.z-auxheader-content { background: #EEEEEE !important;
+		border-right: 1px solid #E5F4FB; height: 41px; }
+
+		.z-detail { font-size: 14px; width: 16px; height: 16px; border:
+		none !important; padding: 0; line-height: 14px; background:
+		transparent !important; text-align: center; overflow: hidden;
+		white-space: nowrap; cursor: pointer; }
+
+		tr.row-vacaciones { border-bottom: 1px solid #CFCFCF; }
+
+		.z-columns th:first-child { border-left: none; border-right:
+		none !important; }
+
+		.z-row .z-detail-outer+td, .z-row .z-detail-inner :first-child {
+		border-left: none; }
+
+		tr.header-periodo-disfute { background-color: rgba(192, 192,
+		193, 0.27); }
+
+
+		.z-messagebox .z-label { font-family: Arial, Sans-serif;
+		font-size: 15px !important; color: #363636; }
+
+		.z-cell .vacacion { background-color: #fff !important;
+		border-left: 1px solid #cfcfcf !important; }
+
+		.z-cell .periodo { background-color: #fff !important; }
+
+		.z-grid .vacacion { border: 1px solid rgba(128, 128, 128, 0.33)
+		!important; }
+
+		.z-grid-odd>.z-row-inner, .z-grid-odd>.z-cell { background:
+		#FFFFFF !important; }
+
+		.z-foot .vacacion { background-color: rgb(238, 238, 238)
+		!important; }
+
+		.z-grid.periodo>div.z-grid-body { overflow: auto; max-height:
+		320px !important; }
+
+	</style>
 			<div sclass="col s12">
 				<grid id="Grid" sclass="periodo grid"
 					model="@bind(vm.listEventPlanTareas)">
@@ -105,6 +156,3 @@
 			</div>
 
 		</div>
-
-	</panelchildren>
-</panel>

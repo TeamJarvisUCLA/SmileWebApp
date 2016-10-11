@@ -2,6 +2,7 @@ package ve.smile.gestion.evento.planificaion.tarea.asignacion.viewmodels;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -36,14 +37,14 @@ import lights.core.payload.response.IPayloadResponse;
 public class VM_TareaEventoPlanificado extends
 VM_WindowWizard<EventoPlanificado>{
 	
-	private List<Tarea> tareas;
-	private Set<Tarea> tareasSeleccionadas;
-	private List<Tarea> eventoTareas;
-	private Set<Tarea> eventoTareasSeleccionadas;
+	private List<Tarea> tareas = new ArrayList<>();
+	private Set<Tarea> tareasSeleccionadas = new HashSet<>();
+	private List<Tarea> eventoTareas = new ArrayList<>();
+	private Set<Tarea> eventoTareasSeleccionadas = new HashSet<>();
 	// forEachStatus.index
-	private List<EventPlanTarea> eventoPlanificadotareas;
+	private List<EventPlanTarea> eventoPlanificadotareas = new ArrayList<>();
 
-	private List<Tarea> eventoTareasAux;
+	private List<Tarea> eventoTareasAux = new ArrayList<>();
 
 	private Directorio directorio;
 
@@ -51,7 +52,7 @@ VM_WindowWizard<EventoPlanificado>{
 
 	@Init(superclass = true)
 	public void childInit() {
-		// NOTHING OK!
+		tareas = S.TareaService.consultarTodos().getObjetos();
 	}
 	
 	@Command
@@ -142,7 +143,7 @@ VM_WindowWizard<EventoPlanificado>{
 
 		UtilDialog
 				.showDialog(
-						"views/desktop/gestion/trabajoSocial/planificacion/tareas/asignacion/catalogoDirectorio.zul",
+						"views/desktop/gestion/evento/planificacion/tareas/asignacion/catalogoDirectorio.zul",
 						catalogueDialogData);
 	}
 	
@@ -182,7 +183,27 @@ VM_WindowWizard<EventoPlanificado>{
 		return urls;
 	}
 	
-	
+	@Override
+	public String isValidSearchDataSiguiente(Integer currentStep) {
+		if (currentStep == 2) {
+			if (this.getEventoTareas().isEmpty()) {
+				return "E:Error Code 5-Debe agregar al menos una <b>Tarea</b> al evento planificado.";
+			} else {
+				this.getEventoPlanificadotareas().clear();
+				for (Tarea tarea : this.getEventoTareas()) {
+					EventPlanTarea eventPlanTarea = new EventPlanTarea();
+					eventPlanTarea.setFkTarea(tarea);;
+					eventPlanTarea.setFkEventoPlanificado(this.getSelectedObject());
+					this.getEventoPlanificadotareas().add(eventPlanTarea);
+				}
+				BindUtils
+						.postNotifyChange(null, null, this, "indicadorTsPlans");
+			}
+
+		}
+
+		return "";
+	}
 
 	@Override
 	public void comeIn(Integer currentStep) {

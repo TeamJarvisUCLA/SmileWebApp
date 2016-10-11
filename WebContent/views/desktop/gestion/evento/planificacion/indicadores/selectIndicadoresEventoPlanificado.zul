@@ -4,7 +4,7 @@
 			<div class="col s12" align="center"
 				style="margin-bottom: 15px;">
 				<label
-					value="Seleccione los indicadores del trabajo social planificado"
+					value="Seleccione los indicadores del evento planificado"
 					sclass="label-medium-500">
 				</label>
 			</div>
@@ -44,9 +44,9 @@
 									<template name="model">
 										<listitem
 											label="@load(each.nombre)">
-											<zscript>
+										 	<zscript>
 	self.setDisabled(vm.disabledIndicador(each));
-</zscript>
+</zscript> 
 										</listitem>
 									</template>
 								</listbox>
@@ -66,13 +66,13 @@
 
 							<div sclass="col s5" style="padding:0px">
 								<listbox height="300px"
-									emptyMessage="No hay indicadores asociados al del trabajo social."
-									model="@bind(vm.trabajoSocialIndicadores)"
-									selectedItems="@bind(vm.trabajoSocialIndicadoresSeleccionados)"
+									emptyMessage="No hay indicadores asociados al evento."
+									model="@bind(vm.eventoIndicadores)"
+									selectedItems="@bind(vm.eventoIndicadoresSeleccionados)"
 									multiple="true">
 									<listhead sizable="true">
 										<listheader
-											label="Indicadores del trabajo social" />
+											label="Indicadores del evento" />
 									</listhead>
 									<template name="model">
 										<listitem

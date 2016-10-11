@@ -12,7 +12,7 @@
 			<div class="col s12" align="center"
 				style="margin-bottom: 15px;">
 				<label
-					value="Complete la información de los indicadores seleccionados"
+					value="Complete la información de las tareas seleccionados"
 					sclass="label-medium-500">
 				</label>
 			</div>
@@ -22,12 +22,13 @@
 			<div class="col s12">
 
 				<listbox height="300px"
-					emptyMessage="No hay indicadores asociados al del trabajo social."
-					model="@bind(vm.tsPlanActividads)">
+					emptyMessage="No hay tareas asociados al evento."
+					model="@bind(vm.eventoPlanificadotareas)">
 					<listhead sizable="true">
-						<listheader label="Actividad" />
-						<listheader label="Fecha Planificada" />
-						<listheader label="Lugar" align="center" />
+						<listheader width="25%" label="Tarea" />
+						<listheader width="30%" label="Fecha Planificada" />
+						<listheader width="36%" label="Lugar" align="center" />
+						<listheader width="9%" label="" align="right" />
 					</listhead>
 					<template name="model">
 						<listitem>
@@ -46,19 +47,21 @@
 								<label visible="empty each.fkDirectorio"
 									value="Lugar sin asignar">
 								</label>
+								</listcell>
+								<listcell>
 								<button
 									sclass="teal lighten-1 waves-effect waves-light"
 									onClick="@command('buscarDirectorio', index=forEachStatus.index)"
 									iconSclass="fa fa-search" tooltiptext="Editar Lugar"
 									style="/padding: 5px 6px; background-color: #2AA4EF !important; float: right">
 								</button>
+								</listcell>
 
-							</listcell>
+							
 						</listitem>
 					</template>
 				</listbox>
 			</div>
 		</div>
 	</div>
-</zk>
 </zk>

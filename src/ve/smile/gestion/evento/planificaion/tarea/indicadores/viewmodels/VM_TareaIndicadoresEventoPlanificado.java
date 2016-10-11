@@ -36,7 +36,7 @@ public class VM_TareaIndicadoresEventoPlanificado extends
 
 	// private List<Indicador> listIndicadors = new ArrayList<>();
 	private List<Indicador> auxlistIndicadors = new ArrayList<>();
-	private List<EventPlanTarea> listEventPlanTareas;
+	private List<EventPlanTarea> listEventPlanTareas = new ArrayList<>();
 	private int indexTarea;
 
 	@Init(superclass = true)
@@ -79,36 +79,57 @@ public class VM_TareaIndicadoresEventoPlanificado extends
 
 		List<Indicador> listaux = new ArrayList<>();
 		List<IndicadorEventoPlanTarea> listAux2 = new ArrayList<>();
-		// for (Iterator iterator2 = listIndicado.iterator();
-		// iterator2.hasNext();) {
-		// Indicador indicador = (Indicador) iterator2.next();
-		// indicador.setFkUnidadMedida(indicador.getFkUnidadMedida());
-		// indicador.setDescripcion(indicador.getDescripcion());
-		// indicador.setNombre(indicador.getNombre());
-		// indicador.setIdIndicador(indicador.getIdIndicador());
-		// indicador.setValorEsperado(new Double(0));
-		// listaux.add(indicador);
-		// iterator2.remove();
-		//
-		// }
+
+		IndicadorEventoPlanTarea indicadorEventoPlanTarea = new IndicadorEventoPlanTarea();
+		if (listEventPlanTareas.get(indexTarea).getIndicadorEventoPlanTareas() != null) {
+			for (IndicadorEventoPlanTarea iet : listEventPlanTareas.get(
+					indexTarea).getIndicadorEventoPlanTareas()) {
+				indicadorEventoPlanTarea.setFkIndicador(iet.getFkIndicador());
+				listaux.add(iet.getFkIndicador());
+				indicadorEventoPlanTarea = new IndicadorEventoPlanTarea();
+				indicadorEventoPlanTarea.setFkEventPlanTarea(listEventPlanTareas.get(indexTarea));
+				indicadorEventoPlanTarea.setFkIndicador(iet.getFkIndicador());
+				listAux2.add(indicadorEventoPlanTarea);
+			}
+		}
+		
+				
 		for (Indicador indicador : listIndicado) {
-			// if (!listEventPlanTareas.get(indexTarea).getListIndicadors()
-			// .contains(indicador)) {
-			IndicadorEventoPlanTarea indicadorEventoPlanTarea = new IndicadorEventoPlanTarea();
-			indicadorEventoPlanTarea.setFkEventPlanTarea(listEventPlanTareas
-					.get(indexTarea));
-			indicadorEventoPlanTarea.setFkIndicador(indicador);
-			listAux2.add(indicadorEventoPlanTarea);
-			listaux.add(indicador);
-			// }
+
+			if (listEventPlanTareas.get(indexTarea)
+					.getIndicadorEventoPlanTareas() != null) {
+				for (IndicadorEventoPlanTarea iet : listEventPlanTareas.get(
+						indexTarea).getIndicadorEventoPlanTareas()) {
+					if (!iet.getFkIndicador().getIdIndicador()
+							.equals(indicador.getIdIndicador())) {
+						
+						listaux.add(indicador);
+						indicadorEventoPlanTarea = new IndicadorEventoPlanTarea();
+						indicadorEventoPlanTarea.setFkEventPlanTarea(listEventPlanTareas.get(indexTarea));
+						indicadorEventoPlanTarea.setFkIndicador(indicador);
+						listAux2.add(indicadorEventoPlanTarea);
+					}
+				}
+			} else {
+				indicadorEventoPlanTarea = new IndicadorEventoPlanTarea();
+				indicadorEventoPlanTarea.setFkEventPlanTarea(listEventPlanTareas.get(indexTarea));
+				indicadorEventoPlanTarea.setFkIndicador(indicador);
+				listaux.add(indicador);
+				listAux2.add(indicadorEventoPlanTarea);
+			}
+
+			
+			
+			// listaux.add(indicador);
+
 		}
 
 		listEventPlanTareas.get(indexTarea).setIndicadorEventoPlanTareas(
 				listAux2);
-		listEventPlanTareas.get(indexTarea).setListIndicadors(
-				new ArrayList<Indicador>(listaux));
 
-		// BindUtils.postNotifyChange(null, null, this, "listIndicadors");
+		//listEventPlanTareas.get(indexTarea).setListIndicadors(
+		//		new ArrayList<Indicador>(listaux));
+
 		BindUtils.postNotifyChange(null, null, this, "listEventPlanTareas");
 	}
 
@@ -145,37 +166,47 @@ public class VM_TareaIndicadoresEventoPlanificado extends
 			PayloadIndicadorEventoPlanTareaResponse indicadorEventoPlanTareaResponse = null;
 			PayloadEventPlanTareaResponse payloadEventPlanTareaResponse = new PayloadEventPlanTareaResponse();
 			for (EventPlanTarea obj : listEventPlanTareas) {
-//				IndicadorEventoPlanTarea indicadorEventoPlanTarea = new IndicadorEventoPlanTarea();
-//				Map<String, String> criterios = new HashMap<String, String>();
-//				criterios.put("fkEventPlanTarea.idEventPlanTarea",
-//						obj.getIdEventPlanTarea() + "");
-//
-//				indicadorEventoPlanTareaResponse = S.IndicadorEventoPlanTareaService
-//						.consultarCriterios(TypeQuery.EQUAL, criterios);
-//				if (indicadorEventoPlanTareaResponse.getObjetos().size() > 0) {
-//					for (IndicadorEventoPlanTarea indicEvenTarea : indicadorEventoPlanTareaResponse
-//							.getObjetos()) {
-//						S.IndicadorEventoPlanTareaService
-//								.eliminar(indicEvenTarea
-//										.getIdIndicadorEventoPlanTarea());
-//					}
-//
-//				}
-				for (IndicadorEventoPlanTarea indicadorEventoPlanTarea : obj.getIndicadorEventoPlanTareas()) {
-//					indicadorEventoPlanTarea.setFkEventPlanTarea(obj);
-//					indicadorEventoPlanTarea.setFkIndicador(indicador);
-//					indicadorEventoPlanTarea.setValorEsperado(indicador
-//							.getValorEsperado());
+				// IndicadorEventoPlanTarea indicadorEventoPlanTarea = new
+				// IndicadorEventoPlanTarea();
+				// Map<String, String> criterios = new HashMap<String,
+				// String>();
+				// criterios.put("fkEventPlanTarea.idEventPlanTarea",
+				// obj.getIdEventPlanTarea() + "");
+				//
+				// indicadorEventoPlanTareaResponse =
+				// S.IndicadorEventoPlanTareaService
+				// .consultarCriterios(TypeQuery.EQUAL, criterios);
+				// if (indicadorEventoPlanTareaResponse.getObjetos().size() > 0)
+				// {
+				// for (IndicadorEventoPlanTarea indicEvenTarea :
+				// indicadorEventoPlanTareaResponse
+				// .getObjetos()) {
+				// S.IndicadorEventoPlanTareaService
+				// .eliminar(indicEvenTarea
+				// .getIdIndicadorEventoPlanTarea());
+				// }
+				//
+				// }
+				for (IndicadorEventoPlanTarea indicadorEventoPlanTarea : obj
+						.getIndicadorEventoPlanTareas()) {
+					IndicadorEventoPlanTarea eventoPlanTarea = new IndicadorEventoPlanTarea();
+					eventoPlanTarea.setFkEventPlanTarea(indicadorEventoPlanTarea.getFkEventPlanTarea());
+					eventoPlanTarea.setFkIndicador(indicadorEventoPlanTarea.getFkIndicador());
+					eventoPlanTarea.setValorEsperado(indicadorEventoPlanTarea.getValorEsperado());
+					// indicadorEventoPlanTarea.setFkEventPlanTarea(obj);
+					// indicadorEventoPlanTarea.setFkIndicador(indicador);
+					// indicadorEventoPlanTarea.setValorEsperado(indicador
+					// .getValorEsperado());
 					indicadorEventoPlanTareaResponse = S.IndicadorEventoPlanTareaService
-							.incluir(indicadorEventoPlanTarea);
+							.incluir(eventoPlanTarea);
 				}
 
 				// payloadEventPlanTareaResponse = S.EventPlanTareaService
 				// .modificar(obj);
 
 			}
-//			return (String) payloadEventPlanTareaResponse
-//					.getInformacion(IPayloadResponse.MENSAJE);
+			// return (String) payloadEventPlanTareaResponse
+			// .getInformacion(IPayloadResponse.MENSAJE);
 		}
 
 		return "";
@@ -233,9 +264,7 @@ public class VM_TareaIndicadoresEventoPlanificado extends
 							.getObjetos().size(); j++) {
 						listIndicadors.add(indicadorEventoPlanTareaResponse
 								.getObjetos().get(j).getFkIndicador());
-						listIndicadors.get(j).setValorEsperado(
-								indicadorEventoPlanTareaResponse.getObjetos()
-										.get(j).getValorEsperado());
+
 					}
 					listEventPlanTareas.get(i)
 							.setListIndicadors(listIndicadors);

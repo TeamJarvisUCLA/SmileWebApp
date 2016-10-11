@@ -2,9 +2,20 @@
 	background: url("/SmileWebApp/imagenes/portal/fondo.png");
 }
 
+#fotos .s4:nth-child(4n) {
+   	clear: left;
+}
+
+#fotos .s4 {
+   	margin-bottom: 20px;
+}
+
+.descrip span {
+	font-size: 1.2em;
+}
+
 .album .row{
 	margin-bottom: 0;
-	padding-bottom: 20px;
 }
 
 .fotos img {
@@ -61,7 +72,7 @@ button {
 
 .album .descrip{
 	margin: 18px 0;
-	text-align: justify
+	text-align: center;
 }
 
 .divTag {

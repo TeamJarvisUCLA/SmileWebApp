@@ -34,7 +34,7 @@
 					</div>
 					<div class="input-field col s12">
 						<n:label for="observacion" class="active">Observación</n:label>
-						<textbox id="observacion" type="text" maxlength="400" multiline="true" class="materialize-textarea" value="@load(each.motivo)"> </textbox>
+						<textbox id="observacion" type="text" maxlength="400" multiline="true" class="materialize-textarea" value="@bind(vm.selectedObject.observacion)"> </textbox>
 					</div>
 				
 				</div>

@@ -314,7 +314,7 @@ public class VM_PostulacionIndex extends VM_WindowWizard<Padrino> {
 		List<String> urls = new ArrayList<String>();
 		urls.add("views/desktop/gestion/apadrinamiento/postulacion/selectPostulado.zul");
 		urls.add("views/desktop/gestion/apadrinamiento/postulacion/datosPostulado.zul");
-		urls.add("views/desktop/gestion/apadrinamiento/postulacion/MotivoRechazo.zul");
+		urls.add("views/desktop/gestion/apadrinamiento/postulacion/motivoRechazo.zul");
 		return urls;
 	}
 

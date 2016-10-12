@@ -10,6 +10,8 @@ import karen.core.wizard.buttons.data.OperacionWizard;
 import karen.core.wizard.buttons.enums.OperacionWizardEnum;
 import karen.core.wizard.buttons.helpers.OperacionWizardHelper;
 import karen.core.wizard.viewmodels.VM_WindowWizard;
+import net.sf.jasperreports.engine.JRDataSource;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.zk.ui.Executions;
@@ -46,6 +48,8 @@ public class VM_ReporteVoluntarioIndex extends VM_WindowWizard {
 	private String type;
 
 	private String source;
+	
+	private JRDataSource jrDataSource;
 
 	private Map<String, Object> parametros = new HashMap<>();
 
@@ -457,17 +461,15 @@ public class VM_ReporteVoluntarioIndex extends VM_WindowWizard {
 			this.getVoluntarios().addAll(listVoluntarios);
 
 			System.out.println(sql);
-
-			System.out.println(listVoluntarios.toString());
+			
+			jrDataSource = new JRBeanCollectionDataSource(listVoluntarios);
+			
 		}
 		System.out.println(currentStep);
 		if (currentStep == 2) {
-			// parametros.put("SUBREPORT_DIR",
-			// Reporte.class.getResource("reportDetalleVoluntarioParametrizado.jasper").getPath().replace("reportDetalleVoluntarioParametrizado.jasper",
-			// ""));
-			// source = "reporte/reportVoluntariosParametrizados.jasper";
-			// Executions.getCurrent().sendRedirect("reporteVoluntariosParametrizados.zul",
-			// "_blank");
+			 type = "pdf";
+			source = "reporte/reportVoluntariosParametrizados.pdf";
+			
 		}
 
 		return "";
@@ -512,6 +514,14 @@ public class VM_ReporteVoluntarioIndex extends VM_WindowWizard {
 
 	public void setVoluntarios(List<Voluntario> voluntarios) {
 		this.voluntarios = voluntarios;
+	}
+
+	public JRDataSource getJrDataSource() {
+		return jrDataSource;
+	}
+
+	public void setJrDataSource(JRDataSource jrDataSource) {
+		this.jrDataSource = jrDataSource;
 	}
 
 }

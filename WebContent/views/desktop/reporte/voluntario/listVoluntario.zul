@@ -2,23 +2,11 @@
 	<div width="100%" class=" ${arg.animation_} ">
 		<div sclass="col s12">
 
-			<listbox id="listbox3" sclass="animated flipInX"
-				model="@bind(vm.voluntarios)" height="300px">
-				<listhead>
-					<listheader width="20%" label="Identificacion" />
-					<listheader width="80%" label="Voluntario" />
-				</listhead>
-				<template name="model">
-					<listitem>
-						<listcell
-							label="@load(each.fkPersona.identificacion)">
-						</listcell>
-						<listcell
-							label="@load(each.fkPersona.nombre)">
-						</listcell>
-					</listitem>
-				</template>
-			</listbox>
+
+			<jasperreport id="report" src="@bind(vm.source)"
+				parameters="@bind(vm.parametros)" type="@bind(vm.type)"
+				datasource="@bind(vm.jrDataSource)" />
+
 		</div>
 
 	</div>

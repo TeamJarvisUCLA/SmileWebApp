@@ -7,22 +7,22 @@
 		<div class="row">
 			<div sclass="col s12 form">
 							<div class="input-field col s6">
-								<n:label for="nombre">Nombre</n:label>
+								<n:label for="nombre" class="active">Nombre</n:label>
 								<textbox id="nombre" type="text" disabled="true" value="@bind(vm.contactoPortal.fkComunidad.nombre)"> </textbox>
 							</div>
 				
 							<div class="input-field col s6">
-								<n:label for="apellido">Apellido</n:label>
+								<n:label for="apellido" class="active">Apellido</n:label>
 								<textbox id="apellido" type="text" disabled="true" value="@bind(vm.contactoPortal.fkComunidad.apellido)"> </textbox>
 							</div>
 							
 							<div class="input-field col s6">
-								<n:label for="correo">Correo</n:label>
+								<n:label for="correo" class="active">Correo</n:label>
 								<textbox id="correo" type="text" disabled="true" value="@bind(vm.contactoPortal.fkComunidad.correo)"> </textbox>
 							</div>
 							
 							<div class="input-field col s6">
-								<n:label for="clasificador">Clasificador</n:label>
+								<n:label for="clasificador" class="active">Clasificador</n:label>
 								<textbox id="clasificador" type="text" disabled="true" value="@bind(vm.contactoPortal.fkClasificadorSugerencia.nombre)"> </textbox>
 							</div>
 							
@@ -43,7 +43,7 @@
 							
 					 -->
 							<div class="input-field col s12">
-								<n:label for="respuesta">Respuesta</n:label>
+								<n:label for="respuesta" class="active">Respuesta</n:label>
 								<textbox id="respuesta" maxlength="400" multiline="true" type="text" class="materialize-textarea" value="@bind(vm.respuesta)"> </textbox>
 							</div>
 				

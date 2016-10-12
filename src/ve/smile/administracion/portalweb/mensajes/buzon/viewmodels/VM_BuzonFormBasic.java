@@ -84,4 +84,14 @@ public class VM_BuzonFormBasic extends VM_WindowForm{
 		DataCenter.reloadCurrentNodoMenu();
 		return true;
 	}
+
+	public String getRespuesta() {
+		return respuesta;
+	}
+
+	public void setRespuesta(String respuesta) {
+		this.respuesta = respuesta;
+	}
+	
+	
 }

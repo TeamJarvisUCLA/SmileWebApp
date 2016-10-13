@@ -1,33 +1,55 @@
 <zk xmlns:n="native" xmlns:w="client">
 	<div sclass="animated fadeInLeft">
 		<div class="row">
-			<div class="col s12" align="center" style="margin-bottom: 15px;">
-				<label value="Ingrese el motivo de la selección" sclass="label-medium-500"></label>
+			<div class="col s12" align="center"
+				style="margin-bottom: 15px;">
+				<label value="Ingrese el motivo de la selección"
+					sclass="label-medium-500">
+				</label>
 			</div>
 		</div>
-		
+
 		<div width="100%">
 			<div class="row">
 				<div class="col s12">
-					
 					<div class="col s12">
 						<div class="input-field offset-s2 col s8">
-							<n:label class="active" for="fk_motivo">Motivo</n:label>
-							<combobox id="fk_motivo" readonly="true" model="@bind(vm.motivos)" selectedItem="@bind(vm.motivo)">
+							<n:label for="fecha_ingreso"
+								class="active">
+								Fecha de nacimiento
+							</n:label>
+							<datebox id="fecha_ingreso" cols="20"
+								format="dd/MM/yyyy" disabled="true"
+								value="@bind(vm.selectedObject.fkPersona.fechaNacimiento)" />
+						</div>
+					</div>
+					<div class="col s12">
+						<div class="input-field offset-s2 col s8">
+							<n:label class="active" for="fk_motivo">
+								Motivo
+							</n:label>
+							<combobox id="fk_motivo" readonly="true"
+								model="@bind(vm.motivos)" selectedItem="@bind(vm.motivo)">
 								<template name="model">
-									<comboitem label="@load(each.nombre)" />
+									<comboitem
+										label="@load(each.nombre)" />
 								</template>
 							</combobox>
 						</div>
 					</div>
-					
+
 					<div class="col s12">
 						<div class="input-field offset-s2 col s8">
-							<n:label for="nombre">Observaciones</n:label>
-								<textbox id="observaciones" type="text" sclass="materialize-textarea" multiline="true" maxlength="200" value="@bind(vm.selectedObject.observacion)"> </textbox>
+							<n:label for="nombre">
+								Observaciones
+							</n:label>
+							<textbox id="observaciones" type="text"
+								sclass="materialize-textarea" multiline="true" maxlength="200"
+								value="@bind(vm.selectedObject.observacion)">
+							</textbox>
 						</div>
 					</div>
-					
+
 				</div>
 			</div>
 		</div>

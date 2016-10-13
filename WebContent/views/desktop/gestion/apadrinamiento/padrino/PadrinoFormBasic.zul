@@ -19,8 +19,7 @@
 					</tabs>
 
 					<tabpanels>
-						<tabpanel>
-
+						<tabpanel sclass="animated fadeIn">
 							<div class="input-field col s6">
 								<n:label for="tipo_persona"
 									class="active">
@@ -28,8 +27,8 @@
 								</n:label>
 
 								<combobox id="tipo_persona"
-									readonly="true" model="@bind(vm.tipoPersonaEnums)"
-									selectedItem="@bind(vm.padrino.fkPersona.tipoPersonaEnum)">
+									model="@bind(vm.tipoPersonaEnums)" readonly="true"
+									selectedItem="@bind(vm.tipoPersonaEnum)">
 									<template name="model">
 										<comboitem label="@load(each )" />
 									</template>
@@ -217,7 +216,7 @@
 
 						</tabpanel>
 
-						<tabpanel>
+						<tabpanel sclass="animated fadeIn">
 
 							<div class="input-field col s6">
 								<n:label class="active"
@@ -335,7 +334,7 @@
 
 						</tabpanel>
 
-						<tabpanel>
+						<tabpanel sclass="animated fadeIn">
 
 							<div class="input-field col s6">
 								<n:label class="active"
@@ -373,9 +372,6 @@
 							</div>
 
 						</tabpanel>
-
-
-
 					</tabpanels>
 
 				</tabbox>
@@ -389,22 +385,18 @@
 			<html>
 
 
-
 				
 				<![CDATA[ Por favor, indique el tipo de persona del
 				Padrino que desea registrar.<br /><font
 				color="#3b85a1">Ejemplo: Natural.</font> ]]>
 				
 				
-				
-				
-				
+
         	</html>
 		</popup>
 
 		<popup id="pop_identificacion" width="200px">
 			<html>
-
 
 
 				
@@ -421,19 +413,17 @@
 			<html>
 
 
-
 				
 				<![CDATA[ Por favor, indique el RIF del Padrino que
 				desea registrar.<br /><font color="#3b85a1">Ejemplo:
 				J-19302871-8.</font> ]]>
 				
 				
-				
+		
 	</html>
 		</popup>
 		<popup id="pop_nombre" width="200px">
 			<html>
-
 
 
 				
@@ -442,14 +432,11 @@
 				Christopher o Constructora S.A.</font> ]]>
 				
 				
-				
-	
         	</html>
 		</popup>
 
 		<popup id="pop_apellido" width="200px">
 			<html>
-
 
 
 				
@@ -459,7 +446,6 @@
 				
 				
 				
-
 				
         	</html>
 		</popup>
@@ -468,12 +454,10 @@
 			<html>
 
 
-
 				
 				<![CDATA[ Por favor, indique el género del Padrino que
 				desea registrar.<br /><font color="#3b85a1">Ejemplos:
 				Masculino.</font> ]]>
-				
 				
 				
 
@@ -484,13 +468,11 @@
 			<html>
 
 
-
 				
 				<![CDATA[ Por favor, indique la fecha de nacimiento del
 				Padrino que desea registrar, usando el selector de
 				fechas.<br /> <font color="#3b85a1">Ejemplo:
 				11/08/1983.</font> ]]>
-				
 				
 				
 
@@ -500,8 +482,6 @@
 		<popup id="pop_estado" width="200px">
 			<html>
 
-
-
 				
 				<![CDATA[ Por favor, indique el estado donde reside el
 				Padrino que desea registrar.<br /><font
@@ -509,7 +489,6 @@
 				
 				
 				
-	
         	</html>
 		</popup>
 
@@ -518,10 +497,14 @@
 
 
 
+
+
 				
 				<![CDATA[ Por favor, indique la ciudad donde reside el
 				Padrino que desea registrar.<br /><font
 				color="#3b85a1">Ejemplo: Cabudare.</font> ]]>
+				
+				
 				
 				
 				
@@ -535,11 +518,15 @@
 
 
 
+
+
 				
 				<![CDATA[ Por favor, indique la fecha de ingreso al
 				sistema del Padrino que desea registrar, usando el
 				selector de fechas.<br /> <font color="#3b85a1">Ejemplo:
 				28/09/2016.</font> ]]>
+				
+				
 				
 				
 				
@@ -552,11 +539,15 @@
 
 
 
+
+
 				
 				<![CDATA[ Por favor, indique la dirección donde reside
 				el Padrino que desea registrar.<br /><font
 				color="#3b85a1">Ejemplo: Urb. Los Cerezos Casa
 				30.</font> ]]>
+				
+				
 				
 				
 				
@@ -570,10 +561,14 @@
 
 
 
+
+
 				
 				<![CDATA[ Por favor, usando el icono de 'agregar' de
 				color verde, anexe una imagen del Padrino que desea
 				registrar.]]>
+				
+				
 				
 				
 				
@@ -586,10 +581,14 @@
 
 
 
+
+
 				
 				<![CDATA[ Por favor, indique el teléfono principal del
 				Padrino que desea registrar.<br /><font
 				color="#3b85a1">Ejemplo: 04166556221.</font> ]]>
+				
+				
 				
 				
 				
@@ -602,10 +601,14 @@
 
 
 
+
+
 				
 				<![CDATA[ Por favor, indique un teléfono secundario del
 				Padrino que desea registrar.<br /><font
 				color="#3b85a1">Ejemplo: 02516354816.</font> ]]>
+				
+				
 				
 				
 				
@@ -618,10 +621,14 @@
 
 
 
+
+
 				
 				<![CDATA[ Por favor, indique el número de fax del
 				Padrino que desea registrar.<br /><font
 				color="#3b85a1">Ejemplo: 02516354816.</font> ]]>
+				
+				
 				
 				
 				
@@ -635,10 +642,14 @@
 
 
 
+
+
 				
 				<![CDATA[ Por favor, indique un correo electrónico del
 				Padrino que desea registrar.<br /><font
 				color="#3b85a1">Ejemplo: 02516354816.</font> ]]>
+				
+				
 				
 				
 				
@@ -651,10 +662,14 @@
 
 
 
+
+
 				
 				<![CDATA[ Por favor, indique la cuenta del Twitter del
 				Padrino que desea registrar.<br /><font
 				color="#3b85a1">Ejemplo: @Nombre.</font> ]]>
+				
+				
 				
 				
 				
@@ -667,43 +682,33 @@
 
 
 
+
+
 				
 				<![CDATA[ Por favor, indique la cuenta de Instagram del
 				Padrino que desea registrar.<br /><font
 				color="#3b85a1">Ejemplo: NombreCuenta.</font> ]]>
-				
-				
-				
-
+			
     		</html>
 		</popup>
 
 		<popup id="pop_facebook" width="200px">
 			<html>
-
-
-
-				
 				<![CDATA[ Por favor, indique la cuenta de Facebook del
 				Padrino que desea registrar.<br /><font
 				color="#3b85a1">Ejemplo: NombreCuenta.</font> ]]>
-				
-				
-				
-
+	
     		</html>
 		</popup>
 
 		<popup id="pop_linkedin" width="200px">
 			<html>
 
-
-
 				
 				<![CDATA[ Por favor, indique la cuenta de LinkedIn del
 				Padrino que desea registrar.<br /><font
-				color="#3b85a1">Ejemplo: NombreCuenta.</font> ]]>
-				
+				color="#3b85a1">Ejemplo:
+				https://www.linkedin.com/usuario</font> ]]>
 				
 				
 
@@ -713,12 +718,10 @@
 		<popup id="pop_web" width="200px">
 			<html>
 
-
 				
 				<![CDATA[ Por favor, indique la dirección url del sitio
 				web del Padrino que desea registrar.<br /><font
 				color="#3b85a1">Ejemplo: www.sitioweb.com.</font> ]]>
-				
 				
 				
 
@@ -728,15 +731,12 @@
 		<popup id="pop_frecuencia" width="200px">
 			<html>
 
-
 				
 				<![CDATA[ Por favor, indique la frecuencia con la que
 				aportará Padrino que desea registrar.<br /><font
 				color="#3b85a1">Ejemplo: Mensual.</font> ]]>
 				
 				
-				
-
     		</html>
 		</popup>
 		<!-- fin popups -->

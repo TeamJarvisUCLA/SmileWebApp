@@ -545,7 +545,7 @@ public class VM_RegistrarPadrinoIndex extends VM_WindowWizard implements
 						media.getName().lastIndexOf(".") + 1);
 				this.nameImage = new StringBuilder().append(Zki.PADRINOS)
 						.append(this.getPadrinoSelected().getIdPadrino())
-						.toString();
+						.append(".").append(this.extensionImage).toString();
 				this.bytes = media.getByteData();
 
 				this.urlImage = new StringBuilder().append(Zki.PADRINOS)

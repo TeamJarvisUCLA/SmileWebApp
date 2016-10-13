@@ -84,6 +84,12 @@ public class VM_DirectorioFormBasic extends VM_WindowForm implements
 				&& this.getDirectorio().getFkMultimedia() != null) {
 
 			this.setUrlImage(this.getDirectorio().getFkMultimedia().getUrl());
+
+			this.nameImage = this.getDirectorio().getFkMultimedia().getNombre();
+			this.extensionImage = nameImage.substring(nameImage
+					.lastIndexOf(".") + 1);
+			this.typeMedia = this.getDirectorio().getFkMultimedia()
+					.getDescripcion();
 		} else {
 			this.getDirectorio().setFkMultimedia(new Multimedia());
 		}
@@ -188,6 +194,11 @@ public class VM_DirectorioFormBasic extends VM_WindowForm implements
 						+ this.extensionImage);
 				PayloadMultimediaResponse payloadMultimediaResponse = S.MultimediaService
 						.modificar(multimedia);
+
+				if (!UtilPayload.isOK(payloadMultimediaResponse)) {
+					Alert.showMessage(payloadMultimediaResponse);
+					return true;
+				}
 			}
 
 			Alert.showMessage(payloadDirectorioResponse);

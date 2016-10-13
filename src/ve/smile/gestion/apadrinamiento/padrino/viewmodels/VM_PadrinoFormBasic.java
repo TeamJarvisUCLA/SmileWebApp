@@ -27,6 +27,7 @@ import lights.smile.util.UtilMultimedia;
 import lights.smile.util.Zki;
 
 import org.zkoss.bind.annotation.Command;
+import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.event.UploadEvent;
 
@@ -73,11 +74,13 @@ public class VM_PadrinoFormBasic extends VM_WindowForm implements
 
 	private String typeMedia;
 
+	@Init
 	public void childInit() {
 		if (this.getPadrino().getFkPersona().getSexo() != null) {
 			this.setSexoEnum(SexoEnum.values()[this.getPadrino().getFkPersona()
 					.getSexo()]);
 		}
+
 		if (this.getPadrino().getFkPersona().getTipoPersona() != null) {
 			this.setTipoPersonaEnum(TipoPersonaEnum.values()[this.getPadrino()
 					.getFkPersona().getTipoPersona()]);
@@ -86,6 +89,12 @@ public class VM_PadrinoFormBasic extends VM_WindowForm implements
 				&& this.getPadrino().getFkPersona().getFkMultimedia() != null) {
 			this.setUrlImage(this.getPadrino().getFkPersona().getFkMultimedia()
 					.getUrl());
+			this.nameImage = this.getPadrino().getFkPersona().getFkMultimedia()
+					.getNombre();
+			this.extensionImage = nameImage.substring(nameImage
+					.lastIndexOf(".") + 1);
+			this.typeMedia = this.getPadrino().getFkPersona().getFkMultimedia()
+					.getDescripcion();
 		} else {
 			this.getPadrino().getFkPersona().setFkMultimedia(new Multimedia());
 
@@ -380,6 +389,8 @@ public class VM_PadrinoFormBasic extends VM_WindowForm implements
 
 	public boolean isFormValidated() {
 		try {
+			UtilValidate.validateNull(this.getPadrino().getFkPersona()
+					.getTipoPersona(), "Tipo de persona");
 			UtilValidate.validateInteger(this.getPadrino().getFkPersona()
 					.getTipoPersona(), "Tipo de persona",
 					ValidateOperator.LESS_THAN, 2);
@@ -495,7 +506,8 @@ public class VM_PadrinoFormBasic extends VM_WindowForm implements
 				this.extensionImage = media.getName().substring(
 						media.getName().lastIndexOf(".") + 1);
 				this.nameImage = new StringBuilder().append(Zki.PADRINOS)
-						.append(this.getPadrino().getIdPadrino()).toString();
+						.append(this.getPadrino().getIdPadrino()).append(".")
+						.append(extensionImage).toString();
 				this.bytes = media.getByteData();
 
 				this.urlImage = new StringBuilder().append(Zki.PADRINOS)

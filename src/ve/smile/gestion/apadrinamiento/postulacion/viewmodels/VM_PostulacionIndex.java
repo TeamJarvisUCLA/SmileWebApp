@@ -7,11 +7,13 @@ import java.util.List;
 import java.util.Map;
 
 import karen.core.crux.alert.Alert;
-import karen.core.simple_list.wizard.buttons.data.OperacionWizard;
-import karen.core.simple_list.wizard.buttons.enums.OperacionWizardEnum;
-import karen.core.simple_list.wizard.buttons.helpers.OperacionWizardHelper;
-import karen.core.simple_list.wizard.viewmodels.VM_WindowWizard;
+import karen.core.listfoot.enums.HowToSeeEnum;
 import karen.core.util.payload.UtilPayload;
+import karen.core.util.validate.UtilValidate;
+import karen.core.wizard.buttons.data.OperacionWizard;
+import karen.core.wizard.buttons.enums.OperacionWizardEnum;
+import karen.core.wizard.buttons.helpers.OperacionWizardHelper;
+import karen.core.wizard.viewmodels.VM_WindowWizard;
 import lights.core.enums.TypeQuery;
 import lights.core.payload.response.IPayloadResponse;
 
@@ -23,23 +25,23 @@ import org.zkoss.bind.annotation.NotifyChange;
 import ve.smile.consume.services.S;
 import ve.smile.dto.Ciudad;
 import ve.smile.dto.Estado;
+import ve.smile.dto.FrecuenciaAporte;
 import ve.smile.dto.Motivo;
 import ve.smile.dto.Padrino;
 import ve.smile.enums.EstatusPadrinoEnum;
 import ve.smile.enums.TipoPersonaEnum;
 import ve.smile.payload.response.PayloadCiudadResponse;
 import ve.smile.payload.response.PayloadEstadoResponse;
+import ve.smile.payload.response.PayloadFrecuenciaAporteResponse;
 import ve.smile.payload.response.PayloadPadrinoResponse;
 import ve.smile.seguridad.enums.SexoEnum;
 
-public class VM_PostulacionIndex extends VM_WindowWizard<Padrino> {
+public class VM_PostulacionIndex extends VM_WindowWizard {
 
 	private List<EstatusPadrinoEnum> estatusPadrinoEnums;
 	private EstatusPadrinoEnum estatusPadrinoEnum;
 
 	private Estado estado;
-	private Padrino padrino = new Padrino();
-
 	private Date fechaNacimiento = new Date();
 
 	private List<Ciudad> ciudades;
@@ -50,24 +52,33 @@ public class VM_PostulacionIndex extends VM_WindowWizard<Padrino> {
 
 	private SexoEnum sexoEnum;
 	private TipoPersonaEnum tipoPersonaEnum;
-	private Ciudad ciudad;
 	private Motivo motivo;
+
+	private List<FrecuenciaAporte> frecuenciaAporte;
 
 	@Init(superclass = true)
 	public void childInit() {
-		padrino = new Padrino();
 		estado = new Estado();
 		fechaNacimiento = new Date();
 	}
 
-	//
+	public List<FrecuenciaAporte> getFrecuenciaAporte() {
+		if (this.frecuenciaAporte == null) {
+			this.frecuenciaAporte = new ArrayList<>();
+		}
+		if (this.frecuenciaAporte.isEmpty()) {
+			PayloadFrecuenciaAporteResponse payloadFrecuenciaAporteResponse = S.FrecuenciaAporteService
+					.consultarTodos();
 
-	public Padrino getPadrino() {
-		return padrino;
+			this.frecuenciaAporte.addAll(payloadFrecuenciaAporteResponse
+					.getObjetos());
+		}
+
+		return frecuenciaAporte;
 	}
 
-	public void setPadrino(Padrino padrino) {
-		this.padrino = padrino;
+	public void setFrecuenciaAporte(List<FrecuenciaAporte> frecuenciaAporte) {
+		this.frecuenciaAporte = frecuenciaAporte;
 	}
 
 	// ENUN SEXO
@@ -77,7 +88,8 @@ public class VM_PostulacionIndex extends VM_WindowWizard<Padrino> {
 
 	public void setSexoEnum(SexoEnum sexoEnum) {
 		this.sexoEnum = sexoEnum;
-		selectedObject.getFkPersona().setSexo(this.sexoEnum.ordinal());
+		this.getPadrinoSelected().getFkPersona()
+				.setSexo(this.sexoEnum.ordinal());
 	}
 
 	public List<SexoEnum> getSexoEnums() {
@@ -103,8 +115,8 @@ public class VM_PostulacionIndex extends VM_WindowWizard<Padrino> {
 
 	public void setTipoPersonaEnum(TipoPersonaEnum tipoPersonaEnum) {
 		this.tipoPersonaEnum = tipoPersonaEnum;
-		selectedObject.getFkPersona().setTipoPersona(
-				this.tipoPersonaEnum.ordinal());
+		this.getPadrinoSelected().getFkPersona()
+				.setTipoPersona(this.tipoPersonaEnum.ordinal());
 	}
 
 	public List<TipoPersonaEnum> getTipoPersonaEnums() {
@@ -133,15 +145,6 @@ public class VM_PostulacionIndex extends VM_WindowWizard<Padrino> {
 
 	public void setCiudades(List<Ciudad> ciudades) {
 		this.ciudades = ciudades;
-	}
-
-	public Ciudad getCiudad() {
-		return ciudad;
-	}
-
-	public void setCiudad(Ciudad ciudad) {
-		this.ciudad = ciudad;
-		this.selectedObject.getFkPersona().setFkCiudad(ciudad);
 	}
 
 	public List<Motivo> getMotivos() {
@@ -197,7 +200,7 @@ public class VM_PostulacionIndex extends VM_WindowWizard<Padrino> {
 	@NotifyChange({ "ciudades" })
 	public void changeEstado() {
 		this.getCiudades().clear();
-		this.getSelectedObject().getFkPersona().setFkCiudad(null);
+		this.getPadrinoSelected().getFkPersona().setFkCiudad(null);
 		Map<String, String> criterios = new HashMap<>();
 		criterios
 				.put("fkEstado.idEstado", String.valueOf(estado.getIdEstado()));
@@ -216,7 +219,7 @@ public class VM_PostulacionIndex extends VM_WindowWizard<Padrino> {
 
 	public void setFechaNacimiento(Date fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
-		this.getSelectedObject().getFkPersona()
+		this.getPadrinoSelected().getFkPersona()
 				.setFechaNacimiento(fechaNacimiento.getTime());
 	}
 
@@ -227,7 +230,7 @@ public class VM_PostulacionIndex extends VM_WindowWizard<Padrino> {
 
 	public void setEstatusPadrinoEnum(EstatusPadrinoEnum estatusPadrinoEnum) {
 		this.estatusPadrinoEnum = estatusPadrinoEnum;
-		this.getPadrino().setEstatusPadrinoEnum(estatusPadrinoEnum);
+		this.getPadrinoSelected().setEstatusPadrinoEnum(estatusPadrinoEnum);
 	}
 
 	public List<EstatusPadrinoEnum> getEstatusPadrinoEnums() {
@@ -253,21 +256,6 @@ public class VM_PostulacionIndex extends VM_WindowWizard<Padrino> {
 	@Override
 	public Map<Integer, List<OperacionWizard>> getButtonsToStep() {
 		Map<Integer, List<OperacionWizard>> botones = new HashMap<Integer, List<OperacionWizard>>();
-		/*
-		 * List<OperacionWizard> listOperacionWizard1 = new
-		 * ArrayList<OperacionWizard>();
-		 * listOperacionWizard1.add(OperacionWizardHelper
-		 * .getPorType(OperacionWizardEnum.SIGUIENTE)); botones.put(1,
-		 * listOperacionWizard1);
-		 * 
-		 * List<OperacionWizard> listOperacionWizard2 = new
-		 * ArrayList<OperacionWizard>();
-		 * listOperacionWizard2.add(OperacionWizardHelper
-		 * .getPorType(OperacionWizardEnum.ATRAS));
-		 * listOperacionWizard2.add(OperacionWizardHelper
-		 * .getPorType(OperacionWizardEnum.FINALIZAR)); botones.put(2,
-		 * listOperacionWizard2);
-		 */
 		OperacionWizard operacionWizardCustom1 = new OperacionWizard(
 				OperacionWizardEnum.CUSTOM1.ordinal(), "APROBAR", "Custom1",
 				"fa fa-check-square-o", "green", "APROBAR");
@@ -314,26 +302,32 @@ public class VM_PostulacionIndex extends VM_WindowWizard<Padrino> {
 		List<String> urls = new ArrayList<String>();
 		urls.add("views/desktop/gestion/apadrinamiento/postulacion/selectPostulado.zul");
 		urls.add("views/desktop/gestion/apadrinamiento/postulacion/datosPostulado.zul");
-		urls.add("views/desktop/gestion/apadrinamiento/postulacion/MotivoRechazo.zul");
+		urls.add("views/desktop/gestion/apadrinamiento/postulacion/motivoRechazo.zul");
 		return urls;
 	}
 
 	@Override
 	public String executeSiguiente(Integer currentStep) {
 		if (currentStep == 1) {
-			this.setEstado(selectedObject.getFkPersona().getFkCiudad()
-					.getFkEstado());
-			this.setSexoEnum(SexoEnum.values()[selectedObject.getFkPersona()
-					.getSexo()]);
-			this.setTipoPersonaEnum(TipoPersonaEnum.values()[selectedObject
-					.getFkPersona().getTipoPersona()]);
-			this.setMotivo(selectedObject.getFkMotivo());
-			changeEstado();
-			this.setCiudad(selectedObject.getFkPersona().getFkCiudad());
+			this.setEstado(this.getPadrinoSelected().getFkPersona()
+					.getFkCiudad().getFkEstado());
+			this.setSexoEnum(SexoEnum.values()[this.getPadrinoSelected()
+					.getFkPersona().getSexo()]);
+			this.setTipoPersonaEnum(TipoPersonaEnum.values()[this
+					.getPadrinoSelected().getFkPersona().getTipoPersona()]);
+			this.setMotivo(this.getPadrinoSelected().getFkMotivo());
+			Map<String, String> criterios = new HashMap<>();
+			criterios.put("fkEstado.idEstado",
+					String.valueOf(estado.getIdEstado()));
+			PayloadCiudadResponse payloadCiudadResponse = S.CiudadService
+					.consultarCriterios(TypeQuery.EQUAL, criterios);
+			if (!UtilPayload.isOK(payloadCiudadResponse)) {
+				Alert.showMessage(payloadCiudadResponse);
+			}
+			this.getCiudades().addAll(payloadCiudadResponse.getObjetos());
 			BindUtils.postNotifyChange(null, null, this, "estado");
 			BindUtils.postNotifyChange(null, null, this, "ciudades");
 			BindUtils.postNotifyChange(null, null, this, "sexoEnum");
-			BindUtils.postNotifyChange(null, null, this, "ciudad");
 			BindUtils.postNotifyChange(null, null, this, "selectedObject");
 		}
 		goToNextStep();
@@ -371,9 +365,10 @@ public class VM_PostulacionIndex extends VM_WindowWizard<Padrino> {
 
 	@Override
 	public String isValidPreconditionsFinalizar(Integer currentStep) {
-		if (currentStep == 2) {
+		if (currentStep == 3) {
 			try {
-				// NOTHING
+				UtilValidate.validateNull(this.getPadrinoSelected()
+						.getFkMotivo(), "Motivo de Rechazo");
 			} catch (Exception e) {
 				return e.getMessage();
 			}
@@ -390,17 +385,15 @@ public class VM_PostulacionIndex extends VM_WindowWizard<Padrino> {
 	@Override
 	public String executeCustom1(Integer currentStep) {
 
-		selectedObject.setEstatusPadrino(EstatusPadrinoEnum.POR_COMPLETAR
-				.ordinal());
-		selectedObject.setFkMotivo(motivo);
+		this.getPadrinoSelected().setEstatusPadrino(
+				EstatusPadrinoEnum.POR_COMPLETAR.ordinal());
+		this.getPadrinoSelected().setFkMotivo(motivo);
 		PayloadPadrinoResponse payloadPadrinoResponse = S.PadrinoService
-				.modificar(selectedObject);
+				.modificar(this.getPadrinoSelected());
 		if (UtilPayload.isOK(payloadPadrinoResponse)) {
 			restartWizard();
 			this.setSelectedObject(new Padrino());
-			this.setPadrino(new Padrino());
 			BindUtils.postNotifyChange(null, null, this, "selectedObject");
-			BindUtils.postNotifyChange(null, null, this, "Padrino");
 		}
 		return (String) payloadPadrinoResponse
 				.getInformacion(IPayloadResponse.MENSAJE);
@@ -409,40 +402,26 @@ public class VM_PostulacionIndex extends VM_WindowWizard<Padrino> {
 	@Override
 	public String executeCustom2(Integer currentStep) {
 		if (currentStep == 2) {
-			// selectedObject.setEstatusPadrino(EstatusPadrinoEnum.RECHAZADO.ordinal());
+
 			goToNextStep();
 		}
 
-		// PayloadPadrinoResponse payloadPadrinoResponse =
-		// S.PadrinoService.modificar(selectedObject);
-		// if (UtilPayload.isOK(payloadPadrinoResponse))
-		// {
-		// restartWizard();
-		// this.setSelectedObject(new Padrino());
-		// this.setPadrino(new Padrino());
-		// BindUtils.postNotifyChange(null, null, this, "selectedObject");
-		// BindUtils.postNotifyChange(null, null, this, "Padrino");
-		// }
-		// return (String)
-		// payloadPadrinoResponse.getInformacion(IPayloadResponse.MENSAJE);
 		return "";
 	}
 
 	@Override
 	public String executeFinalizar(Integer currentStep) {
 		if (currentStep == 3) {
-			selectedObject.setEstatusPadrino(EstatusPadrinoEnum.RECHAZADO
-					.ordinal());
-			//selectedObject.setFkMotivo(fkMotivo);
+			this.getPadrinoSelected().setEstatusPadrino(
+					EstatusPadrinoEnum.RECHAZADO.ordinal());
 			PayloadPadrinoResponse payloadPadrinoResponse = S.PadrinoService
-					.modificar(this.selectedObject);
-			
+					.modificar(this.getPadrinoSelected());
+
 			if (UtilPayload.isOK(payloadPadrinoResponse)) {
+				this.updateListBox(1, HowToSeeEnum.NORMAL);
 				restartWizard();
 				this.setSelectedObject(new Padrino());
-				this.setPadrino(new Padrino());
 				BindUtils.postNotifyChange(null, null, this, "selectedObject");
-				BindUtils.postNotifyChange(null, null, this, "Padrino");
 			}
 			return (String) payloadPadrinoResponse
 					.getInformacion(IPayloadResponse.MENSAJE);
@@ -450,12 +429,8 @@ public class VM_PostulacionIndex extends VM_WindowWizard<Padrino> {
 		return "";
 	}
 
-	@Override
-	public void comeIn(Integer currentStep) {
-		if (currentStep == 1) {
-			this.getControllerWindowWizard().updateListBoxAndFooter();
-			BindUtils.postNotifyChange(null, null, this, "objectsList");
-		}
+	public Padrino getPadrinoSelected() {
+		return (Padrino) this.selectedObject;
 	}
 
 }

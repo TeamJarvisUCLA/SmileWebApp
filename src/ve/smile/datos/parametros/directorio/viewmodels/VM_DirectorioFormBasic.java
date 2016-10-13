@@ -1,11 +1,8 @@
 package ve.smile.datos.parametros.directorio.viewmodels;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -19,13 +16,12 @@ import karen.core.form.buttons.data.OperacionForm;
 import karen.core.form.buttons.enums.OperacionFormEnum;
 import karen.core.form.buttons.helpers.OperacionFormHelper;
 import karen.core.form.viewmodels.VM_WindowForm;
-import karen.core.util.UtilDialog;
 import karen.core.util.payload.UtilPayload;
 import karen.core.util.validate.UtilValidate;
 import lights.core.enums.TypeQuery;
 import lights.smile.util.UtilMultimedia;
+import lights.smile.util.Zki;
 
-import org.apache.commons.io.FileUtils;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
@@ -58,7 +54,6 @@ public class VM_DirectorioFormBasic extends VM_WindowForm implements
 	private String nameImage;
 	private String extensionImage;
 	private String urlImage;
-	private String urlImagenAnterior;
 
 	private String typeMedia;
 
@@ -87,12 +82,10 @@ public class VM_DirectorioFormBasic extends VM_WindowForm implements
 
 		if (this.getDirectorio() != null
 				&& this.getDirectorio().getFkMultimedia() != null) {
-			this.setUrlImagenAnterior(this.getDirectorio().getFkMultimedia()
-					.getUrl());
+
 			this.setUrlImage(this.getDirectorio().getFkMultimedia().getUrl());
 		} else {
 			this.getDirectorio().setFkMultimedia(new Multimedia());
-			this.setUrlImagenAnterior(new String());
 		}
 
 	}
@@ -169,18 +162,10 @@ public class VM_DirectorioFormBasic extends VM_WindowForm implements
 				multimedia.setExtension(UtilMultimedia.stringToExtensionEnum(
 						extensionImage).ordinal());
 				multimedia.setDescripcion(typeMedia);
-				this.getDirectorio().setFkMultimedia(multimedia);
-				try {
-					FileUtils.writeByteArrayToFile(
-							new File(multimedia.getUrl()), bytes);
-				} catch (IOException e) {
-					UtilDialog
-							.showMessageBoxError("Ha ocurrido un error al guardar la imagen");
-					return true;
-				}
 
 				PayloadMultimediaResponse payloadMultimediaResponse = S.MultimediaService
 						.incluir(multimedia);
+
 				multimedia.setIdMultimedia(((Double) payloadMultimediaResponse
 						.getInformacion("id")).intValue());
 				this.getDirectorio().setFkMultimedia(multimedia);
@@ -188,6 +173,23 @@ public class VM_DirectorioFormBasic extends VM_WindowForm implements
 
 			PayloadDirectorioResponse payloadDirectorioResponse = S.DirectorioService
 					.incluir(getDirectorio());
+			this.getDirectorio().setIdDirectorio(
+					((Double) payloadDirectorioResponse.getInformacion("id"))
+							.intValue());
+			if (bytes != null) {
+				Zki.save(Zki.DIRECTORIO, getDirectorio().getIdDirectorio(),
+						extensionImage, bytes);
+				Multimedia multimedia = this.getDirectorio().getFkMultimedia();
+				multimedia.setNombre(Zki.DIRECTORIO
+						+ this.getDirectorio().getIdDirectorio() + "."
+						+ this.extensionImage);
+				multimedia.setUrl(Zki.DIRECTORIO
+						+ getDirectorio().getIdDirectorio() + "."
+						+ this.extensionImage);
+				PayloadMultimediaResponse payloadMultimediaResponse = S.MultimediaService
+						.modificar(multimedia);
+			}
+
 			Alert.showMessage(payloadDirectorioResponse);
 			if (!UtilPayload.isOK(payloadDirectorioResponse)) {
 				return true;
@@ -200,103 +202,63 @@ public class VM_DirectorioFormBasic extends VM_WindowForm implements
 
 		if (operacionEnum.equals(OperacionEnum.MODIFICAR)) {
 
-			if (this.getBytes() != null
-					&& !this.getUrlImagenAnterior().equalsIgnoreCase(
-							this.getUrlImage())) {
-				try {
+			if (this.getBytes() != null) {
 
-					if (this.getUrlImagenAnterior() != null
-							&& !this.getUrlImagenAnterior()
-									.equalsIgnoreCase("")) {
+				if (this.getDirectorio().getFkMultimedia() == null
+						|| this.getDirectorio().getFkMultimedia()
+								.getIdMultimedia() == null) {
 
-						File file = new File(this.getUrlImagenAnterior());
+					Multimedia multimedia = new Multimedia();
+					multimedia.setNombre(nameImage);
+					multimedia.setTipoMultimedia(TipoMultimediaEnum.IMAGEN
+							.ordinal());
+					multimedia.setUrl(this.getUrlImage());
+					multimedia.setExtension(UtilMultimedia
+							.stringToExtensionEnum(extensionImage).ordinal());
+					multimedia.setDescripcion(typeMedia);
+					PayloadMultimediaResponse payloadMultimediaResponse = S.MultimediaService
+							.incluir(multimedia);
+					multimedia
+							.setIdMultimedia(((Double) payloadMultimediaResponse
+									.getInformacion("id")).intValue());
+					Zki.save(Zki.DIRECTORIO, this.getDirectorio()
+							.getIdDirectorio(), extensionImage, bytes);
 
-						if (file.exists()) {
+					this.getDirectorio().setFkMultimedia(multimedia);
 
-							if (!file.delete()) {
-
-								UtilDialog
-										.showMessageBoxError("Ha ocurrido un error al sustituir la imagen");
-								return true;
-							}
-						}
-					}
-					try {
-						FileUtils.writeByteArrayToFile(new File(urlImage),
-								bytes);
-					} catch (IOException e) {
-						UtilDialog
-								.showMessageBoxError("Ha ocurrido un error al guardar la imagen");
-						return true;
-					}
-
-					if (this.getDirectorio().getFkMultimedia() == null
-							|| this.getDirectorio().getFkMultimedia()
-									.getIdMultimedia() == null) {
-
-						Multimedia multimedia = new Multimedia();
-						multimedia.setNombre(nameImage);
-						multimedia.setTipoMultimedia(TipoMultimediaEnum.IMAGEN
-								.ordinal());
-						multimedia.setUrl(this.getUrlImage());
-						multimedia.setExtension(UtilMultimedia
-								.stringToExtensionEnum(extensionImage)
-								.ordinal());
-						multimedia.setDescripcion(typeMedia);
-						PayloadMultimediaResponse payloadMultimediaResponse = S.MultimediaService
-								.incluir(multimedia);
-						if (!UtilPayload.isOK(payloadMultimediaResponse)) {
-							Alert.showMessage(payloadMultimediaResponse);
-							return true;
-						}
-						multimedia
-								.setIdMultimedia(((Double) payloadMultimediaResponse
-										.getInformacion("id")).intValue());
-						this.getDirectorio().setFkMultimedia(multimedia);
-
-					} else {
-						Multimedia multimedia = this.getDirectorio()
-								.getFkMultimedia();
-						multimedia.setNombre(nameImage);
-						multimedia.setDescripcion(typeMedia);
-						multimedia.setTipoMultimedia(TipoMultimediaEnum.IMAGEN
-								.ordinal());
-						multimedia.setUrl(this.getUrlImage());
-						multimedia.setExtension(UtilMultimedia
-								.stringToExtensionEnum(extensionImage)
-								.ordinal());
-						PayloadMultimediaResponse payloadMultimediaResponse = S.MultimediaService
-								.modificar(multimedia);
-						if (!UtilPayload.isOK(payloadMultimediaResponse)) {
-							Alert.showMessage(payloadMultimediaResponse);
-							return true;
-						}
-					}
-
-				} catch (Exception e) {
-					e.printStackTrace();
+				} else {
+					Multimedia multimedia = this.getDirectorio()
+							.getFkMultimedia();
+					multimedia.setNombre(nameImage);
+					multimedia.setDescripcion(typeMedia);
+					multimedia.setUrl(this.getUrlImage());
+					multimedia.setExtension(UtilMultimedia
+							.stringToExtensionEnum(extensionImage).ordinal());
+					PayloadMultimediaResponse payloadMultimediaResponse = S.MultimediaService
+							.modificar(multimedia);
+					Zki.save(Zki.DIRECTORIO, this.getDirectorio()
+							.getIdDirectorio(), extensionImage, bytes);
 				}
 
 			}
+			Multimedia multimedia = this.getDirectorio().getFkMultimedia();
+
 			if (bytes == null && this.getDirectorio().getFkMultimedia() != null) {
-				File file = new File(this.getUrlImagenAnterior());
-
-				if (file.exists()) {
-
-					if (!file.delete()) {
-
-						UtilDialog
-								.showMessageBoxError("Ha ocurrido un error al sustituir la imagen");
-						return true;
-					}
-				}
-				// Multimedia multimedia =
-				// this.getDirectorio().getFkMultimedia();
+				Zki.remove(this.getDirectorio().getFkMultimedia().getUrl());
 				getDirectorio().setFkMultimedia(null);
 			}
 
 			PayloadDirectorioResponse payloadDirectorioResponse = S.DirectorioService
 					.modificar(getDirectorio());
+
+			if (bytes == null && multimedia != null) {
+				PayloadMultimediaResponse payloadMultimediaResponse = S.MultimediaService
+						.eliminar(multimedia.getIdMultimedia());
+				if (!UtilPayload.isOK(payloadMultimediaResponse)) {
+					Alert.showMessage(payloadMultimediaResponse);
+					return true;
+				}
+			}
 
 			if (!UtilPayload.isOK(payloadDirectorioResponse)) {
 				Alert.showMessage(payloadDirectorioResponse);
@@ -407,14 +369,6 @@ public class VM_DirectorioFormBasic extends VM_WindowForm implements
 		this.urlImage = urlImage;
 	}
 
-	public String getUrlImagenAnterior() {
-		return urlImagenAnterior;
-	}
-
-	public void setUrlImagenAnterior(String urlImagenAnterior) {
-		this.urlImagenAnterior = urlImagenAnterior;
-	}
-
 	public String getTypeMedia() {
 		return typeMedia;
 	}
@@ -425,11 +379,20 @@ public class VM_DirectorioFormBasic extends VM_WindowForm implements
 
 	@Override
 	public BufferedImage getImageContent() {
-		try {
-			return loadImage();
-		} catch (Exception e) {
-			return null;
+		if (bytes != null) {
+			try {
+				return ImageIO.read(new ByteArrayInputStream(bytes));
+			} catch (IOException e) {
+				return null;
+			}
 		}
+
+		if (urlImage != null) {
+			bytes = Zki.getBytes(urlImage);
+			return Zki.getBufferedImage(urlImage);
+		}
+
+		return null;
 	}
 
 	@Override
@@ -440,15 +403,20 @@ public class VM_DirectorioFormBasic extends VM_WindowForm implements
 
 			if (UtilMultimedia.validateImage(media.getName().substring(
 					media.getName().lastIndexOf(".") + 1))) {
-				this.nameImage = media.getName();
-				this.extensionImage = nameImage.substring(this.nameImage
-						.lastIndexOf(".") + 1);
-				System.out.println(extensionImage);
+
+				this.extensionImage = media.getName().substring(
+						media.getName().lastIndexOf(".") + 1);
+
 				this.bytes = media.getByteData();
 
-				this.urlImage = new StringBuilder()
-						.append("/Smile/Directorio/d_").append(nameImage)
-						.toString();
+				if (this.getDirectorio().getIdDirectorio() != null) {
+					this.urlImage = new StringBuilder().append(Zki.DIRECTORIO)
+							.append(this.getDirectorio().getIdDirectorio())
+							.append(".").append(extensionImage).toString();
+					this.nameImage = new StringBuilder().append(Zki.DIRECTORIO)
+							.append(this.getDirectorio().getIdDirectorio())
+							.append(".").append(extensionImage).toString();
+				}
 				this.typeMedia = media.getContentType();
 
 			} else {
@@ -473,16 +441,6 @@ public class VM_DirectorioFormBasic extends VM_WindowForm implements
 
 	public void setBytes(byte[] bytes) {
 		this.bytes = bytes;
-	}
-
-	private BufferedImage loadImage() throws Exception {
-		try {
-			Path path = Paths.get(this.getUrlImage());
-			bytes = Files.readAllBytes(path);
-			return ImageIO.read(new File(this.getUrlImage()));
-		} catch (Exception e) {
-			return null;
-		}
 	}
 
 }

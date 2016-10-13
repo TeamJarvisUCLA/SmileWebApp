@@ -1,6 +1,31 @@
- <?xel-method prefix="m" name="convertirLongATimestamp" class="lights.smile.util.UtilConverterDataList" 
-	signature="java.lang.String convertirLongATimestamp(java.lang.Long)" ?> 
+<?xel-method prefix="m" name="convertirLongADate" class="lights.smile.util.UtilConverterDataList" 
+	signature="java.lang.String convertirLongADate(java.lang.Long)" ?>
 <zk xmlns:n="native" xmlns:w="client">
+	<style>
+		.z-auxheader-content, .z-auxheader-content:hover { background:
+		#594e46 !important; border-right: none; height: 41px; }
+
+		input { background: #FFFFFF !important; height: 17px; }
+
+		.z-auxhead:hover .z-auxheader-content { background: #594e46
+		!important; }
+
+		.page-content-main input[type="text"], .page-content-main
+		input[type="password"], .page-content-main input[type="email"],
+		.page-content-main input[type="url"], .page-content-main
+		input[type="time"], .page-content-main input[type="date"],
+		.page-content-main input[type="datetime-local"],
+		.page-content-main input[type="tel"], .page-content-main
+		input[type="number"], .page-content-main input[type="search"],
+		.page-content-main textarea.materialize-textarea { height: 23px;
+		font-size: 1.2em; }
+
+		.z-combobox-inplace .z-combobox-input, .z-bandbox-inplace
+		.z-bandbox-input, .z-datebox-inplace .z-datebox-input,
+		.z-timebox-inplace .z-timebox-input, .z-spinner-inplace
+		.z-spinner-input, .z-doublespinner-inplace
+		.z-doublespinner-input { border: 0; padding: 0px; }
+	</style>
 	<div width="100%" class='${arg.animation_}'
 		use="karen.core.simple_list_principal.controllers.C_WindowSimpleListPrincipal"
 		apply="org.zkoss.bind.BindComposer"
@@ -10,23 +35,76 @@
 			<div class="col s12">
 				<div class="col s12">
 					<listbox id="listbox" model="@load(vm.objectsList)"
-						selectedItem="@bind(vm.selectedObject)">
-						<listhead sizable="true">
-							<listheader width="25%" label="Nombre" />
-							<listheader width="25%" label="Apellido" />
-							<listheader width="25%" label="Frecuencia de aporte" />
-							<listheader width="25%" label="Fecha de ingreso" />
-							<listheader width="25%" label="Monto" />
-							
+						selectedItem="@bind(vm.selectedObject)"
+						emptyMessage="No hay padrinos para mostrar">
+						<auxhead>
+							<auxheader colspan="2">
+								<div>
+									<span
+										class="prefix filter fa fa-filter">
+									</span>
+									<combobox id="tipo_persona"
+										inplace="true" tooltip="Tipo de Persona"
+										placeholder="Tipo de Persona"
+										model="@bind(vm.tipoPersonaEnums)"
+										selectedItem="@bind(vm.tipoPersonaEnum)"
+										onChange="@command('changeFilter')"
+										style="background: rgb(89, 78, 70); margin: 0px; margin-left: 6px; margin-top: 0px; display: inline;  width: 75%;">
+										<template name="model">
+											<comboitem
+												label="@load(each)" />
+										</template>
+									</combobox>
+
+								</div>
+							</auxheader>
+
+							<auxheader></auxheader>
+							<auxheader></auxheader>
+							<auxheader></auxheader>
+							<auxheader>
+								<div sclass="col s12">
+									<span
+										class="prefix filter fa fa-filter">
+									</span>
+									<combobox id="Estatus"
+										inplace="true" tooltip="Estatus"
+										model="@bind(vm.estatusPadrinoEnums)"
+										onChange="@command('changeFilter')"
+										style="background: rgb(89, 78, 70); margin: 0px; margin-left: 6px; margin-top: 0px; display: inline;  width: 75%;"
+										selectedItem="@bind(vm.estatusPadrinoEnum)">
+										<template name="model">
+											<comboitem
+												label="@load(each.toString())" />
+										</template>
+									</combobox>
+								</div>
+							</auxheader>
+						</auxhead>
+						<listhead>
+							<listheader width="10%"
+								label="Identificación" />
+							<listheader width="20%" label="Nombre" />
+							<listheader width="15%"
+								label="Frecuencia de aporte" />
+							<listheader width="15%"
+								label="Fecha de ingreso" />
+							<listheader width="15%" label="Monto" />
+							<listheader width="20%" label="Estatus" />
 						</listhead>
 						<template name="model">
 							<listitem>
-								<listcell label="@load(each.fkPersona.nombre)" />
-								<listcell label="@load(each.fkPersona.apellido)" />
-								<listcell label="@load(each.fkFrecuenciaAporte.nombre)" />
-								<listcell label="${m:convertirLongATimestamp(each.fechaIngreso)}" /> 
+								<listcell
+									label="@load(each.fkPersona.identificacion)" />
+								<listcell
+									label="@load(each.fkPersona.nombre.concat(' ').concat(each.fkPersona.apellido))" />
+								<listcell
+									label="@load(each.fkFrecuenciaAporte.nombre)" />
+								<listcell
+									label="${m:convertirLongADate(each.fechaIngreso)}" />
 								<listcell label="@load(each.monto)" />
-								
+								<listcell
+									label="@load(each.estatusPadrinoEnum.toString())" />
 							</listitem>
 						</template>
 						<listfoot>

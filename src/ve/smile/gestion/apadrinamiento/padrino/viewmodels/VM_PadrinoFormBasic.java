@@ -1,12 +1,11 @@
 package ve.smile.gestion.apadrinamiento.padrino.viewmodels;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -14,27 +13,6 @@ import java.util.Map;
 
 import javax.imageio.ImageIO;
 
-import org.zkoss.bind.annotation.Command;
-import org.zkoss.bind.annotation.Init;
-import org.zkoss.bind.annotation.NotifyChange;
-import org.zkoss.zk.ui.event.UploadEvent;
-
-import ve.smile.consume.services.S;
-import ve.smile.dto.Ciudad;
-import ve.smile.dto.Estado;
-import ve.smile.dto.Multimedia;
-import ve.smile.dto.Padrino;
-import ve.smile.dto.Persona;
-import ve.smile.enums.SexoEnum;
-import ve.smile.enums.TipoMultimediaEnum;
-import ve.smile.enums.TipoPersonaEnum;
-import ve.smile.payload.response.PayloadCiudadResponse;
-import ve.smile.payload.response.PayloadEstadoResponse;
-import ve.smile.payload.response.PayloadMultimediaResponse;
-import ve.smile.payload.response.PayloadPadrinoResponse;
-import ve.smile.payload.response.PayloadPersonaResponse;
-import ve.smile.seguridad.enums.OperacionEnum;
-import app.UploadImageSingle;
 import karen.core.crux.alert.Alert;
 import karen.core.crux.session.DataCenter;
 import karen.core.form.buttons.data.OperacionForm;
@@ -46,66 +24,105 @@ import karen.core.util.validate.UtilValidate;
 import karen.core.util.validate.UtilValidate.ValidateOperator;
 import lights.core.enums.TypeQuery;
 import lights.smile.util.UtilMultimedia;
+import lights.smile.util.Zki;
 
-public class VM_PadrinoFormBasic extends VM_WindowForm  implements UploadImageSingle {
-	
+import org.zkoss.bind.annotation.Command;
+import org.zkoss.bind.annotation.NotifyChange;
+import org.zkoss.zk.ui.event.UploadEvent;
+
+import ve.smile.consume.services.S;
+import ve.smile.dto.Ciudad;
+import ve.smile.dto.Estado;
+import ve.smile.dto.FrecuenciaAporte;
+import ve.smile.dto.Multimedia;
+import ve.smile.dto.Padrino;
+import ve.smile.enums.EstatusPadrinoEnum;
+import ve.smile.enums.SexoEnum;
+import ve.smile.enums.TipoMultimediaEnum;
+import ve.smile.enums.TipoPersonaEnum;
+import ve.smile.payload.response.PayloadCiudadResponse;
+import ve.smile.payload.response.PayloadEstadoResponse;
+import ve.smile.payload.response.PayloadFrecuenciaAporteResponse;
+import ve.smile.payload.response.PayloadMultimediaResponse;
+import ve.smile.payload.response.PayloadPadrinoResponse;
+import ve.smile.payload.response.PayloadPersonaResponse;
+import ve.smile.seguridad.enums.OperacionEnum;
+import app.UploadImageSingle;
+
+public class VM_PadrinoFormBasic extends VM_WindowForm implements
+		UploadImageSingle {
+
+	private Date fechaNacimiento = new Date();
+	private Date fechaIngreso = new Date();
+
 	private List<Ciudad> ciudades;
-
-	private List<TipoPersonaEnum> tipoPersonaEnums;
-	private TipoPersonaEnum tipoPersonaEnum;
-
+	private List<Estado> estados;
+	private Estado estado;
 	private List<SexoEnum> sexoEnums;
-	private SexoEnum sexoEnum;
+	private List<TipoPersonaEnum> tipoPersonaEnums;
 
-	private Date fechaNacimiento;
-	private Date fechaIngreso;
-	private Persona persona;
+	private List<FrecuenciaAporte> frecuenciaAporte;
+
+	private SexoEnum sexoEnum;
+	private TipoPersonaEnum tipoPersonaEnum;
 
 	private byte[] bytes = null;
 	private String nameImage;
 	private String extensionImage;
-	private String urlImagen;
+	private String urlImage;
 
-	private Estado estado;
+	private String typeMedia;
 
-	private List<Estado> estados;
-	
-	public void childInit()
-	{
-		this.setPersona(this.getPadrino().getFkPersona());
-		if (this.persona.getSexo() != null) {
-			this.setSexoEnum(SexoEnum.values()[this.persona.getSexo()]);
+	public void childInit() {
+		if (this.getPadrino().getFkPersona().getSexo() != null) {
+			this.setSexoEnum(SexoEnum.values()[this.getPadrino().getFkPersona()
+					.getSexo()]);
 		}
-		if (this.persona.getTipoPersona() != null) {
-			this.setTipoPersonaEnum(TipoPersonaEnum.values()[this.persona
-					.getTipoPersona()]);
+		if (this.getPadrino().getFkPersona().getTipoPersona() != null) {
+			this.setTipoPersonaEnum(TipoPersonaEnum.values()[this.getPadrino()
+					.getFkPersona().getTipoPersona()]);
 		}
 		if (this.getPadrino().getFkPersona() != null
 				&& this.getPadrino().getFkPersona().getFkMultimedia() != null) {
-			this.setUrlImagen(this.getPadrino().getFkPersona()
-					.getFkMultimedia().getUrl());
+			this.setUrlImage(this.getPadrino().getFkPersona().getFkMultimedia()
+					.getUrl());
 		} else {
+			this.getPadrino().getFkPersona().setFkMultimedia(new Multimedia());
 
-			this.getPersona().setFkMultimedia(new Multimedia());
-
-		}	
-	/*	if (this.getPadrino().getFechaIngreso() != null) {
+		}
+		if (this.getPadrino().getFechaIngreso() != null) {
 			this.setFechaIngreso(new Date(this.getPadrino().getFechaIngreso()));
 		} else {
 			this.setFechaIngreso(new Date());
 		}
-	*/	
+
+		if (this.getPadrino().getFkPersona().getFkCiudad() != null) {
+			this.setEstado(this.getPadrino().getFkPersona().getFkCiudad()
+					.getFkEstado());
+			this.getCiudades().clear();
+			Map<String, String> criterios = new HashMap<>();
+			criterios.put("fkEstado.idEstado",
+					String.valueOf(estado.getIdEstado()));
+			PayloadCiudadResponse payloadCiudadResponse = S.CiudadService
+					.consultarCriterios(TypeQuery.EQUAL, criterios);
+			if (!UtilPayload.isOK(payloadCiudadResponse)) {
+				Alert.showMessage(payloadCiudadResponse);
+			}
+			this.getCiudades().addAll(payloadCiudadResponse.getObjetos());
+		}
+
 	}
-	
+
 	public TipoPersonaEnum getTipoPersonaEnum() {
 		return tipoPersonaEnum;
 	}
-	
+
 	public void setTipoPersonaEnum(TipoPersonaEnum tipoPersonaEnum) {
 		this.tipoPersonaEnum = tipoPersonaEnum;
-		this.getPersona().setTipoPersona(tipoPersonaEnum.ordinal());
+		this.getPadrino().getFkPersona()
+				.setTipoPersona(tipoPersonaEnum.ordinal());
 	}
-	
+
 	public List<TipoPersonaEnum> getTipoPersonaEnums() {
 		if (this.tipoPersonaEnums == null) {
 			this.tipoPersonaEnums = new ArrayList<>();
@@ -128,8 +145,8 @@ public class VM_PadrinoFormBasic extends VM_WindowForm  implements UploadImageSi
 		}
 		return ciudades;
 	}
-	
-	public void setCiudades (List<Ciudad> ciudades) {
+
+	public void setCiudades(List<Ciudad> ciudades) {
 		this.ciudades = ciudades;
 	}
 
@@ -160,26 +177,16 @@ public class VM_PadrinoFormBasic extends VM_WindowForm  implements UploadImageSi
 		this.estados = estados;
 	}
 
-	public Persona getPersona() {
-		return persona;
-	}
-
-	public void setPersona(Persona persona) {
-		if (persona == null) {
-			persona = new Persona();
-		}
-		this.persona = persona;
-	}
-	
 	public Date getFechaNacimiento() {
 		return fechaNacimiento;
 	}
 
 	public void setFechaNacimiento(Date fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
-		this.getPersona().setFechaNacimiento(fechaNacimiento.getTime());
+		this.getPadrino().getFkPersona()
+				.setFechaNacimiento(fechaNacimiento.getTime());
 	}
-	
+
 	public Date getFechaIngreso() {
 		return fechaIngreso;
 	}
@@ -187,22 +194,6 @@ public class VM_PadrinoFormBasic extends VM_WindowForm  implements UploadImageSi
 	public void setFechaIngreso(Date fechaIngreso) {
 		this.fechaIngreso = fechaIngreso;
 		this.getPadrino().setFechaIngreso(fechaIngreso.getTime());
-	}
-	
-	public String getNameImage() {
-		return nameImage;
-	}
-
-	public void setNameImage(String nameImage) {
-		this.nameImage = nameImage;
-	}
-
-	public String getExtensionImage() {
-		return extensionImage;
-	}
-
-	public void setExtensionImage(String extensionImage) {
-		this.extensionImage = extensionImage;
 	}
 
 	public List<SexoEnum> getSexoEnums() {
@@ -227,24 +218,35 @@ public class VM_PadrinoFormBasic extends VM_WindowForm  implements UploadImageSi
 
 	public void setSexoEnum(SexoEnum sexoEnum) {
 		this.sexoEnum = sexoEnum;
-		this.getPersona().setSexo(sexoEnum.ordinal());
-	}
-	
-	public String getUrlImagen() {
-		return urlImagen;
+		this.getPadrino().getFkPersona().setSexo(sexoEnum.ordinal());
 	}
 
-	public void setUrlImagen(String urlImagen) {
-		this.urlImagen = urlImagen;
+	public List<FrecuenciaAporte> getFrecuenciaAporte() {
+		if (this.frecuenciaAporte == null) {
+			this.frecuenciaAporte = new ArrayList<>();
+		}
+		if (this.frecuenciaAporte.isEmpty()) {
+			PayloadFrecuenciaAporteResponse payloadFrecuenciaAporteResponse = S.FrecuenciaAporteService
+					.consultarTodos();
+
+			this.frecuenciaAporte.addAll(payloadFrecuenciaAporteResponse
+					.getObjetos());
+		}
+
+		return frecuenciaAporte;
 	}
-	
+
+	public void setFrecuenciaAporte(List<FrecuenciaAporte> frecuenciaAporte) {
+		this.frecuenciaAporte = frecuenciaAporte;
+	}
+
+	// Filtra las ciudades al seleccionar el estado
 	@Command("changeEstado")
-	@NotifyChange({ "ciudades", "persona" })
+	@NotifyChange({ "ciudades" })
 	public void changeEstado() {
 		this.getCiudades().clear();
-		this.getPersona().setFkCiudad(null);
+		this.getPadrino().getFkPersona().setFkCiudad(null);
 		Map<String, String> criterios = new HashMap<>();
-
 		criterios
 				.put("fkEstado.idEstado", String.valueOf(estado.getIdEstado()));
 		PayloadCiudadResponse payloadCiudadResponse = S.CiudadService
@@ -253,71 +255,6 @@ public class VM_PadrinoFormBasic extends VM_WindowForm  implements UploadImageSi
 			Alert.showMessage(payloadCiudadResponse);
 		}
 		this.getCiudades().addAll(payloadCiudadResponse.getObjetos());
-	}
-
-	@Override
-	public BufferedImage getImageContent() {
-		try {
-			return loadImage();
-		} catch (Exception e) {
-			return null;
-		}
-	}
-	
-	@Override
-	public void onUploadImageSingle(UploadEvent event, String idUpload) {
-		org.zkoss.util.media.Media media = event.getMedia();
-		if (media instanceof org.zkoss.image.Image) {
-			bytes = media.getByteData();
-			this.nameImage = media.getName();
-			this.extensionImage = media.getFormat();
-			if (UtilMultimedia.validateFile(nameImage.substring(this.nameImage
-					.lastIndexOf(".") + 1))) {
-				Multimedia multimedia = new Multimedia();
-				multimedia.setNombre(nameImage);
-				multimedia.setTipoMultimedia(TipoMultimediaEnum.IMAGEN
-						.ordinal());
-				multimedia.setUrl(new StringBuilder()
-						.append("/Smile/Padrino/").append(nameImage)
-						.toString());
-				multimedia.setExtension(UtilMultimedia
-						.stringToExtensionEnum(
-								nameImage.substring(this.nameImage
-										.lastIndexOf(".") + 1)).ordinal());
-				multimedia.setDescripcion("Imagen del Padrino.");
-				System.out.println(multimedia.getDescripcion());
-				System.out.println(multimedia.getExtension());
-				this.getPersona().setFkMultimedia(multimedia);
-			} else {
-				this.getPersona().setFkMultimedia(null);
-				Alert.showMessage("E: Error Code: 100-El formato de la <b>imagen</b> es inválido");
-
-			}
-
-		}
-	}
-	
-	@Override
-	public void onRemoveImageSingle(String idUpload) {
-		bytes = null;
-	}
-
-	public byte[] getBytes() {
-		return bytes;
-	}
-
-	public void setBytes(byte[] bytes) {
-		this.bytes = bytes;
-	}
-
-	private BufferedImage loadImage() throws Exception {
-		try {
-			Path path = Paths.get(this.getUrlImagen());
-			bytes = Files.readAllBytes(path);
-			return ImageIO.read(new File(this.getUrlImagen()));
-		} catch (Exception e) {
-			return null;
-		}
 	}
 
 	@Override
@@ -342,56 +279,84 @@ public class VM_PadrinoFormBasic extends VM_WindowForm  implements UploadImageSi
 
 	@Override
 	public boolean actionGuardar(OperacionEnum operacionEnum) {
-		this.getPadrino().setFkPersona(persona);
 		if (!isFormValidated()) {
-	 		return true;
-	 	}
-
-		if (operacionEnum.equals(OperacionEnum.INCLUIR)) {
-			Padrino padrino = this.getPadrino();
-			padrino.setFechaIngreso(this.getFechaIngreso().getTime());
-			padrino.setFechaSalida(new Date().getTime());
-
-			Multimedia multimedia = this.getPersona().getFkMultimedia();
-
-			PayloadMultimediaResponse payloadMultimediaResponse = S.MultimediaService
-					.incluir(multimedia);
-
-			if (!UtilPayload.isOK(payloadMultimediaResponse)) {
-				Alert.showMessage(payloadMultimediaResponse);
-				return true;
-			}
-
-			multimedia.setIdMultimedia(((Double) payloadMultimediaResponse
-					.getInformacion("id")).intValue());
-			this.getPersona().setFkMultimedia(multimedia);
-			PayloadPersonaResponse payloadPersonaResponse = S.PersonaService
-					.incluir(this.getPersona());
-			if (!UtilPayload.isOK(payloadPersonaResponse)) {
-				Alert.showMessage(payloadPersonaResponse);
-				return true;
-			}
-			this.getPersona().setIdPersona(
-					((Double) payloadPersonaResponse.getInformacion("id"))
-							.intValue());
-			padrino.setFkPersona(this.getPersona());
-			PayloadPadrinoResponse payloadPadrinoResponse = S.PadrinoService
-					.incluir(getPadrino());
-			if (!UtilPayload.isOK(payloadPadrinoResponse)) {
-				Alert.showMessage(payloadPadrinoResponse);
-				return true;
-			}
-			DataCenter.reloadCurrentNodoMenu();
 			return true;
 		}
 
 		if (operacionEnum.equals(OperacionEnum.MODIFICAR)) {
+
+			if (bytes != null) {
+				if (this.getPadrino().getFkPersona().getFkMultimedia() == null
+						|| this.getPadrino().getFkPersona().getFkMultimedia()
+								.getIdMultimedia() == null) {
+					Multimedia multimedia = new Multimedia();
+					multimedia.setNombre(nameImage);
+					multimedia.setTipoMultimedia(TipoMultimediaEnum.IMAGEN
+							.ordinal());
+					multimedia.setUrl(this.getUrlImage());
+					multimedia.setExtension(UtilMultimedia
+							.stringToExtensionEnum(extensionImage).ordinal());
+					multimedia.setDescripcion(typeMedia);
+					PayloadMultimediaResponse payloadMultimediaResponse = S.MultimediaService
+							.incluir(multimedia);
+					multimedia
+							.setIdMultimedia(((Double) payloadMultimediaResponse
+									.getInformacion("id")).intValue());
+					Zki.save(Zki.PADRINOS, this.getPadrino().getIdPadrino(),
+							extensionImage, bytes);
+					this.getPadrino().getFkPersona()
+							.setFkMultimedia(multimedia);
+				} else {
+					Multimedia multimedia = this.getPadrino().getFkPersona()
+							.getFkMultimedia();
+					multimedia.setNombre(nameImage);
+					multimedia.setDescripcion(typeMedia);
+					multimedia.setUrl(this.getUrlImage());
+					multimedia.setExtension(UtilMultimedia
+							.stringToExtensionEnum(extensionImage).ordinal());
+					PayloadMultimediaResponse payloadMultimediaResponse = S.MultimediaService
+							.modificar(multimedia);
+					Zki.save(Zki.PADRINOS, this.getPadrino().getIdPadrino(),
+							extensionImage, bytes);
+				}
+
+			}
+
+			Multimedia multimedia = this.getPadrino().getFkPersona()
+					.getFkMultimedia();
+
+			if (bytes == null
+					&& this.getPadrino().getFkPersona().getFkMultimedia() != null) {
+				Zki.remove(this.getPadrino().getFkPersona().getFkMultimedia()
+						.getUrl());
+				this.getPadrino().getFkPersona().setFkMultimedia(null);
+			}
+
+			// Padrino
+			PayloadPersonaResponse payloadPersonaResponse = S.PersonaService
+					.modificar(this.getPadrino().getFkPersona());
+			if (!UtilPayload.isOK(payloadPersonaResponse)) {
+				Alert.showMessage(payloadPersonaResponse);
+				return true;
+			}
+			if (bytes == null && multimedia != null) {
+				PayloadMultimediaResponse payloadMultimediaResponse = S.MultimediaService
+						.eliminar(multimedia.getIdMultimedia());
+				if (!UtilPayload.isOK(payloadMultimediaResponse)) {
+					Alert.showMessage(payloadMultimediaResponse);
+					return true;
+				}
+			}
+			this.getPadrino().setEstatusPadrino(
+					EstatusPadrinoEnum.ACTIVO.ordinal());
 			PayloadPadrinoResponse payloadPadrinoResponse = S.PadrinoService
-					.modificar(getPadrino());
+					.modificar(this.getPadrino());
 			if (!UtilPayload.isOK(payloadPadrinoResponse)) {
 				Alert.showMessage(payloadPadrinoResponse);
 				return true;
 			}
+
+			Alert.showMessage(payloadPadrinoResponse);
 			DataCenter.reloadCurrentNodoMenu();
 			return true;
 		}
@@ -403,63 +368,162 @@ public class VM_PadrinoFormBasic extends VM_WindowForm  implements UploadImageSi
 		DataCenter.reloadCurrentNodoMenu();
 		return true;
 	}
-	
+
 	@Override
 	public boolean actionCancelar(OperacionEnum operacionEnum) {
 		return actionSalir(operacionEnum);
 	}
-	
-	public Padrino getPadrino() {		
+
+	public Padrino getPadrino() {
 		return (Padrino) DataCenter.getEntity();
 	}
 
 	public boolean isFormValidated() {
-		try {	
-			UtilValidate.validateInteger(this.getPersona().getTipoPersona(),
-					"Tipo de persona", ValidateOperator.LESS_THAN, 2);
+		try {
+			UtilValidate.validateInteger(this.getPadrino().getFkPersona()
+					.getTipoPersona(), "Tipo de persona",
+					ValidateOperator.LESS_THAN, 2);
 
 			if (this.getTipoPersonaEnum().equals(TipoPersonaEnum.NATURAL)) {
-				UtilValidate.validateString(this.getPersona()
+				UtilValidate.validateString(this.getPadrino().getFkPersona()
 						.getIdentificacion(), "Cédula", 35);
-				UtilValidate.validateString(this.getPersona().getNombre(),
-						"Nombre", 150);
-				UtilValidate.validateString(this.getPersona().getApellido(),
-						"Apellido", 150);
-				UtilValidate.validateInteger(this.getPersona().getSexo(),
-						"Sexo", ValidateOperator.LESS_THAN, 2);
-				UtilValidate.validateDate(this.getPersona()
+				UtilValidate.validateString(this.getPadrino().getFkPersona()
+						.getNombre(), "Nombre", 150);
+				UtilValidate.validateString(this.getPadrino().getFkPersona()
+						.getApellido(), "Apellido", 150);
+				UtilValidate.validateInteger(this.getPadrino().getFkPersona()
+						.getSexo(), "Sexo", ValidateOperator.LESS_THAN, 2);
+				UtilValidate.validateDate(this.getPadrino().getFkPersona()
 						.getFechaNacimiento(), "Fecha de nacimiento",
 						ValidateOperator.LESS_THAN, new SimpleDateFormat(
-								"yyyy-MM-dd").format(new Date()), "DD/MM/YYYY");
+								"yyyy-MM-dd").format(new Date()), "dd/MM/yyyy");
 			} else {
-				UtilValidate.validateString(this.getPersona()
+				UtilValidate.validateString(this.getPadrino().getFkPersona()
 						.getIdentificacion(), "RIF", 35);
-				UtilValidate.validateString(this.getPersona().getNombre(),
-						"Nombre", 150);
+				UtilValidate.validateString(this.getPadrino().getFkPersona()
+						.getNombre(), "Nombre", 150);
 			}
 
-			UtilValidate
-					.validateNull(this.getPersona().getFkCiudad(), "Ciudad");
-		//	UtilValidate.validateDate(this.getColaborador().getFechaIngreso(),
-		//			"Fecha de ingreso", ValidateOperator.LESS_THAN,
-		//			new SimpleDateFormat("yyyy-MM-dd").format(new Date()),
-		//			"DD/MM/YYYY"); 
-			UtilValidate.validateString(this.getPersona().getDireccion(),
-					"Dirección", 250);
-			UtilValidate.validateNull(this.getPersona().getFkMultimedia(),
-					"Imagen");
-			UtilValidate.validateString(this.getPersona().getTelefono1(),
-					"Teléfono 1", 25);
-			
-			UtilValidate.validateString(this.getPersona().getFax(), "Fax", 100);
-			UtilValidate.validateString(this.getPersona().getCorreo(),
-					"Correo", 100);
+			UtilValidate.validateNull(this.getPadrino().getFkPersona()
+					.getFkCiudad(), "Ciudad");
 
-			return true;
-			
+			Calendar calendar = Calendar.getInstance();
+
+			calendar.setTime(new Date());
+			calendar.add(Calendar.DAY_OF_YEAR, 1);
+			UtilValidate.validateDate(this.getPadrino().getFechaIngreso(),
+					"Fecha de ingreso", ValidateOperator.LESS_THAN,
+					new SimpleDateFormat("yyyy-MM-dd").format(calendar
+							.getTime()), "dd/MM/yyyy");
+			UtilValidate.validateString(this.getPadrino().getFkPersona()
+					.getDireccion(), "Dirección", 250);
+			UtilValidate.validateString(this.getPadrino().getFkPersona()
+					.getTelefono1(), "Teléfono 1", 25);
+
+			UtilValidate.validateString(this.getPadrino().getFkPersona()
+					.getFax(), "Fax", 100);
+			UtilValidate.validateString(this.getPadrino().getFkPersona()
+					.getCorreo(), "Correo", 100);
+
 		} catch (Exception e) {
 			Alert.showMessage(e.getMessage());
 			return false;
 		}
+		return true;
+	}
+
+	// Propiedades de la Imagen
+	public String getNameImage() {
+		return nameImage;
+	}
+
+	public void setNameImage(String nameImage) {
+		this.nameImage = nameImage;
+	}
+
+	public String getExtensionImage() {
+		return extensionImage;
+	}
+
+	public void setExtensionImage(String extensionImage) {
+		this.extensionImage = extensionImage;
+	}
+
+	public String getUrlImage() {
+		return urlImage;
+	}
+
+	public void setUrlImage(String urlImage) {
+		this.urlImage = urlImage;
+	}
+
+	public String getTypeMedia() {
+		return typeMedia;
+	}
+
+	public void setTypeMedia(String typeMedia) {
+		this.typeMedia = typeMedia;
+	}
+
+	@Override
+	public BufferedImage getImageContent() {
+		if (bytes != null) {
+			try {
+				return ImageIO.read(new ByteArrayInputStream(bytes));
+			} catch (IOException e) {
+				return null;
+			}
+		}
+
+		if (urlImage != null) {
+			bytes = Zki.getBytes(urlImage);
+			return Zki.getBufferedImage(urlImage);
+		}
+
+		return null;
+	}
+
+	@Override
+	public void onUploadImageSingle(UploadEvent event, String idUpload) {
+		org.zkoss.util.media.Media media = event.getMedia();
+
+		if (media instanceof org.zkoss.image.Image) {
+
+			if (UtilMultimedia.validateImage(media.getName().substring(
+					media.getName().lastIndexOf(".") + 1))) {
+
+				this.extensionImage = media.getName().substring(
+						media.getName().lastIndexOf(".") + 1);
+				this.nameImage = new StringBuilder().append(Zki.PADRINOS)
+						.append(this.getPadrino().getIdPadrino()).toString();
+				this.bytes = media.getByteData();
+
+				this.urlImage = new StringBuilder().append(Zki.PADRINOS)
+						.append(this.getPadrino().getIdPadrino()).append(".")
+						.append(extensionImage).toString();
+				this.typeMedia = media.getContentType();
+
+			} else {
+				this.getPadrino().getFkPersona().setFkMultimedia(null);
+				Alert.showMessage("E: Error Code: 100-El formato de la <b>imagen</b> es inválido");
+
+			}
+		} else {
+			this.getPadrino().getFkPersona().setFkMultimedia(null);
+			Alert.showMessage("E: Error Code: 100-El formato de la <b>imagen</b> es inválido");
+		}
+	}
+
+	@Override
+	public void onRemoveImageSingle(String idUpload) {
+		bytes = null;
+	}
+
+	public byte[] getBytes() {
+		return bytes;
+	}
+
+	public void setBytes(byte[] bytes) {
+		this.bytes = bytes;
 	}
 }

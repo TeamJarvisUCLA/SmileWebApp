@@ -175,7 +175,7 @@
 				    <n:div id="twitter">
 				      	<div class="col s7 text-center">
 	
-				      	<n:a class="twitter-timeline hola" data-width="500" data-height="400" href="https://twitter.com/fancalara"></n:a>
+				      	<n:a class="twitter-timeline hola" data-width="850"    data-chrome="nofooter noborders transparent " data-height="400" href="https://twitter.com/fancalara"></n:a>
 				      	</div>
 			      	</n:div> 	
 				</div>

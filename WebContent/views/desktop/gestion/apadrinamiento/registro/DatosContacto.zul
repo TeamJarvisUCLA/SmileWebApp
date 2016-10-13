@@ -1,60 +1,98 @@
 <zk xmlns:n="native" xmlns:w="client">
 	<div sclass="animated fadeInLeft">
 		<div class="row">
-			<div class="col s12" align="center" style="margin-bottom: 15px;">
-				<label value="Ingrese la información de contacto del padrino" sclass="label-medium-500"></label>
+			<div class="col s12" align="center"
+				style="margin-bottom: 15px;">
+				<label
+					value="Ingrese la información de contacto del padrino"
+					sclass="label-medium-500">
+				</label>
 			</div>
 		</div>
-		 
+
 		<div width="100%">
 			<div class="row">
 				<div class="col s12">
-					
+
 					<div class="input-field col s6">
-						<n:label for="telefono_1" class="active">Teléfono 1</n:label>
-						<textbox id="telefono_1" type="text" value="@bind(vm.selectedObject.fkPersona.telefono1)"> </textbox>
+						<n:label for="telefono_1" class="active">
+							Teléfono 1
+						</n:label>
+						<textbox id="telefono_1" type="text"
+							value="@bind(vm.selectedObject.fkPersona.telefono1)">
+						</textbox>
 					</div>
-				
+
 					<div class="input-field col s6">
-						<n:label for="telefono_2" class="active">Teléfono 2</n:label>
-						<textbox id="telefono_2" type="text" value="@bind(vm.selectedObject.fkPersona.telefono2)"> </textbox>
+						<n:label for="telefono_2" class="active">
+							Teléfono 2
+						</n:label>
+						<textbox id="telefono_2" type="text"
+							value="@bind(vm.selectedObject.fkPersona.telefono2)">
+						</textbox>
 					</div>
-					
+
 					<div class="input-field col s6">
 						<n:label for="fax" class="active">Fax</n:label>
-						<textbox id="fax" type="text" value="@bind(vm.selectedObject.fkPersona.fax)"> </textbox>
-					</div>					
-					
-					<div class="input-field col s6">
-						<n:label for="correo" class="active">Correo electrónico</n:label>
-						<textbox id="correo" type="text" value="@bind(vm.selectedObject.fkPersona.correo)"> </textbox>
+						<textbox id="fax" type="text"
+							value="@bind(vm.selectedObject.fkPersona.fax)">
+						</textbox>
 					</div>
-				
+
 					<div class="input-field col s6">
-						<n:label for="twitter" class="active">Twitter</n:label>
-						<textbox id="twitter" type="text" value="@bind(vm.selectedObject.fkPersona.twitter)"> </textbox>
+						<n:label for="correo" class="active">
+							Correo electrónico
+						</n:label>
+						<textbox id="correo" type="text"
+							value="@bind(vm.selectedObject.fkPersona.correo)">
+						</textbox>
 					</div>
-				
+
 					<div class="input-field col s6">
-						<n:label for="instagram" class="active">Instagram</n:label>
-						<textbox id="instagram" type="text" value="@bind(vm.selectedObject.fkPersona.instagram)"> </textbox>
+						<n:label for="twitter" class="active">
+							Twitter
+						</n:label>
+						<textbox id="twitter" type="text"
+							value="@bind(vm.selectedObject.fkPersona.twitter)">
+						</textbox>
 					</div>
-					
+
 					<div class="input-field col s6">
-						<n:label for="facebook" class="active">Facebook</n:label>
-						<textbox id="facebook" type="text" value="@bind(vm.selectedObject.fkPersona.facebook)"> </textbox>
+						<n:label for="instagram" class="active">
+							Instagram
+						</n:label>
+						<textbox id="instagram" type="text"
+							value="@bind(vm.selectedObject.fkPersona.instagram)">
+						</textbox>
 					</div>
-				
+
 					<div class="input-field col s6">
-						<n:label for="linkedin" class="active">LinkedIn</n:label>
-						<textbox id="linkedin" type="text" value="@bind(vm.selectedObject.fkPersona.linkedin)"> </textbox>
+						<n:label for="facebook" class="active">
+							Facebook
+						</n:label>
+						<textbox id="facebook" type="text"
+							value="@bind(vm.selectedObject.fkPersona.facebook)">
+						</textbox>
 					</div>
-				
+
 					<div class="input-field col s6">
-						<n:label for="sitioWeb" class="active">Sitio web</n:label>
-						<textbox id="sitioWeb" type="text" value="@bind(vm.selectedObject.fkPersona.sitioWeb)"> </textbox>
+						<n:label for="linkedin" class="active">
+							LinkedIn
+						</n:label>
+						<textbox id="linkedin" type="text"
+							value="@bind(vm.selectedObject.fkPersona.linkedin)">
+						</textbox>
 					</div>
-				
+
+					<div class="input-field col s6">
+						<n:label for="sitioWeb" class="active">
+							Sitio web
+						</n:label>
+						<textbox id="sitioWeb" type="text"
+							value="@bind(vm.selectedObject.fkPersona.sitioWeb)">
+						</textbox>
+					</div>
+
 				</div>
 			</div>
 		</div>

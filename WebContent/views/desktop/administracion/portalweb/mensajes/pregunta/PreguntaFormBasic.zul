@@ -38,8 +38,7 @@
 							<div class="input-field col s6">
 								<n:label for="motivo">Motivo</n:label>
 								<textbox id="motivo" type="text" disabled="true" value="@bind(vm.contactoPortal.fkClasificadorSugerencia.nombre)"> </textbox>
-							</div>
-							
+							</div>		
 					 -->
 							<div class="input-field col s12">
 								<n:label for="respuesta">Respuesta</n:label>

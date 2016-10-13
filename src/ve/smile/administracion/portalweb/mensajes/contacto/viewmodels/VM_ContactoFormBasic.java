@@ -83,4 +83,13 @@ public class VM_ContactoFormBasic extends VM_WindowForm {
 		return true;
 	}
 
+	public String getRespuesta() {
+		return respuesta;
+	}
+
+	public void setRespuesta(String respuesta) {
+		this.respuesta = respuesta;
+	}
+
+	
 }

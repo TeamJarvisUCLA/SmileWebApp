@@ -75,10 +75,9 @@ public class VM_PreguntaFormBasic extends VM_WindowForm {
 	public String getRespuesta() {
 		return respuesta;
 	}
-
+ 
 	public void setRespuesta(String respuesta) {
 		this.respuesta = respuesta;
 	}
-	
 
 }

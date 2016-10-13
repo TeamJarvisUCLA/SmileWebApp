@@ -13,7 +13,6 @@ import org.zkoss.bind.annotation.Init;
 
 import ve.smile.consume.services.S;
 import ve.smile.dto.Parentesco;
-import ve.smile.payload.response.PayloadBeneficiarioFamiliarResponse;
 import ve.smile.payload.response.PayloadParentescoResponse;
 import ve.smile.seguridad.enums.OperacionEnum;
 
@@ -65,20 +64,20 @@ VM_WindowSimpleListPrincipal<Parentesco> {
 		criterios.put("fkParentesco.idParentesco", String.valueOf(getSelectedObject().getIdParentesco()));
 
 		//Table Relation BeneficiarioFamiliar
-		PayloadBeneficiarioFamiliarResponse payloadBeneficiarioFamiliarResponse =
-				S.BeneficiarioFamiliarService.contarCriterios(TypeQuery.EQUAL,
-						criterios);
+		//PayloadBeneficiarioFamiliarResponse payloadBeneficiarioFamiliarResponse =
+		//		S.BeneficiarioFamiliarService.contarCriterios(TypeQuery.EQUAL,
+	//					criterios);
 
-		if (!UtilPayload.isOK(payloadBeneficiarioFamiliarResponse)) {
-			return String.valueOf(payloadBeneficiarioFamiliarResponse.getInformacion(IPayloadResponse.MENSAJE));
-		}
+	//	if (!UtilPayload.isOK(payloadBeneficiarioFamiliarResponse)) {
+	//		return String.valueOf(payloadBeneficiarioFamiliarResponse.getInformacion(IPayloadResponse.MENSAJE));
+	//	}
 
-		Integer countFamiliares = 
-				Double.valueOf(String.valueOf(payloadBeneficiarioFamiliarResponse.getInformacion(IPayloadResponse.COUNT))).intValue();
+	//	Integer countFamiliares = 
+	//			Double.valueOf(String.valueOf(payloadBeneficiarioFamiliarResponse.getInformacion(IPayloadResponse.COUNT))).intValue();
 
-		if (countFamiliares > 0) {
-			return "E:Error 0:No se puede eliminar el <b>Parentesco</b> seleccionado ya que está siendo utilizado por " + countFamiliares + " Familiares de Beneficiarios";
-		}
+	//	if (countFamiliares > 0) {
+	//		return "E:Error 0:No se puede eliminar el <b>Parentesco</b> seleccionado ya que está siendo utilizado por " + countFamiliares + " Familiares de Beneficiarios";
+	//	}
 
 		return "";
 	}

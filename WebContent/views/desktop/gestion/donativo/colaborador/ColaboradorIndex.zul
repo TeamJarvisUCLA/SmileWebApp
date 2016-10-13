@@ -17,7 +17,7 @@
 							<listitem>
 								<listcell label="@load(each.fkPersona.nombre)" />
 								<listcell label="@load(each.fechaIngreso)" />
-								<listcell label="@load(each.fechaSalida)" />
+								<listcell label="@load(each.fechaEgreso)" />
 							</listitem>
 						</template>
 						<listfoot>

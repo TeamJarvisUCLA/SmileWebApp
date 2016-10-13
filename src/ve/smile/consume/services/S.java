@@ -40,7 +40,6 @@ public class S {
 	public static FortalezaService FortalezaService;
 	public static ActividadService ActividadService;
 	public static IndicadorTsPlanActividadService IndicadorTsPlanActividadService;
-	public static BeneficiarioFamiliarService BeneficiarioFamiliarService;
 	public static ComentarioAlbumService ComentarioAlbumService;
 	public static ColaboradorService ColaboradorService;
 	public static TsPlanService TsPlanService;
@@ -168,7 +167,6 @@ public class S {
 		FortalezaService = new FortalezaService();
 		ActividadService = new ActividadService();
 		IndicadorTsPlanActividadService = new IndicadorTsPlanActividadService();
-		BeneficiarioFamiliarService = new BeneficiarioFamiliarService();
 		ComentarioAlbumService = new ComentarioAlbumService();
 		ColaboradorService = new ColaboradorService();
 		TsPlanService = new TsPlanService();

@@ -47,4 +47,10 @@ public class UtilMultimedia {
 				|| extension.toUpperCase().equalsIgnoreCase("XLSX")
 				|| extension.toUpperCase().equalsIgnoreCase("XLS");
 	}
+
+	public static boolean validateImage(String extension) {
+		return extension.toUpperCase().equalsIgnoreCase("JPG")
+				|| extension.toUpperCase().equalsIgnoreCase("PNG")
+				|| extension.toUpperCase().equalsIgnoreCase("JPEG");
+	}
 }

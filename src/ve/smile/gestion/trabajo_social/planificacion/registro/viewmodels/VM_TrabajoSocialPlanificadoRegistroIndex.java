@@ -19,14 +19,14 @@ import karen.core.dialog.catalogue.generic.data.CatalogueDialogData;
 import karen.core.dialog.catalogue.generic.events.CatalogueDialogCloseEvent;
 import karen.core.dialog.catalogue.generic.events.listeners.CatalogueDialogCloseListener;
 import karen.core.dialog.generic.enums.DialogActionEnum;
-import karen.core.simple_list.wizard.buttons.data.OperacionWizard;
-import karen.core.simple_list.wizard.buttons.enums.OperacionWizardEnum;
-import karen.core.simple_list.wizard.buttons.helpers.OperacionWizardHelper;
-import karen.core.simple_list.wizard.viewmodels.VM_WindowWizard;
 import karen.core.util.UtilDialog;
 import karen.core.util.payload.UtilPayload;
 import karen.core.util.validate.UtilValidate;
 import karen.core.util.validate.UtilValidate.ValidateOperator;
+import karen.core.wizard.buttons.data.OperacionWizard;
+import karen.core.wizard.buttons.enums.OperacionWizardEnum;
+import karen.core.wizard.buttons.helpers.OperacionWizardHelper;
+import karen.core.wizard.viewmodels.VM_WindowWizard;
 import lights.core.payload.response.IPayloadResponse;
 import lights.smile.util.UtilMultimedia;
 
@@ -48,7 +48,7 @@ import ve.smile.payload.response.PayloadTsPlanResponse;
 import app.UploadImageSingle;
 
 public class VM_TrabajoSocialPlanificadoRegistroIndex extends
-		VM_WindowWizard<TrabajoSocial> implements UploadImageSingle {
+		VM_WindowWizard implements UploadImageSingle {
 
 	private TsPlan tsPlan;
 	private Voluntario voluntario = new Voluntario();
@@ -229,6 +229,7 @@ public class VM_TrabajoSocialPlanificadoRegistroIndex extends
 
 		PayloadTrabajoSocialResponse payloadTrabajoSocialResponse = S.TrabajoSocialService
 				.consultarPaginacion(cantidadRegistrosPagina, pagina);
+
 		return payloadTrabajoSocialResponse;
 	}
 
@@ -315,10 +316,10 @@ public class VM_TrabajoSocialPlanificadoRegistroIndex extends
 
 	@Override
 	public void comeIn(Integer currentStep) {
-		if (currentStep == 1) {
-			this.getControllerWindowWizard().updateListBoxAndFooter();
-			BindUtils.postNotifyChange(null, null, this, "objectsList");
-		}
+		// if (currentStep == 1) {
+		// this.getControllerWindowWizard().updateListBoxAndFooter();
+		// BindUtils.postNotifyChange(null, null, this, "objectsList");
+		// }
 	}
 
 	@Override

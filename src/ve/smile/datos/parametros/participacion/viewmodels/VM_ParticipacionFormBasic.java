@@ -1,9 +1,8 @@
 package ve.smile.datos.parametros.participacion.viewmodels;
 
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.zkoss.bind.annotation.Init;
 
 import karen.core.crux.alert.Alert;
 import karen.core.crux.session.DataCenter;
@@ -13,60 +12,43 @@ import karen.core.form.buttons.helpers.OperacionFormHelper;
 import karen.core.form.viewmodels.VM_WindowForm;
 import karen.core.util.payload.UtilPayload;
 import karen.core.util.validate.UtilValidate;
+
+import org.zkoss.bind.annotation.Init;
+
 import ve.smile.consume.services.S;
-import ve.smile.seguridad.enums.OperacionEnum;
-import ve.smile.payload.response.PayloadParticipacionResponse;
 import ve.smile.dto.Participacion;
-import ve.smile.payload.response.PayloadMultimediaResponse;
-import ve.smile.dto.Multimedia;
+import ve.smile.payload.response.PayloadParticipacionResponse;
+import ve.smile.seguridad.enums.OperacionEnum;
+import app.UploadImageSingle;
 
-public class VM_ParticipacionFormBasic extends VM_WindowForm {
+public class VM_ParticipacionFormBasic extends VM_WindowForm implements
+		UploadImageSingle {
 
-	private List<Multimedia> multimedias;
-	
+
 	@Init(superclass = true)
 	public void childInit() {
-		//NOTHING OK!
+		// NOTHING OK!
 	}
+
 	
-	public List<Multimedia> getMultimedias() {
-		if (this.multimedias == null) {
-			this.multimedias = new ArrayList<>();
-		}
-		if (this.multimedias.isEmpty()) {
-			PayloadMultimediaResponse payloadMultimediaResponse = S.MultimediaService
-					.consultarTodos();
-
-			if (!UtilPayload.isOK(payloadMultimediaResponse)) {
-				Alert.showMessage(payloadMultimediaResponse);
-			}
-
-			this.multimedias
-					.addAll(payloadMultimediaResponse.getObjetos());
-		}
-		return multimedias;
-	}
-
-	public void setMultimedias(
-			List<Multimedia> multimedias) {
-		this.multimedias = multimedias;
-	}
-
 	@Override
 	public List<OperacionForm> getOperationsForm(OperacionEnum operacionEnum) {
 		List<OperacionForm> operacionesForm = new ArrayList<OperacionForm>();
 
-		if (operacionEnum.equals(OperacionEnum.INCLUIR) ||
-				operacionEnum.equals(OperacionEnum.MODIFICAR)) {
+		if (operacionEnum.equals(OperacionEnum.INCLUIR)
+				|| operacionEnum.equals(OperacionEnum.MODIFICAR)) {
 
-			operacionesForm.add(OperacionFormHelper.getPorType(OperacionFormEnum.GUARDAR));
-			operacionesForm.add(OperacionFormHelper.getPorType(OperacionFormEnum.CANCELAR));
+			operacionesForm.add(OperacionFormHelper
+					.getPorType(OperacionFormEnum.GUARDAR));
+			operacionesForm.add(OperacionFormHelper
+					.getPorType(OperacionFormEnum.CANCELAR));
 
 			return operacionesForm;
 		}
 
 		if (operacionEnum.equals(OperacionEnum.CONSULTAR)) {
-			operacionesForm.add(OperacionFormHelper.getPorType(OperacionFormEnum.SALIR));
+			operacionesForm.add(OperacionFormHelper
+					.getPorType(OperacionFormEnum.SALIR));
 
 			return operacionesForm;
 		}
@@ -77,15 +59,15 @@ public class VM_ParticipacionFormBasic extends VM_WindowForm {
 
 	@Override
 	public boolean actionGuardar(OperacionEnum operacionEnum) {
-		if(!isFormValidated()) {
+		if (!isFormValidated()) {
 			return true;
 		}
 
 		if (operacionEnum.equals(OperacionEnum.INCLUIR)) {
-			PayloadParticipacionResponse payloadParticipacionResponse =
-					S.ParticipacionService.incluir(getParticipacion());
+			PayloadParticipacionResponse payloadParticipacionResponse = S.ParticipacionService
+					.incluir(getParticipacion());
 
-			if(!UtilPayload.isOK(payloadParticipacionResponse)) {
+			if (!UtilPayload.isOK(payloadParticipacionResponse)) {
 				Alert.showMessage(payloadParticipacionResponse);
 				return true;
 			}
@@ -96,10 +78,10 @@ public class VM_ParticipacionFormBasic extends VM_WindowForm {
 		}
 
 		if (operacionEnum.equals(OperacionEnum.MODIFICAR)) {
-			PayloadParticipacionResponse payloadParticipacionResponse =
-					S.ParticipacionService.modificar(getParticipacion());
+			PayloadParticipacionResponse payloadParticipacionResponse = S.ParticipacionService
+					.modificar(getParticipacion());
 
-			if(!UtilPayload.isOK(payloadParticipacionResponse)) {
+			if (!UtilPayload.isOK(payloadParticipacionResponse)) {
 				Alert.showMessage(payloadParticipacionResponse);
 				return true;
 			}
@@ -129,14 +111,23 @@ public class VM_ParticipacionFormBasic extends VM_WindowForm {
 	}
 
 	public boolean isFormValidated() {
-		//TODO: Validar multimedia
-		try{
-			UtilValidate.validateString(getParticipacion().getNombre(), "Nombre", 100);
-			UtilValidate.validateString(getParticipacion().getDescripcion(), "Descripción", 250);
+		// TODO: Validar multimedia
+		try {
+			UtilValidate.validateString(getParticipacion().getNombre(),
+					"Nombre", 100);
+			UtilValidate.validateString(getParticipacion().getDescripcion(),
+					"Descripción", 250);
 			return true;
-		}catch(Exception e){
+		} catch (Exception e) {
 			Alert.showMessage(e.getMessage());
 			return false;
-		}		
+		}
+	}
+
+
+	@Override
+	public BufferedImage getImageContent() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

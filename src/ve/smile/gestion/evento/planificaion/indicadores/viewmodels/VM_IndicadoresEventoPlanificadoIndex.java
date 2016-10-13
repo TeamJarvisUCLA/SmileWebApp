@@ -2,6 +2,7 @@ package ve.smile.gestion.evento.planificaion.indicadores.viewmodels;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -30,14 +31,14 @@ import lights.core.payload.response.IPayloadResponse;
 public class VM_IndicadoresEventoPlanificadoIndex extends
 VM_WindowWizard<EventoPlanificado>{
 	
-	private List<Indicador> indicadores;
-	private Set<Indicador> indicadoresSeleccionados;
-	private List<Indicador> eventoIndicadores;
-	private Set<Indicador> eventoIndicadoresSeleccionados;
+	private List<Indicador> indicadores = new ArrayList<>();
+	private Set<Indicador> indicadoresSeleccionados = new HashSet<>();
+	private List<Indicador> eventoIndicadores = new ArrayList<>();
+	private Set<Indicador> eventoIndicadoresSeleccionados = new HashSet<>();
 
-	private List<IndicadorEventoPlanificado> indicadorEventoPlanificado;
+	private List<IndicadorEventoPlanificado> indicadorEventoPlanificado = new ArrayList<>();
 
-	private List<Indicador> EventoIndicadoresAux;
+	private List<Indicador> EventoIndicadoresAux = new ArrayList<>();
 	
 	@Init(superclass = true)
 	public void childInit() {

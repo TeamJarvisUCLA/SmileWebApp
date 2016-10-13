@@ -31,9 +31,9 @@ public class C_PostuladoVoluntario extends C_WindowDialog {
 
 	@Override
 	public void onAccept(Event event) {
-		if (!isFormValidated()) {
-			return;
-		}
+//		if (!isFormValidated()) {
+//			return;
+//		}
 
 		DialogCloseEvent dialogCloseEvent = new DialogCloseEvent(event,
 				DialogActionEnum.ACEPTAR);

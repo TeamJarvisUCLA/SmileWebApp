@@ -66,7 +66,7 @@ public class VM_FortalezaVoluntarioIndex extends VM_WindowWizard<Voluntario>
 		this.voluntario = voluntario;
 	}
 	
-	// MÉTODOS DE LAS LISTAS
+	// Mï¿½TODOS DE LAS LISTAS
 	public boolean disabledFortaleza(Fortaleza fortaleza)
 	{
 		return this.getVoluntarioFortalezas().contains(fortaleza);
@@ -153,7 +153,7 @@ public class VM_FortalezaVoluntarioIndex extends VM_WindowWizard<Voluntario>
 		}
 	}
 	
-	// MÉTODOS DEL WIZARD
+	// Mï¿½TODOS DEL WIZARD
 	@Override
 	public Map<Integer, List<OperacionWizard>> getButtonsToStep()
 	{

@@ -1,0 +1,188 @@
+<zk xmlns:n="native" xmlns:w="client">
+	<div sclass="animated fadeInLeft">
+		<div class="row">
+			<div class="col s12" align="center"
+				style="margin-bottom: 15px;">
+				<label value="Datos del postulado"
+					sclass="label-medium-500">
+				</label>
+			</div>
+		</div>
+
+		<div width="100%">
+			<div class="row">
+				<div class="col s12">
+					<div class="input-field col s6">
+						<n:label for="tipo_persona" class="active">
+							Tipo de persona
+						</n:label>
+						<combobox id="tipo_persona" readonly="true"
+							disabled="true" model="@bind(vm.tipoPersonaEnums)"
+							selectedItem="@bind(vm.selectedObject.fkPersona.tipoPersonaEnum)">
+							<template name="model">
+								<comboitem label="@load(each)" />
+							</template>
+						</combobox>
+					</div>
+
+
+					<div
+						visible="@load(vm.selectedObject.fkPersona.tipoPersonaEnum eq 'JURIDICA' )">
+						<div class="input-field col s6">
+							<n:label for="identificacionRif"
+								class="active">
+								RIF
+							</n:label>
+							<textbox id="identificacionRif"
+								disabled="true" placeholder="J-1234567-8" type="text"
+								value="@bind(vm.selectedObject.fkPersona.identificacion)">
+							</textbox>
+						</div>
+						<div class="input-field col s12">
+							<n:label for="nombreJuridico"
+								class="active">
+								Nombre
+							</n:label>
+							<textbox id="nombreJuridico" type="text"
+								disabled="true"
+								value="@bind(vm.selectedObject.fkPersona.nombre)">
+							</textbox>
+						</div>
+					</div>
+					<div
+						visible="@load(vm.selectedObject.fkPersona.tipoPersonaEnum eq 'NATURAL' )">
+						<div class="input-field col s6">
+							<n:label for="identificacion"
+								class="active">
+								Cédula
+							</n:label>
+							<textbox id="identificacion" type="text"
+								disabled="true"
+								value="@bind(vm.selectedObject.fkPersona.identificacion)">
+							</textbox>
+						</div>
+
+						<div class="input-field col s6">
+							<n:label for="nombre" class="active">
+								Nombre
+							</n:label>
+							<textbox id="nombre" type="text"
+								disabled="true"
+								value="@bind(vm.selectedObject.fkPersona.nombre)">
+							</textbox>
+						</div>
+
+						<div class="input-field col s6">
+							<n:label for="apellido" class="active">
+								Apellido
+							</n:label>
+							<textbox id="apellido" type="text"
+								disabled="true"
+								value="@bind(vm.selectedObject.fkPersona.apellido)">
+							</textbox>
+						</div>
+
+						<div class="input-field col s6">
+							<n:label for="fecha_nacimiento"
+								class="active">
+								Fecha de nacimiento
+							</n:label>
+							<datebox id="db" cols="20"
+								format="dd/MM/yyyy" disabled="true"
+								value="@bind(vm.selectedObject.fkPersona.fechaNacimiento)" />
+						</div>
+
+						<div class="input-field col s6">
+							<n:label for="sexo" class="active">
+								Sexo
+							</n:label>
+							<combobox id="sexo" readonly="true"
+								selectedItem="@bind(vm.sexoEnum)" disabled="true"
+								model="@bind(vm.sexoEnums)">
+								<template name="model">
+									<comboitem label="@load(each)" />
+								</template>
+							</combobox>
+						</div>
+					</div>
+
+					<div class="input-field col s6">
+						<n:label class="active" for="fk_estado">
+							Estado
+						</n:label>
+						<combobox id="fk_estado"
+							placeholder="Seleccione un estado" instant="true" disabled="true"
+							onSelect="@command('changeEstado')" model="@bind(vm.estados)"
+							selectedItem="@bind(vm.estado)">
+							<template name="model">
+								<comboitem label="@load(each.nombre)" />
+							</template>
+						</combobox>
+					</div>
+
+					<div class="input-field col s6">
+						<n:label class="active" for="fk_ciudad">
+							Ciudad
+						</n:label>
+						<combobox id="fk_ciudad" readonly="true"
+							placeholder="Seleccione una ciudad" disabled="true"
+							model="@bind(vm.ciudades)"
+							selectedItem="@bind(vm.selectedObject.fkPersona.fkCiudad)">
+							<template name="model">
+								<comboitem label="@load(each.nombre)" />
+							</template>
+						</combobox>
+					</div>
+
+
+					<div sclass=" col s6">
+						<div class="input-field">
+							<n:label for="correo" class="active">
+								Correo
+							</n:label>
+							<textbox id="correo" type="text"
+								disabled="true"
+								value="@bind(vm.selectedObject.fkPersona.correo)">
+							</textbox>
+						</div>
+
+
+						<div class="input-field">
+							<n:label class="active"
+								for="fk_frecuenciaAporte">
+								Frecuencia Aporte
+							</n:label>
+							<combobox id="fk_frecuenciaAporte"
+								placeholder="Seleccione una frecuencia aporte"
+								model="@bind(vm.frecuenciaAporte)" disabled="true"
+								selectedItem="@bind(vm.selectedObject.fkFrecuenciaAporte)">
+								<template name="model">
+									<comboitem
+										label="@load(each.nombre)" />
+								</template>
+							</combobox>
+						</div>
+
+						<div class="input-field">
+							<n:label for="monto" class="active">
+								Monto
+							</n:label>
+							<doublebox id="monto" disabled="true"
+								value="@bind(vm.selectedObject.monto)">
+							</doublebox>
+						</div>
+					</div>
+					<div class="input-field col s6">
+						<n:label for="direccion" class="active">
+							Dirección
+						</n:label>
+						<textbox id="direccion" type="text"
+							disabled="true" sclass="materialize-textarea" multiline="true"
+							value="@bind(vm.selectedObject.fkPersona.direccion)">
+						</textbox>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</zk>

@@ -1,3 +1,6 @@
+<?xel-method prefix="m" name="convertirLongATimestamp" class="lights.smile.util.UtilConverterDataList" 
+	signature="java.lang.String convertirLongATimestamp(java.lang.Long)" ?>
+
 <zk xmlns:n="native" xmlns:w="client">
 	<div width="100%" class='${arg.animation_}'
 		use="karen.core.simple_list_principal.controllers.C_WindowSimpleListPrincipal"
@@ -7,17 +10,24 @@
 		<div class="row">
 			<div class="col s12">
 				<div class="col s12">
-					<listbox id="listbox" model="@load(vm.objectsList)" selectedItem="@bind(vm.selectedObject)">
+					<listbox id="listbox" model="@load(vm.objectsList)"
+						selectedItem="@bind(vm.selectedObject)">
 						<listhead sizable="true">
-							<listheader width="50%" label="Patrocinador" />
-							<listheader width="25%" label="Fecha de ingreso" />
-							<listheader width="25%" label="Fecha de egreso" />
+							<listheader width="25%"
+								label="Identificación" />
+							<listheader width="50%"
+								label="Patrocinador" />
+							<listheader width="25%" label="Dirección" />
 						</listhead>
 						<template name="model">
 							<listitem>
-								<listcell label="@load(each.fkPersona.nombre)" />
-								<listcell label="@load(each.fechaIngreso)" />
-								<listcell label="@load(each.fechaSalida)" />
+								<listcell
+									label="@load(each.fkPersona.identificacion)" />
+								<listcell
+									label="@load((each.fkPersona.nombre).concat(' ').concat(each.fkPersona.apellido))" />
+
+								<listcell
+									label="@load(each.fkPersona.direccion)" />
 							</listitem>
 						</template>
 						<listfoot>
@@ -30,6 +40,8 @@
 			</div>
 		</div>
 
-		<toolbar id="toolbar" align="center" use="karen.core.toolbar.Toolbar"> </toolbar>
+		<toolbar id="toolbar" align="center"
+			use="karen.core.toolbar.Toolbar">
+		</toolbar>
 	</div>
 </zk>

@@ -148,19 +148,17 @@ element.style {
 	margin-top: -30px !important;
 }
 
-.owl-page span {
+.z-listitem.z-listitem-selected>.z-listcell,
+.z-listitem:HOVER>.z-listcell,
+.z-treerow-selected>.z-treecell,
+.z-treerow:HOVER>.z-treecell
+	{
 	background: #87796f !important;
-	opacity: 1 !important;
+	overflow: auto;
 }
 
-.owl-page.active span {
-	background: #f26b7a !important;
-}
-
-.owl-theme .owl-controls .owl-buttons .owl-prev {
-	left: 0px;
-	top: 200px;
-	position: absolute;
+button {
+	background: #3b85a1 !important;
 }
 
 .owl-theme .owl-controls .owl-buttons .owl-next {
@@ -195,6 +193,7 @@ element.style {
 .z-tabbox-accordion>.z-tabpanels>.z-tabpanel {
 	border: 0px;
 	padding: 2px;
+	margin-bottom: 10px;
 }
 
 .z-tabbox-left>.z-tabpanels>.z-tabpanel {
@@ -217,7 +216,63 @@ element.style {
 	background-color: #f0f2dc;
 }
 
-.z-tab {
+.tabsitos a span {
+	background-color: #F0F2DC;
+	color: #f26b7a;
+	font-size: 12px;
+	font-weigth: bold;
+}
+
+a:hover,a:focus {
+	text-decoration: none;
+}
+
+.menuPrincipal>ul>li:hover {
+	background: #F26B7A;
+}
+
+.menuPrincipal .z-tab-selected {
+	background-color: #F26B7A !important;
+}
+
+.menuPrincipal .z-tabs-content {
+	width: 100%;
+	border-collapse: separate;
+	border-bottom: 0px solid #cfcfcf;
+	margin: 0;
+	padding-left: 0;
+	padding-top: 0;
+	list-style-image: none;
+	list-style-position: outside;
+	list-style-type: none;
+}
+
+.carousel {
+	position: relative;
+	/* 	height: 235px; */
+}
+
+.btn {
+	margin-bottom: 0;
+	font-size: 14px;
+	font-weight: 400;
+	line-height: 1.42857143;
+	text-align: center;
+	vertical-align: middle;
+	-ms-touch-action: manipulation;
+	touch-action: manipulation;
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	background-image: none;
+	color: #ffffff;
+	background-color: #044159;
+	border-radius: 0px;
+}
+
+.z-tab, .z-tab:hover {
 	/* 	height: 2%; */
 	border-color: #F26B7A;
 	font-size: 16px;
@@ -260,13 +315,42 @@ element.style {
 	float: none;
 	zoom: 1;
 	border-color: #F0F2DC;
-	background-color: #F0F2DC;
-	border-radius: 4px;
-	height: 30px;
+	background: #F0F2DC;
+	border-radius: 0px;
+	padding: 7px;
 }
 
 .z-tabbox-accordion>.z-tabpanels {
 	border-top: 0px;
+}
+
+.requisitos span {
+	color: #87796f;
+	font-weigth: bold;
+}
+
+.info span {
+	color: #87796f;
+}
+
+div.barra-verde span {
+	font-weigth: bold;
+	padding-top: 5px;
+	color: #87796F;
+}
+
+div.barra-verde {
+	width: 100%;
+	/* 	height: 40px; */
+	background-color: #d9eb52;
+	color: #F26B7A;
+}
+
+.container.menu {
+	width: 100%;
+	/* 	height: 450px; */
+	margin: 0px;
+	padding: 0px;
 }
 
 .z-tabbox-accordion .z-tab-text {

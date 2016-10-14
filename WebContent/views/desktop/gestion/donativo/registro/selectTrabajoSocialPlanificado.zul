@@ -1,9 +1,12 @@
+<?xel-method prefix="m" name="convertirLongADate" class="lights.smile.util.UtilConverterDataList" 
+	signature="java.lang.String convertirLongADate(java.lang.Long)" ?>
 <zk xmlns:n="native" xmlns:w="client">
 	<div sclass="animated fadeInLeft">
 		<div class="row">
 			<div class="col s12" align="center"
 				style="margin-bottom: 15px;">
-				<label value="Seleccione el Trabajo Social Planificado del que provino el Donativo"
+				<label
+					value="Seleccione el Evento Planificado del que provino el Donativo"
 					sclass="label-medium-500">
 				</label>
 			</div>
@@ -14,32 +17,27 @@
 			<div class="row">
 				<div class="col s12">
 					<div class="col s12">
-						<listbox id="listbox"
-							model="@load(vm.objectsList)"
-							selectedItem="@bind(vm.selectedObject)">
-
+						<listbox model="@load(vm.tsPlans)"
+							height="150px"
+							emptyMessage="No hay Trabajos Sociales Planificados"
+							selectedItem="@bind(vm.tsPlan)">
 							<listhead sizable="true">
-								<listheader width="33%" label="Nombre" />
 								<listheader width="33%"
-									label="Fecha Inicio" />
+									label="Trabajo Social" />
 								<listheader width="33%"
-									label="Fecha Fin" />
+									label="Fecha Planificada" />
+								<listheader width="33%" label="Lugar" />
 							</listhead>
 							<template name="model">
 								<listitem>
 									<listcell
-										label="@load(each.tsPlan.fkTrabajoSocial.nombre)" />
+										label="@load(each.fkTrabajoSocial.nombre)" />
 									<listcell
-										label="@load(each.tsPlan.fechaInicio)" />
+										label="${m:convertirLongADate(each.fechaPlanificada)}" />
 									<listcell
-										label="@load(each.tsPlan.fechaFin)" />
+										label="@load(each.fkDirectorio.nombre)" />
 								</listitem>
 							</template>
-							<listfoot>
-								<listfooter id="listFoot" span="3"
-									use="karen.core.listfoot.ListFoot">
-								</listfooter>
-							</listfoot>
 						</listbox>
 					</div>
 				</div>

@@ -19,10 +19,7 @@ public class Zki {
 	public static final String EVENTO = "EVENTO/EVENTO_";
 	public static final String ORGANIZACION = "ORGANIZACION/";
 	public static final String NOTICIAS = "NOTICIAS/NOTICIAS_";
-	public static final String VOLUNTARIOS = "PERSONA/VOLUNTARIOS_";
-	public static final String PADRINOS = "PERSONA/PADRINOS_";
-	public static final String COLABORADOR = "PERSONA/COLABORADORES_";
-	public static final String PATROCINADOR = "PATROCINADOR/PATROCINADOR_";
+	public static final String PERSONAS = "PERSONA/PERSONAS_";
 	public static final String VALORES = "VALORES/VALORES_";
 	public static final String PARTICIPACION = "PARTICIPACION/PARTICIPACION_";
 

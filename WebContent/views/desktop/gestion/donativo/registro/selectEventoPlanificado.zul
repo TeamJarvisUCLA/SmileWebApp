@@ -1,3 +1,5 @@
+<?xel-method prefix="m" name="convertirLongADate" class="lights.smile.util.UtilConverterDataList" 
+	signature="java.lang.String convertirLongADate(java.lang.Long)" ?>
 <zk xmlns:n="native" xmlns:w="client">
 	<div sclass="animated fadeInLeft">
 		<div class="row">
@@ -16,26 +18,24 @@
 				<div class="col s12">
 					<div class="col s12">
 						<listbox model="@load(vm.eventoPlanificados)"
+							height="150px" emptyMessage="No hay Eventos Planificados"
 							selectedItem="@bind(vm.eventoPlanificado)">
-
 							<listhead sizable="true">
 								<listheader width="33%" label="Evento" />
 								<listheader width="33%"
-									label="Fecha Inicio" />
-								<listheader width="33%"
-									label="Fecha Fin" />
+									label="Fecha Planificada" />
+								<listheader width="33%" label="Lugar" />
 							</listhead>
 							<template name="model">
 								<listitem>
 									<listcell
 										label="@load(each.fkEvento.nombre)" />
 									<listcell
-										label="@load(each.fechaInicio)" />
+										label="${m:convertirLongADate(each.fechaPlanificada)}" />
 									<listcell
-										label="@load(each.fechaFin)" />
+										label="@load(each.fkDirectorio.nombre)" />
 								</listitem>
 							</template>
-
 						</listbox>
 					</div>
 				</div>

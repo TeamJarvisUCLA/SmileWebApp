@@ -16,17 +16,20 @@
 				<div class="col s12">
 					<div class="col s12">
 						<listbox model="@load(vm.colaboradores)"
+							emptyMessage="No hay Colaboradores a mostrar" height="150px"
 							selectedItem="@bind(vm.colaborador)">
-
 							<listhead sizable="true">
-
-								<listheader width="50%"
+								<listheader width="20%"
+									label="Tipo de Persona" />
+								<listheader width="30%"
 									label="Identificación" />
 								<listheader width="50%"
 									label="Nombres y Apellidos" />
 							</listhead>
 							<template name="model">
 								<listitem>
+									<listcell
+										label="@load(each.fkPersona.tipoPersonaEnum.toString())" />
 									<listcell
 										label="@load(each.fkPersona.identificacion)" />
 									<listcell

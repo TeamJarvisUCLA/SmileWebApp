@@ -419,7 +419,7 @@ public class VM_DirectorioFormBasic extends VM_WindowForm implements
 						media.getName().lastIndexOf(".") + 1);
 
 				this.bytes = media.getByteData();
-
+				this.typeMedia = media.getContentType();
 				if (this.getDirectorio().getIdDirectorio() != null) {
 					this.urlImage = new StringBuilder().append(Zki.DIRECTORIO)
 							.append(this.getDirectorio().getIdDirectorio())
@@ -428,12 +428,10 @@ public class VM_DirectorioFormBasic extends VM_WindowForm implements
 							.append(this.getDirectorio().getIdDirectorio())
 							.append(".").append(extensionImage).toString();
 				}
-				this.typeMedia = media.getContentType();
 
 			} else {
 				this.getDirectorio().setFkMultimedia(null);
 				Alert.showMessage("E: Error Code: 100-El formato de la <b>imagen</b> es inválido");
-
 			}
 		} else {
 			this.getDirectorio().setFkMultimedia(null);

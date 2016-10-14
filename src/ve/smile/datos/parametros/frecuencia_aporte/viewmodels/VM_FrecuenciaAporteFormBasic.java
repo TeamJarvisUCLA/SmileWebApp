@@ -3,8 +3,6 @@ package ve.smile.datos.parametros.frecuencia_aporte.viewmodels;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.zkoss.bind.annotation.Init;
-
 import karen.core.crux.alert.Alert;
 import karen.core.crux.session.DataCenter;
 import karen.core.form.buttons.data.OperacionForm;
@@ -14,41 +12,58 @@ import karen.core.form.viewmodels.VM_WindowForm;
 import karen.core.util.payload.UtilPayload;
 import karen.core.util.validate.UtilValidate;
 import karen.core.util.validate.UtilValidate.ValidateOperator;
+
+import org.zkoss.bind.annotation.Init;
+
 import ve.smile.consume.services.S;
-import ve.smile.seguridad.enums.OperacionEnum;
-import ve.smile.payload.response.PayloadFrecuenciaAporteResponse;
 import ve.smile.dto.FrecuenciaAporte;
-import ve.smile.dto.UnidadMedida;
-import ve.smile.payload.response.PayloadUnidadMedidaResponse;
+import ve.smile.enums.UnidadFrecuenciaAporteEnum;
+import ve.smile.payload.response.PayloadFrecuenciaAporteResponse;
+import ve.smile.seguridad.enums.OperacionEnum;
 
 public class VM_FrecuenciaAporteFormBasic extends VM_WindowForm {
 
-	private List<UnidadMedida> unidadMedidas;
+	private List<UnidadFrecuenciaAporteEnum> unidadFrecuenciaAporteEnums;
+	private UnidadFrecuenciaAporteEnum unidadFrecuenciaAporteEnum;
 
 	@Init(superclass = true)
 	public void childInit() {
 		// NOTHING OK!
+
+		if (getFrecuenciaAporte().getUnidadFrecuenciaAporte() != null) {
+			this.setUnidadFrecuenciaAporteEnum(UnidadFrecuenciaAporteEnum
+					.values()[getFrecuenciaAporte().getUnidadFrecuenciaAporte()]);
+		}
 	}
 
-	public List<UnidadMedida> getUnidadMedidas() {
-		if (this.unidadMedidas == null) {
-			this.unidadMedidas = new ArrayList<>();
+	public List<UnidadFrecuenciaAporteEnum> getUnidadFrecuenciaAporteEnums() {
+		if (this.unidadFrecuenciaAporteEnums == null) {
+			this.unidadFrecuenciaAporteEnums = new ArrayList<>();
 		}
-		if (this.unidadMedidas.isEmpty()) {
-			PayloadUnidadMedidaResponse payloadUnidadMedidaResponse = S.UnidadMedidaService
-					.consultarTodos();
-
-			if (!UtilPayload.isOK(payloadUnidadMedidaResponse)) {
-				Alert.showMessage(payloadUnidadMedidaResponse);
+		if (this.unidadFrecuenciaAporteEnums.isEmpty()) {
+			for (UnidadFrecuenciaAporteEnum unidadFrecuenciaAporteEnum : UnidadFrecuenciaAporteEnum
+					.values()) {
+				this.unidadFrecuenciaAporteEnums
+						.add(unidadFrecuenciaAporteEnum);
 			}
-
-			this.unidadMedidas.addAll(payloadUnidadMedidaResponse.getObjetos());
 		}
-		return unidadMedidas;
+		return unidadFrecuenciaAporteEnums;
 	}
 
-	public void setUnidadMedidas(List<UnidadMedida> unidadMedidas) {
-		this.unidadMedidas = unidadMedidas;
+	public void setUnidadFrecuenciaAporteEnums(
+			List<UnidadFrecuenciaAporteEnum> unidadFrecuenciaAporteEnums) {
+		this.unidadFrecuenciaAporteEnums = unidadFrecuenciaAporteEnums;
+	}
+
+	public UnidadFrecuenciaAporteEnum getUnidadFrecuenciaAporteEnum() {
+		return unidadFrecuenciaAporteEnum;
+	}
+
+	public void setUnidadFrecuenciaAporteEnum(
+			UnidadFrecuenciaAporteEnum unidadFrecuenciaAporteEnum) {
+		this.unidadFrecuenciaAporteEnum = unidadFrecuenciaAporteEnum;
+		this.getFrecuenciaAporte().setUnidadFrecuenciaAporte(
+				unidadFrecuenciaAporteEnum.ordinal());
 	}
 
 	@Override
@@ -134,9 +149,8 @@ public class VM_FrecuenciaAporteFormBasic extends VM_WindowForm {
 		try {
 			UtilValidate.validateString(getFrecuenciaAporte().getNombre(),
 					"Nombre", 100);
-			UtilValidate.validateNull(
-					getFrecuenciaAporte().getFkUnidadMedida(),
-					"Unidad de Medida");
+			UtilValidate.validateNull(getFrecuenciaAporte()
+					.getUnidadFrecuenciaAporte(), "Unidad de Medida");
 			UtilValidate.validateInteger(getFrecuenciaAporte().getFrecuencia(),
 					"Frecuencia", ValidateOperator.GREATER_THAN, 0);
 			return true;

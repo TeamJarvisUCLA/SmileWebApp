@@ -2,13 +2,8 @@
 	signature="java.lang.String convertirLongADate(java.lang.Long)" ?>
 <zk xmlns:n="native" xmlns:w="client">
 	<style>
-		.z-auxheader-content, .z-auxheader-content:hover { background:
-		#594e46 !important; border-right: none; height: 41px; }
 
 		input { background: #FFFFFF !important; height: 17px; }
-
-		.z-auxhead:hover .z-auxheader-content { background: #594e46
-		!important; }
 
 		.page-content-main input[type="text"], .page-content-main
 		input[type="password"], .page-content-main input[type="email"],
@@ -84,7 +79,7 @@
 						<listhead>
 							<listheader width="10%"
 								label="Identificación" />
-							<listheader width="20%" label="Nombre" />
+							<listheader width="20%" label="Padrino" />
 							<listheader width="15%"
 								label="Frecuencia de aporte" />
 							<listheader width="15%"

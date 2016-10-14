@@ -311,8 +311,8 @@ public class VM_PadrinoFormBasic extends VM_WindowForm implements
 					multimedia
 							.setIdMultimedia(((Double) payloadMultimediaResponse
 									.getInformacion("id")).intValue());
-					Zki.save(Zki.PADRINOS, this.getPadrino().getIdPadrino(),
-							extensionImage, bytes);
+					Zki.save(Zki.PERSONAS, this.getPadrino().getFkPersona()
+							.getIdPersona(), extensionImage, bytes);
 					this.getPadrino().getFkPersona()
 							.setFkMultimedia(multimedia);
 				} else {
@@ -325,8 +325,12 @@ public class VM_PadrinoFormBasic extends VM_WindowForm implements
 							.stringToExtensionEnum(extensionImage).ordinal());
 					PayloadMultimediaResponse payloadMultimediaResponse = S.MultimediaService
 							.modificar(multimedia);
-					Zki.save(Zki.PADRINOS, this.getPadrino().getIdPadrino(),
-							extensionImage, bytes);
+					if (!UtilPayload.isOK(payloadMultimediaResponse)) {
+						Alert.showMessage(payloadMultimediaResponse);
+						return true;
+					}
+					Zki.save(Zki.PERSONAS, this.getPadrino().getFkPersona()
+							.getIdPersona(), extensionImage, bytes);
 				}
 
 			}
@@ -505,14 +509,16 @@ public class VM_PadrinoFormBasic extends VM_WindowForm implements
 
 				this.extensionImage = media.getName().substring(
 						media.getName().lastIndexOf(".") + 1);
-				this.nameImage = new StringBuilder().append(Zki.PADRINOS)
-						.append(this.getPadrino().getIdPadrino()).append(".")
-						.append(extensionImage).toString();
+				this.nameImage = new StringBuilder()
+						.append(Zki.PERSONAS)
+						.append(this.getPadrino().getFkPersona().getIdPersona())
+						.append(".").append(extensionImage).toString();
 				this.bytes = media.getByteData();
 
-				this.urlImage = new StringBuilder().append(Zki.PADRINOS)
-						.append(this.getPadrino().getIdPadrino()).append(".")
-						.append(extensionImage).toString();
+				this.urlImage = new StringBuilder()
+						.append(Zki.PERSONAS)
+						.append(this.getPadrino().getFkPersona().getIdPersona())
+						.append(".").append(extensionImage).toString();
 				this.typeMedia = media.getContentType();
 
 			} else {

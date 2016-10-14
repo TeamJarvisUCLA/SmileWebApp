@@ -445,9 +445,8 @@ public class VM_RegistrarPadrinoIndex extends VM_WindowWizard implements
 						.incluir(multimedia);
 				multimedia.setIdMultimedia(((Double) payloadMultimediaResponse
 						.getInformacion("id")).intValue());
-				Zki.save(Zki.PADRINOS,
-						this.getPadrinoSelected().getIdPadrino(),
-						extensionImage, bytes);
+				Zki.save(Zki.PERSONAS, this.getPadrinoSelected().getFkPersona()
+						.getIdPersona(), extensionImage, bytes);
 				this.getPadrinoSelected().getFkPersona()
 						.setFkMultimedia(multimedia);
 
@@ -543,14 +542,18 @@ public class VM_RegistrarPadrinoIndex extends VM_WindowWizard implements
 
 				this.extensionImage = media.getName().substring(
 						media.getName().lastIndexOf(".") + 1);
-				this.nameImage = new StringBuilder().append(Zki.PADRINOS)
-						.append(this.getPadrinoSelected().getIdPadrino())
-						.append(".").append(this.extensionImage).toString();
+				this.nameImage = new StringBuilder()
+						.append(Zki.PERSONAS)
+						.append(this.getPadrinoSelected().getFkPersona()
+								.getIdPersona()).append(".")
+						.append(this.extensionImage).toString();
 				this.bytes = media.getByteData();
 
-				this.urlImage = new StringBuilder().append(Zki.PADRINOS)
-						.append(this.getPadrinoSelected().getIdPadrino())
-						.append(".").append(extensionImage).toString();
+				this.urlImage = new StringBuilder()
+						.append(Zki.PERSONAS)
+						.append(this.getPadrinoSelected().getFkPersona()
+								.getIdPersona()).append(".")
+						.append(extensionImage).toString();
 				this.typeMedia = media.getContentType();
 
 			} else {

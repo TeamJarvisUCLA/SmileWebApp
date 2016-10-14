@@ -221,22 +221,10 @@ public class VM_RegistroDonativoIndex extends VM_WindowWizard {
 	public List<String> getUrlPageToStep() {
 		List<String> urls = new ArrayList<String>();
 
-		urls.add("views/desktop/gestion/donativo/registro/selectProcedencia.zul"); // seleccionar
-																					// Procedencia
-
-		// if(urls){ //seleccionar objeto de la procedencia
+		urls.add("views/desktop/gestion/donativo/registro/selectProcedencia.zul");
 		urls.add("views/desktop/gestion/donativo/registro/selectList.zul");
-		// urls.add("views/desktop/gestion/donativo/registro/selectTrabajoSocialPlanificado.zul");
-		// urls.add("views/desktop/gestion/donativo/registro/selectColaborador.zul");
-		// urls.add("views/desktop/gestion/donativo/registro/selectPatrocinador.zul");
-		// urls.add("views/desktop/gestion/donativo/registro/selectPadrino.zul");
-		// }
-
-		urls.add("views/desktop/gestion/donativo/registro/RegistroDonativoFormBasic.zul"); // formulario
-																							// de
-																							// registro
-		urls.add("views/desktop/gestion/donativo/registro/registroCompletado.zul"); // registro
-																					// completado
+		urls.add("views/desktop/gestion/donativo/registro/RegistroDonativoFormBasic.zul");
+		urls.add("views/desktop/gestion/donativo/registro/registroCompletado.zul");
 		return urls;
 	}
 

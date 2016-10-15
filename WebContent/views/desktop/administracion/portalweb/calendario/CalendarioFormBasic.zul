@@ -1,0 +1,68 @@
+<zk xmlns:n="native" xmlns:w="client">
+	<div width="80%" class="container ${arg.animation_}"
+		use="karen.core.form.controllers.C_WindowForm"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('ve.smile.administracion.portalweb.calendario.viewmodels.VM_CalendarioFormBasic')">
+		
+		<div class="row">
+			<div class="col s12">
+				<div class="input-field col s6">
+					<n:label for="evento">Evento</n:label>
+					<textbox id="evento" type="text" disabled= "true" maxlength="100"
+						value="@bind(vm.eventoPlanificado.fkEvento.nombre)">
+					</textbox>
+				</div>
+				<div class="input-field col s6">
+					<n:label for="lugar">Lugar</n:label>
+					<textbox id="lugar" type="text" disabled= "true" maxlength="100"
+						value="@bind(vm.eventoPlanificado.fkDirectorio.nombre)">
+					</textbox>
+				</div>
+				
+				<div class="input-field col s6">
+					<n:label for="album">Album Asociado</n:label>
+					<textbox id="album" type="text" disabled= "true" maxlength="100"
+						value="@bind(vm.eventoPlanificado.fkAlbum.titulo)">
+					</textbox>
+				</div>
+				
+				<div class="input-field col s6">
+					<n:label for="responsable">Responsable</n:label>
+					<textbox id="responsable" type="text" disabled= "true" maxlength="100"
+						value="@bind(vm.eventoPlanificado.fkPersona.nombre)">
+					</textbox>
+				</div>
+				
+		<!-- 		
+				<div class="input-field col s6">
+					<n:label for="fecha_inicio" class="active">Fecha de inicio de publicación</n:label>
+						<datebox id="fi" cols="20"
+							readonly="true" format="dd/MM/yyyy"
+							value="@bind(vm.eventoPlanificado.fechaInicioIncidencia)" />
+				</div>
+				<div class="input-field col s6">
+					<n:label for="fecha_fin" class="active">Fecha de culminación de publicación</n:label>
+						<datebox id="ff" cols="20"
+							readonly="true" format="dd/MM/yyyy"
+							value="@bind(vm.eventoPlanificado.fechaFinIncidencia)" />
+				</div>
+		-->		
+				<div class="input-field col s12">
+					<n:label for="observacion">Observación</n:label>
+					<textbox id="observacion" class="materialize-textarea" type="text" multiline="true" maxlength="200"
+						value="@bind(vm.eventoPlanificado.observacion)">
+					</textbox>
+				
+				</div >
+			 
+				<div class="input-field col s12" align="center">
+					<checkbox label="Publicar en el Portal" id="publicar" checked="@bind(vm.eventoPlanificado.publicoPortal)"/>
+				</div>
+	
+			</div>
+		</div>
+		<div id="divButtonsForm"
+			use="karen.core.form.buttons.containers.DivButtonsForm">
+		</div>
+	</div>
+</zk>

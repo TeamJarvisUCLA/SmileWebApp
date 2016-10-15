@@ -1,4 +1,4 @@
-package ve.smile.gestion.apadrinamiento.egreso.viewmodels;
+package ve.smile.gestion.donativo.colaborador.viewmodels;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -26,20 +26,21 @@ import org.zkoss.bind.annotation.NotifyChange;
 
 import ve.smile.consume.services.S;
 import ve.smile.dto.Ciudad;
+import ve.smile.dto.Colaborador;
 import ve.smile.dto.Estado;
-import ve.smile.dto.FrecuenciaAporte;
 import ve.smile.dto.Motivo;
 import ve.smile.dto.Padrino;
+import ve.smile.enums.EstatusColaboradorEnum;
 import ve.smile.enums.EstatusPadrinoEnum;
 import ve.smile.enums.TipoPersonaEnum;
 import ve.smile.payload.response.PayloadCiudadResponse;
+import ve.smile.payload.response.PayloadColaboradorResponse;
 import ve.smile.payload.response.PayloadEstadoResponse;
-import ve.smile.payload.response.PayloadFrecuenciaAporteResponse;
 import ve.smile.payload.response.PayloadMotivoResponse;
 import ve.smile.payload.response.PayloadPadrinoResponse;
 import ve.smile.seguridad.enums.SexoEnum;
 
-public class VM_EgresoPadrinoIndex extends VM_WindowWizard {
+public class VM_EgresoColaboradorIndex extends VM_WindowWizard {
 	private List<EstatusPadrinoEnum> estatusPadrinoEnums;
 	private EstatusPadrinoEnum estatusPadrinoEnum;
 
@@ -58,8 +59,6 @@ public class VM_EgresoPadrinoIndex extends VM_WindowWizard {
 
 	private SexoEnum sexoEnum;
 	private TipoPersonaEnum tipoPersonaEnum;
-
-	private List<FrecuenciaAporte> frecuenciaAporte;
 
 	@Init(superclass = true)
 	public void childInit() {
@@ -168,25 +167,6 @@ public class VM_EgresoPadrinoIndex extends VM_WindowWizard {
 
 	public void setEstados(List<Estado> estados) {
 		this.estados = estados;
-	}
-
-	public List<FrecuenciaAporte> getFrecuenciaAporte() {
-		if (this.frecuenciaAporte == null) {
-			this.frecuenciaAporte = new ArrayList<>();
-		}
-		if (this.frecuenciaAporte.isEmpty()) {
-			PayloadFrecuenciaAporteResponse payloadFrecuenciaAporteResponse = S.FrecuenciaAporteService
-					.consultarTodos();
-
-			this.frecuenciaAporte.addAll(payloadFrecuenciaAporteResponse
-					.getObjetos());
-		}
-
-		return frecuenciaAporte;
-	}
-
-	public void setFrecuenciaAporte(List<FrecuenciaAporte> frecuenciaAporte) {
-		this.frecuenciaAporte = frecuenciaAporte;
 	}
 
 	// Filtra las ciudades al seleccionar el estado
@@ -333,26 +313,25 @@ public class VM_EgresoPadrinoIndex extends VM_WindowWizard {
 	@Override
 	public List<String> getUrlPageToStep() {
 		List<String> urls = new ArrayList<String>();
-		urls.add("views/desktop/gestion/apadrinamiento/egreso/selectPadrino.zul");
-		urls.add("views/desktop/gestion/apadrinamiento/egreso/datosPersonales.zul");
-		urls.add("views/desktop/gestion/apadrinamiento/egreso/registroMotivo.zul");
-		urls.add("views/desktop/gestion/apadrinamiento/egreso/registroCompletado.zul");
+		urls.add("views/desktop/gestion/donativo/egreso/selectPadrino.zul");
+		urls.add("views/desktop/gestion/donativo/egreso/datosPersonales.zul");
+		urls.add("views/desktop/gestion/donativo/egreso/registroMotivo.zul");
+		urls.add("views/desktop/gestion/donativo/egreso/registroCompletado.zul");
 		return urls;
 	}
 
 	// CARGAR OBJETOS
 
 	@Override
-	public IPayloadResponse<Padrino> getDataToTable(
+	public IPayloadResponse<Colaborador> getDataToTable(
 			Integer cantidadRegistrosPagina, Integer pagina) {
 		Map<String, String> criterios = new HashMap<>();
-		EstatusPadrinoEnum.ACTIVO.ordinal();
-		criterios.put("estatusPadrino",
-				String.valueOf(EstatusPadrinoEnum.ACTIVO.ordinal()));
-		PayloadPadrinoResponse payloadPadrinoResponse = S.PadrinoService
+		criterios.put("estatusColaborador",
+				String.valueOf(EstatusColaboradorEnum.ACTIVO.ordinal()));
+		PayloadColaboradorResponse payloadColaboradorResponse = S.ColaboradorService
 				.consultarPaginacionCriterios(cantidadRegistrosPagina, pagina,
 						TypeQuery.EQUAL, criterios);
-		return payloadPadrinoResponse;
+		return payloadColaboradorResponse;
 	}
 
 	// ATR�S

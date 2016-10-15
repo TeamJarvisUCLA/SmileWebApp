@@ -1,6 +1,7 @@
 <?component name="uploadImageSingle" macroURI="/assets/theme/components/upload_image_single.zul"?>
 
 <zk xmlns:n="native" xmlns:w="client">
+
 	<div sclass="animated fadeInLeft">
 		<div class="row">
 			<div class="col s12">
@@ -11,9 +12,128 @@
 							Fecha:
 						</n:label>
 						<datebox id="fecha_donativo" readonly="true"
-							cols="20" format="dd/MM/yyyy" />
+							value="@bind(vm.fechaDonativo)" cols="20" format="dd/MM/yyyy" />
 					</div>
+				</div>
+				<div class="row">
+					<div class="input-field col s5">
+						<n:label for="recurso" class="active">
+							Recurso:
+						</n:label>
+						<textbox id="recurso" type="text"
+							disabled="true"
+							value="@bind(vm.donativoRecurso.fkRecurso.nombre)">
+						</textbox>
+					</div>
+					<div class="input-field col s1"
+						style="font-size: 2em;">
+						<button
+							sclass="teal lighten-1 waves-effect waves-light"
+							onClick="@command('buscarRecurso')" iconSclass="fa fa-search"
+							style="padding: 5px 15px; background-color: #2AA4EF !important">
+						</button>
+					</div>
+
 					<div class="input-field col s6">
+						<n:label for="cantidad" class="active">
+							Cantidad
+						</n:label>
+						<doublespinner id="cantidad" format="0.00"
+							value="@bind(vm.donativoRecurso.cantidad)">
+						</doublespinner>
+					</div>
+				</div>
+
+				<div class="row"
+					visible="@bind(vm.procedenciaEnums eq 'PADRINO')">
+					<div class="input-field col s2">
+						<checkbox id="aporte" label="Aporte"
+							checked="@bind(vm.donativoRecurso.aporte)" />
+					</div>
+
+					<div class="input-field col s9"
+						visible="@bind(vm.donativoRecurso.aporte)">
+						<n:label for="fecha_aporte" class="active">
+							Aporte Correspondiente:
+						</n:label>
+						<datebox id="fecha_aporte" format="dd/MM/yyyy"
+							disabled="true" value="@bind(vm.fechaAporte)">
+						</datebox>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="input-field col s6">
+						<n:label for="lugar" class="active">
+							Lugar de Recepción:
+						</n:label>
+						<combobox id="lugar"
+							model="@bind(vm.recepcionEnums)"
+							selectedItem="@bind(vm.recepcionEnum)">
+							<template name="model">
+								<comboitem
+									label="@load(each.toString())" />
+							</template>
+						</combobox>
+					</div>
+
+					<div class="input-field col s6"
+						visible="@bind(vm.recepcionEnum eq 'TRANSACCION_BANCARIA')">
+						<n:label for="nro_referencia" class="active">
+							Nro. de Referencia:
+						</n:label>
+						<textbox id="nro_referencia" type="text"
+							value="@bind(vm.nroReferencia)">
+						</textbox>
+					</div>
+
+				</div>
+				<div class="row"
+					visible="@bind(vm.recepcionEnum eq 'TRANSACCION_BANCARIA')">
+
+					<div class="input-field col s5">
+						<n:label for="cuenta_remitente"
+							class="active">
+							Cuenta Remitente:
+						</n:label>
+						<textbox id="cuenta_remitente" type="text"
+							disabled="true"
+							value="@bind(vm.cuentaBancariaRemitente.cuentaBancaria)">
+						</textbox>
+					</div>
+					<div class="input-field col s1"
+						style="font-size: 2em;">
+						<button
+							sclass="teal lighten-1 waves-effect waves-light"
+							onClick="@command('buscarCuentaBancariaRemitente')"
+							iconSclass="fa fa-search"
+							style="padding: 5px 15px; background-color: #2AA4EF !important">
+						</button>
+					</div>
+
+
+					<div class="input-field col s5">
+						<n:label for="cuenta_remitente"
+							class="active">
+							Cuenta Destinataria:
+						</n:label>
+						<textbox id="cuenta_destinataria" type="text"
+							disabled="true"
+							value="@bind(vm.cuentaBancariaDestinataria.cuentaBancaria)">
+						</textbox>
+					</div>
+					<div class="input-field col s1"
+						style="font-size: 2em;">
+						<button
+							sclass="teal lighten-1 waves-effect waves-light"
+							onClick="@command('buscarCuentaBancariaDestinataria')"
+							iconSclass="fa fa-search"
+							style="padding: 5px 15px; background-color: #2AA4EF !important">
+						</button>
+					</div>
+				</div>
+				<div sclass="row">
+					<div class="input-field col s12">
 						<n:label for="direccion">Descripción</n:label>
 
 						<textbox id="direccion" type="text"
@@ -21,30 +141,11 @@
 							value="@bind(vm.donativoRecurso.descripcion)">
 						</textbox>
 					</div>
-
-					<div class="input-field col s6">
-						<n:label for="cantidad">Cantidad</n:label>
-
-						<doublebox id="cantidad"></doublebox>
-					</div>
 				</div>
 
-				<div class="input-field col s5">
-					<n:label for="lugar" class="active">
-						Lugar de Recepción:
-					</n:label>
 
-					<combobox id="lugar"
-						model="@bind(vm.recepcionEnums)"
-						selectedItem="@bind(vm.recepcionEnum)">
-						<template name="model">
-							<comboitem label="@load(each)" />
-						</template>
-					</combobox>
-				</div>
 
 			</div>
-
 		</div>
 	</div>
 </zk>

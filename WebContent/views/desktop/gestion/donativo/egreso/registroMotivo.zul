@@ -18,7 +18,7 @@
 								class="active">
 								Fecha de Egreso
 							</n:label>
-							<datebox id="fecha_ingreso" cols="20"
+							<datebox id="fecha_ingreso"
 								format="dd/MM/yyyy" readonly="true"
 								value="@bind(vm.fechaEgreso)" />
 						</div>
@@ -29,8 +29,7 @@
 								Motivo
 							</n:label>
 							<combobox id="fk_motivo" readonly="true"
-								model="@bind(vm.motivos)"
-								selectedItem="@bind(vm.selectedObject.fkMotivo)">
+								model="@bind(vm.motivos)" selectedItem="@bind(vm.selectedObject.fkMotivo)">
 								<template name="model">
 									<comboitem
 										label="@load(each.nombre)" />

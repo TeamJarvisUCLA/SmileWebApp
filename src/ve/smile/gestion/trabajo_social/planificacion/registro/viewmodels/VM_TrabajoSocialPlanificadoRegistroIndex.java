@@ -315,14 +315,6 @@ public class VM_TrabajoSocialPlanificadoRegistroIndex extends
 	}
 
 	@Override
-	public void comeIn(Integer currentStep) {
-		// if (currentStep == 1) {
-		// this.getControllerWindowWizard().updateListBoxAndFooter();
-		// BindUtils.postNotifyChange(null, null, this, "objectsList");
-		// }
-	}
-
-	@Override
 	public BufferedImage getImageContent() {
 		try {
 			return loadImage();

@@ -15,8 +15,8 @@
 				<div class="col s12">
 					<div class="col s12">
 						<listbox id="listbox"
-							model="@load(vm.personas)"
-							selectedItem="@bind(vm.estudioSocioEconomico.fkPersona)">
+							model="@load(vm.trabajadores)"
+							selectedItem="@bind(vm.estudioSocioEconomico.fkTrabajador)">
 
 							<listhead sizable="true">
 								<listheader width="15%" label="Nombre" />
@@ -27,11 +27,11 @@
 							</listhead>
 							<template name="model">
 								<listitem>
-									<listcell label="@load(each.nombre)" />
-									<listcell label="@load(each.apellido)" />
-									<listcell label="@load(each.direccion)" />
-									<listcell label="@load(each.correo)" />
-									<listcell label="@load(each.telefono1)" />
+									<listcell label="@load(each.fkPersona.nombre)" />
+									<listcell label="@load(each.fkPersona.apellido)" />
+									<listcell label="@load(each.fkPersona.direccion)" />
+									<listcell label="@load(each.fkPersona.correo)" />
+									<listcell label="@load(each.fkPersona.telefono1)" />
 									
 								</listitem>
 							</template>

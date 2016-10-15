@@ -22,34 +22,33 @@ import org.zkoss.zk.ui.event.UploadEvent;
 import app.UploadImageSingle;
 import ve.smile.consume.services.S;
 import ve.smile.dto.Directorio;
+import ve.smile.dto.EventPlanTarea;
 import ve.smile.dto.Evento;
 import ve.smile.dto.EventoPlanificado;
 import ve.smile.dto.Multimedia;
-import ve.smile.dto.TrabajoSocial;
-import ve.smile.dto.TsPlan;
+import ve.smile.dto.Tarea;
 import ve.smile.dto.Voluntario;
 import ve.smile.enums.TipoMultimediaEnum;
 import ve.smile.payload.response.PayloadEventoPlanificadoResponse;
 import ve.smile.payload.response.PayloadEventoResponse;
 import ve.smile.payload.response.PayloadMultimediaResponse;
-import ve.smile.payload.response.PayloadTsPlanResponse;
 import karen.core.crux.alert.Alert;
 import karen.core.dialog.catalogue.generic.data.CatalogueDialogData;
 import karen.core.dialog.catalogue.generic.events.CatalogueDialogCloseEvent;
 import karen.core.dialog.catalogue.generic.events.listeners.CatalogueDialogCloseListener;
 import karen.core.dialog.generic.enums.DialogActionEnum;
-import karen.core.simple_list.wizard.buttons.data.OperacionWizard;
-import karen.core.simple_list.wizard.buttons.enums.OperacionWizardEnum;
-import karen.core.simple_list.wizard.buttons.helpers.OperacionWizardHelper;
-import karen.core.simple_list.wizard.viewmodels.VM_WindowWizard;
 import karen.core.util.UtilDialog;
 import karen.core.util.payload.UtilPayload;
 import karen.core.util.validate.UtilValidate;
 import karen.core.util.validate.UtilValidate.ValidateOperator;
+import karen.core.wizard.buttons.data.OperacionWizard;
+import karen.core.wizard.buttons.enums.OperacionWizardEnum;
+import karen.core.wizard.buttons.helpers.OperacionWizardHelper;
+import karen.core.wizard.viewmodels.VM_WindowWizard;
 import lights.core.payload.response.IPayloadResponse;
 import lights.smile.util.UtilMultimedia;
 
-public class VM_EventoPlanificadoRegistroIndex extends VM_WindowWizard<Evento> implements UploadImageSingle{
+public class VM_EventoPlanificadoRegistroIndex extends VM_WindowWizard implements UploadImageSingle{
 
 	private EventoPlanificado eventoPlanificado;
 	private Voluntario voluntario = new Voluntario();
@@ -178,6 +177,14 @@ public class VM_EventoPlanificadoRegistroIndex extends VM_WindowWizard<Evento> i
 		}
 		
 	}
+	
+	@Override
+	public String executeCustom1(Integer currentStep) {
+		this.setSelectedObject(new EventoPlanificado());
+		BindUtils.postNotifyChange(null, null, this, "selectedObject");
+		restartWizard();
+		return "";
+	}
 
 	@Override
 	public void onRemoveImageSingle(String idUpload) {
@@ -205,8 +212,10 @@ public class VM_EventoPlanificadoRegistroIndex extends VM_WindowWizard<Evento> i
 		botones.put(2, listOperacionWizard2);
 
 		List<OperacionWizard> listOperacionWizard3 = new ArrayList<OperacionWizard>();
-		listOperacionWizard3.add(OperacionWizardHelper
-				.getPorType(OperacionWizardEnum.CUSTOM1));
+		OperacionWizard operacionWizardCustom = new OperacionWizard(
+				OperacionWizardEnum.CUSTOM1.ordinal(), "Aceptar", "Custom1",
+				"fa fa-check", "indigo", "Aceptar");
+		listOperacionWizard3.add(operacionWizardCustom);
 
 		botones.put(3, listOperacionWizard3);
 
@@ -240,19 +249,11 @@ public class VM_EventoPlanificadoRegistroIndex extends VM_WindowWizard<Evento> i
 
 		iconos.add("fa fa-list-alt");
 		iconos.add("fa fa-pencil-square-o");
-		// iconos.add("fa fa-check-square-o");
+		iconos.add("fa fa-check-square-o");
 
 		return iconos;
 	}
 	
-	@Override
-	public void comeIn(Integer currentStep) {
-		if (currentStep == 1) {
-			this.getControllerWindowWizard().updateListBoxAndFooter();
-			BindUtils.postNotifyChange(null, null, this, "objectsList");
-		}
-	}
-
 	@Override
 	public List<String> getUrlPageToStep() {
 		
@@ -260,7 +261,7 @@ public class VM_EventoPlanificadoRegistroIndex extends VM_WindowWizard<Evento> i
 
 		urls.add("views/desktop/gestion/evento/planificacion/registro/selectEvento.zul");
 		urls.add("views/desktop/gestion/evento/planificacion/registro/eventoPlanificadoFormBasic.zul");
-		// urls.add("views/desktop/gestion/trabajoSocial/planificacion/registro/successRegistroTrabajoSocialPlanificado.zul");
+		urls.add("views/desktop/gestion/evento/planificacion/registro/registroCompletado.zul");
 
 		return urls;
 		
@@ -311,6 +312,7 @@ public class VM_EventoPlanificadoRegistroIndex extends VM_WindowWizard<Evento> i
 			this.getEventoPlanificado().setFkDirectorio(this.getDirectorio());
 			this.getEventoPlanificado().setFkPersona(this.getVoluntario().getFkPersona());
 			this.getEventoPlanificado().setPublicoPortal(true);
+			this.getEventoPlanificado().setFkEvento((Evento) selectedObject);
 
 			Multimedia multimedia = this.getEventoPlanificado().getFkMultimedia();
 
@@ -326,7 +328,7 @@ public class VM_EventoPlanificadoRegistroIndex extends VM_WindowWizard<Evento> i
 			PayloadEventoPlanificadoResponse payloadEventoPlanificadoResponse = S.EventoPlanificadoService
 					.incluir(this.getEventoPlanificado());
 			if (UtilPayload.isOK(payloadEventoPlanificadoResponse)) {
-				restartWizard();
+				
 				this.setEventoPlanificado(new EventoPlanificado());
 				this.setDirectorio(new Directorio());
 				this.setFechaPlanificada(new Date());
@@ -338,10 +340,12 @@ public class VM_EventoPlanificadoRegistroIndex extends VM_WindowWizard<Evento> i
 						.postNotifyChange(null, null, this, "fechaPlanificada");
 				BindUtils.postNotifyChange(null, null, this, "selectedObject");
 				BindUtils.postNotifyChange(null, null, this, "voluntario");
+				
 			}
+			goToNextStep();
 			return (String) payloadEventoPlanificadoResponse
 					.getInformacion(IPayloadResponse.MENSAJE);
-
+			
 		}
 
 		return "";

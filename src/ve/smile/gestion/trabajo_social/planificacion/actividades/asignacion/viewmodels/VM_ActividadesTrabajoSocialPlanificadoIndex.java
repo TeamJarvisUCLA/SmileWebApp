@@ -1,6 +1,7 @@
 package ve.smile.gestion.trabajo_social.planificacion.actividades.asignacion.viewmodels;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -12,12 +13,12 @@ import karen.core.dialog.catalogue.generic.data.CatalogueDialogData;
 import karen.core.dialog.catalogue.generic.events.CatalogueDialogCloseEvent;
 import karen.core.dialog.catalogue.generic.events.listeners.CatalogueDialogCloseListener;
 import karen.core.dialog.generic.enums.DialogActionEnum;
-import karen.core.simple_list.wizard.buttons.data.OperacionWizard;
-import karen.core.simple_list.wizard.buttons.enums.OperacionWizardEnum;
-import karen.core.simple_list.wizard.buttons.helpers.OperacionWizardHelper;
-import karen.core.simple_list.wizard.viewmodels.VM_WindowWizard;
 import karen.core.util.UtilDialog;
 import karen.core.util.payload.UtilPayload;
+import karen.core.wizard.buttons.data.OperacionWizard;
+import karen.core.wizard.buttons.enums.OperacionWizardEnum;
+import karen.core.wizard.buttons.helpers.OperacionWizardHelper;
+import karen.core.wizard.viewmodels.VM_WindowWizard;
 import lights.core.payload.response.IPayloadResponse;
 
 import org.zkoss.bind.BindUtils;
@@ -29,18 +30,14 @@ import org.zkoss.bind.annotation.NotifyChange;
 import ve.smile.consume.services.S;
 import ve.smile.dto.Actividad;
 import ve.smile.dto.Directorio;
-import ve.smile.dto.Indicador;
-import ve.smile.dto.IndicadorTsPlan;
 import ve.smile.dto.TsPlan;
 import ve.smile.dto.TsPlanActividad;
 import ve.smile.payload.response.PayloadActividadResponse;
-import ve.smile.payload.response.PayloadIndicadorResponse;
-import ve.smile.payload.response.PayloadIndicadorTsPlanResponse;
 import ve.smile.payload.response.PayloadTsPlanActividadResponse;
 import ve.smile.payload.response.PayloadTsPlanResponse;
 
 public class VM_ActividadesTrabajoSocialPlanificadoIndex extends
-		VM_WindowWizard<TsPlan> {
+		VM_WindowWizard {
 
 	private List<Actividad> actividades;
 	private Set<Actividad> actividadesSeleccionadas;
@@ -48,8 +45,6 @@ public class VM_ActividadesTrabajoSocialPlanificadoIndex extends
 	private Set<Actividad> trabajoSocialActividadesSeleccionadas;
 	// forEachStatus.index
 	private List<TsPlanActividad> tsPlanActividads;
-
-	private List<Actividad> trabajoSocialActividadesAux;
 
 	private Directorio directorio;
 
@@ -234,7 +229,9 @@ public class VM_ActividadesTrabajoSocialPlanificadoIndex extends
 				for (Actividad actividad : this.getTrabajoSocialActividades()) {
 					TsPlanActividad tsPlanActividad = new TsPlanActividad();
 					tsPlanActividad.setFkActividad(actividad);
-					tsPlanActividad.setFkTsPlan(this.getSelectedObject());
+					tsPlanActividad.setFkTsPlan((TsPlan) this
+							.getSelectedObject());
+					tsPlanActividad.setFechaPlanificada(new Date().getTime());
 					this.getTsPlanActividads().add(tsPlanActividad);
 				}
 				BindUtils
@@ -250,21 +247,6 @@ public class VM_ActividadesTrabajoSocialPlanificadoIndex extends
 	public String isValidPreconditionsFinalizar(Integer currentStep) {
 
 		if (currentStep == 3) {
-			// String indicadores = "";
-			// for (IndicadorTsPlan indicadorTsPlan :
-			// this.getIndicadorTsPlans()) {
-			// if (indicadorTsPlan.getValorEsperado() == null
-			// || indicadorTsPlan.getValorEsperado().equalsIgnoreCase(
-			// "")) {
-			// indicadores += indicadorTsPlan.getFkIndicador().getNombre()
-			// + ",  ";
-			// }
-			// }
-			// if (indicadores.equalsIgnoreCase("")) {
-			// return
-			// "E:Error Code 5-Debe ingresar el valor esperado de los siguientes indicadores: <b>"
-			// + indicadores + "</b>";
-			// }
 
 		}
 		return "";
@@ -300,14 +282,6 @@ public class VM_ActividadesTrabajoSocialPlanificadoIndex extends
 		BindUtils.postNotifyChange(null, null, this, "selectedObject");
 		restartWizard();
 		return "";
-	}
-
-	@Override
-	public void comeIn(Integer currentStep) {
-		if (currentStep == 1) {
-			this.getControllerWindowWizard().updateListBoxAndFooter();
-			BindUtils.postNotifyChange(null, null, this, "objectsList");
-		}
 	}
 
 	public List<Actividad> getActividades() {

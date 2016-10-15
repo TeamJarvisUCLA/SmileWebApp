@@ -175,7 +175,7 @@
 				    <n:div id="twitter">
 				      	<div class="col s7 text-center">
 	
-				      	<n:a class="twitter-timeline hola" data-width="500" data-height="400" href="https://twitter.com/fancalara"></n:a>
+				      	<n:a class="twitter-timeline hola" data-width="850"    data-chrome="nofooter noborders transparent " data-height="400" href="https://twitter.com/fancalara"></n:a>
 				      	</div>
 			      	</n:div> 	
 				</div>
@@ -315,52 +315,14 @@
 							<div class="row">
 								<n:h4>PATROCINADORES</n:h4>
 								<div class="col s12 slider-patrocionadores">
-									<n:div id="owlPatrocinadores" class="owl-carousel owl-theme">
-										<div sclass="item">
+									<div class="owlPatrocinadores owl-carousel owl-theme" children="@load(vm.patrocinadores)">
+										<template name="children">
 											<div style="padding-bottom: 10px;">
-												<div class="col s4 text-center">
-													<div sclass="row">
-														<image src="/imagenes/portal/alimex.png" height="100px" width="100px" sclass="responsive-img">
-														</image>											
-													</div>
-												</div>
-												<div class="col s4 text-center">
-													<div sclass="row">
-														<image src="/imagenes/portal/p_g.png" height="100px" width="100px" sclass="responsive-img">
-														</image>											
-													</div>
-												</div>
-												<div class="col s4 text-center">
-													<div sclass="row">
-														<image src="/imagenes/portal/macromedia.png" height="100px" width="100px" sclass="responsive-img">
-														</image>											
-													</div>
-												</div>											
+												<image src="@load(each.fkPersona.fkMultimedia.url)" height="100px" width="100px" sclass="responsive-img">
+												</image>
 											</div>
-										</div>									
-										<div sclass="item">
-											<div style="padding-bottom: 10px;">
-												<div class="col s4 text-center">
-													<div sclass="row">
-														<image src="/imagenes/portal/alimex.png" height="100px" width="100px" sclass="responsive-img">
-														</image>											
-													</div>
-												</div>
-												<div class="col s4 text-center">
-													<div sclass="row">
-														<image src="/imagenes/portal/p_g.png" height="100px" width="100px" sclass="responsive-img">
-														</image>											
-													</div>
-												</div>
-												<div class="col s4 text-center">
-													<div sclass="row">
-														<image src="/imagenes/portal/macromedia.png" height="100px" width="100px" sclass="responsive-img">
-														</image>											
-													</div>
-												</div>											
-											</div>
-										</div>
-									</n:div>									
+										</template>								
+									</div>									
 								</div>
 							</div>
 						</div>
@@ -369,17 +331,13 @@
 				<n:div id="galeria">
 					<div class="col s5">
 						<n:h4>galería de fotos</n:h4>
-						<div class="carousel">
-							<div class="carousel-item">
-								<image class="img-responsive" src="/imagenes/portal/galeria1.png"></image>
-							</div>
-							<div class="carousel-item">
-								<image class="img-responsive" src="/imagenes/portal/galeria2.png" ></image>			
-							</div>	
-							<div class="carousel-item">
-								<image class="img-responsive" src="/imagenes/portal/galeria3.jpg"></image>
-							</div>
-							<span  onClick="@command('galeria')">ver mas</span>
+						<div class="carousel" children="@load(vm.multiemdiaGaleria)">
+							<template name="children">
+								<div class="carousel-item">
+									<image class="img-responsive" src="@load(each.url)"></image>
+								</div>
+								<span  onClick="@command('galeria')">ver mas</span>
+							</template>
 						</div>
 					</div>				
 				</n:div>
@@ -412,13 +370,12 @@
 			       autoPlay: true 
 		  });
 		  
-		 $('#owlPatrocinadores').owlCarousel({
-		 items:1,
+		 $('.owlPatrocinadores').owlCarousel({
+		 items:3,
 		 mouseDrag:false,
 		      navigation : true, // Show next and prev buttons
 		      slideSpeed : 300,
 		      paginationSpeed : 400,
-		      singleItem: true,
 			  navigationText: [
 			      '<span sclass="fa fa-chevron-left"></span>',
 			    '<span sclass="fa fa-chevron-right"></span>'

@@ -5,18 +5,7 @@
 			<div class="col s12">
 				
 				
-				<div class="row">
-					<div class="input-field col s12">
-						<n:label for="resultado">Resultado</n:label>
-						<span
-							sclass="fa fa-question-circle fa-lg help-icon-special"
-							tooltip="pop_direccion, position=after_end" />
-						<textbox id="resultado" type="text"
-							sclass="materialize-textarea" multiline="true"
-							value="@bind(vm.estudioSocioEconomico.resultado)">
-						</textbox>
-					</div>
-				</div>
+				
 				
 				
 				<div class="row">
@@ -33,6 +22,20 @@
 
 				</div>
 				
+				<!-- 
+				<div class="row">
+					<div class="input-field col s12">
+						<n:label for="resultado">Resultado</n:label>
+						<span
+							sclass="fa fa-question-circle fa-lg help-icon-special"
+							tooltip="pop_direccion, position=after_end" />
+						<textbox id="resultado" type="text"
+							sclass="materialize-textarea" multiline="true"
+							value="@bind(vm.estudioSocioEconomico.resultado)">
+						</textbox>
+					</div>
+				</div>
+				 -->
 				
 				
 

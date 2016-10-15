@@ -129,12 +129,12 @@
 		<div class="titulo-valores">
 			<n:h5 class="texto-titulo-val">VALORES</n:h5>
 		</div>
-		<n:div id="valores">
+		<div id="valores">
 		
 		
 		
 			<div sclass="row">
-				<div sclass="col s12">
+				<div sclass="col s11">
 <!-- 				cargar el div con los objetos del metodo getnoticias en el VM con el atributo children -->
 					<div class="owlNoticias owl-carousel owl-theme" children="@load(vm.valores)">
 <!-- 				cargar el div con los objetos del metodo getnoticias en el VM con el atributo children -->
@@ -217,7 +217,7 @@
 			</div>
 			
 			-->
-		</n:div>
+		</div>
 		<!-- 
 		<div class="container-fluid galeria color-fondo borde-beich">
 			<div class="row color-fondo borde-beich">

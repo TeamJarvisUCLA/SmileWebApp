@@ -11,17 +11,14 @@
 						selectedItem="@bind(vm.selectedObject)">
 
 						<listhead sizable="true">
-							<listheader width="33%" label="Nombre" />
-							<listheader width="33%" label="Descripción" />
-							<listheader width="33%" label="Multimedia" />
+							<listheader width="50%" label="Nombre" />
+							<listheader width="50%" label="Descripción" />
 						</listhead>
 						<template name="model">
 							<listitem>
 								<listcell label="@load(each.nombre)" />
 								<listcell
 									label="@load(each.descripcion)" />
-								<listcell
-									label="@load(each.fkMultimedia)" />
 							</listitem>
 						</template>
 						<listfoot>

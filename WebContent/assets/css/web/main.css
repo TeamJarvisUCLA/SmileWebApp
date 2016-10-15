@@ -386,10 +386,10 @@ To move navigation buttons outside use these settings:
 }
 
 #patrocinadores .slider-patrocionadores {
-	padding: 50px;
+	padding: 60px 57px 0;
 }
 
-#owlPatrocinadores .item {
+.owlPatrocinadores .item {
 	padding: 25px 120px 25px 10px;
 	margin: 5px;
 	-webkit-border-radius: 3px;
@@ -398,49 +398,49 @@ To move navigation buttons outside use these settings:
 	text-align: justify;
 }
 
-#patrocinadores #owlPatrocinadores .item:hover {
+#patrocinadores .owlPatrocinadores .item:hover {
 	cursor: pointer;
 }
 
-#patrocinadores #owlPatrocinadores .item .title {
+#patrocinadores .owlPatrocinadores .item .title {
 	color: #f26b7a;
 	font-weight: bold;
 }
 
-#owlPatrocinadores .owl-theme .owl-controls .owl-buttons div {
+.owlPatrocinadores .owl-theme .owl-controls .owl-buttons div {
 	padding: 5px 40px;
 }
 
-#owlPatrocinadores .owl-theme .owl-buttons span {
+.owlPatrocinadores .owl-theme .owl-buttons span {
 	margin-top: 2px;
 }
 
 //
 To move navigation buttons outside use these settings:
 	 
-#owlPatrocinadores .owl-theme .owl-controls .owl-buttons div {
+.owlPatrocinadores .owl-theme .owl-controls .owl-buttons div {
 	position: absolute;
 }
 
-#owlPatrocinadores.owl-theme .owl-controls .owl-buttons .owl-prev {
+.owlPatrocinadores.owl-theme .owl-controls .owl-buttons .owl-prev {
 	left: -50px;
 	top: 60px;
 	position: absolute;
 }
 
-#owlPatrocinadores.owl-theme .owl-controls .owl-buttons .owl-next {
+.owlPatrocinadores.owl-theme .owl-controls .owl-buttons .owl-next {
 	right: -1px;
 	top: 60px;
 	position: absolute;
 }
 
-#owlPatrocinadores.owl-carousel {
+.owlPatrocinadores.owl-carousel {
 	display: none;
 	position: relative;
 	-ms-touch-action: pan-y;
 }
 
-#owlPatrocinadores .owl-controls .owl-pagination {
+.owlPatrocinadores .owl-controls .owl-pagination {
 	margin-left: -30px;
 }
 

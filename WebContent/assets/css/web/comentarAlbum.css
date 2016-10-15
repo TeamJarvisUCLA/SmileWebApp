@@ -21,3 +21,32 @@
 	box-shadow: 0 1px 0 0 #8AC7DE;
 }
 
+div.stars {
+  width: 270px;
+  display: inline-block;
+}
+
+div.stars span.star input { display: none; }
+
+div.stars span.star label {
+  float: right;
+  padding: 10px;
+  font-size: 36px;
+  color: #444;
+  transition: all .2s;
+}
+
+span.star {
+	color: red;
+}
+
+div.stars span.star input:checked ~ span.star label:before {
+  content: '\f005';
+  color: #FD4;
+  transition: all .25s;
+}
+
+div.stars span.star label:before {
+  content: '\f006';
+  font-family: FontAwesome;
+}

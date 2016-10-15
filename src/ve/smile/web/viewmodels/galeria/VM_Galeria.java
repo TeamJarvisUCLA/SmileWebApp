@@ -5,20 +5,27 @@ import java.util.List;
 
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
+import org.zkoss.bind.annotation.NotifyChange;
+import org.zkoss.zk.ui.util.Clients;
 
 import karen.core.crux.session.DataCenter;
 import karen.core.util.payload.UtilPayload;
 import ve.smile.consume.services.S;
 import ve.smile.dto.Album;
+import ve.smile.dto.Multimedia;
 import ve.smile.dto.MultimediaAlbum;
 import ve.smile.enums.EstatusAlbumEnum;
+import ve.smile.enums.TipoMultimediaEnum;
 import ve.smile.payload.response.PayloadAlbumResponse;
 import ve.smile.payload.response.PayloadMultimediaAlbumResponse;
+import ve.smile.payload.response.PayloadMultimediaResponse;
 
 public class VM_Galeria {
 
 	private List<Album> albumes;
 	private List<MultimediaAlbum> multimediaAlbum;
+	private List<Multimedia> multiemdiaGaleria;
+	private Integer cantMultGaleria = 6;
 
 	public List<Album> getalbumes() {
 		if (this.albumes == null) {
@@ -33,6 +40,21 @@ public class VM_Galeria {
 		}
 
 		return albumes;
+	}
+	
+	public List<Multimedia> getmultiemdiaGaleria() {
+		if (this.multiemdiaGaleria == null) {
+			this.multiemdiaGaleria = new ArrayList<>();
+		}
+		if (this.multiemdiaGaleria.isEmpty()) {
+
+			PayloadMultimediaResponse payloadMultimediaResponse = S.MultimediaService
+					.consultarMultimediaTipo(cantMultGaleria, TipoMultimediaEnum.GALERIA.ordinal());
+
+			this.multiemdiaGaleria.addAll(payloadMultimediaResponse.getObjetos());
+		}
+
+		return multiemdiaGaleria;
 	}
 
 	public List<MultimediaAlbum> getmultimediaalbum(Integer album) {
@@ -71,6 +93,24 @@ public class VM_Galeria {
 	public void album(@BindingParam("album") Album album ) {
 		DataCenter.updateSrcPageContent(album, null, "/views/web/album.zul");
 		
+	}
+	
+	@Command
+	@NotifyChange({"multiemdiaGaleria"})
+	public void verMas() {
+		cantMultGaleria += 3;
+		if (this.multiemdiaGaleria == null) {
+			this.multiemdiaGaleria = new ArrayList<>();
+		}
+		this.multiemdiaGaleria.clear();
+		if (this.multiemdiaGaleria.isEmpty()) {
+
+			PayloadMultimediaResponse payloadMultimediaResponse = S.MultimediaService
+					.consultarMultimediaTipo(cantMultGaleria, TipoMultimediaEnum.GALERIA.ordinal());
+
+			this.multiemdiaGaleria.addAll(payloadMultimediaResponse.getObjetos());
+		}
+		Clients.evalJavaScript("f_zoom();");
 	}
 
 }

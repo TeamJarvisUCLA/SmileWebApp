@@ -8,10 +8,10 @@ import java.util.Map;
 import java.util.Set;
 
 import karen.core.crux.alert.Alert;
-import karen.core.simple_list.wizard.buttons.data.OperacionWizard;
-import karen.core.simple_list.wizard.buttons.enums.OperacionWizardEnum;
-import karen.core.simple_list.wizard.buttons.helpers.OperacionWizardHelper;
-import karen.core.simple_list.wizard.viewmodels.VM_WindowWizard;
+import karen.core.wizard.buttons.data.OperacionWizard;
+import karen.core.wizard.buttons.enums.OperacionWizardEnum;
+import karen.core.wizard.buttons.helpers.OperacionWizardHelper;
+import karen.core.wizard.viewmodels.VM_WindowWizard;
 import karen.core.util.payload.UtilPayload;
 import lights.core.payload.response.IPayloadResponse;
 
@@ -29,7 +29,7 @@ import ve.smile.payload.response.PayloadIndicadorTsPlanResponse;
 import ve.smile.payload.response.PayloadTsPlanResponse;
 
 public class VM_IndicadoresTrabajoSocialPlanificadoIndex extends
-		VM_WindowWizard<TsPlan> {
+		VM_WindowWizard {
 
 	private List<Indicador> indicadores;
 	private Set<Indicador> indicadoresSeleccionados;
@@ -37,8 +37,6 @@ public class VM_IndicadoresTrabajoSocialPlanificadoIndex extends
 	private Set<Indicador> trabajoSocialIndicadoresSeleccionados;
 
 	private List<IndicadorTsPlan> indicadorTsPlans;
-
-	private List<Indicador> trabajoSocialIndicadoresAux;
 
 	@Init(superclass = true)
 	public void childInit() {
@@ -183,7 +181,8 @@ public class VM_IndicadoresTrabajoSocialPlanificadoIndex extends
 				for (Indicador indicador : this.getTrabajoSocialIndicadores()) {
 					IndicadorTsPlan indicadorTsPlan = new IndicadorTsPlan();
 					indicadorTsPlan.setFkIndicador(indicador);
-					indicadorTsPlan.setFkTsPlan(this.getSelectedObject());
+					indicadorTsPlan.setFkTsPlan((TsPlan) this
+							.getSelectedObject());
 					this.getIndicadorTsPlans().add(indicadorTsPlan);
 				}
 				BindUtils
@@ -199,18 +198,18 @@ public class VM_IndicadoresTrabajoSocialPlanificadoIndex extends
 	public String isValidPreconditionsFinalizar(Integer currentStep) {
 
 		if (currentStep == 3) {
-			String indicadores = "";
-			for (IndicadorTsPlan indicadorTsPlan : this.getIndicadorTsPlans()) {
-				if (indicadorTsPlan.getValorEsperado() == null
-						|| indicadorTsPlan.getValorEsperado() == 0) {
-					indicadores += indicadorTsPlan.getFkIndicador().getNombre()
-							+ ",  ";
-				}
-			}
-			if (indicadores.equalsIgnoreCase("")) {
-				return "E:Error Code 5-Debe ingresar el valor esperado de los siguientes indicadores: <b>"
-						+ indicadores + "</b>";
-			}
+//			String indicadores = new String();
+//			for (IndicadorTsPlan indicadorTsPlan : this.getIndicadorTsPlans()) {
+//				if (indicadorTsPlan.getValorEsperado() == null
+//						|| indicadorTsPlan.getValorEsperado() == 0) {
+//					indicadores += indicadorTsPlan.getFkIndicador().getNombre()
+//							+ ",  ";
+//				}
+//			}
+//			if (indicadores.isEmpty()) {
+//				return "E:Error Code 5-Debe ingresar el valor esperado de los siguientes indicadores: <b>"
+//						+ indicadores + "</b>";
+//			}
 
 		}
 		return "";
@@ -246,16 +245,18 @@ public class VM_IndicadoresTrabajoSocialPlanificadoIndex extends
 		BindUtils.postNotifyChange(null, null, this, "selectedObject");
 		restartWizard();
 		return "";
+		
 	}
 
-	@Override
-	public void comeIn(Integer currentStep) {
-		if (currentStep == 1) {
-			this.getControllerWindowWizard().updateListBoxAndFooter();
-			BindUtils.postNotifyChange(null, null, this, "objectsList");
-		}
-	}
+//	@Override
+//	public void comeIn(Integer currentStep) {
+//		if (currentStep == 1) {
+//			this.getControllerWindowWizard().updateListBoxAndFooter();
+//			BindUtils.postNotifyChange(null, null, this, "objectsList");
+//		}
+//	}
 
+	
 	public List<Indicador> getIndicadores() {
 		if (this.indicadores == null) {
 			this.indicadores = new ArrayList<>();

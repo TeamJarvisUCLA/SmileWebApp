@@ -25,57 +25,52 @@ import ve.smile.seguridad.enums.OperacionEnum;
 public class VM_CuentaBancariaFormBasic extends VM_WindowForm {
 
 	private List<Banco> bancos;
-	private List<PropietarioEnum> tipoCuentaEnums;
-	private PropietarioEnum tipoCuentaEnum;
+	private List<PropietarioEnum> propietarioEnums;
+	private PropietarioEnum propietarioEnum;
 
 	@Init(superclass = true)
 	public void childInit() {
-		// NOTHING OK!
-	}
-
-	public PropietarioEnum getTipoCuentaEnum()
-	{
-		return tipoCuentaEnum;
-	}
-
-	public void setTipoCuentaEnum(PropietarioEnum tipoCuentaEnum)
-	{
-		this.tipoCuentaEnum = tipoCuentaEnum;
-		this.getCuentaBancaria().setPropietario(tipoCuentaEnum.ordinal());
-	}
-
-	public List<PropietarioEnum> getTipoCuentaEnums()
-	{
-		if (this.tipoCuentaEnums == null)
-		{
-			this.tipoCuentaEnums = new ArrayList<>();
+		if (this.getCuentaBancaria().getPropietario() == null) {
+			this.setPropietarioEnum(PropietarioEnum.ORGANIZACION);
+		} else {
+			this.setPropietarioEnum(this.getCuentaBancaria()
+					.getPropietarioEnum());
 		}
-		if (this.tipoCuentaEnums.isEmpty())
-		{
-			for (PropietarioEnum tipoCuentaEnum : PropietarioEnum.values())
-			{
-				this.tipoCuentaEnums.add(tipoCuentaEnum);
+	}
+
+	public PropietarioEnum getPropietarioEnum() {
+		return propietarioEnum;
+	}
+
+	public void setPropietarioEnum(PropietarioEnum propietarioEnum) {
+		this.propietarioEnum = propietarioEnum;
+		this.getCuentaBancaria().setPropietario(propietarioEnum.ordinal());
+	}
+
+	public List<PropietarioEnum> getPropietarioEnums() {
+		if (this.propietarioEnums == null) {
+			this.propietarioEnums = new ArrayList<>();
+		}
+		if (this.propietarioEnums.isEmpty()) {
+			for (PropietarioEnum tipoCuentaEnum : PropietarioEnum.values()) {
+				this.propietarioEnums.add(tipoCuentaEnum);
 			}
 		}
-		return tipoCuentaEnums;
+		return propietarioEnums;
 	}
 
-	public void setTipoCuentaEnums(List<PropietarioEnum> tipoCuentaEnums)
-	{
-		this.tipoCuentaEnums = tipoCuentaEnums;
+	public void setPropietarioEnums(List<PropietarioEnum> tipoCuentaEnums) {
+		this.propietarioEnums = tipoCuentaEnums;
 	}
-	
-	public List<Banco> getBancos()
-	{
-		if (this.bancos == null)
-		{
+
+	public List<Banco> getBancos() {
+		if (this.bancos == null) {
 			this.bancos = new ArrayList<>();
 		}
-		if (this.bancos.isEmpty())
-		{
-			PayloadBancoResponse payloadBancoResponse = S.BancoService.consultarTodos();
-			if (!UtilPayload.isOK(payloadBancoResponse))
-			{
+		if (this.bancos.isEmpty()) {
+			PayloadBancoResponse payloadBancoResponse = S.BancoService
+					.consultarTodos();
+			if (!UtilPayload.isOK(payloadBancoResponse)) {
 				Alert.showMessage(payloadBancoResponse);
 			}
 			this.bancos.addAll(payloadBancoResponse.getObjetos());
@@ -83,8 +78,7 @@ public class VM_CuentaBancariaFormBasic extends VM_WindowForm {
 		return bancos;
 	}
 
-	public void setBancos(List<Banco> bancos)
-	{
+	public void setBancos(List<Banco> bancos) {
 		this.bancos = bancos;
 	}
 
@@ -92,33 +86,38 @@ public class VM_CuentaBancariaFormBasic extends VM_WindowForm {
 	public List<OperacionForm> getOperationsForm(OperacionEnum operacionEnum) {
 		List<OperacionForm> operacionesForm = new ArrayList<OperacionForm>();
 
-		if (operacionEnum.equals(OperacionEnum.INCLUIR) || operacionEnum.equals(OperacionEnum.MODIFICAR))
-		{
-			operacionesForm.add(OperacionFormHelper.getPorType(OperacionFormEnum.GUARDAR));
-			operacionesForm.add(OperacionFormHelper.getPorType(OperacionFormEnum.CANCELAR));
+		if (operacionEnum.equals(OperacionEnum.INCLUIR)
+				|| operacionEnum.equals(OperacionEnum.MODIFICAR)) {
+			operacionesForm.add(OperacionFormHelper
+					.getPorType(OperacionFormEnum.GUARDAR));
+			operacionesForm.add(OperacionFormHelper
+					.getPorType(OperacionFormEnum.CANCELAR));
 			return operacionesForm;
 		}
 
-		if (operacionEnum.equals(OperacionEnum.CONSULTAR))
-		{
-			operacionesForm.add(OperacionFormHelper.getPorType(OperacionFormEnum.SALIR));
+		if (operacionEnum.equals(OperacionEnum.CONSULTAR)) {
+			operacionesForm.add(OperacionFormHelper
+					.getPorType(OperacionFormEnum.SALIR));
 			return operacionesForm;
 		}
 		return operacionesForm;
 	}
 
 	@Override
-	public boolean actionGuardar(OperacionEnum operacionEnum)
-	{
-		if (!isFormValidated())
-		{
+	public boolean actionGuardar(OperacionEnum operacionEnum) {
+		if (!isFormValidated()) {
 			return true;
 		}
 		if (operacionEnum.equals(OperacionEnum.INCLUIR))
+
 		{
-			PayloadCuentaBancariaResponse payloadCuentaBancariaResponse = S.CuentaBancariaService.incluir(getCuentaBancaria());
-			if (!UtilPayload.isOK(payloadCuentaBancariaResponse))
-			{
+			getCuentaBancaria().setPropietario(
+					PropietarioEnum.ORGANIZACION.ordinal());
+
+			PayloadCuentaBancariaResponse payloadCuentaBancariaResponse = S.CuentaBancariaService
+					.incluir(getCuentaBancaria());
+
+			if (!UtilPayload.isOK(payloadCuentaBancariaResponse)) {
 				Alert.showMessage(payloadCuentaBancariaResponse);
 				return true;
 			}
@@ -127,9 +126,9 @@ public class VM_CuentaBancariaFormBasic extends VM_WindowForm {
 		}
 
 		if (operacionEnum.equals(OperacionEnum.MODIFICAR)) {
-			PayloadCuentaBancariaResponse payloadCuentaBancariaResponse = S.CuentaBancariaService.modificar(getCuentaBancaria());
-			if (!UtilPayload.isOK(payloadCuentaBancariaResponse))
-			{
+			PayloadCuentaBancariaResponse payloadCuentaBancariaResponse = S.CuentaBancariaService
+					.modificar(getCuentaBancaria());
+			if (!UtilPayload.isOK(payloadCuentaBancariaResponse)) {
 				Alert.showMessage(payloadCuentaBancariaResponse);
 				return true;
 			}
@@ -140,37 +139,37 @@ public class VM_CuentaBancariaFormBasic extends VM_WindowForm {
 	}
 
 	@Override
-	public boolean actionSalir(OperacionEnum operacionEnum)
-	{
+	public boolean actionSalir(OperacionEnum operacionEnum) {
 		DataCenter.reloadCurrentNodoMenu();
 		return true;
 	}
 
 	@Override
-	public boolean actionCancelar(OperacionEnum operacionEnum)
-	{
+	public boolean actionCancelar(OperacionEnum operacionEnum) {
 		return actionSalir(operacionEnum);
 	}
 
-	public CuentaBancaria getCuentaBancaria()
-	{
+	public CuentaBancaria getCuentaBancaria() {
 		return (CuentaBancaria) DataCenter.getEntity();
 	}
 
-	public boolean isFormValidated()
-	{
-		try
-		{
-			UtilValidate.validateNull(getCuentaBancaria().getFkBanco(), "Banco");
-			UtilValidate.validateString(getCuentaBancaria().getCuentaBancaria(), "Cuenta bancaria", 40);
-			UtilValidate.validateString(getCuentaBancaria().getTitular(), "Titular", 150);
-			UtilValidate.validateString(getCuentaBancaria().getIdentificacionTitular(), "Cédula de identidad o RIF", 35);
-			UtilValidate.validateString(getCuentaBancaria().getCorreoTitular(), "Correo electrónico", 35);
-			UtilValidate.validateNull(getCuentaBancaria().getTipoCuenta(), "Tipo de cuenta");
+	public boolean isFormValidated() {
+		try {
+			UtilValidate
+					.validateNull(getCuentaBancaria().getFkBanco(), "Banco");
+			UtilValidate.validateString(
+					getCuentaBancaria().getCuentaBancaria(), "Cuenta bancaria",
+					40);
+			UtilValidate.validateString(getCuentaBancaria().getTitular(),
+					"Titular", 150);
+			UtilValidate.validateString(getCuentaBancaria()
+					.getIdentificacionTitular(), "CÃ©dula/Rif", 35);
+			UtilValidate.validateString(getCuentaBancaria().getCorreoTitular(),
+					"Correo electrÃ³nico", 35);
+			UtilValidate.validateNull(getCuentaBancaria().getTipoCuenta(),
+					"Tipo de cuenta");
 			return true;
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			Alert.showMessage(e.getMessage());
 			return false;
 		}

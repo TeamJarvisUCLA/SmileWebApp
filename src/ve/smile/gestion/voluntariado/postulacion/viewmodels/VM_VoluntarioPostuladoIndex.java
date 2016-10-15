@@ -28,11 +28,13 @@ import ve.smile.consume.services.S;
 import ve.smile.dto.Voluntario;
 import ve.smile.dto.Ciudad;
 import ve.smile.dto.Estado;
+import ve.smile.dto.Motivo;
 import ve.smile.enums.TipoPersonaEnum;
 import ve.smile.seguridad.enums.SexoEnum;
 import ve.smile.enums.EstatusVoluntarioEnum;
 import ve.smile.payload.response.PayloadCiudadResponse;
 import ve.smile.payload.response.PayloadEstadoResponse;
+import ve.smile.payload.response.PayloadMotivoResponse;
 import ve.smile.payload.response.PayloadVoluntarioResponse;
 
 public class VM_VoluntarioPostuladoIndex extends VM_WindowWizard<Voluntario>
@@ -41,12 +43,16 @@ public class VM_VoluntarioPostuladoIndex extends VM_WindowWizard<Voluntario>
 	private EstatusVoluntarioEnum estatusVoluntarioEnum;
 		
 	private Estado estado;
+	private Motivo motivo;
+	
 	private Voluntario voluntario = new Voluntario();
 	
 	private Date fechaNacimiento = new Date();
 	
 	private List<Ciudad> ciudades;
 	private List<Estado> estados;
+	private List<Motivo> motivos;
+	
 	private List<SexoEnum> sexoEnums;
 	private List<TipoPersonaEnum> tipoPersonaEnums;
 
@@ -56,9 +62,10 @@ public class VM_VoluntarioPostuladoIndex extends VM_WindowWizard<Voluntario>
 	@Init(superclass = true)
 	public void childInit()
 	{
-		voluntario = new Voluntario();
 		estado = new Estado(); 
+		motivo = new Motivo();
 		fechaNacimiento = new Date();
+		voluntario = new Voluntario();
 	}
 
 	// VOLUNTARIO
@@ -72,7 +79,7 @@ public class VM_VoluntarioPostuladoIndex extends VM_WindowWizard<Voluntario>
 		this.voluntario = voluntario;
 	}
 
-	// ENUN SEXO
+	// ENUM SEXO
 	public SexoEnum getSexoEnum()
 	{
 		return sexoEnum;
@@ -144,6 +151,15 @@ public class VM_VoluntarioPostuladoIndex extends VM_WindowWizard<Voluntario>
 		if (this.ciudades == null)
 		{
 			this.ciudades = new ArrayList<>();
+		}
+		if (this.ciudades.isEmpty())
+		{
+			PayloadCiudadResponse payloadCiudadResponse = S.CiudadService.consultarTodos();
+			if (!UtilPayload.isOK(payloadCiudadResponse))
+			{
+				Alert.showMessage(payloadCiudadResponse);
+			}
+			this.ciudades.addAll(payloadCiudadResponse.getObjetos());
 		}
 		return ciudades;
 	}
@@ -249,6 +265,40 @@ public class VM_VoluntarioPostuladoIndex extends VM_WindowWizard<Voluntario>
 		this.estatusVoluntarioEnums = estatusVoluntarioEnums;
 	}
 	
+	// MOTIVOS
+	public Motivo getMotivo()
+	{
+		return motivo;
+	}
+
+	public void setMotivo (Motivo motivo)
+	{
+		this.motivo = motivo;
+	}
+
+	public List<Motivo> getMotivos()
+	{
+		if (this.motivos == null)
+		{
+			this.motivos = new ArrayList<>();
+		}
+		if (this.motivos.isEmpty())
+		{
+			PayloadMotivoResponse payloadMotivoResponse = S.MotivoService.consultarTodos();
+			if (!UtilPayload.isOK(payloadMotivoResponse))
+			{
+				Alert.showMessage(payloadMotivoResponse);
+			}
+			this.motivos.addAll(payloadMotivoResponse.getObjetos());
+		}
+		return motivos;
+	}
+
+	public void setMotivos(List<Motivo> motivos)
+	{
+		this.motivos = motivos;
+	}
+	
 	// MÉTODOS DEL WIZARD
 
 	@Override
@@ -258,12 +308,25 @@ public class VM_VoluntarioPostuladoIndex extends VM_WindowWizard<Voluntario>
 		List<OperacionWizard> listOperacionWizard1 = new ArrayList<OperacionWizard>();
 		listOperacionWizard1.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.SIGUIENTE));
 		botones.put(1, listOperacionWizard1);
-
+		
 		List<OperacionWizard> listOperacionWizard2 = new ArrayList<OperacionWizard>();
-		listOperacionWizard2.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.ATRAS));
-		listOperacionWizard2.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.FINALIZAR));
+		OperacionWizard operacionWizardCustom1 = new OperacionWizard(OperacionWizardEnum.CUSTOM1.ordinal(), "RECHAZAR",  "Custom1", "z-icon-times", "deep-orange", "RECHAZAR");
+		OperacionWizard operacionWizardCustom2 = new OperacionWizard(OperacionWizardEnum.CUSTOM2.ordinal(), "APROBAR",  "Custom2", "fa fa-check-square-o", "green", "APROBAR");
+		listOperacionWizard2.add(operacionWizardCustom1);
+		listOperacionWizard2.add(operacionWizardCustom2);
+		listOperacionWizard2.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.CANCELAR));
 		botones.put(2, listOperacionWizard2);
-
+		
+		List<OperacionWizard> listOperacionWizard3 = new ArrayList<OperacionWizard>();
+		listOperacionWizard3.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.ATRAS));
+		listOperacionWizard3.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.CANCELAR));
+		listOperacionWizard3.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.SIGUIENTE));
+		botones.put(3, listOperacionWizard3);
+		
+		List<OperacionWizard> listOperacionWizard4 = new ArrayList<OperacionWizard>();
+		listOperacionWizard4.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.FINALIZAR));
+		botones.put(4, listOperacionWizard4);
+		
 		return botones;
 	}
 
@@ -274,6 +337,7 @@ public class VM_VoluntarioPostuladoIndex extends VM_WindowWizard<Voluntario>
 		iconos.add("fa fa-user");
 		iconos.add("fa fa-pencil-square-o");
 		iconos.add("fa fa-pencil-square-o");
+		iconos.add("fa fa-check-square-o");
 		return iconos;
 	}
 
@@ -283,28 +347,23 @@ public class VM_VoluntarioPostuladoIndex extends VM_WindowWizard<Voluntario>
 		List<String> urls = new ArrayList<String>();
 		urls.add("views/desktop/gestion/voluntariado/postulacion/selectPostulado.zul");
 		urls.add("views/desktop/gestion/voluntariado/postulacion/datosPostulado.zul");
+		urls.add("views/desktop/gestion/voluntariado/postulacion/registroMotivo.zul");
+		urls.add("views/desktop/gestion/voluntariado/postulacion/registroCompletado.zul");
 		return urls;
 	}
-
+	
+	// CARGAR OBJETOS
+	
 	@Override
-	public String executeSiguiente(Integer currentStep)
+	public void comeIn(Integer currentStep)
 	{
-		if (currentStep == 2)
+		if (currentStep == 1)
 		{
-			this.setSexoEnum(SexoEnum.values()[selectedObject.getFkPersona().getSexo()]);
-			this.setTipoPersonaEnum(TipoPersonaEnum.values()[selectedObject.getFkPersona().getTipoPersona()]);
+			this.getControllerWindowWizard().updateListBoxAndFooter();
+			BindUtils.postNotifyChange(null, null, this, "objectsList");
 		}
-		goToNextStep();
-		return "";
 	}
-
-	@Override
-	public String executeAtras(Integer currentStep)
-	{
-		goToPreviousStep();
-		return "";
-	}
-
+	
 	@Override
 	public IPayloadResponse<Voluntario> getDataToTable(Integer cantidadRegistrosPagina, Integer pagina)
 	{
@@ -314,7 +373,27 @@ public class VM_VoluntarioPostuladoIndex extends VM_WindowWizard<Voluntario>
 		PayloadVoluntarioResponse payloadVoluntarioResponse = S.VoluntarioService.consultarPaginacionCriterios(cantidadRegistrosPagina, pagina,	TypeQuery.EQUAL, criterios);
 		return payloadVoluntarioResponse;
 	}
-
+	
+	// ATRÁS
+	
+	@Override
+	public String executeAtras(Integer currentStep)
+	{
+		goToPreviousStep();
+		return "";
+	}
+	
+	// CANCELAR
+	
+	@Override
+	public String executeCancelar(Integer currentStep)
+	{
+		restartWizard();
+		return "";
+	}
+	
+	// SIGUIENTE
+	
 	@Override
 	public String isValidPreconditionsSiguiente(Integer currentStep)
 	{
@@ -329,9 +408,55 @@ public class VM_VoluntarioPostuladoIndex extends VM_WindowWizard<Voluntario>
 	}
 
 	@Override
-	public String isValidPreconditionsFinalizar(Integer currentStep)
+	public String executeSiguiente(Integer currentStep)
 	{
 		if (currentStep == 2)
+		{
+			// NOTHING
+		}
+		if (currentStep == 3)
+		{
+			PayloadVoluntarioResponse payloadVoluntarioResponse = S.VoluntarioService.modificar(this.selectedObject);
+			if (UtilPayload.isOK(payloadVoluntarioResponse))
+			{
+				restartWizard();
+				this.setSelectedObject(new Voluntario());
+				this.setVoluntario(new Voluntario());
+				BindUtils.postNotifyChange(null, null, this, "selectedObject");
+				BindUtils.postNotifyChange(null, null, this, "voluntario");
+			}
+			return (String) payloadVoluntarioResponse.getInformacion(IPayloadResponse.MENSAJE);
+		}
+		goToNextStep();
+		return "";
+	}
+
+	// CUSTOMS
+	
+	@Override
+	public String executeCustom1(Integer currentStep)
+	{
+		// RECHAZADO
+		this.selectedObject.setEstatusVoluntario(EstatusVoluntarioEnum.RECHAZADO.ordinal());
+		goToNextStep();
+		return "";
+	}
+	
+	@Override
+	public String executeCustom2(Integer currentStep)
+	{
+		// POR COMPLETAR DATOS
+		this.selectedObject.setEstatusVoluntario(EstatusVoluntarioEnum.POR_COMPLETAR.ordinal());
+		goToNextStep();
+		return "";
+	}
+	
+	// FINALIZAR
+	
+	@Override
+	public String isValidPreconditionsFinalizar(Integer currentStep)
+	{
+		if (currentStep == 3)
 		{
 			try
 			{
@@ -348,29 +473,6 @@ public class VM_VoluntarioPostuladoIndex extends VM_WindowWizard<Voluntario>
 	@Override
 	public String executeFinalizar(Integer currentStep)
 	{
-		if (currentStep == 2)
-		{
-			PayloadVoluntarioResponse payloadVoluntarioResponse = S.VoluntarioService.modificar(this.selectedObject);
-			if (UtilPayload.isOK(payloadVoluntarioResponse))
-			{
-				restartWizard();
-				this.setSelectedObject(new Voluntario());
-				this.setVoluntario(new Voluntario());
-				BindUtils.postNotifyChange(null, null, this, "selectedObject");
-				BindUtils.postNotifyChange(null, null, this, "voluntario");
-			}
-			return (String) payloadVoluntarioResponse.getInformacion(IPayloadResponse.MENSAJE);
-		}
 		return "";
-	}
-
-	@Override
-	public void comeIn(Integer currentStep)
-	{
-		if (currentStep == 1)
-		{
-			this.getControllerWindowWizard().updateListBoxAndFooter();
-			BindUtils.postNotifyChange(null, null, this, "objectsList");
-		}
 	}
 }

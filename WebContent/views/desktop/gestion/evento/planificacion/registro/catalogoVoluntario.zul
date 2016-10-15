@@ -4,7 +4,7 @@
 		action="show: slideIn;hide: slideOut"
 		use="karen.core.dialog.catalogue.list_pagination.controllers.C_ListPaginationCatalogueDialog"
 		apply="org.zkoss.bind.BindComposer"
-		viewModel="@id('vm') @init('ve.smile.gestion.evento.planificaion.viewmodels.VM_CatalogoVoluntario', dialogData=arg.get('dialogData'))">
+		viewModel="@id('vm') @init('ve.smile.gestion.evento.planificaion.registro.viewmodels.VM_CatalogoVoluntario', dialogData=arg.get('dialogData'))">
 		<caption label="VOLUNTARIO" style="margin-left: 40%;" />
 		<separator height="20px"></separator>
 		<n:h6 style="margin-left: 5%;">

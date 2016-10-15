@@ -2,7 +2,7 @@
 	<div sclass="animated fadeInLeft">
 		<div class="row">
 			<div class="col s12" align="center" style="margin-bottom: 15px;">
-				<label value="Datos del postulado" sclass="label-medium-500"></label>
+				<label value="Seleccione las fortalezas del voluntario" sclass="label-medium-500"></label>
 			</div>
 		</div>
 		
@@ -33,7 +33,7 @@
 					</div>
 
 					<div sclass="col s5" style="padding:0px">
-						<listbox emptyMessage="No hay fortalezas asociadas al voluntario seleccionado" model="@bind(vm.fortalezasVoluntario)" selectedItems="@bind(vm.fortalezasVoluntarioSeleccionadas)" multiple="true">
+						<listbox model="@load(vm.voluntarioFortalezas)" emptyMessage="No hay fortalezas asociadas al voluntario" selectedItems="@bind(vm.voluntarioFortalezasSeleccionadas)" multiple="true">
 							<listhead sizable="true">
 								<listheader label="Fortalezas del voluntario" />
 							</listhead>

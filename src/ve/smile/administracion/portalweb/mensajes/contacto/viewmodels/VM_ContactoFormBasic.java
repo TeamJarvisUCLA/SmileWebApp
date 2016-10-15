@@ -19,7 +19,7 @@ import karen.core.form.viewmodels.VM_WindowForm;
 import karen.core.util.payload.UtilPayload;
 
 public class VM_ContactoFormBasic extends VM_WindowForm {
-	
+	private  String respuesta;
 	@Init(superclass = true)
 	public void childInit() {
 		
@@ -29,23 +29,25 @@ public class VM_ContactoFormBasic extends VM_WindowForm {
 	public List<OperacionForm> getOperationsForm(OperacionEnum operacionEnum) {
 		List<OperacionForm> operacionesForm = new ArrayList<OperacionForm>();
 		if(operacionEnum.equals(OperacionEnum.CUSTOM1)) {
-			operacionesForm.add(OperacionFormHelper.getPorType(OperacionFormEnum.APROBAR));
-			operacionesForm.add(OperacionFormHelper.getPorType(OperacionFormEnum.RECHAZAR));
+			OperacionForm operacionForm = new OperacionForm(OperacionEnum.CUSTOM1.ordinal(), "Procesar", "Custom1", "fa fa-cog", "indigo");
+			operacionesForm.add(operacionForm);
+			operacionesForm.add(OperacionFormHelper.getPorType(OperacionFormEnum.CANCELAR));
 			return operacionesForm;
 		}
 		return operacionesForm;
 	}
 	
 	@Override
-	public boolean actionAprobar(OperacionEnum operacionEnum) {
+	public boolean actionCustom1(OperacionEnum operacionEnum) {
 		getContactoPortal().setEstatusContacto(EstatusContactoEnum.PROCESADA.ordinal());
+		getContactoPortal().setRespuesta(respuesta);
 		PayloadContactoPortalResponse payloadContactoPortalResponse =S.ContactoPortalService.modificar(getContactoPortal());
 		if (!UtilPayload.isOK(payloadContactoPortalResponse)) {
 			Alert.showMessage(payloadContactoPortalResponse);
 			return true;
 		}
 		DataCenter.reloadCurrentNodoMenu();
-		return false;
+		return true;
 	}
 
 	@Override
@@ -57,7 +59,7 @@ public class VM_ContactoFormBasic extends VM_WindowForm {
 			return true;
 		}
 		DataCenter.reloadCurrentNodoMenu();
-		return false;
+		return true;
 	}
 
 	public ContactoPortal getContactoPortal() {
@@ -81,4 +83,13 @@ public class VM_ContactoFormBasic extends VM_WindowForm {
 		return true;
 	}
 
+	public String getRespuesta() {
+		return respuesta;
+	}
+
+	public void setRespuesta(String respuesta) {
+		this.respuesta = respuesta;
+	}
+
+	
 }

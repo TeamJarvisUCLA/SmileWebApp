@@ -1,12 +1,6 @@
 <?component name="uploadImageSingle" macroURI="/assets/theme/components/upload_image_single.zul"?>
 
 <zk xmlns:n="native" xmlns:w="client">
-	<style>
-
-		.estilo-preliminar { border: 2px dashed #8d7a6f; height: 120px;
-		width: 140px !important; color: #8d7a6f;}
-
-	</style>
 	<script type="text/javascript"
 		content="zk.googleAPIkey='AIzaSyAh2kLWx3Rtsw1GjYI2pwGNnix4ZwTZTm4'" />
 	<div width="80%" class="container ${arg.animation_}"
@@ -19,8 +13,9 @@
 			<div class="col s12">
 				<div class="input-field col s6">
 					<n:label for="nombre">Nombre</n:label>
-					<span sclass="fa fa-question-circle fa-lg help-icon-special" 
-					tooltip="pop_nombre, position=after_end"/>
+					<span
+						sclass="fa fa-question-circle fa-lg help-icon-special"
+						tooltip="pop_nombre, position=after_end" />
 					<textbox id="nombre" type="text" maxlength="100"
 						value="@bind(vm.directorio.nombre)">
 					</textbox>
@@ -29,22 +24,24 @@
 
 				<div class="input-field col s6">
 					<n:label for="telefono">Teléfono</n:label>
-					<span sclass="fa fa-question-circle fa-lg help-icon-special" 
-					tooltip="pop_telefono, position=after_end"/>
+					<span
+						sclass="fa fa-question-circle fa-lg help-icon-special"
+						tooltip="pop_telefono, position=after_end" />
 					<textbox id="telefono" type="text" maxlength="80"
 						value="@bind(vm.directorio.telefono)">
 					</textbox>
 				</div>
-				
+
 			</div>
 			<div sclass="col s12">
 				<div class="input-field col s6">
 					<n:label class="active" for="fk_estado">
 						Estado
 					</n:label>
-					<span sclass="fa fa-question-circle fa-lg help-icon-special" 
-					tooltip="pop_estado, position=after_end"/>
-					<combobox id="fk_estado" readonly="true"
+					<span
+						sclass="fa fa-question-circle fa-lg help-icon-special"
+						tooltip="pop_estado, position=after_end" />
+					<combobox id="fk_estado"
 						placeholder="Seleccione un Estado"
 						onSelect="@command('changeEstado')" model="@bind(vm.estados)"
 						selectedItem="@bind(vm.estado)">
@@ -58,9 +55,10 @@
 					<n:label class="active" for="fk_ciudad">
 						Ciudad
 					</n:label>
-					<span sclass="fa fa-question-circle fa-lg help-icon-special" 
-					tooltip="pop_ciudad, position=after_end"/>
-					<combobox id="fk_ciudad" readonly="true"
+					<span
+						sclass="fa fa-question-circle fa-lg help-icon-special"
+						tooltip="pop_ciudad, position=after_end" />
+					<combobox id="fk_ciudad"
 						placeholder="Seleccione una ciudad"
 						disabled="@load(empty vm.ciudads)" model="@bind(vm.ciudads)"
 						selectedItem="@bind(vm.directorio.fkCiudad)">
@@ -74,8 +72,9 @@
 			<div class="col s12">
 				<div class="input-field  col s12">
 					<n:label for="direccion">Dirección</n:label>
-					<span style="margin-left:30px" sclass="fa fa-question-circle fa-lg help-icon-special" 
-					tooltip="pop_direccion, position=after_end"/>
+					<span style="margin-left:30px"
+						sclass="fa fa-question-circle fa-lg help-icon-special"
+						tooltip="pop_direccion, position=after_end" />
 					<textbox id="direccion" type="text" maxlength="250"
 						sclass="materialize-textarea" multiline="true"
 						value="@bind(vm.directorio.direccion)">
@@ -85,8 +84,9 @@
 			<div class="col s12">
 				<div class="input-field  col s12">
 					<n:label for="url">Url</n:label>
-					<span sclass="fa fa-question-circle fa-lg help-icon-special" 
-					style="margin-left:30px" tooltip="pop_url, position=after_end"/>
+					<span
+						sclass="fa fa-question-circle fa-lg help-icon-special"
+						style="margin-left:30px" tooltip="pop_url, position=after_end" />
 					<textbox id="url" type="text" maxlength="200"
 						value="@bind(vm.directorio.url)">
 					</textbox>
@@ -125,7 +125,9 @@
 						<n:label for="responsable" class="active">
 							Imagen:
 						</n:label>
-						<span style="float:right" sclass="fa fa-question-circle fa-lg help-icon" tooltip="pop_imagen, position=after_end"/>
+						<span style="float:right"
+							sclass="fa fa-question-circle fa-lg help-icon"
+							tooltip="pop_imagen, position=after_end" />
 					</div>
 					<div class="row" align="center">
 
@@ -157,64 +159,107 @@
 			</div>
 
 		</div>
-    	
+
 		<popup id="pop_nombre" width="200px">
-        	<html>
-        		<![CDATA[ Por favor, indique el nombre del lugar que desea
-        		registrar.<br /><font color="#3b85a1">Ejemplo: Club Italo.</font> ]]>
+			<html>
+
+
+				
+				<![CDATA[ Por favor, indique el nombre del lugar que
+				desea registrar.<br /><font color="#3b85a1">Ejemplo:
+				Club Italo.</font> ]]>
+				
+				
+				
         	</html>
 		</popup>
-    	
-    	<popup id="pop_telefono" width="200px">
-        	<html>
-        		<![CDATA[ Por favor, indique un número de contacto del
-        		lugar que desea registrar.<br /><font
-        		color="#3b85a1">Ejemplo:02514424229.</font> ]]>
-        	</html>
-    	</popup>
-    	
-    	<popup id="pop_estado" width="200px">
-    		<html>
-    			<![CDATA[Por favor, use el combo para indicar el estado
-    			donde se encuentra el lugar que desea registrar.<br
-    			/><font color="#3b85a1">Ejemplo:Bolívar.</font> ]]>	
-        	</html>
-    	</popup>
 
-    	<popup id="pop_ciudad" width="200px">
-    		<html>
-    			<![CDATA[ Por favor, use el combo para indicar la ciudad
-    			donde se encuentra el lugar que desea registrar.<br
-    			/><font color="#3b85a1">Ejemplo: Puerto Ordaz.</font>
-    			]]>		
-        	</html>
-    	</popup>
-    	
-    	<popup id="pop_direccion" width="200px">
-    		<html>
-    			<![CDATA[ Por favor, indique la dirección donde se
-    			encuentra el lugar que desea registrar.<br /><font
-    			color="#3b85a1">Ejemplo: Avenida Leofling.</font> ]]>		
-        	</html>
-    	</popup>
-    	
-    	<popup id="pop_url" width="200px">
-    		<html>
-    			<![CDATA[ Por favor, indique la página web del lugar que
-    			desea registrar.<br /><font color="#3b85a1">Ejemplo:
-    			www.civg.com.ve.</font> ]]>		
-        	</html>
-    	</popup>
-    	
-    	<popup id="pop_imagen" width="200px">
-    		<html>
-    			<![CDATA[ Por favor, anexe una imagen del lugar que
-    			desea añadir al directorio, usando el botón de agregar
-    			(en color verde).<br /><font color="#3b85a1">]]>		
-        	</html>
-    	</popup>
+		<popup id="pop_telefono" width="200px">
+			<html>
 
-    	<div id="divButtonsForm"
+
+				
+				<![CDATA[ Por favor, indique un número de contacto del
+				lugar que desea registrar.<br /><font
+				color="#3b85a1">Ejemplo:02514424229.</font> ]]>
+				
+				
+				
+        	</html>
+		</popup>
+
+		<popup id="pop_estado" width="200px">
+			<html>
+
+
+				
+				<![CDATA[Por favor, use el combo para indicar el estado
+				donde se encuentra el lugar que desea registrar.<br
+				/><font color="#3b85a1">Ejemplo:Bolívar.</font> ]]>
+				
+				
+					
+        	</html>
+		</popup>
+
+		<popup id="pop_ciudad" width="200px">
+			<html>
+
+
+				
+				<![CDATA[ Por favor, use el combo para indicar la ciudad
+				donde se encuentra el lugar que desea registrar.<br
+				/><font color="#3b85a1">Ejemplo: Puerto Ordaz.</font>
+				]]>
+				
+				
+						
+        	</html>
+		</popup>
+
+		<popup id="pop_direccion" width="200px">
+			<html>
+
+
+				
+				<![CDATA[ Por favor, indique la dirección donde se
+				encuentra el lugar que desea registrar.<br /><font
+				color="#3b85a1">Ejemplo: Avenida Leofling.</font> ]]>
+				
+				
+						
+        	</html>
+		</popup>
+
+		<popup id="pop_url" width="200px">
+			<html>
+
+
+				
+				<![CDATA[ Por favor, indique la página web del lugar que
+				desea registrar.<br /><font color="#3b85a1">Ejemplo:
+				www.civg.com.ve.</font> ]]>
+				
+				
+						
+        	</html>
+		</popup>
+
+		<popup id="pop_imagen" width="200px">
+			<html>
+
+
+				
+				<![CDATA[ Por favor, anexe una imagen del lugar que
+				desea añadir al directorio, usando el botón de agregar
+				(en color verde).<br /><font color="#3b85a1">]]>
+				
+				
+						
+        	</html>
+		</popup>
+
+		<div id="divButtonsForm"
 			use="karen.core.form.buttons.containers.DivButtonsForm">
 		</div>
 	</div>

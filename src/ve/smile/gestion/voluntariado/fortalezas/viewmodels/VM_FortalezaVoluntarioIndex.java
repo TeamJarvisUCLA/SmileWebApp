@@ -1,8 +1,6 @@
 package ve.smile.gestion.voluntariado.fortalezas.viewmodels;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -14,10 +12,7 @@ import karen.core.simple_list.wizard.buttons.data.OperacionWizard;
 import karen.core.simple_list.wizard.buttons.enums.OperacionWizardEnum;
 import karen.core.simple_list.wizard.buttons.helpers.OperacionWizardHelper;
 import karen.core.simple_list.wizard.viewmodels.VM_WindowWizard;
-import karen.core.util.UtilDialog;
 import karen.core.util.payload.UtilPayload;
-import karen.core.util.validate.UtilValidate;
-import karen.core.util.validate.UtilValidate.ValidateOperator;
 import lights.core.payload.response.IPayloadResponse;
 import lights.core.enums.TypeQuery;
 
@@ -29,27 +24,22 @@ import org.zkoss.bind.annotation.NotifyChange;
 import ve.smile.consume.services.S;
 import ve.smile.dto.Fortaleza;
 import ve.smile.dto.Voluntario;
-import ve.smile.dto.VoluntarioFortaleza;
 import ve.smile.enums.EstatusVoluntarioEnum;
 import ve.smile.payload.response.PayloadFortalezaResponse;
-import ve.smile.payload.response.PayloadIndicadorResponse;
 import ve.smile.payload.response.PayloadVoluntarioResponse;
-import ve.smile.payload.response.PayloadVoluntarioFortalezaResponse;
 
 public class VM_FortalezaVoluntarioIndex extends VM_WindowWizard<Voluntario>
 {
 	private Voluntario voluntario;
 	
 	private List<Fortaleza> fortalezas;
-	private Set<Fortaleza> fortalezasSeleccionadas;
-	private List<Fortaleza> fortalezasVoluntario;
-	private Set<Fortaleza> fortalezasVoluntarioSeleccionadas;
+	private Set <Fortaleza> fortalezasSeleccionadas;
+	private List<Fortaleza> voluntarioFortalezas;
+	private Set <Fortaleza> voluntarioFortalezasSeleccionadas;
 
 	@Init(superclass = true)
 	public void childInit()
 	{
-		voluntario = new Voluntario();
-		
 		// FORTALEZAS
 		if (this.getFortalezas().isEmpty())
 		{
@@ -61,22 +51,6 @@ public class VM_FortalezaVoluntarioIndex extends VM_WindowWizard<Voluntario>
 			else
 			{
 				fortalezas.addAll(payloadFortalezaResponse.getObjetos());
-			}		
-		}
-		
-		//FORTALEZAS DEL VOLUNTARIO
-		if (this.getFortalezasVoluntario().isEmpty())
-		{
-			Map<String, String> criteriosV = new HashMap<>();
-			criteriosV.put("fkVoluntario", String.valueOf(this.getSelectedObject().getIdVoluntario()));
-			PayloadVoluntarioFortalezaResponse payloadVoluntarioFortalezaResponse = S.VoluntarioFortalezaService.consultarCriterios(TypeQuery.EQUAL, criteriosV);
-			if (!UtilPayload.isOK(payloadVoluntarioFortalezaResponse))
-			{
-				Alert.showMessage(payloadVoluntarioFortalezaResponse);
-			}
-			else
-			{
-				fortalezasVoluntario.addAll(payloadVoluntarioFortalezaResponse.getObjetos());
 			}		
 		}
 	}
@@ -92,11 +66,10 @@ public class VM_FortalezaVoluntarioIndex extends VM_WindowWizard<Voluntario>
 		this.voluntario = voluntario;
 	}
 	
-	// MÉTODOS DE LAS LISTAS
-	
+	// Mï¿½TODOS DE LAS LISTAS
 	public boolean disabledFortaleza(Fortaleza fortaleza)
 	{
-		return this.getFortalezasVoluntario().contains(fortaleza);
+		return this.getVoluntarioFortalezas().contains(fortaleza);
 	}
 	
 	public List<Fortaleza> getFortalezas()
@@ -128,60 +101,59 @@ public class VM_FortalezaVoluntarioIndex extends VM_WindowWizard<Voluntario>
 		this.fortalezasSeleccionadas = fortalezasSeleccionadas;
 	}
 	
-	public List<Fortaleza> getFortalezasVoluntario()
+	public List<Fortaleza> getVoluntarioFortalezas()
 	{
-		if (this.fortalezasVoluntario == null)
+		if (this.voluntarioFortalezas == null)
 		{
-			fortalezasVoluntario = new ArrayList<>();
+			voluntarioFortalezas = new ArrayList<>();
 		}
-		return fortalezasVoluntario;
+		return voluntarioFortalezas;
 	}
 
-	public void setFortalezasVoluntario (List<Fortaleza> fortalezasVoluntario)
+	public void setVoluntarioFortalezas (List<Fortaleza> voluntarioFortalezas)
 	{
-		this.fortalezasVoluntario = fortalezasVoluntario;
+		this.voluntarioFortalezas = voluntarioFortalezas;
 	}
 
-	public Set<Fortaleza> getFortalezasVoluntarioSeleccionadas()
+	public Set<Fortaleza> getVoluntarioFortalezasSeleccionadas()
 	{
-		if (this.fortalezasVoluntarioSeleccionadas == null)
+		if (this.voluntarioFortalezasSeleccionadas == null)
 		{
-			this.fortalezasVoluntarioSeleccionadas = new HashSet<>();
+			this.voluntarioFortalezasSeleccionadas = new HashSet<>();
 		}
-		return fortalezasVoluntarioSeleccionadas;
+		return voluntarioFortalezasSeleccionadas;
 	}
 
-	public void setFortalezasVoluntarioSeleccionadas(Set<Fortaleza> fortalezasVoluntarioSeleccionadas)
+	public void setVoluntarioFortalezasSeleccionadas(Set<Fortaleza> voluntarioFortalezasSeleccionadas)
 	{
-		this.fortalezasVoluntarioSeleccionadas = fortalezasVoluntarioSeleccionadas;
+		this.voluntarioFortalezasSeleccionadas = voluntarioFortalezasSeleccionadas;
 	}
 	
 	@Command("agregarFortalezas")
-	@NotifyChange({"fortalezas", "fortalezasVoluntario", "fortalezasSeleccionadas", "fortalezasVoluntarioSeleccionadas" })
+	@NotifyChange({"fortalezas", "voluntarioFortalezas", "fortalezasSeleccionadas", "voluntarioFortalezasSeleccionadas" })
 	public void agregarFortalezas()
 	{
 		if (this.getFortalezasSeleccionadas() != null && this.getFortalezasSeleccionadas().size() > 0)
 		{
-			this.getFortalezasVoluntario().addAll(fortalezasSeleccionadas);
+			this.getVoluntarioFortalezas().addAll(fortalezasSeleccionadas);
 			this.getFortalezasSeleccionadas().clear();
-			this.getFortalezasVoluntarioSeleccionadas().clear();
+			this.getVoluntarioFortalezasSeleccionadas().clear();
 		}
 	}
 
 	@Command("removerFortalezas")
-	@NotifyChange({"fortalezas", "fortalezasVoluntario", "fortalezasSeleccionadas", "fortalezasVoluntarioSeleccionadas" })
-	public void removerIndicadoresPlantilla()
+	@NotifyChange({"fortalezas", "voluntarioFortalezas", "fortalezasSeleccionadas", "voluntarioFortalezasSeleccionadas" })
+	public void removerFortalezas()
 	{
-		if (this.getFortalezasVoluntarioSeleccionadas() != null && this.getFortalezasVoluntarioSeleccionadas().size() > 0)
+		if (this.getVoluntarioFortalezasSeleccionadas() != null && this.getVoluntarioFortalezasSeleccionadas().size() > 0)
 		{
-			this.getFortalezasVoluntario().removeAll(fortalezasVoluntarioSeleccionadas);
+			this.getVoluntarioFortalezas().removeAll(voluntarioFortalezasSeleccionadas);
 			this.getFortalezasSeleccionadas().clear();
-			this.getFortalezasVoluntarioSeleccionadas().clear();
+			this.getVoluntarioFortalezasSeleccionadas().clear();
 		}
 	}
 	
-	// MÉTODOS DEL WIZARD
-
+	// Mï¿½TODOS DEL WIZARD
 	@Override
 	public Map<Integer, List<OperacionWizard>> getButtonsToStep()
 	{
@@ -192,6 +164,7 @@ public class VM_FortalezaVoluntarioIndex extends VM_WindowWizard<Voluntario>
 
 		List<OperacionWizard> listOperacionWizard2 = new ArrayList<OperacionWizard>();
 		listOperacionWizard2.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.ATRAS));
+		listOperacionWizard2.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.CANCELAR));
 		listOperacionWizard2.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.FINALIZAR));
 		botones.put(2, listOperacionWizard2);
 
@@ -214,6 +187,13 @@ public class VM_FortalezaVoluntarioIndex extends VM_WindowWizard<Voluntario>
 		urls.add("views/desktop/gestion/voluntariado/fortalezas/selectVoluntario.zul");
 		urls.add("views/desktop/gestion/voluntariado/fortalezas/listaFortalezas.zul");
 		return urls;
+	}
+	
+	@Override
+	public String executeCancelar(Integer currentStep)
+	{
+		restartWizard();
+		return "";
 	}
 
 	@Override
@@ -279,8 +259,11 @@ public class VM_FortalezaVoluntarioIndex extends VM_WindowWizard<Voluntario>
 	{
 		if (currentStep == 2)
 		{
-			PayloadVoluntarioFortalezaResponse payloadVoluntarioFortalezaResponse = S.VoluntarioFortalezaService.modificar(this.selectedObject);
-			if (UtilPayload.isOK(payloadVoluntarioFortalezaResponse))
+			this.selectedObject.setFortalezas(new ArrayList<Fortaleza>());
+			this.selectedObject.getFortalezas().clear();
+			this.selectedObject.getFortalezas().addAll(this.getVoluntarioFortalezas());
+			PayloadVoluntarioResponse payloadVoluntarioResponse = S.VoluntarioService.modificar(this.selectedObject);
+			if (UtilPayload.isOK(payloadVoluntarioResponse))
 			{
 				restartWizard();
 				this.setSelectedObject(new Voluntario());
@@ -288,7 +271,7 @@ public class VM_FortalezaVoluntarioIndex extends VM_WindowWizard<Voluntario>
 				BindUtils.postNotifyChange(null, null, this, "selectedObject");
 				BindUtils.postNotifyChange(null, null, this, "voluntario");
 			}
-			return (String) payloadVoluntarioFortalezaResponse.getInformacion(IPayloadResponse.MENSAJE);
+			return (String) payloadVoluntarioResponse.getInformacion(IPayloadResponse.MENSAJE);
 		}
 		return "";
 	}

@@ -1,0 +1,11 @@
+
+<zk>
+	<div apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('ve.smile.reportes.voluntario.viewmodels.VM_ReporteVoluntarioIndex')"
+		height="99%">
+
+		<jasperreport id="report" src="@load(vm.source)"
+			parameters="@load(vm.parametros)" type="@load(vm.type)" />
+
+	</div>
+</zk>

@@ -5,15 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.zkoss.bind.annotation.Command;
-import org.zkoss.bind.annotation.Init;
-
-import ve.smile.consume.services.S;
-import ve.smile.dto.Padrino;
-import ve.smile.enums.EstatusPadrinoEnum;
-import ve.smile.enums.TipoPersonaEnum;
-import ve.smile.payload.response.PayloadPadrinoResponse;
-import ve.smile.seguridad.enums.OperacionEnum;
 import karen.core.crux.alert.Alert;
 import karen.core.listfoot.enums.HowToSeeEnum;
 import karen.core.simple_list_principal.viewmodels.VM_WindowSimpleListPrincipal;
@@ -21,17 +12,25 @@ import karen.core.util.payload.UtilPayload;
 import lights.core.enums.TypeQuery;
 import lights.core.payload.response.IPayloadResponse;
 
+import org.zkoss.bind.annotation.Command;
+import org.zkoss.bind.annotation.Init;
+
+import ve.smile.consume.services.S;
+import ve.smile.dto.Padrino;
+import ve.smile.enums.EstatusPadrinoEnum;
+import ve.smile.payload.response.PayloadPadrinoResponse;
+import ve.smile.seguridad.enums.OperacionEnum;
+
 public class VM_PadrinoIndex extends VM_WindowSimpleListPrincipal<Padrino> {
 
-	private List<TipoPersonaEnum> tipoPersonaEnums;
-	private TipoPersonaEnum tipoPersonaEnum;
-
+	private String nombre;
+	private String identificacion;
+	private String frecuencia;
 	private List<EstatusPadrinoEnum> estatusPadrinoEnums;
 	private EstatusPadrinoEnum estatusPadrinoEnum;
 
 	@Init(superclass = true)
 	public void childInit() {
-		// NOTHING OK!
 		estatusPadrinoEnum = EstatusPadrinoEnum.ACTIVO;
 	}
 
@@ -53,9 +52,15 @@ public class VM_PadrinoIndex extends VM_WindowSimpleListPrincipal<Padrino> {
 	public IPayloadResponse<Padrino> getDataToTable(
 			Integer cantidadRegistrosPagina, Integer pagina) {
 		Map<String, String> criterios = new HashMap<String, String>();
-		if (this.getTipoPersonaEnum() != null) {
-			criterios.put("fkPersona.tipoPersona",
-					String.valueOf(this.tipoPersonaEnum.ordinal()));
+
+		if (nombre != null && !nombre.equalsIgnoreCase("")) {
+			criterios.put("fkPersona.nombre", nombre);
+		}
+		if (identificacion != null && !identificacion.equalsIgnoreCase("")) {
+			criterios.put("fkPersona.identificacion", identificacion);
+		}
+		if (frecuencia != null && !frecuencia.equalsIgnoreCase("")) {
+			criterios.put("fkFrecuenciaAporte.nombre", frecuencia);
 		}
 		if (this.getEstatusPadrinoEnum() != null) {
 			criterios.put("estatusPadrino",
@@ -63,7 +68,7 @@ public class VM_PadrinoIndex extends VM_WindowSimpleListPrincipal<Padrino> {
 		}
 		PayloadPadrinoResponse payloadPadrinoResponse = S.PadrinoService
 				.consultarPaginacionCriterios(cantidadRegistrosPagina, pagina,
-						TypeQuery.EQUAL, criterios);
+						TypeQuery.ILIKE, criterios);
 		return payloadPadrinoResponse;
 	}
 
@@ -85,30 +90,6 @@ public class VM_PadrinoIndex extends VM_WindowSimpleListPrincipal<Padrino> {
 	@Command
 	public void changeFilter() {
 		super.updateListBox(1, HowToSeeEnum.NORMAL);
-	}
-
-	public TipoPersonaEnum getTipoPersonaEnum() {
-		return tipoPersonaEnum;
-	}
-
-	public void setTipoPersonaEnum(TipoPersonaEnum tipoPersonaEnum) {
-		this.tipoPersonaEnum = tipoPersonaEnum;
-	}
-
-	public List<TipoPersonaEnum> getTipoPersonaEnums() {
-		if (this.tipoPersonaEnums == null) {
-			this.tipoPersonaEnums = new ArrayList<>();
-		}
-		if (this.tipoPersonaEnums.isEmpty()) {
-			for (TipoPersonaEnum tipoPersonaEnum : TipoPersonaEnum.values()) {
-				this.tipoPersonaEnums.add(tipoPersonaEnum);
-			}
-		}
-		return tipoPersonaEnums;
-	}
-
-	public void setTipoPersonaEnums(List<TipoPersonaEnum> tipoPersonaEnums) {
-		this.tipoPersonaEnums = tipoPersonaEnums;
 	}
 
 	public List<EstatusPadrinoEnum> getEstatusPadrinoEnums() {
@@ -135,6 +116,30 @@ public class VM_PadrinoIndex extends VM_WindowSimpleListPrincipal<Padrino> {
 
 	public void setEstatusPadrinoEnum(EstatusPadrinoEnum estatusPadrinoEnum) {
 		this.estatusPadrinoEnum = estatusPadrinoEnum;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public String getIdentificacion() {
+		return identificacion;
+	}
+
+	public void setIdentificacion(String identificacion) {
+		this.identificacion = identificacion;
+	}
+
+	public String getFrecuencia() {
+		return frecuencia;
+	}
+
+	public void setFrecuencia(String frecuencia) {
+		this.frecuencia = frecuencia;
 	}
 
 }

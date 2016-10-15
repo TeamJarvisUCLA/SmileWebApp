@@ -29,9 +29,7 @@ import ve.smile.dto.Ciudad;
 import ve.smile.dto.Colaborador;
 import ve.smile.dto.Estado;
 import ve.smile.dto.Motivo;
-import ve.smile.dto.Padrino;
 import ve.smile.enums.EstatusColaboradorEnum;
-import ve.smile.enums.EstatusPadrinoEnum;
 import ve.smile.enums.TipoPersonaEnum;
 import ve.smile.payload.response.PayloadCiudadResponse;
 import ve.smile.payload.response.PayloadColaboradorResponse;
@@ -40,8 +38,6 @@ import ve.smile.payload.response.PayloadMotivoResponse;
 import ve.smile.seguridad.enums.SexoEnum;
 
 public class VM_EgresoColaboradorIndex extends VM_WindowWizard {
-	private List<EstatusPadrinoEnum> estatusPadrinoEnums;
-	private EstatusPadrinoEnum estatusPadrinoEnum;
 
 	private Estado estado;
 
@@ -204,33 +200,6 @@ public class VM_EgresoColaboradorIndex extends VM_WindowWizard {
 	}
 
 	// ESTATUS PADRINO
-	public EstatusPadrinoEnum getEstatusPadrinoEnum() {
-		return estatusPadrinoEnum;
-	}
-
-	public void setEstatusPadrinoEnum(EstatusPadrinoEnum estatusPadrinoEnum) {
-		this.estatusPadrinoEnum = estatusPadrinoEnum;
-		this.getColaboradorSelected().setEstatusColaborador(
-				estatusPadrinoEnum.ordinal());
-	}
-
-	public List<EstatusPadrinoEnum> getEstatusPadrinoEnums() {
-		if (this.estatusPadrinoEnums == null) {
-			this.estatusPadrinoEnums = new ArrayList<>();
-		}
-		if (this.estatusPadrinoEnums.isEmpty()) {
-			for (EstatusPadrinoEnum estatusPadrinoEnum : EstatusPadrinoEnum
-					.values()) {
-				this.estatusPadrinoEnums.add(estatusPadrinoEnum);
-			}
-		}
-		return estatusPadrinoEnums;
-	}
-
-	public void setEstatusPadrinoEnums(
-			List<EstatusPadrinoEnum> estatusPadrinoEnums) {
-		this.estatusPadrinoEnums = estatusPadrinoEnums;
-	}
 
 	public List<Motivo> getMotivos() {
 		if (this.motivos == null) {
@@ -304,7 +273,7 @@ public class VM_EgresoColaboradorIndex extends VM_WindowWizard {
 	@Override
 	public List<String> getUrlPageToStep() {
 		List<String> urls = new ArrayList<String>();
-		urls.add("views/desktop/gestion/donativo/egreso/selectPadrino.zul");
+		urls.add("views/desktop/gestion/donativo/egreso/selectColaborador.zul");
 		urls.add("views/desktop/gestion/donativo/egreso/datosPersonales.zul");
 		urls.add("views/desktop/gestion/donativo/egreso/registroMotivo.zul");
 		urls.add("views/desktop/gestion/donativo/egreso/registroCompletado.zul");
@@ -339,7 +308,7 @@ public class VM_EgresoColaboradorIndex extends VM_WindowWizard {
 	public String isValidPreconditionsSiguiente(Integer currentStep) {
 		if (currentStep == 1) {
 			if (selectedObject == null) {
-				return "E:Error Code 5-Debe seleccionar un <b>padrino</b>";
+				return "E:Error Code 5-Debe seleccionar un <b>Colaborador</b>";
 			}
 		}
 		return "";
@@ -362,7 +331,7 @@ public class VM_EgresoColaboradorIndex extends VM_WindowWizard {
 		// RECHAZADO
 		if (currentStep == 2) {
 			this.getColaboradorSelected().setEstatusColaborador(
-					EstatusPadrinoEnum.INACTIVO.ordinal());
+					EstatusColaboradorEnum.INACTIVO.ordinal());
 			goToNextStep();
 		}
 		if (currentStep == 4) {
@@ -403,13 +372,19 @@ public class VM_EgresoColaboradorIndex extends VM_WindowWizard {
 					.modificar(this.getColaboradorSelected());
 			if (UtilPayload.isOK(payloadColaboradorResponse)) {
 				goToNextStep();
-				this.setSelectedObject(new Padrino());
+				this.setSelectedObject(new Colaborador());
 				BindUtils.postNotifyChange(null, null, this, "selectedObject");
 			}
 			return (String) payloadColaboradorResponse
 					.getInformacion(IPayloadResponse.MENSAJE);
 		}
 		return "";
+	}
+
+	@Override
+	public String executeCancelar(Integer currentStep) {
+		restartWizard();
+		return super.executeCancelar(currentStep);
 	}
 
 	public Colaborador getColaboradorSelected() {

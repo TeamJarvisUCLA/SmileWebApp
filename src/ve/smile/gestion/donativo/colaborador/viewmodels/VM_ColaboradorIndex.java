@@ -1,8 +1,5 @@
 package ve.smile.gestion.donativo.colaborador.viewmodels;
 
-//import java.util.HashMap;
-//import java.util.Map;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,14 +18,13 @@ import org.zkoss.bind.annotation.Init;
 import ve.smile.consume.services.S;
 import ve.smile.dto.Colaborador;
 import ve.smile.enums.EstatusColaboradorEnum;
-import ve.smile.enums.TipoPersonaEnum;
 import ve.smile.payload.response.PayloadColaboradorResponse;
 import ve.smile.seguridad.enums.OperacionEnum;
 
 public class VM_ColaboradorIndex extends
 		VM_WindowSimpleListPrincipal<Colaborador> {
-	private List<TipoPersonaEnum> tipoPersonaEnums;
-	private TipoPersonaEnum tipoPersonaEnum;
+	private String nombre;
+	private String identificacion;
 
 	private List<EstatusColaboradorEnum> estatusColaboradorEnums;
 	private EstatusColaboradorEnum estatusColaboradorEnum;
@@ -42,9 +38,12 @@ public class VM_ColaboradorIndex extends
 	public IPayloadResponse<Colaborador> getDataToTable(
 			Integer cantidadRegistrosPagina, Integer pagina) {
 		Map<String, String> criterios = new HashMap<String, String>();
-		if (this.getTipoPersonaEnum() != null) {
-			criterios.put("fkPersona.tipoPersona",
-					String.valueOf(this.tipoPersonaEnum.ordinal()));
+
+		if (nombre != null && !nombre.equalsIgnoreCase("")) {
+			criterios.put("fkPersona.nombre", nombre);
+		}
+		if (identificacion != null && !identificacion.equalsIgnoreCase("")) {
+			criterios.put("fkPersona.identificacion", identificacion);
 		}
 		if (this.getEstatusColaboradorEnum() != null) {
 			criterios.put("estatusColaborador",
@@ -52,7 +51,7 @@ public class VM_ColaboradorIndex extends
 		}
 		PayloadColaboradorResponse payloadColaboradorResponse = S.ColaboradorService
 				.consultarPaginacionCriterios(cantidadRegistrosPagina, pagina,
-						TypeQuery.EQUAL, criterios);
+						TypeQuery.ILIKE, criterios);
 		return payloadColaboradorResponse;
 	}
 
@@ -74,30 +73,6 @@ public class VM_ColaboradorIndex extends
 	@Command
 	public void changeFilter() {
 		super.updateListBox(1, HowToSeeEnum.NORMAL);
-	}
-
-	public TipoPersonaEnum getTipoPersonaEnum() {
-		return tipoPersonaEnum;
-	}
-
-	public void setTipoPersonaEnum(TipoPersonaEnum tipoPersonaEnum) {
-		this.tipoPersonaEnum = tipoPersonaEnum;
-	}
-
-	public List<TipoPersonaEnum> getTipoPersonaEnums() {
-		if (this.tipoPersonaEnums == null) {
-			this.tipoPersonaEnums = new ArrayList<>();
-		}
-		if (this.tipoPersonaEnums.isEmpty()) {
-			for (TipoPersonaEnum tipoPersonaEnum : TipoPersonaEnum.values()) {
-				this.tipoPersonaEnums.add(tipoPersonaEnum);
-			}
-		}
-		return tipoPersonaEnums;
-	}
-
-	public void setTipoPersonaEnums(List<TipoPersonaEnum> tipoPersonaEnums) {
-		this.tipoPersonaEnums = tipoPersonaEnums;
 	}
 
 	public List<EstatusColaboradorEnum> getEstatusColaboradorEnums() {
@@ -125,6 +100,22 @@ public class VM_ColaboradorIndex extends
 	public void setEstatusColaboradorEnum(
 			EstatusColaboradorEnum estatusColaboradorEnum) {
 		this.estatusColaboradorEnum = estatusColaboradorEnum;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public String getIdentificacion() {
+		return identificacion;
+	}
+
+	public void setIdentificacion(String identificacion) {
+		this.identificacion = identificacion;
 	}
 
 }

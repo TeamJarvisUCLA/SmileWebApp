@@ -32,28 +32,6 @@
 						value="@bind(vm.eventoPlanificado.fkPersona.nombre)">
 					</textbox>
 				</div>
-				
-		<!-- 		
-				<div class="input-field col s6">
-					<n:label for="fecha_inicio" class="active">Fecha de inicio de publicación</n:label>
-						<datebox id="fi" cols="20"
-							readonly="true" format="dd/MM/yyyy"
-							value="@bind(vm.eventoPlanificado.fechaInicioIncidencia)" />
-				</div>
-				<div class="input-field col s6">
-					<n:label for="fecha_fin" class="active">Fecha de culminación de publicación</n:label>
-						<datebox id="ff" cols="20"
-							readonly="true" format="dd/MM/yyyy"
-							value="@bind(vm.eventoPlanificado.fechaFinIncidencia)" />
-				</div>
-		-->		
-				<div class="input-field col s12">
-					<n:label for="observacion">Observación</n:label>
-					<textbox id="observacion" class="materialize-textarea" type="text" multiline="true" maxlength="200"
-						value="@bind(vm.eventoPlanificado.observacion)">
-					</textbox>
-				
-				</div >
 			 
 				<div class="input-field col s12" align="center">
 					<checkbox label="Publicar en el Portal" id="publicar" checked="@bind(vm.eventoPlanificado.publicoPortal)"/>

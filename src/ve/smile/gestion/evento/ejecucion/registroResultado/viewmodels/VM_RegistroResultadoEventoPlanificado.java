@@ -1,4 +1,4 @@
-package ve.smile.gestion.evento.planificaion.tarea.indicadores.viewmodels;
+package ve.smile.gestion.evento.ejecucion.registroResultado.viewmodels;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,7 +32,7 @@ import ve.smile.payload.response.PayloadEventPlanTareaResponse;
 import ve.smile.payload.response.PayloadEventoPlanificadoResponse;
 import ve.smile.payload.response.PayloadIndicadorEventoPlanTareaResponse;
 
-public class VM_TareaIndicadoresEventoPlanificado extends
+public class VM_RegistroResultadoEventoPlanificado extends
 		VM_WindowWizard {
 
 	private List<Indicador> auxlistIndicadors = new ArrayList<>();
@@ -44,103 +44,7 @@ public class VM_TareaIndicadoresEventoPlanificado extends
 
 	}
 
-	@Command("buscarIndicadores")
-	public void buscarVoluntario(@BindingParam("index") int index) {
-		this.indexTarea = index;
-		CatalogueDialogData<Indicador> catalogueDialogData = new CatalogueDialogData<Indicador>();
-
-		catalogueDialogData
-				.addCatalogueDialogCloseListeners(new CatalogueDialogCloseListener<Indicador>() {
-
-					@Override
-					public void onClose(
-							CatalogueDialogCloseEvent<Indicador> catalogueDialogCloseEvent) {
-						if (catalogueDialogCloseEvent.getDialogAction().equals(
-								DialogActionEnum.CANCELAR)) {
-							return;
-						}
-						List<Indicador> listIndicador = new ArrayList<Indicador>();
-						listIndicador = catalogueDialogCloseEvent.getEntities();
-
-						refreshIndicador(listIndicador);
-					}
-				});
-
-		UtilDialog
-				.showDialog(
-						"views/desktop/gestion/evento/planificacion/tareas/indicadores/catalogoIndicadores.zul",
-						catalogueDialogData);
-	}
-
-	public void refreshIndicador(List<Indicador> listIndicado) {
-
-		boolean validar = true;
-		List<IndicadorEventoPlanTarea> listAux2 = new ArrayList<>();
-		IndicadorEventoPlanTarea indicadorEventoPlanTarea = new IndicadorEventoPlanTarea();
-
-		if (listEventPlanTareas.get(indexTarea).getIndicadorEventoPlanTareas() != null) {
-			for (IndicadorEventoPlanTarea iet : listEventPlanTareas.get(
-					indexTarea).getIndicadorEventoPlanTareas()) {
-				indicadorEventoPlanTarea = new IndicadorEventoPlanTarea();
-				indicadorEventoPlanTarea
-						.setFkEventPlanTarea(listEventPlanTareas
-								.get(indexTarea));
-				indicadorEventoPlanTarea.setFkIndicador(iet.getFkIndicador());
-				indicadorEventoPlanTarea.setValorEsperado(iet.getValorEsperado());
-				listAux2.add(indicadorEventoPlanTarea);
-			}
-		}
-
-		for (Indicador indicador : listIndicado) {
-			if (listEventPlanTareas.get(indexTarea)
-					.getIndicadorEventoPlanTareas() != null) {
-
-				for (IndicadorEventoPlanTarea iet : listEventPlanTareas.get(
-						indexTarea).getIndicadorEventoPlanTareas()) {
-					if (iet.getFkIndicador().getIdIndicador()
-							.equals(indicador.getIdIndicador())) {
-
-						validar = false;
-
-					}
-				}
-
-				if (validar) {
-					indicadorEventoPlanTarea = new IndicadorEventoPlanTarea();
-					indicadorEventoPlanTarea
-							.setFkEventPlanTarea(listEventPlanTareas
-									.get(indexTarea));
-					indicadorEventoPlanTarea.setFkIndicador(indicador);
-					listAux2.add(indicadorEventoPlanTarea);
-
-				}
-
-			} else {
-				indicadorEventoPlanTarea = new IndicadorEventoPlanTarea();
-				indicadorEventoPlanTarea
-						.setFkEventPlanTarea(listEventPlanTareas
-								.get(indexTarea));
-				indicadorEventoPlanTarea.setFkIndicador(indicador);
-				listAux2.add(indicadorEventoPlanTarea);
-
-			}
-
-		}
-
-		listEventPlanTareas.get(indexTarea).setIndicadorEventoPlanTareas(
-				listAux2);
-		BindUtils.postNotifyChange(null, null, this, "listEventPlanTareas");
-	}
-
-	@Command("eliminarIndicador")
-	public void eliminarIndicador(
-			@BindingParam("indicadorEventoPs") IndicadorEventoPlanTarea indicadorEventoPlanTarea,
-			@BindingParam("index") int index) {
-		this.getListEventPlanTareas().get(index)
-				.getIndicadorEventoPlanTareas()
-				.remove(indicadorEventoPlanTarea);
-		BindUtils.postNotifyChange(null, null, this, "listEventPlanTareas");
-	}
+	
 	
 	@Override
 	public Map<Integer, List<OperacionWizard>> getButtonsToStep() {
@@ -241,9 +145,9 @@ public class VM_TareaIndicadoresEventoPlanificado extends
 	public List<String> getUrlPageToStep() {
 		List<String> urls = new ArrayList<String>();
 
-		urls.add("views/desktop/gestion/evento/planificacion/tareas/indicadores/selectEventoPlanificado.zul");
-		urls.add("views/desktop/gestion/evento/planificacion/tareas/indicadores/tareaIndicadores.zul");
-		urls.add("views/desktop/gestion/evento/planificacion/tareas/indicadores/registroCompletado.zul");
+		urls.add("views/desktop/gestion/evento/ejecucion/registrarResultado/selectEventoPlanificado.zul");
+		urls.add("views/desktop/gestion/evento/ejecucion/registrarResultado/registroTareaIndicadoresEventoPs.zul");
+		urls.add("views/desktop/gestion/evento/ejecucion/registrarResultado/registroCompletado.zul");
 
 		return urls;
 	}
@@ -267,9 +171,8 @@ public class VM_TareaIndicadoresEventoPlanificado extends
 					PayloadIndicadorEventoPlanTareaResponse indicadorEventoPlanTareaResponse = S.IndicadorEventoPlanTareaService
 							.consultarCriterios(TypeQuery.EQUAL, criterios);
 					if (indicadorEventoPlanTareaResponse.getObjetos().size() > 0) {
-						listEventPlanTareas.get(i)
-								.setIndicadorEventoPlanTareas(
-										indicadorEventoPlanTareaResponse
+						
+						listEventPlanTareas.get(i).setIndicadorEventoPlanTareas(indicadorEventoPlanTareaResponse
 												.getObjetos());
 					}
 

@@ -1,4 +1,4 @@
-package ve.smile.gestion.evento.planificaion.tarea.indicadores.viewmodels;
+package ve.smile.gestion.evento.planificaion.tarea.recursos.viewmodels;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,6 +10,7 @@ import karen.core.dialog.catalogue.generic.events.CatalogueDialogCloseEvent;
 import karen.core.dialog.catalogue.generic.events.listeners.CatalogueDialogCloseListener;
 import karen.core.dialog.generic.enums.DialogActionEnum;
 import karen.core.util.UtilDialog;
+import karen.core.util.payload.UtilPayload;
 import karen.core.wizard.buttons.data.OperacionWizard;
 import karen.core.wizard.buttons.enums.OperacionWizardEnum;
 import karen.core.wizard.buttons.helpers.OperacionWizardHelper;
@@ -24,15 +25,18 @@ import org.zkoss.bind.annotation.Init;
 
 import ve.smile.consume.services.S;
 import ve.smile.dto.EventPlanTarea;
+import ve.smile.dto.EventPlanTareaRecurso;
 import ve.smile.dto.EventoPlanificado;
 import ve.smile.dto.Indicador;
 import ve.smile.dto.IndicadorEventoPlanTarea;
-import ve.smile.dto.IndicadorTsPlanActividad;
+import ve.smile.dto.Recurso;
+import ve.smile.dto.Tarea;
+import ve.smile.payload.response.PayloadEventPlanTareaRecursoResponse;
 import ve.smile.payload.response.PayloadEventPlanTareaResponse;
 import ve.smile.payload.response.PayloadEventoPlanificadoResponse;
 import ve.smile.payload.response.PayloadIndicadorEventoPlanTareaResponse;
 
-public class VM_TareaIndicadoresEventoPlanificado extends
+public class VM_TareaRecursosEventoPlanificado extends
 		VM_WindowWizard {
 
 	private List<Indicador> auxlistIndicadors = new ArrayList<>();
@@ -47,58 +51,58 @@ public class VM_TareaIndicadoresEventoPlanificado extends
 	@Command("buscarIndicadores")
 	public void buscarVoluntario(@BindingParam("index") int index) {
 		this.indexTarea = index;
-		CatalogueDialogData<Indicador> catalogueDialogData = new CatalogueDialogData<Indicador>();
+		CatalogueDialogData<Recurso> catalogueDialogData = new CatalogueDialogData<Recurso>();
 
 		catalogueDialogData
-				.addCatalogueDialogCloseListeners(new CatalogueDialogCloseListener<Indicador>() {
+				.addCatalogueDialogCloseListeners(new CatalogueDialogCloseListener<Recurso>() {
 
 					@Override
 					public void onClose(
-							CatalogueDialogCloseEvent<Indicador> catalogueDialogCloseEvent) {
+							CatalogueDialogCloseEvent<Recurso> catalogueDialogCloseEvent) {
 						if (catalogueDialogCloseEvent.getDialogAction().equals(
 								DialogActionEnum.CANCELAR)) {
 							return;
 						}
-						List<Indicador> listIndicador = new ArrayList<Indicador>();
-						listIndicador = catalogueDialogCloseEvent.getEntities();
+						List<Recurso> listRecurso = new ArrayList<Recurso>();
+						listRecurso = catalogueDialogCloseEvent.getEntities();
 
-						refreshIndicador(listIndicador);
+						refreshRecurso(listRecurso);
 					}
 				});
 
 		UtilDialog
 				.showDialog(
-						"views/desktop/gestion/evento/planificacion/tareas/indicadores/catalogoIndicadores.zul",
+						"views/desktop/gestion/evento/planificacion/tareas/recursos/catalogoRecursos.zul",
 						catalogueDialogData);
 	}
 
-	public void refreshIndicador(List<Indicador> listIndicado) {
+	public void refreshRecurso(List<Recurso> listRecurso) {
 
 		boolean validar = true;
-		List<IndicadorEventoPlanTarea> listAux2 = new ArrayList<>();
-		IndicadorEventoPlanTarea indicadorEventoPlanTarea = new IndicadorEventoPlanTarea();
+		List<EventPlanTareaRecurso> listAux2 = new ArrayList<>();
+		EventPlanTareaRecurso eventPlanTareaRecurso = new EventPlanTareaRecurso();
 
 		if (listEventPlanTareas.get(indexTarea).getIndicadorEventoPlanTareas() != null) {
-			for (IndicadorEventoPlanTarea iet : listEventPlanTareas.get(
-					indexTarea).getIndicadorEventoPlanTareas()) {
-				indicadorEventoPlanTarea = new IndicadorEventoPlanTarea();
-				indicadorEventoPlanTarea
+			for (EventPlanTareaRecurso iet : listEventPlanTareas.get(
+					indexTarea).getListEventPlanTareaRecursos()) {
+				eventPlanTareaRecurso = new EventPlanTareaRecurso();
+				eventPlanTareaRecurso
 						.setFkEventPlanTarea(listEventPlanTareas
 								.get(indexTarea));
-				indicadorEventoPlanTarea.setFkIndicador(iet.getFkIndicador());
-				indicadorEventoPlanTarea.setValorEsperado(iet.getValorEsperado());
-				listAux2.add(indicadorEventoPlanTarea);
+				eventPlanTareaRecurso.setFkRecurso(iet.getFkRecurso());
+				eventPlanTareaRecurso.setCantidad(iet.getCantidad());
+				listAux2.add(eventPlanTareaRecurso);
 			}
 		}
 
-		for (Indicador indicador : listIndicado) {
+		for (Recurso recurso : listRecurso) {
 			if (listEventPlanTareas.get(indexTarea)
-					.getIndicadorEventoPlanTareas() != null) {
+					.getListEventPlanTareaRecursos() != null) {
 
-				for (IndicadorEventoPlanTarea iet : listEventPlanTareas.get(
-						indexTarea).getIndicadorEventoPlanTareas()) {
-					if (iet.getFkIndicador().getIdIndicador()
-							.equals(indicador.getIdIndicador())) {
+				for (EventPlanTareaRecurso iet : listEventPlanTareas.get(
+						indexTarea).getListEventPlanTareaRecursos()) {
+					if (iet.getFkRecurso().getIdRecurso()
+							.equals(recurso.getIdRecurso())) {
 
 						validar = false;
 
@@ -106,42 +110,32 @@ public class VM_TareaIndicadoresEventoPlanificado extends
 				}
 
 				if (validar) {
-					indicadorEventoPlanTarea = new IndicadorEventoPlanTarea();
-					indicadorEventoPlanTarea
+					eventPlanTareaRecurso = new EventPlanTareaRecurso();
+					eventPlanTareaRecurso
 							.setFkEventPlanTarea(listEventPlanTareas
 									.get(indexTarea));
-					indicadorEventoPlanTarea.setFkIndicador(indicador);
-					listAux2.add(indicadorEventoPlanTarea);
+					eventPlanTareaRecurso.setFkRecurso(recurso);
+					listAux2.add(eventPlanTareaRecurso);
 
 				}
 
 			} else {
-				indicadorEventoPlanTarea = new IndicadorEventoPlanTarea();
-				indicadorEventoPlanTarea
+				eventPlanTareaRecurso = new EventPlanTareaRecurso();
+				eventPlanTareaRecurso
 						.setFkEventPlanTarea(listEventPlanTareas
 								.get(indexTarea));
-				indicadorEventoPlanTarea.setFkIndicador(indicador);
-				listAux2.add(indicadorEventoPlanTarea);
+				eventPlanTareaRecurso.setFkRecurso(recurso);
+				listAux2.add(eventPlanTareaRecurso);
 
 			}
 
 		}
 
-		listEventPlanTareas.get(indexTarea).setIndicadorEventoPlanTareas(
+		listEventPlanTareas.get(indexTarea).setListEventPlanTareaRecursos(
 				listAux2);
 		BindUtils.postNotifyChange(null, null, this, "listEventPlanTareas");
 	}
 
-	@Command("eliminarIndicador")
-	public void eliminarIndicador(
-			@BindingParam("indicadorEventoPs") IndicadorEventoPlanTarea indicadorEventoPlanTarea,
-			@BindingParam("index") int index) {
-		this.getListEventPlanTareas().get(index)
-				.getIndicadorEventoPlanTareas()
-				.remove(indicadorEventoPlanTarea);
-		BindUtils.postNotifyChange(null, null, this, "listEventPlanTareas");
-	}
-	
 	@Override
 	public Map<Integer, List<OperacionWizard>> getButtonsToStep() {
 		Map<Integer, List<OperacionWizard>> botones = new HashMap<Integer, List<OperacionWizard>>();
@@ -173,7 +167,7 @@ public class VM_TareaIndicadoresEventoPlanificado extends
 	public String executeFinalizar(Integer currentStep) {
 		if (currentStep == 2) {
 			PayloadIndicadorEventoPlanTareaResponse indicadorEventoPlanTareaResponse = null;
-			PayloadEventPlanTareaResponse payloadEventPlanTareaResponse = new PayloadEventPlanTareaResponse();
+			PayloadEventPlanTareaRecursoResponse payloadEventPlanTareaResponse = new PayloadEventPlanTareaRecursoResponse();
 			for (EventPlanTarea obj : listEventPlanTareas) {
 				/*Map<String, String> criterios = new HashMap<String, String>();
 				criterios.put("fkEventPlanTarea.idEventPlanTarea",
@@ -190,29 +184,29 @@ public class VM_TareaIndicadoresEventoPlanificado extends
 					}
 
 				}*/
-				if (obj.getIndicadorEventoPlanTareas() != null) {
-					for (IndicadorEventoPlanTarea indicadorEventoPlanTarea : obj
-							.getIndicadorEventoPlanTareas()) {
-						IndicadorEventoPlanTarea eventoPlanTarea = new IndicadorEventoPlanTarea();
+				if (obj.getListEventPlanTareaRecursos() != null) {
+					for (EventPlanTareaRecurso eventPlanTareaRecurso : obj
+							.getListEventPlanTareaRecursos()) {
+						EventPlanTareaRecurso eventoPlanTarea = new EventPlanTareaRecurso();
 						EventPlanTarea eventPlanTarea = new EventPlanTarea();
 						eventPlanTarea
-								.setIdEventPlanTarea(indicadorEventoPlanTarea
+								.setIdEventPlanTarea(eventPlanTareaRecurso
 										.getFkEventPlanTarea()
 										.getIdEventPlanTarea());
 						eventoPlanTarea.setFkEventPlanTarea(eventPlanTarea);
-						eventoPlanTarea.setFkIndicador(indicadorEventoPlanTarea
-								.getFkIndicador());
-						eventoPlanTarea
-								.setValorEsperado(indicadorEventoPlanTarea
-										.getValorEsperado());
-						indicadorEventoPlanTareaResponse = S.IndicadorEventoPlanTareaService
+						eventoPlanTarea.setFkRecurso(eventPlanTareaRecurso.getFkRecurso());
+						eventoPlanTarea.setCantidad(eventPlanTareaRecurso.getCantidad());										
+						payloadEventPlanTareaResponse = S.EventPlanTareaRecursoService
 								.incluir(eventoPlanTarea);
 					}
 				}
 			}
+
+			if (!UtilPayload.isOK(payloadEventPlanTareaResponse)) {
+				return (String) payloadEventPlanTareaResponse
+						.getInformacion(IPayloadResponse.MENSAJE);
+			}
 			goToNextStep();
-			return (String) payloadEventPlanTareaResponse
-					.getInformacion(IPayloadResponse.MENSAJE);
 		}
 
 		return "";
@@ -241,9 +235,9 @@ public class VM_TareaIndicadoresEventoPlanificado extends
 	public List<String> getUrlPageToStep() {
 		List<String> urls = new ArrayList<String>();
 
-		urls.add("views/desktop/gestion/evento/planificacion/tareas/indicadores/selectEventoPlanificado.zul");
-		urls.add("views/desktop/gestion/evento/planificacion/tareas/indicadores/tareaIndicadores.zul");
-		urls.add("views/desktop/gestion/evento/planificacion/tareas/indicadores/registroCompletado.zul");
+		urls.add("views/desktop/gestion/evento/planificacion/tareas/recursos/selectEventoPlanificado.zul");
+		urls.add("views/desktop/gestion/evento/planificacion/tareas/recursos/tareaRecursos.zul");
+		urls.add("views/desktop/gestion/evento/planificacion/tareas/recursos/registroCompletado.zul");
 
 		return urls;
 	}
@@ -264,13 +258,12 @@ public class VM_TareaIndicadoresEventoPlanificado extends
 					criterios.put("fkEventPlanTarea.idEventPlanTarea",
 							listEventPlanTareas.get(i).getIdEventPlanTarea()
 									+ "");
-					PayloadIndicadorEventoPlanTareaResponse indicadorEventoPlanTareaResponse = S.IndicadorEventoPlanTareaService
+					PayloadEventPlanTareaRecursoResponse eventPlanTareaRecursoResponse = S.EventPlanTareaRecursoService
 							.consultarCriterios(TypeQuery.EQUAL, criterios);
-					if (indicadorEventoPlanTareaResponse.getObjetos().size() > 0) {
+					if (eventPlanTareaRecursoResponse.getObjetos().size() > 0) {
 						listEventPlanTareas.get(i)
-								.setIndicadorEventoPlanTareas(
-										indicadorEventoPlanTareaResponse
-												.getObjetos());
+								.setListEventPlanTareaRecursos(
+										eventPlanTareaRecursoResponse.getObjetos());
 					}
 
 				}
@@ -315,7 +308,6 @@ public class VM_TareaIndicadoresEventoPlanificado extends
 		restartWizard();
 		return "";
 	}
-
 
 	public List<EventPlanTarea> getListEventPlanTareas() {
 		return listEventPlanTareas;

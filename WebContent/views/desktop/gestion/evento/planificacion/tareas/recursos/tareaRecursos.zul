@@ -70,17 +70,17 @@
 						</column>
 					</columns>
 					<template name="model">
-						<row style="overflow:auto; max-height:200px"
+						<row style="overflow:auto; max-height:400px"
 							sclass="row-vacaciones">
 
 
 							<detail open="false" fulfill="onOpen">
 
 								<grid sclass="vacacion"
-									model="@bind(each.indicadorEventoPlanTareas)">
+									model="@bind(each.listEventPlanTareaRecursos)">
 									<auxhead>
 									<auxheader colspan="5" align="center"
-									label="INDICADORES ASOCIADOS">
+									label="RECURSOS ASOCIADOS">
 									</auxheader>
 									</auxhead>
 									<columns
@@ -90,9 +90,13 @@
 										<column label="Descripción"
 											align="center" width="30%" />
 										<column label="Unidad de Medida"
-											align="center" width="25%" />										
+											align="center" width="25%" />
+										<column label="Valor"
+											align="center" width="23%">
+
+										</column>
 										<column label="eliminar"
-											align="left" width="10%">
+											align="center" width="10%">
 
 										</column>
 									</columns>
@@ -100,16 +104,22 @@
 										<row sclass="last">
 											<cell sclass="vacacion">
 												<label
-													value="@bind(each.fkIndicador.nombre)" />
+													value="@bind(each.fkRecurso.nombre)" />
 											</cell>
 											<cell sclass="vacacion">
 												<label
-													value="@bind(each.fkIndicador.descripcion)" />
+													value="@bind(each.fkRecurso.descripcion)" />
 											</cell>
 											<cell sclass="vacacion">
 												<label
-													value="@bind(each.fkIndicador.fkUnidadMedida.nombre)" />
-											</cell>											
+													value="@bind(each.fkRecurso.fkUnidadMedida.nombre)" />
+											</cell>
+											<cell sclass="vacacion">
+												<intbox
+													style="height: 1em; border: 1px solid #999999; border-radius: 7px; font-size:1.2em;  text-align: center;"
+													value="@bind(each.cantidad)">
+												</intbox>
+											</cell>
 											<cell sclass="vacacion"
 												style="    border-left: 2px solid #EEEEEE !important;">
 												<button

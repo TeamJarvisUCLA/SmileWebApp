@@ -1,5 +1,4 @@
-<div sclass="row section" style="background: #FFFFFF"
-	sclass="animated fadeInLeft">
+<div sclass="row section" style="background: #FFFFFF">
 <style>
 		.z-row .z-detail-outer { width: 40px; min-width: 40px;
 		border-top: 1px solid #cfcfcf; padding: 18px 6px; line-height:
@@ -70,7 +69,7 @@
 
 						</column>
 					</columns>
-					<template name="model">
+					<template name="model" var="evento" status="statusEvento">
 						<row style="overflow:auto; max-height:200px"
 							sclass="row-vacaciones">
 
@@ -78,7 +77,12 @@
 							<detail open="false" fulfill="onOpen">
 
 								<grid sclass="vacacion"
-									model="@bind(each.indicadorEventoPlanTareas)">
+									model="@bind(evento.indicadorEventoPlanTareas)">
+									<auxhead>
+									<auxheader colspan="5" align="center"
+									label="INDICADORES ASOCIADOS">
+									</auxheader>
+									</auxhead>
 									<columns
 										sclass="header-periodo-disfute">
 										<column label="Nombre"
@@ -119,7 +123,7 @@
 											<cell sclass="vacacion"
 												style="    border-left: 2px solid #EEEEEE !important;">
 												<button
-													onClick="@command('eliminarPeriodoDisfrute', periodoDisfrute=each)"
+													onClick="@command('eliminarIndicador', indicadorEventoPs=each, index=statusEvento.index)"
 													sclass="btn-sm-grid btn-pink " style="margin-left: 3px;"
 													tooltiptext="Eliminar" iconSclass="fa fa-trash">
 												</button>
@@ -131,21 +135,21 @@
 
 							<cell sclass="periodo">
 								<label
-									value="@bind(each.fkTarea.nombre) " />
+									value="@bind(evento.fkTarea.nombre) " />
 							</cell>
 
 							<cell sclass="periodo">
 								<label
-									value="@bind(each.fkTarea.descripcion)" />
+									value="@bind(evento.fkTarea.descripcion)" />
 							</cell>
 							<cell sclass="periodo">
 								<label
-									value="@bind(each.fkTarea.fkClasificadorTarea.nombre)" />
+									value="@bind(evento.fkTarea.fkClasificadorTarea.nombre)" />
 							</cell>
 							<cell sclass="periodo">							
 								<button
 									sclass="teal lighten-1 waves-effect waves-light"
-									onClick="@command('buscarIndicadores', index=forEachStatus.index)"
+									onClick="@command('buscarIndicadores', index=statusEvento.index)"
 									iconSclass="fa fa-search" tooltiptext="Editar Lugar"
 									style="/padding: 5px 6px; background-color: #2AA4EF !important; float: center">
 								</button>

@@ -1,0 +1,82 @@
+<zk xmlns:n="native" xmlns:w="client">
+	<n:link href="assets/css/web/decargaAppMovil.css" rel="stylesheet"
+		type="text/css">
+	</n:link>
+
+	<div sclass="container-fluid">
+		<div class="cinta"></div>
+	</div>
+	<div class="container-fluid bajar"
+		style="Background-color: #F0F2DC;" apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('ve.smile.web.viewmodels.descarga.VM_Descarga')">
+		<div class="row" style="margin-bottom: 0;">
+			<div sclass="col s12">
+				<div class="titulo center-align">
+					<n:h4>Descarga Nuestra Aplicación Móvil</n:h4>
+				</div>
+			</div>
+		</div>
+
+		<div sclass="col s12">
+			<div class="col-md-1"></div>
+			<div class="col-md-5"
+				style="padding: 8px; padding-top: 0px;">
+				<n:div></n:div>
+				<image class="img-responsive center-block"
+					src="/imagenes/Nexus-Smile-Web-mediano.png">
+				</image>
+			</div>
+			<div class="col-md-5"
+				style="background: white;border: 8px solid #D9EB52;padding: 0px !important; margin-left: 15px !important;">
+
+				<div sclass="row">
+					<div sclass="col s12" align="justify">
+						<!-- 						<div children="@load(vm.infoMovil)"> -->
+						<!-- 							<template name="children"> -->
+						<div sclass="row">
+							<image class="img-responsive center-block"
+								src="@bind(vm.configuracionMovil.fkMultimedia.url)">
+							</image>
+						</div>
+						<div sclass="col s12" align="justify">
+							<div sclass="row">
+								<label
+									value="@bind(vm.configuracionMovil.valor)">
+								</label>
+							</div>
+
+						</div>
+
+						<div sclass="row center-align"
+							style="margin-bottom:0pc">
+
+							<button type="button" id="nEMQo3"
+								iconSclass="" class="indigo waves-effect waves-light btn"
+								style="background-color: #3B85A1 !important; "
+								label="Descargar" onClick="@command('descargaApk')">
+							</button>
+
+						</div>
+
+					</div>
+
+
+
+
+				</div>
+			</div>
+			<div class="col-md-1"></div>
+		</div>
+	</div>
+	<n:br></n:br>
+	<n:br></n:br>
+
+	<n:br></n:br>
+	<n:br></n:br>
+	<div class="center-align imagen bajar_un_poco">
+		<n:img class="responsive-img bajar_un_poco"
+			src="/SmileWebApp/imagenes/portal/img-ninos.png">
+		</n:img>
+	</div>
+
+</zk>

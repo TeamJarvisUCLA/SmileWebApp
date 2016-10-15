@@ -8,10 +8,17 @@
 	text-align: center;
 	text-transform: uppercase;	
 }
+#albumes .albumes .s4:nth-child(3n+1), #fotos .fotos .s4:nth-child(3n+1) {
+   	clear: left;
+}
+
+.fotos .info {
+	background: rgba(138, 199, 222, 0.27);
+}
 
 #fotos .seccion {
 	padding: 20px 0;
-	background: url("/SmileWebApp/imagenes/portal/fondo-body2.png") no-repeat;
+	background: url("/SmileWebApp/imagenes/portal/fondo-body2.png");
 }
 
 #albumes .seccion {
@@ -28,16 +35,19 @@
 	padding: 0;
 }
 
-#albumes .albumes>.col.s4{
-    margin-bottom: 60px;
-}
-
-#albumes .albumes>.col.s4{
+#albumes .albumes .col.s4{
     text-align: justify;
+    margin-bottom: 60px;
+    float: left;
 }
 
-#albumes .albumes>.col.s4.icon{
-    text-align:center
+.box-img-album {
+	height: 200px
+}
+
+#albumes .seccion .albumes img {
+    max-height: 180px;
+	margin-bottom: 20px;
 }
 
 	
@@ -48,23 +58,27 @@
 
 .seccion .row {
 	margin-bottom: 0;
-}
-
-.seccion .fotos, .seccion .albumes {
-	text-align: center;
 	width: 75%;
 }
 
-.galeria .seccion img {
+.seccion .fotos, .seccion .icon {
+	text-align: center;
+}
+
+.galeria #fotos .seccion img {
 	height: 100%;
 	width: 100%;
 	margin-bottom: 20px;
 }
     
-.galeria .seccion .icon img {
+.galeria #fotos .seccion .icon img, .galeria #albumes .seccion .icon img {
 	height: initial;
 	width: initial;
 	margin-bottom: 30px;
+}
+
+.galeria #albumes .seccion .icon img {
+	margin-top: 30px;
 }
 
 .galeria .seccion .icon a {

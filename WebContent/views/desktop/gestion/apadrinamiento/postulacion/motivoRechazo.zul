@@ -1,0 +1,43 @@
+<zk xmlns:n="native" xmlns:w="client">
+	<div sclass="animated fadeInLeft">
+		<div class="row">
+			<div class="col s12" align="center"
+				style="margin-bottom: 15px;">
+				<label
+					value="Ingrese la información de contacto del padrino"
+					sclass="label-medium-500">
+				</label>
+			</div>
+		</div>
+
+		<div width="100%">
+			<div class="row">
+				<div class="col s12">
+					<div class="input-field col s12">
+						<n:label for="motivo" class="active">
+							Motivo de Rechazo
+						</n:label>
+						<combobox id="motivo" readonly="true"
+							model="@load(vm.motivos)"
+							placeholder="Seleccione el Motivo del Rechazo"
+							selectedItem="@bind(vm.selectedObject.fkMotivo)">
+							<template name="model">
+								<comboitem label="@load(each.nombre)" />
+							</template>
+						</combobox>
+					</div>
+					<div class="input-field col s12">
+						<n:label for="observacion" class="active">
+							Observación
+						</n:label>
+						<textbox id="observacion" type="text"
+							maxlength="400" multiline="true" class="materialize-textarea"
+							value="@bind(vm.selectedObject.observacion)">
+						</textbox>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</zk>

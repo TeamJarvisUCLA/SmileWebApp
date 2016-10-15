@@ -12,17 +12,17 @@
 
 						<listhead sizable="true">
 							<listheader width="33%" label="Nombre" />
+							<listheader width="33%" label="Frecuencia" />
 							<listheader width="33%"
 								label="Unidad de Medida" />
-							<listheader width="33%" label="Frecuencia" />
 						</listhead>
 						<template name="model">
 							<listitem>
 								<listcell label="@load(each.nombre)" />
 								<listcell
-									label="@load(each.fkUnidadMedida.nombre)" />
-								<listcell
 									label="@load(each.frecuencia)" />
+								<listcell
+									label="@load(each.unidadFrecuenciaAporteEnum.toString())" />
 							</listitem>
 						</template>
 						<listfoot>

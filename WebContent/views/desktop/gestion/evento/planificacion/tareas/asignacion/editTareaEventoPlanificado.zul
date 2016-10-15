@@ -1,0 +1,67 @@
+<zk xmlns:n="native" xmlns:w="client">
+	<style>
+		.z-datebox input, .z-datebox-input:focus,
+		.z-datebox-input:active{ font-size: 1.2em !important;
+		text-align: center; height: 1.5em !important; border: 1px solid
+		#999999; border-radius: 7px; font-size: 1em !important;
+		text-align: center; margin-top: 4px; width: 93%;}
+	</style>
+	<div sclass="animated fadeInLeft">
+
+		<div class="row">
+			<div class="col s12" align="center"
+				style="margin-bottom: 15px;">
+				<label
+					value="Complete la información de las tareas seleccionados"
+					sclass="label-medium-500">
+				</label>
+			</div>
+
+		</div>
+		<div class="row">
+			<div class="col s12">
+
+				<listbox height="300px"
+					emptyMessage="No hay tareas asociados al evento."
+					model="@bind(vm.eventoPlanificadotareas)">
+					<listhead sizable="true">
+						<listheader width="25%" label="Tarea" />
+						<listheader width="30%" label="Fecha Planificada" />
+						<listheader width="36%" label="Lugar" align="center" />
+						<listheader width="9%" label="" align="right" />
+					</listhead>
+					<template name="model">
+						<listitem>
+							<listcell
+								label="@load(each.fkTarea.nombre)">
+							</listcell>
+							<listcell>
+								<datebox></datebox>
+							</listcell>
+
+							<listcell>
+
+								<label
+									value="@bind(each.fkDirectorio.nombre)">
+								</label>
+								<label visible="empty each.fkDirectorio"
+									value="Lugar sin asignar">
+								</label>
+								</listcell>
+								<listcell>
+								<button
+									sclass="teal lighten-1 waves-effect waves-light"
+									onClick="@command('buscarDirectorio', index=forEachStatus.index)"
+									iconSclass="fa fa-search" tooltiptext="Editar Lugar"
+									style="/padding: 5px 6px; background-color: #2AA4EF !important; float: right">
+								</button>
+								</listcell>
+
+							
+						</listitem>
+					</template>
+				</listbox>
+			</div>
+		</div>
+	</div>
+</zk>

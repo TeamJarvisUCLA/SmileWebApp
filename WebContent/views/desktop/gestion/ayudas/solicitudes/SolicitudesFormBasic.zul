@@ -1,0 +1,125 @@
+<zk xmlns:n="native" xmlns:w="client">	
+	<div width="80%" class="container ${arg.animation_}"
+		use="karen.core.form.controllers.C_WindowForm"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('ve.smile.gestion.ayudas.solicitudes.VM_SolicitudesFormBasic')">
+		
+		<div class="row">
+		
+		
+			<div class="col s12">
+				<div class="input-field offset-s2 col s8">
+					<n:label for="titulo">Titulo de Solicitud</n:label>
+					<textbox id="titulo" type="text" maxlength="100"
+						value="@bind(vm.solicitudAyuda.titulo)">
+					</textbox>
+				</div>
+			</div>
+			
+			
+			
+			<div class="input-field offset-s2 col s8">
+					<n:label for="beneficiario">Beneficiario:</n:label>
+					<textbox id="beneficiario" type="text" value="@bind(vm.beneficiarioFamiliar.fkBeneficiario.fkPersona.nombre)" disabled="true"></textbox>
+					<n:label for="beneficiario2">Beneficiario:</n:label>
+					<textbox id="beneficiario2" type="text" value="@bind(vm.beneficiarioFamiliar.fkBeneficiario.fkPersona.apellido)" disabled="true"></textbox>
+				</div>
+				<div class="input-field col s1"
+					style="font-size: 2em;">
+					<button
+						sclass="teal lighten-1 waves-effect waves-light" onClick="@command('buscarBeneficiarioFamiliar')"
+						iconSclass="fa fa-search" style="padding: 5px 15px; background-color: #2AA4EF !important">
+					</button>
+				</div>
+				
+				<div class="input-field offset-s2 col s8">
+					<n:label for="ayuda">Ayuda:</n:label>
+					<textbox id="ayuda" type="text" value="@bind(vm.ayuda.nombre)" disabled="true"></textbox>
+				</div>
+				<div class="input-field col s1"
+					style="font-size: 2em;">
+					<button
+						sclass="teal lighten-1 waves-effect waves-light" onClick="@command('buscarAyuda')"
+						iconSclass="fa fa-search" style="padding: 5px 15px; background-color: #2AA4EF !important">
+					</button>
+				</div>
+			
+			
+
+			
+		
+			
+			<div class="col s12">
+				<div class="input-field offset-s2 col s8">
+					<n:label for="estatus_solicitud"
+									class="active">
+									EStatus De Solicitud
+								</n:label>
+
+								<combobox disabled="true" id="estatus_solicitud"
+									readonly="true" model="@bind(vm.estatusSolicitudEnums)"
+									selectedItem="@bind(vm.estatusSolicitudEnum)">
+									<template name="model">
+										<comboitem label="@load(each)" />
+									</template>
+								</combobox>
+					
+				</div>
+			</div>
+			
+			<div class="col s12">
+				<div class="input-field offset-s2 col s8">
+					<n:label for="urgencia"
+									class="active">
+									Urgencia
+								</n:label>
+
+								<combobox id="urgencia"
+									readonly="true" model="@bind(vm.urgenciaEnums)"
+									selectedItem="@bind(vm.urgenciaEnum)">
+									<template name="model">
+										<comboitem label="@load(each)" />
+									</template>
+								</combobox>
+					
+				</div>
+			</div>
+			
+			
+			
+			
+			
+			<div class="col s12">
+				<div class="input-field offset-s2 col s8">
+					<n:label for="fecha_solicitud" class="active">
+						Fecha de Solicitud
+					</n:label>
+					
+									<datebox id="fecha_solicitud"
+										cols="20" format="dd/MM/yyyy" readonly="true"
+										value="@bind(vm.fecha)" />
+					
+				</div>
+			</div>
+			
+								
+			
+			<div class="col s12">
+				<div class="input-field offset-s2 col s8">
+					<n:label for="observacion">Observacion</n:label>
+					<textbox type="text"
+							sclass="materialize-textarea" multiline="true"
+						value="@bind(vm.solicitudAyuda.observacion)">
+					</textbox>
+				</div>
+			</div>
+			
+			
+					
+		</div>
+		
+		<div id="divButtonsForm"
+			use="karen.core.form.buttons.containers.DivButtonsForm">
+		</div>
+	</div>
+</zk>

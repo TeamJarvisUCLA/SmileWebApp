@@ -2,9 +2,24 @@
 	background: url("/SmileWebApp/imagenes/portal/fondo.png");
 }
 
+#fotos .s4:nth-child(3n+1) {
+   	clear: left;
+}
+
+#fotos .s4 {
+   	margin-bottom: 20px;
+}
+
+.descrip span {
+	font-size: 1.2em;
+}
+
 .album .row{
 	margin-bottom: 0;
-	padding-bottom: 20px;
+}
+
+.fotos img {
+	width: 100%;
 }
 
 button {
@@ -57,7 +72,7 @@ button {
 
 .album .descrip{
 	margin: 18px 0;
-	text-align: justify
+	text-align: center;
 }
 
 .divTag {
@@ -98,7 +113,7 @@ button {
 
 .comentarios button {
 	float: right;
-	margin: 0 1rem;;
+	margin: 18px 1rem;	
 }
 
 /* estilos para el modal */
@@ -118,4 +133,15 @@ button {
 
 #modalFormComentarios .form div:nth-of-type(4){
 	margin-bottom: 10px;
+}
+
+span.stars, span.stars span {
+    display: block;
+    background: url(/SmileWebApp/imagenes/portal/icon/stars.png) 0 -16px repeat-x;
+    width: 80px;
+    height: 16px;
+}
+
+span.stars span {
+    background-position: 0 0;
 }

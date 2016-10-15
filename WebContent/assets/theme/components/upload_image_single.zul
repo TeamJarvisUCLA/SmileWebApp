@@ -6,7 +6,7 @@
 	<div id="pics" class="z-div-upload circle center-transform-x" style="max-width: ${empty arg.size ? 220: arg.size}px; height: ${empty arg.size ? 220: arg.size}px;">
 	   	<button id="z_button_more" iconSclass="fa fa-plus" upload="true,maxsize=${empty arg.maxsize ? 300 : arg.maxsize}" 
 	   		class="btn-floating waves-effect waves-light btn-medium green darken-1 z-btn-upload-image-single center-transform-y center-transform-x" 
-	   		tooltiptext="Subir una imágen">
+	   		tooltiptext="Subir una imagen">
 	        <attribute name="onUpload"><![CDATA[
 				if (pics.getChildren().size() > 2) {
 					pics.getChildren().remove(2);

@@ -10,32 +10,51 @@ import org.zkoss.bind.annotation.Command;
 
 import ve.smile.consume.services.S;
 import ve.smile.dto.Cartelera;
+import ve.smile.dto.Multimedia;
 import ve.smile.dto.Organizacion;
+import ve.smile.dto.Participacion;
+import ve.smile.dto.Patrocinador;
 import ve.smile.enums.TipoCarteleraEnum;
+import ve.smile.enums.TipoMultimediaEnum;
 import ve.smile.payload.response.PayloadCarteleraResponse;
+import ve.smile.payload.response.PayloadMultimediaResponse;
 import ve.smile.payload.response.PayloadOrganizacionResponse;
+import ve.smile.payload.response.PayloadParticipacionResponse;
+import ve.smile.payload.response.PayloadPatrocinadorResponse;
 
 public class VM_Main {
-	
-//	se declara una variable noticias de tipo List<Cartelera>	
+		
 	private List<Cartelera> noticias;
-
+	private List<Participacion> participacion;
 	private List<Organizacion> organizacion;
-	
-//  metodo get que retorna la coleccion de elementos a renderizar en la vista	
+	private List<Multimedia> multiemdiaGaleria;
+	private List<Patrocinador> patrocinadores;
+		
+	public List<Patrocinador> getPatrocinadores() {
+		if (this.patrocinadores == null) {
+			this.patrocinadores = new ArrayList<>();
+		}
+		if (this.patrocinadores.isEmpty()) {		
+			PayloadPatrocinadorResponse payloadPatrocinadorResponse = S.PatrocinadorService
+					.consultarAllPatrocinador();
+			this.patrocinadores.addAll(payloadPatrocinadorResponse.getObjetos());
+		}
+		return patrocinadores;
+	}
+
+	public void setPatrocinadores(List<Patrocinador> patrocinadores) {
+		this.patrocinadores = patrocinadores;
+	}
+
 	public List<Cartelera> getnoticias(){
 		if (this.noticias == null) {
 			this.noticias = new ArrayList<>();
 		}
-		if (this.noticias.isEmpty()) {
-// uso de servicio consultaCarteleraPorParametro en CarteleraService, aqui se instancian los objetos 
-// devueltos por consultaCarteleraPorParametro como una variable de tipo PayloadCarteleraResponse			
+		if (this.noticias.isEmpty()) {		
 			PayloadCarteleraResponse payloadCarteleraResponse = S.CarteleraService
-					.consultaCarteleraPorParametro(3, TipoCarteleraEnum.NOTICIAS.ordinal());
-// agregar en lista de noticias todos los objetos contenidos en la variable payloadCarteleraResponse 			
+					.consultaCarteleraPorParametro(3, TipoCarteleraEnum.NOTICIAS.ordinal());			
 			this.noticias.addAll(payloadCarteleraResponse.getObjetos());
 		}
-// retornar lista
 		return noticias;
 	}
 	
@@ -51,6 +70,34 @@ public class VM_Main {
 		}
 
 		return organizacion;
+	}
+	
+	public List<Participacion> getparticipacion(){
+		if (this.participacion == null) {
+			this.participacion = new ArrayList<>();
+		}
+		if (this.participacion.isEmpty()) {
+			PayloadParticipacionResponse payloadParticipacionResponse = S.ParticipacionService.consultaCantidadParticipacion(3);
+			
+			this.participacion.addAll(payloadParticipacionResponse.getObjetos());
+		}
+
+		return participacion;
+	}
+	
+	public List<Multimedia> getmultiemdiaGaleria() {
+		if (this.multiemdiaGaleria == null) {
+			this.multiemdiaGaleria = new ArrayList<>();
+		}
+		if (this.multiemdiaGaleria.isEmpty()) {
+
+			PayloadMultimediaResponse payloadMultimediaResponse = S.MultimediaService
+					.consultarMultimediaTipo(5, TipoMultimediaEnum.GALERIA.ordinal());
+
+			this.multiemdiaGaleria.addAll(payloadMultimediaResponse.getObjetos());
+		}
+
+		return multiemdiaGaleria;
 	}
 	
 	@Command

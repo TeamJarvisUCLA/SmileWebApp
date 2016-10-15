@@ -1,11 +1,10 @@
 <zk xmlns:n="native" xmlns:w="client">
 	<n:link href="/SmileWebApp/assets/css/web/faq.css" rel="stylesheet"
 		type="text/css" />
-		
-	<div style="background:#FBFCF4">
-
+	<div style="background:#FBFCF4" apply="org.zkoss.bind.BindComposer"
+				viewModel="@id('vm') @init('ve.smile.web.viewmodels.faq.VM_Faq')">
 		<div style=" width:100%; height:10px;"></div>
-		<div class="container" style="background:F0F2DC">
+		<div class="container animated fadeIn" style="background:F0F2DC">
 			<div class="row">
 				<div class="col s12 text-center"
 					style="margin-top:30px;">
@@ -15,8 +14,8 @@
 				</div>
 			</div>
 		</div>
-		<div class="container">
-			<div class="row">
+		<div class="container animated fadeIn">
+			<div class="row" >
 				<div class="col s4">
 					<div sclass=" text-center"
 						style="background-color:#f26b7a; ">
@@ -24,129 +23,57 @@
 							style="color: white; font-size:15px; line-height: 37px; ">
 						</label>
 					</div>
-					<div
-						style="background-color:#F0F2DC; line-height:15px;     padding: 12px;">
-						<label value="Categoria 1"
-							style="color: #87796F;     font-size: 15px;   line-height: 30px;">
-						</label>
-						<n:br></n:br>
-						<label value="Categoria 2"
-							style="color: #87796F;     font-size: 15px;     line-height: 30px;">
-						</label>
-					</div>
+					<listbox model="@load(vm.cPreguntas)"
+						selectedItem="@bind(vm.cPregunta)" onSelect="@command('seleccionar')">
+						<template name="model" var="item">
+							<listitem >
+								<listcell
+								
+									label="@bind(item.nombre)" />
+							</listitem>
+						</template>
+					</listbox>
 				</div>
 				<div class="col s8 ">
-					<tabbox id="tb" width="100%" mold="accordion">
-						<tabs>
-							<tab class="tabsitos" label="PREGUNTA 1" />
-							<tab class="tabsitos" label="PREGUNTA 2" />
-							<tab class="tabsitos" label="PREGUNTA 3" />
-						</tabs>
-						<tabpanels>
-							<tabpanel>
-								<div class=" row">
-									<div class="col s12"
-										align="justify">
-										<label class="info">
-											Anim pariatur cliche
-											reprehendfgdfgdfgderit, enim
-											ESEWSeiusmodfghfghfghgfhf
-											high life accusamus terry
-											richardson ad squid. 3 wolf
-											moon officia aute, non
-											cupidatat skateboard dolor
-											brunch. Food truck quinoa
-											nesciunt laborum eiusmod.
-											Brunch 3 wolf moon tempor,
-											sutcher vice lomo. Leggings
-											occaecat craft beer eiusmod.
-											Brunch 3 wolf moon tempor,
-											su id. 3 wolf moon officia
-											aute, non cupidatat
-											skateboard dolor brunch.
-											Food truck quinoa nesciunt
-											laborum eiusmod. Brunch 3
-											wolf moon tempor, su
-										</label>
-									</div>
-								</div>
-							</tabpanel>
-							<tabpanel>
-								<div class=" row">
-									<div class="col s12">
+					<div class="row">
+						<tabbox id="tb" width="100%" mold="accordion"
+							model="@load(vm.pClasificadas)">
+							<tabs>
+								<template name="model:tab" var="item">
+									<tab class="tabsitos"
+										label="@load(item.fkPregunta.pregunta)" />
+								</template>
+							</tabs>
+							<tabpanels>
+								<template name="model:tabpanel">
+									<tabpanel>
 										<span class="info">
-											Anim pariatur cliche
-											reprehendfgdfgdfgderit, enim
-											ESEWSeiusmodfghfghfghgfhf
-											high life accusamus terry
-											richardson ad squid. 3 wolf
-											moon officia aute, non
-											cupidatat skateboard dolor
-											brunch. Food truck quinoa
-											nesciunt laborum eiusmod.
-											Brunch 3 wolf moon tempor,
-											sutcher vice lomo. Leggings
-											occaecat craft beer eiusmod.
-											Brunch 3 wolf moon tempor,
-											su id. 3 wolf moon officia
-											aute, non cupidatat
-											skateboard dolor brunch.
-											Food truck quinoa nesciunt
-											laborum eiusmod. Brunch 3
-											wolf moon tempor, su
+											<label
+												value="@load(each.fkPregunta.respuesta)" />
 										</span>
-									</div>
-								</div>
-							</tabpanel>
-							<tabpanel>
-								<div class=" row">
-									<div class="col s12">
-										<span class="info">
-											Anim pariatur cliche
-											reprehendfgdfgdfgderit, enim
-											ESEWSeiusmodfghfghfghgfhf
-											high life accusamus terry
-											richardson ad squid. 3 wolf
-											moon officia aute, non
-											cupidatat skateboard dolor
-											brunch. Food truck quinoa
-											nesciunt laborum eiusmod.
-											Brunch 3 wolf moon tempor,
-											sutcher vice lomo. Leggings
-											occaecat craft beer eiusmod.
-											Brunch 3 wolf moon tempor,
-											su id. 3 wolf moon officia
-											aute, non cupidatat
-											skateboard dolor brunch.
-											Food truck quinoa nesciunt
-											laborum eiusmod. Brunch 3
-											wolf moon tempor, su
-										</span>
-									</div>
-								</div>
-							</tabpanel>
-						</tabpanels>
-					</tabbox>
+									</tabpanel>
+								</template>
+							</tabpanels>
+						</tabbox>
+					</div>
 				</div>
 			</div>
 			<div sclass="row " align="right">
 				<label>¿Desea hacer su pregunta?</label>
 			</div>
-			<div sclass="row " align="right" apply="org.zkoss.bind.BindComposer"
-		viewModel="@id('vm') @init('ve.smile.web.viewmodels.VM_AbrirPostulado')">
+			<div sclass="row " align="right">
 				<button type="button" iconSclass=""
 					class="indigo waves-effect waves-light btn"
-					style="background-color: #3B85A1 !important; " onClick="@command('abrirFormPregunta')">
+					style="background-color: #3B85A1 !important; "
+					onClick="@command('abrirFormPregunta')">
 					PREGUNTAR
 				</button>
 			</div>
 		</div>
-
 		<div class="center-align imagen">
 			<n:img class="responsive-img"
 				src="/SmileWebApp/imagenes/portal/img-ninos.png">
 			</n:img>
 		</div>
 	</div>
-
 </zk>

@@ -1,0 +1,50 @@
+<?component name="uploadImageSingle" macroURI="/assets/theme/components/upload_image_single.zul"?>
+
+<zk xmlns:n="native" xmlns:w="client">
+	<div sclass="animated fadeInLeft">
+		<div class="row">
+			<div class="col s12">
+				<div class="row">
+					<div class="input-field col s6">
+						<n:label for="fecha_trabajo_social"
+							class="active">
+							Fecha:
+						</n:label>
+						<datebox id="fecha_donativo" readonly="true"
+							cols="20" format="dd/MM/yyyy" />
+					</div>
+					<div class="input-field col s6">
+						<n:label for="direccion">Descripción</n:label>
+
+						<textbox id="direccion" type="text"
+							sclass="materialize-textarea" multiline="true"
+							value="@bind(vm.donativoRecurso.descripcion)">
+						</textbox>
+					</div>
+
+					<div class="input-field col s6">
+						<n:label for="cantidad">Cantidad</n:label>
+
+						<doublebox id="cantidad"></doublebox>
+					</div>
+				</div>
+
+				<div class="input-field col s5">
+					<n:label for="lugar" class="active">
+						Lugar de Recepción:
+					</n:label>
+
+					<combobox id="lugar"
+						model="@bind(vm.recepcionEnums)"
+						selectedItem="@bind(vm.recepcionEnum)">
+						<template name="model">
+							<comboitem label="@load(each)" />
+						</template>
+					</combobox>
+				</div>
+
+			</div>
+
+		</div>
+	</div>
+</zk>

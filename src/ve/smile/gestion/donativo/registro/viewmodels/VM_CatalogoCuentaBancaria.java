@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import karen.core.dialog.catalogue.list_pagination.viewmodels.VM_ListPaginationCatalogueDialog;
-import karen.core.listfoot.enums.HowToSeeEnum;
 import lights.core.enums.TypeQuery;
 import lights.core.payload.response.IPayloadResponse;
 
@@ -98,6 +97,7 @@ public class VM_CatalogoCuentaBancaria extends
 
 	@Command
 	public void changeFilter() {
-		super.updateListBox(1, HowToSeeEnum.NORMAL);
+		super.getControllerListPaginationCatalogueDialog()
+				.updateListBoxAndFooter();
 	}
 }

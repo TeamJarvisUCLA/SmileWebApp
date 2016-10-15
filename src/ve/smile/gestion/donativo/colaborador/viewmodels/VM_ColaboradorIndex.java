@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 import karen.core.crux.alert.Alert;
-import karen.core.listfoot.enums.HowToSeeEnum;
 import karen.core.simple_list_principal.viewmodels.VM_WindowSimpleListPrincipal;
 import karen.core.util.payload.UtilPayload;
 import lights.core.enums.TypeQuery;
@@ -72,7 +71,7 @@ public class VM_ColaboradorIndex extends
 
 	@Command
 	public void changeFilter() {
-		super.updateListBox(1, HowToSeeEnum.NORMAL);
+		super.getControllerWindowSimpleListPrincipal().updateListBoxAndFooter();
 	}
 
 	public List<EstatusColaboradorEnum> getEstatusColaboradorEnums() {

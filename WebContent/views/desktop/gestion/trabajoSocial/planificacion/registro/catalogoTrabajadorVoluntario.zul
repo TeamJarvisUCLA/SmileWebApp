@@ -1,0 +1,76 @@
+<?xel-method prefix="m" name="getBufferedImage" class="lights.smile.util.Zki" 
+	signature="java.awt.image.BufferedImage getBufferedImage(java.lang.String)" ?>
+
+<zk xmlns:n="native" xmlns:w="client">
+
+	<window width="80%" sclass="window-dialog"
+		action="show: slideIn;hide: slideOut"
+		use="karen.core.dialog.catalogue.list_pagination.controllers.C_ListPaginationCatalogueDialog"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('ve.smile.gestion.trabajo_social.planificacion.registro.viewmodels.VM_CatalogoTrabajadorVoluntario', dialogData=arg.get('dialogData'))">
+		<caption label="RESPONSABLE" style="margin-left: 40%;" />
+		<separator height="20px"></separator>
+		<n:h6 style="margin-left: 5%;">
+			Por favor seleccione un responsable:
+		</n:h6>
+		<separator height="20px" orient="vertical"></separator>
+
+		<div sclass="row" style="margin-left: 5%;">
+			<div class="input-field col s6">
+				<n:label for="lugar" class="active">Tipo:</n:label>
+				<combobox id="lugar" model="@bind(vm.tipoPersona)"
+					onSelect="@command('changeFilter')" readonly="true"
+					selectedItem="@bind(vm.tipo)">
+					<template name="model">
+						<comboitem label="@load(each)" />
+					</template>
+				</combobox>
+			</div>
+		</div>
+
+		<listbox id="listbox" model="@load(vm.objectList)"
+			selectedItem="@bind(vm.selectedObject)"
+			style="width: 90%; margin-left: 5%;padding-bottom: 5%;">
+
+			<listhead>
+				<listheader width="10%" label="Imagen" />
+				<listheader width="15%" label="Cédula/RIF" />
+				<listheader width="35%" label="Nombre" />
+				<listheader width="30%" label="Apellido" />
+			</listhead>
+			<template name="model">
+				<listitem>
+					<listcell>
+						<div align="center">
+							<image
+								content="${m:getBufferedImage(each.fkMultimedia.url)}"
+								width="30px" height="30px" sclass="circle">
+							</image>
+						</div>
+					</listcell>
+					<listcell label="@load(each.identificacion)" />
+					<listcell label="@load(each.nombre)" />
+					<listcell label="@load(each.apellido)" />
+				</listitem>
+			</template>
+			<listfoot>
+				<listfooter id="listFoot" span="4"
+					use="karen.core.listfoot.ListFoot">
+				</listfooter>
+			</listfoot>
+		</listbox>
+
+		<div sclass="div-buttons-dialog" style="padding-bottom: 2%;">
+			<div>
+				<button id="btnAccept" label="Seleccionar"
+					sclass="indigo waves-effect waves-light btn"
+					iconSclass="fa fa-check">
+				</button>
+				<button id="btnCancel" label="Cancelar"
+					sclass="red waves-effect waves-light btn"
+					iconSclass="z-icon-times">
+				</button>
+			</div>
+		</div>
+	</window>
+</zk>

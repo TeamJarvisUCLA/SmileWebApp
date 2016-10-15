@@ -58,7 +58,7 @@
 							Responsable:
 						</n:label>
 						<textbox id="responsable" type="text"
-							disabled="true" value="@bind(vm.voluntario.fkPersona.nombre)">
+							disabled="true" value="@bind(vm.persona.nombre)">
 						</textbox>
 					</div>
 					<div class="input-field col s1"
@@ -74,8 +74,11 @@
 			</div>
 			<div class="input-field col s5">
 				<div class="input-field col s12">
+					<label class="center-transform-x">
+						Imagen del Trabajo Social
+					</label>
 					<uploadImageSingle maxsize="9000" size="200"
-						idUpload="1" title="Imagen del Trabajo Social" />
+						idUpload="1" title="" />
 				</div>
 			</div>
 

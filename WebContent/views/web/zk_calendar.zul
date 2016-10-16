@@ -1,0 +1,22 @@
+<zk>
+    <style src="assets/css/web/calendar.css" />
+
+    <window>
+        <div apply="ve.smile.web.viewmodels.calendar.CalendarController">
+            <!-- Control Menu -->
+            <hlayout sclass="z-valign-middle">
+            	<span id="prev" sclass="fa fa-chevron-left"></span>
+                <button id="today" class="control-button hoy-button" label="Hoy" />
+                <separator width="50px" />
+                <button id="pageWeek" label="Semana" width="77px"/>
+                <button id="pageMonth" label="Mes" width="55px"/>
+				<label id="dateMes" class="mes"></label>
+                <span id="next" sclass="fa fa-chevron-right"></span>
+            </hlayout>         
+            <calendars id="calendars" firstDayOfWeek="Sunday" height="630px"
+                timeZone="Main=GMT+0" mold="month"/>
+        </div>
+
+    </window>
+
+</zk>

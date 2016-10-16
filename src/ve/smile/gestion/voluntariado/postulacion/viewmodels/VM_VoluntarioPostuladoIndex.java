@@ -319,8 +319,8 @@ public class VM_VoluntarioPostuladoIndex extends VM_WindowWizard<Voluntario>
 		
 		List<OperacionWizard> listOperacionWizard3 = new ArrayList<OperacionWizard>();
 		listOperacionWizard3.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.ATRAS));
-		listOperacionWizard3.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.CANCELAR));
 		listOperacionWizard3.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.SIGUIENTE));
+		listOperacionWizard3.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.CANCELAR));
 		botones.put(3, listOperacionWizard3);
 		
 		List<OperacionWizard> listOperacionWizard4 = new ArrayList<OperacionWizard>();
@@ -353,7 +353,6 @@ public class VM_VoluntarioPostuladoIndex extends VM_WindowWizard<Voluntario>
 	}
 	
 	// CARGAR OBJETOS
-	
 	@Override
 	public void comeIn(Integer currentStep)
 	{
@@ -375,7 +374,6 @@ public class VM_VoluntarioPostuladoIndex extends VM_WindowWizard<Voluntario>
 	}
 	
 	// ATRÁS
-	
 	@Override
 	public String executeAtras(Integer currentStep)
 	{
@@ -384,7 +382,6 @@ public class VM_VoluntarioPostuladoIndex extends VM_WindowWizard<Voluntario>
 	}
 	
 	// CANCELAR
-	
 	@Override
 	public String executeCancelar(Integer currentStep)
 	{
@@ -393,7 +390,6 @@ public class VM_VoluntarioPostuladoIndex extends VM_WindowWizard<Voluntario>
 	}
 	
 	// SIGUIENTE
-	
 	@Override
 	public String isValidPreconditionsSiguiente(Integer currentStep)
 	{
@@ -419,20 +415,17 @@ public class VM_VoluntarioPostuladoIndex extends VM_WindowWizard<Voluntario>
 			PayloadVoluntarioResponse payloadVoluntarioResponse = S.VoluntarioService.modificar(this.selectedObject);
 			if (UtilPayload.isOK(payloadVoluntarioResponse))
 			{
-				restartWizard();
 				this.setSelectedObject(new Voluntario());
 				this.setVoluntario(new Voluntario());
 				BindUtils.postNotifyChange(null, null, this, "selectedObject");
 				BindUtils.postNotifyChange(null, null, this, "voluntario");
 			}
-			return (String) payloadVoluntarioResponse.getInformacion(IPayloadResponse.MENSAJE);
 		}
 		goToNextStep();
 		return "";
 	}
 
 	// CUSTOMS
-	
 	@Override
 	public String executeCustom1(Integer currentStep)
 	{
@@ -447,12 +440,20 @@ public class VM_VoluntarioPostuladoIndex extends VM_WindowWizard<Voluntario>
 	{
 		// POR COMPLETAR DATOS
 		this.selectedObject.setEstatusVoluntario(EstatusVoluntarioEnum.POR_COMPLETAR.ordinal());
+		PayloadVoluntarioResponse payloadVoluntarioResponse = S.VoluntarioService.modificar(this.selectedObject);
+		if (UtilPayload.isOK(payloadVoluntarioResponse))
+		{
+			this.setSelectedObject(new Voluntario());
+			this.setVoluntario(new Voluntario());
+			BindUtils.postNotifyChange(null, null, this, "selectedObject");
+			BindUtils.postNotifyChange(null, null, this, "voluntario");
+		}
+		goToNextStep();
 		goToNextStep();
 		return "";
 	}
 	
 	// FINALIZAR
-	
 	@Override
 	public String isValidPreconditionsFinalizar(Integer currentStep)
 	{
@@ -473,6 +474,7 @@ public class VM_VoluntarioPostuladoIndex extends VM_WindowWizard<Voluntario>
 	@Override
 	public String executeFinalizar(Integer currentStep)
 	{
+		restartWizard();
 		return "";
 	}
 }

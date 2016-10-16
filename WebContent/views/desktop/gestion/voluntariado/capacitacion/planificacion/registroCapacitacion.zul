@@ -1,0 +1,62 @@
+<zk xmlns:n="native" xmlns:w="client">
+	<div sclass="animated fadeInLeft">
+		<div class="row">
+			<div class="col s12">
+			
+				<div class="row">
+					<div class="col s12" align="center" style="margin-bottom: 15px;">
+						<label value="Ingrese los datos de la planificación de la capacitación" sclass="label-medium-500"></label>
+					</div>
+				</div>
+			
+				<div class="row">
+					<div class="input-field col s12">
+						<n:label for="descripcion"> Descripción </n:label>
+						<span sclass="fa fa-question-circle fa-lg help-icon-special" tooltip="pop_descripcion, position=after_end" />
+						<textbox id="descripcion" type="text" sclass="materialize-textarea" multiline="true" value="@bind(vm.capacitacionPlanificada.descripcion)"> </textbox>
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="input-field col s12">
+						<n:label for="fecha_planificada" class="active"> Fecha planificada: </n:label>
+						<datebox id="fecha_planificada" readonly="true" cols="20" format="dd/MM/yyyy" value="@bind(vm.fechaPlanificada)" />
+					</div>
+					<span sclass="fa fa-question-circle fa-lg help-icon-special" tooltip="pop_fecha, position=after_end" />
+				</div>
+				
+				<div class="row">
+					<div class="input-field s5">
+						<n:label for="lugar" class="active"> Lugar: </n:label>
+						<textbox id="lugar" type="text" disabled="true" value="@bind(vm.directorio.direccion)">	</textbox>
+					</div>
+					
+					<span sclass="fa fa-question-circle fa-lg help-icon-special" tooltip="pop_lugar, position=after_end" />
+					
+					<div class="input-field s1" style="font-size: 2em;">
+						<button sclass="teal lighten-1 waves-effect waves-light" onClick="@command('buscarDirectorio')" iconSclass="fa fa-search" style="padding: 5px 15px; background-color: #2AA4EF !important"> </button>
+					</div>
+				</div>
+				
+				<popup id="pop_descripcion" width="200px">
+        			<html>
+        				<![CDATA[Por favor, ingrese la descripción de la capacitación que desea registrar.<br/>]]>
+        			</html>
+    			</popup>
+    			
+    			<popup id="pop_fecha" width="200px">
+        			<html>
+        				<![CDATA[Por favor, seleccione la fecha planificada de la capacitación que desea registrar.<br/>]]>
+        			</html>
+    			</popup>
+    			
+    			<popup id="pop_lugar" width="200px">
+        			<html>
+        				<![CDATA[Por favor, seleccione el lugar de la capacitación que desea registrar.<br/>]]>
+        			</html>
+    			</popup>
+				
+			</div>
+		</div>
+	</div>
+</zk>

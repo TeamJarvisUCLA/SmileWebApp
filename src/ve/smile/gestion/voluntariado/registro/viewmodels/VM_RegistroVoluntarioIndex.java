@@ -265,15 +265,26 @@ public class VM_RegistroVoluntarioIndex extends VM_WindowWizard<Voluntario> impl
 
 		List<OperacionWizard> listOperacionWizard2 = new ArrayList<OperacionWizard>();
 		listOperacionWizard2.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.ATRAS));
-		listOperacionWizard2.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.CANCELAR));
 		listOperacionWizard2.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.SIGUIENTE));
+		listOperacionWizard2.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.CANCELAR));
 		botones.put(2, listOperacionWizard2);
 
 		List<OperacionWizard> listOperacionWizard3 = new ArrayList<OperacionWizard>();
 		listOperacionWizard3.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.ATRAS));
+		listOperacionWizard3.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.SIGUIENTE));
 		listOperacionWizard3.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.CANCELAR));
-		listOperacionWizard3.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.FINALIZAR));
 		botones.put(3, listOperacionWizard3);
+		
+		List<OperacionWizard> listOperacionWizard4 = new ArrayList<OperacionWizard>();
+		listOperacionWizard4.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.ATRAS));
+		listOperacionWizard4.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.SIGUIENTE));
+		listOperacionWizard4.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.CANCELAR));
+		botones.put(4, listOperacionWizard4);
+		
+		List<OperacionWizard> listOperacionWizard5 = new ArrayList<OperacionWizard>();
+		listOperacionWizard4.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.FINALIZAR));
+		botones.put(5, listOperacionWizard5);
+		
 		return botones;
 	}
 
@@ -284,6 +295,8 @@ public class VM_RegistroVoluntarioIndex extends VM_WindowWizard<Voluntario> impl
 		iconos.add("fa fa-user");
 		iconos.add("fa fa-pencil-square-o");
 		iconos.add("fa fa-pencil-square-o");
+		iconos.add("fa fa-pencil-square-o");
+		iconos.add("fa fa-check-square-o");
 		return iconos;
 	}
 
@@ -292,8 +305,10 @@ public class VM_RegistroVoluntarioIndex extends VM_WindowWizard<Voluntario> impl
 	{
 		List<String> urls = new ArrayList<String>();
 		urls.add("views/desktop/gestion/voluntariado/registro/selectVoluntario.zul");
-		urls.add("views/desktop/gestion/voluntariado/registro/datosPersonalesVoluntario.zul");
-		urls.add("views/desktop/gestion/voluntariado/registro/datosContactoVoluntario.zul");
+		urls.add("views/desktop/gestion/voluntariado/registro/datosPersonales.zul");
+		urls.add("views/desktop/gestion/voluntariado/registro/datosContacto.zul");
+		urls.add("views/desktop/gestion/voluntariado/registro/listaProfesiones.zul");
+		urls.add("views/desktop/gestion/voluntariado/registro/registroCompletado.zul");
 		return urls;
 	}
 	

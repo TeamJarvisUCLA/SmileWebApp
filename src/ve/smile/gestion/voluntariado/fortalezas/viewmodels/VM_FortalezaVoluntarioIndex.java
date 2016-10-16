@@ -66,7 +66,7 @@ public class VM_FortalezaVoluntarioIndex extends VM_WindowWizard<Voluntario>
 		this.voluntario = voluntario;
 	}
 	
-	// Mï¿½TODOS DE LAS LISTAS
+	// MÉTODOS DE LAS LISTAS
 	public boolean disabledFortaleza(Fortaleza fortaleza)
 	{
 		return this.getVoluntarioFortalezas().contains(fortaleza);
@@ -153,7 +153,7 @@ public class VM_FortalezaVoluntarioIndex extends VM_WindowWizard<Voluntario>
 		}
 	}
 	
-	// Mï¿½TODOS DEL WIZARD
+	// METODOS DEL WIZARD
 	@Override
 	public Map<Integer, List<OperacionWizard>> getButtonsToStep()
 	{
@@ -164,9 +164,13 @@ public class VM_FortalezaVoluntarioIndex extends VM_WindowWizard<Voluntario>
 
 		List<OperacionWizard> listOperacionWizard2 = new ArrayList<OperacionWizard>();
 		listOperacionWizard2.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.ATRAS));
+		listOperacionWizard2.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.SIGUIENTE));
 		listOperacionWizard2.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.CANCELAR));
-		listOperacionWizard2.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.FINALIZAR));
 		botones.put(2, listOperacionWizard2);
+		
+		List<OperacionWizard> listOperacionWizard3 = new ArrayList<OperacionWizard>();
+		listOperacionWizard3.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.FINALIZAR));
+		botones.put(3, listOperacionWizard3);
 
 		return botones;
 	}
@@ -177,6 +181,7 @@ public class VM_FortalezaVoluntarioIndex extends VM_WindowWizard<Voluntario>
 		List<String> iconos = new ArrayList<String>();
 		iconos.add("fa fa-user");
 		iconos.add("fa fa-pencil-square-o");
+		iconos.add("fa fa-check-square-o");
 		return iconos;
 	}
 
@@ -186,6 +191,7 @@ public class VM_FortalezaVoluntarioIndex extends VM_WindowWizard<Voluntario>
 		List<String> urls = new ArrayList<String>();
 		urls.add("views/desktop/gestion/voluntariado/fortalezas/selectVoluntario.zul");
 		urls.add("views/desktop/gestion/voluntariado/fortalezas/listaFortalezas.zul");
+		urls.add("views/desktop/gestion/voluntariado/fortalezas/registroCompletado.zul");
 		return urls;
 	}
 	
@@ -201,8 +207,18 @@ public class VM_FortalezaVoluntarioIndex extends VM_WindowWizard<Voluntario>
 	{
 		if (currentStep == 2)
 		{
-			// NOTHING
-		}
+			this.selectedObject.setFortalezas(new ArrayList<Fortaleza>());
+			this.selectedObject.getFortalezas().clear();
+			this.selectedObject.getFortalezas().addAll(this.getVoluntarioFortalezas());
+			PayloadVoluntarioResponse payloadVoluntarioResponse = S.VoluntarioService.modificar(this.selectedObject);
+			if (UtilPayload.isOK(payloadVoluntarioResponse))
+			{
+				this.setSelectedObject(new Voluntario());
+				this.setVoluntario(new Voluntario());
+				BindUtils.postNotifyChange(null, null, this, "selectedObject");
+				BindUtils.postNotifyChange(null, null, this, "voluntario");
+			}
+		}	
 		goToNextStep();
 		return "";
 	}
@@ -233,14 +249,14 @@ public class VM_FortalezaVoluntarioIndex extends VM_WindowWizard<Voluntario>
 			{
 				return "E:Error Code 5-Debe seleccionar un <b>voluntario</b>";
 			}
-		}
+		}	
 		return "";
 	}
 
 	@Override
 	public String isValidPreconditionsFinalizar(Integer currentStep)
 	{
-		if (currentStep == 2)
+		if (currentStep == 3)
 		{
 			try
 			{
@@ -257,21 +273,9 @@ public class VM_FortalezaVoluntarioIndex extends VM_WindowWizard<Voluntario>
 	@Override
 	public String executeFinalizar(Integer currentStep)
 	{
-		if (currentStep == 2)
+		if (currentStep == 3)
 		{
-			this.selectedObject.setFortalezas(new ArrayList<Fortaleza>());
-			this.selectedObject.getFortalezas().clear();
-			this.selectedObject.getFortalezas().addAll(this.getVoluntarioFortalezas());
-			PayloadVoluntarioResponse payloadVoluntarioResponse = S.VoluntarioService.modificar(this.selectedObject);
-			if (UtilPayload.isOK(payloadVoluntarioResponse))
-			{
-				restartWizard();
-				this.setSelectedObject(new Voluntario());
-				this.setVoluntario(new Voluntario());
-				BindUtils.postNotifyChange(null, null, this, "selectedObject");
-				BindUtils.postNotifyChange(null, null, this, "voluntario");
-			}
-			return (String) payloadVoluntarioResponse.getInformacion(IPayloadResponse.MENSAJE);
+			restartWizard();
 		}
 		return "";
 	}

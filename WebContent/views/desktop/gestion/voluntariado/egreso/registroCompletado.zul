@@ -1,17 +1,12 @@
 <zk xmlns:n="native" xmlns:w="client">
 	<div sclass="animated fadeInLeft">
 		<div class="row">
-			<div class="col s12" align="center"
-				style="margin-bottom: 15px;">
+			<div class="col s12" align="center" style="margin-bottom: 15px;">
 				<div sclass="row">
-					<span sclass="fa fa-check-square-o "
-						style="font-size: 5em;color: #d2ec3f;">
-					</span>
+					<span sclass="fa fa-check-square-o " style="font-size: 5em;color: #d2ec3f;"> </span>
 				</div>
 				<div sclass="row">
-					<label value="Registro completado con éxito"
-						sclass="label-medium-500" style="font-size: 20px;">
-					</label>
+					<label value="Registro completado exitosamente" sclass="label-medium-500" style="font-size: 20px;"> </label>
 				</div>
 			</div>
 		</div>

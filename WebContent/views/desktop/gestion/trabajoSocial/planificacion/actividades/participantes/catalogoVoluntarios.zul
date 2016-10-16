@@ -1,0 +1,64 @@
+<?xel-method prefix="m" name="getBufferedImage" class="lights.smile.util.Zki" 
+	signature="java.awt.image.BufferedImage getBufferedImage(java.lang.String)" ?>
+
+<zk xmlns:n="native" xmlns:w="client">
+
+	<window width="80%" sclass="window-dialog"
+		action="show: slideIn;hide: slideOut"
+		use="karen.core.dialog.catalogue.list_pagination.controllers.C_ListPaginationCatalogueDialog"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('ve.smile.gestion.trabajo_social.planificacion.actividades.participantes.viewmodels.VM_CatalogoVoluntario', dialogData=arg.get('dialogData'))">
+		<caption label="RESPONSABLE" style="margin-left: 40%;" />
+		<separator height="20px"></separator>
+		<n:h6 style="margin-left: 5%;">
+			Por favor seleccione los voluntarios:
+		</n:h6>
+		<separator height="20px" orient="vertical"></separator>
+		<listbox id="listbox" model="@load(vm.objectList)"
+			selectedItem="@bind(vm.selectedObject)" multiple="true"
+			checkmark="true"
+			style="width: 90%; margin-left: 5%;padding-bottom: 5%;">
+
+			<listhead>
+				<listheader width="10%" label="Imagen" />
+				<listheader width="15%" label="Cédula/RIF" />
+				<listheader width="35%" label="Nombre" />
+				<listheader width="30%" label="Apellido" />
+			</listhead>
+			<template name="model">
+				<listitem>
+					<listcell>
+						<div align="center">
+							<!-- 							<image -->
+							<!-- 								content="${m:getBufferedImage(each.fkPersona.fkMultimedia.url)}" -->
+							<!-- 								width="30px" height="30px" sclass="circle"> -->
+							<!-- 							</image> -->
+						</div>
+					</listcell>
+					<listcell
+						label="@load(each.fkPersona.identificacion)" />
+					<listcell label="@load(each.fkPersona.nombre)" />
+					<listcell label="@load(each.fkPersona.apellido)" />
+				</listitem>
+			</template>
+			<listfoot>
+				<listfooter id="listFoot" span="4"
+					use="karen.core.listfoot.ListFoot">
+				</listfooter>
+			</listfoot>
+		</listbox>
+
+		<div sclass="div-buttons-dialog" style="padding-bottom: 2%;">
+			<div>
+				<button id="btnAccept" label="Seleccionar"
+					sclass="indigo waves-effect waves-light btn"
+					iconSclass="fa fa-check">
+				</button>
+				<button id="btnCancel" label="Cancelar"
+					sclass="red waves-effect waves-light btn"
+					iconSclass="z-icon-times">
+				</button>
+			</div>
+		</div>
+	</window>
+</zk>

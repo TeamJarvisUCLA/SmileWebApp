@@ -106,8 +106,6 @@ public class VM_IndicadoresActividadesTrabajoSocialPlanificado extends
 
 		this.listTsPlanActividads.get(indexActividad)
 				.setIndicadorTsPlanActividads(listTsPlanActividads);
-		this.listTsPlanActividads.get(indexActividad).setListIndicadors(
-				new ArrayList<Indicador>(listIndicado));
 
 		BindUtils.postNotifyChange(null, null, this, "listTsPlanActividads");
 	}
@@ -213,7 +211,6 @@ public class VM_IndicadoresActividadesTrabajoSocialPlanificado extends
 									.getFkIndicador());
 						}
 					}
-					tsPlanActividad.setListIndicadors(listIndicadors);
 					tsPlanActividad
 							.setIndicadorTsPlanActividads(payloadIndicadorTsPlanActividadResponse
 									.getObjetos());

@@ -1,14 +1,19 @@
-<div sclass="row section animated fadeInLeft"
-	style="background: #FFFFFF">
+<div sclass="row section animated fadeInLeft">
 
 	<style>
+
+		.z-grid .z-column-content { font-family: 'Roboto'; font-size:
+		13px; color: #ffffff; background: #8d7a6f; }
+
+		tr.row-vacaciones { border-bottom: 1px solid #CFCFCF;
+		background: #ffffff; }
+
+
 		.z-row .z-detail-outer { width: 40px; min-width: 40px;
 		border-top: 1px solid #cfcfcf; padding: 18px 6px; line-height:
 		normal; background: transparent !important; vertical-align: top;
 		}
 
-		.z-grid .z-column-content { font-family: 'Roboto'; font-size:
-		13px; color: #707070; }
 
 		.z-auxhead:hover .z-auxheader-content { background: #EEEEEE
 		!important; }
@@ -21,8 +26,6 @@
 		none !important; padding: 0; line-height: 14px; background:
 		transparent !important; text-align: center; overflow: hidden;
 		white-space: nowrap; cursor: pointer; }
-
-		tr.row-vacaciones { border-bottom: 1px solid #CFCFCF; }
 
 		.z-columns th:first-child { border-left: none; border-right:
 		none !important; }
@@ -70,7 +73,8 @@
 
 				</column>
 			</columns>
-			<template name="model" var="actividad" status="statusActividad">
+			<template name="model" var="actividad"
+				status="statusActividad">
 				<row style="overflow:auto; max-height:200px"
 					sclass="row-vacaciones">
 
@@ -131,7 +135,8 @@
 					</detail>
 
 					<cell sclass="periodo">
-						<label value="@bind(actividad.fkActividad.nombre) " />
+						<label
+							value="@bind(actividad.fkActividad.nombre) " />
 					</cell>
 
 					<cell sclass="periodo">

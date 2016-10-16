@@ -1,6 +1,4 @@
-<div sclass="row section animated fadeInLeft"
-	style="background: #FFFFFF">
-
+<div sclass="row section" style="background: #FFFFFF">
 	<style>
 		.z-row .z-detail-outer { width: 40px; min-width: 40px;
 		border-top: 1px solid #cfcfcf; padding: 18px 6px; line-height:
@@ -34,8 +32,8 @@
 		193, 0.27); }
 
 
-		.z-messagebox .z-label { font-family: 'Roboto'; font-size: 15px
-		!important; color: #363636; }
+		.z-messagebox .z-label { font-family: Arial, Sans-serif;
+		font-size: 15px !important; color: #363636; }
 
 		.z-cell .vacacion { background-color: #fff !important;
 		border-left: 1px solid #cfcfcf !important; }
@@ -52,25 +50,21 @@
 		!important; }
 
 		.z-grid.periodo>div.z-grid-body { overflow: auto; max-height:
-		500px !important; }
+		320px !important; }
 
 	</style>
 	<div sclass="col s12">
 		<grid id="Grid" sclass="periodo grid"
-			model="@bind(vm.listTsPlanActividads)">
+			model="@bind(vm.listEventPlanTareas)">
 			<columns sclass="header-periodo-vacacional">
 				<column width="5%" />
 				<column label="Nombre" sort="auto(nombre)" width="25%" />
 				<column label="Descripción" sort="auto(descripcion)"
 					align="center" width="35%" />
 				<column label="Clasificador de Tarea"
-					sort="auto(clasificadoTarea)" align="center" width="23%" />
-				<column label="Indicadores" align="center"
-					width="12%">
-
-				</column>
+					sort="auto(clasificadoTarea)" align="center" width="23%" />				
 			</columns>
-			<template name="model" var="actividad" status="statusActividad">
+			<template name="model" var="evento" status="statusEvento">
 				<row style="overflow:auto; max-height:200px"
 					sclass="row-vacaciones">
 
@@ -78,35 +72,37 @@
 					<detail open="false" fulfill="onOpen">
 
 						<grid sclass="vacacion"
-							model="@bind(actividad.indicadorTsPlanActividads)">
+							model="@bind(evento.indicadorEventoPlanTareas)">
 							<auxhead>
-								<auxheader colspan="4" align="center"
+								<auxheader colspan="5" align="center"
 									label="INDICADORES ASOCIADOS">
 								</auxheader>
 							</auxhead>
 							<columns sclass="header-periodo-disfute">
-
 								<column label="Nombre" width="21%" />
-
+								<column label="Descripción"
+									align="center" width="30%" />
 								<column label="Unidad de Medida"
-									align="center" width="29%" />
-								<column label="Valor Esperado"
-									align="center" width="20%">
+									align="center" width="25%" />
+								<column label="Valor esperado" align="center"
+									width="17%">
 
 								</column>
-								<column label="Eliminar" align="center"
-									width="10%">
+								<column label="Valor Real" align="left"
+									width="17%">
 
 								</column>
 							</columns>
 							<template name="model">
 								<row sclass="last">
-
 									<cell sclass="vacacion">
 										<label
 											value="@bind(each.fkIndicador.nombre)" />
 									</cell>
-
+									<cell sclass="vacacion">
+										<label
+											value="@bind(each.fkIndicador.descripcion)" />
+									</cell>
 									<cell sclass="vacacion">
 										<label
 											value="@bind(each.fkIndicador.fkUnidadMedida.nombre)" />
@@ -114,16 +110,14 @@
 									<cell sclass="vacacion">
 										<intbox
 											style="height: 1em; border: 1px solid #999999; border-radius: 7px; font-size:1.2em;  text-align: center;"
-											value="@bind(each.valorEsperado)">
+											value="@bind(each.valorEsperado)" readonly="true">
 										</intbox>
 									</cell>
-									<cell sclass="vacacion"
-										style="    border-left: 2px solid #EEEEEE !important;">
-										<button
-											onClick="@command('eliminarIndicador', indicadorTsPlanActividad=each, index=statusActividad.index)"
-											sclass="btn-sm-grid btn-pink " style="margin-left: 3px;"
-											tooltiptext="Eliminar" iconSclass="fa fa-trash">
-										</button>
+									<cell sclass="vacacion">
+										<intbox
+											style="height: 1em; border: 1px solid #999999; border-radius: 7px; font-size:1.2em;  text-align: center;"
+											value="@bind(each.valorReal)">
+										</intbox>
 									</cell>
 								</row>
 							</template>
@@ -131,24 +125,16 @@
 					</detail>
 
 					<cell sclass="periodo">
-						<label value="@bind(actividad.fkActividad.nombre) " />
+						<label value="@bind(evento.fkTarea.nombre) " />
 					</cell>
 
 					<cell sclass="periodo">
 						<label
-							value="@bind(actividad.fkActividad.descripcion)" />
+							value="@bind(evento.fkTarea.descripcion)" />
 					</cell>
 					<cell sclass="periodo">
 						<label
-							value="@bind(actividad.fkActividad.fkClasificadorActividad.nombre)" />
-					</cell>
-					<cell sclass="periodo">
-						<button
-							sclass="teal lighten-1 waves-effect waves-light"
-							onClick="@command('buscarIndicadores', index=statusActividad.index)"
-							iconSclass="fa fa-search" tooltiptext="Editar Lugar"
-							style="/padding: 5px 6px; background-color: #2AA4EF !important; float: center">
-						</button>
+							value="@bind(evento.fkTarea.fkClasificadorTarea.nombre)" />
 					</cell>
 				</row>
 			</template>

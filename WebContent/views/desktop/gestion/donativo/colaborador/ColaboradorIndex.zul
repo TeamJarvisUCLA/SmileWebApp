@@ -34,23 +34,30 @@
 						selectedItem="@bind(vm.selectedObject)">
 
 						<auxhead>
-							<auxheader colspan="2">
+							<auxheader>
 								<div>
 									<span
 										class="prefix filter fa fa-filter">
 									</span>
-									<combobox id="tipo_persona"
-										inplace="true" tooltip="Tipo de Persona"
-										placeholder="Tipo de Persona"
-										model="@bind(vm.tipoPersonaEnums)"
-										selectedItem="@bind(vm.tipoPersonaEnum)"
+									<textbox id="CedulaRif"
+										instant="true" placeholder="Cédula/Rif"
+										value="@bind(vm.identificacion)"
 										onChange="@command('changeFilter')"
-										style="background: rgb(89, 78, 70); margin: 0px; margin-left: 6px; margin-top: 0px; display: inline;  width: 75%;">
-										<template name="model">
-											<comboitem
-												label="@load(each)" />
-										</template>
-									</combobox>
+										style="height: 30px;font-size: 14px;margin-top: 1px;">
+									</textbox>
+								</div>
+							</auxheader>
+							<auxheader>
+								<div>
+									<span
+										class="prefix filter fa fa-filter">
+									</span>
+									<textbox id="nombre" instant="true"
+										placeholder="Colaborador" value="@bind(vm.nombre)"
+										onChange="@command('changeFilter')"
+										style="height: 30px;font-size: 14px;margin-top: 1px;">
+
+									</textbox>
 
 								</div>
 							</auxheader>
@@ -61,7 +68,7 @@
 										class="prefix filter fa fa-filter">
 									</span>
 									<combobox id="Estatus"
-										inplace="true" tooltip="Estatus"
+										instant="true" tooltip="Estatus"
 										model="@bind(vm.estatusColaboradorEnums)"
 										onChange="@command('changeFilter')"
 										style="background: rgb(89, 78, 70); margin: 0px; margin-left: 6px; margin-top: 0px; display: inline;  width: 75%;"
@@ -75,8 +82,7 @@
 							</auxheader>
 						</auxhead>
 						<listhead sizable="true">
-							<listheader width="10%"
-								label="Identificación" />
+							<listheader width="10%" label="Cédula/RIF" />
 							<listheader width="20%" label="Colaborador" />
 							<listheader width="15%"
 								label="Fecha de ingreso" />
@@ -88,11 +94,11 @@
 								<listcell
 									label="@load(each.fkPersona.identificacion)" />
 								<listcell
-									label="@load(each.fkPersona.nombre.concat(each.fkPersona.apellido))" />
+									label="@load(each.fkPersona.nombre.concat(' ').concat(each.fkPersona.apellido))" />
 								<listcell
 									label="${m:convertirLongADate(each.fechaIngreso)}" />
 								<listcell
-									label="@load(each.estatusColaborador)" />
+									label="@load(each.estatusColaboradorEnum.toString())" />
 							</listitem>
 						</template>
 						<listfoot>

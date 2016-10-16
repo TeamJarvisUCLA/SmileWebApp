@@ -16,11 +16,11 @@
 						<div class="input-field offset-s2 col s8">
 							<n:label for="fecha_ingreso"
 								class="active">
-								Fecha de nacimiento
+								Fecha de Egreso
 							</n:label>
 							<datebox id="fecha_ingreso" cols="20"
-								format="dd/MM/yyyy" disabled="true"
-								value="@bind(vm.selectedObject.fkPersona.fechaNacimiento)" />
+								format="dd/MM/yyyy" readonly="true"
+								value="@bind(vm.fechaEgreso)" />
 						</div>
 					</div>
 					<div class="col s12">
@@ -29,7 +29,8 @@
 								Motivo
 							</n:label>
 							<combobox id="fk_motivo" readonly="true"
-								model="@bind(vm.motivos)" selectedItem="@bind(vm.motivo)">
+								model="@bind(vm.motivos)"
+								selectedItem="@bind(vm.selectedObject.fkMotivo)">
 								<template name="model">
 									<comboitem
 										label="@load(each.nombre)" />

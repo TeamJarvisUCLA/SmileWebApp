@@ -1,41 +1,38 @@
 package ve.smile.gestion.evento.planificaion.tarea.asignacion.viewmodels;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
-
 import ve.smile.consume.services.S;
-import ve.smile.dto.Actividad;
 import ve.smile.dto.Directorio;
 import ve.smile.dto.EventPlanTarea;
 import ve.smile.dto.EventoPlanificado;
 import ve.smile.dto.Tarea;
-import ve.smile.dto.TsPlanActividad;
-import ve.smile.payload.response.PayloadEventPlanPatrocinadorResponse;
+import ve.smile.payload.response.PayloadEventPlanTareaResponse;
 import ve.smile.payload.response.PayloadEventoPlanificadoResponse;
-import ve.smile.payload.response.PayloadTsPlanResponse;
 import karen.core.dialog.catalogue.generic.data.CatalogueDialogData;
 import karen.core.dialog.catalogue.generic.events.CatalogueDialogCloseEvent;
 import karen.core.dialog.catalogue.generic.events.listeners.CatalogueDialogCloseListener;
 import karen.core.dialog.generic.enums.DialogActionEnum;
-import karen.core.simple_list.wizard.buttons.data.OperacionWizard;
-import karen.core.simple_list.wizard.buttons.enums.OperacionWizardEnum;
-import karen.core.simple_list.wizard.buttons.helpers.OperacionWizardHelper;
-import karen.core.simple_list.wizard.viewmodels.VM_WindowWizard;
 import karen.core.util.UtilDialog;
+import karen.core.util.payload.UtilPayload;
+import karen.core.wizard.buttons.data.OperacionWizard;
+import karen.core.wizard.buttons.enums.OperacionWizardEnum;
+import karen.core.wizard.buttons.helpers.OperacionWizardHelper;
+import karen.core.wizard.viewmodels.VM_WindowWizard;
+import lights.core.enums.TypeQuery;
 import lights.core.payload.response.IPayloadResponse;
 
-public class VM_TareaEventoPlanificado extends
-VM_WindowWizard<EventoPlanificado>{
+public class VM_TareaEventoPlanificado extends VM_WindowWizard{
 	
 	private List<Tarea> tareas = new ArrayList<>();
 	private Set<Tarea> tareasSeleccionadas = new HashSet<>();
@@ -43,7 +40,6 @@ VM_WindowWizard<EventoPlanificado>{
 	private Set<Tarea> eventoTareasSeleccionadas = new HashSet<>();
 	// forEachStatus.index
 	private List<EventPlanTarea> eventoPlanificadotareas = new ArrayList<>();
-
 	private List<Tarea> eventoTareasAux = new ArrayList<>();
 
 	private Directorio directorio;
@@ -165,7 +161,7 @@ VM_WindowWizard<EventoPlanificado>{
 	public List<String> getIconsToStep() {
 		List<String> iconos = new ArrayList<String>();
 
-		iconos.add("fa fa-heart");
+		iconos.add("fa fa-list-alt");
 		iconos.add("fa fa-pencil-square-o");
 		iconos.add("fa fa-pencil-square-o");
 		iconos.add("fa fa-check-square-o");
@@ -185,6 +181,24 @@ VM_WindowWizard<EventoPlanificado>{
 	
 	@Override
 	public String isValidSearchDataSiguiente(Integer currentStep) {
+		
+		if(currentStep == 1){
+			this.eventoTareas = new ArrayList<>();
+			Map<String, String> criterios = new HashMap<>();
+			EventoPlanificado eventoPlanificado = (EventoPlanificado)selectedObject;
+			criterios.put("fkEventoPlanificado.idEventoPlanificado", eventoPlanificado.getIdEventoPlanificado()+"");
+			PayloadEventPlanTareaResponse eventPlanTareaResponse = S.EventPlanTareaService.consultarCriterios(TypeQuery.EQUAL, criterios);
+			
+			if(eventPlanTareaResponse.getObjetos() != null & eventPlanTareaResponse.getObjetos().size() > 0){				
+				for(EventPlanTarea eventPlanTarea: eventPlanTareaResponse.getObjetos()){
+					
+					this.eventoTareas.add(eventPlanTarea.getFkTarea()); 
+					
+				}								
+			}
+			BindUtils.postNotifyChange(null, null, this, "eventoTareas");
+		}
+		
 		if (currentStep == 2) {
 			if (this.getEventoTareas().isEmpty()) {
 				return "E:Error Code 5-Debe agregar al menos una <b>Tarea</b> al evento planificado.";
@@ -192,12 +206,13 @@ VM_WindowWizard<EventoPlanificado>{
 				this.getEventoPlanificadotareas().clear();
 				for (Tarea tarea : this.getEventoTareas()) {
 					EventPlanTarea eventPlanTarea = new EventPlanTarea();
-					eventPlanTarea.setFkTarea(tarea);;
-					eventPlanTarea.setFkEventoPlanificado(this.getSelectedObject());
+					eventPlanTarea.setFkTarea(tarea);
+					eventPlanTarea.setFechaPlanificada(new Date().getTime());
+					eventPlanTarea.setFkEventoPlanificado((EventoPlanificado) this.getSelectedObject());
 					this.getEventoPlanificadotareas().add(eventPlanTarea);
 				}
 				BindUtils
-						.postNotifyChange(null, null, this, "indicadorTsPlans");
+						.postNotifyChange(null, null, this, "eventoPlanificadotareas");
 			}
 
 		}
@@ -206,12 +221,37 @@ VM_WindowWizard<EventoPlanificado>{
 	}
 
 	@Override
-	public void comeIn(Integer currentStep) {
-		if (currentStep == 1) {
-			this.getControllerWindowWizard().updateListBoxAndFooter();
-			BindUtils.postNotifyChange(null, null, this, "objectsList");
+	public String executeFinalizar(Integer currentStep) {
+		if (currentStep == 3) {
+			for (EventPlanTarea eventPsTarea : this.getEventoPlanificadotareas()) {
+				PayloadEventPlanTareaResponse payloadEventPlanTareaResponse  = S.EventPlanTareaService
+						.incluir(eventPsTarea);
+				if (!UtilPayload.isOK(payloadEventPlanTareaResponse)) {
+					return (String) payloadEventPlanTareaResponse
+							.getInformacion(IPayloadResponse.MENSAJE);
+				}
+			}
+
+			goToNextStep();
 		}
+
+		return "";
 	}
+	
+	@Override
+	public String executeCustom1(Integer currentStep) {
+		this.setEventoPlanificadotareas(new ArrayList<EventPlanTarea>());
+		this.setEventoTareas(new ArrayList<Tarea>());
+		this.setSelectedObject(new EventoPlanificado());
+
+		BindUtils.postNotifyChange(null, null, this, "eventoPlanificadotareas");
+		BindUtils
+				.postNotifyChange(null, null, this, "eventoTareas");
+		BindUtils.postNotifyChange(null, null, this, "selectedObject");
+		restartWizard();
+		return "";
+	}
+
 
 	@Override
 	public String executeSiguiente(Integer currentStep) {

@@ -1,39 +1,28 @@
 <zk xmlns:n="native" xmlns:w="client">
-	<div width="100%" class='opacity-0'
-		use="karen.core.simple_list_principal.controllers.C_WindowSimpleListPrincipal"
+	<div class="wizard ${arg.animation_} container"
+		use="karen.core.wizard.controllers.C_WindowWizard"
 		apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('ve.smile.gestion.donativo.egreso.viewmodels.VM_EgresoColaboradorIndex')">
 
 		<div class="row">
-			<div class="col s12">
-				<div class="col s12">
-					<listbox id="listbox"
-						model="@load(vm.objectsList)"
-						selectedItem="@bind(vm.selectedObject)">
+			<div id="ulHeaderWizard"
+				use="karen.core.wizard.buttons.containers.UlHeaderWizard">
+			</div>
 
-						<listhead sizable="true">
-							<listheader width="33%" label="Persona" />
-							<listheader width="33%" label="Fecha Ingreso" />
-							<listheader width="33%" label="Fecha Egreso" />
-						</listhead>
-						<template name="model">
-							<listitem>
-								<listcell label="@load(each.fkPersona)" />
-								<listcell label="@load(each.fechaIngreso)" />
-								<listcell label="@load(each.fechaEgreso)" />
-							</listitem>
-						</template>
-						<listfoot>
-							<listfooter id="listFoot" span="3"
-								use="karen.core.listfoot.ListFoot">
-							</listfooter>
-						</listfoot>
-					</listbox>
+			<div sclass="col s12">
+				<include id="include"></include>
+			</div>
+
+		</div>
+
+		<div class="row">
+			<div class="col s6 offset-s3" align="center">
+				<div id="divButtonsWizard" sclass="row"
+					use="karen.core.wizard.buttons.containers.DivButtonsWizard">
 				</div>
 			</div>
 		</div>
-
-		<toolbar id="toolbar" align="center" use="karen.core.toolbar.Toolbar">
-		</toolbar>
 	</div>
+
+
 </zk>

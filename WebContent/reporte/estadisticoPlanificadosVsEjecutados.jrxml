@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="estadisticoPlanificadosVsEjecutados" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c607fd6c-d212-4980-84dc-cd5658481add">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="48"/>
+	<parameter name="pIndicador" class="java.lang.String"/>
+	<parameter name="pUnidadDeMedida" class="java.lang.String"/>
+	<parameter name="pValorEsperado" class="java.lang.String"/>
+	<parameter name="pValorReal" class="java.lang.String"/>
+	<parameter name="titulo" class="java.lang.String"/>
+	<parameter name="pNombreEvento" class="java.lang.String"/>
+	<parameter name="pTipoEvento" class="java.lang.String"/>
+	<parameter name="pDescripcion" class="java.lang.String"/>
+	<parameter name="pLugar" class="java.lang.String"/>
+	<parameter name="pDireccion" class="java.lang.String"/>
+	<parameter name="pFecha" class="java.lang.String"/>
+	<field name="fkIndicador.nombre" class="java.lang.String"/>
+	<field name="fkIndicador.fkUnidadMedida.nombre" class="java.lang.String"/>
+	<field name="valorEsperado" class="java.lang.Double"/>
+	<field name="valorReal" class="java.lang.Double"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="2" y="57" width="71" height="20" forecolor="#00689A" uuid="ae3b89d3-fab2-489e-a26c-948dd3c99644"/>
+				<textElement markup="html">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[<b> RIF: J-29478054-7 </b>]]></text>
+			</staticText>
+			<line>
+				<reportElement x="-1" y="77" width="555" height="2" forecolor="#00689A" uuid="5c36b415-d2ce-4c7d-871c-4869e80c0810"/>
+				<graphicElement>
+					<pen lineWidth="2.0" lineStyle="Solid"/>
+				</graphicElement>
+			</line>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="252">
+			<textField isStretchWithOverflow="true">
+				<reportElement x="0" y="27" width="554" height="23" uuid="c38bc29e-3c88-41c2-913d-f71cb3dcdde0"/>
+				<textElement textAlignment="Center" markup="html">
+					<font fontName="SansSerif" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<b>" + $P{titulo}.toUpperCase() + "</b>"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="362" y="0" width="193" height="20" uuid="8ba953e4-fc18-4958-ad86-2fcf95101a7f"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="2" y="223" width="100" height="20" uuid="eecfbe0e-fd7a-4311-b3af-f4abb05e0c0b"/>
+				<textFieldExpression><![CDATA[$P{pIndicador}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="123" y="223" width="115" height="20" uuid="3ee72e19-c69f-4fdc-b027-92f2ce7cab8d"/>
+				<textFieldExpression><![CDATA[$P{pUnidadDeMedida}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="271" y="223" width="100" height="20" uuid="098db0b4-85e2-4aff-9e7e-b0c55fad51d1"/>
+				<textFieldExpression><![CDATA[$P{pValorEsperado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="450" y="223" width="100" height="20" uuid="bb7f8d30-8deb-426d-950b-3b58a38c2500"/>
+				<textFieldExpression><![CDATA[$P{pValorReal}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="87" y="56" width="463" height="20" uuid="b09465e3-13ca-4ef7-9fef-e24f45820216"/>
+				<textFieldExpression><![CDATA[$P{pNombreEvento}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="87" y="83" width="463" height="20" uuid="2b972f42-d859-4b4d-9075-79d6c8c9a8b1"/>
+				<textFieldExpression><![CDATA[$P{pTipoEvento}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="87" y="137" width="463" height="20" uuid="80383281-cc05-464e-bf62-0abe5b1a46e3"/>
+				<textFieldExpression><![CDATA[$P{pDescripcion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="87" y="163" width="463" height="20" uuid="439cff84-5098-4118-8991-aeae09c8826d"/>
+				<textFieldExpression><![CDATA[$P{pLugar}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="87" y="190" width="463" height="20" uuid="1675ca11-c09e-4fbc-8782-aeadc8165844"/>
+				<textFieldExpression><![CDATA[$P{pDireccion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="88" y="110" width="462" height="20" uuid="4d2f5188-da6e-4b6e-bb4c-c5cd2356b5c6"/>
+				<textFieldExpression><![CDATA[$P{pFecha}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="23" splitType="Stretch">
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="2" y="0" width="100" height="20" uuid="19d81e22-c2ce-4499-8217-e79a63aa8210"/>
+				<textElement markup="styled"/>
+				<textFieldExpression><![CDATA[$F{fkIndicador.nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="123" y="0" width="115" height="20" uuid="44034ab7-0571-4b5b-b427-0d2b8f08c845"/>
+				<textElement markup="styled"/>
+				<textFieldExpression><![CDATA[$F{fkIndicador.fkUnidadMedida.nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="272" y="0" width="100" height="20" uuid="fda9f53f-57a4-4d6c-a271-ae1b61e262f2"/>
+				<textElement markup="styled"/>
+				<textFieldExpression><![CDATA[$F{valorEsperado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="450" y="0" width="100" height="20" uuid="030aa001-4326-4116-a2c1-0a59ab91b8a9"/>
+				<textFieldExpression><![CDATA[$F{valorReal}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="65" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="3" width="555" height="33" forecolor="#00689A" uuid="071e684c-dc9d-4f9d-8a4e-ca8ed7e704ba"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Centro Comercial El Recreo, Torre Sur, Piso 11, Oficina 11-02 Av. Venezuela, Caracas 1050 Venezuela
+Tel. (+58) (212) 7616397 - (+58) (212) 7625174 - (+58) (212) 7620906
+
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="224" y="40" width="103" height="20" forecolor="#A1CCED" uuid="be32b5d4-5a63-4d2e-8b81-d009da1942f4"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="11" isBold="false" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[www.soaint.com]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" evaluationTime="Report">
+				<reportElement x="508" y="40" width="42" height="20" uuid="f1d5e097-0f41-4aa2-af0e-18314d126bb4"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="431" y="40" width="73" height="20" uuid="64737f26-7f1c-4d37-9956-8d06edc8b98e"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Pagina "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="188">
+			<elementGroup>
+				<bar3DChart>
+					<chart>
+						<reportElement x="0" y="0" width="555" height="188" uuid="317d096f-9621-4cd4-a88d-a71d32ded95f"/>
+						<chartTitle position="Top"/>
+						<chartSubtitle/>
+						<chartLegend/>
+					</chart>
+					<categoryDataset>
+						<categorySeries>
+							<seriesExpression><![CDATA[$P{pValorEsperado}]]></seriesExpression>
+							<categoryExpression><![CDATA[$F{fkIndicador.nombre}]]></categoryExpression>
+							<valueExpression><![CDATA[$F{valorEsperado}]]></valueExpression>
+							<labelExpression><![CDATA[$F{fkIndicador.nombre}]]></labelExpression>
+						</categorySeries>
+						<categorySeries>
+							<seriesExpression><![CDATA[$P{pValorReal}]]></seriesExpression>
+							<categoryExpression><![CDATA[$F{fkIndicador.nombre}]]></categoryExpression>
+							<valueExpression><![CDATA[$F{valorReal}]]></valueExpression>
+							<labelExpression><![CDATA[$F{fkIndicador.nombre}]]></labelExpression>
+						</categorySeries>
+					</categoryDataset>
+					<bar3DPlot>
+						<plot/>
+						<itemLabel/>
+						<categoryAxisFormat>
+							<axisFormat/>
+						</categoryAxisFormat>
+						<valueAxisFormat>
+							<axisFormat/>
+						</valueAxisFormat>
+					</bar3DPlot>
+				</bar3DChart>
+			</elementGroup>
+		</band>
+	</summary>
+</jasperReport>

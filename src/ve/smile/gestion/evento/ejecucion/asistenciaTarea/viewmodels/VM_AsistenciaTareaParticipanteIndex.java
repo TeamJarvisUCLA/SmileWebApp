@@ -1,10 +1,28 @@
-package ve.smile.gestion.evento.planificaion.tarea.participantes.viewmodels;
+package ve.smile.gestion.evento.ejecucion.asistenciaTarea.viewmodels;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.zkoss.bind.BindUtils;
+import org.zkoss.bind.annotation.BindingParam;
+import org.zkoss.bind.annotation.Command;
+import org.zkoss.bind.annotation.Init;
+
+import ve.smile.consume.services.S;
+import ve.smile.dto.EventPlanTarea;
+import ve.smile.dto.EventPlanTareaTrabajador;
+import ve.smile.dto.EventPlanTareaVoluntario;
+import ve.smile.dto.EventoPlanificado;
+import ve.smile.dto.Trabajador;
+import ve.smile.dto.TsPlanActividadTrabajador;
+import ve.smile.dto.TsPlanActividadVoluntario;
+import ve.smile.dto.Voluntario;
+import ve.smile.payload.response.PayloadEventPlanTareaResponse;
+import ve.smile.payload.response.PayloadEventPlanTareaTrabajadorResponse;
+import ve.smile.payload.response.PayloadEventPlanTareaVoluntarioResponse;
+import ve.smile.payload.response.PayloadEventoPlanificadoResponse;
 import karen.core.dialog.catalogue.generic.data.CatalogueDialogData;
 import karen.core.dialog.catalogue.generic.events.CatalogueDialogCloseEvent;
 import karen.core.dialog.catalogue.generic.events.listeners.CatalogueDialogCloseListener;
@@ -15,40 +33,10 @@ import karen.core.wizard.buttons.data.OperacionWizard;
 import karen.core.wizard.buttons.enums.OperacionWizardEnum;
 import karen.core.wizard.buttons.helpers.OperacionWizardHelper;
 import karen.core.wizard.viewmodels.VM_WindowWizard;
-
-import org.zkoss.bind.BindUtils;
-import org.zkoss.bind.annotation.BindingParam;
-import org.zkoss.bind.annotation.Command;
-import org.zkoss.bind.annotation.Init;
-
 import lights.core.enums.TypeQuery;
 import lights.core.payload.response.IPayloadResponse;
-import ve.smile.consume.services.S;
-import ve.smile.dto.EventPlanTarea;
-import ve.smile.dto.EventPlanTareaTrabajador;
-import ve.smile.dto.EventPlanTareaVoluntario;
-import ve.smile.dto.EventoPlanificado;
-import ve.smile.dto.Indicador;
-import ve.smile.dto.IndicadorEventoPlanTarea;
-import ve.smile.dto.Persona;
-import ve.smile.dto.Trabajador;
-import ve.smile.dto.TsPlan;
-import ve.smile.dto.TsPlanActividad;
-import ve.smile.dto.TsPlanActividadTrabajador;
-import ve.smile.dto.TsPlanActividadVoluntario;
-import ve.smile.dto.Voluntario;
-import ve.smile.payload.response.PayloadEventPlanTareaResponse;
-import ve.smile.payload.response.PayloadEventPlanTareaTrabajadorResponse;
-import ve.smile.payload.response.PayloadEventPlanTareaVoluntarioResponse;
-import ve.smile.payload.response.PayloadEventoPlanificadoResponse;
-import ve.smile.payload.response.PayloadIndicadorEventoPlanTareaResponse;
-import ve.smile.payload.response.PayloadTsPlanActividadResponse;
-import ve.smile.payload.response.PayloadTsPlanActividadTrabajadorResponse;
-import ve.smile.payload.response.PayloadTsPlanActividadVoluntarioResponse;
-import ve.smile.payload.response.PayloadTsPlanResponse;
 
-public class VM_TareaParticipanteEventoPlanificado extends VM_WindowWizard{
-
+public class VM_AsistenciaTareaParticipanteIndex extends VM_WindowWizard{
 	private List<EventPlanTarea> listEventPlanTarea;
 	private int indexTarea;
 
@@ -336,9 +324,9 @@ public class VM_TareaParticipanteEventoPlanificado extends VM_WindowWizard{
 	public List<String> getUrlPageToStep() {
 		List<String> urls = new ArrayList<String>();
 
-		urls.add("views/desktop/gestion/evento/planificacion/tareas/participantes/selectEventoPlanificado.zul");
-		urls.add("views/desktop/gestion/evento/planificacion/tareas/participantes/tareaParticipantes.zul");
-		urls.add("views/desktop/gestion/evento/planificacion/tareas/participantes/registroCompletado.zul");
+		urls.add("views/desktop/gestion/evento/ejecucion/actualizarAsistencia/selectEventoPlanificado.zul");
+		urls.add("views/desktop/gestion/evento/ejecucion/actualizarAsistencia/tareaParticipantes.zul");
+		urls.add("views/desktop/gestion/evento/ejecucion/actualizarAsistencia/registroCompletado.zul");
 
 		return urls;
 	}
@@ -388,8 +376,6 @@ public class VM_TareaParticipanteEventoPlanificado extends VM_WindowWizard{
 
 		return "";
 	}
-	
-	
 
 	@Override
 	public String executeAtras(Integer currentStep) {
@@ -411,36 +397,6 @@ public class VM_TareaParticipanteEventoPlanificado extends VM_WindowWizard{
 
 	@Override
 	public String executeFinalizar(Integer currentStep) {
-		
-			if (currentStep == 2) {
-					for(EventPlanTarea eventPlanTarea: this.listEventPlanTarea){
-						if(eventPlanTarea.getListPlanTareaVoluntarios().size()>0 & eventPlanTarea.getListPlanTareaVoluntarios() != null){
-							for(EventPlanTareaVoluntario eventPlanTareaVoluntario: eventPlanTarea.getListPlanTareaVoluntarios()){
-								EventPlanTareaVoluntario obj = new EventPlanTareaVoluntario();
-								obj.setFkEventPlanTarea(new EventPlanTarea(eventPlanTareaVoluntario.getFkEventPlanTarea().getIdEventPlanTarea()));
-								obj.setFkVoluntario(eventPlanTareaVoluntario.getFkVoluntario());
-								PayloadEventPlanTareaVoluntarioResponse eventPlanTareaVoluntarioResponse = S.EventPlanTareaVoluntarioService.incluir(obj);
-								if (!UtilPayload.isOK(eventPlanTareaVoluntarioResponse)) {
-									 return (String) eventPlanTareaVoluntarioResponse.getInformacion(IPayloadResponse.MENSAJE);
-								 }
-								
-							}
-						}
-					   if(eventPlanTarea.getListEventPlanTareaTrabajadors().size()>0 & eventPlanTarea.getListEventPlanTareaTrabajadors() != null){
-						 for(EventPlanTareaTrabajador eventPlanTareaTrabajador: eventPlanTarea.getListEventPlanTareaTrabajadors()){
-							 EventPlanTareaTrabajador objT = new EventPlanTareaTrabajador();
-							 objT.setFkEventPlanTarea(new EventPlanTarea(eventPlanTareaTrabajador.getFkEventPlanTarea().getIdEventPlanTarea()));
-							 objT.setFkTrabajador(eventPlanTareaTrabajador.getFkTrabajador());
-							 PayloadEventPlanTareaTrabajadorResponse eventPlanTareaTrabajadorResponse = S.EventPlanTareaTrabajadorService.incluir(objT);
-							 if (!UtilPayload.isOK(eventPlanTareaTrabajadorResponse)) {
-								 return (String) eventPlanTareaTrabajadorResponse.getInformacion(IPayloadResponse.MENSAJE);
-							 }
-						 }
-					   }
-					}
-				}
-			
-
 		goToNextStep();
 		return "";
 	}

@@ -1,6 +1,6 @@
 <?xel-method prefix="m" name="getBufferedImage" class="lights.smile.util.Zki" 
 	signature="java.awt.image.BufferedImage getBufferedImage(java.lang.String)" ?>
-
+<zk xmlns:n="native" xmlns:w="client">
 <div sclass="row section animated fadeInLeft">
 
 	<style>
@@ -85,10 +85,6 @@
 								sort="auto(descripcion)" align="center" width="35%" />
 							<column label="Clasificador de Tarea"
 								sort="auto(clasificadoTarea)" align="center" width="23%" />
-							<column label="Indicadores" align="center"
-								width="12%">
-
-							</column>
 						</columns>
 						<template name="model" var="tarea"
 							status="statusTarea">
@@ -111,13 +107,11 @@
 											<column label=""
 												width="21%" />
 											<column label="Cédula/Rif"
-												width="29%" />
+												width="20%" />
 											<column label="Voluntario"
 												align="center" width="20%" />
-											<column label="Eliminar"
-												width="10%" align="center">
-											</column>
-
+											<column label="Ejecuto"
+												align="center" width="20%" />
 										</columns>
 										<template name="model">
 											<row sclass="last">
@@ -144,13 +138,17 @@
 													<label
 														value="@bind(each.fkVoluntario.fkPersona.nombre.concat(' ').concat(each.fkVoluntario.fkPersona.apellido))" />
 												</cell>
-												<cell sclass="vacacion"
-													style="    border-left: 2px solid #EEEEEE !important;">
-													<button
-														onClick="@command('eliminarVoluntario', tsPlanActividadVoluntario=each, index=statusTarea.index)"
-														sclass="btn-sm-grid btn-pink " style="margin-left: 3px;"
-														tooltiptext="Eliminar" iconSclass="fa fa-trash">
-													</button>
+												<cell>
+												<n:div
+														class="switch">
+														<n:label>
+															NO
+															<checkbox
+																checked="@bind(each.ejecucion)">
+															</checkbox>
+															SI
+														</n:label>
+													</n:div>
 												</cell>
 											</row>
 										</template>
@@ -170,14 +168,7 @@
 									<label
 										value="@bind(tarea.fkTarea.fkClasificadorTarea.nombre)" />
 								</cell>
-								<cell sclass="periodo">
-									<button
-										sclass="teal lighten-1 waves-effect waves-light"
-										onClick="@command('buscarVoluntarios', index=statusTarea.index)"
-										iconSclass="fa fa-search" tooltiptext="Editar Lugar"
-										style="/padding: 5px 6px; background-color: #2AA4EF !important; float: center">
-									</button>
-								</cell>
+
 							</row>
 						</template>
 					</grid>
@@ -196,10 +187,6 @@
 								sort="auto(descripcion)" align="center" width="35%" />
 							<column label="Clasificador de Tarea"
 								sort="auto(clasificadoTarea)" align="center" width="23%" />
-							<column label="Indicadores" align="center"
-								width="12%">
-
-							</column>
 						</columns>
 						<template name="model" var="tarea"
 							status="statusTarea">
@@ -213,7 +200,7 @@
 										emptyMessage="No hay trabajadores asociados a las tareas"
 										model="@bind(tarea.listEventPlanTareaTrabajadors)">
 										<auxhead>
-											<auxheader colspan="4"
+											<auxheader colspan="3"
 												align="center" label="TRABAJADORES ASOCIADOS">
 											</auxheader>
 										</auxhead>
@@ -226,25 +213,13 @@
 
 											<column label="Voluntario"
 												align="center" width="20%" />
-											<column label="Eliminar"
-												width="10%" align="center">
-											</column>
+											<column label="Voluntario"
+												align="center" width="20%" />
+
 
 										</columns>
 										<template name="model">
 											<row sclass="last">
-
-												<cell
-													sclass="vacacion">
-													<!-- 										<div align="center" -->
-													<!-- 											visible="@bind(not empty each.fkVoluntario.fkPersona.fkMultimedia)"> -->
-													<!-- 											<image -->
-													<!-- 												content="${m:getBufferedImage(each.fkVoluntario.fkPersona.fkMultimedia.url)}" -->
-													<!-- 												width="30px" height="30px" sclass="circle"> -->
-													<!-- 											</image> -->
-													<!-- 										</div> -->
-												</cell>
-
 												<cell
 													sclass="vacacion">
 													<label
@@ -256,13 +231,17 @@
 													<label
 														value="@bind(each.fkTrabajador.fkPersona.nombre.concat(' ').concat(each.fkTrabajador.fkPersona.apellido))" />
 												</cell>
-												<cell sclass="vacacion"
-													style="    border-left: 2px solid #EEEEEE !important;">
-													<button
-														onClick="@command('eliminarTrabajador', tsPlanActividadTrabajador=each, index=statusTarea.index)"
-														sclass="btn-sm-grid btn-pink " style="margin-left: 3px;"
-														tooltiptext="Eliminar" iconSclass="fa fa-trash">
-													</button>
+												<cell>
+													<n:div
+														class="switch">
+														<n:label>
+															NO
+															<checkbox
+																checked="@bind(vm.estatus)">
+															</checkbox>
+															SI
+														</n:label>
+													</n:div>
 												</cell>
 											</row>
 										</template>
@@ -282,14 +261,7 @@
 									<label
 										value="@bind(tarea.fkTarea.fkClasificadorTarea.nombre)" />
 								</cell>
-								<cell sclass="periodo">
-									<button
-										sclass="teal lighten-1 waves-effect waves-light"
-										onClick="@command('buscarTrabajadores', index=statusTarea.index)"
-										iconSclass="fa fa-search" tooltiptext="Buscar Trabajadores"
-										style="/padding: 5px 6px; background-color: #2AA4EF !important; float: center">
-									</button>
-								</cell>
+
 							</row>
 						</template>
 					</grid>
@@ -300,3 +272,4 @@
 	</div>
 
 </div>
+</zk>

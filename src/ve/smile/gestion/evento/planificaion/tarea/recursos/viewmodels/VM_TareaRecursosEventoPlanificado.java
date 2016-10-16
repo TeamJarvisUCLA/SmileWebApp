@@ -1,6 +1,7 @@
 package ve.smile.gestion.evento.planificaion.tarea.recursos.viewmodels;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,11 +29,8 @@ import ve.smile.dto.EventPlanTarea;
 import ve.smile.dto.EventPlanTareaRecurso;
 import ve.smile.dto.EventoPlanificado;
 import ve.smile.dto.Indicador;
-import ve.smile.dto.IndicadorEventoPlanTarea;
 import ve.smile.dto.Recurso;
-import ve.smile.dto.Tarea;
 import ve.smile.payload.response.PayloadEventPlanTareaRecursoResponse;
-import ve.smile.payload.response.PayloadEventPlanTareaResponse;
 import ve.smile.payload.response.PayloadEventoPlanificadoResponse;
 import ve.smile.payload.response.PayloadIndicadorEventoPlanTareaResponse;
 
@@ -86,11 +84,11 @@ public class VM_TareaRecursosEventoPlanificado extends
 			for (EventPlanTareaRecurso iet : listEventPlanTareas.get(
 					indexTarea).getListEventPlanTareaRecursos()) {
 				eventPlanTareaRecurso = new EventPlanTareaRecurso();
-				eventPlanTareaRecurso
-						.setFkEventPlanTarea(listEventPlanTareas
+				eventPlanTareaRecurso.setFkEventPlanTarea(listEventPlanTareas
 								.get(indexTarea));
 				eventPlanTareaRecurso.setFkRecurso(iet.getFkRecurso());
 				eventPlanTareaRecurso.setCantidad(iet.getCantidad());
+				eventPlanTareaRecurso.setFechaAsignacion(iet.getFechaAsignacion());
 				listAux2.add(eventPlanTareaRecurso);
 			}
 		}
@@ -115,6 +113,7 @@ public class VM_TareaRecursosEventoPlanificado extends
 							.setFkEventPlanTarea(listEventPlanTareas
 									.get(indexTarea));
 					eventPlanTareaRecurso.setFkRecurso(recurso);
+					eventPlanTareaRecurso.setFechaAsignacion(new Date().getTime());
 					listAux2.add(eventPlanTareaRecurso);
 
 				}
@@ -125,6 +124,7 @@ public class VM_TareaRecursosEventoPlanificado extends
 						.setFkEventPlanTarea(listEventPlanTareas
 								.get(indexTarea));
 				eventPlanTareaRecurso.setFkRecurso(recurso);
+				eventPlanTareaRecurso.setFechaAsignacion(new Date().getTime());
 				listAux2.add(eventPlanTareaRecurso);
 
 			}
@@ -195,7 +195,8 @@ public class VM_TareaRecursosEventoPlanificado extends
 										.getIdEventPlanTarea());
 						eventoPlanTarea.setFkEventPlanTarea(eventPlanTarea);
 						eventoPlanTarea.setFkRecurso(eventPlanTareaRecurso.getFkRecurso());
-						eventoPlanTarea.setCantidad(eventPlanTareaRecurso.getCantidad());										
+						eventoPlanTarea.setCantidad(eventPlanTareaRecurso.getCantidad());
+						eventoPlanTarea.setFechaAsignacion(eventPlanTareaRecurso.getFechaAsignacion());
 						payloadEventPlanTareaResponse = S.EventPlanTareaRecursoService
 								.incluir(eventoPlanTarea);
 					}
@@ -253,17 +254,17 @@ public class VM_TareaRecursosEventoPlanificado extends
 					.consultarCriterios(TypeQuery.EQUAL, parametro)
 					.getObjetos();
 			if (this.listEventPlanTareas.size() > 0) {
-				for (int i = 0; i < this.listEventPlanTareas.size(); i++) {
+				for (EventPlanTarea eventPlanTarea : this.listEventPlanTareas) {
 					Map<String, String> criterios = new HashMap<String, String>();
 					criterios.put("fkEventPlanTarea.idEventPlanTarea",
-							listEventPlanTareas.get(i).getIdEventPlanTarea()
+							eventPlanTarea.getIdEventPlanTarea()
 									+ "");
 					PayloadEventPlanTareaRecursoResponse eventPlanTareaRecursoResponse = S.EventPlanTareaRecursoService
 							.consultarCriterios(TypeQuery.EQUAL, criterios);
 					if (eventPlanTareaRecursoResponse.getObjetos().size() > 0) {
-						listEventPlanTareas.get(i)
-								.setListEventPlanTareaRecursos(
-										eventPlanTareaRecursoResponse.getObjetos());
+
+						
+						eventPlanTarea.setListEventPlanTareaRecursos(eventPlanTareaRecursoResponse.getObjetos());
 					}
 
 				}

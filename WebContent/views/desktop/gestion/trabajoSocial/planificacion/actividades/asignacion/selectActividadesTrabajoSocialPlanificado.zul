@@ -10,14 +10,6 @@
 			</div>
 
 		</div>
-
-		<style>
-
-			.buttonPlantilla{ color: #3b85a1 !important; border: 1px
-			solid #3b85a1 !important; border-radius: 0px; margin-bottom:
-			10px; float: right;}
-		</style>
-
 		<div class="row">
 			<div class="col s12">
 
@@ -45,8 +37,8 @@
 										<listitem
 											label="@load(each.nombre)">
 											<zscript>
-	self.setDisabled(vm.disabledActividad(each));
-</zscript>
+												self.setDisabled(vm.disabledActividad(each));
+											</zscript>
 										</listitem>
 									</template>
 								</listbox>

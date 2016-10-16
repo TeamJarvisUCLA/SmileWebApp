@@ -25,9 +25,12 @@
 					emptyMessage="No hay indicadores asociados al del trabajo social."
 					model="@bind(vm.tsPlanActividads)">
 					<listhead sizable="true">
-						<listheader label="Actividad" />
-						<listheader label="Fecha Planificada" />
-						<listheader label="Lugar" align="center" />
+						<listheader width="35%" label="Actividad" />
+						<listheader width="20%"
+							label="Fecha Planificada" />
+						<listheader width="35%" label="Lugar"
+							align="center" />
+						<listheader width="10%" label="" align="right" />
 					</listhead>
 					<template name="model">
 						<listitem>
@@ -48,13 +51,15 @@
 								<label visible="empty each.fkDirectorio"
 									value="Lugar sin asignar">
 								</label>
+
+							</listcell>
+							<listcell>
 								<button
 									sclass="teal lighten-1 waves-effect waves-light"
 									onClick="@command('buscarDirectorio', index=forEachStatus.index)"
 									iconSclass="fa fa-search" tooltiptext="Editar Lugar"
 									style="/padding: 5px 6px; background-color: #2AA4EF !important; float: right">
 								</button>
-
 							</listcell>
 						</listitem>
 					</template>

@@ -1,3 +1,6 @@
+<?xel-method prefix="m" name="convertirLongADate" class="lights.smile.util.UtilConverterDataList" 
+	signature="java.lang.String convertirLongADate(java.lang.Long)" ?>
+
 <zk xmlns:n="native" xmlns:w="client">
 	<div sclass="animated fadeInLeft">
 		<div class="row">
@@ -35,11 +38,11 @@
 									<listcell
 										label="@load(each.descripcion)" />
 									<listcell
-										label="@load(each.fechaPlanificada)" />
+										label="${m:convertirLongADate(each.fechaPlanificada)}" />
 									<listcell
 										label="@load(each.fkDirectorio.nombre)" />
 									<listcell
-										label="@load(each.fkPersona.nombre)" />
+										label="@load(each.fkPersona.nombre.concat(' ').concat(each.fkPersona.apellido))" />
 								</listitem>
 							</template>
 							<listfoot>

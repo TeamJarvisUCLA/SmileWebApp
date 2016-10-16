@@ -1,275 +1,131 @@
 <zk xmlns:n="native" xmlns:w="client">
-		<n:link href="assets/css/web/eventos.css" rel="stylesheet" type="text/css"></n:link>
-		<n:link src="assets/js/eventos.js" type="text/javascript"></n:link>
-		<n:link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"></n:link>
-
-<!-- ************* TITULO DE LA PAGINA ***************** -->
-<div class="eventos" apply="org.zkoss.bind.BindComposer"
-		viewModel="@id('vm') @init('ve.smile.web.viewmodels.VM_Main')">
-	<div sclass="container-fluid">
-		<div class="cinta valign-wrapper">
-			<div class="tituloCinta valign center-block">
-				<n:span>Eventos</n:span>
-			</div>
-		</div>
-	</div>
+	<n:link href="assets/css/web/eventos.css" rel="stylesheet"
+		type="text/css">
+	</n:link>
+	<n:link src="assets/js/eventos.js" type="text/javascript"></n:link>
+	<n:link rel="stylesheet"
+		href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	</n:link>
 	
-<!-- ************* TITULO DE LAS FOTOS ***************** -->
 
-	<div class="container">
-		<div class="row">
-			<div class="col s12">
-				<div class="titulo text-center">
-					<n:span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt 
-					ut labore et dolore magna aliqua.
-					Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor.</n:span>
+	<!-- ************* TITULO DE LA PAGINA ***************** -->
+	<div class="eventos" apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('ve.smile.web.viewmodels.VM_Main')">
+		<div sclass="container-fluid">
+			<div class="cinta valign-wrapper">
+				<div class="tituloCinta valign center-block">
+					<n:span>Eventos</n:span>
 				</div>
 			</div>
 		</div>
-	</div>
-	
-<!-- ************* FOTOS ***************** -->      
-      <div class="container">
-            <div class="row abc">
-                  <div class="col s12">						
-						<div class="col s4">
-	                        <div class="card small" style="height: 284px; background-color: #8AC7DE;">
-	                              <div class="card-image waves-effect waves-block waves-light">
-	                              	<div class="view">
-	                                    <n:img class="activator" src="imagenes/portal/galeria1.png"></n:img>
-	                                    <div class="mask"></div>
-	                                    <div class="content center">
-	                                    	<div class="row abc">
-	                                    		<div class="col s6" style="">
-	                                    			<n:h2>Verbena</n:h2>
-	                                    		</div>
-	                                    		<div class="col s6">
-	                                    			<n:h2 style="color: #8AC7DE;">29/07/2016</n:h2>
-	                                    		</div>
-	                                    	</div>
-	                                    	<n:p>En apoyo a los niños oncológicos del estado Lara se realizó la cuarta caminata recreativa “La Alegría de Vivir”.</n:p>
-	                                    	<n:a href="" class="info"><n:img src="imagenes/portal/icon/mas.png"></n:img></n:a>
-	                                    </div>
-	                                 </div>
-	                              </div>
-	                              <div class="card-content" style="padding: 0 20px;">
-	                                    <n:span class="card-title white-text activator" style="font-size: 18px; font-weight: bold; display: block;">VERBENA</n:span>
-	                                    <a class="white-text" style="font-size: 14px;" href="" onClick="@command('calendario')">Ver detalle de evento</a>
-	                              </div>
-	                              <div class="card-reveal white-text" style="background-color: #8AC7DE;">
-	                              	<n:span class="card-title" style="line-height: 5px; font-size: 18px; font-weight: bold; color: #F26B7A;">
-	                              	VERBENA<n:i class="material-icons right" style="line-height: 0;">close</n:i></n:span>
-	                                    <n:p style="margin-top: 30px;">En apoyo a los niños oncológicos del estado 
-	                                    												Lara se realizó la cuarta caminata recreativa 
-	                                    												“La Alegría de Vivir” en horas de la mañana de 
-	                                    												este domingo 24 de julio desde las instalaciones del 
-	                                    												Museo de Barquisimeto hasta las instalaciones de 
-	                                    												FANCA, con cientos de participantes.</n:p>
-	                              </div>
-	                        </div>
-						</div>
-						
-						<div class="col s4">
-	                        <div class="card small" style="height: 284px; background-color: #8AC7DE;">
-	                              <div class="card-image waves-effect waves-block waves-light">
-	                              	<div class="view">
-	                                    <n:img class="activator" src="imagenes/portal/galeria1.png"></n:img>
-	                                    <div class="mask"></div>
-	                                    <div class="content center">
-	                                    	<div class="row abc">
-	                                    		<div class="col s6">
-	                                    			<n:h2>Vendimia</n:h2>
-	                                    		</div>
-	                                    		<div class="col s6">
-	                                    			<n:h2 style="color: #8AC7DE;">29/07/2016</n:h2>
-	                                    		</div>
-	                                    	</div>
-	                                    	<n:p>En apoyo a los niños oncológicos del estado Lara se realizó la cuarta caminata recreativa “La Alegría de Vivir”.</n:p>
-	                                    	<n:a href="" class="info"><n:img src="imagenes/portal/icon/mas.png"></n:img></n:a>
-	                                    </div>
-	                                 </div>
-	                              </div>
-	                              <div class="card-content" style="padding: 0 20px;">
-	                                    <n:span class="card-title white-text activator" style="font-size: 18px; font-weight: bold; display: block;">VENDIMIA</n:span>
-	                                    <a class="white-text" style="font-size: 14px;" href="" onClick="@command('calendario')">Ver detalle de evento</a>
-	                              </div>
-	                              <div class="card-reveal white-text" style="background-color: #8AC7DE;">
-	                                    <n:span class="card-title" style="line-height: 5px; font-size: 18px; font-weight: bold; color: #F26B7A;">
-	                              	VENDIMIA<n:i class="material-icons right" style="line-height: 0;">close</n:i></n:span>
-	                                    <n:p style="font-size: 14px; margin-top: 30px;">En apoyo a los niños oncológicos del estado 
-	                                    												Lara se realizó la cuarta caminata recreativa 
-	                                    												“La Alegría de Vivir” en horas de la mañana de 
-	                                    												este domingo 24 de julio desde las instalaciones del 
-	                                    												Museo de Barquisimeto hasta las instalaciones de 
-	                                    												FANCA, con cientos de participantes.</n:p>
-	                              </div>
-	                        </div>
-						</div>
-						
-						<div class="col s4">
-	                        <div class="card small" style="height: 284px; background-color: #8AC7DE;">
-	                              <div class="card-image waves-effect waves-block waves-light">
-	                              	<div class="view">
-	                                    <n:img class="activator" src="imagenes/portal/galeria1.png"></n:img>
-	                                    <div class="mask"></div>
-	                                    <div class="content center">
-	                                    	<div class="row abc">
-	                                    		<div class="col s6">
-	                                    			<n:h2>Carrera</n:h2>
-	                                    		</div>
-	                                    		<div class="col s6">
-	                                    			<n:h2 style="color: #8AC7DE;">29/07/2016</n:h2>
-	                                    		</div>
-	                                    	</div>
-	                                    	<n:p>En apoyo a los niños oncológicos del estado Lara se realizó la cuarta caminata recreativa “La Alegría de Vivir”.</n:p>
-	                                    	<n:a href="" class="info"><n:img src="imagenes/portal/icon/mas.png"></n:img></n:a>
-	                                    </div>
-	                                 </div>
-	                              </div>
-	                              <div class="card-content" style="padding: 0 20px;">
-	                                    <n:span class="card-title white-text activator" style="font-size: 18px; font-weight: bold; display: block;">CARRERA 10K</n:span>
-	                                    <a class="white-text" style="font-size: 14px;" href="" onClick="@command('calendario')">Ver detalle de evento</a>
-	                              </div>
-	                              <div class="card-reveal white-text" style="background-color: #8AC7DE;">
-	                                    <n:span class="card-title" style="line-height: 5px; font-size: 18px; font-weight: bold; color: #F26B7A;">
-	                              	CARRERA 10K<n:i class="material-icons right" style="line-height: 0;">close</n:i></n:span>
-	                                    <n:p style="font-size: 14px; margin-top: 30px;">En apoyo a los niños oncológicos del estado 
-	                                    												Lara se realizó la cuarta caminata recreativa 
-	                                    												“La Alegría de Vivir” en horas de la mañana de 
-	                                    												este domingo 24 de julio desde las instalaciones del 
-	                                    												Museo de Barquisimeto hasta las instalaciones de 
-	                                    												FANCA, con cientos de participantes.</n:p>
-	                              </div>
-	                        </div>
-						</div>
-						
+
+		<!-- ************* TITULO DE LAS FOTOS ***************** -->
+
+	<div class="container">
+			<div class="row">
+				<div class="col s12">
+					<div class="titulo text-center">
+						<n:span>
+							Eventos realizados por la organizacion FANCA de Lara.
+						</n:span>
+					</div>
+				</div>
+			</div>
+		</div> 
+		
+		
+		
+
+		<!-- ************* FOTOS ***************** -->
+		<div class="container" apply="org.zkoss.bind.BindComposer"
+			viewModel="@id('vm') @init('ve.smile.web.viewmodels.evento.VM_Evento')">
+			<div class="row abc"
+				children="@load(vm.eventoPlanificado)">
+				<template name="children">
+					<div class="col s4">
+						<div class="card small"
+							style="height: 284px; background-color: #8AC7DE;">
+							<div
+								class="card-image waves-effect waves-block waves-light">
+								<div class="view">
+									<image class="activator"
+										src="@load(each.fkMultimedia.url)">
+									</image>
+									<div class="mask"></div>
+									<div class="content center">
+										<div class="row abc">
+											<div class="col s6">
+												<n:h2>
+													<label
+														value="@load(each.fkEvento.nombre)"
+														sclass="tituloEvento">
+													</label>
+												</n:h2>
+											</div>											
+										</div>
+										<n:p>
+											<label sclass="text-justify"
+												value="@load(each.fkEvento.descripcion)">
+											</label>
+										</n:p>
+										<n:a href="" class="info">
+											<n:img
+												src="imagenes/portal/icon/mas.png">
+											</n:img>
+										</n:a>
+									</div>
+								</div>
+							</div>
 							
-                  </div>
-            </div>
-      </div>
-      
-      
-      <div class="container">
-            <div class="row abc">
-                  <div class="col s12">						
-						<div class="col s4">
-	                        <div class="card small" style="height: 284px; background-color: #8AC7DE;">
-	                              <div class="card-image waves-effect waves-block waves-light">
-	                              	<div class="view">
-	                                    <n:img class="activator" src="imagenes/portal/galeria1.png"></n:img>
-	                                    <div class="mask"></div>
-	                                    <div class="content center">
-	                                    	<div class="row abc">
-	                                    		<div class="col s6">
-	                                    			<n:h2>Ajedrez</n:h2>
-	                                    		</div>
-	                                    		<div class="col s6">
-	                                    			<n:h2 style="color: #8AC7DE;">29/07/2016</n:h2>
-	                                    		</div>
-	                                    	</div>
-	                                    	<n:p>En apoyo a los niños oncológicos del estado Lara se realizó la cuarta caminata recreativa “La Alegría de Vivir”.</n:p>
-	                                    	<n:a href="" class="info"><n:img src="imagenes/portal/icon/mas.png"></n:img></n:a>
-	                                    </div>
-	                                 </div>
-	                              </div>
-	                              <div class="card-content" style="padding: 0 20px;">
-	                                    <n:span class="card-title white-text activator" style="font-size: 18px; font-weight: bold; display: block;">TORNEO DE AJEDREZ</n:span>
-	                                    <a class="white-text" style="font-size: 14px;" href="" onClick="@command('calendario')">Ver detalle de evento</a>
-	                              </div>
-	                              <div class="card-reveal white-text" style="background-color: #8AC7DE;">
-	                                    <n:span class="card-title" style="line-height: 5px; font-size: 18px; font-weight: bold; color: #F26B7A;">
-	                              	TORNEO DE AJEDREZ<n:i class="material-icons right" style="line-height: 0;">close</n:i></n:span>
-	                                    <n:p style="font-size: 14px; margin-top: 30px;">En apoyo a los niños oncológicos del estado 
-	                                    												Lara se realizó la cuarta caminata recreativa 
-	                                    												“La Alegría de Vivir” en horas de la mañana de 
-	                                    												este domingo 24 de julio desde las instalaciones del 
-	                                    												Museo de Barquisimeto hasta las instalaciones de 
-	                                    												FANCA, con cientos de participantes.</n:p>
-	                              </div>
-	                        </div>
-						</div>
-						
-						<div class="col s4">
-	                        <div class="card small" style="height: 284px; background-color: #8AC7DE;">
-	                              <div class="card-image waves-effect waves-block waves-light">
-	                              	<div class="view">
-	                                    <n:img class="activator" src="imagenes/portal/galeria1.png"></n:img>
-	                                    <div class="mask"></div>
-	                                    <div class="content center">
-	                                    	<div class="row abc">
-	                                    		<div class="col s6">
-	                                    			<n:h2>Ballet</n:h2>
-	                                    		</div>
-	                                    		<div class="col s6">
-	                                    			<n:h2 style="color: #8AC7DE;">29/07/2016</n:h2>
-	                                    		</div>
-	                                    	</div>
-	                                    	<n:p>En apoyo a los niños oncológicos del estado Lara se realizó la cuarta caminata recreativa “La Alegría de Vivir”.</n:p>
-	                                    	<n:a href="" class="info"><n:img src="imagenes/portal/icon/mas.png"></n:img></n:a>
-	                                    </div>
-	                                 </div>
-	                              </div>
-	                              <div class="card-content" style="padding: 0 20px;">
-	                                    <n:span class="card-title white-text activator" style="font-size: 18px; font-weight: bold; display: block;">BALLET 2015</n:span>
-	                                    <a class="white-text" style="font-size: 14px;" href="" onClick="@command('calendario')">Ver detalle de evento</a>
-	                              </div>
-	                              <div class="card-reveal white-text" style="background-color: #8AC7DE;">
-	                                    <n:span class="card-title" style="line-height: 5px; font-size: 18px; font-weight: bold; color: #F26B7A;">
-	                              	BALLET 2015<n:i class="material-icons right" style="line-height: 0;">close</n:i></n:span>
-	                                    <n:p style="font-size: 14px; margin-top: 30px;">En apoyo a los niños oncológicos del estado 
-	                                    												Lara se realizó la cuarta caminata recreativa 
-	                                    												“La Alegría de Vivir” en horas de la mañana de 
-	                                    												este domingo 24 de julio desde las instalaciones del 
-	                                    												Museo de Barquisimeto hasta las instalaciones de 
-	                                    												FANCA, con cientos de participantes.</n:p>
-	                              </div>
-	                        </div>
-						</div>
-						
-						<div class="col s4">
-	                        <div class="card small" style="height: 284px; background-color: #8AC7DE;">
-	                              <div class="card-image waves-effect waves-block waves-light">
-	                              	<div class="view">
-	                                    <n:img class="activator" src="imagenes/portal/galeria1.png"></n:img>
-	                                    <div class="mask"></div>
-	                                    <div class="content center">
-	                                    	<div class="row abc">
-	                                    		<div class="col s6">
-	                                    			<n:h2>Golf</n:h2>
-	                                    		</div>
-	                                    		<div class="col s6">
-	                                    			<n:h2 style="color: #8AC7DE;">29/07/2016</n:h2>
-	                                    		</div>
-	                                    	</div>
-	                                    	<n:p>En apoyo a los niños oncológicos del estado Lara se realizó la cuarta caminata recreativa “La Alegría de Vivir”.</n:p>
-	                                    	<n:a href="" class="info"><n:img src="imagenes/portal/icon/mas.png"></n:img></n:a>
-	                                    </div>
-	                                 </div>
-	                              </div>
-	                              <div class="card-content" style="padding: 0 20px;">
-	                                    <n:span class="card-title white-text activator" style="font-size: 18px; font-weight: bold; display: block;">TORNEO DE GOLF</n:span>
-	                                    <a class="white-text" style="font-size: 14px;" href="" onClick="@command('calendario')">Ver detalle de evento</a>
-	                              </div>
-	                              <div class="card-reveal white-text" style="background-color: #8AC7DE;">
-	                                    <n:span class="card-title" style="line-height: 5px; font-size: 18px; font-weight: bold; color: #F26B7A;">
-	                              	TORNEO DE GOLF<n:i class="material-icons right" style="line-height: 0;">close</n:i></n:span>
-	                                    <n:p style="font-size: 14px; margin-top: 30px;">En apoyo a los niños oncológicos del estado 
-	                                    												Lara se realizó la cuarta caminata recreativa 
-	                                    												“La Alegría de Vivir” en horas de la mañana de 
-	                                    												este domingo 24 de julio desde las instalaciones del 
-	                                    												Museo de Barquisimeto hasta las instalaciones de 
-	                                    												FANCA, con cientos de participantes.</n:p>
-	                              </div>
-	                        </div>
-						</div>
-						
+							<div class="col s12 fechaNoticia">
+											
+										</div>
 							
-                  </div>
-            </div>
-      </div>
-      
-      
-      <div id="divButtonsForm" sclass="row" style="margin-top: 30px;">
+							<div class="card-content"
+								style="padding: 0 20px;">
+								<label
+									class="card-title white-text activator"
+									style="font-size: 18px; font-weight: bold; display: block;"
+									value="@load(each.fkEvento.nombre)">
+								</label>
+								<a class="white-text"
+									style="font-size: 14px;" onClick="@command('calendario', evento=each)">
+									Ver Detalle Evento
+									</a>
+							</div>
+							<div class="card-reveal white-text"
+								style="background-color: #8AC7DE;">
+								<span class="card-title"
+									style="line-height: 5px; font-size: 18px; font-weight: bold; color: #F26B7A;">
+									<label
+										value="@load(each.fkEvento.nombre)">
+									</label>
+									<n:i class="material-icons right"
+										style="line-height: 0;">
+										close
+									</n:i>
+								</span>
+								<label
+									style="font-size: 14px; margin-top: 30px;"
+									sclass="text-justify"
+									value="@load(each.fkEvento.descripcion)">
+								</label>
+							</div>
+						</div>
+					</div>
+				</template>
+			</div>
+
+			<div class="col s12 icon" style="left: 42%; margin-top: 5px;position: relative;">
+				<a onClick="@command('verMas')">
+					<image src="/imagenes/portal/icon/icon-plus.png"></image>
+				</a>
+				<div class="col s12" style="left: 50%;margin-left: 40px; ">
+					<a onClick="@command('verMas')">Ver más</a>
+				</div>
+			</div>
+		</div>
+		<div id="divButtonsForm" sclass="row" style="margin-top: 30px;">
 		<div class="col s12 div-buttons-form z-div">
 			<button type="button" id="nEMQo3" onClick="@command('calendario')"
 					class="indigo waves-effect waves-light btn"
@@ -278,14 +134,17 @@
 			</button>
 		</div>
 	</div>
-			
-
-	<div class="center-align imagen">
-		<n:img class="responsive-img"
-			src="/SmileWebApp/imagenes/portal/img-ninos.png">
-		</n:img>
+		<div class="center-align imagen">
+			<n:img class="responsive-img"
+				src="/SmileWebApp/imagenes/portal/img-ninos.png">
+			</n:img>
+		</div>
 	</div>
+	<n:script type="text/javascript">
 	
-</div>
-
+	function f_zoom(){ 
+       $('.materialboxed').materialbox();
+    }
+ 	
+</n:script>
 </zk>

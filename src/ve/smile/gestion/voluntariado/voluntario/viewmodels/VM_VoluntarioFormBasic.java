@@ -71,7 +71,6 @@ public class VM_VoluntarioFormBasic extends VM_WindowForm implements UploadImage
 	private String nameImage;
 	private String extensionImage;
 	private String urlImage;
-
 	private String typeMedia;
 	
 	private List<Profesion> profesiones;
@@ -102,6 +101,7 @@ public class VM_VoluntarioFormBasic extends VM_WindowForm implements UploadImage
 		else
 		{
 			this.getVoluntario().getFkPersona().setFkMultimedia(new Multimedia());
+			
 		}
 		
 		if (this.getVoluntario().getFechaIngreso() != null)
@@ -126,18 +126,18 @@ public class VM_VoluntarioFormBasic extends VM_WindowForm implements UploadImage
 			}
 			this.getCiudades().addAll(payloadCiudadResponse.getObjetos());
 		}
+		
 		if (this.getVoluntario().getProfesiones() != null)
 		{
 			this.getVoluntarioProfesiones().addAll(new ArrayList<Profesion>());
-			//this.getVoluntarioProfesiones().addAll(new ArrayList<Profesion>());
-			//this.getVoluntarioProfesiones().addAll(this.getVoluntario().getProfesiones());
+			this.getVoluntarioProfesiones().addAll(this.getVoluntario().getProfesiones());
 		}
 	}
 	
 	// MÉTODOS DE LAS LISTAS
 	public boolean disabledProfesion(Profesion profesion)
 	{
-		return this.getVoluntario().getProfesiones().contains(profesion);
+		return this.getVoluntarioProfesiones().contains(profesion);
 	}
 	
 	public List<Profesion> getProfesiones()
@@ -412,7 +412,7 @@ public class VM_VoluntarioFormBasic extends VM_WindowForm implements UploadImage
 
 		if (operacionEnum.equals(OperacionEnum.MODIFICAR))
 		{
-			// IMAGEN
+			// MULTIMEDIA
 			if (bytes != null)
 			{
 				if (this.getVoluntario().getFkPersona().getFkMultimedia() == null || this.getVoluntario().getFkPersona().getFkMultimedia().getIdMultimedia() == null)
@@ -444,22 +444,15 @@ public class VM_VoluntarioFormBasic extends VM_WindowForm implements UploadImage
 					Zki.save(Zki.PERSONAS, this.getVoluntario().getFkPersona().getIdPersona(), extensionImage, bytes);
 				}
 			}
+
 			Multimedia multimedia = this.getVoluntario().getFkPersona().getFkMultimedia();
+
 			if (bytes == null && this.getVoluntario().getFkPersona().getFkMultimedia() != null)
 			{
 				Zki.remove(this.getVoluntario().getFkPersona().getFkMultimedia().getUrl());
 				this.getVoluntario().getFkPersona().setFkMultimedia(null);
 			}
-
-			// PERSONA
-			PayloadPersonaResponse payloadPersonaResponse = S.PersonaService.modificar(this.getVoluntario().getFkPersona());
-			if (!UtilPayload.isOK(payloadPersonaResponse))
-			{
-				Alert.showMessage(payloadPersonaResponse);
-				return true;
-			}
 			
-			// MULTIMEDIA
 			if (bytes == null && multimedia != null)
 			{
 				PayloadMultimediaResponse payloadMultimediaResponse = S.MultimediaService.eliminar(multimedia.getIdMultimedia());
@@ -469,9 +462,20 @@ public class VM_VoluntarioFormBasic extends VM_WindowForm implements UploadImage
 					return true;
 				}
 			}
+
+			// PERSONA
+			PayloadPersonaResponse payloadPersonaResponse = S.PersonaService.modificar(this.getVoluntario().getFkPersona());
+			if (!UtilPayload.isOK(payloadPersonaResponse))
+			{
+				Alert.showMessage(payloadPersonaResponse);
+				return true;
+			}
+						
+			// PROFESIONES
+			this.getVoluntario().getProfesiones().addAll(new ArrayList<Profesion>());
+			this.getVoluntario().getProfesiones().addAll(this.getVoluntarioProfesiones());
 			
 			// VOLUNTARIO
-			this.getVoluntario().setEstatusVoluntario(EstatusVoluntarioEnum.ACTIVO.ordinal());
 			PayloadVoluntarioResponse payloadVoluntarioResponse = S.VoluntarioService.modificar(this.getVoluntario());
 			if (!UtilPayload.isOK(payloadVoluntarioResponse))
 			{
@@ -530,7 +534,6 @@ public class VM_VoluntarioFormBasic extends VM_WindowForm implements UploadImage
 			UtilValidate.validateDate(this.getVoluntario().getFechaIngreso(),"Fecha de ingreso", ValidateOperator.LESS_THAN, new SimpleDateFormat("yyyy-MM-dd").format(calendar.getTime()), "dd/MM/yyyy");
 			UtilValidate.validateString(this.getVoluntario().getFkPersona().getDireccion(), "Dirección", 250);
 			UtilValidate.validateString(this.getVoluntario().getFkPersona().getTelefono1(), "Teléfono 1", 25);
-			UtilValidate.validateString(this.getVoluntario().getFkPersona().getFax(), "Fax", 100);
 			UtilValidate.validateString(this.getVoluntario().getFkPersona().getCorreo(), "Correo", 100);
 		}
 		catch (Exception e)
@@ -616,6 +619,7 @@ public class VM_VoluntarioFormBasic extends VM_WindowForm implements UploadImage
 				this.extensionImage = media.getName().substring(media.getName().lastIndexOf(".") + 1);
 				this.nameImage = new StringBuilder().append(Zki.PERSONAS).append(this.getVoluntario().getFkPersona().getIdPersona()).append(".").append(extensionImage).toString();
 				this.bytes = media.getByteData();
+
 				this.urlImage = new StringBuilder().append(Zki.PERSONAS).append(this.getVoluntario().getFkPersona().getIdPersona()).append(".").append(extensionImage).toString();
 				this.typeMedia = media.getContentType();
 

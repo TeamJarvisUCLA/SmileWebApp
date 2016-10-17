@@ -23,7 +23,7 @@
 						</listbox>
 					</div>
 					
-					<div sclass="col s1" align="center">
+					<div sclass="col s2" align="center">
 						<div sclass="row">
 							<button sclass="button-conf" iconSclass="fa fa-angle-double-right" onClick="@command('agregarVoluntario')" />
 						</div>

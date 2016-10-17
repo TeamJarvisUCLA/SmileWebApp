@@ -6,22 +6,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.Date;
-import java.text.SimpleDateFormat;
 
 import karen.core.crux.alert.Alert;
-import karen.core.dialog.catalogue.generic.data.CatalogueDialogData;
-import karen.core.dialog.catalogue.generic.events.CatalogueDialogCloseEvent;
-import karen.core.dialog.catalogue.generic.events.listeners.CatalogueDialogCloseListener;
-import karen.core.dialog.generic.enums.DialogActionEnum;
-import karen.core.util.UtilDialog;
+import karen.core.simple_list.wizard.buttons.data.OperacionWizard;
+import karen.core.simple_list.wizard.buttons.enums.OperacionWizardEnum;
+import karen.core.simple_list.wizard.buttons.helpers.OperacionWizardHelper;
+import karen.core.simple_list.wizard.viewmodels.VM_WindowWizard;
 import karen.core.util.payload.UtilPayload;
-import karen.core.util.validate.UtilValidate;
-import karen.core.util.validate.UtilValidate.ValidateOperator;
-import karen.core.wizard.buttons.data.OperacionWizard;
-import karen.core.wizard.buttons.enums.OperacionWizardEnum;
-import karen.core.wizard.buttons.helpers.OperacionWizardHelper;
-import karen.core.wizard.viewmodels.VM_WindowWizard;
 import lights.core.payload.response.IPayloadResponse;
 import lights.core.enums.TypeQuery;
 
@@ -33,16 +24,14 @@ import org.zkoss.bind.annotation.NotifyChange;
 import ve.smile.consume.services.S;
 import ve.smile.dto.Voluntario;
 import ve.smile.dto.CapacitacionPlanificada;
-import ve.smile.dto.VolCapacitacionPlanificada;
 import ve.smile.enums.EstatusVoluntarioEnum;
 import ve.smile.enums.EstatusCapacitacionPlanificadaEnum;
 import ve.smile.payload.response.PayloadVoluntarioResponse;
-import ve.smile.payload.response.PayloadVolCapacitacionPlanificadaResponse;
 import ve.smile.payload.response.PayloadCapacitacionPlanificadaResponse;
 
-public class VM_InscripcionCapacitacionIndex extends VM_WindowWizard
+public class VM_InscripcionCapacitacionIndex extends VM_WindowWizard<CapacitacionPlanificada>
 {
-	private VolCapacitacionPlanificada volCapacitacionPlanificada;
+	private CapacitacionPlanificada capacitacionPlanificada;
 	
 	private List<Voluntario> voluntarios;
 	private Set <Voluntario> voluntariosSeleccionados;
@@ -52,7 +41,7 @@ public class VM_InscripcionCapacitacionIndex extends VM_WindowWizard
 	@Init(superclass = true)
 	public void childInit()
 	{
-		volCapacitacionPlanificada = new VolCapacitacionPlanificada();
+		capacitacionPlanificada = new CapacitacionPlanificada();
 		
 		// VOLUNTARIOS
 		if (this.getVoluntarios().isEmpty())
@@ -72,14 +61,14 @@ public class VM_InscripcionCapacitacionIndex extends VM_WindowWizard
 		}
 	}
 	
-	VolCapacitacionPlanificada getVolCapacitacionPlanificada()
+	CapacitacionPlanificada getCapacitacionPlanificada()
 	{
-		return volCapacitacionPlanificada;
+		return capacitacionPlanificada;
 	}
 	
-	public void setVolCapacitacionPlanificada (VolCapacitacionPlanificada volCapacitacionPlanificada)
+	public void setCapacitacionPlanificada (CapacitacionPlanificada capacitacionPlanificada)
 	{
-		this.volCapacitacionPlanificada = volCapacitacionPlanificada;
+		this.capacitacionPlanificada = capacitacionPlanificada;
 	}
 	
 	// MÉTODOS DE LAS LISTAS
@@ -232,11 +221,18 @@ public class VM_InscripcionCapacitacionIndex extends VM_WindowWizard
 	{
 		if (currentStep == 2)
 		{
-			PayloadVolCapacitacionPlanificadaResponse payloadVolCapacitacionPlanificadaResponse = S.VolCapacitacionPlanificadaService.modificar(volCapacitacionPlanificada);
-			if (UtilPayload.isOK(payloadVolCapacitacionPlanificadaResponse))
+			this.selectedObject.setVoluntariosInscritos(new ArrayList<Voluntario>());
+			this.selectedObject.getVoluntariosInscritos().clear();
+			this.selectedObject.getVoluntariosInscritos().addAll(this.getVoluntariosInscritos());
+			PayloadCapacitacionPlanificadaResponse payloadCapacitacionPlanificadaResponse = S.CapacitacionPlanificadaService.modificar(this.selectedObject);
+			if (UtilPayload.isOK(payloadCapacitacionPlanificadaResponse))
 			{
 				this.setSelectedObject(new CapacitacionPlanificada());
-				this.setVolCapacitacionPlanificada(new VolCapacitacionPlanificada());
+				this.setCapacitacionPlanificada(new CapacitacionPlanificada());
+				this.getVoluntarios().clear();
+				this.getVoluntariosSeleccionados().clear();
+				this.getVoluntariosInscritos().clear();
+				this.getVoluntariosInscritosSeleccionados().clear();
 				BindUtils.postNotifyChange(null, null, this, "voluntarios");
 				BindUtils.postNotifyChange(null, null, this, "voluntariosSeleccionados");
 				BindUtils.postNotifyChange(null, null, this, "voluntariosInscritos");

@@ -41,7 +41,7 @@
 					
 					<div class="input-field col s6">
 						<n:label for="sexo" class="active">Sexo</n:label>
-						<combobox id="sexo" readonly="true" selectedItem="@bind(vm.sexoEnum)" disabled="true" model="@bind(vm.sexoEnums)">
+						<combobox id="sexo" readonly="true" disabled="true" model="@bind(vm.sexoEnums)" selectedItem="@bind(vm.sexoEnum)">
 							<template name="model">
 								<comboitem label="@load(each)" />
 							</template>

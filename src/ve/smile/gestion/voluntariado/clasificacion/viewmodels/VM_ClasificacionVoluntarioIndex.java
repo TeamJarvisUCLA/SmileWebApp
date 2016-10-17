@@ -217,8 +217,16 @@ public class VM_ClasificacionVoluntarioIndex extends VM_WindowWizard <Voluntario
 			{
 				this.setSelectedObject(new Voluntario());
 				this.setVoluntario(new Voluntario());
+				//this.setClasificaciones(new ArrayList<ClasificadorVoluntario>());
+				this.getClasificacionesSeleccionadas().clear();
+				this.setVoluntarioClasificaciones(new ArrayList<ClasificadorVoluntario>());
+				this.getVoluntarioClasificacionesSeleccionadas().clear();
 				BindUtils.postNotifyChange(null, null, this, "selectedObject");
 				BindUtils.postNotifyChange(null, null, this, "voluntario");
+				BindUtils.postNotifyChange(null, null, this, "clasificaciones");
+				BindUtils.postNotifyChange(null, null, this, "clasificacionesSeleccionadas");
+				BindUtils.postNotifyChange(null, null, this, "voluntarioClasificaciones");
+				BindUtils.postNotifyChange(null, null, this, "voluntarioClasificacionesSeleccionadas");
 			}
 		}
 		goToNextStep();

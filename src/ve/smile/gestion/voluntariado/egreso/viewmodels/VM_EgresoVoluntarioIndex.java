@@ -12,10 +12,8 @@ import karen.core.simple_list.wizard.buttons.data.OperacionWizard;
 import karen.core.simple_list.wizard.buttons.enums.OperacionWizardEnum;
 import karen.core.simple_list.wizard.buttons.helpers.OperacionWizardHelper;
 import karen.core.simple_list.wizard.viewmodels.VM_WindowWizard;
-import karen.core.util.UtilDialog;
 import karen.core.util.payload.UtilPayload;
 import karen.core.util.validate.UtilValidate;
-import karen.core.util.validate.UtilValidate.ValidateOperator;
 import lights.core.enums.TypeQuery;
 import lights.core.payload.response.IPayloadResponse;
 
@@ -25,7 +23,6 @@ import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 
 import ve.smile.consume.services.S;
-import ve.smile.dto.Padrino;
 import ve.smile.dto.Voluntario;
 import ve.smile.dto.Ciudad;
 import ve.smile.dto.Estado;
@@ -85,7 +82,7 @@ public class VM_EgresoVoluntarioIndex extends VM_WindowWizard<Voluntario>
 	public void setSexoEnum(SexoEnum sexoEnum)
 	{
 		this.sexoEnum = sexoEnum;
-		this.getVoluntarioSelected().getFkPersona().setSexo(this.sexoEnum.ordinal());
+		selectedObject.getFkPersona().setSexo(this.sexoEnum.ordinal());
 	}
 
 	public List<SexoEnum> getSexoEnums()
@@ -201,7 +198,7 @@ public class VM_EgresoVoluntarioIndex extends VM_WindowWizard<Voluntario>
 		this.estados = estados;
 	}
 
-	// Filtra las ciudades al seleccionar el estado
+	// CIUDADES POR ESTADO
 	@Command("changeEstado")
 	@NotifyChange({"ciudades"})
 	public void changeEstado()
@@ -272,6 +269,7 @@ public class VM_EgresoVoluntarioIndex extends VM_WindowWizard<Voluntario>
 	public void setMotivo (Motivo motivo)
 	{
 		this.motivo = motivo;
+		this.getVoluntario().setFkMotivo(this.motivo);
 	}
 
 	public List<Motivo> getMotivos()
@@ -398,9 +396,13 @@ public class VM_EgresoVoluntarioIndex extends VM_WindowWizard<Voluntario>
 		}
 		if (currentStep == 3)
 		{
-			if (this.getMotivo() == null)
+			try
 			{
-				return "E:Error Code 5-Debe seleccionar un <b>motivo</b>";
+				UtilValidate.validateNull(this.getVoluntario().getFkMotivo(), "Motivo");
+			}
+			catch (Exception e)
+			{
+				return e.getMessage();
 			}
 		}
 		return "";
@@ -415,6 +417,7 @@ public class VM_EgresoVoluntarioIndex extends VM_WindowWizard<Voluntario>
 		}
 		if (currentStep == 3)
 		{
+			this.selectedObject.setFkMotivo(this.getMotivo());
 			PayloadVoluntarioResponse payloadVoluntarioResponse = S.VoluntarioService.modificar(this.selectedObject);
 			if (UtilPayload.isOK(payloadVoluntarioResponse))
 			{
@@ -432,7 +435,7 @@ public class VM_EgresoVoluntarioIndex extends VM_WindowWizard<Voluntario>
 	@Override
 	public String executeCustom1(Integer currentStep)
 	{
-		// RECHAZADO
+		// INACTIVO
 		this.selectedObject.setEstatusVoluntario(EstatusVoluntarioEnum.INACTIVO.ordinal());
 		goToNextStep();
 		return "";

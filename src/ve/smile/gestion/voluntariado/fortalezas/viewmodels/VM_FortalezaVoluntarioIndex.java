@@ -105,7 +105,7 @@ public class VM_FortalezaVoluntarioIndex extends VM_WindowWizard<Voluntario>
 	{
 		if (this.voluntarioFortalezas == null)
 		{
-			voluntarioFortalezas = new ArrayList<>();
+			this.voluntarioFortalezas = new ArrayList<>();
 		}
 		return voluntarioFortalezas;
 	}
@@ -215,8 +215,16 @@ public class VM_FortalezaVoluntarioIndex extends VM_WindowWizard<Voluntario>
 			{
 				this.setSelectedObject(new Voluntario());
 				this.setVoluntario(new Voluntario());
+				//this.setFortalezas(new ArrayList<Fortaleza>());
+				this.getFortalezasSeleccionadas().clear();
+				this.setVoluntarioFortalezas(new ArrayList<Fortaleza>());
+				this.getVoluntarioFortalezasSeleccionadas().clear();
 				BindUtils.postNotifyChange(null, null, this, "selectedObject");
 				BindUtils.postNotifyChange(null, null, this, "voluntario");
+				BindUtils.postNotifyChange(null, null, this, "fortalezas");
+				BindUtils.postNotifyChange(null, null, this, "fortalezasSeleccionadas");
+				BindUtils.postNotifyChange(null, null, this, "voluntarioFortalezas");
+				BindUtils.postNotifyChange(null, null, this, "voluntarioFortalezasSeleccionadas");
 			}
 		}	
 		goToNextStep();

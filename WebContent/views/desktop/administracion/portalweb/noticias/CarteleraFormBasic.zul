@@ -1,0 +1,57 @@
+<zk xmlns:n="native" xmlns:w="client">
+	<div width="80%" class="container opacity-0"
+		use="karen.core.form.controllers.C_WindowForm"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('ve.smile.administracion.portalweb.noticias.viewmodels.VM_CarteleraFormBasic')">
+
+		<div class="row">
+
+				<div class="col s12">
+		
+						<div class="input-field col s6">
+								<n:label class="active" for="fk_multimedia"> Multimedia </n:label>
+								<combobox id="fk_multimedia" readonly="true" model="@bind(vm.multimedia)" selectedItem="@bind(vm.cartelera.fkMultimedia.nombre)">
+									<template name="model">
+										<comboitem label="@load(each.nombre)" />
+									</template>
+								</combobox>
+							</div>
+					<div class="input-field col s6">
+						<n:label for="titulo">Titulo</n:label>
+					<textbox id="titulo" type="text"
+						value="@bind(vm.cartelera.titulo)">
+					</textbox>
+					</div>
+				</div>
+				<div class="col s12">
+					<div class="input-field col s6">
+						<n:label for="descripcion">Descripcion</n:label>
+					</div>
+					<div class="input-field col s6">
+						<n:label for="fecha_inicio">Fecha Inicio</n:label>
+					<intbox id="fecha_inicio"
+						value="@bind(vm.cartelera.fechaInicio)">
+					</intbox>
+					</div>
+				</div>
+				<div class="col s12">
+					<div class="input-field col s6">
+						<n:label for="fecha_finalizacion">Fecha Finalizacion</n:label>
+					<intbox id="fecha_finalizacion"
+						value="@bind(vm.cartelera.fechaFinalizacion)">
+					</intbox>
+					</div>
+					<div class="input-field col s6">
+						<n:label for="tipo_cartelera">Tipo Cartelera</n:label>
+					<intbox id="tipo_cartelera"
+						value="@bind(vm.cartelera.tipoCartelera)">
+					</intbox>
+					</div>
+				</div>
+
+		</div>
+		<div id="divButtonsForm"
+			use="karen.core.form.buttons.containers.DivButtonsForm">
+		</div>
+	</div>
+</zk>

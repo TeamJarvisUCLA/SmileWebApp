@@ -1,21 +1,16 @@
 package ve.smile.gestion.evento.ejecucion.evaluarTarea.viewmodels;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
-
 import ve.smile.consume.services.S;
-import ve.smile.dto.Directorio;
 import ve.smile.dto.EventPlanTarea;
 import ve.smile.dto.EventoPlanificado;
 import ve.smile.dto.Motivo;
-import ve.smile.dto.Tarea;
 import ve.smile.payload.response.PayloadEventPlanTareaResponse;
 import ve.smile.payload.response.PayloadEventoPlanificadoResponse;
 import karen.core.dialog.catalogue.generic.data.CatalogueDialogData;
@@ -30,7 +25,7 @@ import karen.core.wizard.viewmodels.VM_WindowWizard;
 import lights.core.enums.TypeQuery;
 import lights.core.payload.response.IPayloadResponse;
 
-public class EvaluarTareaIndex extends VM_WindowWizard{
+public class VM_EvaluarTareaIndex extends VM_WindowWizard{
 
 	private List<EventPlanTarea> eventoPlanificadotareas = new ArrayList<>();
 	private int indexTarea;

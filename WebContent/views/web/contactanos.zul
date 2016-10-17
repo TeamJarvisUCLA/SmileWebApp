@@ -9,13 +9,15 @@
 		<div class="contactanos">
 
 			<div class="org-contenedor-banner banner-organizacion">
-				<div>
-					<div
-						class="org-contenedor-banner org-contenedor-banner-img">
-						<iframe sclass="contact-map"
-							src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15714.297497096071!2d-69.3126340524231!3d10.05193704663637!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xcfb1348846c590da!2sFundacion+Amigos+del+Ni%C3%B1o+con+cancer+lara!5e0!3m2!1ses!2sve!4v1468198039346">
-						</iframe>
-					</div>
+				<div children="@load(vm.organizacion)">
+					<template name="children">
+						<div
+							class="org-contenedor-banner org-contenedor-banner-img">
+							<iframe sclass="contact-map"
+								src="@load(each.iframe)">
+							</iframe>
+						</div>
+					</template>
 				</div>
 			</div>
 			<div
@@ -28,47 +30,50 @@
 							<label value="NUESTROS DATOS DE CONTACTO"></label>
 						</div>
 						<space height="37px"></space>
-						<div sclass="row">
-							<div
-								class="col s12 s4 offset-s1 contact-holder left-align">
-								<n:h6 class="textoContacto">
-									Teléfonos:
-								</n:h6>
-								<div class="textoDatos">
-									(0251)2338265
-									<n:br></n:br>
-									(0251)4542039
-									<n:br></n:br>
-									<n:br></n:br>
+						<div sclass="row" children="@load(vm.organizacion)">
+							<template name="children">
+
+
+								<div
+									class="col s12 s4 offset-s1 contact-holder left-align">
+									<n:h6 class="textoContacto">
+										Teléfonos:
+									</n:h6>
+									<div class="textoDatos">
+										<label value="@load(each.telefono)"></label>
+										<n:br></n:br>
+										<label value="@load(each.telefono2)"></label>
+										<n:br></n:br>
+										<n:br></n:br>
+									</div>
+
+									<n:h6 class="textoContacto">
+										Fax:
+									</n:h6>
+									<div class="textoDatos">
+										<label value="@load(each.fax)"></label>
+										<n:br></n:br>
+										<n:br></n:br>
+									</div>
+
+									<n:h6 class="textoContacto">
+										Correo electrónico:
+									</n:h6>
+									<div class="textoDatos">
+										<label value="@load(each.correo)"></label>
+										<n:br></n:br>
+										<n:br></n:br>
+									</div>
+
+									<n:h6 class="textoContacto">
+										Ubicación:
+									</n:h6>
+									<div class="textoDatos">
+										<label value="@load(each.direccion)"></label>
+									</div>
 								</div>
 
-								<n:h6 class="textoContacto">Fax:</n:h6>
-								<div class="textoDatos">
-									(0251)2337004
-									<n:br></n:br>
-									<n:br></n:br>
-								</div>
-
-								<n:h6 class="textoContacto">
-									Correo electrónico:
-								</n:h6>
-								<div class="textoDatos">
-									fancalara@gmail.com
-									<n:br></n:br>
-									<n:br></n:br>
-								</div>
-
-								<n:h6 class="textoContacto">
-									Ubicación:
-								</n:h6>
-								<div class="textoDatos">
-									Urbanización "La Concordia" Vereda 6
-									<n:br></n:br>
-									Casa #21
-									<n:br></n:br>
-									Barquisimeto - Estado Lara
-								</div>
-							</div>
+							</template>
 						</div>
 						<div class="right-align">
 							<n:img class="responsive-img"
@@ -141,7 +146,8 @@
 
 						<div id="divButtonsForm"
 							class="col s12 text-center" sclass="row">
-							<button id="btnAccept" onClick="@command('incluir')"
+							<button id="btnAccept"
+								onClick="@command('incluir')"
 								style="background: #3b85a1 !important; color: #ffffff !important"
 								class="waves-effect waves-light btn" href="">
 								enviar

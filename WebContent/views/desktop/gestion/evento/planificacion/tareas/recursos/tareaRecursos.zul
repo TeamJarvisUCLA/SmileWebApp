@@ -64,7 +64,7 @@
 							sort="auto(descripcion)" align="center" width="35%" />
 						<column label="Clasificador de Tarea"
 							sort="auto(clasificadoTarea)" align="center" width="23%" />
-						<column label="Indicadores" align="center"
+						<column label="Recursos" align="center"
 							width="12%">
 
 						</column>
@@ -79,25 +79,26 @@
 								<grid sclass="vacacion"
 									model="@bind(each.listEventPlanTareaRecursos)">
 									<auxhead>
-									<auxheader colspan="5" align="center"
+									<auxheader colspan="6" align="center"
 									label="RECURSOS ASOCIADOS">
 									</auxheader>
 									</auxhead>
 									<columns
 										sclass="header-periodo-disfute">
 										<column label="Nombre"
-											width="22%" />
+											width="15%" />
 										<column label="Descripción"
-											align="center" width="30%" />
+											align="center" width="20%" />
 										<column label="Unidad de Medida"
-											align="center" width="25%" />
+											align="center" width="20%" />
 										<column label="Valor"
-											align="center" width="23%">
-
+											align="center" width="15%">
 										</column>
-										<column label="eliminar"
+										<column label="Fecha de Asignación"
+											align="center" width="20%">
+										</column>
+										<column label="eliminar"											
 											align="center" width="10%">
-
 										</column>
 									</columns>
 									<template name="model">
@@ -119,6 +120,11 @@
 													style="height: 1em; border: 1px solid #999999; border-radius: 7px; font-size:1.2em;  text-align: center;"
 													value="@bind(each.cantidad)">
 												</intbox>
+											</cell>
+											<cell>
+											<datebox format="dd/MM/yyyy"
+												value="@bind(each.fechaAsignacionDate)" width="190px">
+											</datebox>
 											</cell>
 											<cell sclass="vacacion"
 												style="    border-left: 2px solid #EEEEEE !important;">

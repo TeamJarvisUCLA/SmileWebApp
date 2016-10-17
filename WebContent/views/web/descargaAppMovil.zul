@@ -3,57 +3,62 @@
 		type="text/css">
 	</n:link>
 
-	<div sclass="container-fluid">
-		<div class="cinta"></div>
-	</div>
+<!-- 	<div sclass="container-fluid" style="Background-color: #F0F2DC;"> -->
+<!-- 		<div class="cinta" style="Background-color: #F0F2DC;"></div> -->
+<!-- 	</div> -->
+<div style="Background-color: #F0F2DC !important;">
 	<div class="container-fluid bajar"
 		style="Background-color: #F0F2DC;" apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('ve.smile.web.viewmodels.descarga.VM_Descarga')">
-		<div class="row" style="margin-bottom: 0;">
-			<div sclass="col s12">
-				<div class="titulo center-align">
+		<div class="row" style="margin-bottom: 0;Background-color: #F0F2DC;">
+			<div sclass="col s12" style="Background-color: #F0F2DC;">
+				<div class="titulo center-align" style="Background-color: #F0F2DC;">
 					<n:h4>Descarga Nuestra Aplicación Móvil</n:h4>
 				</div>
 			</div>
 		</div>
 
-		<div sclass="col s12">
-			<div class="col-md-1"></div>
+		<div sclass="col s12" style="Background-color: #F0F2DC;">
+			<div class="col-md-1" style="Background-color: #F0F2DC;"></div>
 			<div class="col-md-5"
-				style="padding: 8px; padding-top: 0px;">
+				style="padding: 8px; padding-top: 0px; Background-color: #F0F2DC;">
 				<n:div></n:div>
 				<image class="img-responsive center-block"
 					src="/imagenes/Nexus-Smile-Web-mediano.png">
 				</image>
 			</div>
 			<div class="col-md-5"
-				style="background: white;border: 8px solid #D9EB52;padding: 0px !important; margin-left: 15px !important;">
+				style="background:#F0F2DC ;padding: 0px !important; margin-left: 15px !important;">
 
-				<div sclass="row">
-					<div sclass="col s12" align="justify">
-						<!-- 						<div children="@load(vm.infoMovil)"> -->
-						<!-- 							<template name="children"> -->
-						<div sclass="row">
-							<image class="img-responsive center-block"
-								src="@bind(vm.configuracionMovil.fkMultimedia.url)">
-							</image>
-						</div>
-						<div sclass="col s12" align="justify">
-							<div sclass="row">
+				<div sclass="row" style="Background-color: #F0F2DC;">
+					<div sclass="col s12" align="justify" style="Background-color: #F0F2DC;">
+						<n:div id="owlNoticias"
+							class="owl-carousel owl-theme">
+							<div sclass="item">
 								<label
-									value="@bind(vm.configuracionMovil.valor)">
+									value="Smile Mobile le permitirá conocer las noticias mas recientes asociadas a la Organización">
 								</label>
 							</div>
-
-						</div>
-
+							<div sclass="item">
+								<label
+									value="Es miembro de FANCA? Inicia sesión para recibir información vía notificaciones acerca de futuros eventos y tareas ">
+								</label>
+							</div>
+							<div sclass="item">
+								<label
+									value="Indique con un solo click a cuales eventos asistirá y en cuales participará, ademas podrá seleccionar sus eventos favoritos para un acceso más facil">
+								</label>
+							</div>
+						</n:div>
+						<n:br></n:br>
+						<n:br></n:br>
 						<div sclass="row center-align"
 							style="margin-bottom:0pc">
 
 							<button type="button" id="nEMQo3"
 								iconSclass="" class="indigo waves-effect waves-light btn"
-								style="background-color: #3B85A1 !important; "
-								label="Descargar" onClick="@command('descargaApk')">
+								style="background-color: #3B85A1 !important; " label="Descargar"
+								onClick="@command('descargaApk')">
 							</button>
 
 						</div>
@@ -65,9 +70,10 @@
 
 				</div>
 			</div>
-			<div class="col-md-1"></div>
+			<div class="col-md-1" style="Background-color: #F0F2DC;"></div>
 		</div>
 	</div>
+
 	<n:br></n:br>
 	<n:br></n:br>
 
@@ -78,5 +84,32 @@
 			src="/SmileWebApp/imagenes/portal/img-ninos.png">
 		</n:img>
 	</div>
+</div>
+<n:script type="text/javascript">
+		$(document).ready(function() {
+		
+		  $('#owlNoticias').owlCarousel({
+		 items:1,
+		 mouseDrag:false,
+		      navigation : true, // Show next and prev buttons
+		      slideSpeed : 300,
+		      paginationSpeed : 400,
+		      singleItem: true,
+			  navigationText: [
+			      '<span sclass="fa fa-chevron-left"></span>',
+			    '<span sclass="fa fa-chevron-right"></span>'
+			      ],
+			      autoWidth:true
+		  });
+
+		$('#owlTwitter').owlCarousel({
+			 items:1,
+			 mouseDrag:false,
+			navigation : false, // Show next and prev buttons
+			pagination:false, slideSpeed : 300, paginationSpeed : 400,
+			singleItem:true, autoPlay: true });
+
+		});
+	</n:script>
 
 </zk>

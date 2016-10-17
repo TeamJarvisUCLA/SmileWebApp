@@ -1,0 +1,41 @@
+<zk xmlns:n="native" xmlns:w="client">
+	<div width="100%" class='${arg.animation_}'
+		use="karen.core.simple_list_principal.controllers.C_WindowSimpleListPrincipal"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('ve.smile.administracion.organizacion.viewmodels.VM_OrganizacionIndex')">
+
+		<div class="row">
+			<div class="col s12">
+				<div class="col s12">
+					<listbox id="listbox" model="@load(vm.objectsList)"
+						selectedItem="@bind(vm.selectedObject)">
+						<listhead sizable="true">
+							<listheader width="25%" label="Rif" />
+							<listheader width="25%" label="Nombre" />
+							<listheader width="25%" label="Correo" />                   
+							<listheader width="25%" label="Teléfono" />
+							
+						</listhead>
+						<template name="model">
+							<listitem>
+								<listcell label="@load(each.rif)" />
+								<listcell label="@load(each.nombre)" />
+								<listcell label="@load(each.correo)" />             
+								<listcell label="@load(each.telefono)" />
+							</listitem>
+						</template>
+						<listfoot>
+							<listfooter id="listFoot" span="4"
+								use="karen.core.listfoot.ListFoot">
+							</listfooter>
+						</listfoot>
+					</listbox>
+				</div>
+			</div>
+		</div>
+
+		<toolbar id="toolbar" align="center"
+			use="karen.core.toolbar.Toolbar">
+		</toolbar>
+	</div>
+</zk>

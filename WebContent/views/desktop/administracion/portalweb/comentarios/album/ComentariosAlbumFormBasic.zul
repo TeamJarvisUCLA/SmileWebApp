@@ -1,0 +1,36 @@
+<zk xmlns:n="native" xmlns:w="client">
+	<div width="80%" class="container ${arg.animation_}"
+		use="karen.core.form.controllers.C_WindowForm"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('ve.smile.administracion.portalweb.comentarios.album.viewmodels.VM_ComentariosAlbumFormBasic')">
+
+		<div class="row">
+			<div sclass="col s12 form">
+							<div class="input-field col s6">
+								<n:label for="nombre">Nombre</n:label>
+								<textbox id="nombre" type="text" value="@bind(vm.comentarioAlbum.fkComunidad.nombre)"> </textbox>
+							</div>
+							
+							<div class="input-field col s6">
+								<n:label for="correo">Correo</n:label>
+								<textbox id="correo" type="text" value="@bind(vm.comentarioAlbum.fkComunidad.correo)"> </textbox>
+							</div>
+							
+							<div class="input-field col s6">
+								<n:label for="Comentario">Comentario</n:label>
+								<textbox id="Comentario" type="text" value="@bind(vm.comentarioAlbum.comentario)"> </textbox>
+							</div>
+							
+							<div class="input-field col s12">
+								<n:label for="Puntuacion">Puntuacion</n:label>
+								<textbox id="Puntuacion" type="text" value="@load(each.puntuacion)"> </textbox>
+							</div>
+				
+			</div>
+		</div>
+		
+		<div id="divButtonsForm"
+			use="karen.core.form.buttons.containers.DivButtonsForm">
+		</div>
+	</div>
+</zk>

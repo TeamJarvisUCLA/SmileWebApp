@@ -14,11 +14,13 @@ import ve.smile.consume.services.S;
 import ve.smile.dto.ClasificadorSugerencia;
 import ve.smile.dto.Comunidad;
 import ve.smile.dto.ContactoPortal;
+import ve.smile.dto.Organizacion;
 import ve.smile.enums.ProcedenciaEnum;
 import ve.smile.enums.ProcedenciaMensajeEnum;
 import ve.smile.enums.TipoContactoPortalEnum;
 import ve.smile.payload.response.PayloadClasificadorSugerenciaResponse;
 import ve.smile.payload.response.PayloadContactoPortalResponse;
+import ve.smile.payload.response.PayloadOrganizacionResponse;
 
 public class VM_Contactanos {
 
@@ -26,6 +28,7 @@ public class VM_Contactanos {
 	private ContactoPortal contactoPortal = new ContactoPortal();
 	private List<ClasificadorSugerencia> cSugerencias;
 	private ClasificadorSugerencia cSugerencia;
+	private List<Organizacion> organizacion;
 
 	public List<ClasificadorSugerencia> getcSugerencias() {
 
@@ -41,6 +44,20 @@ public class VM_Contactanos {
 		}
 
 		return cSugerencias;
+	}
+	
+	public List<Organizacion> getOrganizacion(){
+		if (this.organizacion == null) {
+			this.organizacion = new ArrayList<>();
+		}
+		if (this.organizacion.isEmpty()) {
+			PayloadOrganizacionResponse payloadOrganizacionResponse = S.OrganizacionService
+					.buscarOrganizacion();
+			
+			this.organizacion.addAll(payloadOrganizacionResponse.getObjetos());
+		}
+
+		return organizacion;
 	}
 
 	public void setcSugerencias(List<ClasificadorSugerencia> cSugerencias) {

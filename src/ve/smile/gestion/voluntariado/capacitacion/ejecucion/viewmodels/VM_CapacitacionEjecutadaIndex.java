@@ -4,58 +4,75 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import karen.core.crux.alert.Alert;
+import karen.core.dialog.catalogue.generic.data.CatalogueDialogData;
+import karen.core.dialog.catalogue.generic.events.CatalogueDialogCloseEvent;
+import karen.core.dialog.catalogue.generic.events.listeners.CatalogueDialogCloseListener;
+import karen.core.dialog.generic.enums.DialogActionEnum;
+import karen.core.simple_list.wizard.buttons.data.OperacionWizard;
+import karen.core.simple_list.wizard.buttons.enums.OperacionWizardEnum;
+import karen.core.simple_list.wizard.buttons.helpers.OperacionWizardHelper;
+import karen.core.simple_list.wizard.viewmodels.VM_WindowWizard;
+import karen.core.util.UtilDialog;
 import karen.core.util.payload.UtilPayload;
 import karen.core.util.validate.UtilValidate;
 import karen.core.util.validate.UtilValidate.ValidateOperator;
-import karen.core.wizard.buttons.data.OperacionWizard;
-import karen.core.wizard.buttons.enums.OperacionWizardEnum;
-import karen.core.wizard.buttons.helpers.OperacionWizardHelper;
-import karen.core.wizard.viewmodels.VM_WindowWizard;
-import lights.core.enums.TypeQuery;
 import lights.core.payload.response.IPayloadResponse;
-import ve.smile.enums.EstatusCapacitacionPlanificadaEnum;
+import lights.core.enums.TypeQuery;
 
 import org.zkoss.bind.BindUtils;
+import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
+import org.zkoss.bind.annotation.NotifyChange;
 
 import ve.smile.consume.services.S;
+import ve.smile.dto.Directorio;
+import ve.smile.dto.EventPlanTarea;
+import ve.smile.dto.EventoPlanificado;
+import ve.smile.dto.Motivo;
+import ve.smile.dto.Voluntario;
 import ve.smile.dto.Capacitacion;
 import ve.smile.dto.CapacitacionPlanificada;
-import ve.smile.dto.Motivo;
-import ve.smile.payload.response.PayloadCapacitacionPlanificadaResponse;
+import ve.smile.dto.VolCapacitacionPlanificada;
+import ve.smile.enums.EstatusCapacitacionPlanificadaEnum;
+import ve.smile.payload.response.PayloadCiudadResponse;
+import ve.smile.payload.response.PayloadEventPlanTareaResponse;
 import ve.smile.payload.response.PayloadMotivoResponse;
+import ve.smile.payload.response.PayloadCapacitacionPlanificadaResponse;
+import ve.smile.payload.response.PayloadVolCapacitacionPlanificadaResponse;
 
-public class VM_CapacitacionEjecutadaIndex extends VM_WindowWizard
+public class VM_CapacitacionEjecutadaIndex extends VM_WindowWizard<CapacitacionPlanificada>
 {
-	private List<Motivo> motivos;
 	private Motivo motivo = new Motivo();
 	private Date fechaEjecutada = new Date();
-	private String observacion = new String();
-	private CapacitacionPlanificada capacitacionPlanificada;
-	private List<EstatusCapacitacionPlanificadaEnum> estatusCapacitacionPlanificadaEnums;
+	private String observacion = new String();	
 	private EstatusCapacitacionPlanificadaEnum estatusCapacitacionPlanificadaEnum;
+	
+	private List<Motivo> motivos;
+	private List<VolCapacitacionPlanificada> voluntariosInscritos;
+	private List<EstatusCapacitacionPlanificadaEnum> estatusCapacitacionPlanificadaEnums;
 
 	@Init(superclass = true)
 	public void childInit()
 	{
-		capacitacionPlanificada = new CapacitacionPlanificada();
-		fechaEjecutada = new Date();
 		motivo = new Motivo();
+		fechaEjecutada = new Date();
 	}
 	
-	// CAPACITACION PLANIFICADA
-	public CapacitacionPlanificada getCapacitacionPlanificada()
+	// VOLUNTARIOS INSCRITOS
+	public List<VolCapacitacionPlanificada> getVoluntariosInscritos()
 	{
-		return capacitacionPlanificada;
+		return voluntariosInscritos;
 	}
-
-	public void setCapacitacionPlanificada(CapacitacionPlanificada capacitacionPlanificada)
+	
+	public void setVoluntariosInscritos (List<VolCapacitacionPlanificada> voluntariosInscritos)
 	{
-		this.capacitacionPlanificada = capacitacionPlanificada;
+		this.voluntariosInscritos = voluntariosInscritos;
 	}
 
 	// FECHA EJECUTADA
@@ -67,6 +84,7 @@ public class VM_CapacitacionEjecutadaIndex extends VM_WindowWizard
 	public void setFechaEjecutada(Date fechaEjecutada)
 	{
 		this.fechaEjecutada = fechaEjecutada;
+		this.getCapacitacionPlanificadaSelected().setFechaEjecutada(this.fechaEjecutada.getTime());
 	}
 	
 	// ESTATUS CAPACITACION PLANIFICADA
@@ -78,7 +96,7 @@ public class VM_CapacitacionEjecutadaIndex extends VM_WindowWizard
 	public void setEstatusCapacitacionPlanificadaEnum(EstatusCapacitacionPlanificadaEnum estatusCapacitacionPlanificadaEnum)
 	{
 		this.estatusCapacitacionPlanificadaEnum = estatusCapacitacionPlanificadaEnum;
-		this.getCapacitacionPlanificada().setEstatusCapacitacionPlanificada(estatusCapacitacionPlanificadaEnum);
+		this.getCapacitacionPlanificadaSelected().setEstatusCapacitacionPlanificada(estatusCapacitacionPlanificadaEnum.ordinal());
 	}
 
 	public List<EstatusCapacitacionPlanificadaEnum> getEstatusCapacitacionPlanificadaEnums()
@@ -102,7 +120,7 @@ public class VM_CapacitacionEjecutadaIndex extends VM_WindowWizard
 		this.estatusCapacitacionPlanificadaEnums = estatusCapacitacionPlanificadaEnums;
 	}
 		
-	// MOTIVOS
+	// MOTIVO DE LA CAPACITACION EJECUTADA
 	public Motivo getMotivo()
 	{
 		return motivo;
@@ -111,6 +129,7 @@ public class VM_CapacitacionEjecutadaIndex extends VM_WindowWizard
 	public void setMotivo (Motivo motivo)
 	{
 		this.motivo = motivo;
+		this.getCapacitacionPlanificadaSelected().setFkMotivo(this.motivo);
 	}
 
 	public List<Motivo> getMotivos()
@@ -136,7 +155,7 @@ public class VM_CapacitacionEjecutadaIndex extends VM_WindowWizard
 		this.motivos = motivos;
 	}
 	
-	// OBSERVACIONES
+	// OBSERVACIONES DE LA CAPACITACION EJECUTADA
 	public String getObservacion()
 	{
 		return this.observacion;
@@ -145,6 +164,33 @@ public class VM_CapacitacionEjecutadaIndex extends VM_WindowWizard
 	public void setObservacion (String observacion)
 	{
 		this.observacion = observacion;
+		this.getCapacitacionPlanificadaSelected().setObservacion(this.observacion);
+	}
+	
+	// CATALOGO DE MOTIVOS
+	@Command("buscarMotivo")
+	public void buscarMotivo()
+	{
+		CatalogueDialogData<Motivo> catalogueDialogData = new CatalogueDialogData<Motivo>();
+		catalogueDialogData.addCatalogueDialogCloseListeners(new CatalogueDialogCloseListener<Motivo>()
+			{
+				@Override
+				public void onClose(CatalogueDialogCloseEvent<Motivo> catalogueDialogCloseEvent)
+				{
+					if (catalogueDialogCloseEvent.getDialogAction().equals(DialogActionEnum.CANCELAR))
+					{
+						return;
+					}
+					motivo = catalogueDialogCloseEvent.getEntity();
+					refreshMotivo();
+				}
+			});
+		UtilDialog.showDialog("views/desktop/gestion/voluntariado/capacitacion/ejecucion/catalogoMotivo.zul", catalogueDialogData);
+	}
+
+	public void refreshMotivo()
+	{
+		BindUtils.postNotifyChange(null, null, this, "motivo");
 	}
 		
 	// METODOS DEL WIZARD
@@ -161,10 +207,16 @@ public class VM_CapacitacionEjecutadaIndex extends VM_WindowWizard
 		listOperacionWizard2.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.SIGUIENTE));
 		listOperacionWizard2.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.CANCELAR));
 		botones.put(2, listOperacionWizard2);
-
+		
 		List<OperacionWizard> listOperacionWizard3 = new ArrayList<OperacionWizard>();
-		listOperacionWizard3.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.FINALIZAR));
+		listOperacionWizard3.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.ATRAS));
+		listOperacionWizard3.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.SIGUIENTE));
+		listOperacionWizard3.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.CANCELAR));
 		botones.put(3, listOperacionWizard3);
+
+		List<OperacionWizard> listOperacionWizard4 = new ArrayList<OperacionWizard>();
+		listOperacionWizard4.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.FINALIZAR));
+		botones.put(4, listOperacionWizard4);
 
 		return botones;
 	}
@@ -174,6 +226,7 @@ public class VM_CapacitacionEjecutadaIndex extends VM_WindowWizard
 	{
 		List<String> iconos = new ArrayList<String>();
 		iconos.add("fa fa-heart");
+		iconos.add("fa fa-pencil-square-o");
 		iconos.add("fa fa-pencil-square-o");
 		iconos.add("fa fa-check-square-o");
 		return iconos;
@@ -185,8 +238,38 @@ public class VM_CapacitacionEjecutadaIndex extends VM_WindowWizard
 		List<String> urls = new ArrayList<String>();
 		urls.add("views/desktop/gestion/voluntariado/capacitacion/ejecucion/selectCapacitacion.zul");
 		urls.add("views/desktop/gestion/voluntariado/capacitacion/ejecucion/registroCapacitacion.zul");
+		urls.add("views/desktop/gestion/voluntariado/capacitacion/ejecucion/registroVoluntarios.zul");
 		urls.add("views/desktop/gestion/voluntariado/capacitacion/ejecucion/registroCompletado.zul");
 		return urls;
+	}
+	
+	// CARGA DE OBJETOS
+	@Override
+	public IPayloadResponse<CapacitacionPlanificada> getDataToTable(Integer cantidadRegistrosPagina, Integer pagina)
+	{
+		Map<String, String> criterios = new HashMap<>();
+		EstatusCapacitacionPlanificadaEnum.PLANIFICADA.ordinal();
+		criterios.put("estatusCapacitacionPlanificada", String.valueOf(EstatusCapacitacionPlanificadaEnum.PLANIFICADA.ordinal()));
+		PayloadCapacitacionPlanificadaResponse payloadCapacitacionPlanificadaResponse = S.CapacitacionPlanificadaService.consultarPaginacionCriterios(cantidadRegistrosPagina, pagina,	TypeQuery.EQUAL, criterios);
+		return payloadCapacitacionPlanificadaResponse;
+	}
+
+	@Override
+	public void comeIn(Integer currentStep)
+	{
+		/*
+		if (currentStep == 1)
+		{
+			this.getControllerWindowWizard().updateListBoxAndFooter();
+			BindUtils.postNotifyChange(null, null, this, "objectsList");
+		}
+		*/
+	}
+	
+	// OBJETO SELECCIONADO
+	public CapacitacionPlanificada getCapacitacionPlanificadaSelected()
+	{
+		return (CapacitacionPlanificada) this.selectedObject;
 	}
 	
 	// ATRÁS
@@ -207,57 +290,6 @@ public class VM_CapacitacionEjecutadaIndex extends VM_WindowWizard
 	
 	// SIGUIENTE
 	@Override
-	public String executeSiguiente(Integer currentStep)
-	{
-		if (currentStep == 2)
-		{
-			this.getCapacitacionPlanificada().setFkCapacitacion((Capacitacion) selectedObject);
-			this.getMotivo().setIdMotivo(this.getMotivo().getIdMotivo());
-			this.getCapacitacionPlanificada().setFechaEjecutada(this.getFechaEjecutada().getTime());
-			this.getCapacitacionPlanificada().setObservacion(this.getObservacion());
-			this.getCapacitacionPlanificada().setEstatusCapacitacionPlanificada(this.getEstatusCapacitacionPlanificadaEnum());
-			//this.getCapacitacionPlanificada().setFkPersona(this.getVoluntario().getFkPersona());
-			PayloadCapacitacionPlanificadaResponse payloadCapacitacionPlanificadaResponse = S.CapacitacionPlanificadaService.incluir(this.capacitacionPlanificada);
-			if (UtilPayload.isOK(payloadCapacitacionPlanificadaResponse))
-			{
-				//restartWizard();
-				this.setCapacitacionPlanificada(new CapacitacionPlanificada());
-				this.setFechaEjecutada(new Date());
-				this.setSelectedObject(new CapacitacionPlanificada());
-				//this.setVoluntario(new Voluntario());
-				BindUtils.postNotifyChange(null, null, this, "capacitacionPlanificada");
-				BindUtils.postNotifyChange(null, null, this, "fechaEjecutada");
-				BindUtils.postNotifyChange(null, null, this, "selectedObject");
-				//BindUtils.postNotifyChange(null, null, this, "voluntario");
-			}
-		}
-		goToNextStep();
-		return "";
-	}
-	
-	// FINALIZAR
-	@Override
-	public String executeFinalizar(Integer currentStep)
-	{
-		if (currentStep == 3)
-		{
-			restartWizard();
-		}
-		return "";
-	}
-
-	// CAPACITACIONES PLANIFICADAS
-	@Override
-	public IPayloadResponse<CapacitacionPlanificada> getDataToTable(Integer cantidadRegistrosPagina, Integer pagina)
-	{
-		Map<String, String> criterios = new HashMap<>();
-		EstatusCapacitacionPlanificadaEnum.PLANIFICADA.ordinal();
-		criterios.put("estatusCapacitacionPlanificada", String.valueOf(EstatusCapacitacionPlanificadaEnum.PLANIFICADA.ordinal()));
-		PayloadCapacitacionPlanificadaResponse payloadCapacitacionPlanificadaResponse = S.CapacitacionPlanificadaService.consultarPaginacionCriterios(cantidadRegistrosPagina, pagina,	TypeQuery.EQUAL, criterios);
-		return payloadCapacitacionPlanificadaResponse;
-	}
-
-	@Override
 	public String isValidPreconditionsSiguiente(Integer currentStep)
 	{
 		if (currentStep == 1)
@@ -272,8 +304,16 @@ public class VM_CapacitacionEjecutadaIndex extends VM_WindowWizard
 		{
 			try
 			{
-				UtilValidate.validateDate(this.getFechaEjecutada().getTime(), "Fecha planificada", ValidateOperator.GREATER_THAN, new SimpleDateFormat("yyyy-MM-dd").format(new Date()), "dd/MM/yyyy");
-				//UtilValidate.validateNull(this.getVoluntario().getIdVoluntario(), "Responsable");
+				UtilValidate.validateDate(this.getFechaEjecutada().getTime(), "Fecha ejecutada", ValidateOperator.LESS_THAN, new SimpleDateFormat("yyyy-MM-dd").format(new Date()), "dd/MM/yyyy");
+				this.voluntariosInscritos = new ArrayList<>();
+				Map<String, String> criterios = new HashMap<>();
+				criterios.put("fkCapacitacionPlanificada.idCapacitacionPlanificada", String.valueOf(this.getSelectedObject().getIdCapacitacionPlanificada()));
+				PayloadVolCapacitacionPlanificadaResponse payloadVolCapacitacionPlanificadaResponse = S.VolCapacitacionPlanificadaService.consultarCriterios(TypeQuery.EQUAL, criterios);
+				if(payloadVolCapacitacionPlanificadaResponse.getObjetos() != null & payloadVolCapacitacionPlanificadaResponse.getObjetos().size() > 0)
+				{				
+					this.voluntariosInscritos.addAll(payloadVolCapacitacionPlanificadaResponse.getObjetos());
+				}
+				BindUtils.postNotifyChange(null, null, this, "voluntariosInscritos");
 			}
 			catch (Exception e)
 			{
@@ -282,26 +322,57 @@ public class VM_CapacitacionEjecutadaIndex extends VM_WindowWizard
 		}
 		return "";
 	}
-
+		
+	@Override
+	public String executeSiguiente(Integer currentStep)
+	{
+		if (currentStep == 2)
+		{
+			// NOTHING
+		}
+		if (currentStep == 3)
+		{
+			// CAPACITACION PLANIFICADA
+			PayloadCapacitacionPlanificadaResponse payloadCapacitacionPlanificadaResponse = S.CapacitacionPlanificadaService.modificar(this.getCapacitacionPlanificadaSelected());
+			if (UtilPayload.isOK(payloadCapacitacionPlanificadaResponse))
+			{
+				this.setMotivo(new Motivo());
+				this.setObservacion(new String());
+				this.setFechaEjecutada(new Date());
+				this.setSelectedObject(new CapacitacionPlanificada());
+				BindUtils.postNotifyChange(null, null, this, "motivo");
+				BindUtils.postNotifyChange(null, null, this, "observacion");
+				BindUtils.postNotifyChange(null, null, this, "fechaEjecutada");
+				BindUtils.postNotifyChange(null, null, this, "selectedObject");
+				BindUtils.postNotifyChange(null, null, this, "capacitacionPlanificada");
+				BindUtils.postNotifyChange(null, null, this, "estatusCapacitacionPlanificada");
+			}
+			
+			// FALTA ACTUALIZAR VOLUNTARIOS
+		}		
+		goToNextStep();
+		return "";
+	}
+	
+	// FINALIZAR
 	@Override
 	public String isValidPreconditionsFinalizar(Integer currentStep)
 	{
-		if (currentStep == 3)
+		if (currentStep == 4)
 		{
 			// NOTHING
 		}
 		return "";
 	}
-
+	
 	@Override
-	public void comeIn(Integer currentStep)
+	public String executeFinalizar(Integer currentStep)
 	{
-		/*
-		if (currentStep == 1)
+		if (currentStep == 4)
 		{
-			this.getControllerWindowWizard().updateListBoxAndFooter();
-			BindUtils.postNotifyChange(null, null, this, "objectsList");
+			restartWizard();
 		}
-		*/
+		return "";
 	}
+
 }

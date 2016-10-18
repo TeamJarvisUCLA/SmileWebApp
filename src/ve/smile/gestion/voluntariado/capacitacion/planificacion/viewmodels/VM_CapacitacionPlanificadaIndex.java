@@ -42,7 +42,6 @@ public class VM_CapacitacionPlanificadaIndex extends VM_WindowWizard
 	@Init(superclass = true)
 	public void childInit()
 	{
-		// NOTHING OK!
 		capacitacionPlanificada = new CapacitacionPlanificada();
 		directorio = new Directorio();
 		fechaPlanificada = new Date();
@@ -174,17 +173,14 @@ public class VM_CapacitacionPlanificadaIndex extends VM_WindowWizard
 			PayloadCapacitacionPlanificadaResponse payloadCapacitacionPlanificadaResponse = S.CapacitacionPlanificadaService.incluir(this.capacitacionPlanificada);
 			if (UtilPayload.isOK(payloadCapacitacionPlanificadaResponse))
 			{
-				//restartWizard();
 				this.setCapacitacionPlanificada(new CapacitacionPlanificada());
 				this.setDirectorio(new Directorio());
 				this.setFechaPlanificada(new Date());
 				this.setSelectedObject(new Capacitacion());
-				//this.setVoluntario(new Voluntario());
 				BindUtils.postNotifyChange(null, null, this, "directorio");
 				BindUtils.postNotifyChange(null, null, this, "capacitacionPlanificada");
 				BindUtils.postNotifyChange(null, null, this, "fechaPlanificada");
 				BindUtils.postNotifyChange(null, null, this, "selectedObject");
-				//BindUtils.postNotifyChange(null, null, this, "voluntario");
 			}
 		}
 		goToNextStep();
@@ -227,7 +223,6 @@ public class VM_CapacitacionPlanificadaIndex extends VM_WindowWizard
 			{
 				UtilValidate.validateDate(this.getFechaPlanificada().getTime(), "Fecha planificada", ValidateOperator.GREATER_THAN, new SimpleDateFormat("yyyy-MM-dd").format(new Date()), "dd/MM/yyyy");
 				UtilValidate.validateNull(this.getDirectorio().getIdDirectorio(), "Directorio");
-				//UtilValidate.validateNull(this.getVoluntario().getIdVoluntario(), "Responsable");
 			}
 			catch (Exception e)
 			{

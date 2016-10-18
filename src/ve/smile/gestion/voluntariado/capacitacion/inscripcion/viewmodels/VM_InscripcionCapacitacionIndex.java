@@ -224,16 +224,14 @@ public class VM_InscripcionCapacitacionIndex extends VM_WindowWizard<Capacitacio
 			this.selectedObject.setVoluntariosInscritos(new ArrayList<Voluntario>());
 			this.selectedObject.getVoluntariosInscritos().clear();
 			this.selectedObject.getVoluntariosInscritos().addAll(this.getVoluntariosInscritos());
-			PayloadCapacitacionPlanificadaResponse payloadCapacitacionPlanificadaResponse = S.CapacitacionPlanificadaService.modificar(this.selectedObject);
+			PayloadCapacitacionPlanificadaResponse payloadCapacitacionPlanificadaResponse = S.CapacitacionPlanificadaService.incluir(this.selectedObject);
 			if (UtilPayload.isOK(payloadCapacitacionPlanificadaResponse))
 			{
 				this.setSelectedObject(new CapacitacionPlanificada());
 				this.setCapacitacionPlanificada(new CapacitacionPlanificada());
-				this.getVoluntarios().clear();
 				this.getVoluntariosSeleccionados().clear();
 				this.getVoluntariosInscritos().clear();
 				this.getVoluntariosInscritosSeleccionados().clear();
-				BindUtils.postNotifyChange(null, null, this, "voluntarios");
 				BindUtils.postNotifyChange(null, null, this, "voluntariosSeleccionados");
 				BindUtils.postNotifyChange(null, null, this, "voluntariosInscritos");
 				BindUtils.postNotifyChange(null, null, this, "voluntariosInscritosSeleccionados");

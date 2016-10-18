@@ -458,7 +458,7 @@ public class VM_RegistroVoluntarioIndex extends VM_WindowWizard<Voluntario> impl
 		{
 			try
 			{
-				UtilValidate.validateInteger(this.getVoluntarioSelected().getFkPersona().getTipoPersona(), "Tipo de persona", ValidateOperator.LESS_THAN, 1);
+				UtilValidate.validateInteger(this.getVoluntarioSelected().getFkPersona().getTipoPersona(), "Tipo de persona", ValidateOperator.LESS_THAN, 2);
 				UtilValidate.validateString(this.getVoluntarioSelected().getFkPersona().getIdentificacion(), "Cédula", 35);
 				UtilValidate.validateString(this.getVoluntarioSelected().getFkPersona().getNombre(), "Nombre", 150);
 				UtilValidate.validateString(this.getVoluntarioSelected().getFkPersona().getApellido(), "Apellido", 150);

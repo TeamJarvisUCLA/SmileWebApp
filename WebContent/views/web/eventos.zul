@@ -1,5 +1,3 @@
-<?xel-method prefix="m" name="getUrlWeb" class="lights.smile.util.Zki" 
-	signature="java.lang.String getUrlWeb(java.lang.String)" ?>
 <zk xmlns:n="native" xmlns:w="client">
 	<n:link href="assets/css/web/eventos.css" rel="stylesheet"
 		type="text/css">
@@ -49,9 +47,9 @@
 							style="height: 284px; background-color: #8AC7DE;">
 							<div
 								class="card-image waves-effect waves-block waves-light">
-								<div class="view">									
-										<image class="activator"
-								src="${m:getUrlWeb(each.fkMultimedia.url)}" >						
+								<div class="view">
+-									<image class="activator"
+-										src="@load(each.fkMultimedia.url)">						
 									</image>
 									
 									<div class="mask"></div>

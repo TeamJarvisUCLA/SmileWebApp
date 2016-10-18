@@ -6,6 +6,17 @@
 			<div class="col s6">
 				<div class="row">
 					<div class="input-field col s12">
+						<n:label for="fecha_trabajo_social"
+							class="active">
+							Fecha Planificada:
+						</n:label>
+						<datebox id="fecha_trabajo_social"
+							readonly="true" cols="20" format="dd/MM/yyyy"
+							value="@bind(vm.fechaPlanificada)" />
+					</div>
+				</div>
+				<div class="row">
+					<div class="input-field col s12">
 						<n:label for="direccion">Descripción</n:label>
 						<span
 							sclass="fa fa-question-circle fa-lg help-icon-special"
@@ -16,19 +27,7 @@
 						</textbox>
 					</div>
 				</div>
-				<div class="row">
 
-					<div class="input-field col s12">
-						<n:label for="fecha_trabajo_social"
-							class="active">
-							Fecha Planificada:
-						</n:label>
-						<datebox id="fecha_trabajo_social"
-							readonly="true" cols="20" format="dd/MM/yyyy"
-							value="@bind(vm.fechaPlanificada)" />
-					</div>
-
-				</div>
 				<div class="row">
 
 					<div class="input-field col s11">
@@ -36,7 +35,8 @@
 							Lugar:
 						</n:label>
 						<textbox id="lugar" type="text" disabled="true"
-							value="@bind(vm.directorio.direccion)">
+							sclass="materialize-textarea" multiline="true"
+							value="@bind(vm.directorio.nombre)">
 						</textbox>
 					</div>
 					<div class="input-field col s1"
@@ -58,7 +58,8 @@
 							Responsable:
 						</n:label>
 						<textbox id="responsable" type="text"
-							disabled="true" value="@bind(vm.persona.nombre)">
+							disabled="true"
+							value="@bind(vm.persona.nombre.concat(' ').concat(vm.persona.apellido))">
 						</textbox>
 					</div>
 					<div class="input-field col s1"

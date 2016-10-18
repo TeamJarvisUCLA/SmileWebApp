@@ -370,6 +370,9 @@ public class VM_RegistroDonativoIndex extends VM_WindowWizard {
 			if (procedenciaEnums.equals(ProcedenciaEnum.TRABAJO_SOCIAL)) {
 				this.setSrcList("views/desktop/gestion/donativo/registro/selectTrabajoSocialPlanificado.zul");
 			}
+			if (procedenciaEnums.equals(ProcedenciaEnum.ANONIMO)) {
+				goToNextStep();
+			}
 			BindUtils.postNotifyChange(null, null, this, "*");
 		}
 		goToNextStep();
@@ -645,7 +648,7 @@ public class VM_RegistroDonativoIndex extends VM_WindowWizard {
 						calendar.add(Calendar.DAY_OF_YEAR, cantidad);
 						fechaAporte = calendar.getTime();
 					} else if (unidadFrecuenciaAporteEnum
-							.equals(UnidadFrecuenciaAporteEnum.AÑO)) {
+							.equals(UnidadFrecuenciaAporteEnum.ANNO)) {
 						Calendar calendar = Calendar.getInstance();
 
 						calendar.setTime(new Date());

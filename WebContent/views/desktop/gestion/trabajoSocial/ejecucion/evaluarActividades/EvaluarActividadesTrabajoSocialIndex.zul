@@ -1,0 +1,25 @@
+<zk xmlns:n="native" xmlns:w="client">
+	<div class="wizard ${arg.animation_}"
+		use="karen.core.wizard.controllers.C_WindowWizard"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('ve.smile.gestion.trabajo_social.ejecucion.evaluarActividades.viewmodels.VM_EvaluarActividadIndex')">
+		<div class="row">
+			<div id="ulHeaderWizard"
+				use="karen.core.wizard.buttons.containers.UlHeaderWizard">
+			</div>
+
+			<div sclass="col s12">
+				<include id="include"></include>
+			</div>
+
+		</div>
+
+		<div class="row">
+			<div class="col s6 offset-s3" align="center">
+				<div id="divButtonsWizard" sclass="row"
+					use="karen.core.wizard.buttons.containers.DivButtonsWizard">
+				</div>
+			</div>
+		</div>
+	</div>
+</zk>

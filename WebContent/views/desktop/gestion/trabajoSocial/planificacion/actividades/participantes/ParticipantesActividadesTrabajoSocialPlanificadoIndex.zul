@@ -1,3 +1,5 @@
+<?xel-method prefix="m" name="getUrlWeb" class="lights.smile.util.Zki" 
+	signature="java.lang.String getUrlWeb(java.lang.String)" ?>
 <zk xmlns:n="native" xmlns:w="client">
 	<div class="wizard ${arg.animation_}" style="padding:0px auto"
 		use="karen.core.wizard.controllers.C_WindowWizard"

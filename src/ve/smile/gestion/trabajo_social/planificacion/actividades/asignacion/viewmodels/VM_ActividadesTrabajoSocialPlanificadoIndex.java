@@ -1,6 +1,7 @@
 package ve.smile.gestion.trabajo_social.planificacion.actividades.asignacion.viewmodels;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -19,6 +20,7 @@ import karen.core.wizard.buttons.data.OperacionWizard;
 import karen.core.wizard.buttons.enums.OperacionWizardEnum;
 import karen.core.wizard.buttons.helpers.OperacionWizardHelper;
 import karen.core.wizard.viewmodels.VM_WindowWizard;
+import lights.core.enums.TypeQuery;
 import lights.core.payload.response.IPayloadResponse;
 
 import org.zkoss.bind.BindUtils;
@@ -30,6 +32,7 @@ import org.zkoss.bind.annotation.NotifyChange;
 import ve.smile.consume.services.S;
 import ve.smile.dto.Actividad;
 import ve.smile.dto.Directorio;
+import ve.smile.dto.PlantillaTrabajoSocialActividad;
 import ve.smile.dto.TsPlan;
 import ve.smile.dto.TsPlanActividad;
 import ve.smile.payload.response.PayloadActividadResponse;
@@ -43,8 +46,8 @@ public class VM_ActividadesTrabajoSocialPlanificadoIndex extends
 	private Set<Actividad> actividadesSeleccionadas;
 	private List<Actividad> trabajoSocialActividades;
 	private Set<Actividad> trabajoSocialActividadesSeleccionadas;
-	// forEachStatus.index
 	private List<TsPlanActividad> tsPlanActividads;
+	private List<TsPlanActividad> tsPlanActividadsDelete;
 
 	private Directorio directorio;
 
@@ -120,6 +123,51 @@ public class VM_ActividadesTrabajoSocialPlanificadoIndex extends
 		BindUtils.postNotifyChange(null, null, this, "tsPlanActividads");
 	}
 
+	@Command("buscarPlantilla")
+	public void buscarPlantilla() {
+		CatalogueDialogData<PlantillaTrabajoSocialActividad> catalogueDialogData = new CatalogueDialogData<PlantillaTrabajoSocialActividad>();
+
+		catalogueDialogData
+				.addCatalogueDialogCloseListeners(new CatalogueDialogCloseListener<PlantillaTrabajoSocialActividad>() {
+
+					@Override
+					public void onClose(
+							CatalogueDialogCloseEvent<PlantillaTrabajoSocialActividad> catalogueDialogCloseEvent) {
+						if (catalogueDialogCloseEvent.getDialogAction().equals(
+								DialogActionEnum.CANCELAR)) {
+							return;
+						}
+						List<PlantillaTrabajoSocialActividad> listActividadesPlantillaTrabajoSocial = new ArrayList<>();
+						listActividadesPlantillaTrabajoSocial = catalogueDialogCloseEvent
+								.getEntities();
+
+						refreshActividades(listActividadesPlantillaTrabajoSocial);
+					}
+				});
+
+		catalogueDialogData.put("trabajoSocial", this
+				.getTsPlanificadoSelected().getFkTrabajoSocial());
+		UtilDialog
+				.showDialog(
+						"views/desktop/gestion/trabajoSocial/planificacion/actividades/asignacion/catalogoPlantillaActividadesTrabajoSocial.zul",
+						catalogueDialogData);
+	}
+
+	public void refreshActividades(
+			List<PlantillaTrabajoSocialActividad> listActividadesPlantillaTrabajoSocial) {
+
+		for (PlantillaTrabajoSocialActividad plantillaTrabajoSocialActividad : listActividadesPlantillaTrabajoSocial) {
+			if (!this.getTrabajoSocialActividades().contains(
+					plantillaTrabajoSocialActividad.getFkActividad())) {
+				this.getTrabajoSocialActividades().add(
+						plantillaTrabajoSocialActividad.getFkActividad());
+			}
+		}
+
+		BindUtils
+				.postNotifyChange(null, null, this, "trabajoSocialActividades");
+	}
+
 	@Override
 	public Map<Integer, List<OperacionWizard>> getButtonsToStep() {
 		Map<Integer, List<OperacionWizard>> botones = new HashMap<Integer, List<OperacionWizard>>();
@@ -135,7 +183,8 @@ public class VM_ActividadesTrabajoSocialPlanificadoIndex extends
 				.getPorType(OperacionWizardEnum.ATRAS));
 		listOperacionWizard2.add(OperacionWizardHelper
 				.getPorType(OperacionWizardEnum.SIGUIENTE));
-
+		listOperacionWizard2.add(OperacionWizardHelper
+				.getPorType(OperacionWizardEnum.CANCELAR));
 		botones.put(2, listOperacionWizard2);
 
 		List<OperacionWizard> listOperacionWizard3 = new ArrayList<OperacionWizard>();
@@ -213,7 +262,6 @@ public class VM_ActividadesTrabajoSocialPlanificadoIndex extends
 			if (this.getTrabajoSocialActividades().isEmpty()) {
 				return "E:Error Code 5-Debe agregar al menos una <b>Actividad</b> al trabajo social planificado.";
 			}
-
 		}
 
 		return "";
@@ -221,21 +269,62 @@ public class VM_ActividadesTrabajoSocialPlanificadoIndex extends
 
 	@Override
 	public String isValidSearchDataSiguiente(Integer currentStep) {
+		if (currentStep == 1) {
+			Map<String, String> criterios = new HashMap<>();
+
+			criterios.put("fkTsPlan.idTsPlan", String.valueOf(this
+					.getTsPlanificadoSelected().getIdTsPlan()));
+			PayloadTsPlanActividadResponse payloadTsPlanActividadResponse = S.TsPlanActividadService
+					.consultarCriterios(TypeQuery.EQUAL, criterios);
+			this.setTsPlanActividads(null);
+			this.setTrabajoSocialActividades(null);
+			if (payloadTsPlanActividadResponse.getObjetos() != null) {
+
+				for (TsPlanActividad tsPlanActividad : payloadTsPlanActividadResponse
+						.getObjetos()) {
+					this.getTsPlanActividads().add(tsPlanActividad);
+					this.getTrabajoSocialActividades().add(
+							tsPlanActividad.getFkActividad());
+				}
+			}
+
+			BindUtils.postNotifyChange(null, null, this,
+					"trabajoSocialIndicadores");
+		}
+
 		if (currentStep == 2) {
 			if (this.getTrabajoSocialActividades().isEmpty()) {
-				return "E:Error Code 5-Debe agregar al menos un <b>Indicador</b> al trabajo social planificado.";
+				return "E:Error Code 5-Debe agregar al menos una <b>Actividad</b> al trabajo social planificado.";
 			} else {
-				this.getTsPlanActividads().clear();
+				boolean validar = true;
+				List<TsPlanActividad> tsPlanActividads2 = new ArrayList<>();
+				tsPlanActividads2.addAll(new ArrayList<>(this
+						.getTsPlanActividads()));
 				for (Actividad actividad : this.getTrabajoSocialActividades()) {
-					TsPlanActividad tsPlanActividad = new TsPlanActividad();
-					tsPlanActividad.setFkActividad(actividad);
-					tsPlanActividad.setFkTsPlan((TsPlan) this
-							.getSelectedObject());
-					tsPlanActividad.setFechaPlanificada(new Date().getTime());
-					this.getTsPlanActividads().add(tsPlanActividad);
+					for (TsPlanActividad tsPlanActividad : this
+							.getTsPlanActividads()) {
+						if (tsPlanActividad.getFkActividad().getIdActividad()
+								.equals(actividad.getIdActividad())) {
+							validar = false;
+							tsPlanActividads2.remove(tsPlanActividad);
+							break;
+						}
+					}
+					if (validar) {
+						TsPlanActividad tsPlanActividad = new TsPlanActividad();
+						tsPlanActividad.setFkActividad(actividad);
+						tsPlanActividad.setFkTsPlan((TsPlan) this
+								.getSelectedObject());
+						tsPlanActividad.setEjecucion(false);
+						this.getTsPlanActividads().add(tsPlanActividad);
+					}
+					validar = true;
 				}
-				BindUtils
-						.postNotifyChange(null, null, this, "indicadorTsPlans");
+
+				this.getTsPlanActividadsDelete().addAll(tsPlanActividads2);
+				this.getTsPlanActividads().removeAll(tsPlanActividads2);
+
+				BindUtils.postNotifyChange(null, null, this, "*");
 			}
 
 		}
@@ -247,6 +336,28 @@ public class VM_ActividadesTrabajoSocialPlanificadoIndex extends
 	public String isValidPreconditionsFinalizar(Integer currentStep) {
 
 		if (currentStep == 3) {
+			String actividades = new String();
+			StringBuilder stringBuilder = new StringBuilder();
+			for (TsPlanActividad tsPlanActividad : this.getTsPlanActividads()) {
+				Calendar calendar = Calendar.getInstance();
+				calendar.setTime(new Date());
+				calendar.add(Calendar.DAY_OF_YEAR, -1);
+
+				if (tsPlanActividad.getFechaPlanificada() == null
+						|| !tsPlanActividad.getFechaPlanificadaDate().after(
+								calendar.getTime())) {
+					if (!stringBuilder.toString().trim().isEmpty()) {
+						stringBuilder.append(",  ");
+					}
+					stringBuilder.append(tsPlanActividad.getFkActividad()
+							.getNombre());
+				}
+			}
+			actividades = stringBuilder.toString();
+			if (!actividades.trim().isEmpty()) {
+				return "E:Error Code 5-Debe verificar la  <b> Fecha de Planificación </b> de los siguientes actividades: <b>"
+						+ actividades + "</b>";
+			}
 
 		}
 		return "";
@@ -256,11 +367,29 @@ public class VM_ActividadesTrabajoSocialPlanificadoIndex extends
 	public String executeFinalizar(Integer currentStep) {
 		if (currentStep == 3) {
 			for (TsPlanActividad tsPlanActividad : this.getTsPlanActividads()) {
-				PayloadTsPlanActividadResponse payloadTsPlanResponse = S.TsPlanActividadService
-						.incluir(tsPlanActividad);
-				if (!UtilPayload.isOK(payloadTsPlanResponse)) {
-					return (String) payloadTsPlanResponse
+				PayloadTsPlanActividadResponse payloadTsPlanActividadResponse;
+				if (tsPlanActividad.getIdTsPlanActividad() == null) {
+					payloadTsPlanActividadResponse = S.TsPlanActividadService
+							.incluir(tsPlanActividad);
+				} else {
+					payloadTsPlanActividadResponse = S.TsPlanActividadService
+							.modificar(tsPlanActividad);
+				}
+
+				if (!UtilPayload.isOK(payloadTsPlanActividadResponse)) {
+					return (String) payloadTsPlanActividadResponse
 							.getInformacion(IPayloadResponse.MENSAJE);
+				}
+			}
+			for (TsPlanActividad tsPlanActividad : this
+					.getTsPlanActividadsDelete()) {
+				if (tsPlanActividad.getIdTsPlanActividad() != null) {
+					PayloadTsPlanActividadResponse payloadTsPlanActividadResponse = S.TsPlanActividadService
+							.eliminar(tsPlanActividad.getIdTsPlanActividad());
+					if (!UtilPayload.isOK(payloadTsPlanActividadResponse)) {
+						return (String) payloadTsPlanActividadResponse
+								.getInformacion(IPayloadResponse.MENSAJE);
+					}
 				}
 			}
 
@@ -272,14 +401,22 @@ public class VM_ActividadesTrabajoSocialPlanificadoIndex extends
 
 	@Override
 	public String executeCustom1(Integer currentStep) {
-		this.setTsPlanActividads(null);
-		this.setTrabajoSocialActividades(null);
-		this.setSelectedObject(new TsPlan());
+		executeCancelar(currentStep);
+		return "";
 
-		BindUtils.postNotifyChange(null, null, this, "tsPlanActividads");
-		BindUtils
-				.postNotifyChange(null, null, this, "trabajoSocialActividades");
-		BindUtils.postNotifyChange(null, null, this, "selectedObject");
+	}
+
+	@Override
+	public String executeCancelar(Integer currentStep) {
+
+		this.setActividades(null);
+		this.setActividadesSeleccionadas(null);
+		this.setTrabajoSocialActividades(null);
+		this.setTrabajoSocialActividadesSeleccionadas(null);
+		this.setTsPlanActividads(null);
+		this.setTsPlanActividadsDelete(null);
+		BindUtils.postNotifyChange(null, null, this, "*");
+
 		restartWizard();
 		return "";
 	}
@@ -367,4 +504,19 @@ public class VM_ActividadesTrabajoSocialPlanificadoIndex extends
 		this.indexActividad = indexActividad;
 	}
 
+	public List<TsPlanActividad> getTsPlanActividadsDelete() {
+		if (tsPlanActividadsDelete == null) {
+			tsPlanActividadsDelete = new ArrayList<>();
+		}
+		return tsPlanActividadsDelete;
+	}
+
+	public void setTsPlanActividadsDelete(
+			List<TsPlanActividad> tsPlanActividadsDelete) {
+		this.tsPlanActividadsDelete = tsPlanActividadsDelete;
+	}
+
+	public TsPlan getTsPlanificadoSelected() {
+		return (TsPlan) this.getSelectedObject();
+	}
 }

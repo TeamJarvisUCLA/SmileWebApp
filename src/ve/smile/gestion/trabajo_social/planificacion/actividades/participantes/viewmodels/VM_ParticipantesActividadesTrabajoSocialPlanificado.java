@@ -41,6 +41,10 @@ public class VM_ParticipantesActividadesTrabajoSocialPlanificado extends
 	private List<TsPlanActividad> listTsPlanActividads;
 	private int indexActividad;
 
+	private List<TsPlanActividadTrabajador> listTsPlanActividadTrabajadors;
+
+	private List<TsPlanActividadVoluntario> listTsPlanActividadVoluntarios;
+
 	public List<TsPlanActividad> getListTsPlanActividads() {
 		if (this.listTsPlanActividads == null) {
 			listTsPlanActividads = new ArrayList<>();
@@ -50,6 +54,7 @@ public class VM_ParticipantesActividadesTrabajoSocialPlanificado extends
 
 	public void setListTsPlanActividads(
 			List<TsPlanActividad> listTsPlanActividads) {
+
 		this.listTsPlanActividads = listTsPlanActividads;
 	}
 
@@ -59,6 +64,30 @@ public class VM_ParticipantesActividadesTrabajoSocialPlanificado extends
 
 	public void setIndexActividad(int indexActividad) {
 		this.indexActividad = indexActividad;
+	}
+
+	public List<TsPlanActividadTrabajador> getListTsPlanActividadTrabajadors() {
+		if (this.listTsPlanActividadTrabajadors == null) {
+			listTsPlanActividadTrabajadors = new ArrayList<>();
+		}
+		return listTsPlanActividadTrabajadors;
+	}
+
+	public void setListTsPlanActividadTrabajadors(
+			List<TsPlanActividadTrabajador> listTsPlanActividadTrabajadors) {
+		this.listTsPlanActividadTrabajadors = listTsPlanActividadTrabajadors;
+	}
+
+	public List<TsPlanActividadVoluntario> getListTsPlanActividadVoluntarios() {
+		if (this.listTsPlanActividadVoluntarios == null) {
+			listTsPlanActividadVoluntarios = new ArrayList<>();
+		}
+		return listTsPlanActividadVoluntarios;
+	}
+
+	public void setListTsPlanActividadVoluntarios(
+			List<TsPlanActividadVoluntario> listTsPlanActividadVoluntarios) {
+		this.listTsPlanActividadVoluntarios = listTsPlanActividadVoluntarios;
 	}
 
 	@Init(superclass = true)
@@ -98,63 +127,32 @@ public class VM_ParticipantesActividadesTrabajoSocialPlanificado extends
 	public void refreshVoluntarios(List<Voluntario> listVoluntarios) {
 
 		boolean validar = true;
-		List<TsPlanActividadVoluntario> listAux2 = new ArrayList<>();
 		TsPlanActividadVoluntario tsPlanActividadVoluntario = new TsPlanActividadVoluntario();
 
-		if (listTsPlanActividads.get(indexActividad)
-				.getTsPlanActividadVoluntarios() != null) {
-			for (TsPlanActividadVoluntario tsPlanAVoluntario : listTsPlanActividads
-					.get(indexActividad).getTsPlanActividadVoluntarios()) {
-				tsPlanActividadVoluntario = new TsPlanActividadVoluntario();
-				tsPlanActividadVoluntario
-						.setFkTsPlanActividad(listTsPlanActividads
-								.get(indexActividad));
-				tsPlanActividadVoluntario.setFkVoluntario(tsPlanAVoluntario
-						.getFkVoluntario());
-				listAux2.add(tsPlanActividadVoluntario);
-			}
-		}
-
 		for (Voluntario voluntario : listVoluntarios) {
-			if (listTsPlanActividads.get(indexActividad)
-					.getTsPlanActividadVoluntarios() != null) {
 
-				for (TsPlanActividadVoluntario iet : listTsPlanActividads.get(
-						indexActividad).getTsPlanActividadVoluntarios()) {
-					if (iet.getFkVoluntario().getIdVoluntario()
-							.equals(voluntario.getIdVoluntario())) {
-
-						validar = false;
-
-					}
+			for (TsPlanActividadVoluntario tsPlanActividadVoluntario2 : listTsPlanActividads
+					.get(indexActividad).getTsPlanActividadVoluntarios()) {
+				if (tsPlanActividadVoluntario2.getFkVoluntario()
+						.getIdVoluntario().equals(voluntario.getIdVoluntario())) {
+					validar = false;
 				}
+			}
 
-				if (validar) {
-					tsPlanActividadVoluntario = new TsPlanActividadVoluntario();
-					tsPlanActividadVoluntario
-							.setFkTsPlanActividad(listTsPlanActividads
-									.get(indexActividad));
-
-					tsPlanActividadVoluntario.setFkVoluntario(voluntario);
-					listAux2.add(tsPlanActividadVoluntario);
-
-				}
-
-			} else {
+			if (validar) {
 				tsPlanActividadVoluntario = new TsPlanActividadVoluntario();
 				tsPlanActividadVoluntario
 						.setFkTsPlanActividad(listTsPlanActividads
 								.get(indexActividad));
 
 				tsPlanActividadVoluntario.setFkVoluntario(voluntario);
-				listAux2.add(tsPlanActividadVoluntario);
-
+				this.listTsPlanActividads.get(indexActividad)
+						.getTsPlanActividadVoluntarios()
+						.add(tsPlanActividadVoluntario);
 			}
 
+			validar = true;
 		}
-
-		this.listTsPlanActividads.get(indexActividad)
-				.setTsPlanActividadVoluntarios(listAux2);
 
 		BindUtils.postNotifyChange(null, null, this, "listTsPlanActividads");
 	}
@@ -163,6 +161,7 @@ public class VM_ParticipantesActividadesTrabajoSocialPlanificado extends
 	public void eliminarVoluntario(
 			@BindingParam("tsPlanActividadVoluntario") TsPlanActividadVoluntario tsPlanActividadVoluntario,
 			@BindingParam("index") int index) {
+		this.getListTsPlanActividadVoluntarios().add(tsPlanActividadVoluntario);
 		this.getListTsPlanActividads().get(index)
 				.getTsPlanActividadVoluntarios()
 				.remove(tsPlanActividadVoluntario);
@@ -202,64 +201,30 @@ public class VM_ParticipantesActividadesTrabajoSocialPlanificado extends
 	public void refreshTrabajadores(List<Trabajador> lisTrabajadors) {
 
 		boolean validar = true;
-		List<TsPlanActividadTrabajador> listAux2 = new ArrayList<>();
 		TsPlanActividadTrabajador tsPlanActividadTrabajador = new TsPlanActividadTrabajador();
 
-		if (listTsPlanActividads.get(indexActividad)
-				.getTsPlanActividadVoluntarios() != null) {
+		for (Trabajador trabajador : lisTrabajadors) {
 			for (TsPlanActividadTrabajador tsPlanActividadTrabajador2 : listTsPlanActividads
 					.get(indexActividad).getTsPlanActividadTrabajadors()) {
-				tsPlanActividadTrabajador = new TsPlanActividadTrabajador();
-				tsPlanActividadTrabajador
-						.setFkTsPlanActividad(listTsPlanActividads
-								.get(indexActividad));
-				tsPlanActividadTrabajador
-						.setFkTrabajador(tsPlanActividadTrabajador2
-								.getFkTrabajador());
-				listAux2.add(tsPlanActividadTrabajador);
+				if (tsPlanActividadTrabajador2.getFkTrabajador()
+						.getIdTrabajador().equals(trabajador.getIdTrabajador())) {
+					validar = false;
+					break;
+				}
 			}
-		}
 
-		for (Trabajador trabajador : lisTrabajadors) {
-			if (listTsPlanActividads.get(indexActividad)
-					.getTsPlanActividadVoluntarios() != null) {
-
-				for (TsPlanActividadTrabajador iet : listTsPlanActividads.get(
-						indexActividad).getTsPlanActividadTrabajadors()) {
-					if (iet.getFkTrabajador().getIdTrabajador()
-							.equals(trabajador.getIdTrabajador())) {
-
-						validar = false;
-
-					}
-				}
-
-				if (validar) {
-					tsPlanActividadTrabajador = new TsPlanActividadTrabajador();
-					tsPlanActividadTrabajador
-							.setFkTsPlanActividad(listTsPlanActividads
-									.get(indexActividad));
-
-					tsPlanActividadTrabajador.setFkTrabajador(trabajador);
-					listAux2.add(tsPlanActividadTrabajador);
-
-				}
-
-			} else {
+			if (validar) {
 				tsPlanActividadTrabajador = new TsPlanActividadTrabajador();
-				tsPlanActividadTrabajador
-						.setFkTsPlanActividad(listTsPlanActividads
-								.get(indexActividad));
-
+				tsPlanActividadTrabajador.setFkTsPlanActividad(this
+						.getListTsPlanActividads().get(indexActividad));
 				tsPlanActividadTrabajador.setFkTrabajador(trabajador);
-				listAux2.add(tsPlanActividadTrabajador);
 
+				this.getListTsPlanActividads().get(indexActividad)
+						.getTsPlanActividadTrabajadors()
+						.add(tsPlanActividadTrabajador);
 			}
-
+			validar = true;
 		}
-
-		this.listTsPlanActividads.get(indexActividad)
-				.setTsPlanActividadTrabajadors(listAux2);
 
 		BindUtils.postNotifyChange(null, null, this, "listTsPlanActividads");
 	}
@@ -268,6 +233,7 @@ public class VM_ParticipantesActividadesTrabajoSocialPlanificado extends
 	public void eliminarTrabajador(
 			@BindingParam("tsPlanActividadTrabajador") TsPlanActividadTrabajador tsPlanActividadTrabajador,
 			@BindingParam("index") int index) {
+		this.getListTsPlanActividadTrabajadors().add(tsPlanActividadTrabajador);
 		this.getListTsPlanActividads().get(index)
 				.getTsPlanActividadTrabajadors()
 				.remove(tsPlanActividadTrabajador);
@@ -293,11 +259,13 @@ public class VM_ParticipantesActividadesTrabajoSocialPlanificado extends
 				.getPorType(OperacionWizardEnum.CANCELAR));
 		botones.put(2, listOperacionWizard2);
 
-		List<OperacionWizard> listOperacionWizard3 = new ArrayList<OperacionWizard>();
-		listOperacionWizard3.add(OperacionWizardHelper
-				.getPorType(OperacionWizardEnum.CUSTOM1));
+		List<OperacionWizard> listOperacionWizard4 = new ArrayList<OperacionWizard>();
+		OperacionWizard operacionWizardCustom = new OperacionWizard(
+				OperacionWizardEnum.CUSTOM1.ordinal(), "Aceptar", "Custom1",
+				"fa fa-check", "indigo", "Aceptar");
+		listOperacionWizard4.add(operacionWizardCustom);
 
-		botones.put(3, listOperacionWizard3);
+		botones.put(3, listOperacionWizard4);
 
 		return botones;
 	}
@@ -405,15 +373,111 @@ public class VM_ParticipantesActividadesTrabajoSocialPlanificado extends
 	@Override
 	public String isValidSearchDataFinalizar(Integer currentStep) {
 		if (currentStep == 2) {
+			PayloadTsPlanActividadTrabajadorResponse payloadTsPlanActividadTrabajadorResponse = new PayloadTsPlanActividadTrabajadorResponse();
+			for (TsPlanActividad obj : this.getListTsPlanActividads()) {
 
+				for (TsPlanActividadTrabajador tsPlanActividadTrabajador : obj
+						.getTsPlanActividadTrabajadors()) {
+					TsPlanActividadTrabajador tsPlanActividadTrabajador2 = new TsPlanActividadTrabajador(
+							tsPlanActividadTrabajador.getFkTrabajador(),
+							new TsPlanActividad(obj.getIdTsPlanActividad()),
+							tsPlanActividadTrabajador.getEjecucion(), null,
+							tsPlanActividadTrabajador.getParticipacion(),
+							tsPlanActividadTrabajador.getObservacion());
+					tsPlanActividadTrabajador2
+							.setIdTsPlanActividadTrabajador(tsPlanActividadTrabajador
+									.getIdTsPlanActividadTrabajador());
+					if (tsPlanActividadTrabajador2
+							.getIdTsPlanActividadTrabajador() == null) {
+
+						payloadTsPlanActividadTrabajadorResponse = S.TsPlanActividadTrabajadorService
+								.incluir(tsPlanActividadTrabajador2);
+					} else {
+						payloadTsPlanActividadTrabajadorResponse = S.TsPlanActividadTrabajadorService
+								.modificar(tsPlanActividadTrabajador2);
+					}
+
+					if (!UtilPayload
+							.isOK(payloadTsPlanActividadTrabajadorResponse)) {
+						return (String) payloadTsPlanActividadTrabajadorResponse
+								.getInformacion(IPayloadResponse.MENSAJE);
+					}
+				}
+
+			}
+			for (TsPlanActividadTrabajador tsPlanActividadTrabajador : this
+					.getListTsPlanActividadTrabajadors()) {
+				if (tsPlanActividadTrabajador.getIdTsPlanActividadTrabajador() != null) {
+					payloadTsPlanActividadTrabajadorResponse = S.TsPlanActividadTrabajadorService
+							.eliminar(tsPlanActividadTrabajador
+									.getIdTsPlanActividadTrabajador());
+				}
+
+			}
+
+			PayloadTsPlanActividadVoluntarioResponse payloadTsPlanActividadVoluntarioResponse = new PayloadTsPlanActividadVoluntarioResponse();
+			for (TsPlanActividad obj : this.getListTsPlanActividads()) {
+
+				for (TsPlanActividadVoluntario tsPlanActividadVoluntario : obj
+						.getTsPlanActividadVoluntarios()) {
+					TsPlanActividadVoluntario tsPlanActividadVoluntario2 = new TsPlanActividadVoluntario(
+							new TsPlanActividad(obj.getIdTsPlanActividad()),
+							tsPlanActividadVoluntario.getFkVoluntario(),
+							tsPlanActividadVoluntario.getEjecucion(), null,
+							tsPlanActividadVoluntario.getParticipacion(),
+							tsPlanActividadVoluntario.getObservacion());
+					tsPlanActividadVoluntario2
+							.setIdTsPlanActividadVoluntario(tsPlanActividadVoluntario
+									.getIdTsPlanActividadVoluntario());
+					if (tsPlanActividadVoluntario2
+							.getIdTsPlanActividadVoluntario() == null) {
+
+						payloadTsPlanActividadVoluntarioResponse = S.TsPlanActividadVoluntarioService
+								.incluir(tsPlanActividadVoluntario2);
+					} else {
+						payloadTsPlanActividadVoluntarioResponse = S.TsPlanActividadVoluntarioService
+								.modificar(tsPlanActividadVoluntario2);
+					}
+
+					if (!UtilPayload
+							.isOK(payloadTsPlanActividadVoluntarioResponse)) {
+						return (String) payloadTsPlanActividadVoluntarioResponse
+								.getInformacion(IPayloadResponse.MENSAJE);
+					}
+				}
+
+			}
+			for (TsPlanActividadVoluntario tsPlanActividadVoluntario : this
+					.getListTsPlanActividadVoluntarios()) {
+				if (tsPlanActividadVoluntario.getIdTsPlanActividadVoluntario() != null) {
+					payloadTsPlanActividadTrabajadorResponse = S.TsPlanActividadTrabajadorService
+							.eliminar(tsPlanActividadVoluntario
+									.getIdTsPlanActividadVoluntario());
+				}
+
+			}
+
+			goToNextStep();
 		}
 		return "";
 	}
 
 	@Override
+	public String executeCustom1(Integer currentStep) {
+		executeCancelar(currentStep);
+		return "";
+
+	}
+
+	@Override
 	public String executeCancelar(Integer currentStep) {
+		this.setListTsPlanActividads(null);
+		this.setListTsPlanActividadTrabajadors(null);
+		this.setListTsPlanActividadVoluntarios(null);
+		BindUtils.postNotifyChange(null, null, this, "*");
+
 		restartWizard();
-		return super.executeCancelar(currentStep);
+		return "";
 	}
 
 	public TsPlan getTsPlanSelected() {

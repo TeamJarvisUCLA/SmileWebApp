@@ -208,13 +208,9 @@
 							<listcell
 								label="@load(each.fkIndicador.fkUnidadMedida.nombre)">
 							</listcell>
-
-							<listcell>
-								<intbox
-									style="    height: 1em; border: 1px solid #999999; border-radius: 7px; font-size:1.2em;  text-align: center;"
-									value="@bind(each.valorEsperado)" disabled="true">
-								</intbox>
-							</listcell>
+							<listcell 
+								label="@load(each.valorEsperado)" >
+							</listcell>							
 							<listcell>
 								<intbox
 									style="    height: 1em; border: 1px solid #999999; border-radius: 7px; font-size:1.2em;  text-align: center;"

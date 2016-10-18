@@ -645,7 +645,7 @@ public class VM_RegistroDonativoIndex extends VM_WindowWizard {
 						calendar.add(Calendar.DAY_OF_YEAR, cantidad);
 						fechaAporte = calendar.getTime();
 					} else if (unidadFrecuenciaAporteEnum
-							.equals(UnidadFrecuenciaAporteEnum.AÃ‘O)) {
+							.equals(UnidadFrecuenciaAporteEnum.AÑO)) {
 						Calendar calendar = Calendar.getInstance();
 
 						calendar.setTime(new Date());

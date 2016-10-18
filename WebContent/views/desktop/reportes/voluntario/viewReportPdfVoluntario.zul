@@ -1,0 +1,12 @@
+<zk xmlns:n="native" xmlns:w="client">
+	<div>
+		<div sclass="col s12">
+			<jasperreport id="report" src="@bind(vm.source)" height="200px"
+				parameters="@bind(vm.parametros)" type="@bind(vm.type)"
+				datasource="@bind(vm.jrDataSource)" />
+
+		</div>
+
+	</div>
+</zk>
+

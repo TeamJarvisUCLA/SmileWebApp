@@ -49,7 +49,7 @@
 								class="card-image waves-effect waves-block waves-light">
 								<div class="view">
 -									<image class="activator"
--										src="@load(each.fkMultimedia.url)">						
+										src="@load(each.fkMultimedia.url)">						
 									</image>
 									
 									<div class="mask"></div>

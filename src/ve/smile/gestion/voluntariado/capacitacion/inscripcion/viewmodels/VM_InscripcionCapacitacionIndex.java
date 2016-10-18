@@ -24,10 +24,12 @@ import org.zkoss.bind.annotation.NotifyChange;
 import ve.smile.consume.services.S;
 import ve.smile.dto.Voluntario;
 import ve.smile.dto.CapacitacionPlanificada;
+import ve.smile.dto.VolCapacitacionPlanificada;
 import ve.smile.enums.EstatusVoluntarioEnum;
 import ve.smile.enums.EstatusCapacitacionPlanificadaEnum;
 import ve.smile.payload.response.PayloadVoluntarioResponse;
 import ve.smile.payload.response.PayloadCapacitacionPlanificadaResponse;
+import ve.smile.payload.response.PayloadVolCapacitacionPlanificadaResponse;
 
 public class VM_InscripcionCapacitacionIndex extends VM_WindowWizard<CapacitacionPlanificada>
 {
@@ -224,7 +226,7 @@ public class VM_InscripcionCapacitacionIndex extends VM_WindowWizard<Capacitacio
 			this.selectedObject.setVoluntariosInscritos(new ArrayList<Voluntario>());
 			this.selectedObject.getVoluntariosInscritos().clear();
 			this.selectedObject.getVoluntariosInscritos().addAll(this.getVoluntariosInscritos());
-			PayloadCapacitacionPlanificadaResponse payloadCapacitacionPlanificadaResponse = S.CapacitacionPlanificadaService.incluir(this.selectedObject);
+			PayloadCapacitacionPlanificadaResponse payloadCapacitacionPlanificadaResponse = S.CapacitacionPlanificadaService.modificar(this.selectedObject);
 			if (UtilPayload.isOK(payloadCapacitacionPlanificadaResponse))
 			{
 				this.setSelectedObject(new CapacitacionPlanificada());
@@ -288,6 +290,28 @@ public class VM_InscripcionCapacitacionIndex extends VM_WindowWizard<Capacitacio
 			{
 				return e.getMessage();
 			}
+		}
+		return "";
+	}
+	
+	@Override
+	public String isValidSearchDataSiguiente(Integer currentStep)
+	{
+		if (currentStep == 1)
+		{
+			// BUSCAR VOLUNTARIOS INSCRITOS
+			this.setVoluntariosInscritos(null);
+			Map<String, String> criterios = new HashMap<>();
+			criterios.put("fkCapacitacionPlanificada.idCapacitacionPlanificada", String.valueOf(this.getSelectedObject().getIdCapacitacionPlanificada()));
+			PayloadVolCapacitacionPlanificadaResponse payloadVolCapacitacionPlanificadaResponse = S.VolCapacitacionPlanificadaService.consultarCriterios(TypeQuery.EQUAL, criterios);
+			if (payloadVolCapacitacionPlanificadaResponse.getObjetos() != null)
+			{
+				for (VolCapacitacionPlanificada vC : payloadVolCapacitacionPlanificadaResponse.getObjetos())
+				{
+					this.getVoluntariosInscritos().add(vC.getFkVoluntario());
+				}
+			}
+			BindUtils.postNotifyChange(null, null, this, "*");
 		}
 		return "";
 	}

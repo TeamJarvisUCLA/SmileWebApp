@@ -28,6 +28,7 @@ import lights.core.enums.TypeQuery;
 import lights.smile.util.UtilMultimedia;
 import lights.smile.util.Zki;
 
+import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
@@ -39,6 +40,8 @@ import ve.smile.dto.Estado;
 import ve.smile.dto.Profesion;
 import ve.smile.dto.Multimedia;
 import ve.smile.dto.Voluntario;
+import ve.smile.dto.VoluntarioClasificado;
+import ve.smile.dto.VoluntarioProfesion;
 import ve.smile.enums.EstatusVoluntarioEnum;
 import ve.smile.enums.SexoEnum;
 import ve.smile.enums.TipoMultimediaEnum;
@@ -47,6 +50,7 @@ import ve.smile.payload.response.PayloadCiudadResponse;
 import ve.smile.payload.response.PayloadEstadoResponse;
 import ve.smile.payload.response.PayloadProfesionResponse;
 import ve.smile.payload.response.PayloadMultimediaResponse;
+import ve.smile.payload.response.PayloadVoluntarioProfesionResponse;
 import ve.smile.payload.response.PayloadVoluntarioResponse;
 import ve.smile.payload.response.PayloadPersonaResponse;
 import ve.smile.seguridad.enums.OperacionEnum;
@@ -127,10 +131,21 @@ public class VM_VoluntarioFormBasic extends VM_WindowForm implements UploadImage
 			this.getCiudades().addAll(payloadCiudadResponse.getObjetos());
 		}
 		
+		// BUSCAR PROFESIONES DEL VOLUNTARIO
 		if (this.getVoluntario().getProfesiones() != null)
 		{
-			this.getVoluntarioProfesiones().addAll(new ArrayList<Profesion>());
-			this.getVoluntarioProfesiones().addAll(this.getVoluntario().getProfesiones());
+			this.setVoluntarioProfesiones(null);
+			Map<String, String> criterios = new HashMap<>();
+			criterios.put("fkVoluntario.idVoluntario", String.valueOf(this.getVoluntario().getIdVoluntario()));
+			PayloadVoluntarioProfesionResponse payloadVoluntarioProfesionResponse = S.VoluntarioProfesionService.consultarCriterios(TypeQuery.EQUAL, criterios);
+			if (payloadVoluntarioProfesionResponse.getObjetos() != null)
+			{
+				for (VoluntarioProfesion vP : payloadVoluntarioProfesionResponse.getObjetos())
+				{
+					this.getVoluntarioProfesiones().add(vP.getFkProfesion());
+				}
+			}
+			BindUtils.postNotifyChange(null, null, this, "*");
 		}
 	}
 	
@@ -472,7 +487,7 @@ public class VM_VoluntarioFormBasic extends VM_WindowForm implements UploadImage
 			}
 						
 			// PROFESIONES
-			this.getVoluntario().getProfesiones().addAll(new ArrayList<Profesion>());
+			//this.getVoluntario().getProfesiones().addAll(new ArrayList<Profesion>());
 			this.getVoluntario().getProfesiones().addAll(this.getVoluntarioProfesiones());
 			
 			// VOLUNTARIO

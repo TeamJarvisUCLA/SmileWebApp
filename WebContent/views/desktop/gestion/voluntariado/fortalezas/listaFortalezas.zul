@@ -23,7 +23,7 @@
 						</listbox>
 					</div>
 					
-					<div sclass="col s1" align="center">
+					<div sclass="col s2" align="center">
 						<div sclass="row">
 							<button sclass="button-conf" iconSclass="fa fa-angle-double-right" onClick="@command('agregarFortalezas')" />
 						</div>
@@ -33,7 +33,7 @@
 					</div>
 
 					<div sclass="col s5" style="padding:0px">
-						<listbox model="@load(vm.voluntarioFortalezas)" emptyMessage="No hay fortalezas asociadas al voluntario" selectedItems="@bind(vm.voluntarioFortalezasSeleccionadas)" multiple="true">
+						<listbox model="@load(vm.selectedObject.fortalezas)" emptyMessage="No hay fortalezas asociadas al voluntario" selectedItems="@bind(vm.voluntarioFortalezasSeleccionadas)" multiple="true">
 							<listhead sizable="true">
 								<listheader label="Fortalezas del voluntario" />
 							</listhead>

@@ -41,8 +41,6 @@ public class VM_ClasificacionVoluntarioIndex extends VM_WindowWizard <Voluntario
 	@Init(superclass = true)
 	public void childInit()
 	{
-		//voluntario = new Voluntario();
-		
 		// CLASIFICACIONES
 		if (this.getClasificaciones().isEmpty())
 		{
@@ -168,9 +166,13 @@ public class VM_ClasificacionVoluntarioIndex extends VM_WindowWizard <Voluntario
 
 		List<OperacionWizard> listOperacionWizard2 = new ArrayList<OperacionWizard>();
 		listOperacionWizard2.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.ATRAS));
+		listOperacionWizard2.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.SIGUIENTE));
 		listOperacionWizard2.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.CANCELAR));
-		listOperacionWizard2.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.FINALIZAR));
 		botones.put(2, listOperacionWizard2);
+		
+		List<OperacionWizard> listOperacionWizard3 = new ArrayList<OperacionWizard>();
+		listOperacionWizard3.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.FINALIZAR));
+		botones.put(3, listOperacionWizard3);
 
 		return botones;
 	}
@@ -181,6 +183,7 @@ public class VM_ClasificacionVoluntarioIndex extends VM_WindowWizard <Voluntario
 		List<String> iconos = new ArrayList<String>();
 		iconos.add("fa fa-user");
 		iconos.add("fa fa-pencil-square-o");
+		iconos.add("fa fa-check-square-o");
 		return iconos;
 	}
 
@@ -190,6 +193,7 @@ public class VM_ClasificacionVoluntarioIndex extends VM_WindowWizard <Voluntario
 		List<String> urls = new ArrayList<String>();
 		urls.add("views/desktop/gestion/voluntariado/clasificacion/selectVoluntario.zul");
 		urls.add("views/desktop/gestion/voluntariado/clasificacion/listaClasificacion.zul");
+		urls.add("views/desktop/gestion/voluntariado/clasificacion/registroCompletado.zul");
 		return urls;
 	}
 	
@@ -205,7 +209,25 @@ public class VM_ClasificacionVoluntarioIndex extends VM_WindowWizard <Voluntario
 	{
 		if (currentStep == 2)
 		{
-			// NOTHING
+			this.selectedObject.setClasificaciones(new ArrayList<ClasificadorVoluntario>());
+			this.selectedObject.getClasificaciones().clear();
+			this.selectedObject.getClasificaciones().addAll(this.getVoluntarioClasificaciones());
+			PayloadVoluntarioResponse payloadVoluntarioResponse = S.VoluntarioService.modificar(this.selectedObject);
+			if (UtilPayload.isOK(payloadVoluntarioResponse))
+			{
+				this.setSelectedObject(new Voluntario());
+				this.setVoluntario(new Voluntario());
+				//this.setClasificaciones(new ArrayList<ClasificadorVoluntario>());
+				this.getClasificacionesSeleccionadas().clear();
+				this.setVoluntarioClasificaciones(new ArrayList<ClasificadorVoluntario>());
+				this.getVoluntarioClasificacionesSeleccionadas().clear();
+				BindUtils.postNotifyChange(null, null, this, "selectedObject");
+				BindUtils.postNotifyChange(null, null, this, "voluntario");
+				BindUtils.postNotifyChange(null, null, this, "clasificaciones");
+				BindUtils.postNotifyChange(null, null, this, "clasificacionesSeleccionadas");
+				BindUtils.postNotifyChange(null, null, this, "voluntarioClasificaciones");
+				BindUtils.postNotifyChange(null, null, this, "voluntarioClasificacionesSeleccionadas");
+			}
 		}
 		goToNextStep();
 		return "";
@@ -244,7 +266,7 @@ public class VM_ClasificacionVoluntarioIndex extends VM_WindowWizard <Voluntario
 	@Override
 	public String isValidPreconditionsFinalizar(Integer currentStep)
 	{
-		if (currentStep == 2)
+		if (currentStep == 3)
 		{
 			try
 			{
@@ -261,21 +283,9 @@ public class VM_ClasificacionVoluntarioIndex extends VM_WindowWizard <Voluntario
 	@Override
 	public String executeFinalizar(Integer currentStep)
 	{
-		if (currentStep == 2)
+		if (currentStep == 3)
 		{
-			this.selectedObject.setClasificaciones(new ArrayList<ClasificadorVoluntario>());
-			this.selectedObject.getClasificaciones().clear();
-			this.selectedObject.getClasificaciones().addAll(this.getVoluntarioClasificaciones());
-			PayloadVoluntarioResponse payloadVoluntarioResponse = S.VoluntarioService.modificar(this.selectedObject);
-			if (UtilPayload.isOK(payloadVoluntarioResponse))
-			{
-				restartWizard();
-				this.setSelectedObject(new Voluntario());
-				this.setVoluntario(new Voluntario());
-				BindUtils.postNotifyChange(null, null, this, "selectedObject");
-				BindUtils.postNotifyChange(null, null, this, "voluntario");
-			}
-			return (String) payloadVoluntarioResponse.getInformacion(IPayloadResponse.MENSAJE);
+			restartWizard();
 		}
 		return "";
 	}

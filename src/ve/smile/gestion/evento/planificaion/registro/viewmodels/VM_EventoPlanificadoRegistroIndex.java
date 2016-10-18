@@ -14,24 +14,6 @@ import java.util.Map;
 
 import javax.imageio.ImageIO;
 
-import org.zkoss.bind.BindUtils;
-import org.zkoss.bind.annotation.Command;
-import org.zkoss.bind.annotation.Init;
-import org.zkoss.zk.ui.event.UploadEvent;
-
-import app.UploadImageSingle;
-import ve.smile.consume.services.S;
-import ve.smile.dto.Directorio;
-import ve.smile.dto.EventPlanTarea;
-import ve.smile.dto.Evento;
-import ve.smile.dto.EventoPlanificado;
-import ve.smile.dto.Multimedia;
-import ve.smile.dto.Tarea;
-import ve.smile.dto.Voluntario;
-import ve.smile.enums.TipoMultimediaEnum;
-import ve.smile.payload.response.PayloadEventoPlanificadoResponse;
-import ve.smile.payload.response.PayloadEventoResponse;
-import ve.smile.payload.response.PayloadMultimediaResponse;
 import karen.core.crux.alert.Alert;
 import karen.core.dialog.catalogue.generic.data.CatalogueDialogData;
 import karen.core.dialog.catalogue.generic.events.CatalogueDialogCloseEvent;
@@ -48,7 +30,26 @@ import karen.core.wizard.viewmodels.VM_WindowWizard;
 import lights.core.payload.response.IPayloadResponse;
 import lights.smile.util.UtilMultimedia;
 
-public class VM_EventoPlanificadoRegistroIndex extends VM_WindowWizard implements UploadImageSingle{
+import org.zkoss.bind.BindUtils;
+import org.zkoss.bind.annotation.Command;
+import org.zkoss.bind.annotation.Init;
+import org.zkoss.zk.ui.event.UploadEvent;
+
+import ve.smile.consume.services.S;
+import ve.smile.dto.Directorio;
+import ve.smile.dto.Evento;
+import ve.smile.dto.EventoPlanificado;
+import ve.smile.dto.Multimedia;
+import ve.smile.dto.Voluntario;
+import ve.smile.enums.EstatusEventoPlanificadoEnum;
+import ve.smile.enums.TipoMultimediaEnum;
+import ve.smile.payload.response.PayloadEventoPlanificadoResponse;
+import ve.smile.payload.response.PayloadEventoResponse;
+import ve.smile.payload.response.PayloadMultimediaResponse;
+import app.UploadImageSingle;
+
+public class VM_EventoPlanificadoRegistroIndex extends VM_WindowWizard
+		implements UploadImageSingle {
 
 	private EventoPlanificado eventoPlanificado;
 	private Voluntario voluntario = new Voluntario();
@@ -58,7 +59,7 @@ public class VM_EventoPlanificadoRegistroIndex extends VM_WindowWizard implement
 	private byte[] bytes;
 	private String nameImage;
 	private String urlImagen;
-	
+
 	@Init(superclass = true)
 	public void childInit() {
 		// NOTHING OK!
@@ -67,7 +68,7 @@ public class VM_EventoPlanificadoRegistroIndex extends VM_WindowWizard implement
 		directorio = new Directorio();
 		fechaPlanificada = new Date();
 	}
-	
+
 	@Command("buscarVoluntario")
 	public void buscarVoluntario() {
 		CatalogueDialogData<Voluntario> catalogueDialogData = new CatalogueDialogData<Voluntario>();
@@ -127,7 +128,7 @@ public class VM_EventoPlanificadoRegistroIndex extends VM_WindowWizard implement
 	public void refreshDirectorio() {
 		BindUtils.postNotifyChange(null, null, this, "directorio");
 	}
-	
+
 	@Override
 	public BufferedImage getImageContent() {
 		try {
@@ -136,7 +137,7 @@ public class VM_EventoPlanificadoRegistroIndex extends VM_WindowWizard implement
 			return null;
 		}
 	}
-	
+
 	private BufferedImage loadImage() throws Exception {
 		try {
 			Path path = Paths.get(this.getUrlImagen());
@@ -175,9 +176,9 @@ public class VM_EventoPlanificadoRegistroIndex extends VM_WindowWizard implement
 			}
 
 		}
-		
+
 	}
-	
+
 	@Override
 	public String executeCustom1(Integer currentStep) {
 		this.setSelectedObject(new EventoPlanificado());
@@ -190,7 +191,7 @@ public class VM_EventoPlanificadoRegistroIndex extends VM_WindowWizard implement
 	public void onRemoveImageSingle(String idUpload) {
 		bytes = null;
 		this.getEventoPlanificado().setFkMultimedia(null);
-		
+
 	}
 
 	@Override
@@ -221,7 +222,7 @@ public class VM_EventoPlanificadoRegistroIndex extends VM_WindowWizard implement
 
 		return botones;
 	}
-	
+
 	@Override
 	public String executeSiguiente(Integer currentStep) {
 		goToNextStep();
@@ -237,7 +238,8 @@ public class VM_EventoPlanificadoRegistroIndex extends VM_WindowWizard implement
 	}
 
 	@Override
-	public IPayloadResponse<Evento> getDataToTable(Integer cantidadRegistrosPagina, Integer pagina) {
+	public IPayloadResponse<Evento> getDataToTable(
+			Integer cantidadRegistrosPagina, Integer pagina) {
 		PayloadEventoResponse payloadEventoResponse = S.EventoService
 				.consultarPaginacion(cantidadRegistrosPagina, pagina);
 		return payloadEventoResponse;
@@ -253,10 +255,10 @@ public class VM_EventoPlanificadoRegistroIndex extends VM_WindowWizard implement
 
 		return iconos;
 	}
-	
+
 	@Override
 	public List<String> getUrlPageToStep() {
-		
+
 		List<String> urls = new ArrayList<String>();
 
 		urls.add("views/desktop/gestion/evento/planificacion/registro/selectEvento.zul");
@@ -264,9 +266,9 @@ public class VM_EventoPlanificadoRegistroIndex extends VM_WindowWizard implement
 		urls.add("views/desktop/gestion/evento/planificacion/registro/registroCompletado.zul");
 
 		return urls;
-		
+
 	}
-	
+
 	@Override
 	public String isValidPreconditionsSiguiente(Integer currentStep) {
 		if (currentStep == 1) {
@@ -281,7 +283,7 @@ public class VM_EventoPlanificadoRegistroIndex extends VM_WindowWizard implement
 
 		return "";
 	}
-	
+
 	@Override
 	public String isValidPreconditionsFinalizar(Integer currentStep) {
 		if (currentStep == 2) {
@@ -294,8 +296,8 @@ public class VM_EventoPlanificadoRegistroIndex extends VM_WindowWizard implement
 						.getIdVoluntario(), "Responsable");
 				UtilValidate.validateNull(this.getDirectorio()
 						.getIdDirectorio(), "Directorio");
-				UtilValidate.validateNull(this.getEventoPlanificado().getFkMultimedia(),
-						"Imagen");
+				UtilValidate.validateNull(this.getEventoPlanificado()
+						.getFkMultimedia(), "Imagen");
 			} catch (Exception e) {
 				return e.getMessage();
 			}
@@ -303,18 +305,22 @@ public class VM_EventoPlanificadoRegistroIndex extends VM_WindowWizard implement
 		}
 		return "";
 	}
-	
+
 	@Override
 	public String executeFinalizar(Integer currentStep) {
 		if (currentStep == 2) {
 			this.getEventoPlanificado().setFechaPlanificada(
 					this.getFechaPlanificada().getTime());
 			this.getEventoPlanificado().setFkDirectorio(this.getDirectorio());
-			this.getEventoPlanificado().setFkPersona(this.getVoluntario().getFkPersona());
+			this.getEventoPlanificado().setFkPersona(
+					this.getVoluntario().getFkPersona());
 			this.getEventoPlanificado().setPublicoPortal(true);
+			this.getEventoPlanificado().setEstatusEvento(
+					EstatusEventoPlanificadoEnum.PLANIFICADO.ordinal());
 			this.getEventoPlanificado().setFkEvento((Evento) selectedObject);
 
-			Multimedia multimedia = this.getEventoPlanificado().getFkMultimedia();
+			Multimedia multimedia = this.getEventoPlanificado()
+					.getFkMultimedia();
 
 			PayloadMultimediaResponse payloadMultimediaResponse = S.MultimediaService
 					.incluir(multimedia);
@@ -328,29 +334,29 @@ public class VM_EventoPlanificadoRegistroIndex extends VM_WindowWizard implement
 			PayloadEventoPlanificadoResponse payloadEventoPlanificadoResponse = S.EventoPlanificadoService
 					.incluir(this.getEventoPlanificado());
 			if (UtilPayload.isOK(payloadEventoPlanificadoResponse)) {
-				
+
 				this.setEventoPlanificado(new EventoPlanificado());
 				this.setDirectorio(new Directorio());
 				this.setFechaPlanificada(new Date());
 				this.setSelectedObject(new Evento());
 				this.setVoluntario(new Voluntario());
 				BindUtils.postNotifyChange(null, null, this, "directorio");
-				BindUtils.postNotifyChange(null, null, this, "eventoPlanificado");
+				BindUtils.postNotifyChange(null, null, this,
+						"eventoPlanificado");
 				BindUtils
 						.postNotifyChange(null, null, this, "fechaPlanificada");
 				BindUtils.postNotifyChange(null, null, this, "selectedObject");
 				BindUtils.postNotifyChange(null, null, this, "voluntario");
-				
+
 			}
 			goToNextStep();
 			return (String) payloadEventoPlanificadoResponse
 					.getInformacion(IPayloadResponse.MENSAJE);
-			
+
 		}
 
 		return "";
 	}
-
 
 	public EventoPlanificado getEventoPlanificado() {
 		return eventoPlanificado;
@@ -408,6 +414,4 @@ public class VM_EventoPlanificadoRegistroIndex extends VM_WindowWizard implement
 		this.urlImagen = urlImagen;
 	}
 
-	
-	
 }

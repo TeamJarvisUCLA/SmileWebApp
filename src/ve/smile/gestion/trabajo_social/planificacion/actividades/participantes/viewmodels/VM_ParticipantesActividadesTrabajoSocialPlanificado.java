@@ -381,9 +381,11 @@ public class VM_ParticipantesActividadesTrabajoSocialPlanificado extends
 					TsPlanActividadTrabajador tsPlanActividadTrabajador2 = new TsPlanActividadTrabajador(
 							tsPlanActividadTrabajador.getFkTrabajador(),
 							new TsPlanActividad(obj.getIdTsPlanActividad()),
+							null, null,
 							tsPlanActividadTrabajador.getEjecucion(), null,
 							tsPlanActividadTrabajador.getParticipacion(),
-							tsPlanActividadTrabajador.getObservacion());
+							tsPlanActividadTrabajador.getObservacion(),
+							tsPlanActividadTrabajador.getEstatusActividad());
 					tsPlanActividadTrabajador2
 							.setIdTsPlanActividadTrabajador(tsPlanActividadTrabajador
 									.getIdTsPlanActividadTrabajador());
@@ -417,15 +419,15 @@ public class VM_ParticipantesActividadesTrabajoSocialPlanificado extends
 
 			PayloadTsPlanActividadVoluntarioResponse payloadTsPlanActividadVoluntarioResponse = new PayloadTsPlanActividadVoluntarioResponse();
 			for (TsPlanActividad obj : this.getListTsPlanActividads()) {
-
 				for (TsPlanActividadVoluntario tsPlanActividadVoluntario : obj
 						.getTsPlanActividadVoluntarios()) {
 					TsPlanActividadVoluntario tsPlanActividadVoluntario2 = new TsPlanActividadVoluntario(
 							new TsPlanActividad(obj.getIdTsPlanActividad()),
-							tsPlanActividadVoluntario.getFkVoluntario(),
-							tsPlanActividadVoluntario.getEjecucion(), null,
-							tsPlanActividadVoluntario.getParticipacion(),
-							tsPlanActividadVoluntario.getObservacion());
+							tsPlanActividadVoluntario.getFkVoluntario(), null,
+							null, tsPlanActividadVoluntario.getEjecucion(),
+							null, tsPlanActividadVoluntario.getParticipacion(),
+							tsPlanActividadVoluntario.getObservacion(),
+							tsPlanActividadVoluntario.getEstatusActividad());
 					tsPlanActividadVoluntario2
 							.setIdTsPlanActividadVoluntario(tsPlanActividadVoluntario
 									.getIdTsPlanActividadVoluntario());

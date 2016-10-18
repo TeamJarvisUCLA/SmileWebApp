@@ -183,9 +183,10 @@ public class VM_TrabajoSocialPlanificadoRegistroIndex extends VM_WindowWizard
 		botones.put(2, listOperacionWizard2);
 
 		List<OperacionWizard> listOperacionWizard3 = new ArrayList<OperacionWizard>();
-		listOperacionWizard3.add(OperacionWizardHelper
-				.getPorType(OperacionWizardEnum.CUSTOM1));
-
+		OperacionWizard operacionWizardCustom = new OperacionWizard(
+				OperacionWizardEnum.CUSTOM1.ordinal(), "Aceptar", "Custom1",
+				"fa fa-check", "indigo", "Aceptar");
+		listOperacionWizard3.add(operacionWizardCustom);
 		botones.put(3, listOperacionWizard3);
 
 		return botones;
@@ -197,7 +198,7 @@ public class VM_TrabajoSocialPlanificadoRegistroIndex extends VM_WindowWizard
 
 		iconos.add("fa fa-heart");
 		iconos.add("fa fa-pencil-square-o");
-		// iconos.add("fa fa-check-square-o");
+		iconos.add("fa fa-check-square-o");
 
 		return iconos;
 	}
@@ -208,7 +209,7 @@ public class VM_TrabajoSocialPlanificadoRegistroIndex extends VM_WindowWizard
 
 		urls.add("views/desktop/gestion/trabajoSocial/planificacion/registro/selectTrabajoSocial.zul");
 		urls.add("views/desktop/gestion/trabajoSocial/planificacion/registro/trabajoSocialPlanificadoFormBasic.zul");
-		// urls.add("views/desktop/gestion/trabajoSocial/planificacion/registro/successRegistroTrabajoSocialPlanificado.zul");
+		urls.add("views/desktop/gestion/trabajoSocial/planificacion/registro/registroCompletado.zul");
 
 		return urls;
 	}
@@ -228,6 +229,12 @@ public class VM_TrabajoSocialPlanificadoRegistroIndex extends VM_WindowWizard
 	}
 
 	@Override
+	public String executeCancelar(Integer currentStep) {
+		restartWizard();
+		return super.executeCancelar(currentStep);
+	}
+
+	@Override
 	public IPayloadResponse<TrabajoSocial> getDataToTable(
 			Integer cantidadRegistrosPagina, Integer pagina) {
 
@@ -235,6 +242,27 @@ public class VM_TrabajoSocialPlanificadoRegistroIndex extends VM_WindowWizard
 				.consultarPaginacion(cantidadRegistrosPagina, pagina);
 
 		return payloadTrabajoSocialResponse;
+	}
+
+	@Override
+	public String executeCustom1(Integer currentStep) {
+		if (currentStep == 3) {
+
+			restartWizard();
+			this.setTsPlan(new TsPlan());
+			this.bytes = null;
+			this.setDirectorio(new Directorio());
+			this.setFechaPlanificada(new Date());
+			this.setSelectedObject(new TrabajoSocial());
+			this.setPersona(new Persona());
+			BindUtils.postNotifyChange(null, null, this, "directorio");
+			BindUtils.postNotifyChange(null, null, this, "tsPlan");
+			BindUtils.postNotifyChange(null, null, this, "fechaPlanificada");
+			BindUtils.postNotifyChange(null, null, this, "selectedObject");
+			BindUtils.postNotifyChange(null, null, this, "voluntario");
+
+		}
+		return super.executeCustom1(currentStep);
 	}
 
 	@Override
@@ -325,23 +353,7 @@ public class VM_TrabajoSocialPlanificadoRegistroIndex extends VM_WindowWizard
 
 				}
 			}
-			if (UtilPayload.isOK(payloadTsPlanResponse)) {
-				restartWizard();
-				this.setTsPlan(new TsPlan());
-				this.bytes = null;
-				this.setDirectorio(new Directorio());
-				this.setFechaPlanificada(new Date());
-				this.setSelectedObject(new TrabajoSocial());
-				this.setPersona(new Persona());
-				BindUtils.postNotifyChange(null, null, this, "directorio");
-				BindUtils.postNotifyChange(null, null, this, "tsPlan");
-				BindUtils
-						.postNotifyChange(null, null, this, "fechaPlanificada");
-				BindUtils.postNotifyChange(null, null, this, "selectedObject");
-				BindUtils.postNotifyChange(null, null, this, "voluntario");
-			}
-			return (String) payloadTsPlanResponse
-					.getInformacion(IPayloadResponse.MENSAJE);
+			goToNextStep();
 
 		}
 

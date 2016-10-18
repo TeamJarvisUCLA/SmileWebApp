@@ -1,35 +1,48 @@
 <div sclass="navbar" apply="karen.core.crux.navbar.NavbarTop"
 	style="background-image: url(imagenes/banner-principalx1300.png); height: 177px;  background-size: cover; background-repeat: no-repeat;">
+	<style>
+		.z-hlayout-inner{ vertical-align: bottom !important; }
+	</style>
 	<!-- Brand Logo
 		<a label="Promo 54" sclass="pull-left navbar-brand" iconSclass="fa fa-graduation-cap"/> -->
 	<!-- Navbar -->
-	<hlayout sclass="valign-wrapper nav-user pull-right" spacing="0">
-		<!-- <a id="atask" iconSclass="z-icon-tasks" popup="taskpp, position=after_end, type=toggle" sclass="pink darken-3">
-			<label value="4" sclass="badge_theme pink accent-2 badge"/>
-			</a>
-			<a id="anoti" iconSclass="z-icon-bell" popup="notipp, position=after_end, type=toggle" sclass="purple darken-2">
-			<label value="8" sclass="badge_theme purple lighten-2 badge"/>
-			</a>
-			<a id="amsg" iconSclass="z-icon-envelope" popup="msgpp, position=after_end, type=toggle" sclass="light-blue darken-4">
-			<label value="5" sclass="badge_theme light-blue darken-1 badge"/>
-			</a>
-		-->
+	<hlayout sclass="nav-user pull-right"
+		style="vertical-align: bottom !important;">
+		<!-- 		<a id="atask" iconSclass="z-icon-tasks" -->
+		<!-- 			popup="taskpp, position=after_end, type=toggle" -->
+		<!-- 			sclass="pink darken-3"> -->
+		<!-- 			<label value="4" sclass="badge_theme pink accent-2 badge" /> -->
+		<!-- 		</a> -->
+		<a id="anoti" iconSclass="z-icon-bell"
+			style="vertical-align: bottom; margin-bottom: 26px;"
+			popup="notipp, position=after_end, type=toggle">
+			<label value="8" sclass="badge_theme badge" />
+		</a>
+		<!-- 		<a id="amsg" iconSclass="z-icon-envelope" -->
+		<!-- 			popup="msgpp, position=after_end, type=toggle" -->
+		<!-- 			sclass="light-blue darken-4"> -->
+		<!-- 			<label value="5" -->
+		<!-- 				sclass="badge_theme light-blue darken-1 badge" /> -->
+		<!-- 		</a> -->
+
 		<vlayout spacing="0" style="padding-bottom: 0px;">
-		
-		<!-- User menu -->
-		<menubar sclass="user-menu valign-wrapper dropdown-toggle" style="margin-top: 67px;">
-			<menu id="menuImagen" tooltiptext="Andrés Avatar"
-				label="Bienvenido, Andrés">
-				<menupopup>
-					<menuitem label="Configuraciones" iconSclass="z-icon-cog" />
-					<menuitem id="lblProfile" label="Perfil"
-						iconSclass="z-icon-user" />
-					<menuseparator />
-					<menuitem id="lblLogout" label="Cerrar Sesión"
-						iconSclass="z-icon-off" />
-				</menupopup>
-			</menu>
-		</menubar>
+
+			<!-- User menu -->
+			<menubar sclass="user-menu valign-wrapper dropdown-toggle"
+				style="margin-top: 67px;">
+				<menu id="menuImagen" tooltiptext="Andrés Avatar"
+					label="Bienvenido, Andrés">
+					<menupopup>
+						<menuitem label="Configuraciones"
+							iconSclass="z-icon-cog" />
+						<menuitem id="lblProfile" label="Perfil"
+							iconSclass="z-icon-user" />
+						<menuseparator />
+						<menuitem id="lblLogout" label="Cerrar Sesión"
+							iconSclass="z-icon-off" />
+					</menupopup>
+				</menu>
+			</menubar>
 		</vlayout>
 	</hlayout>
 	<!-- Popups of navbar -->
@@ -102,7 +115,7 @@
 	<popup id="msgpp" sclass="menu before-reajust" width="240px">
 		<a label="5 Messages" sclass="header"
 			iconSclass="z-icon-envelope-o" />
-		<vlayout spacing="0" >
+		<vlayout spacing="0">
 			<a href="#">
 				<image tooltiptext="Alex's Avatar"
 					src="assets/avatars/avatar.png" sclass="msg-photo" />

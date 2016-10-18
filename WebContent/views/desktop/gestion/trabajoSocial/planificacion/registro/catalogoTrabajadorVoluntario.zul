@@ -1,5 +1,5 @@
-<?xel-method prefix="m" name="getBufferedImage" class="lights.smile.util.Zki" 
-	signature="java.awt.image.BufferedImage getBufferedImage(java.lang.String)" ?>
+<?xel-method prefix="m" name="getUrlWeb" class="lights.smile.util.Zki" 
+	signature="java.lang.String getUrlWeb(java.lang.String)" ?>
 
 <zk xmlns:n="native" xmlns:w="client">
 
@@ -35,22 +35,27 @@
 			<listhead>
 				<listheader width="10%" label="Imagen" />
 				<listheader width="15%" label="Cédula/RIF" />
-				<listheader width="35%" label="Nombre" />
-				<listheader width="30%" label="Apellido" />
+				<listheader width="15%" label="Nombre" />
+				<listheader width="20%" label="Apellido" />
+				<listheader width="20%" label="Correo" />
+				<listheader width="20%" label="Teléfono" />
 			</listhead>
 			<template name="model">
 				<listitem>
 					<listcell>
-						<div align="center">
+						<div align="center"
+							visible="@load(not empty each.fkMultimedia and not empty each.fkMultimedia.url)">
 							<image
-								content="${m:getBufferedImage(each.fkMultimedia.url)}"
-								width="30px" height="30px" sclass="circle">
+								src="${m:getUrlWeb(each.fkMultimedia.url)}" width="30px"
+								height="30px" sclass="circle">
 							</image>
 						</div>
 					</listcell>
 					<listcell label="@load(each.identificacion)" />
 					<listcell label="@load(each.nombre)" />
 					<listcell label="@load(each.apellido)" />
+					<listcell label="@load(each.correo)" />
+					<listcell label="@load(each.telefono1)" />
 				</listitem>
 			</template>
 			<listfoot>

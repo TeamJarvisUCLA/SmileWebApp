@@ -1,0 +1,100 @@
+<zk xmlns:n="native" xmlns:w="client">
+	<style>
+		.z-datebox input, .z-datebox-input:focus,
+		.z-datebox-input:active{ font-size: 1.2em !important;
+		text-align: center; height: 1.5em !important; border: 1px solid
+		#999999; border-radius: 7px; font-size: 1em !important;
+		text-align: center; margin-top: 4px; width: 93%;}
+
+		.switch .z-checkbox input[type="checkbox"]:checked + label {
+		background-color: #0086a4; }
+
+		.switch .z-checkbox input[type="checkbox"]:checked +
+		label::after { background-color: #0086a4; }
+
+
+		.z-listitem.z-listitem-selected>.z-listcell>.z-listcell-content
+		label, .z-treerow-selected>.z-treecell>.z-treecell-content
+		label{color: #ffffff !important; }
+
+		.z-listitem:hover>.z-listcell>.z-listcell-content label,
+		.z-treerow:hover>.z-treecell>.z-treecell-content label,
+		.z-treerow-selected:hover>.z-treecell>.z-treecell-content label,
+		.z-listitem.z-listitem-selected:hover>.z-listcell>.z-listcell-content
+		label {color: #594e46 !important;}
+
+	</style>
+	<div sclass="animated fadeInLeft">
+
+		<div class="row">
+			<div class="col s12" align="center"
+				style="margin-bottom: 15px;">
+				<label
+					value="Complete la información de las tareas seleccionados"
+					sclass="label-medium-500">
+				</label>
+			</div>
+
+		</div>
+		<div class="row">
+			<div class="col s12">
+
+				<listbox height="300px"
+					emptyMessage="No hay tareas asociados al evento."
+					model="@load(vm.listTsPlanActividads)">
+					<listhead sizable="true">
+						<listheader width="15%" label="Ejecutada" />
+						<listheader width="25%" label="Actividad" />
+						<listheader width="20%"
+							label="Fecha Planificada" />
+						<listheader width="15%" label="Fecha Ejecución"
+							align="center" />
+						<listheader width="15%" label="Motivo"
+							align="center" />
+						<listheader width="8%" label="" align="right" />
+					</listhead>
+					<template name="model">
+						<listitem>
+							<listcell>
+								<n:div class="switch">
+									<n:label>
+										NO
+										<checkbox></checkbox>
+										SI
+									</n:label>
+								</n:div>
+							</listcell>
+							<listcell
+								label="@load(each.fkActividad.nombre)">
+							</listcell>
+							<listcell>
+								<datebox format="dd/MM/yyyy"
+									value="@bind(each.fechaPlanificadaDate)" disabled="true">
+								</datebox>
+							</listcell>
+
+							<listcell>
+								<datebox format="dd/MM/yyyy"
+									value="@bind(each.fechaEjecutadaDate)">
+								</datebox>
+							</listcell>
+							<listcell>
+								<label
+									value="@bind(each.fkMotivo.nombre)">
+								</label>
+							</listcell>
+							<listcell>
+								<button
+									sclass="teal lighten-1 waves-effect waves-light"
+									onClick="@command('buscarMotivo', index=forEachStatus.index)"
+									iconSclass="fa fa-search" tooltiptext="Buscar Motivo"
+									style="/padding: 5px 6px; background-color: #2AA4EF !important; float: right">
+								</button>
+							</listcell>
+						</listitem>
+					</template>
+				</listbox>
+			</div>
+		</div>
+	</div>
+</zk>

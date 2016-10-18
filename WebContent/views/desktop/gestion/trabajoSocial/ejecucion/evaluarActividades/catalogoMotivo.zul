@@ -4,11 +4,11 @@
 		action="show: slideIn;hide: slideOut"
 		use="karen.core.dialog.catalogue.list_pagination.controllers.C_ListPaginationCatalogueDialog"
 		apply="org.zkoss.bind.BindComposer"
-		viewModel="@id('vm') @init('ve.smile.gestion.trabajo_social.planificacion.viewmodels.VM_CatalogoVoluntario', dialogData=arg.get('dialogData'))">
-		<caption label="VOLUNTARIO" style="margin-left: 40%;" />
+		viewModel="@id('vm') @init('ve.smile.gestion.trabajo_social.ejecucion.evaluarActividades.viewmodels.VM_CatalogoMotivo', dialogData=arg.get('dialogData'))">
+		<caption label="MOTIVOS" style="margin-left: 40%;" />
 		<separator height="20px"></separator>
 		<n:h6 style="margin-left: 5%;">
-			Por favor seleccione un responsable:
+			Por favor seleccione un motivo:
 		</n:h6>
 		<separator height="20px"></separator>
 		<listbox id="listbox" model="@load(vm.objectList)"
@@ -17,16 +17,19 @@
 
 			<listhead sizable="true">
 				<listheader label="Nombre" />
-				<listheader label="Apellido" />
+				<listheader label="Descripcion" />
+				<listheader label="Clasificación" />
 			</listhead>
 			<template name="model">
 				<listitem>
-					<listcell label="@load(each.fkPersona.nombre)" />
-					<listcell label="@load(each.fkPersona.apellido)" />
+					<listcell label="@load(each.nombre)" />
+					<listcell label="@load(each.descripcion)" />
+					<listcell
+						label="@load(each.fkClasificadorMotivo.nombre)" />
 				</listitem>
 			</template>
 			<listfoot>
-				<listfooter id="listFoot" span="2"
+				<listfooter id="listFoot" span="4"
 					use="karen.core.listfoot.ListFoot">
 				</listfooter>
 			</listfoot>

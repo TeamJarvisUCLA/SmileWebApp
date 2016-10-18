@@ -23,10 +23,13 @@
 
 							<listhead sizable="true">
 					
+
 							<listheader width="20%" label="Nombre de Solicitante" />
 							<listheader width="20%" label="Apellido de Solicitante" />
 							<listheader width="20%" label="Identificacion" />
 							
+							
+
 						
 							</listhead>
 							<template name="model">

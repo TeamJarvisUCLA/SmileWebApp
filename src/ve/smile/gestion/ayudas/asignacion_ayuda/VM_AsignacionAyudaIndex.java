@@ -27,6 +27,7 @@ import karen.core.util.UtilDialog;
 import karen.core.util.payload.UtilPayload;
 import karen.core.util.validate.UtilValidate;
 import karen.core.util.validate.UtilValidate.ValidateOperator;
+import lights.core.enums.TypeQuery;
 import lights.core.payload.response.IPayloadResponse;
 import lights.smile.util.UtilMultimedia;
 
@@ -41,6 +42,8 @@ import ve.smile.dto.Multimedia;
 import ve.smile.dto.SolicitudAyuda;
 import ve.smile.dto.SolicitudAyudaRecurso;
 import ve.smile.dto.Recurso;
+import ve.smile.enums.EstatusPadrinoEnum;
+import ve.smile.enums.EstatusSolicitudEnum;
 import ve.smile.enums.TipoMultimediaEnum;
 import ve.smile.payload.response.PayloadMultimediaResponse;
 import ve.smile.payload.response.PayloadSolicitudAyudaResponse;
@@ -200,9 +203,17 @@ public class VM_AsignacionAyudaIndex extends
 	@Override
 	public IPayloadResponse<SolicitudAyuda> getDataToTable(
 			Integer cantidadRegistrosPagina, Integer pagina) {
-
+		
+		Map<String, String> criterios = new HashMap<>();
+		EstatusPadrinoEnum.POSTULADO.ordinal();
+		criterios.put("estatusSolicitud",
+				String.valueOf(EstatusSolicitudEnum.APROBADA.ordinal()));
 		PayloadSolicitudAyudaResponse payloadSolicitudAyudaResponse = S.SolicitudAyudaService
-				.consultarPaginacion(cantidadRegistrosPagina, pagina);
+				.consultarPaginacionCriterios(cantidadRegistrosPagina, pagina,
+						TypeQuery.EQUAL, criterios);
+
+		/*PayloadSolicitudAyudaResponse payloadSolicitudAyudaResponse = S.SolicitudAyudaService
+				.consultarPaginacion(cantidadRegistrosPagina, pagina);*/
 		return payloadSolicitudAyudaResponse;
 	}
 

@@ -27,6 +27,7 @@ import karen.core.util.UtilDialog;
 import karen.core.util.payload.UtilPayload;
 import karen.core.util.validate.UtilValidate;
 import karen.core.util.validate.UtilValidate.ValidateOperator;
+import lights.core.enums.TypeQuery;
 import lights.core.payload.response.IPayloadResponse;
 import lights.smile.util.UtilMultimedia;
 
@@ -43,7 +44,9 @@ import ve.smile.dto.EstudioSocioEconomico;
 import ve.smile.dto.Trabajador;
 import ve.smile.dto.SolicitudAyuda;
 import ve.smile.dto.Voluntario;
+import ve.smile.enums.EstatusPadrinoEnum;
 import ve.smile.enums.EstatusSolicitudEnum;
+import ve.smile.enums.EstatusTrabajadorEnum;
 import ve.smile.enums.TipoMultimediaEnum;
 import ve.smile.payload.response.PayloadMultimediaResponse;
 import ve.smile.payload.response.PayloadEstudioSocioEconomicoResponse;
@@ -77,8 +80,16 @@ public class VM_EstudioSocioEconomicoIndex extends
 			this.trabajadores = new ArrayList<>();
 		}
 		if (this.trabajadores.isEmpty()) {
+			
+			Map<String, String> criterios = new HashMap<>();
+			EstatusPadrinoEnum.POSTULADO.ordinal();
+			criterios.put("estatusTrabajador",
+					String.valueOf(EstatusTrabajadorEnum.ACTIVO.ordinal()));
 			PayloadTrabajadorResponse payloadTrabajadorResponse = S.TrabajadorService
-					.consultarTodos();
+					.consultarCriterios(TypeQuery.EQUAL, criterios);
+			
+			/*PayloadTrabajadorResponse payloadTrabajadorResponse = S.TrabajadorService
+					.consultarTodos();*/
 
 			if (!UtilPayload.isOK(payloadTrabajadorResponse)) {
 				Alert.showMessage(payloadTrabajadorResponse);
@@ -202,9 +213,16 @@ public class VM_EstudioSocioEconomicoIndex extends
 	@Override
 	public IPayloadResponse<SolicitudAyuda> getDataToTable(
 			Integer cantidadRegistrosPagina, Integer pagina) {
-
+		
+		Map<String, String> criterios = new HashMap<>();
+		EstatusPadrinoEnum.POSTULADO.ordinal();
+		criterios.put("estatusSolicitud",
+				String.valueOf(EstatusSolicitudEnum.PENDIENTE.ordinal()));
 		PayloadSolicitudAyudaResponse payloadSolicitudAyudaResponse = S.SolicitudAyudaService
-				.consultarPaginacion(cantidadRegistrosPagina, pagina);
+				.consultarPaginacionCriterios(cantidadRegistrosPagina, pagina,
+						TypeQuery.EQUAL, criterios);
+
+		
 		return payloadSolicitudAyudaResponse;
 	}
 

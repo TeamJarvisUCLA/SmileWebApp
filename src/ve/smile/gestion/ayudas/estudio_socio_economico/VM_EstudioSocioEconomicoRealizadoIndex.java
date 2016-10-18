@@ -27,6 +27,7 @@ import karen.core.util.UtilDialog;
 import karen.core.util.payload.UtilPayload;
 import karen.core.util.validate.UtilValidate;
 import karen.core.util.validate.UtilValidate.ValidateOperator;
+import lights.core.enums.TypeQuery;
 import lights.core.payload.response.IPayloadResponse;
 import lights.smile.util.UtilMultimedia;
 
@@ -43,11 +44,14 @@ import ve.smile.dto.EstudioSocioEconomico;
 import ve.smile.dto.Trabajador;
 import ve.smile.dto.EstudioSocioEconomico;
 import ve.smile.dto.Voluntario;
+import ve.smile.enums.EstatusPadrinoEnum;
 import ve.smile.enums.EstatusSolicitudEnum;
+import ve.smile.enums.EstatusTrabajadorEnum;
 import ve.smile.enums.TipoMultimediaEnum;
 import ve.smile.payload.response.PayloadMultimediaResponse;
 import ve.smile.payload.response.PayloadEstudioSocioEconomicoResponse;
 import ve.smile.payload.response.PayloadEstudioSocioEconomicoResponse;
+import ve.smile.payload.response.PayloadSolicitudAyudaResponse;
 import ve.smile.payload.response.PayloadTrabajadorResponse;
 import ve.smile.payload.response.PayloadEstudioSocioEconomicoResponse;
 import app.UploadImageSingle;
@@ -162,6 +166,14 @@ public class VM_EstudioSocioEconomicoRealizadoIndex extends
 	@Override
 	public IPayloadResponse<EstudioSocioEconomico> getDataToTable(
 			Integer cantidadRegistrosPagina, Integer pagina) {
+		
+		/*Map<String, String> criterios = new HashMap<>();
+		EstatusPadrinoEnum.POSTULADO.ordinal();
+		criterios.put("fechaEjecutada",
+				"null");
+		PayloadEstudioSocioEconomicoResponse payloadEstudioSocioEconomicoResponse = S.EstudioSocioEconomicoService
+				.consultarPaginacionCriterios(cantidadRegistrosPagina, pagina,
+						TypeQuery.EQUAL, criterios);*/
 
 		PayloadEstudioSocioEconomicoResponse payloadEstudioSocioEconomicoResponse = S.EstudioSocioEconomicoService
 				.consultarPaginacion(cantidadRegistrosPagina, pagina);

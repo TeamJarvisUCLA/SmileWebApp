@@ -117,11 +117,11 @@
 				</template>
 			</div>
 
-			<div class="col s12 icon" style="left: 42%; margin-top: 5px;position: relative;">
+			<div class="col s12 icon text-center" style="margin-top: 5px;position: relative;">
 				<a onClick="@command('verMas')">
 					<image src="/imagenes/portal/icon/icon-plus.png"></image>
 				</a>
-				<div class="col s12" style="left: 50%;margin-left: 40px; ">
+				<div class="col s12">
 					<a onClick="@command('verMas')">Ver más</a>
 				</div>
 			</div>

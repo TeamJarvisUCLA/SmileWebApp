@@ -70,8 +70,8 @@ public class DemoCalendarData {
 		for(Iterator<EventoPlanificado> i = getEventosPlan().iterator(); i.hasNext(); ) {
 		    EventoPlanificado item = i.next();
 			calendarEvents.add(new DemoCalendarEvent(
-					getDate(getdateFormat(getLongDate(item.getFechaPlanificada()-86400000))),
 					getDate(getdateFormat(getLongDate(item.getFechaPlanificada()))),
+					getDate(getdateFormat(getLongDate(item.getFechaPlanificada()+86400000))),
 					item.getFkEvento().getFkClasificadorEvento().getColor(),
 					item.getFkEvento().getFkClasificadorEvento().getColor(),
 					item.getFkEvento().getNombre(),
@@ -94,7 +94,7 @@ public class DemoCalendarData {
 	}
 	
 	public String getdateFormat(Date date) {
-		String dateFormat = new SimpleDateFormat("yyyy/MM/dd 20:00:00").format(date);
+		String dateFormat = new SimpleDateFormat("yyyy/MM/dd 00:00:00").format(date);
 		return dateFormat;
 	}
 	

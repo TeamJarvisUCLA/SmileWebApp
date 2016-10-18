@@ -14,7 +14,7 @@
                 <span id="next" sclass="fa fa-chevron-right"></span>
             </hlayout>         
             <calendars id="calendars" firstDayOfWeek="Sunday" height="630px"
-                timeZone="Main=GMT+0" mold="month"/>
+                timeZone="Main=GMT-4" mold="month"/>
         </div>
 
     </window>

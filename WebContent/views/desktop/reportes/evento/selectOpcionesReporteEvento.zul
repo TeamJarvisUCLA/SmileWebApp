@@ -1,0 +1,121 @@
+<zk xmlns:n="native" xmlns:w="client">
+	<div width="100%" class=" ${arg.animation_} container_reporte">
+		<div sclass="row">
+			<div sclass="col s12">
+				<div sclass="col s3" style="padding: 0px">
+					<checkbox label="Todos" checked="@bind(vm.todos)" />
+				</div>
+				<div sclass="col s3" style="padding: 0px">
+					<checkbox label="Fecha Planificada"
+						checked="@bind(vm.fechaIngreso)" />
+				</div>
+				<div sclass="col s3" visible="@bind(vm.fechaIngreso)">
+					<label value="Fecha Desde"></label>
+					<datebox format="dd/MM/yyyy"
+						value="@bind(vm.fechaDesdeDate)">
+					</datebox>
+				</div>
+				<div sclass="col s3" visible="@bind(vm.fechaIngreso)">
+					<label value="Fecha Hasta"></label>
+					<datebox format="dd/MM/yyyy"
+						value="@bind(vm.fechaHastaDate)">
+					</datebox>
+				</div>
+			</div>
+		</div>
+		<div sclass="row" visible="@bind(!vm.todos)">
+			<div sclass="col s12" style="padding:0px">
+				<div sclass="col s3">
+					<checkbox label="Planificado"
+						checked="@bind(vm.postulado)" />
+				</div>
+				<div sclass="col s3">
+					<checkbox label="Ejecutado"
+						checked="@bind(vm.porCompletar)" />
+				</div>
+				<div sclass="col s3">
+					<checkbox label="Cancelado"
+						checked="@bind(vm.activo)" />
+				</div>
+			</div>
+		</div>
+		<div class = "row">
+			<div class="row"
+				visible="@bind( (!(vm.postulado or vm.porCompletar) and (!vm.postulado and !vm.porCompletar) ) or vm.egresado or vm.activo  )">
+				<div sclass="col s12" style="padding:0px">
+					<div sclass="col s3">
+						<checkbox label="Clasificador"
+							checked="@bind(vm.clasificadorVoluntario)" />
+						<listbox id="listbox" sclass="animated flipInX"
+							model="@load(vm.listClasificadorVoluntario)" checkmark="true"
+							multiple="true" height="150px"
+							selectedItems="@bind(vm.clasificadorVoluntariosSeleccionados)"
+							visible="@bind(vm.clasificadorVoluntario)">
+							<listhead>
+								<listheader width="100%"
+									label="Clasificacion" />
+							</listhead>
+							<template name="model">
+								<listitem>
+									<listcell>
+										<label
+											value="@load(each.nombre)">
+										</label>
+									</listcell>
+								</listitem>
+							</template>
+						</listbox>
+					</div>
+					<div sclass="col s3">
+						<checkbox label="Fortalezas"
+							checked="@bind(vm.fortalezaVoluntario)" />
+						<listbox id="listbox1" sclass="animated flipInX"
+							model="@load(vm.listFortalezas)" checkmark="true" multiple="true"
+							height="150px" selectedItems="@bind(vm.fortalezasSeleccionados)"
+							visible="@bind(vm.fortalezaVoluntario)">
+							<listhead>
+								<listheader width="100%"
+									label="Fortalezas" />
+							</listhead>
+							<template name="model">
+								<listitem>
+									<listcell>
+										<label
+											value="@load(each.nombre)">
+										</label>
+									</listcell>
+								</listitem>
+							</template>
+						</listbox>
+					</div>
+					<div sclass="col s3">
+						<checkbox label="Profesiones"
+							checked="@bind(vm.profesionVoluntario)" />
+						<listbox id="listbox3" sclass="animated flipInX"
+							model="@load(vm.listProfesion)" checkmark="true" multiple="true"
+							height="150px" selectedItems="@bind(vm.profesionesSeleccionadas)"
+							visible="@bind(vm.profesionVoluntario)">
+							<listhead>
+								<listheader width="100%"
+									label="Profesion" />
+							</listhead>
+							<template name="model">
+								<listitem>
+									<listcell>
+										<label
+											value="@load(each.nombre)">
+										</label>
+									</listcell>
+								</listitem>
+							</template>
+						</listbox>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+	</div>
+</zk>
+

@@ -1,4 +1,4 @@
-package ve.smile.reportes.voluntario.viewmodels;
+package ve.smile.reportes.evento.viewmodels;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -25,25 +25,21 @@ import ve.smile.dto.Voluntario;
 import ve.smile.enums.EstatusVoluntarioEnum;
 import ve.smile.payload.response.PayloadVoluntarioResponse;
 
-public class VM_ReporteVoluntarioIndex extends VM_WindowWizard {
+public class VM_ReporteEventoIndex extends VM_WindowWizard {
 
-	private boolean clasificadorVoluntario = false;
+	private boolean clasificadorEvento = false;
 
-	private boolean profesionVoluntario = false;
+	private boolean evento = false;
 
-	private boolean fortalezaVoluntario = false;
+	private boolean tarea = false;
 
-	private boolean redesSociales = false;
+	private boolean indicador = false;
 
-	private boolean fechaIngreso = false;
+	private boolean fechaPlanificada = false;
 
-	private boolean postulado = false;
+	private boolean ejecutado = false;
 
-	private boolean porCompletar = false;
-
-	private boolean activo = false;
-
-	private boolean egresado = false;
+	private boolean cancelado = false;
 
 	private boolean todos = false;
 
@@ -59,203 +55,66 @@ public class VM_ReporteVoluntarioIndex extends VM_WindowWizard {
 
 	private Map<String, Object> parametros = new HashMap<>();
 
-	private List<ClasificadorVoluntario> listClasificadorVoluntario = new ArrayList<>();
+	private List<ClasificadorVoluntario> listClasificadorEvento = new ArrayList<>();
 
-	private Set<ClasificadorVoluntario> clasificadorVoluntariosSeleccionados;
+	private Set<ClasificadorVoluntario> clasificadorEventoSeleccionados;
 
-	private List<Fortaleza> listFortalezas = new ArrayList<>();
+	private List<Fortaleza> listEvento = new ArrayList<>();
+	
+	private Set<Fortaleza> eventosSeleccionados;
 
-	private List<String> listRedesSociales = new ArrayList<>();
+	private List<Profesion> listTareas = new ArrayList<>();
 
-	private Set<String> redesSeleccionadas;
+	private Set<Profesion> tareasSeleccionadas;
 
-	private Set<Fortaleza> fortalezasSeleccionados;
+	private List<Voluntario> listIndicadores;
 
-	private List<Profesion> listProfesion = new ArrayList<>();
+	private Set<Profesion> indicadoresSeleccionados;
+	
+	String eventosClasificadosP = "";
 
-	private Set<Profesion> profesionesSeleccionadas;
+	String estatusEventosP = "";
 
-	private List<Voluntario> voluntarios;
+	String indicadoresP = "";
 
-	String voluntarioClasificadoP = "";
+	String tareasP = "";
 
-	String estatusVoluntariosS = "";
+	String eventosP = "";
 
-	String fortalezasP = "";
-
-	String profesionesP = "";
-
+	
 	String tStatus = "";
 
 	String tFechaDesde = "";
 
 	String tFechaHasta = "";
 
-	String tVoluntarioClasificado = "";
+	String tEventosClasificados = "";
 
-	String tFortalezas = "";
+	String tIndicadores = "";
 
-	String tProfesiones = "";
+	String tTareas = "";
 
 
 	String fechaDesde = "";
 
 	String fechaHasta = "";
 
-	public Set<ClasificadorVoluntario> getClasificadorVoluntariosSeleccionados() {
-		return clasificadorVoluntariosSeleccionados;
-	}
 
-	public void setClasificadorVoluntariosSeleccionados(
-			Set<ClasificadorVoluntario> clasificadorVoluntariosSeleccionados) {
 
-		this.clasificadorVoluntariosSeleccionados = clasificadorVoluntariosSeleccionados;
-
-	}
 
 	@Init(superclass = true)
 	public void childInit() {
 
-		listClasificadorVoluntario = S.ClasificadorVoluntarioService
+		listClasificadorEvento = S.ClasificadorVoluntarioService
 				.consultarTodos().getObjetos();
 
-		listFortalezas = S.FortalezaService.consultarTodos().getObjetos();
+		listEvento = S.FortalezaService.consultarTodos().getObjetos();
 
-		listProfesion = S.ProfesionService.consultarTodos().getObjetos();
+		listTareas = S.ProfesionService.consultarTodos().getObjetos();
 
 
 	}
 
-	public boolean isClasificadorVoluntario() {
-		return clasificadorVoluntario;
-	}
-
-	public void setClasificadorVoluntario(boolean clasificadorVoluntario) {
-		this.clasificadorVoluntario = clasificadorVoluntario;
-	}
-
-	public boolean isProfesionVoluntario() {
-		return profesionVoluntario;
-	}
-
-	public void setProfesionVoluntario(boolean profesionVoluntario) {
-		this.profesionVoluntario = profesionVoluntario;
-	}
-
-	public boolean isFortalezaVoluntario() {
-		return fortalezaVoluntario;
-	}
-
-	public void setFortalezaVoluntario(boolean fortalezaVoluntario) {
-		this.fortalezaVoluntario = fortalezaVoluntario;
-	}
-
-	public boolean isRedesSociales() {
-		return redesSociales;
-	}
-
-	public void setRedesSociales(boolean redesSociales) {
-		this.redesSociales = redesSociales;
-	}
-
-	public boolean isFechaIngreso() {
-		return fechaIngreso;
-	}
-
-	public void setFechaIngreso(boolean fechaIngreso) {
-		this.fechaIngreso = fechaIngreso;
-	}
-
-	public boolean isPostulado() {
-		return postulado;
-	}
-
-	public void setPostulado(boolean postulado) {
-		this.postulado = postulado;
-	}
-
-	public List<ClasificadorVoluntario> getListClasificadorVoluntario() {
-		return listClasificadorVoluntario;
-	}
-
-	public void setListClasificadorVoluntario(
-			List<ClasificadorVoluntario> listClasificadorVoluntario) {
-		this.listClasificadorVoluntario = listClasificadorVoluntario;
-	}
-
-	public List<Fortaleza> getListFortalezas() {
-		return listFortalezas;
-	}
-
-	public void setListFortalezas(List<Fortaleza> listFortalezas) {
-		this.listFortalezas = listFortalezas;
-	}
-
-	public Set<Fortaleza> getFortalezasSeleccionados() {
-		return fortalezasSeleccionados;
-	}
-
-	public void setFortalezasSeleccionados(
-			Set<Fortaleza> fortalezasSeleccionados) {
-		this.fortalezasSeleccionados = fortalezasSeleccionados;
-	}
-
-	public List<Profesion> getListProfesion() {
-		return listProfesion;
-	}
-
-	public void setListProfesion(List<Profesion> listProfesion) {
-		this.listProfesion = listProfesion;
-	}
-
-	public Set<Profesion> getProfesionesSeleccionadas() {
-		return profesionesSeleccionadas;
-	}
-
-	public void setProfesionesSeleccionadas(
-			Set<Profesion> profesionesSeleccionadas) {
-		this.profesionesSeleccionadas = profesionesSeleccionadas;
-	}
-
-	public List<String> getListRedesSociales() {
-		return listRedesSociales;
-	}
-
-	public void setListRedesSociales(List<String> listRedesSociales) {
-		this.listRedesSociales = listRedesSociales;
-	}
-
-	public Set<String> getRedesSeleccionadas() {
-		return redesSeleccionadas;
-	}
-
-	public void setRedesSeleccionadas(Set<String> redesSeleccionadas) {
-		this.redesSeleccionadas = redesSeleccionadas;
-	}
-
-	public boolean isPorCompletar() {
-		return porCompletar;
-	}
-
-	public void setPorCompletar(boolean porCompletar) {
-		this.porCompletar = porCompletar;
-	}
-
-	public boolean isActivo() {
-		return activo;
-	}
-
-	public void setActivo(boolean activo) {
-		this.activo = activo;
-	}
-
-	public boolean isEgresado() {
-		return egresado;
-	}
-
-	public void setEgresado(boolean egresado) {
-		this.egresado = egresado;
-	}
 
 	@Override
 	public Map<Integer, List<OperacionWizard>> getButtonsToStep() {
@@ -314,9 +173,9 @@ public class VM_ReporteVoluntarioIndex extends VM_WindowWizard {
 	public List<String> getUrlPageToStep() {
 		List<String> urls = new ArrayList<String>();
 
-		urls.add("views/desktop/reportes/voluntario/selectOpcionesReporteVoluntario.zul");
-		urls.add("views/desktop/reportes/voluntario/selectCompletado.zul");
-		urls.add("views/desktop/reportes/voluntario/viewReportPdfVoluntario.zul");
+		urls.add("views/desktop/reportes/evento/selectOpcionesReporteEvento.zul");
+		urls.add("views/desktop/reportes/evento/selectCompletado.zul");
+		urls.add("views/desktop/reportes/evento/viewReportPdfEvento.zul");
 
 		return urls;
 	}
@@ -392,7 +251,7 @@ public class VM_ReporteVoluntarioIndex extends VM_WindowWizard {
 			if (todos) {
 				sql = "SELECT DISTINCT v FROM Voluntario v  WHERE  v.idVoluntario = v.idVoluntario ";
 
-				if (fechaIngreso) {
+				if (fechaPlanificada) {
 					System.out.println("entro");
 					if (fechaDesdeDate == null && fechaHastaDate == null) {
 
@@ -425,7 +284,7 @@ public class VM_ReporteVoluntarioIndex extends VM_WindowWizard {
 			if (!todos) {
 				sql = "SELECT DISTINCT v FROM Voluntario v  WHERE  v.idVoluntario = v.idVoluntario ";
 
-				if (fechaIngreso) {
+				if (fechaPlanificada) {
 					System.out.println("entro");
 					if (fechaDesdeDate == null && fechaHastaDate == null) {
 
@@ -454,34 +313,20 @@ public class VM_ReporteVoluntarioIndex extends VM_WindowWizard {
 					}
 				}
 
-				if (porCompletar || postulado || egresado || activo) {
+				if (cancelado || ejecutado) {
 					String estatusVoluntarios = "";
 
-					if (porCompletar) {
+					if (cancelado) {
 						estatusVoluntarios += EstatusVoluntarioEnum.POR_COMPLETAR
 								.ordinal() + ",";
-						estatusVoluntariosS += EstatusVoluntarioEnum.POR_COMPLETAR
+						estatusEventosP += EstatusVoluntarioEnum.POR_COMPLETAR
 								.toString() + " ";
 					}
 
-					if (postulado) {
+					if (ejecutado) {
 						estatusVoluntarios += EstatusVoluntarioEnum.POSTULADO
 								.ordinal() + ",";
-						estatusVoluntariosS += EstatusVoluntarioEnum.POSTULADO
-								.toString() + " ";
-					}
-
-					if (egresado) {
-						estatusVoluntarios += EstatusVoluntarioEnum.INACTIVO
-								.ordinal() + ",";
-						estatusVoluntariosS += EstatusVoluntarioEnum.INACTIVO
-								.toString() + " ";
-					}
-
-					if (activo) {
-						estatusVoluntarios += EstatusVoluntarioEnum.ACTIVO
-								.ordinal() + ",";
-						estatusVoluntariosS += EstatusVoluntarioEnum.ACTIVO
+						estatusEventosP += EstatusVoluntarioEnum.POSTULADO
 								.toString() + " ";
 					}
 
@@ -496,18 +341,18 @@ public class VM_ReporteVoluntarioIndex extends VM_WindowWizard {
 					sql += "and v.estatusVoluntario in(" + estatusVoluntarios
 							+ ")";
 				}
-				if (profesionVoluntario) {
+				if (evento) {
 
-					if (profesionesSeleccionadas != null) {
+					if (indicadoresSeleccionados != null) {
 						String profesiones = "";
 						int i = 0;
 
-						for (Profesion profesion : profesionesSeleccionadas) {
+						for (Profesion profesion : indicadoresSeleccionados) {
 							i++;
 							profesiones += profesion.getIdProfesion();
-							profesionesP += profesion.getNombre() + "," + " ";
+							tareasP += profesion.getNombre() + "," + " ";
 
-							if (i != profesionesSeleccionadas.size()) {
+							if (i != indicadoresSeleccionados.size()) {
 								profesiones += ",";
 							}
 
@@ -519,18 +364,18 @@ public class VM_ReporteVoluntarioIndex extends VM_WindowWizard {
 					}
 				}
 			}
-			if (fortalezaVoluntario) {
+			if (tarea) {
 
-				if (fortalezasSeleccionados != null) {
+				if (eventosSeleccionados != null) {
 					String fortalezas = "";
 					int i = 0;
 
-					for (Fortaleza fortaleza : fortalezasSeleccionados) {
+					for (Fortaleza fortaleza : eventosSeleccionados) {
 						i++;
 						fortalezas += fortaleza.getIdFortaleza();
-						fortalezasP += fortaleza.getNombre() + "," + " ";
+						indicadoresP += fortaleza.getNombre() + "," + " ";
 
-						if (i != fortalezasSeleccionados.size()) {
+						if (i != eventosSeleccionados.size()) {
 							fortalezas += ",";
 						}
 					}
@@ -541,20 +386,20 @@ public class VM_ReporteVoluntarioIndex extends VM_WindowWizard {
 				}
 
 			}
-			if (clasificadorVoluntario) {
+			if (clasificadorEvento) {
 
-				if (clasificadorVoluntariosSeleccionados != null) {
+				if (clasificadorEventoSeleccionados != null) {
 					String voluntarioClasificado = "";
 					int i = 0;
 
-					for (ClasificadorVoluntario clasificadorVoluntario : clasificadorVoluntariosSeleccionados) {
+					for (ClasificadorVoluntario clasificadorVoluntario : clasificadorEventoSeleccionados) {
 						i++;
-						voluntarioClasificadoP += clasificadorVoluntario
+						eventosClasificadosP += clasificadorVoluntario
 								.getNombre() + "," + " ";
 						voluntarioClasificado += clasificadorVoluntario
 								.getIdClasificadorVoluntario();
 
-						if (i != clasificadorVoluntariosSeleccionados.size()) {
+						if (i != clasificadorEventoSeleccionados.size()) {
 							voluntarioClasificado += ",";
 						}
 					}
@@ -573,30 +418,30 @@ public class VM_ReporteVoluntarioIndex extends VM_WindowWizard {
 			}
 			PayloadVoluntarioResponse payloadVoluntarioResponse = S.VoluntarioService
 					.consultaVoluntariosParametrizado(sql);
-			List<Voluntario> listVoluntarios = payloadVoluntarioResponse
-					.getObjetos();
-			this.getVoluntarios().addAll(listVoluntarios);
-
-			System.out.println(sql);
-			if (listVoluntarios.isEmpty()) {
-				return "E:Error Code 5-Los criterios seleccionados no aportan información para <b>Voluntarios</b>";
-			}
-
-			jrDataSource = new JRBeanCollectionDataSource(listVoluntarios);
+//			List<Voluntario> listVoluntarios = payloadVoluntarioResponse
+//					.getObjetos();
+//			this.getVoluntarios().addAll(listVoluntarios);
+//
+//			System.out.println(sql);
+//			if (listVoluntarios.isEmpty()) {
+//				return "E:Error Code 5-Los criterios seleccionados no aportan información para <b>Voluntarios</b>";
+//			}
+//
+//			jrDataSource = new JRBeanCollectionDataSource(listVoluntarios);
 		}
 		if (currentStep == 2) {
 			type = "pdf";
-			if (!estatusVoluntariosS.equals("")) {
+			if (!estatusEventosP.equals("")) {
 				tStatus = "Estatus";
 			}
-			if (!fortalezasP.equals("")) {
-				tFortalezas = "Fortalezas";
+			if (!indicadoresP.equals("")) {
+				tIndicadores = "Fortalezas";
 			}
-			if (!profesionesP.equals("")) {
-				tProfesiones = "Profesiones";
+			if (!tareasP.equals("")) {
+				tTareas = "Profesiones";
 			}
-			if (!voluntarioClasificadoP.equals("")) {
-				tVoluntarioClasificado = "Clasificacion de Voluntarios";
+			if (!eventosClasificadosP.equals("")) {
+				tEventosClasificados = "Clasificacion de Voluntarios";
 			}
 			fechaDesde = fechaDesdeDate == null ? "" : UtilConverterDataList
 					.convertirLongADate(fechaDesdeDate.getTime());
@@ -618,21 +463,21 @@ public class VM_ReporteVoluntarioIndex extends VM_WindowWizard {
 
 			parametros.put("titulo", "VOLUNTARIOS");
 
-			parametros.put("tEstatus", tStatus);
+			parametros.put("tStatus", tStatus);
 
-			parametros.put("tFortalezas", tFortalezas);
+			parametros.put("tIndicadores", tIndicadores);
 
-			parametros.put("tProfesiones", tProfesiones);
+			parametros.put("tTareas", tTareas);
 
-			parametros.put("tVoluntarioClasificado", tVoluntarioClasificado);
+			parametros.put("tEventosClasificados", tEventosClasificados);
 
-			parametros.put("estatusVoluntariosS", estatusVoluntariosS);
+			parametros.put("estatusEventosP", estatusEventosP);
 
-			parametros.put("fortalezasP", fortalezasP);
+			parametros.put("indicadoresP", indicadoresP);
 
-			parametros.put("profesionesP", profesionesP);
+			parametros.put("tareasP", tareasP);
 
-			parametros.put("voluntarioClasificadoP", voluntarioClasificadoP);
+			parametros.put("eventosClasificadosP", eventosClasificadosP);
 
 			source = "reporte/reportVoluntariosParametrizados.jasper";
 		}
@@ -646,129 +491,84 @@ public class VM_ReporteVoluntarioIndex extends VM_WindowWizard {
 		return "";
 	}
 
-	public String getType() {
-		return type;
-	}
 
-	public void setType(String type) {
-		this.type = type;
-	}
-
-	public String getSource() {
-		return source;
-	}
-
-	public void setSource(String source) {
-		this.source = source;
-	}
-
-	public Map<String, Object> getParametros() {
-		return parametros;
-	}
-
-	public void setParametros(Map<String, Object> parametros) {
-		this.parametros = parametros;
-	}
-
-	public List<Voluntario> getVoluntarios() {
-		if (this.voluntarios == null) {
-			this.voluntarios = new ArrayList<>();
-		}
-		return voluntarios;
-	}
-
-	public void setVoluntarios(List<Voluntario> voluntarios) {
-		this.voluntarios = voluntarios;
-	}
-
-	public JRDataSource getJrDataSource() {
-		return jrDataSource;
-	}
-
-	public void setJrDataSource(JRDataSource jrDataSource) {
-		this.jrDataSource = jrDataSource;
-	}
-
-	public String getVoluntarioClasificadoP() {
-		return voluntarioClasificadoP;
-	}
-
-	public void setVoluntarioClasificadoP(String voluntarioClasificadoP) {
-		this.voluntarioClasificadoP = voluntarioClasificadoP;
-	}
-
-	public String getEstatusVoluntariosS() {
-		return estatusVoluntariosS;
-	}
-
-	public void setEstatusVoluntariosS(String estatusVoluntariosS) {
-		this.estatusVoluntariosS = estatusVoluntariosS;
-	}
-
-	public String getFortalezasP() {
-		return fortalezasP;
-	}
-
-	public void setFortalezasP(String fortalezasP) {
-		this.fortalezasP = fortalezasP;
-	}
-
-	public String getProfesionesP() {
-		return profesionesP;
-	}
-
-	public void setProfesionesP(String profesionesP) {
-		this.profesionesP = profesionesP;
+	public boolean isClasificadorEvento() {
+		return clasificadorEvento;
 	}
 
 
-	
-	public String gettStatus() {
-		return tStatus;
+	public void setClasificadorEvento(boolean clasificadorEvento) {
+		this.clasificadorEvento = clasificadorEvento;
 	}
 
-	public void settStatus(String tStatus) {
-		this.tStatus = tStatus;
+
+	public boolean isEvento() {
+		return evento;
 	}
 
-	public String gettFechaDesde() {
-		return tFechaDesde;
+
+	public void setEvento(boolean evento) {
+		this.evento = evento;
 	}
 
-	public void settFechaDesde(String tFechaDesde) {
-		this.tFechaDesde = tFechaDesde;
+
+	public boolean isTarea() {
+		return tarea;
 	}
 
-	public String gettFechaHasta() {
-		return tFechaHasta;
+
+	public void setTarea(boolean tarea) {
+		this.tarea = tarea;
 	}
 
-	public void settFechaHasta(String tFechaHasta) {
-		this.tFechaHasta = tFechaHasta;
+
+	public boolean isIndicador() {
+		return indicador;
 	}
 
-	public String gettVoluntarioClasificado() {
-		return tVoluntarioClasificado;
+
+	public void setIndicador(boolean indicador) {
+		this.indicador = indicador;
 	}
 
-	public void settVoluntarioClasificado(String tVoluntarioClasificado) {
-		this.tVoluntarioClasificado = tVoluntarioClasificado;
+
+	public boolean isFechaPlanificada() {
+		return fechaPlanificada;
 	}
 
-	public String gettFortalezas() {
-		return tFortalezas;
+
+	public void setFechaPlanificada(boolean fechaPlanificada) {
+		this.fechaPlanificada = fechaPlanificada;
 	}
 
-	public void settFortalezas(String tFortalezas) {
-		this.tFortalezas = tFortalezas;
+
+	public boolean isEjecutado() {
+		return ejecutado;
 	}
 
-	public String gettProfesiones() {
-		return tProfesiones;
+
+	public void setEjecutado(boolean ejecutado) {
+		this.ejecutado = ejecutado;
 	}
 
-	public void settProfesiones(String tProfesiones) {
-		this.tProfesiones = tProfesiones;
+
+	public boolean isCancelado() {
+		return cancelado;
+	}
+
+
+	public void setCancelado(boolean cancelado) {
+		this.cancelado = cancelado;
+	}
+
+
+	public boolean isTodos() {
+		return todos;
+	}
+
+
+	public void setTodos(boolean todos) {
+		this.todos = todos;
 	}
 
 
@@ -776,40 +576,274 @@ public class VM_ReporteVoluntarioIndex extends VM_WindowWizard {
 		return fechaDesdeDate;
 	}
 
+
 	public void setFechaDesdeDate(Date fechaDesdeDate) {
 		this.fechaDesdeDate = fechaDesdeDate;
 	}
+
 
 	public Date getFechaHastaDate() {
 		return fechaHastaDate;
 	}
 
+
 	public void setFechaHastaDate(Date fechaHastaDate) {
 		this.fechaHastaDate = fechaHastaDate;
 	}
 
-	public boolean isTodos() {
-		return todos;
+
+	public String getType() {
+		return type;
 	}
 
-	public void setTodos(boolean todos) {
-		this.todos = todos;
+
+	public void setType(String type) {
+		this.type = type;
 	}
+
+
+	public String getSource() {
+		return source;
+	}
+
+
+	public void setSource(String source) {
+		this.source = source;
+	}
+
+
+	public JRDataSource getJrDataSource() {
+		return jrDataSource;
+	}
+
+
+	public void setJrDataSource(JRDataSource jrDataSource) {
+		this.jrDataSource = jrDataSource;
+	}
+
+
+	public Map<String, Object> getParametros() {
+		return parametros;
+	}
+
+
+	public void setParametros(Map<String, Object> parametros) {
+		this.parametros = parametros;
+	}
+
+
+	public List<ClasificadorVoluntario> getListClasificadorEvento() {
+		return listClasificadorEvento;
+	}
+
+
+	public void setListClasificadorEvento(
+			List<ClasificadorVoluntario> listClasificadorEvento) {
+		this.listClasificadorEvento = listClasificadorEvento;
+	}
+
+
+	public Set<ClasificadorVoluntario> getClasificadorEventoSeleccionados() {
+		return clasificadorEventoSeleccionados;
+	}
+
+
+	public void setClasificadorEventoSeleccionados(
+			Set<ClasificadorVoluntario> clasificadorEventoSeleccionados) {
+		this.clasificadorEventoSeleccionados = clasificadorEventoSeleccionados;
+	}
+
+
+	public List<Fortaleza> getListEvento() {
+		return listEvento;
+	}
+
+
+	public void setListEvento(List<Fortaleza> listEvento) {
+		this.listEvento = listEvento;
+	}
+
+
+	public Set<Fortaleza> getEventosSeleccionados() {
+		return eventosSeleccionados;
+	}
+
+
+	public void setEventosSeleccionados(Set<Fortaleza> eventosSeleccionados) {
+		this.eventosSeleccionados = eventosSeleccionados;
+	}
+
+
+	public List<Profesion> getListTareas() {
+		return listTareas;
+	}
+
+
+	public void setListTareas(List<Profesion> listTareas) {
+		this.listTareas = listTareas;
+	}
+
+
+	public Set<Profesion> getTareasSeleccionadas() {
+		return tareasSeleccionadas;
+	}
+
+
+	public void setTareasSeleccionadas(Set<Profesion> tareasSeleccionadas) {
+		this.tareasSeleccionadas = tareasSeleccionadas;
+	}
+
+
+	public List<Voluntario> getListIndicadores() {
+		return listIndicadores;
+	}
+
+
+	public void setListIndicadores(List<Voluntario> listIndicadores) {
+		this.listIndicadores = listIndicadores;
+	}
+
+
+	public Set<Profesion> getIndicadoresSeleccionados() {
+		return indicadoresSeleccionados;
+	}
+
+
+	public void setIndicadoresSeleccionados(Set<Profesion> indicadoresSeleccionados) {
+		this.indicadoresSeleccionados = indicadoresSeleccionados;
+	}
+
+
+	public String getEventosClasificadosP() {
+		return eventosClasificadosP;
+	}
+
+
+	public void setEventosClasificadosP(String eventosClasificadosP) {
+		this.eventosClasificadosP = eventosClasificadosP;
+	}
+
+
+	public String getEstatusEventosP() {
+		return estatusEventosP;
+	}
+
+
+	public void setEstatusEventosP(String estatusEventosP) {
+		this.estatusEventosP = estatusEventosP;
+	}
+
+
+	public String getIndicadoresP() {
+		return indicadoresP;
+	}
+
+
+	public void setIndicadoresP(String indicadoresP) {
+		this.indicadoresP = indicadoresP;
+	}
+
+
+	public String getTareasP() {
+		return tareasP;
+	}
+
+
+	public void setTareasP(String tareasP) {
+		this.tareasP = tareasP;
+	}
+
+
+	public String getEventosP() {
+		return eventosP;
+	}
+
+
+	public void setEventosP(String eventosP) {
+		this.eventosP = eventosP;
+	}
+
+
+	public String gettStatus() {
+		return tStatus;
+	}
+
+
+	public void settStatus(String tStatus) {
+		this.tStatus = tStatus;
+	}
+
+
+	public String gettFechaDesde() {
+		return tFechaDesde;
+	}
+
+
+	public void settFechaDesde(String tFechaDesde) {
+		this.tFechaDesde = tFechaDesde;
+	}
+
+
+	public String gettFechaHasta() {
+		return tFechaHasta;
+	}
+
+
+	public void settFechaHasta(String tFechaHasta) {
+		this.tFechaHasta = tFechaHasta;
+	}
+
+
+	public String gettEventosClasificados() {
+		return tEventosClasificados;
+	}
+
+
+	public void settEventosClasificados(String tEventosClasificados) {
+		this.tEventosClasificados = tEventosClasificados;
+	}
+
+
+	public String gettIndicadores() {
+		return tIndicadores;
+	}
+
+
+	public void settIndicadores(String tIndicadores) {
+		this.tIndicadores = tIndicadores;
+	}
+
+
+	public String gettTareas() {
+		return tTareas;
+	}
+
+
+	public void settTareas(String tTareas) {
+		this.tTareas = tTareas;
+	}
+
 
 	public String getFechaDesde() {
 		return fechaDesde;
 	}
 
+
 	public void setFechaDesde(String fechaDesde) {
 		this.fechaDesde = fechaDesde;
 	}
+
 
 	public String getFechaHasta() {
 		return fechaHasta;
 	}
 
+
 	public void setFechaHasta(String fechaHasta) {
 		this.fechaHasta = fechaHasta;
 	}
-
+	
+	
+	
+	
 }

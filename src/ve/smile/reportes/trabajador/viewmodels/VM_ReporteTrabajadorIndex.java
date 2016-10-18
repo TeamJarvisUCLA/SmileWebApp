@@ -98,7 +98,7 @@ public class VM_ReporteTrabajadorIndex extends VM_WindowWizard {
 	@Init(superclass = true)
 	public void childInit() {
 
-		
+		parametros.clear();
 
 		listFortalezas = S.FortalezaService.consultarTodos().getObjetos();
 
@@ -312,7 +312,9 @@ public class VM_ReporteTrabajadorIndex extends VM_WindowWizard {
 	@Override
 	public String executeFinalizar(Integer currentStep) {
 		if (currentStep == 3) {
+			parametros.clear();
 			restartWizard();
+			parametros.clear();
 		}
 
 		return "";
@@ -417,14 +419,14 @@ public class VM_ReporteTrabajadorIndex extends VM_WindowWizard {
 						estatusTrabajadores += EstatusTrabajadorEnum.INACTIVO
 								.ordinal() + ",";
 						estatusTrabajadores += EstatusTrabajadorEnum.INACTIVO
-								.toString() + " ";
+								.ordinal() + " ";
 					}
 
 					if (activo) {
 						estatusTrabajadores += EstatusTrabajadorEnum.ACTIVO
 								.ordinal() + ",";
 						estatusTrabajadores += EstatusTrabajadorEnum.ACTIVO
-								.toString() + " ";
+								.ordinal() + " ";
 					}
 
 					int tamano = estatusTrabajadores.length();
@@ -490,15 +492,19 @@ public class VM_ReporteTrabajadorIndex extends VM_WindowWizard {
 				return "E:Error Code 5-No se han seleccionados criterios para la consulta <b>Trabajadores</b>";
 
 			}
+
+			System.out.println(sql);
 			PayloadTrabajadorResponse payloadTrabajadorResponse = S.TrabajadorService
 					.consultaTrabajadoresParametrizado(sql);
 			List<Trabajador> listTrabajadores = payloadTrabajadorResponse
 					.getObjetos();
 			this.getTrabajadores().addAll(listTrabajadores);
 
-			System.out.println(sql);
 			if (listTrabajadores.isEmpty()) {
 				return "E:Error Code 5-Los criterios seleccionados no aportan información para <b>Trabajadores</b>";
+			}
+			for(Trabajador trabajador : listTrabajadores){
+				System.out.println(trabajador.getEstatusTrabajador());
 			}
 
 			jrDataSource = new JRBeanCollectionDataSource(listTrabajadores);
@@ -533,7 +539,7 @@ public class VM_ReporteTrabajadorIndex extends VM_WindowWizard {
 
 			parametros.put("fechaHasta", fechaHasta);
 
-			parametros.put("titulo", "VOLUNTARIOS");
+			parametros.put("titulo", "TRABAJADORES");
 
 			parametros.put("tEstatus", tStatus);
 

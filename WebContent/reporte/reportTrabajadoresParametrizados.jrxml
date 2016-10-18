@@ -10,27 +10,27 @@
 	<parameter name="redesP" class="java.lang.String"/>
 	<parameter name="fechaDesde" class="java.lang.String"/>
 	<parameter name="fechaHasta" class="java.lang.String"/>
-	<parameter name="estatusVolutariosS" class="java.lang.String"/>
 	<parameter name="profesionesP" class="java.lang.String"/>
 	<parameter name="fortalezasP" class="java.lang.String"/>
-	<parameter name="voluntarioClasificadoP" class="java.lang.String"/>
-	<parameter name="estatusVoluntariosS" class="java.lang.String"/>
+	<parameter name="estatusTrabajadores" class="java.lang.String"/>
 	<parameter name="tFechaDesde" class="java.lang.String"/>
 	<parameter name="tfechaHasta" class="java.lang.String"/>
 	<parameter name="tEstatus" class="java.lang.String"/>
-	<parameter name="tVoluntarioClasificado" class="java.lang.String"/>
 	<parameter name="tProfesiones" class="java.lang.String"/>
 	<parameter name="tFortalezas" class="java.lang.String"/>
 	<parameter name="tRedes" class="java.lang.String"/>
-	<queryString language="SQL">
+	<parameter name="estatusTrabajador" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
 		<![CDATA[]]>
 	</queryString>
-	<field name="estatusVoluntario" class="java.lang.Integer"/>
 	<field name="fkPersona.nombre" class="java.lang.String"/>
 	<field name="fkPersona.apellido" class="java.lang.String"/>
 	<field name="fkPersona.identificacion" class="java.lang.String"/>
 	<field name="fkPersona.direccion" class="java.lang.String"/>
 	<field name="fkPersona.telefono1" class="java.lang.String"/>
+	<field name="estatusTrabajador" class="java.lang.Integer"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -179,7 +179,7 @@
 				<textElement>
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Estatus Voluntario]]></text>
+				<text><![CDATA[Estatus Trabajador]]></text>
 			</staticText>
 			<staticText>
 				<reportElement key="staticText" mode="Opaque" x="116" y="230" width="120" height="15" forecolor="#FFFFFF" backcolor="#333333" uuid="757384e6-e86b-4625-8990-0922fe949380"/>
@@ -203,10 +203,6 @@
 				<textFieldExpression><![CDATA[$F{fkPersona.nombre}+" "+$F{fkPersona.apellido}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement positionType="Float" x="448" y="0" width="100" height="20" isPrintWhenDetailOverflows="true" uuid="a23eaa8c-cc79-4bfd-aeaf-ecc3474d8522"/>
-				<textFieldExpression><![CDATA[$F{estatusVoluntario}==0 ? "Postulado" : $F{estatusVoluntario} == 1 ? "Por Completar" : $F{estatusVoluntario} == 2 ? "Activo" : $F{estatusVoluntario} == 3 ? "Inactivo" : $F{estatusVoluntario} == 4 ? "Rechazado" : ""]]></textFieldExpression>
-			</textField>
-			<textField isStretchWithOverflow="true">
 				<reportElement positionType="Float" x="31" y="3" width="100" height="20" isPrintWhenDetailOverflows="true" uuid="5cb31127-9ddf-4bea-bfd2-0e569b6faa3f"/>
 				<textFieldExpression><![CDATA[$F{fkPersona.identificacion}]]></textFieldExpression>
 			</textField>
@@ -217,6 +213,10 @@
 			<textField isStretchWithOverflow="true">
 				<reportElement positionType="Float" x="347" y="2" width="100" height="20" isPrintWhenDetailOverflows="true" uuid="b2f956a5-5dfb-498e-a4c9-f22d0e1773a1"/>
 				<textFieldExpression><![CDATA[$F{fkPersona.direccion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="452" y="3" width="100" height="20" uuid="d87ce8fa-35e2-4c63-b4e1-2cb9da1fcb8c"/>
+				<textFieldExpression><![CDATA[$F{estatusTrabajador} == 0 ? "Activo" : $F{estatusTrabajador} == 1 ? "Inactivo"  : ""]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

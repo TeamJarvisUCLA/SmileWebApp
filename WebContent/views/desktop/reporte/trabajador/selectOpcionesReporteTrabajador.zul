@@ -43,11 +43,11 @@
 					
 					<div sclass="col s3">
 						<checkbox label="Fortalezas"
-							checked="@bind(vm.fortalezaVoluntario)" />
+							checked="@bind(vm.fortalezaTrabajador)" />
 						<listbox id="listbox1" sclass="animated flipInX"
 							model="@load(vm.listFortalezas)" checkmark="true" multiple="true"
 							height="150px" selectedItems="@bind(vm.fortalezasSeleccionados)"
-							visible="@bind(vm.fortalezaVoluntario)">
+							visible="@bind(vm.fortalezaTrabajador)">
 							<listhead>
 								<listheader width="100%"
 									label="Fortalezas" />
@@ -65,11 +65,11 @@
 					</div>
 					<div sclass="col s3">
 						<checkbox label="Profesiones"
-							checked="@bind(vm.profesionVoluntario)" />
+							checked="@bind(vm.profesionTrabajador)" />
 						<listbox id="listbox3" sclass="animated flipInX"
 							model="@load(vm.listProfesion)" checkmark="true" multiple="true"
 							height="150px" selectedItems="@bind(vm.profesionesSeleccionadas)"
-							visible="@bind(vm.profesionVoluntario)">
+							visible="@bind(vm.profesionTrabajador)">
 							<listhead>
 								<listheader width="100%"
 									label="Profesion" />

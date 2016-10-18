@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="documento_asignacion" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" scriptletClass="net.sf.jasperreports.engine.JRDefaultScriptlet" uuid="2cc1dfe8-35f4-44cb-b41c-1c58e9d3b41e">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="101"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="titulo" class="java.lang.String"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["C:\\Users\\Soaint\\Desktop\\"]]></defaultValueExpression>
@@ -106,7 +106,7 @@
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement positionType="Float" x="408" y="62" width="100" height="20" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="6a01c63c-3b43-402e-92d9-edf3f14e8d5b"/>
-				<textFieldExpression><![CDATA[$P{fechaHasta}.equals("") ? null : $P{fechaHasta} ]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{fechaHasta}.equals("") ? null : $P{fechaHasta}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
 				<reportElement positionType="Float" x="116" y="167" width="432" height="20" isPrintWhenDetailOverflows="true" uuid="469a4b5c-5bfa-49b7-a4ec-054c0e815b28"/>
@@ -136,7 +136,7 @@
 				<textElement>
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{tfechaHasta}.equals("") ? null : $P{tfechaHasta} ]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{tfechaHasta}.equals("") ? null : $P{tfechaHasta}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement positionType="Float" mode="Opaque" x="8" y="118" width="100" height="19" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" forecolor="#FFFFFF" backcolor="#333333" uuid="e5772a53-a17c-4393-a098-838bf5a86fd7"/>

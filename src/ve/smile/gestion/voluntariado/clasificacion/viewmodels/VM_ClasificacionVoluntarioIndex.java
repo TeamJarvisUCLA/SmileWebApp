@@ -24,9 +24,11 @@ import org.zkoss.bind.annotation.NotifyChange;
 import ve.smile.consume.services.S;
 import ve.smile.dto.Fortaleza;
 import ve.smile.dto.Voluntario;
+import ve.smile.dto.VoluntarioClasificado;
 import ve.smile.dto.ClasificadorVoluntario;
 import ve.smile.enums.EstatusVoluntarioEnum;
 import ve.smile.payload.response.PayloadVoluntarioResponse;
+import ve.smile.payload.response.PayloadVoluntarioClasificadoResponse;
 import ve.smile.payload.response.PayloadClasificadorVoluntarioResponse;
 
 public class VM_ClasificacionVoluntarioIndex extends VM_WindowWizard <Voluntario>
@@ -259,6 +261,29 @@ public class VM_ClasificacionVoluntarioIndex extends VM_WindowWizard <Voluntario
 			{
 				return "E:Error Code 5-Debe seleccionar un <b>voluntario</b>";
 			}
+		}
+		return "";
+	}
+	
+	@Override
+	public String isValidSearchDataSiguiente(Integer currentStep)
+	{
+		if (currentStep == 1)
+		{
+			// BUSCAR CLASIFICACIONES DEL VOLUNTARIO
+			this.setVoluntarioClasificaciones(null);
+			Map<String, String> criterios = new HashMap<>();
+			criterios.put("fkVoluntario.idVoluntario", String.valueOf(this.getSelectedObject().getIdVoluntario()));
+			PayloadVoluntarioClasificadoResponse payloadVoluntarioClasificadoResponse = S.VoluntarioClasificadoService.consultarCriterios(TypeQuery.EQUAL, criterios);
+			if (payloadVoluntarioClasificadoResponse.getObjetos() != null)
+			{
+				for (VoluntarioClasificado vC : payloadVoluntarioClasificadoResponse.getObjetos())
+				{
+					this.getVoluntarioClasificaciones().add(vC.getFkClasificadorVoluntario());
+				}
+			}
+			BindUtils.postNotifyChange(null, null, this, "*");
+
 		}
 		return "";
 	}

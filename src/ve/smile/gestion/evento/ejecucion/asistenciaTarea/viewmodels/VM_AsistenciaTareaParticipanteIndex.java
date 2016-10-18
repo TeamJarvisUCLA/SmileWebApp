@@ -15,6 +15,7 @@ import ve.smile.dto.EventPlanTarea;
 import ve.smile.dto.EventPlanTareaTrabajador;
 import ve.smile.dto.EventPlanTareaVoluntario;
 import ve.smile.dto.EventoPlanificado;
+import ve.smile.dto.IndicadorEventoPlanificado;
 import ve.smile.dto.Trabajador;
 import ve.smile.dto.TsPlanActividadTrabajador;
 import ve.smile.dto.TsPlanActividadVoluntario;
@@ -293,9 +294,10 @@ public class VM_AsistenciaTareaParticipanteIndex extends VM_WindowWizard{
 		botones.put(2, listOperacionWizard2);
 
 		List<OperacionWizard> listOperacionWizard3 = new ArrayList<OperacionWizard>();
-		listOperacionWizard3.add(OperacionWizardHelper
-				.getPorType(OperacionWizardEnum.CUSTOM1));
-
+		OperacionWizard operacionWizardCustom = new OperacionWizard(
+				OperacionWizardEnum.CUSTOM1.ordinal(), "Aceptar", "Custom1",
+				"fa fa-check", "indigo", "Aceptar");
+		listOperacionWizard3.add(operacionWizardCustom);
 		botones.put(3, listOperacionWizard3);
 
 		return botones;
@@ -330,6 +332,8 @@ public class VM_AsistenciaTareaParticipanteIndex extends VM_WindowWizard{
 
 		return urls;
 	}
+	
+	
 
 	@Override
 	public String executeSiguiente(Integer currentStep) {
@@ -397,6 +401,29 @@ public class VM_AsistenciaTareaParticipanteIndex extends VM_WindowWizard{
 
 	@Override
 	public String executeFinalizar(Integer currentStep) {
+		
+		for(EventPlanTarea tarea: this.listEventPlanTarea){
+			if(tarea.getListPlanTareaVoluntarios()!= null & tarea.getListPlanTareaVoluntarios().size()>0){
+				for(EventPlanTareaVoluntario evePsTaVol: tarea.getListPlanTareaVoluntarios()){
+					EventPlanTareaVoluntario eventPlanTareaVoluntario = S.EventPlanTareaVoluntarioService.consultarUno(evePsTaVol.getIdEventPlanTareaVoluntario()).getObjetos().get(0);
+					eventPlanTareaVoluntario.setEjecucion(evePsTaVol.getEjecucion());
+					PayloadEventPlanTareaVoluntarioResponse eventPlanTareaVoluntarioResponse = S.EventPlanTareaVoluntarioService.modificar(eventPlanTareaVoluntario);
+					if (!UtilPayload.isOK(eventPlanTareaVoluntarioResponse)) {
+						 return (String) eventPlanTareaVoluntarioResponse.getInformacion(IPayloadResponse.MENSAJE);
+					 }
+				}
+			}
+			if(tarea.getListEventPlanTareaTrabajadors() != null & tarea.getListEventPlanTareaTrabajadors().size() > 0){
+				for(EventPlanTareaTrabajador evePsTareaTra: tarea.getListEventPlanTareaTrabajadors()){
+					EventPlanTareaTrabajador eventPlanTareaTrabajador = S.EventPlanTareaTrabajadorService.consultarUno(evePsTareaTra.getIdEventPlanTareaTrabajador()).getObjetos().get(0);
+					eventPlanTareaTrabajador.setEjecucion(evePsTareaTra.getEjecucion());
+					PayloadEventPlanTareaTrabajadorResponse eventPlanTareaTrabajadorResponse = S.EventPlanTareaTrabajadorService.modificar(eventPlanTareaTrabajador);
+					if (!UtilPayload.isOK(eventPlanTareaTrabajadorResponse)) {
+						 return (String) eventPlanTareaTrabajadorResponse.getInformacion(IPayloadResponse.MENSAJE);
+					 }
+				}
+			}
+		}
 		goToNextStep();
 		return "";
 	}
@@ -407,6 +434,16 @@ public class VM_AsistenciaTareaParticipanteIndex extends VM_WindowWizard{
 
 		}
 		return "";
+	}
+	
+	@Override
+	public String executeCustom1(Integer currentStep) {
+		this.setSelectedObject(new EventoPlanificado());
+
+		BindUtils.postNotifyChange(null, null, this, "selectedObject");
+		restartWizard();
+		return "";
+
 	}
 
 	@Override

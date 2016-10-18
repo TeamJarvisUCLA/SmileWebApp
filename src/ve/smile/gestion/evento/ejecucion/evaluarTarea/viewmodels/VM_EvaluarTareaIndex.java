@@ -4,20 +4,27 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
+
 import ve.smile.consume.services.S;
 import ve.smile.dto.EventPlanTarea;
+import ve.smile.dto.EventPlanTareaTrabajador;
+import ve.smile.dto.EventPlanTareaVoluntario;
 import ve.smile.dto.EventoPlanificado;
 import ve.smile.dto.Motivo;
 import ve.smile.payload.response.PayloadEventPlanTareaResponse;
+import ve.smile.payload.response.PayloadEventPlanTareaTrabajadorResponse;
+import ve.smile.payload.response.PayloadEventPlanTareaVoluntarioResponse;
 import ve.smile.payload.response.PayloadEventoPlanificadoResponse;
 import karen.core.dialog.catalogue.generic.data.CatalogueDialogData;
 import karen.core.dialog.catalogue.generic.events.CatalogueDialogCloseEvent;
 import karen.core.dialog.catalogue.generic.events.listeners.CatalogueDialogCloseListener;
 import karen.core.dialog.generic.enums.DialogActionEnum;
 import karen.core.util.UtilDialog;
+import karen.core.util.payload.UtilPayload;
 import karen.core.wizard.buttons.data.OperacionWizard;
 import karen.core.wizard.buttons.enums.OperacionWizardEnum;
 import karen.core.wizard.buttons.helpers.OperacionWizardHelper;
@@ -152,6 +159,23 @@ public class VM_EvaluarTareaIndex extends VM_WindowWizard{
 	}
 	
 	@Override
+	public String executeFinalizar(Integer currentStep) {
+		
+		for(EventPlanTarea tarea: this.eventoPlanificadotareas){
+			EventPlanTarea eventPlanTarea = S.EventPlanTareaService.consultarUno(tarea.getIdEventPlanTarea()).getObjetos().get(0);
+			eventPlanTarea.setEjecucion(tarea.isEjecucion());
+			eventPlanTarea.setFechaEjecutada(tarea.getFechaEjecutadaDate().getTime());
+			PayloadEventPlanTareaResponse eventPlanTareaResponse = S.EventPlanTareaService.modificar(eventPlanTarea);
+			if (!UtilPayload.isOK(eventPlanTareaResponse)) {
+				 return (String) eventPlanTareaResponse.getInformacion(IPayloadResponse.MENSAJE);
+			 }
+		}
+		goToNextStep();
+		return "";
+	}
+
+	
+	@Override
 	public String executeSiguiente(Integer currentStep) {
 		goToNextStep();
 
@@ -163,6 +187,16 @@ public class VM_EvaluarTareaIndex extends VM_WindowWizard{
 		goToPreviousStep();
 
 		return "";
+	}
+	
+	@Override
+	public String executeCustom1(Integer currentStep) {
+		this.setSelectedObject(new EventoPlanificado());
+
+		BindUtils.postNotifyChange(null, null, this, "selectedObject");
+		restartWizard();
+		return "";
+
 	}
 
 	public List<EventPlanTarea> getEventoPlanificadotareas() {

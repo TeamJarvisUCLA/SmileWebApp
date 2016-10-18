@@ -54,8 +54,10 @@ public class VM_RegistroResultadoEventoPlanificado extends VM_WindowWizard {
 		botones.put(2, listOperacionWizard2);
 
 		List<OperacionWizard> listOperacionWizard3 = new ArrayList<OperacionWizard>();
-		listOperacionWizard3.add(OperacionWizardHelper
-				.getPorType(OperacionWizardEnum.CUSTOM1));
+		OperacionWizard operacionWizardCustom = new OperacionWizard(
+				OperacionWizardEnum.CUSTOM1.ordinal(), "Aceptar", "Custom1",
+				"fa fa-check", "indigo", "Aceptar");
+		listOperacionWizard3.add(operacionWizardCustom);
 
 		botones.put(3, listOperacionWizard3);
 

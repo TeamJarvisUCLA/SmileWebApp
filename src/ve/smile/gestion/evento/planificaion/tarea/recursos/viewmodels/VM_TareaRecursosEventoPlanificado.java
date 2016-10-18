@@ -27,6 +27,7 @@ import org.zkoss.bind.annotation.Init;
 import ve.smile.consume.services.S;
 import ve.smile.dto.EventPlanTarea;
 import ve.smile.dto.EventPlanTareaRecurso;
+import ve.smile.dto.EventPlanTareaTrabajador;
 import ve.smile.dto.EventoPlanificado;
 import ve.smile.dto.Indicador;
 import ve.smile.dto.Recurso;
@@ -136,6 +137,16 @@ public class VM_TareaRecursosEventoPlanificado extends
 		BindUtils.postNotifyChange(null, null, this, "listEventPlanTareas");
 	}
 
+	@Command("eliminarRecurso")
+	public void eliminarRecurso(
+			@BindingParam("indicadorEventoPsTarea") EventPlanTareaRecurso eventPlanTareaRecurso,
+			@BindingParam("index") int index) {
+		this.getListEventPlanTareas().get(index)
+				.getListEventPlanTareaRecursos()
+				.remove(eventPlanTareaRecurso);
+		BindUtils.postNotifyChange(null, null, this, "listEventPlanTareas");
+	}
+	
 	@Override
 	public Map<Integer, List<OperacionWizard>> getButtonsToStep() {
 		Map<Integer, List<OperacionWizard>> botones = new HashMap<Integer, List<OperacionWizard>>();
@@ -155,8 +166,10 @@ public class VM_TareaRecursosEventoPlanificado extends
 		botones.put(2, listOperacionWizard2);
 
 		List<OperacionWizard> listOperacionWizard3 = new ArrayList<OperacionWizard>();
-		listOperacionWizard3.add(OperacionWizardHelper
-				.getPorType(OperacionWizardEnum.CUSTOM1));
+		OperacionWizard operacionWizardCustom = new OperacionWizard(
+				OperacionWizardEnum.CUSTOM1.ordinal(), "Aceptar", "Custom1",
+				"fa fa-check", "indigo", "Aceptar");
+		listOperacionWizard3.add(operacionWizardCustom);
 
 		botones.put(3, listOperacionWizard3);
 

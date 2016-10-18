@@ -15,12 +15,10 @@ import karen.core.wizard.buttons.data.OperacionWizard;
 import karen.core.wizard.buttons.enums.OperacionWizardEnum;
 import karen.core.wizard.buttons.helpers.OperacionWizardHelper;
 import karen.core.wizard.viewmodels.VM_WindowWizard;
-
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
-
 import lights.core.enums.TypeQuery;
 import lights.core.payload.response.IPayloadResponse;
 import ve.smile.consume.services.S;
@@ -28,24 +26,13 @@ import ve.smile.dto.EventPlanTarea;
 import ve.smile.dto.EventPlanTareaTrabajador;
 import ve.smile.dto.EventPlanTareaVoluntario;
 import ve.smile.dto.EventoPlanificado;
-import ve.smile.dto.Indicador;
-import ve.smile.dto.IndicadorEventoPlanTarea;
-import ve.smile.dto.Persona;
 import ve.smile.dto.Trabajador;
-import ve.smile.dto.TsPlan;
-import ve.smile.dto.TsPlanActividad;
 import ve.smile.dto.TsPlanActividadTrabajador;
-import ve.smile.dto.TsPlanActividadVoluntario;
 import ve.smile.dto.Voluntario;
 import ve.smile.payload.response.PayloadEventPlanTareaResponse;
 import ve.smile.payload.response.PayloadEventPlanTareaTrabajadorResponse;
 import ve.smile.payload.response.PayloadEventPlanTareaVoluntarioResponse;
 import ve.smile.payload.response.PayloadEventoPlanificadoResponse;
-import ve.smile.payload.response.PayloadIndicadorEventoPlanTareaResponse;
-import ve.smile.payload.response.PayloadTsPlanActividadResponse;
-import ve.smile.payload.response.PayloadTsPlanActividadTrabajadorResponse;
-import ve.smile.payload.response.PayloadTsPlanActividadVoluntarioResponse;
-import ve.smile.payload.response.PayloadTsPlanResponse;
 
 public class VM_TareaParticipanteEventoPlanificado extends VM_WindowWizard{
 
@@ -172,12 +159,12 @@ public class VM_TareaParticipanteEventoPlanificado extends VM_WindowWizard{
 
 	@Command("eliminarVoluntario")
 	public void eliminarVoluntario(
-			@BindingParam("tsPlanActividadVoluntario") TsPlanActividadVoluntario tsPlanActividadVoluntario,
+			@BindingParam("eventPlanTareaVoluntario") EventPlanTareaVoluntario planTareaVoluntario,
 			@BindingParam("index") int index) {
 		this.getListEventPlanTarea().get(index)
 				.getListPlanTareaVoluntarios()
-				.remove(tsPlanActividadVoluntario);
-		BindUtils.postNotifyChange(null, null, this, "listTsPlanActividads");
+				.remove(planTareaVoluntario);
+		BindUtils.postNotifyChange(null, null, this, "listEventPlanTarea");
 	}
 
 	// Trabajadores
@@ -277,12 +264,12 @@ public class VM_TareaParticipanteEventoPlanificado extends VM_WindowWizard{
 
 	@Command("eliminarTrabajador")
 	public void eliminarTrabajador(
-			@BindingParam("tsPlanActividadTrabajador") TsPlanActividadTrabajador tsPlanActividadTrabajador,
+			@BindingParam("eventPlanTareaTrabajador") EventPlanTareaTrabajador eventPlanTareaTrabajador,
 			@BindingParam("index") int index) {
 		this.getListEventPlanTarea().get(index)
 				.getListEventPlanTareaTrabajadors()
-				.remove(tsPlanActividadTrabajador);
-		BindUtils.postNotifyChange(null, null, this, "listTsPlanActividads");
+				.remove(eventPlanTareaTrabajador);
+		BindUtils.postNotifyChange(null, null, this, "listEventPlanTarea");
 	}
 
 	@Override
@@ -305,8 +292,10 @@ public class VM_TareaParticipanteEventoPlanificado extends VM_WindowWizard{
 		botones.put(2, listOperacionWizard2);
 
 		List<OperacionWizard> listOperacionWizard3 = new ArrayList<OperacionWizard>();
-		listOperacionWizard3.add(OperacionWizardHelper
-				.getPorType(OperacionWizardEnum.CUSTOM1));
+		OperacionWizard operacionWizardCustom = new OperacionWizard(
+				OperacionWizardEnum.CUSTOM1.ordinal(), "Aceptar", "Custom1",
+				"fa fa-check", "indigo", "Aceptar");
+		listOperacionWizard3.add(operacionWizardCustom);
 
 		botones.put(3, listOperacionWizard3);
 

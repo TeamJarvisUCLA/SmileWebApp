@@ -85,7 +85,7 @@
 								sort="auto(descripcion)" align="center" width="35%" />
 							<column label="Clasificador de Tarea"
 								sort="auto(clasificadoTarea)" align="center" width="23%" />
-							<column label="Indicadores" align="center"
+							<column label="Voluntario" align="center"
 								width="12%">
 
 							</column>
@@ -147,7 +147,7 @@
 												<cell sclass="vacacion"
 													style="    border-left: 2px solid #EEEEEE !important;">
 													<button
-														onClick="@command('eliminarVoluntario', tsPlanActividadVoluntario=each, index=statusTarea.index)"
+														onClick="@command('eliminarVoluntario', eventPlanTareaVoluntario=each, index=statusTarea.index)"
 														sclass="btn-sm-grid btn-pink " style="margin-left: 3px;"
 														tooltiptext="Eliminar" iconSclass="fa fa-trash">
 													</button>
@@ -196,7 +196,7 @@
 								sort="auto(descripcion)" align="center" width="35%" />
 							<column label="Clasificador de Tarea"
 								sort="auto(clasificadoTarea)" align="center" width="23%" />
-							<column label="Indicadores" align="center"
+							<column label="Trabajadores" align="center"
 								width="12%">
 
 							</column>
@@ -259,7 +259,7 @@
 												<cell sclass="vacacion"
 													style="    border-left: 2px solid #EEEEEE !important;">
 													<button
-														onClick="@command('eliminarTrabajador', tsPlanActividadTrabajador=each, index=statusTarea.index)"
+														onClick="@command('eliminarTrabajador', eventPlanTareaTrabajador=each, index=statusTarea.index)"
 														sclass="btn-sm-grid btn-pink " style="margin-left: 3px;"
 														tooltiptext="Eliminar" iconSclass="fa fa-trash">
 													</button>

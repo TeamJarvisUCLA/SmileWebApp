@@ -80,9 +80,9 @@ public class VM_ReportPlanificadosVsEjecutadosIndex extends VM_WindowWizard {
 	public List<String> getUrlPageToStep() {
 		List<String> urls = new ArrayList<String>();
 
-		urls.add("views/desktop/reporte/estadisticos/planificadosVsEjecutados/selectOpcionesPlanificadosVsEjecutados.zul");
-		urls.add("views/desktop/reporte/estadisticos/planificadosVsEjecutados/listIndicadoresEventoPlanificado.zul");
-		urls.add("views/desktop/reporte/estadisticos/planificadosVsEjecutados/viewReportPlanificadosVsEjecutados.zul");
+		urls.add("views/desktop/reportes/estadisticos/planificadosVsEjecutados/selectOpcionesPlanificadosVsEjecutados.zul");
+		urls.add("views/desktop/reportes/estadisticos/planificadosVsEjecutados/listIndicadoresEventoPlanificado.zul");
+		urls.add("views/desktop/reportes/estadisticos/planificadosVsEjecutados/viewReportPlanificadosVsEjecutados.zul");
 
 		return urls;
 	}

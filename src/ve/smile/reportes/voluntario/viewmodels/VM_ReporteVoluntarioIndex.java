@@ -1,6 +1,7 @@
 package ve.smile.reportes.voluntario.viewmodels;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,11 +11,11 @@ import karen.core.wizard.buttons.data.OperacionWizard;
 import karen.core.wizard.buttons.enums.OperacionWizardEnum;
 import karen.core.wizard.buttons.helpers.OperacionWizardHelper;
 import karen.core.wizard.viewmodels.VM_WindowWizard;
+import lights.smile.util.UtilConverterDataList;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 import org.zkoss.bind.annotation.Init;
-import org.zkoss.zk.ui.Executions;
 
 import ve.smile.consume.services.S;
 import ve.smile.dto.ClasificadorVoluntario;
@@ -23,7 +24,6 @@ import ve.smile.dto.Profesion;
 import ve.smile.dto.Voluntario;
 import ve.smile.enums.EstatusVoluntarioEnum;
 import ve.smile.payload.response.PayloadVoluntarioResponse;
-import ve.smile.reporte.Reporte;
 
 public class VM_ReporteVoluntarioIndex extends VM_WindowWizard {
 
@@ -45,10 +45,16 @@ public class VM_ReporteVoluntarioIndex extends VM_WindowWizard {
 
 	private boolean egresado = false;
 
+	private boolean todos = false;
+
+	private Date fechaDesdeDate;
+
+	private Date fechaHastaDate;
+
 	private String type;
 
 	private String source;
-	
+
 	private JRDataSource jrDataSource;
 
 	private Map<String, Object> parametros = new HashMap<>();
@@ -71,6 +77,31 @@ public class VM_ReporteVoluntarioIndex extends VM_WindowWizard {
 
 	private List<Voluntario> voluntarios;
 
+	String voluntarioClasificadoP = "";
+
+	String estatusVoluntariosS = "";
+
+	String fortalezasP = "";
+
+	String profesionesP = "";
+
+	String tStatus = "";
+
+	String tFechaDesde = "";
+
+	String tFechaHasta = "";
+
+	String tVoluntarioClasificado = "";
+
+	String tFortalezas = "";
+
+	String tProfesiones = "";
+
+
+	String fechaDesde = "";
+
+	String fechaHasta = "";
+
 	public Set<ClasificadorVoluntario> getClasificadorVoluntariosSeleccionados() {
 		return clasificadorVoluntariosSeleccionados;
 	}
@@ -92,15 +123,7 @@ public class VM_ReporteVoluntarioIndex extends VM_WindowWizard {
 
 		listProfesion = S.ProfesionService.consultarTodos().getObjetos();
 
-		llenarListRedes();
 
-	}
-
-	public void llenarListRedes() {
-		listRedesSociales.add("Facebook");
-		listRedesSociales.add("Instagram");
-		listRedesSociales.add("Twitter");
-		listRedesSociales.add("Linkedin");
 	}
 
 	public boolean isClasificadorVoluntario() {
@@ -291,9 +314,9 @@ public class VM_ReporteVoluntarioIndex extends VM_WindowWizard {
 	public List<String> getUrlPageToStep() {
 		List<String> urls = new ArrayList<String>();
 
-		urls.add("views/desktop/reporte/voluntario/selectOpcionesReporteVoluntario.zul");
-		urls.add("views/desktop/reporte/voluntario/selectCompletado.zul");
-		urls.add("views/desktop/reporte/voluntario/listVoluntario.zul");
+		urls.add("views/desktop/reportes/voluntario/selectOpcionesReporteVoluntario.zul");
+		urls.add("views/desktop/reportes/voluntario/selectCompletado.zul");
+		urls.add("views/desktop/reportes/voluntario/viewReportPdfVoluntario.zul");
 
 		return urls;
 	}
@@ -334,7 +357,8 @@ public class VM_ReporteVoluntarioIndex extends VM_WindowWizard {
 
 	@Override
 	public String executeFinalizar(Integer currentStep) {
-		if (currentStep == 2) {
+		if (currentStep == 3) {
+			restartWizard();
 		}
 
 		return "";
@@ -347,12 +371,9 @@ public class VM_ReporteVoluntarioIndex extends VM_WindowWizard {
 
 	@Override
 	public String executeCustom1(Integer currentStep) {
-		if (currentStep == 1) {
+		
 			goToNextStep();
-		}
-		if (currentStep == 2) {
-			goToNextStep();
-		}
+		
 		return "";
 	}
 
@@ -363,57 +384,143 @@ public class VM_ReporteVoluntarioIndex extends VM_WindowWizard {
 
 	@Override
 	public String isValidPreconditionsCustom1(Integer currentStep) {
+
 		if (currentStep == 1) {
-			String sql = "SELECT v FROM Voluntario v  WHERE  v.idVoluntario = v.idVoluntario ";
 
-			if (porCompletar || postulado || egresado || activo) {
-				String estatusVoluntarios = "";
-				if (porCompletar) {
-					estatusVoluntarios += EstatusVoluntarioEnum.POR_COMPLETAR
-							.ordinal() + ",";
-				}
-				if (postulado) {
-					estatusVoluntarios += EstatusVoluntarioEnum.POSTULADO
-							.ordinal() + ",";
-				}
-				if (egresado) {
-					estatusVoluntarios += EstatusVoluntarioEnum.INACTIVO
-							.ordinal() + ",";
-				}
-				if (activo) {
-					estatusVoluntarios += EstatusVoluntarioEnum.ACTIVO
-							.ordinal() + ",";
-				}
-				int tamano = estatusVoluntarios.length();
+			String sql = "";
 
-				char[] tmp = estatusVoluntarios.toCharArray();
+			if (todos) {
+				sql = "SELECT DISTINCT v FROM Voluntario v  WHERE  v.idVoluntario = v.idVoluntario ";
 
-				tmp[tamano - 1] = ' ';
+				if (fechaIngreso) {
+					System.out.println("entro");
+					if (fechaDesdeDate == null && fechaHastaDate == null) {
 
-				estatusVoluntarios = new String(tmp);
+						return "E:Error Code 5-No se han ingresado parametros de fechas ";
 
-				sql += "and v.estatusVoluntario in(" + estatusVoluntarios + ")";
-			}
-			if (profesionVoluntario) {
-				if (profesionesSeleccionadas != null) {
-					String profesiones = "";
-					int i = 0;
+					} else if (fechaDesdeDate == null) {
 
-					for (Profesion profesion : profesionesSeleccionadas) {
-						i++;
-						profesiones += profesion.getIdProfesion();
+						return "E:Error Code 5-No se ha ingresado una <b>Fecha Desde</b> como Parametro ";
 
-						if (i != profesionesSeleccionadas.size()) {
-							profesiones += ",";
-						}
+					} else if (fechaHastaDate == null) {
+
+						return "E:Error Code 5-No se ha ingresado ninguna <b>Fecha Hasta</b> como Parametro ";
+
+					} else if (fechaDesdeDate.getTime() >= fechaHastaDate
+							.getTime()) {
+
+						return "E:Error Code 5-No se puede ingresar una <b>Fecha Desde</b>  mayor a la <b>Fecha Hasta</b> ";
+
+					} else {
+						sql += " and v.fechaIngreso >= "
+								+ fechaDesdeDate.getTime()
+								+ " and v.fechaIngreso <= "
+								+ fechaHastaDate.getTime() + " ";
+						System.out.println(sql);
 					}
-					sql = sql
-							.replace("WHERE", ", VoluntarioProfesion pv WHERE");
-					sql += " and pv.fkVoluntario.idVoluntario = v.idVoluntario and pv.fkProfesion.idProfesion in ("
-							+ profesiones + ")";
+				}
+
+			}
+
+			if (!todos) {
+				sql = "SELECT DISTINCT v FROM Voluntario v  WHERE  v.idVoluntario = v.idVoluntario ";
+
+				if (fechaIngreso) {
+					System.out.println("entro");
+					if (fechaDesdeDate == null && fechaHastaDate == null) {
+
+						return "E:Error Code 5-No se han ingresado parametros de fechas ";
+
+					} else if (fechaDesdeDate == null) {
+
+						return "E:Error Code 5-No se ha ingresado una <b>Fecha Desde</b> como Parametro ";
+
+					} else if (fechaHastaDate == null) {
+
+						return "E:Error Code 5-No se ha ingresado ninguna <b>Fecha Hasta</b> como Parametro ";
+
+					} else if (fechaDesdeDate.getTime() >= fechaHastaDate
+							.getTime()) {
+
+						return "E:Error Code 5-No se puede ingresar una <b>Fecha Desde</b>  mayor a la <b>Fecha Hasta</b> ";
+
+					} else {
+						System.out.println("no llego al final");
+						sql += " and v.fechaIngreso >= "
+								+ fechaDesdeDate.getTime()
+								+ " and v.fechaIngreso <= "
+								+ fechaHastaDate.getTime() + " ";
+						System.out.println(sql);
+					}
+				}
+
+				if (porCompletar || postulado || egresado || activo) {
+					String estatusVoluntarios = "";
+
+					if (porCompletar) {
+						estatusVoluntarios += EstatusVoluntarioEnum.POR_COMPLETAR
+								.ordinal() + ",";
+						estatusVoluntariosS += EstatusVoluntarioEnum.POR_COMPLETAR
+								.toString() + " ";
+					}
+
+					if (postulado) {
+						estatusVoluntarios += EstatusVoluntarioEnum.POSTULADO
+								.ordinal() + ",";
+						estatusVoluntariosS += EstatusVoluntarioEnum.POSTULADO
+								.toString() + " ";
+					}
+
+					if (egresado) {
+						estatusVoluntarios += EstatusVoluntarioEnum.INACTIVO
+								.ordinal() + ",";
+						estatusVoluntariosS += EstatusVoluntarioEnum.INACTIVO
+								.toString() + " ";
+					}
+
+					if (activo) {
+						estatusVoluntarios += EstatusVoluntarioEnum.ACTIVO
+								.ordinal() + ",";
+						estatusVoluntariosS += EstatusVoluntarioEnum.ACTIVO
+								.toString() + " ";
+					}
+
+					int tamano = estatusVoluntarios.length();
+
+					char[] tmp = estatusVoluntarios.toCharArray();
+
+					tmp[tamano - 1] = ' ';
+
+					estatusVoluntarios = new String(tmp);
+
+					sql += "and v.estatusVoluntario in(" + estatusVoluntarios
+							+ ")";
+				}
+				if (profesionVoluntario) {
+
+					if (profesionesSeleccionadas != null) {
+						String profesiones = "";
+						int i = 0;
+
+						for (Profesion profesion : profesionesSeleccionadas) {
+							i++;
+							profesiones += profesion.getIdProfesion();
+							profesionesP += profesion.getNombre() + "," + " ";
+
+							if (i != profesionesSeleccionadas.size()) {
+								profesiones += ",";
+							}
+
+						}
+						sql = sql.replace("WHERE",
+								", VoluntarioProfesion pv WHERE");
+						sql += " and pv.fkVoluntario.idVoluntario = v.idVoluntario and pv.fkProfesion.idProfesion in ("
+								+ profesiones + ")";
+					}
 				}
 			}
 			if (fortalezaVoluntario) {
+
 				if (fortalezasSeleccionados != null) {
 					String fortalezas = "";
 					int i = 0;
@@ -421,6 +528,7 @@ public class VM_ReporteVoluntarioIndex extends VM_WindowWizard {
 					for (Fortaleza fortaleza : fortalezasSeleccionados) {
 						i++;
 						fortalezas += fortaleza.getIdFortaleza();
+						fortalezasP += fortaleza.getNombre() + "," + " ";
 
 						if (i != fortalezasSeleccionados.size()) {
 							fortalezas += ",";
@@ -434,12 +542,15 @@ public class VM_ReporteVoluntarioIndex extends VM_WindowWizard {
 
 			}
 			if (clasificadorVoluntario) {
+
 				if (clasificadorVoluntariosSeleccionados != null) {
 					String voluntarioClasificado = "";
 					int i = 0;
 
 					for (ClasificadorVoluntario clasificadorVoluntario : clasificadorVoluntariosSeleccionados) {
 						i++;
+						voluntarioClasificadoP += clasificadorVoluntario
+								.getNombre() + "," + " ";
 						voluntarioClasificado += clasificadorVoluntario
 								.getIdClasificadorVoluntario();
 
@@ -454,6 +565,12 @@ public class VM_ReporteVoluntarioIndex extends VM_WindowWizard {
 				}
 
 			}
+			if (sql.equals("SELECT DISTINCT v FROM Voluntario v  WHERE  v.idVoluntario = v.idVoluntario ")
+					&& !todos) {
+				
+				return "E:Error Code 5-No se han seleccionados criterios para la consulta <b>Voluntarios</b>";
+
+			}
 			PayloadVoluntarioResponse payloadVoluntarioResponse = S.VoluntarioService
 					.consultaVoluntariosParametrizado(sql);
 			List<Voluntario> listVoluntarios = payloadVoluntarioResponse
@@ -461,15 +578,63 @@ public class VM_ReporteVoluntarioIndex extends VM_WindowWizard {
 			this.getVoluntarios().addAll(listVoluntarios);
 
 			System.out.println(sql);
-			
+			if (listVoluntarios.isEmpty()) {
+				return "E:Error Code 5-Los criterios seleccionados no aportan información para <b>Voluntarios</b>";
+			}
+
 			jrDataSource = new JRBeanCollectionDataSource(listVoluntarios);
-			
 		}
-		System.out.println(currentStep);
 		if (currentStep == 2) {
-			 type = "pdf";
-			source = "reporte/reportVoluntariosParametrizados.pdf";
-			
+			type = "pdf";
+			if (!estatusVoluntariosS.equals("")) {
+				tStatus = "Estatus";
+			}
+			if (!fortalezasP.equals("")) {
+				tFortalezas = "Fortalezas";
+			}
+			if (!profesionesP.equals("")) {
+				tProfesiones = "Profesiones";
+			}
+			if (!voluntarioClasificadoP.equals("")) {
+				tVoluntarioClasificado = "Clasificacion de Voluntarios";
+			}
+			fechaDesde = fechaDesdeDate == null ? "" : UtilConverterDataList
+					.convertirLongADate(fechaDesdeDate.getTime());
+
+			fechaHasta = fechaHastaDate == null ? "" : UtilConverterDataList
+					.convertirLongADate(fechaHastaDate.getTime());
+
+			tFechaDesde = fechaDesde.equals("") ? "" : "Fecha Desde";
+
+			tFechaHasta = fechaHasta.equals("") ? "" : "Fecha Hasta";
+
+			parametros.put("tFechaDesde", tFechaDesde);
+
+			parametros.put("tfechaHasta", tFechaHasta);
+
+			parametros.put("fechaDesde", fechaDesde);
+
+			parametros.put("fechaHasta", fechaHasta);
+
+			parametros.put("titulo", "VOLUNTARIOS");
+
+			parametros.put("tEstatus", tStatus);
+
+			parametros.put("tFortalezas", tFortalezas);
+
+			parametros.put("tProfesiones", tProfesiones);
+
+			parametros.put("tVoluntarioClasificado", tVoluntarioClasificado);
+
+			parametros.put("estatusVoluntariosS", estatusVoluntariosS);
+
+			parametros.put("fortalezasP", fortalezasP);
+
+			parametros.put("profesionesP", profesionesP);
+
+			parametros.put("voluntarioClasificadoP", voluntarioClasificadoP);
+
+			source = "reporte/reportVoluntariosParametrizados.jasper";
 		}
 
 		return "";
@@ -522,6 +687,129 @@ public class VM_ReporteVoluntarioIndex extends VM_WindowWizard {
 
 	public void setJrDataSource(JRDataSource jrDataSource) {
 		this.jrDataSource = jrDataSource;
+	}
+
+	public String getVoluntarioClasificadoP() {
+		return voluntarioClasificadoP;
+	}
+
+	public void setVoluntarioClasificadoP(String voluntarioClasificadoP) {
+		this.voluntarioClasificadoP = voluntarioClasificadoP;
+	}
+
+	public String getEstatusVoluntariosS() {
+		return estatusVoluntariosS;
+	}
+
+	public void setEstatusVoluntariosS(String estatusVoluntariosS) {
+		this.estatusVoluntariosS = estatusVoluntariosS;
+	}
+
+	public String getFortalezasP() {
+		return fortalezasP;
+	}
+
+	public void setFortalezasP(String fortalezasP) {
+		this.fortalezasP = fortalezasP;
+	}
+
+	public String getProfesionesP() {
+		return profesionesP;
+	}
+
+	public void setProfesionesP(String profesionesP) {
+		this.profesionesP = profesionesP;
+	}
+
+
+	
+	public String gettStatus() {
+		return tStatus;
+	}
+
+	public void settStatus(String tStatus) {
+		this.tStatus = tStatus;
+	}
+
+	public String gettFechaDesde() {
+		return tFechaDesde;
+	}
+
+	public void settFechaDesde(String tFechaDesde) {
+		this.tFechaDesde = tFechaDesde;
+	}
+
+	public String gettFechaHasta() {
+		return tFechaHasta;
+	}
+
+	public void settFechaHasta(String tFechaHasta) {
+		this.tFechaHasta = tFechaHasta;
+	}
+
+	public String gettVoluntarioClasificado() {
+		return tVoluntarioClasificado;
+	}
+
+	public void settVoluntarioClasificado(String tVoluntarioClasificado) {
+		this.tVoluntarioClasificado = tVoluntarioClasificado;
+	}
+
+	public String gettFortalezas() {
+		return tFortalezas;
+	}
+
+	public void settFortalezas(String tFortalezas) {
+		this.tFortalezas = tFortalezas;
+	}
+
+	public String gettProfesiones() {
+		return tProfesiones;
+	}
+
+	public void settProfesiones(String tProfesiones) {
+		this.tProfesiones = tProfesiones;
+	}
+
+
+	public Date getFechaDesdeDate() {
+		return fechaDesdeDate;
+	}
+
+	public void setFechaDesdeDate(Date fechaDesdeDate) {
+		this.fechaDesdeDate = fechaDesdeDate;
+	}
+
+	public Date getFechaHastaDate() {
+		return fechaHastaDate;
+	}
+
+	public void setFechaHastaDate(Date fechaHastaDate) {
+		this.fechaHastaDate = fechaHastaDate;
+	}
+
+	public boolean isTodos() {
+		return todos;
+	}
+
+	public void setTodos(boolean todos) {
+		this.todos = todos;
+	}
+
+	public String getFechaDesde() {
+		return fechaDesde;
+	}
+
+	public void setFechaDesde(String fechaDesde) {
+		this.fechaDesde = fechaDesde;
+	}
+
+	public String getFechaHasta() {
+		return fechaHasta;
+	}
+
+	public void setFechaHasta(String fechaHasta) {
+		this.fechaHasta = fechaHasta;
 	}
 
 }

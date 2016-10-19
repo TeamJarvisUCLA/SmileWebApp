@@ -1,0 +1,86 @@
+<div sclass="row section">
+	<div sclass="col s12">
+		<grid id="Grid" sclass="periodo grid" height="500px"
+			model="@bind(vm.listTsPlanActividads)">
+			<columns sclass="header-periodo-vacacional">
+				<column width="5%" />
+				<column label="Nombre" width="25%" />
+				<column label="Descripción" align="center" width="35%" />
+				<column label="Clasificador de Actividad" align="center"
+					width="23%" />
+			</columns>
+			<template name="model" var="tsPlan" status="statustsPlan">
+				<row style="overflow:auto; max-height:200px"
+					sclass="row-vacaciones">
+					<detail open="false" fulfill="onOpen">
+						<grid sclass="vacacion"
+							model="@bind(actividad.indicadorTsPlanActividads)">
+							<auxhead>
+								<auxheader colspan="5" align="center"
+									label="INDICADORES ASOCIADOS">
+								</auxheader>
+							</auxhead>
+							<columns sclass="header-periodo-disfute">
+								<column label="Nombre" width="21%" />
+								<column label="Descripción"
+									align="center" width="30%" />
+								<column label="Unidad de Medida"
+									align="center" width="25%" />
+								<column label="Valor esperado"
+									align="center" width="17%">
+
+								</column>
+								<column label="Valor Real" align="left"
+									width="17%">
+
+								</column>
+							</columns>
+							<template name="model">
+								<row sclass="last">
+									<cell sclass="vacacion">
+										<label
+											value="@bind(each.fkIndicador.nombre)" />
+									</cell>
+									<cell sclass="vacacion">
+										<label
+											value="@bind(each.fkIndicador.descripcion)" />
+									</cell>
+									<cell sclass="vacacion">
+										<label
+											value="@bind(each.fkIndicador.fkUnidadMedida.nombre)" />
+									</cell>
+									<cell sclass="vacacion">
+										<intbox
+											style="height: 1em; border: 1px solid #999999; border-radius: 7px; font-size:1.2em;  text-align: center;"
+											value="@bind(each.valorEsperado)" readonly="true">
+										</intbox>
+									</cell>
+									<cell sclass="vacacion">
+										<intbox
+											style="height: 1em; border: 1px solid #999999; border-radius: 7px; font-size:1.2em;  text-align: center;"
+											value="@bind(each.valorReal)">
+										</intbox>
+									</cell>
+								</row>
+							</template>
+						</grid>
+					</detail>
+
+					<cell sclass="periodo">
+						<label
+							value="@bind(tsPlan.fkActividad.nombre) " />
+					</cell>
+					<cell sclass="periodo">
+						<label
+							value="@bind(tsPlan.fkActividad.descripcion)" />
+					</cell>
+					<cell sclass="periodo">
+						<label
+							value="@bind(tsPlan.fkActividad.fkClasificadorActividad.nombre)" />
+					</cell>
+				</row>
+			</template>
+		</grid>
+	</div>
+
+</div>

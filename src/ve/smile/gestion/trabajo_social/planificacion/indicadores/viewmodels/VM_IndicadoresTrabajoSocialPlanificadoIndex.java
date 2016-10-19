@@ -8,11 +8,17 @@ import java.util.Map;
 import java.util.Set;
 
 import karen.core.crux.alert.Alert;
+import karen.core.dialog.catalogue.generic.data.CatalogueDialogData;
+import karen.core.dialog.catalogue.generic.events.CatalogueDialogCloseEvent;
+import karen.core.dialog.catalogue.generic.events.listeners.CatalogueDialogCloseListener;
+import karen.core.dialog.generic.enums.DialogActionEnum;
+import karen.core.util.UtilDialog;
+import karen.core.util.payload.UtilPayload;
 import karen.core.wizard.buttons.data.OperacionWizard;
 import karen.core.wizard.buttons.enums.OperacionWizardEnum;
 import karen.core.wizard.buttons.helpers.OperacionWizardHelper;
 import karen.core.wizard.viewmodels.VM_WindowWizard;
-import karen.core.util.payload.UtilPayload;
+import lights.core.enums.TypeQuery;
 import lights.core.payload.response.IPayloadResponse;
 
 import org.zkoss.bind.BindUtils;
@@ -23,6 +29,7 @@ import org.zkoss.bind.annotation.NotifyChange;
 import ve.smile.consume.services.S;
 import ve.smile.dto.Indicador;
 import ve.smile.dto.IndicadorTsPlan;
+import ve.smile.dto.PlantillaTrabajoSocialIndicador;
 import ve.smile.dto.TsPlan;
 import ve.smile.payload.response.PayloadIndicadorResponse;
 import ve.smile.payload.response.PayloadIndicadorTsPlanResponse;
@@ -37,6 +44,7 @@ public class VM_IndicadoresTrabajoSocialPlanificadoIndex extends
 	private Set<Indicador> trabajoSocialIndicadoresSeleccionados;
 
 	private List<IndicadorTsPlan> indicadorTsPlans;
+	private List<IndicadorTsPlan> indicadorTsPlansDelete;
 
 	@Init(superclass = true)
 	public void childInit() {
@@ -87,7 +95,8 @@ public class VM_IndicadoresTrabajoSocialPlanificadoIndex extends
 				.getPorType(OperacionWizardEnum.ATRAS));
 		listOperacionWizard2.add(OperacionWizardHelper
 				.getPorType(OperacionWizardEnum.SIGUIENTE));
-
+		listOperacionWizard2.add(OperacionWizardHelper
+				.getPorType(OperacionWizardEnum.CANCELAR));
 		botones.put(2, listOperacionWizard2);
 
 		List<OperacionWizard> listOperacionWizard3 = new ArrayList<OperacionWizard>();
@@ -95,6 +104,8 @@ public class VM_IndicadoresTrabajoSocialPlanificadoIndex extends
 				.getPorType(OperacionWizardEnum.ATRAS));
 		listOperacionWizard3.add(OperacionWizardHelper
 				.getPorType(OperacionWizardEnum.FINALIZAR));
+		listOperacionWizard3.add(OperacionWizardHelper
+				.getPorType(OperacionWizardEnum.CANCELAR));
 
 		botones.put(3, listOperacionWizard3);
 
@@ -173,20 +184,62 @@ public class VM_IndicadoresTrabajoSocialPlanificadoIndex extends
 
 	@Override
 	public String isValidSearchDataSiguiente(Integer currentStep) {
+		if (currentStep == 1) {
+			this.indicadorTsPlans = new ArrayList<>();
+			Map<String, String> criterios = new HashMap<>();
+
+			criterios.put("fkTsPlan.idTsPlan", String.valueOf(this
+					.getTsPlanificadoSelected().getIdTsPlan()));
+			PayloadIndicadorTsPlanResponse payloadIndicadorTsPlanResponse = S.IndicadorTsPlanService
+					.consultarCriterios(TypeQuery.EQUAL, criterios);
+			setIndicadorTsPlans(null);
+			setTrabajoSocialIndicadores(null);
+			if (payloadIndicadorTsPlanResponse.getObjetos() != null) {
+
+				for (IndicadorTsPlan indicadorEventoPlanificado : payloadIndicadorTsPlanResponse
+						.getObjetos()) {
+					this.getIndicadorTsPlans().add(indicadorEventoPlanificado);
+					this.getTrabajoSocialIndicadores().add(
+							indicadorEventoPlanificado.getFkIndicador());
+				}
+			}
+
+			BindUtils.postNotifyChange(null, null, this,
+					"trabajoSocialIndicadores");
+		}
+
 		if (currentStep == 2) {
 			if (this.getTrabajoSocialIndicadores().isEmpty()) {
 				return "E:Error Code 5-Debe agregar al menos un <b>Indicador</b> al trabajo social planificado.";
 			} else {
-				this.getIndicadorTsPlans().clear();
+				boolean validar = true;
+				List<IndicadorTsPlan> indicadorTsPlans2 = new ArrayList<>();
+				indicadorTsPlans2.addAll(new ArrayList<>(this
+						.getIndicadorTsPlans()));
 				for (Indicador indicador : this.getTrabajoSocialIndicadores()) {
-					IndicadorTsPlan indicadorTsPlan = new IndicadorTsPlan();
-					indicadorTsPlan.setFkIndicador(indicador);
-					indicadorTsPlan.setFkTsPlan((TsPlan) this
-							.getSelectedObject());
-					this.getIndicadorTsPlans().add(indicadorTsPlan);
+					for (IndicadorTsPlan indicadorTsPlan : this
+							.getIndicadorTsPlans()) {
+						if (indicadorTsPlan.getFkIndicador().getIdIndicador()
+								.equals(indicador.getIdIndicador())) {
+							validar = false;
+							indicadorTsPlans2.remove(indicadorTsPlan);
+							break;
+						}
+					}
+					if (validar) {
+						IndicadorTsPlan indicadorTsPlan = new IndicadorTsPlan();
+						indicadorTsPlan.setFkIndicador(indicador);
+						indicadorTsPlan.setFkTsPlan((TsPlan) this
+								.getSelectedObject());
+						this.getIndicadorTsPlans().add(indicadorTsPlan);
+					}
+					validar = true;
 				}
-				BindUtils
-						.postNotifyChange(null, null, this, "indicadorTsPlans");
+
+				this.getIndicadorTsPlansDelete().addAll(indicadorTsPlans2);
+				this.getIndicadorTsPlans().removeAll(indicadorTsPlans2);
+
+				BindUtils.postNotifyChange(null, null, this, "*");
 			}
 
 		}
@@ -198,18 +251,23 @@ public class VM_IndicadoresTrabajoSocialPlanificadoIndex extends
 	public String isValidPreconditionsFinalizar(Integer currentStep) {
 
 		if (currentStep == 3) {
-//			String indicadores = new String();
-//			for (IndicadorTsPlan indicadorTsPlan : this.getIndicadorTsPlans()) {
-//				if (indicadorTsPlan.getValorEsperado() == null
-//						|| indicadorTsPlan.getValorEsperado() == 0) {
-//					indicadores += indicadorTsPlan.getFkIndicador().getNombre()
-//							+ ",  ";
-//				}
-//			}
-//			if (indicadores.isEmpty()) {
-//				return "E:Error Code 5-Debe ingresar el valor esperado de los siguientes indicadores: <b>"
-//						+ indicadores + "</b>";
-//			}
+			String indicadores = new String();
+			StringBuilder stringBuilder = new StringBuilder();
+			for (IndicadorTsPlan indicadorTsPlan : this.getIndicadorTsPlans()) {
+				if (indicadorTsPlan.getValorEsperado() == null
+						|| indicadorTsPlan.getValorEsperado() == 0) {
+					if (!stringBuilder.toString().trim().isEmpty()) {
+						stringBuilder.append(",  ");
+					}
+					stringBuilder.append(indicadorTsPlan.getFkIndicador()
+							.getNombre());
+				}
+			}
+			indicadores = stringBuilder.toString();
+			if (!indicadores.trim().isEmpty()) {
+				return "E:Error Code 5-Debe verificar el valor esperado de los siguientes indicadores: <b>"
+						+ indicadores + "</b>";
+			}
 
 		}
 		return "";
@@ -219,11 +277,30 @@ public class VM_IndicadoresTrabajoSocialPlanificadoIndex extends
 	public String executeFinalizar(Integer currentStep) {
 		if (currentStep == 3) {
 			for (IndicadorTsPlan indicadorTsPlan : this.getIndicadorTsPlans()) {
-				PayloadIndicadorTsPlanResponse payloadIndicadorTsPlanResponse = S.IndicadorTsPlanService
-						.incluir(indicadorTsPlan);
+				PayloadIndicadorTsPlanResponse payloadIndicadorTsPlanResponse;
+				if (indicadorTsPlan.getIdIndicadorTsPlan() == null) {
+					payloadIndicadorTsPlanResponse = S.IndicadorTsPlanService
+							.incluir(indicadorTsPlan);
+				} else {
+					payloadIndicadorTsPlanResponse = S.IndicadorTsPlanService
+							.modificar(indicadorTsPlan);
+				}
+
 				if (!UtilPayload.isOK(payloadIndicadorTsPlanResponse)) {
 					return (String) payloadIndicadorTsPlanResponse
 							.getInformacion(IPayloadResponse.MENSAJE);
+				}
+			}
+			for (IndicadorTsPlan indicadorTsPlan : this
+					.getIndicadorTsPlansDelete()) {
+				if (indicadorTsPlan.getIdIndicadorTsPlan() != null) {
+					PayloadIndicadorTsPlanResponse payloadIndicadorTsPlanResponse;
+					payloadIndicadorTsPlanResponse = S.IndicadorTsPlanService
+							.eliminar(indicadorTsPlan.getIdIndicadorTsPlan());
+					if (!UtilPayload.isOK(payloadIndicadorTsPlanResponse)) {
+						return (String) payloadIndicadorTsPlanResponse
+								.getInformacion(IPayloadResponse.MENSAJE);
+					}
 				}
 			}
 
@@ -235,28 +312,71 @@ public class VM_IndicadoresTrabajoSocialPlanificadoIndex extends
 
 	@Override
 	public String executeCustom1(Integer currentStep) {
-		this.setIndicadorTsPlans(null);
-		this.setTrabajoSocialIndicadores(null);
-		this.setSelectedObject(new TsPlan());
-
-		BindUtils.postNotifyChange(null, null, this, "indicadorTsPlans");
-		BindUtils
-				.postNotifyChange(null, null, this, "trabajoSocialIndicadores");
-		BindUtils.postNotifyChange(null, null, this, "selectedObject");
-		restartWizard();
+		executeCancelar(currentStep);
 		return "";
-		
+
 	}
 
-//	@Override
-//	public void comeIn(Integer currentStep) {
-//		if (currentStep == 1) {
-//			this.getControllerWindowWizard().updateListBoxAndFooter();
-//			BindUtils.postNotifyChange(null, null, this, "objectsList");
-//		}
-//	}
+	@Override
+	public String executeCancelar(Integer currentStep) {
 
-	
+		this.setIndicadores(null);
+		this.setIndicadoresSeleccionados(null);
+		this.setTrabajoSocialIndicadores(null);
+		this.setTrabajoSocialIndicadoresSeleccionados(null);
+		this.setIndicadorTsPlans(null);
+		this.setIndicadorTsPlansDelete(null);
+		BindUtils.postNotifyChange(null, null, this, "*");
+
+		restartWizard();
+		return "";
+	}
+
+	@Command("buscarPlantilla")
+	public void buscarPlantilla() {
+		CatalogueDialogData<PlantillaTrabajoSocialIndicador> catalogueDialogData = new CatalogueDialogData<PlantillaTrabajoSocialIndicador>();
+
+		catalogueDialogData
+				.addCatalogueDialogCloseListeners(new CatalogueDialogCloseListener<PlantillaTrabajoSocialIndicador>() {
+
+					@Override
+					public void onClose(
+							CatalogueDialogCloseEvent<PlantillaTrabajoSocialIndicador> catalogueDialogCloseEvent) {
+						if (catalogueDialogCloseEvent.getDialogAction().equals(
+								DialogActionEnum.CANCELAR)) {
+							return;
+						}
+						List<PlantillaTrabajoSocialIndicador> listIndicadoresPlantillaTrabajoSocial = new ArrayList<>();
+						listIndicadoresPlantillaTrabajoSocial = catalogueDialogCloseEvent
+								.getEntities();
+
+						refreshIndicadores(listIndicadoresPlantillaTrabajoSocial);
+					}
+				});
+
+		catalogueDialogData.put("trabajoSocial", this
+				.getTsPlanificadoSelected().getFkTrabajoSocial());
+		UtilDialog
+				.showDialog(
+						"views/desktop/gestion/trabajoSocial/planificacion/indicadores/catalogoPlantillaIndicadoresTrabajoSocial.zul",
+						catalogueDialogData);
+	}
+
+	public void refreshIndicadores(
+			List<PlantillaTrabajoSocialIndicador> listIndicadoresPlantillaTrabajoSocial) {
+
+		for (PlantillaTrabajoSocialIndicador plantillaTrabajoSocialIndicador : listIndicadoresPlantillaTrabajoSocial) {
+			if (!this.getTrabajoSocialIndicadores().contains(
+					plantillaTrabajoSocialIndicador.getFkIndicador())) {
+				this.getTrabajoSocialIndicadores().add(
+						plantillaTrabajoSocialIndicador.getFkIndicador());
+			}
+		}
+
+		BindUtils
+				.postNotifyChange(null, null, this, "trabajoSocialIndicadores");
+	}
+
 	public List<Indicador> getIndicadores() {
 		if (this.indicadores == null) {
 			this.indicadores = new ArrayList<>();
@@ -324,4 +444,19 @@ public class VM_IndicadoresTrabajoSocialPlanificadoIndex extends
 		this.indicadorTsPlans = indicadorTsPlans;
 	}
 
+	public List<IndicadorTsPlan> getIndicadorTsPlansDelete() {
+		if (this.indicadorTsPlansDelete == null) {
+			indicadorTsPlansDelete = new ArrayList<>();
+		}
+		return indicadorTsPlansDelete;
+	}
+
+	public void setIndicadorTsPlansDelete(
+			List<IndicadorTsPlan> indicadorTsPlansDelete) {
+		this.indicadorTsPlansDelete = indicadorTsPlansDelete;
+	}
+
+	public TsPlan getTsPlanificadoSelected() {
+		return (TsPlan) this.getSelectedObject();
+	}
 }

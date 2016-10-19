@@ -1,20 +1,29 @@
 package ve.smile.gestion.trabajo_social.planificacion.indicadores.viewmodels;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import karen.core.dialog.catalogue.list_pagination.viewmodels.VM_ListPaginationCatalogueDialog;
+import lights.core.enums.TypeQuery;
 import lights.core.payload.response.IPayloadResponse;
 
 import org.zkoss.bind.annotation.Init;
 
 import ve.smile.consume.services.S;
-import ve.smile.dto.Directorio;
-import ve.smile.payload.response.PayloadDirectorioResponse;
+import ve.smile.dto.PlantillaTrabajoSocialIndicador;
+import ve.smile.dto.TrabajoSocial;
+import ve.smile.payload.response.PayloadPlantillaTrabajoSocialIndicadorResponse;
 
 public class VM_CatalogoPlantillaIndicadores extends
-		VM_ListPaginationCatalogueDialog<Directorio> {
+		VM_ListPaginationCatalogueDialog<PlantillaTrabajoSocialIndicador> {
+
+	private TrabajoSocial trabajoSocial;
 
 	@Init(superclass = true)
-	public void childInit_VM_CatalogoIconSclass() {
+	public void childInit_VM_CatalogoPlantillaIndicadores() {
 		// NOTHING OK!
+		trabajoSocial = (TrabajoSocial) this.getDialogData().get(
+				"trabajoSocial");
 	}
 
 	@Override
@@ -23,11 +32,15 @@ public class VM_CatalogoPlantillaIndicadores extends
 	}
 
 	@Override
-	public IPayloadResponse<Directorio> getObjectListToLoad(
+	public IPayloadResponse<PlantillaTrabajoSocialIndicador> getObjectListToLoad(
 			Integer cantidadRegistrosPagina, Integer pagina) {
-		PayloadDirectorioResponse payloadDirectorioResponse = S.DirectorioService
-				.consultarPaginacion(cantidadRegistrosPagina, pagina);
-		return payloadDirectorioResponse;
+		Map<String, String> criterios = new HashMap<String, String>();
+		criterios.put("fkTrabajoSocial.idTrabajoSocial",
+				String.valueOf(trabajoSocial.getIdTrabajoSocial()));
+		PayloadPlantillaTrabajoSocialIndicadorResponse payloadPlantillaTrabajoSocialIndicadorResponse = S.PlantillaTrabajoSocialIndicadorService
+				.consultarPaginacionCriterios(cantidadRegistrosPagina, pagina,
+						TypeQuery.EQUAL, criterios);
+		return payloadPlantillaTrabajoSocialIndicadorResponse;
 	}
 
 }

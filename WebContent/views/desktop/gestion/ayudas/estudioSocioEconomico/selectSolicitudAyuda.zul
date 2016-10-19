@@ -25,6 +25,14 @@
 							<listheader width="15%" label="Titulo de Solicitud" />
 							<listheader width="20%" label="Estatus de Solicitud" />
 							<listheader width="20%" label="Nombre de Beneficiario" />
+							<listheader width="20%" label="Apellido de Beneficiario" />
+							<listheader width="20%" label="Identificacion de Beneficiario" />
+							
+							<!-- 
+							<listheader width="20%" label="Nombre de Representante" />
+							<listheader width="20%" label="Apellido de Representante" />
+							 -->
+							
 							<listheader width="10%" label="Urgencia" />
 							<listheader width="10%" label="Fecha" />
 							</listhead>
@@ -34,6 +42,14 @@
 										label="@load(each.titulo)" />
 										<listcell label="@load(each.estatusSolicitudEnum)" />
 								<listcell label="@load(each.fkBeneficiario.fkPersona.nombre)" />
+								<listcell label="@load(each.fkBeneficiario.fkPersona.apellido)" />
+								<listcell label="@load(each.fkBeneficiario.fkPersona.identificacion)" />
+								
+								<!-- 
+								<listcell label="@load(each.fkBeneficiario.fkPersona.nombre)" />
+								<listcell label="@load(each.fkBeneficiario.fkPersona.apellido)" />
+								 -->
+								
 								<listcell label="@load(each.urgenciaEnum)" />
 								<listcell label="${m:convertirLongATimestamp(each.fecha)}" />  
 									

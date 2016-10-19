@@ -1,6 +1,7 @@
 package ve.smile.datos.parametros.patrocinador.viewmodels;
 
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -27,6 +28,7 @@ import karen.core.util.validate.UtilValidate;
 import karen.core.util.validate.UtilValidate.ValidateOperator;
 import lights.core.enums.TypeQuery;
 import lights.smile.util.UtilMultimedia;
+import lights.smile.util.Zki;
 
 import org.apache.commons.io.FileUtils;
 import org.zkoss.bind.annotation.Command;
@@ -40,9 +42,11 @@ import ve.smile.dto.Estado;
 import ve.smile.dto.Multimedia;
 import ve.smile.dto.Patrocinador;
 import ve.smile.dto.Persona;
+import ve.smile.enums.EstatusColaboradorEnum;
 import ve.smile.enums.TipoMultimediaEnum;
 import ve.smile.enums.TipoPersonaEnum;
 import ve.smile.payload.response.PayloadCiudadResponse;
+import ve.smile.payload.response.PayloadColaboradorResponse;
 import ve.smile.payload.response.PayloadEstadoResponse;
 import ve.smile.payload.response.PayloadMultimediaResponse;
 import ve.smile.payload.response.PayloadPatrocinadorResponse;
@@ -73,7 +77,6 @@ public class VM_PatrocinadorFormBasic extends VM_WindowForm implements
 	private String nameImage;
 	private String extensionImage;
 	private String urlImage;
-	private String urlImagenAnterior;
 
 	private String typeMedia;
 
@@ -82,35 +85,44 @@ public class VM_PatrocinadorFormBasic extends VM_WindowForm implements
 
 		this.setPersona(this.getPatrocinador().getFkPersona());
 		if (this.getPersona().getSexo() != null) {
-			this.setSexoEnum(SexoEnum.values()[this.persona.getSexo()]);
+			this.setSexoEnum(SexoEnum.values()[this.getPersona().getSexo()]);
+		}
+
+		if (this.getPersona().getTipoPersona() != null) {
+			this.setTipoPersonaEnum(TipoPersonaEnum.values()[this.getPersona()
+					.getTipoPersona()]);
+		}
+		if (this.getPatrocinador().getFkPersona() != null
+				&& this.getPatrocinador().getFkPersona().getFkMultimedia() != null) {
+			this.setUrlImage(this.getPersona().getFkMultimedia().getUrl());
+			this.nameImage = this.getPersona().getFkMultimedia().getNombre();
+			this.extensionImage = nameImage.substring(nameImage
+					.lastIndexOf(".") + 1);
+			this.typeMedia = this.getPersona().getFkMultimedia()
+					.getDescripcion();
+		} else {
+			this.getPersona().setFkMultimedia(new Multimedia());
+
+		}
+		if (this.getPatrocinador().getFechaIngreso() != null) {
+			this.setFechaIngreso(new Date(this.getPatrocinador()
+					.getFechaIngreso()));
+		} else {
+			this.setFechaIngreso(new Date());
 		}
 
 		if (this.getPersona().getFkCiudad() != null) {
 			this.setEstado(this.getPersona().getFkCiudad().getFkEstado());
-			this.setCiudades(null);
+			this.getCiudades().clear();
 			Map<String, String> criterios = new HashMap<>();
 			criterios.put("fkEstado.idEstado",
-					String.valueOf(this.getEstado().getIdEstado()));
+					String.valueOf(estado.getIdEstado()));
 			PayloadCiudadResponse payloadCiudadResponse = S.CiudadService
 					.consultarCriterios(TypeQuery.EQUAL, criterios);
 			if (!UtilPayload.isOK(payloadCiudadResponse)) {
 				Alert.showMessage(payloadCiudadResponse);
 			}
 			this.getCiudades().addAll(payloadCiudadResponse.getObjetos());
-		}
-		if (this.getPersona().getTipoPersona() != null) {
-			this.setTipoPersonaEnum(TipoPersonaEnum.values()[this.persona
-					.getTipoPersona()]);
-		}
-		if (this.getPatrocinador().getFkPersona() != null
-				&& this.getPatrocinador().getFkPersona().getFkMultimedia() != null) {
-			this.setUrlImagenAnterior(this.getPatrocinador().getFkPersona()
-					.getFkMultimedia().getUrl());
-			this.setUrlImage(this.getPatrocinador().getFkPersona()
-					.getFkMultimedia().getUrl());
-		} else {
-			this.getPersona().setFkMultimedia(new Multimedia());
-			this.setUrlImagenAnterior(new String());
 		}
 	}
 
@@ -248,69 +260,7 @@ public class VM_PatrocinadorFormBasic extends VM_WindowForm implements
 		this.getCiudades().addAll(payloadCiudadResponse.getObjetos());
 	}
 
-	// @Override
-	// public BufferedImage getImageContent() {
-	// try {
-	// return loadImage();
-	// } catch (Exception e) {
-	// return null;
-	// }
-	// }
-	//
-	// @Override
-	// public void onUploadImageSingle(UploadEvent event, String idUpload) {
-	// org.zkoss.util.media.Media media = event.getMedia();
-	// if (media instanceof org.zkoss.image.Image) {
-	// bytes = media.getByteData();
-	// this.nameImage = media.getName();
-	// this.extensionImage = media.getFormat();
-	// if (UtilMultimedia.validateFile(nameImage.substring(this.nameImage
-	// .lastIndexOf(".") + 1))) {
-	// Multimedia multimedia = new Multimedia();
-	// multimedia.setNombre(nameImage);
-	// multimedia.setTipoMultimedia(TipoMultimediaEnum.IMAGEN
-	// .ordinal());
-	// multimedia.setUrl(new StringBuilder()
-	// .append("/Smile/Patrocinador/").append(nameImage)
-	// .toString());
-	// multimedia.setExtension(UtilMultimedia
-	// .stringToExtensionEnum(
-	// nameImage.substring(this.nameImage
-	// .lastIndexOf(".") + 1)).ordinal());
-	// multimedia.setDescripcion("Imgen del patrocinador.");
-	// this.getPersona().setFkMultimedia(multimedia);
-	// } else {
-	// this.getPersona().setFkMultimedia(null);
-	// Alert.showMessage("E: Error Code: 100-El formato de la <b>imagen</b> es inválido");
-	//
-	// }
-	//
-	// }
-	// }
-	//
-	// @Override
-	// public void onRemoveImageSingle(String idUpload) {
-	// bytes = null;
-	// this.getPersona().setFkMultimedia(null);
-	// }
-	//
-	// public byte[] getBytes() {
-	// return bytes;
-	// }
-	//
-	// public void setBytes(byte[] bytes) {
-	// this.bytes = bytes;
-	// }
-	//
-	// private BufferedImage loadImage() throws Exception {
-	// try {
-	// Path path = Paths.get(this.getUrlImagen());
-	// bytes = Files.readAllBytes(path);
-	// return ImageIO.read(new File(this.getUrlImagen()));
-	// } catch (Exception e) {
-	// return null;
-	// }
-	// }
+
 
 	@Override
 	public List<OperacionForm> getOperationsForm(OperacionEnum operacionEnum) {
@@ -345,7 +295,7 @@ public class VM_PatrocinadorFormBasic extends VM_WindowForm implements
 			patrocinador.setFechaSalida(new Date().getTime());
 
 			if (bytes != null) {
-				Multimedia multimedia = this.getPersona().getFkMultimedia();
+				Multimedia multimedia = new Multimedia();
 				multimedia.setNombre(nameImage);
 				multimedia.setTipoMultimedia(TipoMultimediaEnum.IMAGEN
 						.ordinal());
@@ -353,17 +303,13 @@ public class VM_PatrocinadorFormBasic extends VM_WindowForm implements
 				multimedia.setExtension(UtilMultimedia.stringToExtensionEnum(
 						extensionImage).ordinal());
 				multimedia.setDescripcion(typeMedia);
-				try {
-					FileUtils.writeByteArrayToFile(
-							new File(multimedia.getUrl()), bytes);
-				} catch (IOException e) {
-					UtilDialog
-							.showMessageBoxError("Ha ocurrido un error al guardar la imagen");
-					return true;
-				}
 
 				PayloadMultimediaResponse payloadMultimediaResponse = S.MultimediaService
 						.incluir(multimedia);
+				if (!UtilPayload.isOK(payloadMultimediaResponse)) {
+					Alert.showMessage(payloadMultimediaResponse);
+					return true;
+				}
 				multimedia.setIdMultimedia(((Double) payloadMultimediaResponse
 						.getInformacion("id")).intValue());
 				this.getPersona().setFkMultimedia(multimedia);
@@ -381,109 +327,76 @@ public class VM_PatrocinadorFormBasic extends VM_WindowForm implements
 			PayloadPatrocinadorResponse payloadPatrocinadorResponse = S.PatrocinadorService
 					.incluir(getPatrocinador());
 			if (!UtilPayload.isOK(payloadPatrocinadorResponse)) {
-				Alert.showMessage(payloadPatrocinadorResponse);
 				return true;
 			}
+			if (bytes != null) {
+				Zki.save(Zki.PERSONAS, getPersona().getIdPersona(),
+						extensionImage, bytes);
+				Multimedia multimedia = this.getPersona().getFkMultimedia();
+				multimedia.setNombre(Zki.PERSONAS
+						+ this.getPersona().getIdPersona() + "."
+						+ this.extensionImage);
+				multimedia.setUrl(Zki.PERSONAS + getPersona().getIdPersona()
+						+ "." + this.extensionImage);
+				PayloadMultimediaResponse payloadMultimediaResponse = S.MultimediaService
+						.modificar(multimedia);
+
+				if (!UtilPayload.isOK(payloadMultimediaResponse)) {
+					Alert.showMessage(payloadMultimediaResponse);
+					return true;
+				}
+			}
+			Alert.showMessage(payloadPatrocinadorResponse);
 			DataCenter.reloadCurrentNodoMenu();
 			return true;
 		}
 
 		if (operacionEnum.equals(OperacionEnum.MODIFICAR)) {
 
-			if (this.getBytes() != null
-					&& !this.getUrlImagenAnterior().equalsIgnoreCase(
-							this.getUrlImage())) {
-				try {
-
-					if (this.getUrlImagenAnterior() != null
-							&& !this.getUrlImagenAnterior()
-									.equalsIgnoreCase("")) {
-
-						File file = new File(this.getUrlImagenAnterior());
-
-						if (file.exists()) {
-
-							if (!file.delete()) {
-
-								UtilDialog
-										.showMessageBoxError("Ha ocurrido un error al sustituir la imagen");
-								return true;
-							}
-						}
-					}
-					try {
-						FileUtils.writeByteArrayToFile(new File(urlImage),
-								bytes);
-					} catch (IOException e) {
-						UtilDialog
-								.showMessageBoxError("Ha ocurrido un error al guardar la imagen");
+			if (bytes != null) {
+				if (this.getPersona().getFkMultimedia() == null
+						|| this.getPersona().getFkMultimedia()
+								.getIdMultimedia() == null) {
+					Multimedia multimedia = new Multimedia();
+					multimedia.setNombre(nameImage);
+					multimedia.setTipoMultimedia(TipoMultimediaEnum.IMAGEN
+							.ordinal());
+					multimedia.setUrl(this.getUrlImage());
+					multimedia.setExtension(UtilMultimedia
+							.stringToExtensionEnum(extensionImage).ordinal());
+					multimedia.setDescripcion(typeMedia);
+					PayloadMultimediaResponse payloadMultimediaResponse = S.MultimediaService
+							.incluir(multimedia);
+					multimedia
+							.setIdMultimedia(((Double) payloadMultimediaResponse
+									.getInformacion("id")).intValue());
+					Zki.save(Zki.PERSONAS, this.getPersona().getIdPersona(),
+							extensionImage, bytes);
+					this.getPersona().setFkMultimedia(multimedia);
+				} else {
+					Multimedia multimedia = this.getPersona().getFkMultimedia();
+					multimedia.setNombre(nameImage);
+					multimedia.setDescripcion(typeMedia);
+					multimedia.setUrl(this.getUrlImage());
+					multimedia.setExtension(UtilMultimedia
+							.stringToExtensionEnum(extensionImage).ordinal());
+					PayloadMultimediaResponse payloadMultimediaResponse = S.MultimediaService
+							.modificar(multimedia);
+					if (!UtilPayload.isOK(payloadMultimediaResponse)) {
+						Alert.showMessage(payloadMultimediaResponse);
 						return true;
 					}
-
-					if (this.getPersona().getFkMultimedia() == null
-							|| this.getPersona().getFkMultimedia()
-									.getIdMultimedia() == null) {
-
-						Multimedia multimedia = new Multimedia();
-						multimedia.setNombre(nameImage);
-						multimedia.setTipoMultimedia(TipoMultimediaEnum.IMAGEN
-								.ordinal());
-						multimedia.setUrl(this.getUrlImage());
-						multimedia.setExtension(UtilMultimedia
-								.stringToExtensionEnum(extensionImage)
-								.ordinal());
-						multimedia.setDescripcion(typeMedia);
-						PayloadMultimediaResponse payloadMultimediaResponse = S.MultimediaService
-								.incluir(multimedia);
-						if (!UtilPayload.isOK(payloadMultimediaResponse)) {
-							Alert.showMessage(payloadMultimediaResponse);
-							return true;
-						}
-						multimedia
-								.setIdMultimedia(((Double) payloadMultimediaResponse
-										.getInformacion("id")).intValue());
-
-						this.getPersona().setFkMultimedia(multimedia);
-
-					} else {
-						Multimedia multimedia = this.getPersona()
-								.getFkMultimedia();
-						multimedia.setNombre(nameImage);
-						multimedia.setDescripcion(typeMedia);
-						multimedia.setTipoMultimedia(TipoMultimediaEnum.IMAGEN
-								.ordinal());
-						multimedia.setUrl(this.getUrlImage());
-
-						multimedia.setExtension(UtilMultimedia
-								.stringToExtensionEnum(extensionImage)
-								.ordinal());
-						PayloadMultimediaResponse payloadMultimediaResponse = S.MultimediaService
-								.modificar(multimedia);
-						if (!UtilPayload.isOK(payloadMultimediaResponse)) {
-							Alert.showMessage(payloadMultimediaResponse);
-							return true;
-						}
-					}
-
-				} catch (Exception e) {
-					e.printStackTrace();
+					Zki.save(Zki.PERSONAS, this.getPersona().getIdPersona(),
+							extensionImage, bytes);
 				}
 
 			}
+
+			Multimedia multimedia = this.getPersona().getFkMultimedia();
+
 			if (bytes == null && this.getPersona().getFkMultimedia() != null) {
-				File file = new File(this.getUrlImagenAnterior());
-
-				if (file.exists()) {
-
-					if (!file.delete()) {
-
-						UtilDialog
-								.showMessageBoxError("Ha ocurrido un error al sustituir la imagen");
-						return true;
-					}
-				}
-				// Multimedia multimedia = this.getPersona().getFkMultimedia();
-				getPersona().setFkMultimedia(null);
+				Zki.remove(this.getPersona().getFkMultimedia().getUrl());
+				this.getPersona().setFkMultimedia(null);
 			}
 
 			PayloadPersonaResponse payloadPersonaResponse = S.PersonaService
@@ -492,13 +405,22 @@ public class VM_PatrocinadorFormBasic extends VM_WindowForm implements
 				Alert.showMessage(payloadPersonaResponse);
 				return true;
 			}
-
+			if (bytes == null && multimedia != null && multimedia.getIdMultimedia() != null) {
+				PayloadMultimediaResponse payloadMultimediaResponse = S.MultimediaService
+						.eliminar(multimedia.getIdMultimedia());
+				if (!UtilPayload.isOK(payloadMultimediaResponse)) {
+					Alert.showMessage(payloadMultimediaResponse);
+					return true;
+				}
+			}
+			this.getPatrocinador().setFkPersona(this.getPersona());
 			PayloadPatrocinadorResponse payloadPatrocinadorResponse = S.PatrocinadorService
-					.modificar(getPatrocinador());
+					.modificar(this.getPatrocinador());
+			Alert.showMessage(payloadPatrocinadorResponse);
 			if (!UtilPayload.isOK(payloadPatrocinadorResponse)) {
-				Alert.showMessage(payloadPatrocinadorResponse);
 				return true;
 			}
+
 			DataCenter.reloadCurrentNodoMenu();
 			return true;
 		}
@@ -569,108 +491,102 @@ public class VM_PatrocinadorFormBasic extends VM_WindowForm implements
 		}
 	}
 
-	public String getNameImage() {
-		return nameImage;
-	}
-
-	public void setNameImage(String nameImage) {
-		this.nameImage = nameImage;
-	}
-
-	public String getExtensionImage() {
-		return extensionImage;
-	}
-
-	public void setExtensionImage(String extensionImage) {
-		this.extensionImage = extensionImage;
-	}
-
-	public String getUrlImage() {
-		return urlImage;
-	}
-
-	public void setUrlImage(String urlImage) {
-		this.urlImage = urlImage;
-	}
-
-	public String getUrlImagenAnterior() {
-		return urlImagenAnterior;
-	}
-
-	public void setUrlImagenAnterior(String urlImagenAnterior) {
-		this.urlImagenAnterior = urlImagenAnterior;
-	}
-
-	public String getTypeMedia() {
-		return typeMedia;
-	}
-
-	public void setTypeMedia(String typeMedia) {
-		this.typeMedia = typeMedia;
-	}
-
-	@Override
-	public BufferedImage getImageContent() {
-		try {
-			return loadImage();
-		} catch (Exception e) {
-			return null;
+	// Propiedades de la Imagen
+		public String getNameImage() {
+			return nameImage;
 		}
-	}
 
-	@Override
-	public void onUploadImageSingle(UploadEvent event, String idUpload) {
-		org.zkoss.util.media.Media media = event.getMedia();
+		public void setNameImage(String nameImage) {
+			this.nameImage = nameImage;
+		}
 
-		if (media instanceof org.zkoss.image.Image) {
+		public String getExtensionImage() {
+			return extensionImage;
+		}
 
-			if (UtilMultimedia.validateImage(media.getName().substring(
-					media.getName().lastIndexOf(".") + 1))) {
-				this.nameImage = media.getName();
-				this.extensionImage = nameImage.substring(this.nameImage
-						.lastIndexOf(".") + 1);
-				System.out.println(extensionImage);
-				this.bytes = media.getByteData();
+		public void setExtensionImage(String extensionImage) {
+			this.extensionImage = extensionImage;
+		}
 
-				this.urlImage = new StringBuilder()
-						.append("/Smile/Patrocinador/p_").append(nameImage)
-						.toString();
-				this.typeMedia = media.getContentType();
+		public String getUrlImage() {
+			return urlImage;
+		}
 
-			} else {
-				this.getPatrocinador().getFkPersona().setFkMultimedia(null);
-				Alert.showMessage("E: Error Code: 100-El formato de la <b>imagen</b> es inválido");
+		public void setUrlImage(String urlImage) {
+			this.urlImage = urlImage;
+		}
 
+		public String getTypeMedia() {
+			return typeMedia;
+		}
+
+		public void setTypeMedia(String typeMedia) {
+			this.typeMedia = typeMedia;
+		}
+
+		@Override
+		public BufferedImage getImageContent() {
+			if (bytes != null) {
+				try {
+					return ImageIO.read(new ByteArrayInputStream(bytes));
+				} catch (IOException e) {
+					return null;
+				}
 			}
-		} else {
-			this.getPatrocinador().getFkPersona().setFkMultimedia(null);
-			Alert.showMessage("E: Error Code: 100-El formato de la <b>imagen</b> es inválido");
 
-		}
+			if (urlImage != null) {
+				bytes = Zki.getBytes(urlImage);
+				return Zki.getBufferedImage(urlImage);
+			}
 
-	}
-
-	@Override
-	public void onRemoveImageSingle(String idUpload) {
-		bytes = null;
-	}
-
-	public byte[] getBytes() {
-		return bytes;
-	}
-
-	public void setBytes(byte[] bytes) {
-		this.bytes = bytes;
-	}
-
-	private BufferedImage loadImage() throws Exception {
-		try {
-			Path path = Paths.get(this.getUrlImage());
-			bytes = Files.readAllBytes(path);
-			return ImageIO.read(new File(this.getUrlImage()));
-		} catch (Exception e) {
 			return null;
 		}
-	}
+
+		@Override
+		public void onUploadImageSingle(UploadEvent event, String idUpload) {
+			org.zkoss.util.media.Media media = event.getMedia();
+
+			if (media instanceof org.zkoss.image.Image) {
+
+				if (UtilMultimedia.validateImage(media.getName().substring(
+						media.getName().lastIndexOf(".") + 1))) {
+					this.bytes = media.getByteData();
+					this.extensionImage = media.getName().substring(
+							media.getName().lastIndexOf(".") + 1);
+					this.typeMedia = media.getContentType();
+
+					if (this.getPersona().getIdPersona() != null) {
+						this.nameImage = new StringBuilder().append(Zki.PERSONAS)
+								.append(this.getPersona().getIdPersona())
+								.append(".").append(extensionImage).toString();
+
+						this.urlImage = new StringBuilder().append(Zki.PERSONAS)
+								.append(this.getPersona().getIdPersona())
+								.append(".").append(extensionImage).toString();
+
+					}
+				} else {
+					this.getPersona().setFkMultimedia(null);
+					Alert.showMessage("E: Error Code: 100-El formato de la <b>imagen</b> es inválido");
+
+				}
+			} else {
+				this.getPersona().setFkMultimedia(null);
+				Alert.showMessage("E: Error Code: 100-El formato de la <b>imagen</b> es inválido");
+			}
+		}
+
+		@Override
+		public void onRemoveImageSingle(String idUpload) {
+			bytes = null;
+		}
+
+		public byte[] getBytes() {
+			return bytes;
+		}
+
+		public void setBytes(byte[] bytes) {
+			this.bytes = bytes;
+		}
 
 }

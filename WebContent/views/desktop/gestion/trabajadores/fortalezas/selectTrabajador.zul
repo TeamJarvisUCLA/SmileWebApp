@@ -12,17 +12,17 @@
 					<div class="col s12">
 						<listbox id="listbox" model="@load(vm.objectsList)" selectedItem="@bind(vm.selectedObject)">
 							<listhead sizable="true">
-								<listheader width="33%" label="Cédula" />
-								<listheader width="33%" label="Nombre" />
-								<listheader width="33%" label="Apellido" />
-							</listhead>
-							<template name="model">
-								<listitem>
-									<listcell label="@load(each.fkPersona.identificacion)" />
-									<listcell label="@load(each.fkPersona.nombre)" />
-									<listcell label="@load(each.fkPersona.apellido)" />
-								</listitem>
-							</template>
+							<listheader width="33%" label="Cédula" />
+							<listheader width="33%" label="Trabajador" />
+							<listheader width="33%" label="Cargo" />
+						</listhead>
+						<template name="model">
+							<listitem>
+								<listcell label="@load(each.fkPersona.identificacion)" />
+								<listcell label="@load(each.fkPersona.nombre.concat(' ').concat(each.fkPersona.apellido))" />
+								<listcell label="@load(each.fkCargo.nombre)" />
+							</listitem>
+						</template>
 							<listfoot>
 								<listfooter id="listFoot" span="3" use="karen.core.listfoot.ListFoot"></listfooter>
 							</listfoot>

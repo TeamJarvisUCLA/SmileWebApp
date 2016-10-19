@@ -24,7 +24,7 @@
 						<n:label for="tipo_persona" class="active">Tipo de persona</n:label>
 						<combobox id="tipo_persona" readonly="true" disabled="true" model="@bind(vm.tipoPersonaEnums)" selectedItem="@bind(vm.selectedObject.fkPersona.tipoPersonaEnum)">
 							<template name="model">
-								<comboitem label="@load(each)" />
+								<comboitem label="@load(each)"/>
 							</template>
 						</combobox>
 					</div>
@@ -41,7 +41,7 @@
 					
 					<div class="input-field col s6">
 						<n:label for="sexo" class="active">Sexo</n:label>
-						<combobox id="sexo" readonly="true" disabled="true" model="@bind(vm.sexoEnums)" selectedItem="@bind(vm.selectedObject.fkPersona.sexo)">
+						<combobox id="sexo" readonly="true" disabled="true" model="@bind(vm.sexoEnums)" selectedItem="@bind(vm.sexoEnum)">
 							<template name="model">
 								<comboitem label="@load(each)" />
 							</template>

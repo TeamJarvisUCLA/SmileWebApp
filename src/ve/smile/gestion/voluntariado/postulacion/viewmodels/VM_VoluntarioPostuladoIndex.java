@@ -12,10 +12,8 @@ import karen.core.simple_list.wizard.buttons.data.OperacionWizard;
 import karen.core.simple_list.wizard.buttons.enums.OperacionWizardEnum;
 import karen.core.simple_list.wizard.buttons.helpers.OperacionWizardHelper;
 import karen.core.simple_list.wizard.viewmodels.VM_WindowWizard;
-import karen.core.util.UtilDialog;
 import karen.core.util.payload.UtilPayload;
 import karen.core.util.validate.UtilValidate;
-import karen.core.util.validate.UtilValidate.ValidateOperator;
 import lights.core.enums.TypeQuery;
 import lights.core.payload.response.IPayloadResponse;
 
@@ -39,25 +37,21 @@ import ve.smile.payload.response.PayloadVoluntarioResponse;
 
 public class VM_VoluntarioPostuladoIndex extends VM_WindowWizard<Voluntario>
 {
-	private List<EstatusVoluntarioEnum> estatusVoluntarioEnums;
-	private EstatusVoluntarioEnum estatusVoluntarioEnum;
-		
-	private Estado estado;
-	private Motivo motivo;
-	
+	private Estado estado = new Estado();
+	private Motivo motivo = new Motivo();
+	private Date fechaNacimiento = new Date();
 	private Voluntario voluntario = new Voluntario();
 	
-	private Date fechaNacimiento = new Date();
+	private SexoEnum sexoEnum;
+	private TipoPersonaEnum tipoPersonaEnum;
+	private EstatusVoluntarioEnum estatusVoluntarioEnum;
 	
 	private List<Ciudad> ciudades;
 	private List<Estado> estados;
 	private List<Motivo> motivos;
-	
 	private List<SexoEnum> sexoEnums;
 	private List<TipoPersonaEnum> tipoPersonaEnums;
-
-	private SexoEnum sexoEnum;
-	private TipoPersonaEnum tipoPersonaEnum;
+	private List<EstatusVoluntarioEnum> estatusVoluntarioEnums;
 
 	@Init(superclass = true)
 	public void childInit()
@@ -97,6 +91,7 @@ public class VM_VoluntarioPostuladoIndex extends VM_WindowWizard<Voluntario>
 		{
 			this.sexoEnums = new ArrayList<>();
 		}
+		
 		if (this.sexoEnums.isEmpty())
 		{
 			for (SexoEnum sexoEnum : SexoEnum.values())
@@ -203,7 +198,7 @@ public class VM_VoluntarioPostuladoIndex extends VM_WindowWizard<Voluntario>
 		this.estados = estados;
 	}
 
-	// Filtra las ciudades al seleccionar el estado
+	// CIUDADES POR ESTADO
 	@Command("changeEstado")
 	@NotifyChange({"ciudades"})
 	public void changeEstado()
@@ -232,7 +227,7 @@ public class VM_VoluntarioPostuladoIndex extends VM_WindowWizard<Voluntario>
 		this.getSelectedObject().getFkPersona().setFechaNacimiento(fechaNacimiento.getTime());
 	}
 	
-	// ESTATUS POSTULADO
+	// ESTATUS VOLUNTARIO
 	public EstatusVoluntarioEnum getEstatusVoluntarioEnum()
 	{
 		return estatusVoluntarioEnum;
@@ -274,6 +269,7 @@ public class VM_VoluntarioPostuladoIndex extends VM_WindowWizard<Voluntario>
 	public void setMotivo (Motivo motivo)
 	{
 		this.motivo = motivo;
+		this.getVoluntario().setFkMotivo(this.motivo);
 	}
 
 	public List<Motivo> getMotivos()
@@ -300,7 +296,6 @@ public class VM_VoluntarioPostuladoIndex extends VM_WindowWizard<Voluntario>
 	}
 	
 	// MÉTODOS DEL WIZARD
-
 	@Override
 	public Map<Integer, List<OperacionWizard>> getButtonsToStep()
 	{
@@ -310,8 +305,8 @@ public class VM_VoluntarioPostuladoIndex extends VM_WindowWizard<Voluntario>
 		botones.put(1, listOperacionWizard1);
 		
 		List<OperacionWizard> listOperacionWizard2 = new ArrayList<OperacionWizard>();
-		OperacionWizard operacionWizardCustom1 = new OperacionWizard(OperacionWizardEnum.CUSTOM1.ordinal(), "RECHAZAR",  "Custom1", "z-icon-times", "deep-orange", "RECHAZAR");
-		OperacionWizard operacionWizardCustom2 = new OperacionWizard(OperacionWizardEnum.CUSTOM2.ordinal(), "APROBAR",  "Custom2", "fa fa-check-square-o", "green", "APROBAR");
+		OperacionWizard operacionWizardCustom1 = new OperacionWizard(OperacionWizardEnum.CUSTOM1.ordinal(), "APROBAR",  "Custom1", "fa fa-check-square-o", "green", "APROBAR");
+		OperacionWizard operacionWizardCustom2 = new OperacionWizard(OperacionWizardEnum.CUSTOM2.ordinal(), "RECHAZAR", "Custom2", "z-icon-times", "deep-orange", "RECHAZAR");
 		listOperacionWizard2.add(operacionWizardCustom1);
 		listOperacionWizard2.add(operacionWizardCustom2);
 		listOperacionWizard2.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.CANCELAR));
@@ -319,8 +314,8 @@ public class VM_VoluntarioPostuladoIndex extends VM_WindowWizard<Voluntario>
 		
 		List<OperacionWizard> listOperacionWizard3 = new ArrayList<OperacionWizard>();
 		listOperacionWizard3.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.ATRAS));
-		listOperacionWizard3.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.CANCELAR));
 		listOperacionWizard3.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.SIGUIENTE));
+		listOperacionWizard3.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.CANCELAR));
 		botones.put(3, listOperacionWizard3);
 		
 		List<OperacionWizard> listOperacionWizard4 = new ArrayList<OperacionWizard>();
@@ -353,7 +348,6 @@ public class VM_VoluntarioPostuladoIndex extends VM_WindowWizard<Voluntario>
 	}
 	
 	// CARGAR OBJETOS
-	
 	@Override
 	public void comeIn(Integer currentStep)
 	{
@@ -374,8 +368,7 @@ public class VM_VoluntarioPostuladoIndex extends VM_WindowWizard<Voluntario>
 		return payloadVoluntarioResponse;
 	}
 	
-	// ATRÁS
-	
+	// ATRAS
 	@Override
 	public String executeAtras(Integer currentStep)
 	{
@@ -384,7 +377,6 @@ public class VM_VoluntarioPostuladoIndex extends VM_WindowWizard<Voluntario>
 	}
 	
 	// CANCELAR
-	
 	@Override
 	public String executeCancelar(Integer currentStep)
 	{
@@ -393,7 +385,6 @@ public class VM_VoluntarioPostuladoIndex extends VM_WindowWizard<Voluntario>
 	}
 	
 	// SIGUIENTE
-	
 	@Override
 	public String isValidPreconditionsSiguiente(Integer currentStep)
 	{
@@ -402,6 +393,17 @@ public class VM_VoluntarioPostuladoIndex extends VM_WindowWizard<Voluntario>
 			if (selectedObject == null)
 			{
 				return "E:Error Code 5-Debe seleccionar un <b>postulado</b>";
+			}
+		}
+		if (currentStep == 3)
+		{
+			try
+			{
+				UtilValidate.validateNull(this.getVoluntario().getFkMotivo(), "Motivo");
+			}
+			catch (Exception e)
+			{
+				return e.getMessage();
 			}
 		}
 		return "";
@@ -416,25 +418,41 @@ public class VM_VoluntarioPostuladoIndex extends VM_WindowWizard<Voluntario>
 		}
 		if (currentStep == 3)
 		{
+			this.selectedObject.setFkMotivo(this.getMotivo());
 			PayloadVoluntarioResponse payloadVoluntarioResponse = S.VoluntarioService.modificar(this.selectedObject);
 			if (UtilPayload.isOK(payloadVoluntarioResponse))
 			{
-				restartWizard();
 				this.setSelectedObject(new Voluntario());
 				this.setVoluntario(new Voluntario());
 				BindUtils.postNotifyChange(null, null, this, "selectedObject");
 				BindUtils.postNotifyChange(null, null, this, "voluntario");
 			}
-			return (String) payloadVoluntarioResponse.getInformacion(IPayloadResponse.MENSAJE);
 		}
 		goToNextStep();
 		return "";
 	}
 
 	// CUSTOMS
-	
 	@Override
 	public String executeCustom1(Integer currentStep)
+	{
+		// POR COMPLETAR DATOS
+		this.selectedObject.setEstatusVoluntario(EstatusVoluntarioEnum.POR_COMPLETAR.ordinal());
+		PayloadVoluntarioResponse payloadVoluntarioResponse = S.VoluntarioService.modificar(this.selectedObject);
+		if (UtilPayload.isOK(payloadVoluntarioResponse))
+		{
+			this.setSelectedObject(new Voluntario());
+			this.setVoluntario(new Voluntario());
+			BindUtils.postNotifyChange(null, null, this, "selectedObject");
+			BindUtils.postNotifyChange(null, null, this, "voluntario");
+		}
+		goToNextStep();
+		goToNextStep();
+		return "";
+	}
+		
+	@Override
+	public String executeCustom2(Integer currentStep)
 	{
 		// RECHAZADO
 		this.selectedObject.setEstatusVoluntario(EstatusVoluntarioEnum.RECHAZADO.ordinal());
@@ -442,17 +460,7 @@ public class VM_VoluntarioPostuladoIndex extends VM_WindowWizard<Voluntario>
 		return "";
 	}
 	
-	@Override
-	public String executeCustom2(Integer currentStep)
-	{
-		// POR COMPLETAR DATOS
-		this.selectedObject.setEstatusVoluntario(EstatusVoluntarioEnum.POR_COMPLETAR.ordinal());
-		goToNextStep();
-		return "";
-	}
-	
 	// FINALIZAR
-	
 	@Override
 	public String isValidPreconditionsFinalizar(Integer currentStep)
 	{
@@ -473,6 +481,12 @@ public class VM_VoluntarioPostuladoIndex extends VM_WindowWizard<Voluntario>
 	@Override
 	public String executeFinalizar(Integer currentStep)
 	{
+		restartWizard();
 		return "";
+	}
+	
+	public Voluntario getVoluntarioSelected()
+	{
+		return (Voluntario) this.selectedObject;
 	}
 }

@@ -37,6 +37,7 @@ public class VM_IndicadoresActividadesTrabajoSocialPlanificado extends
 
 	private List<TsPlanActividad> listTsPlanActividads;
 	private int indexActividad;
+	private List<IndicadorTsPlanActividad> indicadorTsPlanActividadsDelete;
 
 	public List<TsPlanActividad> getListTsPlanActividads() {
 		if (this.listTsPlanActividads == null) {
@@ -56,6 +57,18 @@ public class VM_IndicadoresActividadesTrabajoSocialPlanificado extends
 
 	public void setIndexActividad(int indexActividad) {
 		this.indexActividad = indexActividad;
+	}
+
+	public List<IndicadorTsPlanActividad> getIndicadorTsPlanActividadsDelete() {
+		if (this.indicadorTsPlanActividadsDelete == null) {
+			indicadorTsPlanActividadsDelete = new ArrayList<>();
+		}
+		return indicadorTsPlanActividadsDelete;
+	}
+
+	public void setIndicadorTsPlanActividadsDelete(
+			List<IndicadorTsPlanActividad> indicadorTsPlanActividadsDelete) {
+		this.indicadorTsPlanActividadsDelete = indicadorTsPlanActividadsDelete;
 	}
 
 	@Init(superclass = true)
@@ -92,22 +105,31 @@ public class VM_IndicadoresActividadesTrabajoSocialPlanificado extends
 	}
 
 	public void refreshIndicador(List<Indicador> listIndicado) {
-		List<IndicadorTsPlanActividad> listTsPlanActividads = new ArrayList<>();
 
+		boolean validar = true;
 		for (Indicador indicador : listIndicado) {
 
-			IndicadorTsPlanActividad indicadorTsPlanActividad = new IndicadorTsPlanActividad();
-			indicadorTsPlanActividad.setFkTsPlanActividad(this
-					.getListTsPlanActividads().get(indexActividad));
-			indicadorTsPlanActividad.setFkIndicador(indicador);
-			listTsPlanActividads.add(indicadorTsPlanActividad);
+			for (IndicadorTsPlanActividad indicadorTsPlanActividad2 : this
+					.getListTsPlanActividads().get(indexActividad)
+					.getIndicadorTsPlanActividads()) {
+				if (indicadorTsPlanActividad2.getFkIndicador().getIdIndicador()
+						.equals(indicador.getIdIndicador())) {
+					validar = false;
+					break;
+				}
+			}
 
+			if (validar) {
+				IndicadorTsPlanActividad indicadorTsPlanActividad = new IndicadorTsPlanActividad();
+				indicadorTsPlanActividad.setFkTsPlanActividad(this
+						.getListTsPlanActividads().get(indexActividad));
+				indicadorTsPlanActividad.setFkIndicador(indicador);
+				this.getListTsPlanActividads().get(indexActividad)
+						.getIndicadorTsPlanActividads()
+						.add(indicadorTsPlanActividad);
+			}
+			validar = true;
 		}
-
-		this.listTsPlanActividads.get(indexActividad)
-				.setIndicadorTsPlanActividads(listTsPlanActividads);
-		this.listTsPlanActividads.get(indexActividad).setListIndicadors(
-				new ArrayList<Indicador>(listIndicado));
 
 		BindUtils.postNotifyChange(null, null, this, "listTsPlanActividads");
 	}
@@ -116,6 +138,7 @@ public class VM_IndicadoresActividadesTrabajoSocialPlanificado extends
 	public void eliminarIndicador(
 			@BindingParam("indicadorTsPlanActividad") IndicadorTsPlanActividad indicadorTsPlanActividad,
 			@BindingParam("index") int index) {
+		this.getIndicadorTsPlanActividadsDelete().add(indicadorTsPlanActividad);
 		this.getListTsPlanActividads().get(index)
 				.getIndicadorTsPlanActividads()
 				.remove(indicadorTsPlanActividad);
@@ -203,17 +226,6 @@ public class VM_IndicadoresActividadesTrabajoSocialPlanificado extends
 				PayloadIndicadorTsPlanActividadResponse payloadIndicadorTsPlanActividadResponse = S.IndicadorTsPlanActividadService
 						.consultarCriterios(TypeQuery.EQUAL, criterios);
 				if (UtilPayload.isOK(payloadTsPlanActividadResponse)) {
-					List<Indicador> listIndicadors = new ArrayList<>();
-
-					if (payloadIndicadorTsPlanActividadResponse.getObjetos() != null) {
-
-						for (IndicadorTsPlanActividad indicadorTsPlanActividad : payloadIndicadorTsPlanActividadResponse
-								.getObjetos()) {
-							listIndicadors.add(indicadorTsPlanActividad
-									.getFkIndicador());
-						}
-					}
-					tsPlanActividad.setListIndicadors(listIndicadors);
 					tsPlanActividad
 							.setIndicadorTsPlanActividads(payloadIndicadorTsPlanActividadResponse
 									.getObjetos());
@@ -259,16 +271,23 @@ public class VM_IndicadoresActividadesTrabajoSocialPlanificado extends
 
 				for (IndicadorTsPlanActividad indicadorTsPlanActividad : obj
 						.getIndicadorTsPlanActividads()) {
-
 					IndicadorTsPlanActividad indicadorTsPlanActividad2 = new IndicadorTsPlanActividad(
 							new TsPlanActividad(obj.getIdTsPlanActividad()),
 							indicadorTsPlanActividad.getFkIndicador(), null,
-							new String(),
-							indicadorTsPlanActividad.getValorEsperado(),
+							null, indicadorTsPlanActividad.getValorEsperado(),
 							new Double(0));
+					indicadorTsPlanActividad2
+							.setIdIndicadorTsPlanActividad(indicadorTsPlanActividad
+									.getIdIndicadorTsPlanActividad());
+					if (indicadorTsPlanActividad
+							.getIdIndicadorTsPlanActividad() == null) {
 
-					payloadIndicadorTsPlanActividadResponse = S.IndicadorTsPlanActividadService
-							.incluir(indicadorTsPlanActividad2);
+						payloadIndicadorTsPlanActividadResponse = S.IndicadorTsPlanActividadService
+								.incluir(indicadorTsPlanActividad2);
+					} else {
+						payloadIndicadorTsPlanActividadResponse = S.IndicadorTsPlanActividadService
+								.modificar(indicadorTsPlanActividad2);
+					}
 
 					if (!UtilPayload
 							.isOK(payloadIndicadorTsPlanActividadResponse)) {
@@ -276,12 +295,39 @@ public class VM_IndicadoresActividadesTrabajoSocialPlanificado extends
 								.getInformacion(IPayloadResponse.MENSAJE);
 					}
 				}
-				goToNextStep();
-				return (String) payloadIndicadorTsPlanActividadResponse
-						.getInformacion(IPayloadResponse.MENSAJE);
-			}
 
+			}
+			for (IndicadorTsPlanActividad indicadorTsPlanActividad : this
+					.getIndicadorTsPlanActividadsDelete()) {
+				if (indicadorTsPlanActividad.getIdIndicadorTsPlanActividad() != null) {
+					payloadIndicadorTsPlanActividadResponse = S.IndicadorTsPlanActividadService
+							.eliminar(indicadorTsPlanActividad
+									.getIdIndicadorTsPlanActividad());
+				}
+
+			}
+			goToNextStep();
 		}
+		return "";
+	}
+
+	@Override
+	public String executeCustom1(Integer currentStep) {
+		executeCancelar(currentStep);
+		return "";
+
+	}
+
+	@Override
+	public String executeCancelar(Integer currentStep) {
+
+		this.setListTsPlanActividads(null);
+
+		this.setIndicadorTsPlanActividadsDelete(null);
+
+		BindUtils.postNotifyChange(null, null, this, "*");
+
+		restartWizard();
 		return "";
 	}
 

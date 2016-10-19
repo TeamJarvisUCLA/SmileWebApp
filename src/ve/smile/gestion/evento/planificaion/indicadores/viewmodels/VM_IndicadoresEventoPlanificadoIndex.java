@@ -16,20 +16,19 @@ import ve.smile.consume.services.S;
 import ve.smile.dto.EventoPlanificado;
 import ve.smile.dto.Indicador;
 import ve.smile.dto.IndicadorEventoPlanificado;
-import ve.smile.dto.IndicadorTsPlan;
 import ve.smile.payload.response.PayloadEventoPlanificadoResponse;
+import ve.smile.payload.response.PayloadIndicadorEventoPlanificadoResponse;
 import ve.smile.payload.response.PayloadIndicadorResponse;
-import ve.smile.payload.response.PayloadTsPlanResponse;
 import karen.core.crux.alert.Alert;
-import karen.core.simple_list.wizard.buttons.data.OperacionWizard;
-import karen.core.simple_list.wizard.buttons.enums.OperacionWizardEnum;
-import karen.core.simple_list.wizard.buttons.helpers.OperacionWizardHelper;
-import karen.core.simple_list.wizard.viewmodels.VM_WindowWizard;
 import karen.core.util.payload.UtilPayload;
+import karen.core.wizard.buttons.data.OperacionWizard;
+import karen.core.wizard.buttons.enums.OperacionWizardEnum;
+import karen.core.wizard.buttons.helpers.OperacionWizardHelper;
+import karen.core.wizard.viewmodels.VM_WindowWizard;
+import lights.core.enums.TypeQuery;
 import lights.core.payload.response.IPayloadResponse;
 
-public class VM_IndicadoresEventoPlanificadoIndex extends
-VM_WindowWizard<EventoPlanificado>{
+public class VM_IndicadoresEventoPlanificadoIndex extends VM_WindowWizard{
 	
 	private List<Indicador> indicadores = new ArrayList<>();
 	private Set<Indicador> indicadoresSeleccionados = new HashSet<>();
@@ -109,6 +108,34 @@ VM_WindowWizard<EventoPlanificado>{
 
 		return botones;
 	}
+	
+	@Override
+	public String executeFinalizar(Integer currentStep) {
+		if (currentStep == 3) {
+			/*Map<String, String> criterios = new HashMap<>();
+			EventoPlanificado eventoPlanificado = (EventoPlanificado)selectedObject;
+			criterios.put("fkEventoPlanificado.idEventoPlanificado", eventoPlanificado.getIdEventoPlanificado()+"");
+			PayloadIndicadorEventoPlanificadoResponse indicadorEventoPlanificadoResponse = S.IndicadorEventoPlanificadoService.consultarCriterios(TypeQuery.EQUAL, criterios);
+			if(indicadorEventoPlanificadoResponse.getObjetos() != null & indicadorEventoPlanificadoResponse.getObjetos().size()>0){
+				for(IndicadorEventoPlanificado indicadorEventoPlanificado: indicadorEventoPlanificadoResponse.getObjetos()){
+					S.IndicadorEventoPlanificadoService.eliminar(indicadorEventoPlanificado.getIdIndicadorEventoPlanificado());					
+				}		
+			}*/
+			
+			for (IndicadorEventoPlanificado indicadorEventPlan : this.getIndicadorEventoPlanificado()) {
+				PayloadIndicadorEventoPlanificadoResponse payloadIndicadorEventPlanResponse = S.IndicadorEventoPlanificadoService
+						.incluir(indicadorEventPlan);
+				if (!UtilPayload.isOK(payloadIndicadorEventPlanResponse)) {
+					return (String) payloadIndicadorEventPlanResponse
+							.getInformacion(IPayloadResponse.MENSAJE);
+				}
+			}
+
+			goToNextStep();
+		}
+
+		return "";
+	}
 
 	@Override
 	public IPayloadResponse<EventoPlanificado> getDataToTable(Integer cantidadRegistrosPagina,
@@ -121,8 +148,8 @@ VM_WindowWizard<EventoPlanificado>{
 	@Override
 	public List<String> getIconsToStep() {
 		List<String> iconos = new ArrayList<String>();
-
-		iconos.add("fa fa-heart");
+		
+		iconos.add("fa fa-list-alt");
 		iconos.add("fa fa-pencil-square-o");
 		iconos.add("fa fa-pencil-square-o");
 		iconos.add("fa fa-check-square-o");
@@ -164,7 +191,7 @@ VM_WindowWizard<EventoPlanificado>{
 
 		if (currentStep == 2) {
 			if (this.getEventoIndicadores().isEmpty()) {
-				return "E:Error Code 5-Debe agregar al menos un <b>Indicador</b> al trabajo social planificado.";
+				return "E:Error Code 5-Debe agregar al menos un <b>Indicador</b> al evento planificado.";
 			}
 
 		}
@@ -174,6 +201,24 @@ VM_WindowWizard<EventoPlanificado>{
 
 	@Override
 	public String isValidSearchDataSiguiente(Integer currentStep) {
+		if(currentStep == 1){
+			this.eventoIndicadores = new ArrayList<>();
+			Map<String, String> criterios = new HashMap<>();
+			EventoPlanificado eventoPlanificado = (EventoPlanificado)selectedObject;
+			criterios.put("fkEventoPlanificado.idEventoPlanificado", eventoPlanificado.getIdEventoPlanificado()+"");
+			PayloadIndicadorEventoPlanificadoResponse indicadorEventoPlanificadoResponse = S.IndicadorEventoPlanificadoService.consultarCriterios(TypeQuery.EQUAL, criterios);
+			
+			if(indicadorEventoPlanificadoResponse.getObjetos() != null){				
+				for(IndicadorEventoPlanificado indicadorEventoPlanificado: indicadorEventoPlanificadoResponse.getObjetos()){
+					if(this.eventoIndicadores.size()==0){
+					this.eventoIndicadores.add(indicadorEventoPlanificado.getFkIndicador()); 
+					}
+				}								
+			}
+			BindUtils.postNotifyChange(null, null, this, "eventoIndicadores");
+		}
+		
+		
 		if (currentStep == 2) {
 			if (this.getEventoIndicadores().isEmpty()) {
 				return "E:Error Code 5-Debe agregar al menos un <b>Indicador</b> al evento planificado.";
@@ -181,11 +226,12 @@ VM_WindowWizard<EventoPlanificado>{
 				this.getIndicadorEventoPlanificado().clear();
 				for (Indicador indicador : this.getEventoIndicadores()) {
 					IndicadorEventoPlanificado indicadorEventoPlanificado = new IndicadorEventoPlanificado();
+					indicadorEventoPlanificado.setFkEventoPlanificado((EventoPlanificado) selectedObject);
 					indicadorEventoPlanificado.setFkIndicador(indicador);
 					this.getIndicadorEventoPlanificado().add(indicadorEventoPlanificado);
 				}
 				BindUtils
-						.postNotifyChange(null, null, this, "indicadorTsPlans");
+						.postNotifyChange(null, null, this, "indicadorEventoPlanificado");
 			}
 
 		}
@@ -193,13 +239,19 @@ VM_WindowWizard<EventoPlanificado>{
 		return "";
 	}
 	
-
 	@Override
-	public void comeIn(Integer currentStep) {
-		if (currentStep == 1) {
-			this.getControllerWindowWizard().updateListBoxAndFooter();
-			BindUtils.postNotifyChange(null, null, this, "objectsList");
-		}
+	public String executeCustom1(Integer currentStep) {
+		this.setIndicadorEventoPlanificado(new ArrayList<IndicadorEventoPlanificado>());
+		this.setEventoIndicadores(new ArrayList<Indicador>());
+		this.setSelectedObject(new EventoPlanificado());
+
+		BindUtils.postNotifyChange(null, null, this, "indicadorEventoPlanificado");
+		BindUtils
+				.postNotifyChange(null, null, this, "eventoIndicadores");
+		BindUtils.postNotifyChange(null, null, this, "selectedObject");
+		restartWizard();
+		return "";
+		
 	}
 
 	public List<Indicador> getIndicadores() {

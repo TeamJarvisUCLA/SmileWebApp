@@ -1,12 +1,12 @@
 <zk xmlns:n="native" xmlns:w="client">
 	<zscript>
-		boolean openTop = false;
-	</zscript>
-	
-	<div>
+	boolean openTop = false;
+</zscript>
+
+	<div style="background: #FFFFFF !important;">
 		<div sclass="page-content page-content-main "
 			apply="org.zkoss.bind.BindComposer"
-		viewModel="@id('vm') @init('lights.smile.login.Login')">
+			viewModel="@id('vm') @init('lights.smile.login.Login')">
 			<div apply="karen.core.crux.session.check.CheckLogin"
 				style="display: none;">
 			</div>
@@ -17,15 +17,15 @@
 				<a iconSclass="fa fa-times"
 					w:onClick="jq(this.$f('login')).slideToggle(500);"
 					style="float:right">
-					<attribute name="onClick">						 
-						if(!openTop){
+					<attribute name="onClick">
+						if (!openTop) {
 							openTop = true;
-							menu.setSclass("menu before-reajust menuOpenTop");			
-						}else {
+							menu.setSclass("menu before-reajust menuOpenTop");
+						} else {
 							openTop = false;
-							menu.setSclass("menu before-reajust menuPop");	
-							}
-				    </attribute>
+							menu.setSclass("menu before-reajust menuPop");
+						}
+					</attribute>
 				</a>
 				<div sclass="col s4">
 
@@ -40,9 +40,7 @@
 						style="margin-right:2px; margin-left:2px">
 						<div sclass="row">
 							<div class="input-field col s12">
-								<n:label for="nombres">
-									Correo:
-								</n:label>
+								<n:label for="nombres">Correo:</n:label>
 								<textbox id="nombres" type="text"
 									value="@bind(vm.usuario.correo)" onOK="@command('login')">
 								</textbox>
@@ -196,27 +194,26 @@
 			</a>
 		</hlayout>
 	</div>
-	<popup id="menu" sclass="menu before-reajust menuPop"
-		width="180px" apply="org.zkoss.bind.BindComposer"
+	<popup id="menu" sclass="menu before-reajust menuPop" width="180px"
+		apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('ve.smile.web.viewmodels.VM_Navbar')">
 		<vlayout spacing="0">
-			<a class="hide_button"
-				style="top:90px 90px !important"
+			<a class="hide_button" style="top:90px 90px !important"
 				w:onClick="jq(this.$f('login')).slideToggle(500);" onClick=""
 				id="login_button">
 				<label>Iniciar Sesión</label>
 				<attribute name="onClick">
-					menu.close();
-					if (!openTop) {
-						openTop = true;
-						menu.setSclass("menu before-reajust menuOpenTop");
-					} else {
-						openTop = false;
-						menu.setSclass("menu before-reajust menuPop");
-					}
-				</attribute>
+						menu.close();
+						if (!openTop) {
+							openTop = true;
+							menu.setSclass("menu before-reajust menuOpenTop");
+						} else {
+							openTop = false;
+							menu.setSclass("menu before-reajust menuPop");
+						}
+					</attribute>
 			</a>
-			<a  href="#" onClick="@command('app')">
+			<a href="#" onClick="@command('app')">
 				<label>Descargar App Móvil</label>
 			</a>
 			<a href="" onClick="@command('faq')">

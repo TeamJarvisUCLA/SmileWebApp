@@ -1,0 +1,82 @@
+<zk xmlns:n="native" xmlns:w="client">
+	<div sclass="animated fadeInLeft">
+		<div class="row">
+			<div class="col s12" align="center"
+				style="margin-bottom: 15px;">
+				<label
+					value="Ingrese los datos de la capacitación ejecutada" sclass="label-medium-500">
+				</label>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col s12">
+			
+				<div class="input-field col s12">
+					<div class="input-field offset-s2 col s8">
+						<n:label for="fecha_ejecutada" class="active"> Fecha ejecutada </n:label>
+						<datebox id="fecha_ejecutada" readonly="true" cols="20" format="dd/MM/yyyy" value="@bind(vm.fechaEjecutada)" />
+						<span sclass="fa fa-question-circle fa-lg help-icon-special" tooltip="pop_fecha, position=after_end" />
+					</div>
+				</div>
+					
+				<popup id="pop_fecha" width="200px">
+        			<html>
+        				<![CDATA[Por favor, seleccione la fecha de ejecución de la capacitación que desea registrar.<br/>]]>
+        			</html>
+    			</popup>
+					
+				<div class="col s12">
+					<div class="input-field offset-s2 col s8">
+						<n:label class="active" for="fk_motivo">Motivo</n:label>
+						<combobox id="fk_motivo" readonly="true" model="@bind(vm.motivos)" selectedItem="@bind(vm.motivo)">
+							<template name="model">
+								<comboitem label="@load(each.nombre)" />
+							</template>
+						</combobox>
+						<span sclass="fa fa-question-circle fa-lg help-icon" tooltip="pop_motivo, position=after_end"/>
+					</div>
+				</div>
+					
+				<popup id="pop_motivo" width="200px">
+        			<html>
+        				<![CDATA[Por favor, seleccione el motivo de la capacitación que desea registrar.<br/>]]>
+        			</html>
+    			</popup>
+				
+				<div class="input-field col s12">
+					<div class="input-field offset-s2 col s8">
+						<n:label for="observacion"> Observaciones </n:label>
+						<textbox id="descripcion" type="text" sclass="materialize-textarea" multiline="true" value="@bind(vm.observacion)"> </textbox>
+						<span sclass="fa fa-question-circle fa-lg help-icon-special" tooltip="pop_observacion, position=after_end" />
+					</div>
+				</div>
+					
+				<popup id="pop_observacion" width="200px">
+        			<html>
+        				<![CDATA[Por favor, ingrese las observaciones de la capacitación que desea registrar.<br/>]]>
+        			</html>
+    			</popup>
+				
+				<div class="input-field col s12">
+					<div class="input-field offset-s2 col s8">
+						<n:label for="fk_motivo" class="active"> Estado de la planificación </n:label>
+						<combobox id="fk_estatus" readonly="true" model="@bind(vm.estatusCapacitacionPlanificadaEnums)" selectedItem="@bind(vm.estatusCapacitacionPlanificadaEnum)">
+							<template name="model">
+								<comboitem label="@load(each)"/>
+							</template>
+						</combobox>
+						<span sclass="fa fa-question-circle fa-lg help-icon-special" tooltip="pop_estatus, position=after_end" />
+					</div>
+				</div>
+
+    			<popup id="pop_estatus" width="200px">
+        			<html>
+        				<![CDATA[Por favor, seleccione el estado de la capacitación que desea registrar.<br/>]]>
+        			</html>
+    			</popup>
+    				
+			</div>	
+		</div>
+	</div>
+</zk>

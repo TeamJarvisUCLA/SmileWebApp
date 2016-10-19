@@ -1,76 +1,19 @@
-<div sclass="row section animated fadeInLeft"
-	style="background: #FFFFFF">
-
-	<style>
-		.z-row .z-detail-outer { width: 40px; min-width: 40px;
-		border-top: 1px solid #cfcfcf; padding: 18px 6px; line-height:
-		normal; background: transparent !important; vertical-align: top;
-		}
-
-		.z-grid .z-column-content { font-family: 'Roboto'; font-size:
-		13px; color: #707070; }
-
-		.z-auxhead:hover .z-auxheader-content { background: #EEEEEE
-		!important; }
-
-
-		.z-auxheader-content { background: #EEEEEE !important;
-		border-right: 1px solid #E5F4FB; height: 41px; }
-
-		.z-detail { font-size: 14px; width: 16px; height: 16px; border:
-		none !important; padding: 0; line-height: 14px; background:
-		transparent !important; text-align: center; overflow: hidden;
-		white-space: nowrap; cursor: pointer; }
-
-		tr.row-vacaciones { border-bottom: 1px solid #CFCFCF; }
-
-		.z-columns th:first-child { border-left: none; border-right:
-		none !important; }
-
-		.z-row .z-detail-outer+td, .z-row .z-detail-inner :first-child {
-		border-left: none; }
-
-		tr.header-periodo-disfute { background-color: rgba(192, 192,
-		193, 0.27); }
-
-
-		.z-messagebox .z-label { font-family: 'Roboto'; font-size: 15px
-		!important; color: #363636; }
-
-		.z-cell .vacacion { background-color: #fff !important;
-		border-left: 1px solid #cfcfcf !important; }
-
-		.z-cell .periodo { background-color: #fff !important; }
-
-		.z-grid .vacacion { border: 1px solid rgba(128, 128, 128, 0.33)
-		!important; }
-
-		.z-grid-odd>.z-row-inner, .z-grid-odd>.z-cell { background:
-		#FFFFFF !important; }
-
-		.z-foot .vacacion { background-color: rgb(238, 238, 238)
-		!important; }
-
-		.z-grid.periodo>div.z-grid-body { overflow: auto; max-height:
-		500px !important; }
-
-	</style>
+<div sclass="row section animated fadeInLeft">
 	<div sclass="col s12">
-		<grid id="Grid" sclass="periodo grid"
+		<grid id="Grid" sclass="periodo grid" height="300px"
 			model="@bind(vm.listTsPlanActividads)">
 			<columns sclass="header-periodo-vacacional">
 				<column width="5%" />
-				<column label="Nombre" sort="auto(nombre)" width="25%" />
-				<column label="Descripción" sort="auto(descripcion)"
-					align="center" width="35%" />
-				<column label="Clasificador de Tarea"
-					sort="auto(clasificadoTarea)" align="center" width="23%" />
+				<column label="Nombre" width="25%" />
+				<column label="Descripción" align="center" width="35%" />
+				<column label="Clasificador de Actividad" align="center"
+					width="23%" />
 				<column label="Indicadores" align="center"
 					width="12%">
-
 				</column>
 			</columns>
-			<template name="model" var="actividad" status="statusActividad">
+			<template name="model" var="actividad"
+				status="statusActividad">
 				<row style="overflow:auto; max-height:200px"
 					sclass="row-vacaciones">
 
@@ -131,7 +74,8 @@
 					</detail>
 
 					<cell sclass="periodo">
-						<label value="@bind(actividad.fkActividad.nombre) " />
+						<label
+							value="@bind(actividad.fkActividad.nombre) " />
 					</cell>
 
 					<cell sclass="periodo">

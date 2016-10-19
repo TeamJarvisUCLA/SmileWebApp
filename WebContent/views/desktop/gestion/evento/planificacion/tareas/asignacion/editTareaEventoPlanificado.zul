@@ -36,7 +36,9 @@
 								label="@load(each.fkTarea.nombre)">
 							</listcell>
 							<listcell>
-								<datebox></datebox>
+								<datebox format="dd/MM/yyyy"
+									value="@bind(each.fechaPlanificadaDate)">
+								</datebox>
 							</listcell>
 
 							<listcell>

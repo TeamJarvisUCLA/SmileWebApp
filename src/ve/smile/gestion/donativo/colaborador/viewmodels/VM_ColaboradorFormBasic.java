@@ -86,7 +86,7 @@ public class VM_ColaboradorFormBasic extends VM_WindowForm implements
 					.getTipoPersona()]);
 		}
 		if (this.getColaborador().getFkPersona() != null
-				&& this.getColaborador().getFkPersona() != null) {
+				&& this.getColaborador().getFkPersona().getFkMultimedia() != null) {
 			this.setUrlImage(this.getPersona().getFkMultimedia().getUrl());
 			this.nameImage = this.getPersona().getFkMultimedia().getNombre();
 			this.extensionImage = nameImage.substring(nameImage
@@ -400,7 +400,7 @@ public class VM_ColaboradorFormBasic extends VM_WindowForm implements
 				Alert.showMessage(payloadPersonaResponse);
 				return true;
 			}
-			if (bytes == null && multimedia != null) {
+			if (bytes == null && multimedia != null && multimedia.getIdMultimedia() != null) {
 				PayloadMultimediaResponse payloadMultimediaResponse = S.MultimediaService
 						.eliminar(multimedia.getIdMultimedia());
 				if (!UtilPayload.isOK(payloadMultimediaResponse)) {

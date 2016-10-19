@@ -33,28 +33,48 @@
 						selectedItem="@bind(vm.selectedObject)"
 						emptyMessage="No hay padrinos para mostrar">
 						<auxhead>
-							<auxheader colspan="2">
+							<auxheader>
+								<div>
+									<span style="margin-right: 3px;"
+										class="prefix filter fa fa-filter">
+									</span>
+									<textbox id="CedulaRif"
+										instant="true" placeholder="Cédula/Rif"
+										value="@bind(vm.identificacion)"
+										onChange="@command('changeFilter')"
+										style="height: 30px;font-size: 14px;margin-top: 1px;">
+									</textbox>
+								</div>
+							</auxheader>
+							<auxheader>
 								<div>
 									<span
 										class="prefix filter fa fa-filter">
 									</span>
-									<combobox id="tipo_persona"
-										inplace="true" tooltip="Tipo de Persona"
-										placeholder="Tipo de Persona"
-										model="@bind(vm.tipoPersonaEnums)"
-										selectedItem="@bind(vm.tipoPersonaEnum)"
+									<textbox id="nombre" instant="true"
+										placeholder="Padrino" value="@bind(vm.nombre)"
 										onChange="@command('changeFilter')"
-										style="background: rgb(89, 78, 70); margin: 0px; margin-left: 6px; margin-top: 0px; display: inline;  width: 75%;">
-										<template name="model">
-											<comboitem
-												label="@load(each)" />
-										</template>
-									</combobox>
+										style="height: 30px;font-size: 14px;margin-top: 1px;">
+
+									</textbox>
 
 								</div>
 							</auxheader>
+							<auxheader>
+								<div>
+									<span
+										class="prefix filter fa fa-filter">
+									</span>
+									<textbox id="frecuencia"
+										instant="true" placeholder="Frecuencia"
+										value="@bind(vm.frecuencia)"
+										onChange="@command('changeFilter')"
+										style="height: 30px;font-size: 14px;margin-top: 1px;">
 
-							<auxheader></auxheader>
+									</textbox>
+
+								</div>
+							</auxheader>
 							<auxheader></auxheader>
 							<auxheader></auxheader>
 							<auxheader>

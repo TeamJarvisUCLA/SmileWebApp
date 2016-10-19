@@ -170,7 +170,7 @@
 							<cell sclass="periodo">							
 								<button
 									sclass="teal lighten-1 waves-effect waves-light"
-									onClick="@command('buscarIndicadores', index=forEachStatus.index)"
+									onClick="@command('buscarIndicadores', index=statusEvento.index)"
 									iconSclass="fa fa-search" tooltiptext="Editar Lugar"
 									style="/padding: 5px 6px; background-color: #2AA4EF !important; float: center">
 								</button>

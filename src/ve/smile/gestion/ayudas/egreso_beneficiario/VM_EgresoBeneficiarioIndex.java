@@ -28,6 +28,7 @@ import karen.core.util.UtilDialog;
 import karen.core.util.payload.UtilPayload;
 import karen.core.util.validate.UtilValidate;
 import karen.core.util.validate.UtilValidate.ValidateOperator;
+import lights.core.enums.TypeQuery;
 import lights.core.payload.response.IPayloadResponse;
 import lights.smile.util.UtilMultimedia;
 
@@ -50,6 +51,8 @@ import ve.smile.dto.Persona;
 import ve.smile.dto.Beneficiario;
 import ve.smile.dto.TsPlan;
 import ve.smile.dto.Voluntario;
+import ve.smile.enums.EstatusBeneficiarioEnum;
+import ve.smile.enums.EstatusPadrinoEnum;
 import ve.smile.enums.EstatusSolicitudEnum;
 import ve.smile.enums.TipoMultimediaEnum;
 import ve.smile.enums.TipoPersonaEnum;
@@ -91,6 +94,8 @@ public class VM_EgresoBeneficiarioIndex extends
 	
 
 	private Beneficiario beneficiario;
+	
+	private List<Motivo> motivos ;
 
 
 
@@ -100,6 +105,28 @@ public class VM_EgresoBeneficiarioIndex extends
 		beneficiario = new Beneficiario();
 		
 		
+	}
+	
+	public void setMotivos(List<Motivo> motivos) {
+		this.motivos = motivos;
+	}
+	
+	public List<Motivo> getMotivos() {
+		if (this.motivos == null) {
+			this.motivos = new ArrayList<>();
+		}
+		if (this.motivos.isEmpty()) {
+			PayloadMotivoResponse payloadMotivoResponse = S.MotivoService
+					.consultarTodos();
+
+			if (!UtilPayload.isOK(payloadMotivoResponse)) {
+				Alert.showMessage(payloadMotivoResponse);
+			}
+
+			this.motivos.addAll(payloadMotivoResponse.getObjetos());
+		}
+
+		return motivos;
 	}
 	
 	public TipoPersonaEnum getTipoPersonaEnum() {
@@ -270,22 +297,32 @@ public class VM_EgresoBeneficiarioIndex extends
 
 		botones.put(1, listOperacionWizard1);
 		
-		
 		List<OperacionWizard> listOperacionWizard2 = new ArrayList<OperacionWizard>();
 		listOperacionWizard2.add(OperacionWizardHelper
 				.getPorType(OperacionWizardEnum.ATRAS));
 		listOperacionWizard2.add(OperacionWizardHelper
 				.getPorType(OperacionWizardEnum.CANCELAR));
 		listOperacionWizard2.add(OperacionWizardHelper
-				.getPorType(OperacionWizardEnum.FINALIZAR));
+				.getPorType(OperacionWizardEnum.SIGUIENTE));
 
 		botones.put(2, listOperacionWizard2);
-
+		
+		
 		List<OperacionWizard> listOperacionWizard3 = new ArrayList<OperacionWizard>();
 		listOperacionWizard3.add(OperacionWizardHelper
-				.getPorType(OperacionWizardEnum.CUSTOM1));
+				.getPorType(OperacionWizardEnum.ATRAS));
+		listOperacionWizard3.add(OperacionWizardHelper
+				.getPorType(OperacionWizardEnum.CANCELAR));
+		listOperacionWizard3.add(OperacionWizardHelper
+				.getPorType(OperacionWizardEnum.FINALIZAR));
 
 		botones.put(3, listOperacionWizard3);
+
+		List<OperacionWizard> listOperacionWizard4 = new ArrayList<OperacionWizard>();
+		listOperacionWizard4.add(OperacionWizardHelper
+				.getPorType(OperacionWizardEnum.CUSTOM1));
+
+		botones.put(4, listOperacionWizard4);
 
 		return botones;
 	}
@@ -303,6 +340,7 @@ public class VM_EgresoBeneficiarioIndex extends
 
 		iconos.add("fa fa-pencil-square-o");
 		iconos.add("fa fa-pencil-square-o");
+		iconos.add("fa fa-pencil-square-o");
 		// iconos.add("fa fa-check-square-o");
 
 		return iconos;
@@ -314,6 +352,7 @@ public class VM_EgresoBeneficiarioIndex extends
 
 		urls.add("views/desktop/gestion/ayudas/egresoBeneficiario/selectBeneficiario.zul");
 		urls.add("views/desktop/gestion/ayudas/egresoBeneficiario/BeneficiarioFormBasic.zul");
+		urls.add("views/desktop/gestion/ayudas/egresoBeneficiario/MotivoFormBasic.zul");
 		// urls.add("views/desktop/gestion/trabajoSocial/planificacion/registro/successRegistroBeneficiarioPlanificado.zul");
 
 		return urls;
@@ -337,8 +376,16 @@ public class VM_EgresoBeneficiarioIndex extends
 	public IPayloadResponse<Beneficiario> getDataToTable(
 			Integer cantidadRegistrosPagina, Integer pagina) {
 
+		Map<String, String> criterios = new HashMap<>();
+		EstatusPadrinoEnum.POSTULADO.ordinal();
+		criterios.put("estatusBeneficiario",
+				String.valueOf(EstatusBeneficiarioEnum.ACTIVO.ordinal()));
 		PayloadBeneficiarioResponse payloadBeneficiarioResponse = S.BeneficiarioService
-				.consultarPaginacion(cantidadRegistrosPagina, pagina);
+				.consultarPaginacionCriterios(cantidadRegistrosPagina, pagina,
+						TypeQuery.EQUAL, criterios);
+		
+		/*PayloadBeneficiarioResponse payloadBeneficiarioResponse = S.BeneficiarioService
+				.consultarPaginacion(cantidadRegistrosPagina, pagina);*/
 		return payloadBeneficiarioResponse;
 	}
 
@@ -379,22 +426,23 @@ public class VM_EgresoBeneficiarioIndex extends
 
 	@Override
 	public String executeFinalizar(Integer currentStep) {
-		if (currentStep == 2) {
-			Persona persona = this.getBeneficiario().getFkPersona();
-			persona.setEstatus('0');
-			PayloadPersonaResponse payloadPersonaResponse = S.PersonaService.modificar(persona);
+		if (currentStep == 3) {
+			Beneficiario beneficiario = this.getBeneficiario();
+			beneficiario.setEstatusBeneficiario(EstatusBeneficiarioEnum.INACTIVO.ordinal());
+			PayloadBeneficiarioResponse payloadBeneficiarioResponse = S.BeneficiarioService
+					.modificar(beneficiario);
 			/*Beneficiario beneficiario = this.getBeneficiario();
 			beneficiario.getFkPersona().setEstatus('0');
 
 			PayloadBeneficiarioResponse payloadBeneficiarioResponse = S.BeneficiarioService
 					.modificar(beneficiario);*/
 			
-			if (!UtilPayload.isOK(payloadPersonaResponse)) {
-				Alert.showMessage(payloadPersonaResponse);
+			if (!UtilPayload.isOK(payloadBeneficiarioResponse)) {
+				Alert.showMessage(payloadBeneficiarioResponse);
 				
 			}
 			
-			if (UtilPayload.isOK(payloadPersonaResponse)) {
+			if (UtilPayload.isOK(payloadBeneficiarioResponse)) {
 				restartWizard();
 				return "Beneficiario Egresado con Exito";
 			}

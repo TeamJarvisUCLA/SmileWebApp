@@ -819,15 +819,7 @@ tr.row-vacaciones {
 	vertical-align: top;
 }
 
-.z-auxhead:hover .z-auxheader-content {
-	background: #EEEEEE !important;
-}
 
-.z-auxheader-content {
-	background: #EEEEEE !important;
-	border-right: 1px solid #E5F4FB;
-	height: 41px;
-}
 
 .z-detail {
 	font-size: 14px;

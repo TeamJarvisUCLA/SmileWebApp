@@ -1,4 +1,5 @@
-
+<?xel-method prefix="m" name="getUrlWeb" class="lights.smile.util.Zki" 
+	signature="java.lang.String getUrlWeb(java.lang.String)" ?>
 <zk xmlns:n="native" xmlns:w="client">	
 	
 	<n:link
@@ -106,7 +107,7 @@
 												<n:br></n:br>
 												<image
 													class="img-responsive center-block" width="128px"
-													height="128px" src="@load(vm.eventoPlan.fkMultimedia.url)">
+													height="128px" src="${m:getUrlWeb(each.eventoPlan.fkMultimedia.url)}" >
 												</image>
 												<n:br></n:br>
 											</div>

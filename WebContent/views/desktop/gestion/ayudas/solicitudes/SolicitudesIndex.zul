@@ -17,6 +17,8 @@
 							<listheader width="18%" label="Estatus de Solicitud" />
 							<listheader width="18%" label="Nombre Beneficiario" />
 							<listheader width="18%" label="Apellido Beneficiario" />
+							 <listheader width="18%" label="Nombre Familiar" />
+							<listheader width="18%" label="Apellido Familiar" /> 
 							<listheader width="12%" label="Urgencia" />
 							<listheader width="12%" label="Ayuda Aportada" />
 							<listheader width="12%" label="Fecha" />
@@ -29,6 +31,8 @@
 								<listcell label="@load(each.estatusSolicitudEnum)" />
 								<listcell label="@load(each.fkBeneficiario.fkPersona.nombre)" />
 								<listcell label="@load(each.fkBeneficiario.fkPersona.apellido)" />
+								 <listcell label="@load(each.fkBeneficiario.fkFamiliar.fkPersona.nombre)" />
+								<listcell label="@load(each.fkBeneficiario.fkFamiliar.fkPersona.apellido)" /> 
 								<listcell label="@load(each.urgenciaEnum)" />
 								<listcell label="@load(each.fkAyuda.nombre)" />
 								  <listcell label="${m:convertirLongATimestamp(each.fecha)}" />  
@@ -39,7 +43,7 @@
 							</listitem>
 						</template>
 						<listfoot>
-							<listfooter id="listFoot" span="7"
+							<listfooter id="listFoot" span="9"
 								use="karen.core.listfoot.ListFoot">
 							</listfooter>
 						</listfoot>

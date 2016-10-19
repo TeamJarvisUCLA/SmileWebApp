@@ -1,3 +1,5 @@
+<?xel-method prefix="m" name="getUrlWeb" class="lights.smile.util.Zki" 
+	signature="java.lang.String getUrlWeb(java.lang.String)" ?>
 <zk xmlns:n="native" xmlns:w="client">
 	<n:link href="assets/css/web/eventos.css" rel="stylesheet"
 		type="text/css">
@@ -49,12 +51,12 @@
 								class="card-image waves-effect waves-block waves-light">
 								<div class="view">
 									<image class="activator"
-										src="@load(each.fkMultimedia.url)">
+										src="${m:getUrlWeb(each.fkMultimedia.url)}">
 									</image>
 									<div class="mask"></div>
 									<div class="content center">
 										<div class="row abc">
-											<div class="col s6">
+											<div class="col s12">
 												<n:h2>
 													<label
 														value="@load(each.fkEvento.nombre)"
@@ -116,11 +118,11 @@
 				</template>
 			</div>
 
-			<div class="col s12 icon" style="left: 42%; margin-top: 5px;position: relative;">
+			<div class="col s12 icon text-center" style="margin-top: 5px;position: relative;">
 				<a onClick="@command('verMas')">
 					<image src="/imagenes/portal/icon/icon-plus.png"></image>
 				</a>
-				<div class="col s12" style="left: 50%;margin-left: 40px; ">
+				<div class="col s12">
 					<a onClick="@command('verMas')">Ver más</a>
 				</div>
 			</div>

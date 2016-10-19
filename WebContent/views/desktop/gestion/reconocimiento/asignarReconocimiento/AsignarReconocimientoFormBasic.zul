@@ -1,0 +1,65 @@
+<?component name="uploadImageSingle" macroURI="/assets/theme/components/upload_image_single.zul"?>
+
+<zk xmlns:n="native" xmlns:w="client">
+	<div sclass="animated fadeInLeft">
+		<div class="row">
+			
+			<div class="col s12">
+				<div class="row">
+					<div sclass="col s12">
+				<div class="input-field offset-s2 col s8">
+					<n:label class="active"
+						for="fk_clasificador_reconocimiento">
+						Clasificador de Reconocimiento
+					</n:label>
+					<combobox id="fk_clasificador_reconocimiento"
+						readonly="true" model="@bind(vm.clasificadorReconocimientos)"
+						selectedItem="@bind(vm.reconocimientoPersona.fkClasificadorReconocimiento)">
+						<template name="model">
+							<comboitem label="@load(each.nombre)" />
+						</template>
+					</combobox>
+				</div>
+				<span sclass="fa fa-question-circle fa-lg help-icon" tooltip="pop_clasificador, position=after_end"/>
+			</div>
+
+				<div class="col s12">
+					<div class="input-field offset-s2 col s8">
+						<n:label for="descripcion">Contenido</n:label>
+						<textbox id="descripcion" type="text"
+							maxlength="250" sclass="materialize-textarea" multiline="true"
+							value="@bind(vm.reconocimientoPersona.contenido)">
+						</textbox>
+					</div>
+				<span sclass="fa fa-question-circle fa-lg help-icon" tooltip="pop_contenido, position=after_end"/>
+				</div>
+			</div>
+			
+			
+		<popup id="pop_clasificador" width="200px">
+        	<html><![CDATA[
+				Por favor, indique un clasificador para el reconocimiento que desea
+				registrar.<br /><font color="#3b85a1">Ejemplo:Años de Servicio.</font>
+        	]]></html>
+    	</popup>
+    	
+    	<popup id="pop_contenido" width="200px">
+        	<html><![CDATA[
+				Por favor, indique una descripción breve, sobre el reconocimiento que desea
+				otorgar.<br /><font color="#3b85a1">Ejemplo:Por trabajar durante estos años de manera esmerada para 
+				el buen funcionamiento de la fundación.</font>
+        	]]></html>
+    	</popup>
+    	<popup id="pop_imagen" width="200px">
+			<html><![CDATA[ 
+			    Por favor, usando el icono de 'agregar' de
+				color verde, anexe una imagen para el reconocimiento que desea
+				registrar.
+			]]></html>
+		</popup>
+
+			</div>
+
+		</div>
+	</div>
+</zk>

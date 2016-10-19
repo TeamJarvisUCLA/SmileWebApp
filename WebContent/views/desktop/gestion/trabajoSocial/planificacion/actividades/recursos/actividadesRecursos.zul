@@ -179,7 +179,8 @@
 
 					</column>
 				</columns>
-				<template name="model">
+				<template name="model" var="actividad"
+					status="statusActividad">
 					<row style="overflow:auto; max-height:400px"
 						sclass="row-vacaciones">
 
@@ -187,7 +188,7 @@
 						<detail open="false" fulfill="onOpen">
 
 							<grid sclass="vacacion"
-								model="@bind(each.tsPlanActividadRecursos)">
+								model="@bind(actividad.tsPlanActividadRecursos)">
 								<auxhead>
 									<auxheader colspan="6"
 										align="center" label="RECURSOS ASOCIADOS">
@@ -226,7 +227,7 @@
 										</cell>
 										<cell sclass="vacacion">
 											<intbox
-												style="height: 1em; border: 1px solid #999999; border-radius: 7px; font-size:1.2em;  text-align: center;"
+												style="height: 1em; border: 1px solid #999999 !important; border-radius: 7px; font-size:1.2em;  text-align: center;"
 												value="@bind(each.cantidad)">
 											</intbox>
 										</cell>
@@ -238,7 +239,7 @@
 										<cell sclass="vacacion"
 											style="    border-left: 2px solid #EEEEEE !important;">
 											<button
-												onClick="@command('eliminarPeriodoDisfrute', periodoDisfrute=each)"
+												onClick="@command('eliminarRecurso', tsPlanActividadRecurso=each, index=statusActividad.index)"
 												sclass="btn-sm-grid btn-pink " style="margin-left: 3px;"
 												tooltiptext="Eliminar" iconSclass="fa fa-trash">
 											</button>
@@ -249,21 +250,22 @@
 						</detail>
 
 						<cell sclass="periodo">
-							<label value="@bind(each.fkTarea.nombre) " />
+							<label
+								value="@bind(actividad.fkTarea.nombre) " />
 						</cell>
 
 						<cell sclass="periodo">
 							<label
-								value="@bind(each.fkTarea.descripcion)" />
+								value="@bind(actividad.fkActividad.descripcion)" />
 						</cell>
 						<cell sclass="periodo">
 							<label
-								value="@bind(each.fkTarea.fkClasificadorTarea.nombre)" />
+								value="@bind(actividad.fkTarea.fkClasificadorTarea.nombre)" />
 						</cell>
 						<cell sclass="periodo">
 							<button
 								sclass="teal lighten-1 waves-effect waves-light"
-								onClick="@command('buscarIndicadores', index=forEachStatus.index)"
+								onClick="@command('buscarRecursos', index=statusActividad.index)"
 								iconSclass="fa fa-search" tooltiptext="Editar Lugar"
 								style="/padding: 5px 6px; background-color: #2AA4EF !important; float: center">
 							</button>

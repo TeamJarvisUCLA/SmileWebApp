@@ -41,6 +41,7 @@ public class VM_ActividadesRecursosTrabajoSocialPlanificado extends
 
 	private List<TsPlanActividad> listTsPlanActividads;
 	private int indexActividad;
+	private List<TsPlanActividadRecurso> listTsPlanActividadRecursoDelete;
 
 	@Init(superclass = true)
 	public void childInit() {
@@ -106,6 +107,16 @@ public class VM_ActividadesRecursosTrabajoSocialPlanificado extends
 			validar = true;
 		}
 		BindUtils.postNotifyChange(null, null, this, "tsPlanActividadRecurso");
+	}
+
+	@Command("eliminarRecurso")
+	public void eliminarRecurso(
+			@BindingParam("tsPlanActividadRecurso") TsPlanActividadRecurso tsPlanActividadRecurso,
+			@BindingParam("index") int index) {
+		this.getListTsPlanActividadRecursoDelete().add(tsPlanActividadRecurso);
+		this.getListTsPlanActividads().get(index).getTsPlanActividadRecursos()
+				.remove(tsPlanActividadRecurso);
+		BindUtils.postNotifyChange(null, null, this, "listTsPlanActividads");
 	}
 
 	@Override
@@ -303,6 +314,18 @@ public class VM_ActividadesRecursosTrabajoSocialPlanificado extends
 
 	public void setIndexActividad(int indexActividad) {
 		this.indexActividad = indexActividad;
+	}
+
+	public List<TsPlanActividadRecurso> getListTsPlanActividadRecursoDelete() {
+		if (this.listTsPlanActividadRecursoDelete == null) {
+			listTsPlanActividadRecursoDelete = new ArrayList<>();
+		}
+		return listTsPlanActividadRecursoDelete;
+	}
+
+	public void setListTsPlanActividadRecursoDelete(
+			List<TsPlanActividadRecurso> listTsPlanActividadRecursoDelete) {
+		this.listTsPlanActividadRecursoDelete = listTsPlanActividadRecursoDelete;
 	}
 
 	public TsPlan getTsPlanSelected() {

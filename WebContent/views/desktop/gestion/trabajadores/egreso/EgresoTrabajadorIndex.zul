@@ -3,10 +3,9 @@
 		use="karen.core.simple_list.wizard.controllers.C_WindowWizard"
 		apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('ve.smile.gestion.trabajadores.egreso.viewmodels.VM_EgresoTrabajadorIndex')">
+		
 		<div class="row">
-			<div id="ulHeaderWizard"
-				use="karen.core.simple_list.wizard.buttons.containers.UlHeaderWizard">
-			</div>
+			<div id="ulHeaderWizard" use="karen.core.simple_list.wizard.buttons.containers.UlHeaderWizard"></div>
 
 			<div sclass="col s12">
 				<include id="include" src="@bind(vm.srcPageContent)"></include>

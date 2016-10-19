@@ -1,0 +1,50 @@
+<zk xmlns:n="native" xmlns:w="client">
+	<div sclass="animated fadeInLeft">
+		<div class="row">
+			<div class="col s12" align="center" style="margin-bottom: 15px;">
+				<label value="Seleccione las profesiones del voluntario" sclass="label-medium-500"></label>
+			</div>
+		</div>
+		
+		<div width="100%">
+			<div class="row">
+				<div class="col s12">
+					
+					<div sclass="col s5" style="padding:0px">
+						<listbox model="@load(vm.profesiones)" emptyMessage="No hay profesiones registradas" selectedItems="@bind(vm.profesionesSeleccionadas)" multiple="true">
+							<listhead sizable="true">
+								<listheader label="Profesiones" />
+							</listhead>
+							<template name="model">
+								<listitem label="@load(each.nombre)">
+									<zscript> self.setDisabled(vm.disabledProfesion(each)); </zscript>
+								</listitem>
+							</template>
+						</listbox>
+					</div>
+					
+					<div sclass="col s2" align="center">
+						<div sclass="row">
+							<button sclass="button-conf" iconSclass="fa fa-angle-double-right" onClick="@command('agregarProfesiones')" />
+						</div>
+						<div sclass="row">
+							<button sclass="button-conf" iconSclass="fa fa-angle-double-left" onClick="@command('removerProfesiones')" />
+						</div>
+					</div>
+
+					<div sclass="col s5" style="padding:0px">
+						<listbox model="@load(vm.voluntarioProfesiones)" emptyMessage="No hay profesiones asociadas al voluntario" selectedItems="@bind(vm.voluntarioProfesionesSeleccionadas)" multiple="true">
+							<listhead sizable="true">
+								<listheader label="Profesiones del voluntario" />
+							</listhead>
+							<template name="model">
+								<listitem label="@load(each.nombre)" />
+							</template>
+						</listbox>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+</zk>

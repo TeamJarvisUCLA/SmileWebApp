@@ -13,6 +13,7 @@ import karen.core.simple_list.wizard.buttons.enums.OperacionWizardEnum;
 import karen.core.simple_list.wizard.buttons.helpers.OperacionWizardHelper;
 import karen.core.simple_list.wizard.viewmodels.VM_WindowWizard;
 import karen.core.util.payload.UtilPayload;
+import lights.core.enums.TypeQuery;
 import lights.core.payload.response.IPayloadResponse;
 
 import org.zkoss.bind.BindUtils;
@@ -23,12 +24,12 @@ import org.zkoss.bind.annotation.NotifyChange;
 import ve.smile.consume.services.S;
 import ve.smile.dto.Fortaleza;
 import ve.smile.dto.Trabajador;
+import ve.smile.enums.EstatusTrabajadorEnum;
 import ve.smile.payload.response.PayloadFortalezaResponse;
 import ve.smile.payload.response.PayloadTrabajadorResponse;
 
 public class VM_FortalezaTrabajadorIndex extends VM_WindowWizard<Trabajador>
 {
-	private Trabajador trabajador;
 	
 	private List<Fortaleza> fortalezas;
 	private Set <Fortaleza> fortalezasSeleccionadas;
@@ -38,7 +39,8 @@ public class VM_FortalezaTrabajadorIndex extends VM_WindowWizard<Trabajador>
 	@Init(superclass = true)
 	public void childInit()
 	{
-		// FORTALEZAS
+		
+		//	FORTALEZAS
 		if (this.getFortalezas().isEmpty())
 		{
 			PayloadFortalezaResponse payloadFortalezaResponse = S.FortalezaService.consultarTodos();
@@ -53,17 +55,6 @@ public class VM_FortalezaTrabajadorIndex extends VM_WindowWizard<Trabajador>
 		}
 	}
 
-	// TRABAJADOR
-	public Trabajador getTrabajador()
-	{
-		return trabajador;
-	}
-
-	public void setTrabajador(Trabajador trabajador)
-	{
-		this.trabajador = trabajador;
-	}
-	
 	// MÉTODOS DE LAS LISTAS
 	public boolean disabledFortaleza(Fortaleza fortaleza)
 	{
@@ -151,7 +142,7 @@ public class VM_FortalezaTrabajadorIndex extends VM_WindowWizard<Trabajador>
 		}
 	}
 	
-	// MÉTODOS DEL WIZARD
+	// MÃ‰TODOS DEL WIZARD
 	@Override
 	public Map<Integer, List<OperacionWizard>> getButtonsToStep()
 	{
@@ -162,7 +153,6 @@ public class VM_FortalezaTrabajadorIndex extends VM_WindowWizard<Trabajador>
 
 		List<OperacionWizard> listOperacionWizard2 = new ArrayList<OperacionWizard>();
 		listOperacionWizard2.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.ATRAS));
-		listOperacionWizard2.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.CANCELAR));
 		listOperacionWizard2.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.FINALIZAR));
 		botones.put(2, listOperacionWizard2);
 
@@ -197,9 +187,23 @@ public class VM_FortalezaTrabajadorIndex extends VM_WindowWizard<Trabajador>
 	@Override
 	public String executeSiguiente(Integer currentStep)
 	{
-		if (currentStep == 2)
-		{
-			// NOTHING
+		if (currentStep == 1)
+		{			
+			if (getSelectedObject().getFortalezas() == null
+					|| getSelectedObject().getFortalezas().size() == 0) {
+
+				PayloadFortalezaResponse payloadFortalezaResponse = S.FortalezaService
+						.consultarPorTrabajador(getSelectedObject()
+								.getIdTrabajador());
+
+				if (!UtilPayload.isOK(payloadFortalezaResponse)) {
+					Alert.showMessage(payloadFortalezaResponse);
+				}
+				
+				getSelectedObject().setFortalezas(payloadFortalezaResponse.getObjetos());
+			}
+			
+			this.getTrabajadorFortalezas().addAll(getSelectedObject().getFortalezas());
 		}
 		goToNextStep();
 		return "";
@@ -208,6 +212,7 @@ public class VM_FortalezaTrabajadorIndex extends VM_WindowWizard<Trabajador>
 	@Override
 	public String executeAtras(Integer currentStep)
 	{
+		this.getTrabajadorFortalezas().clear();
 		goToPreviousStep();
 		return "";
 	}
@@ -215,9 +220,12 @@ public class VM_FortalezaTrabajadorIndex extends VM_WindowWizard<Trabajador>
 	@Override
 	public IPayloadResponse<Trabajador> getDataToTable(Integer cantidadRegistrosPagina, Integer pagina)
 	{
-		PayloadTrabajadorResponse payloadTrabajadorResponse = S.TrabajadorService.consultarTodos();
+		Map<String, String> criterios = new HashMap<>();
+		criterios.put("estatusTrabajador", String.valueOf(EstatusTrabajadorEnum.ACTIVO.ordinal()));
+		PayloadTrabajadorResponse payloadTrabajadorResponse = S.TrabajadorService.consultarPaginacionCriterios(cantidadRegistrosPagina, pagina,	TypeQuery.EQUAL, criterios);
 		return payloadTrabajadorResponse;
 	}
+
 
 	@Override
 	public String isValidPreconditionsSiguiente(Integer currentStep)
@@ -262,7 +270,7 @@ public class VM_FortalezaTrabajadorIndex extends VM_WindowWizard<Trabajador>
 			{
 				restartWizard();
 				this.setSelectedObject(new Trabajador());
-				this.setTrabajador(new Trabajador());
+				this.getTrabajadorFortalezas().clear();
 				BindUtils.postNotifyChange(null, null, this, "selectedObject");
 				BindUtils.postNotifyChange(null, null, this, "trabajador");
 			}

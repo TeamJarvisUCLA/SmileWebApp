@@ -1,0 +1,84 @@
+.z-button {
+	color: #000 !important;
+}
+td, th {
+	padding: 0;	
+}
+
+.z-calendars-month-date {
+	font-size: 16px;
+}
+
+.z-calevent-daylong-month .z-calevent-cnt {
+    font-size: 15px;
+    color: black;
+}
+
+.z-calevent-daylong-month .z-calevent-text {
+	height: 20px;
+}
+
+.z-calevent-inner {
+	height: 20px;
+}
+
+.z-calevent.z-calevent-daylong-month:hover {
+	position: absolute;
+}
+
+.z-window-content {
+	padding: 0;
+}
+
+.z-valign-middle.z-hlayout {
+    padding: 4px;
+    background: #3B85A1;
+}
+
+.z-button {
+    background: #F5F5F5;
+}
+
+.z-button:active, .z-button:hover, .z-button:focus {
+    background: #cccccc;
+}
+
+.hoy-button {
+	margin-left: 20px;
+	background: #A9C4CE;
+}
+
+.fa {
+    font-size: 20px;
+    color: #fff;
+    cursor: pointer;
+}
+
+.z-hlayout-inner:last-child {
+	float: right;
+}
+
+.z-calendars-month-header, .z-calendars-inner {
+	background: #E5EABA;
+}
+
+.z-calendars-month-header .z-calendars-day-of-week {
+	color: #89796f;
+	font-size: 12px;
+	text-transform: uppercase;
+}
+
+.z-calendars-month-date-off {
+    background: none;
+    opacity: 0.3;
+}
+
+.z-calendars-month-date {
+	background: none;
+}
+
+.mes {
+    margin-left: 50px;
+    color: #fff;
+    font-size: 20px;
+}

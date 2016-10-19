@@ -1,10 +1,8 @@
 package ve.smile.gestion.evento.planificaion.registro.viewmodels;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -14,24 +12,6 @@ import java.util.Map;
 
 import javax.imageio.ImageIO;
 
-import org.zkoss.bind.BindUtils;
-import org.zkoss.bind.annotation.Command;
-import org.zkoss.bind.annotation.Init;
-import org.zkoss.zk.ui.event.UploadEvent;
-
-import app.UploadImageSingle;
-import ve.smile.consume.services.S;
-import ve.smile.dto.Directorio;
-import ve.smile.dto.EventPlanTarea;
-import ve.smile.dto.Evento;
-import ve.smile.dto.EventoPlanificado;
-import ve.smile.dto.Multimedia;
-import ve.smile.dto.Tarea;
-import ve.smile.dto.Voluntario;
-import ve.smile.enums.TipoMultimediaEnum;
-import ve.smile.payload.response.PayloadEventoPlanificadoResponse;
-import ve.smile.payload.response.PayloadEventoResponse;
-import ve.smile.payload.response.PayloadMultimediaResponse;
 import karen.core.crux.alert.Alert;
 import karen.core.dialog.catalogue.generic.data.CatalogueDialogData;
 import karen.core.dialog.catalogue.generic.events.CatalogueDialogCloseEvent;
@@ -47,18 +27,45 @@ import karen.core.wizard.buttons.helpers.OperacionWizardHelper;
 import karen.core.wizard.viewmodels.VM_WindowWizard;
 import lights.core.payload.response.IPayloadResponse;
 import lights.smile.util.UtilMultimedia;
+import lights.smile.util.Zki;
 
-public class VM_EventoPlanificadoRegistroIndex extends VM_WindowWizard implements UploadImageSingle{
+import org.zkoss.bind.BindUtils;
+import org.zkoss.bind.annotation.Command;
+import org.zkoss.bind.annotation.Init;
+import org.zkoss.zk.ui.event.UploadEvent;
+
+import ve.smile.consume.services.S;
+import ve.smile.dto.Directorio;
+import ve.smile.dto.Evento;
+import ve.smile.dto.EventoPlanificado;
+import ve.smile.dto.Multimedia;
+import ve.smile.dto.NotificacionUsuario;
+import ve.smile.dto.Voluntario;
+import ve.smile.enums.EstatusEventoPlanificadoEnum;
+import ve.smile.enums.EstatusNotificacionEnum;
+import ve.smile.enums.TipoMultimediaEnum;
+import ve.smile.enums.TipoReferenciaNotificacionEnum;
+import ve.smile.payload.response.PayloadEventoPlanificadoResponse;
+import ve.smile.payload.response.PayloadEventoResponse;
+import ve.smile.payload.response.PayloadMultimediaResponse;
+import ve.smile.payload.response.PayloadNotificacionUsuarioResponse;
+import app.UploadImageSingle;
+
+public class VM_EventoPlanificadoRegistroIndex extends VM_WindowWizard
+		implements UploadImageSingle {
 
 	private EventoPlanificado eventoPlanificado;
 	private Voluntario voluntario = new Voluntario();
 	private Directorio directorio = new Directorio();
 	private Date fechaPlanificada = new Date();
 
-	private byte[] bytes;
+	private byte[] bytes = null;
 	private String nameImage;
-	private String urlImagen;
-	
+	private String extensionImage;
+	private String urlImage;
+
+	private String typeMedia;
+
 	@Init(superclass = true)
 	public void childInit() {
 		// NOTHING OK!
@@ -67,7 +74,7 @@ public class VM_EventoPlanificadoRegistroIndex extends VM_WindowWizard implement
 		directorio = new Directorio();
 		fechaPlanificada = new Date();
 	}
-	
+
 	@Command("buscarVoluntario")
 	public void buscarVoluntario() {
 		CatalogueDialogData<Voluntario> catalogueDialogData = new CatalogueDialogData<Voluntario>();
@@ -127,70 +134,13 @@ public class VM_EventoPlanificadoRegistroIndex extends VM_WindowWizard implement
 	public void refreshDirectorio() {
 		BindUtils.postNotifyChange(null, null, this, "directorio");
 	}
-	
-	@Override
-	public BufferedImage getImageContent() {
-		try {
-			return loadImage();
-		} catch (Exception e) {
-			return null;
-		}
-	}
-	
-	private BufferedImage loadImage() throws Exception {
-		try {
-			Path path = Paths.get(this.getUrlImagen());
-			bytes = Files.readAllBytes(path);
-			return ImageIO.read(new File(this.getUrlImagen()));
-		} catch (Exception e) {
-			return null;
-		}
-	}
 
-	@Override
-	public void onUploadImageSingle(UploadEvent event, String idUpload) {
-		org.zkoss.util.media.Media media = event.getMedia();
-		if (media instanceof org.zkoss.image.Image) {
-			bytes = media.getByteData();
-			this.nameImage = media.getName();
-			if (UtilMultimedia.validateFile(nameImage.substring(this.nameImage
-					.lastIndexOf(".") + 1))) {
-				Multimedia multimedia = new Multimedia();
-				multimedia.setNombre(nameImage);
-				multimedia.setTipoMultimedia(TipoMultimediaEnum.IMAGEN
-						.ordinal());
-				multimedia.setUrl(new StringBuilder()
-						.append("/Smile/Patrocinador/").append(nameImage)
-						.toString());
-				multimedia.setExtension(UtilMultimedia
-						.stringToExtensionEnum(
-								nameImage.substring(this.nameImage
-										.lastIndexOf(".") + 1)).ordinal());
-				multimedia.setDescripcion("Imgen del patrocinador.");
-				this.getEventoPlanificado().setFkMultimedia(multimedia);
-			} else {
-				this.getEventoPlanificado().setFkMultimedia(null);
-				Alert.showMessage("E: Error Code: 100-El formato de la <b>imagen</b> es inválido");
-
-			}
-
-		}
-		
-	}
-	
 	@Override
 	public String executeCustom1(Integer currentStep) {
 		this.setSelectedObject(new EventoPlanificado());
 		BindUtils.postNotifyChange(null, null, this, "selectedObject");
 		restartWizard();
 		return "";
-	}
-
-	@Override
-	public void onRemoveImageSingle(String idUpload) {
-		bytes = null;
-		this.getEventoPlanificado().setFkMultimedia(null);
-		
 	}
 
 	@Override
@@ -221,7 +171,7 @@ public class VM_EventoPlanificadoRegistroIndex extends VM_WindowWizard implement
 
 		return botones;
 	}
-	
+
 	@Override
 	public String executeSiguiente(Integer currentStep) {
 		goToNextStep();
@@ -237,7 +187,8 @@ public class VM_EventoPlanificadoRegistroIndex extends VM_WindowWizard implement
 	}
 
 	@Override
-	public IPayloadResponse<Evento> getDataToTable(Integer cantidadRegistrosPagina, Integer pagina) {
+	public IPayloadResponse<Evento> getDataToTable(
+			Integer cantidadRegistrosPagina, Integer pagina) {
 		PayloadEventoResponse payloadEventoResponse = S.EventoService
 				.consultarPaginacion(cantidadRegistrosPagina, pagina);
 		return payloadEventoResponse;
@@ -253,10 +204,10 @@ public class VM_EventoPlanificadoRegistroIndex extends VM_WindowWizard implement
 
 		return iconos;
 	}
-	
+
 	@Override
 	public List<String> getUrlPageToStep() {
-		
+
 		List<String> urls = new ArrayList<String>();
 
 		urls.add("views/desktop/gestion/evento/planificacion/registro/selectEvento.zul");
@@ -264,9 +215,9 @@ public class VM_EventoPlanificadoRegistroIndex extends VM_WindowWizard implement
 		urls.add("views/desktop/gestion/evento/planificacion/registro/registroCompletado.zul");
 
 		return urls;
-		
+
 	}
-	
+
 	@Override
 	public String isValidPreconditionsSiguiente(Integer currentStep) {
 		if (currentStep == 1) {
@@ -281,7 +232,7 @@ public class VM_EventoPlanificadoRegistroIndex extends VM_WindowWizard implement
 
 		return "";
 	}
-	
+
 	@Override
 	public String isValidPreconditionsFinalizar(Integer currentStep) {
 		if (currentStep == 2) {
@@ -294,8 +245,7 @@ public class VM_EventoPlanificadoRegistroIndex extends VM_WindowWizard implement
 						.getIdVoluntario(), "Responsable");
 				UtilValidate.validateNull(this.getDirectorio()
 						.getIdDirectorio(), "Directorio");
-				UtilValidate.validateNull(this.getEventoPlanificado().getFkMultimedia(),
-						"Imagen");
+				UtilValidate.validateNull(this.getBytes(), "Imagen");
 			} catch (Exception e) {
 				return e.getMessage();
 			}
@@ -303,54 +253,111 @@ public class VM_EventoPlanificadoRegistroIndex extends VM_WindowWizard implement
 		}
 		return "";
 	}
-	
+
 	@Override
 	public String executeFinalizar(Integer currentStep) {
 		if (currentStep == 2) {
 			this.getEventoPlanificado().setFechaPlanificada(
 					this.getFechaPlanificada().getTime());
 			this.getEventoPlanificado().setFkDirectorio(this.getDirectorio());
-			this.getEventoPlanificado().setFkPersona(this.getVoluntario().getFkPersona());
+			this.getEventoPlanificado().setFkPersona(
+					this.getVoluntario().getFkPersona());
 			this.getEventoPlanificado().setPublicoPortal(true);
+			this.getEventoPlanificado().setEstatusEvento(
+					EstatusEventoPlanificadoEnum.PLANIFICADO.ordinal());
 			this.getEventoPlanificado().setFkEvento((Evento) selectedObject);
 
-			Multimedia multimedia = this.getEventoPlanificado().getFkMultimedia();
+			if (bytes != null) {
+				Multimedia multimedia = new Multimedia();
+				multimedia.setNombre(nameImage);
+				multimedia.setTipoMultimedia(TipoMultimediaEnum.IMAGEN
+						.ordinal());
+				multimedia.setUrl(this.getUrlImage());
+				multimedia.setExtension(UtilMultimedia.stringToExtensionEnum(
+						extensionImage).ordinal());
+				multimedia.setDescripcion(typeMedia);
 
-			PayloadMultimediaResponse payloadMultimediaResponse = S.MultimediaService
-					.incluir(multimedia);
-			if (!UtilPayload.isOK(payloadMultimediaResponse)) {
-				return (String) payloadMultimediaResponse
-						.getInformacion(IPayloadResponse.MENSAJE);
+				PayloadMultimediaResponse payloadMultimediaResponse = S.MultimediaService
+						.incluir(multimedia);
+
+				multimedia.setIdMultimedia(((Double) payloadMultimediaResponse
+						.getInformacion("id")).intValue());
+
+				if (!UtilPayload.isOK(payloadMultimediaResponse)) {
+					return (String) payloadMultimediaResponse
+							.getInformacion(IPayloadResponse.MENSAJE);
+				}
+				this.getEventoPlanificado().setFkMultimedia(multimedia);
 			}
-			multimedia.setIdMultimedia(((Double) payloadMultimediaResponse
-					.getInformacion("id")).intValue());
-			this.getEventoPlanificado().setFkMultimedia(multimedia);
+
 			PayloadEventoPlanificadoResponse payloadEventoPlanificadoResponse = S.EventoPlanificadoService
 					.incluir(this.getEventoPlanificado());
+			String contenido = "Ha sido asignado responsable del Evento "
+					+ this.getEventoPlanificado().getFkEvento().getNombre()
+					+ " a realizar el " + this.getFechaPlanificada();
+			NotificacionUsuario notificacionUsuario = new NotificacionUsuario(
+					this.getEventoPlanificado().getFkPersona().getFkUsuario(),
+					new Date().getTime(),
+					((Double) payloadEventoPlanificadoResponse
+							.getInformacion("id")).intValue(),
+					EstatusNotificacionEnum.PENDIENTE.ordinal(),
+					TipoReferenciaNotificacionEnum.EVENTO.ordinal(), contenido);
 			if (UtilPayload.isOK(payloadEventoPlanificadoResponse)) {
-				
+				this.getEventoPlanificado().setIdEventoPlanificado(
+						((Double) payloadEventoPlanificadoResponse
+								.getInformacion("id")).intValue());
+				if (bytes != null) {
+					Zki.save(Zki.EVENTO, this.getEventoPlanificado()
+							.getIdEventoPlanificado(), extensionImage, bytes);
+					Multimedia multimedia = this.getEventoPlanificado()
+							.getFkMultimedia();
+					multimedia.setNombre(Zki.EVENTO
+							+ this.getEventoPlanificado()
+									.getIdEventoPlanificado() + "."
+							+ this.extensionImage);
+					multimedia.setUrl(Zki.EVENTO
+							+ this.getEventoPlanificado()
+									.getIdEventoPlanificado() + "."
+							+ this.extensionImage);
+					PayloadMultimediaResponse payloadMultimediaResponse = S.MultimediaService
+							.modificar(multimedia);
+
+					if (!UtilPayload.isOK(payloadMultimediaResponse)) {
+						return (String) payloadMultimediaResponse
+								.getInformacion(IPayloadResponse.MENSAJE);
+
+					}
+				}
+
+				PayloadNotificacionUsuarioResponse payloadNotificacionUsuarioResponse = S.NotificacionUsuarioService
+						.incluir(notificacionUsuario);
+				if (!UtilPayload.isOK(payloadNotificacionUsuarioResponse)) {
+					return (String) payloadNotificacionUsuarioResponse
+							.getInformacion(IPayloadResponse.MENSAJE);
+				}
+
 				this.setEventoPlanificado(new EventoPlanificado());
 				this.setDirectorio(new Directorio());
 				this.setFechaPlanificada(new Date());
 				this.setSelectedObject(new Evento());
 				this.setVoluntario(new Voluntario());
 				BindUtils.postNotifyChange(null, null, this, "directorio");
-				BindUtils.postNotifyChange(null, null, this, "eventoPlanificado");
+				BindUtils.postNotifyChange(null, null, this,
+						"eventoPlanificado");
 				BindUtils
 						.postNotifyChange(null, null, this, "fechaPlanificada");
 				BindUtils.postNotifyChange(null, null, this, "selectedObject");
 				BindUtils.postNotifyChange(null, null, this, "voluntario");
-				
+
 			}
 			goToNextStep();
 			return (String) payloadEventoPlanificadoResponse
 					.getInformacion(IPayloadResponse.MENSAJE);
-			
+
 		}
 
 		return "";
 	}
-
 
 	public EventoPlanificado getEventoPlanificado() {
 		return eventoPlanificado;
@@ -384,14 +391,6 @@ public class VM_EventoPlanificadoRegistroIndex extends VM_WindowWizard implement
 		this.fechaPlanificada = fechaPlanificada;
 	}
 
-	public byte[] getBytes() {
-		return bytes;
-	}
-
-	public void setBytes(byte[] bytes) {
-		this.bytes = bytes;
-	}
-
 	public String getNameImage() {
 		return nameImage;
 	}
@@ -400,14 +399,84 @@ public class VM_EventoPlanificadoRegistroIndex extends VM_WindowWizard implement
 		this.nameImage = nameImage;
 	}
 
-	public String getUrlImagen() {
-		return urlImagen;
+	public String getExtensionImage() {
+		return extensionImage;
 	}
 
-	public void setUrlImagen(String urlImagen) {
-		this.urlImagen = urlImagen;
+	public void setExtensionImage(String extensionImage) {
+		this.extensionImage = extensionImage;
 	}
 
-	
-	
+	public String getUrlImage() {
+		return urlImage;
+	}
+
+	public void setUrlImage(String urlImage) {
+		this.urlImage = urlImage;
+	}
+
+	public String getTypeMedia() {
+		return typeMedia;
+	}
+
+	public void setTypeMedia(String typeMedia) {
+		this.typeMedia = typeMedia;
+	}
+
+	@Override
+	public BufferedImage getImageContent() {
+		if (bytes != null) {
+			try {
+				return ImageIO.read(new ByteArrayInputStream(bytes));
+			} catch (IOException e) {
+				return null;
+			}
+		}
+
+		if (urlImage != null) {
+			bytes = Zki.getBytes(urlImage);
+			return Zki.getBufferedImage(urlImage);
+		}
+
+		return null;
+	}
+
+	@Override
+	public void onUploadImageSingle(UploadEvent event, String idUpload) {
+		org.zkoss.util.media.Media media = event.getMedia();
+
+		if (media instanceof org.zkoss.image.Image) {
+
+			if (UtilMultimedia.validateImage(media.getName().substring(
+					media.getName().lastIndexOf(".") + 1))) {
+
+				this.extensionImage = media.getName().substring(
+						media.getName().lastIndexOf(".") + 1);
+
+				this.bytes = media.getByteData();
+				this.typeMedia = media.getContentType();
+
+			} else {
+				this.getEventoPlanificado().setFkMultimedia(null);
+				Alert.showMessage("E: Error Code: 100-El formato de la <b>imagen</b> es inválido");
+			}
+		} else {
+			this.getEventoPlanificado().setFkMultimedia(null);
+			Alert.showMessage("E: Error Code: 100-El formato de la <b>imagen</b> es inválido");
+		}
+	}
+
+	@Override
+	public void onRemoveImageSingle(String idUpload) {
+		bytes = null;
+	}
+
+	public byte[] getBytes() {
+		return bytes;
+	}
+
+	public void setBytes(byte[] bytes) {
+		this.bytes = bytes;
+	}
+
 }

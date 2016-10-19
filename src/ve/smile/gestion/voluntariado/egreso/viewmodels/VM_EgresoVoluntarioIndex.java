@@ -12,10 +12,8 @@ import karen.core.simple_list.wizard.buttons.data.OperacionWizard;
 import karen.core.simple_list.wizard.buttons.enums.OperacionWizardEnum;
 import karen.core.simple_list.wizard.buttons.helpers.OperacionWizardHelper;
 import karen.core.simple_list.wizard.viewmodels.VM_WindowWizard;
-import karen.core.util.UtilDialog;
 import karen.core.util.payload.UtilPayload;
 import karen.core.util.validate.UtilValidate;
-import karen.core.util.validate.UtilValidate.ValidateOperator;
 import lights.core.enums.TypeQuery;
 import lights.core.payload.response.IPayloadResponse;
 
@@ -39,25 +37,21 @@ import ve.smile.payload.response.PayloadVoluntarioResponse;
 
 public class VM_EgresoVoluntarioIndex extends VM_WindowWizard<Voluntario>
 {
-	private List<EstatusVoluntarioEnum> estatusVoluntarioEnums;
-	private EstatusVoluntarioEnum estatusVoluntarioEnum;
-		
-	private Estado estado;
-	private Motivo motivo;
-	
+	private Estado estado = new Estado();
+	private Motivo motivo = new Motivo();
+	private Date fechaNacimiento = new Date();
 	private Voluntario voluntario = new Voluntario();
 	
-	private Date fechaNacimiento = new Date();
+	private SexoEnum sexoEnum;
+	private TipoPersonaEnum tipoPersonaEnum;
+	private EstatusVoluntarioEnum estatusVoluntarioEnum;
 	
 	private List<Ciudad> ciudades;
 	private List<Estado> estados;
 	private List<Motivo> motivos;
-	
 	private List<SexoEnum> sexoEnums;
 	private List<TipoPersonaEnum> tipoPersonaEnums;
-
-	private SexoEnum sexoEnum;
-	private TipoPersonaEnum tipoPersonaEnum;
+	private List<EstatusVoluntarioEnum> estatusVoluntarioEnums;
 
 	@Init(superclass = true)
 	public void childInit()
@@ -97,6 +91,7 @@ public class VM_EgresoVoluntarioIndex extends VM_WindowWizard<Voluntario>
 		{
 			this.sexoEnums = new ArrayList<>();
 		}
+		
 		if (this.sexoEnums.isEmpty())
 		{
 			for (SexoEnum sexoEnum : SexoEnum.values())
@@ -203,7 +198,7 @@ public class VM_EgresoVoluntarioIndex extends VM_WindowWizard<Voluntario>
 		this.estados = estados;
 	}
 
-	// Filtra las ciudades al seleccionar el estado
+	// CIUDADES POR ESTADO
 	@Command("changeEstado")
 	@NotifyChange({"ciudades"})
 	public void changeEstado()
@@ -274,6 +269,7 @@ public class VM_EgresoVoluntarioIndex extends VM_WindowWizard<Voluntario>
 	public void setMotivo (Motivo motivo)
 	{
 		this.motivo = motivo;
+		this.getVoluntario().setFkMotivo(this.motivo);
 	}
 
 	public List<Motivo> getMotivos()
@@ -300,7 +296,6 @@ public class VM_EgresoVoluntarioIndex extends VM_WindowWizard<Voluntario>
 	}
 	
 	// MÉTODOS DEL WIZARD
-
 	@Override
 	public Map<Integer, List<OperacionWizard>> getButtonsToStep()
 	{
@@ -312,14 +307,14 @@ public class VM_EgresoVoluntarioIndex extends VM_WindowWizard<Voluntario>
 		List<OperacionWizard> listOperacionWizard2 = new ArrayList<OperacionWizard>();
 		OperacionWizard operacionWizardCustom1 = new OperacionWizard(OperacionWizardEnum.CUSTOM1.ordinal(), "EGRESAR",  "Custom1", "z-icon-times", "deep-orange", "EGRESAR");
 		listOperacionWizard2.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.ATRAS));
-		listOperacionWizard2.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.CANCELAR));
 		listOperacionWizard2.add(operacionWizardCustom1);
+		listOperacionWizard2.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.CANCELAR));
 		botones.put(2, listOperacionWizard2);
 		
 		List<OperacionWizard> listOperacionWizard3 = new ArrayList<OperacionWizard>();
 		listOperacionWizard3.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.ATRAS));
-		listOperacionWizard3.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.CANCELAR));
 		listOperacionWizard3.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.SIGUIENTE));
+		listOperacionWizard3.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.CANCELAR));
 		botones.put(3, listOperacionWizard3);
 		
 		List<OperacionWizard> listOperacionWizard4 = new ArrayList<OperacionWizard>();
@@ -352,7 +347,6 @@ public class VM_EgresoVoluntarioIndex extends VM_WindowWizard<Voluntario>
 	}
 	
 	// CARGAR OBJETOS
-	
 	@Override
 	public void comeIn(Integer currentStep)
 	{
@@ -367,14 +361,13 @@ public class VM_EgresoVoluntarioIndex extends VM_WindowWizard<Voluntario>
 	public IPayloadResponse<Voluntario> getDataToTable(Integer cantidadRegistrosPagina, Integer pagina)
 	{
 		Map<String, String> criterios = new HashMap<>();
-		EstatusVoluntarioEnum.POSTULADO.ordinal();
+		EstatusVoluntarioEnum.ACTIVO.ordinal();
 		criterios.put("estatusVoluntario", String.valueOf(EstatusVoluntarioEnum.ACTIVO.ordinal()));
 		PayloadVoluntarioResponse payloadVoluntarioResponse = S.VoluntarioService.consultarPaginacionCriterios(cantidadRegistrosPagina, pagina,	TypeQuery.EQUAL, criterios);
 		return payloadVoluntarioResponse;
 	}
 	
-	// ATRÁS
-	
+	// ATRAS
 	@Override
 	public String executeAtras(Integer currentStep)
 	{
@@ -382,8 +375,15 @@ public class VM_EgresoVoluntarioIndex extends VM_WindowWizard<Voluntario>
 		return "";
 	}
 	
-	// SIGUIENTE
+	// CANCELAR
+	@Override
+	public String executeCancelar(Integer currentStep)
+	{
+		restartWizard();
+		return "";
+	}
 	
+	// SIGUIENTE
 	@Override
 	public String isValidPreconditionsSiguiente(Integer currentStep)
 	{
@@ -392,6 +392,17 @@ public class VM_EgresoVoluntarioIndex extends VM_WindowWizard<Voluntario>
 			if (selectedObject == null)
 			{
 				return "E:Error Code 5-Debe seleccionar un <b>voluntario</b>";
+			}
+		}
+		if (currentStep == 3)
+		{
+			try
+			{
+				UtilValidate.validateNull(this.getVoluntario().getFkMotivo(), "Motivo");
+			}
+			catch (Exception e)
+			{
+				return e.getMessage();
 			}
 		}
 		return "";
@@ -406,34 +417,31 @@ public class VM_EgresoVoluntarioIndex extends VM_WindowWizard<Voluntario>
 		}
 		if (currentStep == 3)
 		{
+			this.selectedObject.setFkMotivo(this.getMotivo());
 			PayloadVoluntarioResponse payloadVoluntarioResponse = S.VoluntarioService.modificar(this.selectedObject);
 			if (UtilPayload.isOK(payloadVoluntarioResponse))
 			{
-				restartWizard();
 				this.setSelectedObject(new Voluntario());
 				this.setVoluntario(new Voluntario());
 				BindUtils.postNotifyChange(null, null, this, "selectedObject");
 				BindUtils.postNotifyChange(null, null, this, "voluntario");
 			}
-			return (String) payloadVoluntarioResponse.getInformacion(IPayloadResponse.MENSAJE);
 		}
 		goToNextStep();
 		return "";
 	}
 
 	// CUSTOMS
-	
 	@Override
 	public String executeCustom1(Integer currentStep)
 	{
-		// RECHAZADO
+		// INACTIVO
 		this.selectedObject.setEstatusVoluntario(EstatusVoluntarioEnum.INACTIVO.ordinal());
 		goToNextStep();
 		return "";
 	}
 	
 	// FINALIZAR
-	
 	@Override
 	public String isValidPreconditionsFinalizar(Integer currentStep)
 	{
@@ -454,6 +462,12 @@ public class VM_EgresoVoluntarioIndex extends VM_WindowWizard<Voluntario>
 	@Override
 	public String executeFinalizar(Integer currentStep)
 	{
+		restartWizard();
 		return "";
+	}
+	
+	public Voluntario getVoluntarioSelected()
+	{
+		return (Voluntario) this.selectedObject;
 	}
 }

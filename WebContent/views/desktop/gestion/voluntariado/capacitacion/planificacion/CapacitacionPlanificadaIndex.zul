@@ -1,33 +1,49 @@
 <zk xmlns:n="native" xmlns:w="client">
-	<div width="100%" class='${arg.animation_}'
-		use="karen.core.simple_list_principal.controllers.C_WindowSimpleListPrincipal"
+	<div class="wizard ${arg.animation_} container"
+		use="karen.core.wizard.controllers.C_WindowWizard"
 		apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('ve.smile.gestion.voluntariado.capacitacion.planificacion.viewmodels.VM_CapacitacionPlanificadaIndex')">
+		<div class="row">
+			<div id="ulHeaderWizard"
+				use="karen.core.wizard.buttons.containers.UlHeaderWizard">
+			</div>
+
+			<div sclass="col s12">
+				<include id="include"></include>
+			</div>
+
+		</div>
 
 		<div class="row">
-			<div class="col s12">
-				<div class="col s12">
-					<listbox id="listbox" model="@load(vm.objectsList)" selectedItem="@bind(vm.selectedObject)">
-						<listhead sizable="true">
-							<listheader width="50%" label="Capacitación" />
-							<listheader width="25%" label="Lugar de ejecución" />
-							<listheader width="25%" label="Fecha planificada" />
-						</listhead>
-						<template name="model">
-							<listitem>
-								<listcell label="@load(each.fkCapacitacion.nombre)" />
-								<listcell label="@load(each.fkDirectorio.nombre)" />
-								<listcell label="@load(each.fechaPlanificada)" />
-							</listitem>
-						</template>
-						<listfoot>
-							<listfooter id="listFoot" span="3" use="karen.core.listfoot.ListFoot"> </listfooter>
-						</listfoot>
-					</listbox>
+			<div class="col s6 offset-s3" align="center">
+				<div id="divButtonsWizard" sclass="row"
+					use="karen.core.wizard.buttons.containers.DivButtonsWizard">
 				</div>
 			</div>
 		</div>
-
-		<toolbar id="toolbar" align="center" use="karen.core.toolbar.Toolbar"> </toolbar>
 	</div>
+
+	<style>
+		.wizard li.active span.round-tab { background: #f5f5f5; border:
+		2px solid #3b85a1; }
+
+
+		.wizard li.active i { color: #3b85a1!important; }
+
+
+		.wizard span.round-tab { width: 70px; height: 70px; line-height:
+		70px; display: inline-block; border-radius: 100px; background:
+		#f5f5f5; border: 2px solid #e0e0e0; z-index: 2; position:
+		absolute; left: 0; text-align: center; font-size: 25px; }
+
+		.wizard li:after { content: " "; position: absolute; left:
+		46.5%; opacity: 0; margin: 0 auto; bottom: 0px; border: 11px
+		solid transparent; border-bottom-color: #3b85a1; transition:
+		0.1s ease-in-out; }
+
+		.wizard .nav-tabs { border-bottom: 1px solid #3b85a1 !important;
+		}
+
+		.wizard { margin: 20px auto; background: transparent; }
+	</style>
 </zk>

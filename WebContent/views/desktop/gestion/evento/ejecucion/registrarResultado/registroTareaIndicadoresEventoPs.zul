@@ -1,12 +1,22 @@
 <div sclass="row section" style="background: #FFFFFF">
 	<style>
+		.z-grid-emptybody td { font-family: Roboto; font-size: 13px;
+		font-weight: normal; font-style: normal; color: #aaa;
+		font-style: italic; text-align: center; height: 1px; padding:
+		6px !important; }
+
+		.z-grid .z-column-content { font-family: 'Roboto'; font-size:
+		13px; color: #ffffff; background: #8d7a6f; }
+
+		tr.row-vacaciones { border-bottom: 1px solid #CFCFCF;
+		background: #ffffff; }
+
+
 		.z-row .z-detail-outer { width: 40px; min-width: 40px;
 		border-top: 1px solid #cfcfcf; padding: 18px 6px; line-height:
 		normal; background: transparent !important; vertical-align: top;
 		}
 
-		.z-grid .z-column-content { font-family: 'Roboto'; font-size:
-		13px; color: #707070; }
 
 		.z-auxhead:hover .z-auxheader-content { background: #EEEEEE
 		!important; }
@@ -20,8 +30,6 @@
 		transparent !important; text-align: center; overflow: hidden;
 		white-space: nowrap; cursor: pointer; }
 
-		tr.row-vacaciones { border-bottom: 1px solid #CFCFCF; }
-
 		.z-columns th:first-child { border-left: none; border-right:
 		none !important; }
 
@@ -32,8 +40,8 @@
 		193, 0.27); }
 
 
-		.z-messagebox .z-label { font-family: Arial, Sans-serif;
-		font-size: 15px !important; color: #363636; }
+		.z-messagebox .z-label { font-family: 'Roboto'; font-size: 15px
+		!important; color: #363636; }
 
 		.z-cell .vacacion { background-color: #fff !important;
 		border-left: 1px solid #cfcfcf !important; }
@@ -50,7 +58,7 @@
 		!important; }
 
 		.z-grid.periodo>div.z-grid-body { overflow: auto; max-height:
-		320px !important; }
+		500px !important; }
 
 	</style>
 	<div sclass="col s12">
@@ -108,10 +116,10 @@
 											value="@bind(each.fkIndicador.fkUnidadMedida.nombre)" />
 									</cell>
 									<cell sclass="vacacion">
-										<intbox
-											style="height: 1em; border: 1px solid #999999; border-radius: 7px; font-size:1.2em;  text-align: center;"
-											value="@bind(each.valorEsperado)" readonly="true">
-										</intbox>
+										<label
+											
+											value="@bind(each.valorEsperado)" />
+										
 									</cell>
 									<cell sclass="vacacion">
 										<intbox

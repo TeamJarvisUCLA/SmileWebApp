@@ -1,5 +1,10 @@
 <?component name="uploadImageSingle" macroURI="/assets/theme/components/upload_image_single.zul"?>
 <zk xmlns:n="native" xmlns:w="client">
+<style>
+		.center-transform-x { transform: inherit !important; left: auto
+		!important; } .center-transform-x.center-transform-y {
+		transform: translateX(200%) translateY(-57%) !important; }
+	</style>
 	<div width="80%" class="container ${arg.animation_}"
 		use="karen.core.form.controllers.C_WindowForm"
 		apply="org.zkoss.bind.BindComposer"
@@ -30,11 +35,11 @@
 					tooltip="pop_descripcion, position=after_end" />
 			</div>
 
-			<div class="row" align="center">
+			<div class="row">
 				<div class="col s12">
-					<div class="input-field col s12">
+					<div class="input-field offset-s2 col s8">
 						<uploadImageSingle maxsize="9000" size="200"
-							idUpload="1" title="Imagen del valor" />
+							idUpload="1" title="Imagen referente a la Participación" />
 					</div>
 				</div>
 			</div>

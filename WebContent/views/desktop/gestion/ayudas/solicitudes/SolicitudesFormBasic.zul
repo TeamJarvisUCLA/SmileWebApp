@@ -20,14 +20,14 @@
 			
 			<div class="input-field offset-s2 col s8">
 					<n:label for="beneficiario">Beneficiario:</n:label>
-					<textbox id="beneficiario" type="text" value="@bind(vm.beneficiarioFamiliar.fkBeneficiario.fkPersona.nombre)" disabled="true"></textbox>
+					<textbox id="beneficiario" type="text" value="@bind(vm.beneficiario.fkPersona.nombre)" disabled="true"></textbox>
 					<n:label for="beneficiario2">Beneficiario:</n:label>
-					<textbox id="beneficiario2" type="text" value="@bind(vm.beneficiarioFamiliar.fkBeneficiario.fkPersona.apellido)" disabled="true"></textbox>
+					<textbox id="beneficiario2" type="text" value="@bind(vm.beneficiario.fkPersona.apellido)" disabled="true"></textbox>
 				</div>
 				<div class="input-field col s1"
 					style="font-size: 2em;">
 					<button
-						sclass="teal lighten-1 waves-effect waves-light" onClick="@command('buscarBeneficiarioFamiliar')"
+						sclass="teal lighten-1 waves-effect waves-light" onClick="@command('buscarBeneficiario')"
 						iconSclass="fa fa-search" style="padding: 5px 15px; background-color: #2AA4EF !important">
 					</button>
 				</div>

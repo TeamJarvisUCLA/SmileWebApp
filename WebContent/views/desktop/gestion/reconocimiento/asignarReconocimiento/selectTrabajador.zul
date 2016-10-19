@@ -1,0 +1,45 @@
+<?xel-method prefix="m" name="convertirLongADate" class="lights.smile.util.UtilConverterDataList" 
+	signature="java.lang.String convertirLongADate(java.lang.Long)" ?>
+<zk xmlns:n="native" xmlns:w="client">
+	<div sclass="animated fadeInLeft">
+		<div class="row">
+			<div class="col s12" align="center"
+				style="margin-bottom: 15px;">
+				<label
+					value="Seleccione el Trabajador a premiar"
+					sclass="label-medium-500">
+				</label>
+			</div>
+
+		</div>
+		<div width="100%">
+
+			<div class="row">
+				<div class="col s12">
+					<div class="col s12">
+						<listbox model="@load(vm.trabajadores)"
+							height="150px"
+							emptyMessage="No hay Trabajadores"
+							selectedItem="@bind(vm.trabajador)">
+							<listhead sizable="true">
+								<listheader width="20%"
+									label="Identificación" />
+								<listheader width="30%" label="Trabajador" />
+							</listhead>
+							<template name="model">
+								<listitem>
+									<listcell
+										label="@load(each.fkPersona.identificacion)">
+									</listcell>
+									<listcell
+										label="@load(each.fkPersona.nombre.concat(' ').concat(each.fkPersona.apellido))" />
+								</listitem>
+							</template>
+						</listbox>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</zk>
+

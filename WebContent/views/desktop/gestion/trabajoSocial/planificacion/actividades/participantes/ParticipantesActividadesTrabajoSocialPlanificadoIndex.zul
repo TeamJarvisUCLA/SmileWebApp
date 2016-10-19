@@ -1,8 +1,10 @@
+<?xel-method prefix="m" name="getUrlWeb" class="lights.smile.util.Zki" 
+	signature="java.lang.String getUrlWeb(java.lang.String)" ?>
 <zk xmlns:n="native" xmlns:w="client">
 	<div class="wizard ${arg.animation_}" style="padding:0px auto"
 		use="karen.core.wizard.controllers.C_WindowWizard"
 		apply="org.zkoss.bind.BindComposer"
-		viewModel="@id('vm') @init('ve.smile.gestion.trabajo_social.planificacion.actividades.indicadores.viewmodels.VM_IndicadoresActividadesTrabajoSocialPlanificado')">
+		viewModel="@id('vm') @init('ve.smile.gestion.trabajo_social.planificacion.actividades.participantes.viewmodels.VM_ParticipantesActividadesTrabajoSocialPlanificado')">
 		<div class="row">
 			<div id="ulHeaderWizard"
 				use="karen.core.wizard.buttons.containers.UlHeaderWizard">

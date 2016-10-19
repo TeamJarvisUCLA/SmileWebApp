@@ -1,16 +1,21 @@
 package ve.smile.gestion.voluntariado.registro.viewmodels;
 
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.imageio.ImageIO;
 
@@ -26,6 +31,7 @@ import karen.core.util.validate.UtilValidate.ValidateOperator;
 import lights.core.enums.TypeQuery;
 import lights.core.payload.response.IPayloadResponse;
 import lights.smile.util.UtilMultimedia;
+import lights.smile.util.Zki;
 
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.Command;
@@ -34,19 +40,25 @@ import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.event.UploadEvent;
 
 import ve.smile.consume.services.S;
-import ve.smile.dto.Voluntario;
-import ve.smile.dto.Multimedia;
 import ve.smile.dto.Ciudad;
 import ve.smile.dto.Estado;
+import ve.smile.dto.Profesion;
+import ve.smile.dto.Multimedia;
+import ve.smile.dto.Voluntario;
+import ve.smile.dto.VoluntarioClasificado;
+import ve.smile.dto.VoluntarioProfesion;
 import ve.smile.enums.TipoPersonaEnum;
 import ve.smile.seguridad.enums.SexoEnum;
 import ve.smile.enums.TipoMultimediaEnum;
 import ve.smile.enums.EstatusVoluntarioEnum;
 import ve.smile.payload.response.PayloadCiudadResponse;
 import ve.smile.payload.response.PayloadEstadoResponse;
+import ve.smile.payload.response.PayloadProfesionResponse;
 import ve.smile.payload.response.PayloadMultimediaResponse;
 import ve.smile.payload.response.PayloadPersonaResponse;
+import ve.smile.payload.response.PayloadVoluntarioClasificadoResponse;
 import ve.smile.payload.response.PayloadVoluntarioResponse;
+import ve.smile.payload.response.PayloadVoluntarioProfesionResponse;
 import app.UploadImageSingle;
 
 public class VM_RegistroVoluntarioIndex extends VM_WindowWizard<Voluntario> implements UploadImageSingle
@@ -61,13 +73,20 @@ public class VM_RegistroVoluntarioIndex extends VM_WindowWizard<Voluntario> impl
 	private List<Estado> estados;
 	private List<SexoEnum> sexoEnums;
 	private List<TipoPersonaEnum> tipoPersonaEnums;
+	
+	private List<Profesion> profesiones;
+	private List<Profesion> voluntarioProfesiones;
+	private Set <Profesion> profesionesSeleccionadas;
+	private Set <Profesion> voluntarioProfesionesSeleccionadas;
 
 	private SexoEnum sexoEnum;
 	private TipoPersonaEnum tipoPersonaEnum;
 
-	private byte[] bytes;
+	private byte[] bytes = null;
 	private String nameImage;
-	private String urlImagen;
+	private String extensionImage;
+	private String urlImage;
+	private String typeMedia;
 
 	@Init(superclass = true)
 	public void childInit()
@@ -76,6 +95,20 @@ public class VM_RegistroVoluntarioIndex extends VM_WindowWizard<Voluntario> impl
 		estado = new Estado(); 
 		fechaNacimiento = new Date();
 		fechaIngreso = new Date();
+		
+		// PROFESIONES
+		if (this.getProfesiones().isEmpty())
+		{
+			PayloadProfesionResponse payloadProfesionResponse = S.ProfesionService.consultarTodos();
+			if (!UtilPayload.isOK(payloadProfesionResponse))
+			{
+				Alert.showMessage(payloadProfesionResponse);
+			}
+			else
+			{
+				profesiones.addAll(payloadProfesionResponse.getObjetos());
+			}		
+		}
 	}
 
 	// VOLUNTARIO
@@ -89,7 +122,7 @@ public class VM_RegistroVoluntarioIndex extends VM_WindowWizard<Voluntario> impl
 		this.voluntario = voluntario;
 	}
 
-	// ENUN SEXO
+	// ENUM SEXO
 	public SexoEnum getSexoEnum()
 	{
 		return sexoEnum;
@@ -253,8 +286,93 @@ public class VM_RegistroVoluntarioIndex extends VM_WindowWizard<Voluntario> impl
 		this.getSelectedObject().setFechaIngreso(fechaIngreso.getTime()); 
 	}
 	
-	// MÉTODOS DEL WIZARD
+	// MÉTODOS DE LAS LISTAS
+	public boolean disabledProfesion(Profesion profesion)
+	{
+		return this.getVoluntarioProfesiones().contains(profesion);
+	}
+		
+	public List<Profesion> getProfesiones()
+	{
+		if (this.profesiones == null)
+		{
+			this.profesiones = new ArrayList<>();
+		}
+		return profesiones;
+	}
 
+	public void setProfesiones(List<Profesion> profesiones)
+	{
+		this.profesiones = profesiones;
+	}
+
+	public Set<Profesion> getProfesionesSeleccionadas()
+	{
+		if (this.profesionesSeleccionadas == null)
+		{
+			this.profesionesSeleccionadas = new HashSet<>();
+		}
+		return profesionesSeleccionadas;
+	}
+
+	public void setProfesionesSeleccionadas(Set<Profesion> profesionesSeleccionadas)
+	{
+		this.profesionesSeleccionadas = profesionesSeleccionadas;
+	}
+		
+	public List<Profesion> getVoluntarioProfesiones()
+	{
+		if (this.voluntarioProfesiones == null)
+		{
+			voluntarioProfesiones = new ArrayList<>();
+		}
+		return voluntarioProfesiones;
+	}
+
+	public void setVoluntarioProfesiones (List<Profesion> voluntarioProfesiones)
+	{
+		this.voluntarioProfesiones = voluntarioProfesiones;
+	}
+
+	public Set<Profesion> getVoluntarioProfesionesSeleccionadas()
+	{
+		if (this.voluntarioProfesionesSeleccionadas == null)
+		{
+			this.voluntarioProfesionesSeleccionadas = new HashSet<>();
+		}
+		return voluntarioProfesionesSeleccionadas;
+	}
+
+	public void setVoluntarioProfesionesSeleccionadas(Set<Profesion> voluntarioProfesionesSeleccionadas)
+	{
+		this.voluntarioProfesionesSeleccionadas = voluntarioProfesionesSeleccionadas;
+	}
+		
+	@Command("agregarProfesiones")
+	@NotifyChange({"profesiones", "voluntarioProfesiones", "profesionesSeleccionadas", "voluntarioProfesionesSeleccionadas"})
+	public void agregarProfesiones()
+	{
+		if (this.getProfesionesSeleccionadas() != null && this.getProfesionesSeleccionadas().size() > 0)
+		{
+			this.getVoluntarioProfesiones().addAll(profesionesSeleccionadas);
+			this.getProfesionesSeleccionadas().clear();
+			this.getVoluntarioProfesionesSeleccionadas().clear();
+		}
+	}
+
+	@Command("removerProfesiones")
+	@NotifyChange({"profesiones", "voluntarioProfesiones", "profesionesSeleccionadas", "voluntarioProfesionesSeleccionadas"})
+	public void removerProfesiones()
+	{
+		if (this.getVoluntarioProfesionesSeleccionadas() != null && this.getVoluntarioProfesionesSeleccionadas().size() > 0)
+		{
+			this.getVoluntarioProfesiones().removeAll(voluntarioProfesionesSeleccionadas);
+			this.getProfesionesSeleccionadas().clear();
+			this.getVoluntarioProfesionesSeleccionadas().clear();
+		}
+	}
+		
+	// MÉTODOS DEL WIZARD
 	@Override
 	public Map<Integer, List<OperacionWizard>> getButtonsToStep()
 	{
@@ -265,15 +383,26 @@ public class VM_RegistroVoluntarioIndex extends VM_WindowWizard<Voluntario> impl
 
 		List<OperacionWizard> listOperacionWizard2 = new ArrayList<OperacionWizard>();
 		listOperacionWizard2.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.ATRAS));
-		listOperacionWizard2.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.CANCELAR));
 		listOperacionWizard2.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.SIGUIENTE));
+		listOperacionWizard2.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.CANCELAR));
 		botones.put(2, listOperacionWizard2);
 
 		List<OperacionWizard> listOperacionWizard3 = new ArrayList<OperacionWizard>();
 		listOperacionWizard3.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.ATRAS));
+		listOperacionWizard3.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.SIGUIENTE));
 		listOperacionWizard3.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.CANCELAR));
-		listOperacionWizard3.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.FINALIZAR));
 		botones.put(3, listOperacionWizard3);
+		
+		List<OperacionWizard> listOperacionWizard4 = new ArrayList<OperacionWizard>();
+		listOperacionWizard4.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.ATRAS));
+		listOperacionWizard4.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.SIGUIENTE));
+		listOperacionWizard4.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.CANCELAR));
+		botones.put(4, listOperacionWizard4);
+		
+		List<OperacionWizard> listOperacionWizard5 = new ArrayList<OperacionWizard>();
+		listOperacionWizard5.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.FINALIZAR));
+		botones.put(5, listOperacionWizard5);
+		
 		return botones;
 	}
 
@@ -284,6 +413,8 @@ public class VM_RegistroVoluntarioIndex extends VM_WindowWizard<Voluntario> impl
 		iconos.add("fa fa-user");
 		iconos.add("fa fa-pencil-square-o");
 		iconos.add("fa fa-pencil-square-o");
+		iconos.add("fa fa-pencil-square-o");
+		iconos.add("fa fa-check-square-o");
 		return iconos;
 	}
 
@@ -292,13 +423,22 @@ public class VM_RegistroVoluntarioIndex extends VM_WindowWizard<Voluntario> impl
 	{
 		List<String> urls = new ArrayList<String>();
 		urls.add("views/desktop/gestion/voluntariado/registro/selectVoluntario.zul");
-		urls.add("views/desktop/gestion/voluntariado/registro/datosPersonalesVoluntario.zul");
-		urls.add("views/desktop/gestion/voluntariado/registro/datosContactoVoluntario.zul");
+		urls.add("views/desktop/gestion/voluntariado/registro/datosPersonales.zul");
+		urls.add("views/desktop/gestion/voluntariado/registro/datosContacto.zul");
+		urls.add("views/desktop/gestion/voluntariado/registro/listaProfesiones.zul");
+		urls.add("views/desktop/gestion/voluntariado/registro/registroCompletado.zul");
 		return urls;
 	}
 	
-	// CANCELAR
+	// ATRAS
+	@Override
+	public String executeAtras(Integer currentStep)
+	{
+		goToPreviousStep();
+		return "";
+	}
 	
+	// CANCELAR
 	@Override
 	public String executeCancelar(Integer currentStep)
 	{
@@ -306,6 +446,76 @@ public class VM_RegistroVoluntarioIndex extends VM_WindowWizard<Voluntario> impl
 		return "";
 	}
 
+	// SIGUIENTE
+	@Override
+	public String isValidPreconditionsSiguiente(Integer currentStep)
+	{
+		if (currentStep == 1)
+		{
+			if (selectedObject == null)
+			{
+				return "E:Error Code 5-Debe seleccionar un <b>voluntario</b>";
+			}
+		}
+		if (currentStep == 2)
+		{
+			try
+			{
+				UtilValidate.validateInteger(this.getVoluntarioSelected().getFkPersona().getTipoPersona(), "Tipo de persona", ValidateOperator.LESS_THAN, 2);
+				UtilValidate.validateString(this.getVoluntarioSelected().getFkPersona().getIdentificacion(), "Cédula", 35);
+				UtilValidate.validateString(this.getVoluntarioSelected().getFkPersona().getNombre(), "Nombre", 150);
+				UtilValidate.validateString(this.getVoluntarioSelected().getFkPersona().getApellido(), "Apellido", 150);
+				UtilValidate.validateInteger(this.getVoluntarioSelected().getFkPersona().getSexo(), "Sexo", ValidateOperator.LESS_THAN, 2);
+				UtilValidate.validateDate(this.getVoluntarioSelected().getFkPersona().getFechaNacimiento(), "Fecha de nacimiento", ValidateOperator.LESS_THAN, new SimpleDateFormat("yyyy-MM-dd").format(new Date()), "dd/MM/yyyy");
+				UtilValidate.validateNull(this.getVoluntarioSelected().getFkPersona().getFkCiudad(), "Ciudad");
+				Calendar calendar = Calendar.getInstance();
+				calendar.setTime(new Date());
+				calendar.add(Calendar.DAY_OF_YEAR, 1);
+				UtilValidate.validateDate(this.getVoluntarioSelected().getFechaIngreso(), "Fecha de ingreso", ValidateOperator.LESS_THAN, new SimpleDateFormat("yyyy-MM-dd").format(calendar.getTime()),"dd/MM/yyyy");
+				UtilValidate.validateString(this.getVoluntarioSelected().getFkPersona().getDireccion(), "Dirección", 250);
+			}
+			catch (Exception e)
+			{
+				return e.getMessage();
+			}
+		}
+		if (currentStep == 3)
+		{
+			try
+			{
+				UtilValidate.validateString(this.getVoluntarioSelected().getFkPersona().getTelefono1(), "Teléfono 1", 25);
+				UtilValidate.validateString(this.getVoluntarioSelected().getFkPersona().getCorreo(), "Correo", 100);
+			}
+			catch (Exception e)
+			{
+				return e.getMessage();
+			}
+		}
+		return "";
+	}
+	
+	@Override
+	public String isValidSearchDataSiguiente(Integer currentStep)
+	{
+		if (currentStep == 3)
+		{
+			// BUSCAR PROFESIONES DEL VOLUNTARIO
+			this.setVoluntarioProfesiones(null);
+			Map<String, String> criterios = new HashMap<>();
+			criterios.put("fkVoluntario.idVoluntario", String.valueOf(this.getSelectedObject().getIdVoluntario()));
+			PayloadVoluntarioProfesionResponse payloadVoluntarioProfesionResponse = S.VoluntarioProfesionService.consultarCriterios(TypeQuery.EQUAL, criterios);
+			if (payloadVoluntarioProfesionResponse.getObjetos() != null)
+			{
+				for (VoluntarioProfesion vP : payloadVoluntarioProfesionResponse.getObjetos())
+				{
+					this.getVoluntarioProfesiones().add(vP.getFkProfesion());
+				}
+			}
+			BindUtils.postNotifyChange(null, null, this, "*");
+		}
+		return "";
+	}
+	
 	@Override
 	public String executeSiguiente(Integer currentStep)
 	{
@@ -314,17 +524,78 @@ public class VM_RegistroVoluntarioIndex extends VM_WindowWizard<Voluntario> impl
 			this.setSexoEnum(SexoEnum.values()[selectedObject.getFkPersona().getSexo()]);
 			this.setTipoPersonaEnum(TipoPersonaEnum.values()[selectedObject.getFkPersona().getTipoPersona()]);
 		}
+		
+		if (currentStep == 3)
+		{
+			
+		}
+		if (currentStep == 4)
+		{
+			// MULTIMEDIA
+			if (bytes != null)
+			{
+				Multimedia multimedia = new Multimedia();
+				multimedia.setNombre(nameImage);
+				multimedia.setTipoMultimedia(TipoMultimediaEnum.IMAGEN.ordinal());
+				multimedia.setUrl(this.getUrlImage());
+				multimedia.setExtension(UtilMultimedia.stringToExtensionEnum(extensionImage).ordinal());
+				multimedia.setDescripcion(typeMedia);
+				PayloadMultimediaResponse payloadMultimediaResponse = S.MultimediaService.incluir(multimedia);
+				multimedia.setIdMultimedia(((Double) payloadMultimediaResponse.getInformacion("id")).intValue());
+				Zki.save(Zki.PERSONAS, this.getVoluntarioSelected().getFkPersona().getIdPersona(), extensionImage, bytes);
+				this.getVoluntarioSelected().getFkPersona().setFkMultimedia(multimedia);
+			}
+
+			// PERSONA
+			PayloadPersonaResponse payloadPersonaResponse = S.PersonaService.modificar(this.getVoluntario().getFkPersona());
+			if (!UtilPayload.isOK(payloadPersonaResponse))
+			{
+				Alert.showMessage(payloadPersonaResponse);
+			}
+									
+			// PROFESIONES
+			this.selectedObject.setProfesiones(new ArrayList<Profesion>());
+			this.selectedObject.getProfesiones().clear();
+			this.selectedObject.getProfesiones().addAll(this.getVoluntarioProfesiones());
+			
+			// VOLUNTARIO
+			this.selectedObject.setEstatusVoluntario(EstatusVoluntarioEnum.ACTIVO.ordinal());
+			PayloadVoluntarioResponse payloadVoluntarioResponse = S.VoluntarioService.modificar(this.selectedObject);
+			if (UtilPayload.isOK(payloadVoluntarioResponse))
+			{
+				this.setSelectedObject(new Voluntario());
+				this.setVoluntario(new Voluntario());
+				//this.setProfesiones(new ArrayList<Profesiones>());
+				this.getProfesionesSeleccionadas().clear();
+				this.setVoluntarioProfesiones(new ArrayList<Profesion>());
+				this.getVoluntarioProfesionesSeleccionadas().clear();
+				BindUtils.postNotifyChange(null, null, this, "selectedObject");
+				BindUtils.postNotifyChange(null, null, this, "voluntario");
+				BindUtils.postNotifyChange(null, null, this, "profesiones");
+				BindUtils.postNotifyChange(null, null, this, "profesionesSeleccionadas");
+				BindUtils.postNotifyChange(null, null, this, "voluntarioProfesiones");
+				BindUtils.postNotifyChange(null, null, this, "voluntarioProfesionesSeleccionadas");
+			}
+		}
 		goToNextStep();
+		return "";
+	}
+	
+	// FINALIZAR
+	@Override
+	public String isValidPreconditionsFinalizar(Integer currentStep)
+	{
 		return "";
 	}
 
 	@Override
-	public String executeAtras(Integer currentStep)
+	public String executeFinalizar(Integer currentStep)
 	{
-		goToPreviousStep();
+		restartWizard();
 		return "";
 	}
 
+	// CARGA DE OBJETOS
 	@Override
 	public IPayloadResponse<Voluntario> getDataToTable(Integer cantidadRegistrosPagina, Integer pagina)
 	{
@@ -336,82 +607,6 @@ public class VM_RegistroVoluntarioIndex extends VM_WindowWizard<Voluntario> impl
 	}
 
 	@Override
-	public String isValidPreconditionsSiguiente(Integer currentStep)
-	{
-		if (currentStep == 1)
-		{
-			if (selectedObject == null)
-			{
-				return "E:Error Code 5-Debe seleccionar un <b>voluntario</b>";
-			}
-		}
-		return "";
-	}
-
-	@Override
-	public String isValidPreconditionsFinalizar(Integer currentStep)
-	{
-		if (currentStep == 3)
-		{
-			try
-			{
-				/*
-				UtilValidate.validateNull(this.getVoluntario().getFkPersona().getTelefono1(), "Teléfono 1");
-				UtilValidate.validateNull(this.getVoluntario().getFkPersona().getCorreo(), "Correo");
-				*/
-			}
-			catch (Exception e)
-			{
-				return e.getMessage();
-			}
-		}
-		return "";
-	}
-
-	@Override
-	public String executeFinalizar(Integer currentStep)
-	{
-		if (currentStep == 3)
-		{
-			/*
-			this.getVoluntario().getFkPersona().setTelefono1(this.getVoluntario().getFkPersona().getTelefono1());
-			this.getVoluntario().getFkPersona().setCorreo(this.getVoluntario().getFkPersona().getCorreo());
-			
-			// IMAGEN
-			Multimedia multimedia = this.getVoluntario().getFkPersona().getFkMultimedia();
-			PayloadMultimediaResponse payloadMultimediaResponse = S.MultimediaService.incluir(multimedia);
-			if (!UtilPayload.isOK(payloadMultimediaResponse))
-			{
-				return (String) payloadMultimediaResponse.getInformacion(IPayloadResponse.MENSAJE);
-			}
-			multimedia.setIdMultimedia(((Double) payloadMultimediaResponse.getInformacion("id")).intValue());
-			this.getVoluntario().getFkPersona().setFkMultimedia(multimedia);
-			*/
-
-			// PERSONA
-			PayloadPersonaResponse payloadPersonaResponse = S.PersonaService.modificar(this.selectedObject.getFkPersona());
-			if (UtilPayload.isOK(payloadPersonaResponse))
-			{
-				// OK
-			}
-			
-			// VOLUNTARIO
-			this.selectedObject.setEstatusVoluntario(EstatusVoluntarioEnum.ACTIVO.ordinal());
-			PayloadVoluntarioResponse payloadVoluntarioResponse = S.VoluntarioService.modificar(this.selectedObject);
-			if (UtilPayload.isOK(payloadVoluntarioResponse))
-			{
-				restartWizard();
-				this.setSelectedObject(new Voluntario());
-				this.setVoluntario(new Voluntario());
-				BindUtils.postNotifyChange(null, null, this, "selectedObject");
-				BindUtils.postNotifyChange(null, null, this, "voluntario");
-			}
-			return (String) payloadVoluntarioResponse.getInformacion(IPayloadResponse.MENSAJE);
-		}
-		return "";
-	}
-
-	@Override
 	public void comeIn(Integer currentStep)
 	{
 		if (currentStep == 1)
@@ -420,18 +615,75 @@ public class VM_RegistroVoluntarioIndex extends VM_WindowWizard<Voluntario> impl
 			BindUtils.postNotifyChange(null, null, this, "objectsList");
 		}
 	}
+	
+	// VOLUNTARIO SELECTED
+	public Voluntario getVoluntarioSelected()
+	{
+		return (Voluntario) this.selectedObject;
+	}
+	
+	// PROPIEDADES DEL MULTIMEDIA
+	public String getNameImage()
+	{
+		return nameImage;
+	}
+
+	public void setNameImage(String nameImage)
+	{
+		this.nameImage = nameImage;
+	}
+
+	public String getExtensionImage()
+	{
+		return extensionImage;
+	}
+
+	public void setExtensionImage(String extensionImage)
+	{
+		this.extensionImage = extensionImage;
+	}
+
+	public String getUrlImage()
+	{
+		return urlImage;
+	}
+
+	public void setUrlImage(String urlImage)
+	{
+		this.urlImage = urlImage;
+	}
+
+	public String getTypeMedia()
+	{
+		return typeMedia;
+	}
+
+	public void setTypeMedia(String typeMedia)
+	{
+		this.typeMedia = typeMedia;
+	}
 
 	@Override
 	public BufferedImage getImageContent()
 	{
-		try
+		if (bytes != null)
 		{
-			return loadImage();
+			try
+			{
+				return ImageIO.read(new ByteArrayInputStream(bytes));
+			}
+			catch (IOException e)
+			{
+				return null;
+			}
 		}
-		catch (Exception e)
+
+		if (urlImage != null)
 		{
-			return null;
+			bytes = Zki.getBytes(urlImage);
+			return Zki.getBufferedImage(urlImage);
 		}
+		return null;
 	}
 
 	@Override
@@ -440,59 +692,42 @@ public class VM_RegistroVoluntarioIndex extends VM_WindowWizard<Voluntario> impl
 		org.zkoss.util.media.Media media = event.getMedia();
 		if (media instanceof org.zkoss.image.Image)
 		{
-			bytes = media.getByteData();
-			this.nameImage = media.getName();
-			if (UtilMultimedia.validateFile(nameImage.substring(this.nameImage
-					.lastIndexOf(".") + 1))) {
-				Multimedia multimedia = new Multimedia();
-				multimedia.setNombre(nameImage);
-				multimedia.setTipoMultimedia(TipoMultimediaEnum.IMAGEN
-						.ordinal());
-				multimedia.setUrl(new StringBuilder()
-						.append("/Smile/Voluntario/").append(nameImage)
-						.toString());
-				multimedia.setExtension(UtilMultimedia
-						.stringToExtensionEnum(
-								nameImage.substring(this.nameImage
-										.lastIndexOf(".") + 1)).ordinal());
-				multimedia.setDescripcion("Imagen del voluntario");
-				this.getVoluntario().getFkPersona().setFkMultimedia(multimedia);
-			} else {
-				this.getVoluntario().getFkPersona().setFkMultimedia(null);
-				Alert.showMessage("E: Error Code: 100-El formato de la <b>imagen</b> es inválido");
+			if (UtilMultimedia.validateImage(media.getName().substring(media.getName().lastIndexOf(".") + 1)))
+			{
+				this.extensionImage = media.getName().substring(media.getName().lastIndexOf(".") + 1);
+				this.nameImage = new StringBuilder().append(Zki.PERSONAS).append(this.getVoluntarioSelected().getFkPersona().getIdPersona()).append(".").append(this.extensionImage).toString();
+				this.bytes = media.getByteData();
+				this.urlImage = new StringBuilder().append(Zki.PERSONAS).append(this.getVoluntarioSelected().getFkPersona().getIdPersona()).append(".").append(extensionImage).toString();
+				this.typeMedia = media.getContentType();
 			}
+			else
+			{
+				this.getVoluntarioSelected().getFkPersona().setFkMultimedia(null);
+				Alert.showMessage("E: Error Code: 100-El formato de la <b>imagen</b> es inválido");
+
+			}
+		}
+		else
+		{
+			this.getVoluntarioSelected().getFkPersona().setFkMultimedia(null);
+			Alert.showMessage("E: Error Code: 100-El formato de la <b>imagen</b> es inválido");
 		}
 	}
 
 	@Override
-	public void onRemoveImageSingle(String idUpload) {
+	public void onRemoveImageSingle(String idUpload)
+	{
 		bytes = null;
-		this.getVoluntario().getFkPersona().setFkMultimedia(null);
 	}
 
-	public byte[] getBytes() {
+	public byte[] getBytes()
+	{
 		return bytes;
 	}
 
-	public void setBytes(byte[] bytes) {
+	public void setBytes(byte[] bytes)
+	{
 		this.bytes = bytes;
 	}
 
-	private BufferedImage loadImage() throws Exception {
-		try {
-			Path path = Paths.get(this.getUrlImagen());
-			bytes = Files.readAllBytes(path);
-			return ImageIO.read(new File(this.getUrlImagen()));
-		} catch (Exception e) {
-			return null;
-		}
-	}
-
-	public String getUrlImagen() {
-		return urlImagen;
-	}
-
-	public void setUrlImagen(String urlImagen) {
-		this.urlImagen = urlImagen;
-	}
 }

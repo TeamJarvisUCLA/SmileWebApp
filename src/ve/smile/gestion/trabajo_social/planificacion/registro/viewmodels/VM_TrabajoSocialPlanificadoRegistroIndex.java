@@ -1,10 +1,8 @@
 package ve.smile.gestion.trabajo_social.planificacion.registro.viewmodels;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -29,6 +27,7 @@ import karen.core.wizard.buttons.helpers.OperacionWizardHelper;
 import karen.core.wizard.viewmodels.VM_WindowWizard;
 import lights.core.payload.response.IPayloadResponse;
 import lights.smile.util.UtilMultimedia;
+import lights.smile.util.Zki;
 
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.Command;
@@ -38,32 +37,35 @@ import org.zkoss.zk.ui.event.UploadEvent;
 import ve.smile.consume.services.S;
 import ve.smile.dto.Directorio;
 import ve.smile.dto.Multimedia;
+import ve.smile.dto.Persona;
 import ve.smile.dto.TrabajoSocial;
 import ve.smile.dto.TsPlan;
-import ve.smile.dto.Voluntario;
 import ve.smile.enums.TipoMultimediaEnum;
 import ve.smile.payload.response.PayloadMultimediaResponse;
 import ve.smile.payload.response.PayloadTrabajoSocialResponse;
 import ve.smile.payload.response.PayloadTsPlanResponse;
 import app.UploadImageSingle;
 
-public class VM_TrabajoSocialPlanificadoRegistroIndex extends
-		VM_WindowWizard implements UploadImageSingle {
+public class VM_TrabajoSocialPlanificadoRegistroIndex extends VM_WindowWizard
+		implements UploadImageSingle {
 
 	private TsPlan tsPlan;
-	private Voluntario voluntario = new Voluntario();
+	private Persona persona = new Persona();
 	private Directorio directorio = new Directorio();
 	private Date fechaPlanificada = new Date();
 
-	private byte[] bytes;
+	private byte[] bytes = null;
 	private String nameImage;
-	private String urlImagen;
+	private String extensionImage;
+	private String urlImage;
+
+	private String typeMedia;
 
 	@Init(superclass = true)
 	public void childInit() {
 		// NOTHING OK!
 		tsPlan = new TsPlan();
-		voluntario = new Voluntario();
+		persona = new Persona();
 		directorio = new Directorio();
 		fechaPlanificada = new Date();
 	}
@@ -76,12 +78,12 @@ public class VM_TrabajoSocialPlanificadoRegistroIndex extends
 		this.tsPlan = tsPlan;
 	}
 
-	public Voluntario getVoluntario() {
-		return voluntario;
+	public Persona getPersona() {
+		return persona;
 	}
 
-	public void setVoluntario(Voluntario voluntario) {
-		this.voluntario = voluntario;
+	public void setPersona(Persona persona) {
+		this.persona = persona;
 	}
 
 	public Directorio getDirectorio() {
@@ -102,28 +104,28 @@ public class VM_TrabajoSocialPlanificadoRegistroIndex extends
 
 	@Command("buscarVoluntario")
 	public void buscarVoluntario() {
-		CatalogueDialogData<Voluntario> catalogueDialogData = new CatalogueDialogData<Voluntario>();
+		CatalogueDialogData<Persona> catalogueDialogData = new CatalogueDialogData<Persona>();
 
 		catalogueDialogData
-				.addCatalogueDialogCloseListeners(new CatalogueDialogCloseListener<Voluntario>() {
+				.addCatalogueDialogCloseListeners(new CatalogueDialogCloseListener<Persona>() {
 
 					@Override
 					public void onClose(
-							CatalogueDialogCloseEvent<Voluntario> catalogueDialogCloseEvent) {
+							CatalogueDialogCloseEvent<Persona> catalogueDialogCloseEvent) {
 						if (catalogueDialogCloseEvent.getDialogAction().equals(
 								DialogActionEnum.CANCELAR)) {
 							return;
 						}
 
-						voluntario = catalogueDialogCloseEvent.getEntity();
+						persona = catalogueDialogCloseEvent.getEntity();
 
-						refreshVoluntario();
+						refreshPersona();
 					}
 				});
 
 		UtilDialog
 				.showDialog(
-						"views/desktop/gestion/trabajoSocial/planificacion/registro/catalogoVoluntario.zul",
+						"views/desktop/gestion/trabajoSocial/planificacion/registro/catalogoTrabajadorVoluntario.zul",
 						catalogueDialogData);
 	}
 
@@ -152,8 +154,8 @@ public class VM_TrabajoSocialPlanificadoRegistroIndex extends
 						catalogueDialogData);
 	}
 
-	public void refreshVoluntario() {
-		BindUtils.postNotifyChange(null, null, this, "voluntario");
+	public void refreshPersona() {
+		BindUtils.postNotifyChange(null, null, this, "persona");
 	}
 
 	public void refreshDirectorio() {
@@ -175,13 +177,16 @@ public class VM_TrabajoSocialPlanificadoRegistroIndex extends
 				.getPorType(OperacionWizardEnum.ATRAS));
 		listOperacionWizard2.add(OperacionWizardHelper
 				.getPorType(OperacionWizardEnum.FINALIZAR));
+		listOperacionWizard2.add(OperacionWizardHelper
+				.getPorType(OperacionWizardEnum.CANCELAR));
 
 		botones.put(2, listOperacionWizard2);
 
 		List<OperacionWizard> listOperacionWizard3 = new ArrayList<OperacionWizard>();
-		listOperacionWizard3.add(OperacionWizardHelper
-				.getPorType(OperacionWizardEnum.CUSTOM1));
-
+		OperacionWizard operacionWizardCustom = new OperacionWizard(
+				OperacionWizardEnum.CUSTOM1.ordinal(), "Aceptar", "Custom1",
+				"fa fa-check", "indigo", "Aceptar");
+		listOperacionWizard3.add(operacionWizardCustom);
 		botones.put(3, listOperacionWizard3);
 
 		return botones;
@@ -193,7 +198,7 @@ public class VM_TrabajoSocialPlanificadoRegistroIndex extends
 
 		iconos.add("fa fa-heart");
 		iconos.add("fa fa-pencil-square-o");
-		// iconos.add("fa fa-check-square-o");
+		iconos.add("fa fa-check-square-o");
 
 		return iconos;
 	}
@@ -204,7 +209,7 @@ public class VM_TrabajoSocialPlanificadoRegistroIndex extends
 
 		urls.add("views/desktop/gestion/trabajoSocial/planificacion/registro/selectTrabajoSocial.zul");
 		urls.add("views/desktop/gestion/trabajoSocial/planificacion/registro/trabajoSocialPlanificadoFormBasic.zul");
-		// urls.add("views/desktop/gestion/trabajoSocial/planificacion/registro/successRegistroTrabajoSocialPlanificado.zul");
+		urls.add("views/desktop/gestion/trabajoSocial/planificacion/registro/registroCompletado.zul");
 
 		return urls;
 	}
@@ -224,6 +229,12 @@ public class VM_TrabajoSocialPlanificadoRegistroIndex extends
 	}
 
 	@Override
+	public String executeCancelar(Integer currentStep) {
+		restartWizard();
+		return super.executeCancelar(currentStep);
+	}
+
+	@Override
 	public IPayloadResponse<TrabajoSocial> getDataToTable(
 			Integer cantidadRegistrosPagina, Integer pagina) {
 
@@ -231,6 +242,27 @@ public class VM_TrabajoSocialPlanificadoRegistroIndex extends
 				.consultarPaginacion(cantidadRegistrosPagina, pagina);
 
 		return payloadTrabajoSocialResponse;
+	}
+
+	@Override
+	public String executeCustom1(Integer currentStep) {
+		if (currentStep == 3) {
+
+			restartWizard();
+			this.setTsPlan(new TsPlan());
+			this.bytes = null;
+			this.setDirectorio(new Directorio());
+			this.setFechaPlanificada(new Date());
+			this.setSelectedObject(new TrabajoSocial());
+			this.setPersona(new Persona());
+			BindUtils.postNotifyChange(null, null, this, "directorio");
+			BindUtils.postNotifyChange(null, null, this, "tsPlan");
+			BindUtils.postNotifyChange(null, null, this, "fechaPlanificada");
+			BindUtils.postNotifyChange(null, null, this, "selectedObject");
+			BindUtils.postNotifyChange(null, null, this, "voluntario");
+
+		}
+		return super.executeCustom1(currentStep);
 	}
 
 	@Override
@@ -256,12 +288,11 @@ public class VM_TrabajoSocialPlanificadoRegistroIndex extends
 						"Fecha Planificada", ValidateOperator.GREATER_THAN,
 						new SimpleDateFormat("yyyy-MM-dd").format(new Date()),
 						"dd/MM/yyyy");
-				UtilValidate.validateNull(this.getVoluntario()
-						.getIdVoluntario(), "Responsable");
+				UtilValidate.validateNull(this.getPersona().getIdPersona(),
+						"Responsable");
 				UtilValidate.validateNull(this.getDirectorio()
 						.getIdDirectorio(), "Directorio");
-				UtilValidate.validateNull(this.getTsPlan().getFkMultimedia(),
-						"Imagen");
+				UtilValidate.validateNull(this.getBytes(), "Imagen");
 			} catch (Exception e) {
 				return e.getMessage();
 			}
@@ -276,95 +307,137 @@ public class VM_TrabajoSocialPlanificadoRegistroIndex extends
 			this.getTsPlan().setFechaPlanificada(
 					this.getFechaPlanificada().getTime());
 			this.getTsPlan().setFkDirectorio(this.getDirectorio());
-			this.getTsPlan().setFkPersona(this.getVoluntario().getFkPersona());
+			this.getTsPlan().setFkPersona(this.getPersona());
 			this.getTsPlan().setPublicoPortal(true);
 
-			Multimedia multimedia = this.getTsPlan().getFkMultimedia();
+			if (bytes != null) {
+				Multimedia multimedia = new Multimedia();
+				multimedia.setNombre(nameImage);
+				multimedia.setTipoMultimedia(TipoMultimediaEnum.IMAGEN
+						.ordinal());
+				multimedia.setUrl(this.getUrlImage());
+				multimedia.setExtension(UtilMultimedia.stringToExtensionEnum(
+						extensionImage).ordinal());
+				multimedia.setDescripcion(typeMedia);
 
-			PayloadMultimediaResponse payloadMultimediaResponse = S.MultimediaService
-					.incluir(multimedia);
-			if (!UtilPayload.isOK(payloadMultimediaResponse)) {
-				return (String) payloadMultimediaResponse
-						.getInformacion(IPayloadResponse.MENSAJE);
+				PayloadMultimediaResponse payloadMultimediaResponse = S.MultimediaService
+						.incluir(multimedia);
+
+				multimedia.setIdMultimedia(((Double) payloadMultimediaResponse
+						.getInformacion("id")).intValue());
+				this.getTsPlan().setFkMultimedia(multimedia);
 			}
-			multimedia.setIdMultimedia(((Double) payloadMultimediaResponse
-					.getInformacion("id")).intValue());
-			this.getTsPlan().setFkMultimedia(multimedia);
+
 			PayloadTsPlanResponse payloadTsPlanResponse = S.TsPlanService
 					.incluir(this.tsPlan);
-			if (UtilPayload.isOK(payloadTsPlanResponse)) {
-				restartWizard();
-				this.setTsPlan(new TsPlan());
-				this.setDirectorio(new Directorio());
-				this.setFechaPlanificada(new Date());
-				this.setSelectedObject(new TrabajoSocial());
-				this.setVoluntario(new Voluntario());
-				BindUtils.postNotifyChange(null, null, this, "directorio");
-				BindUtils.postNotifyChange(null, null, this, "tsPlan");
-				BindUtils
-						.postNotifyChange(null, null, this, "fechaPlanificada");
-				BindUtils.postNotifyChange(null, null, this, "selectedObject");
-				BindUtils.postNotifyChange(null, null, this, "voluntario");
+
+			this.getTsPlan().setIdTsPlan(
+					((Double) payloadTsPlanResponse.getInformacion("id"))
+							.intValue());
+			if (bytes != null) {
+				Zki.save(Zki.TRABAJO_SOCIAL, this.getTsPlan().getIdTsPlan(),
+						extensionImage, bytes);
+				Multimedia multimedia = this.getTsPlan().getFkMultimedia();
+				multimedia.setNombre(Zki.TRABAJO_SOCIAL
+						+ this.getTsPlan().getIdTsPlan() + "."
+						+ this.extensionImage);
+				multimedia.setUrl(Zki.TRABAJO_SOCIAL
+						+ this.getTsPlan().getIdTsPlan() + "."
+						+ this.extensionImage);
+				PayloadMultimediaResponse payloadMultimediaResponse = S.MultimediaService
+						.modificar(multimedia);
+
+				if (!UtilPayload.isOK(payloadMultimediaResponse)) {
+					return (String) payloadMultimediaResponse
+							.getInformacion(IPayloadResponse.MENSAJE);
+
+				}
 			}
-			return (String) payloadTsPlanResponse
-					.getInformacion(IPayloadResponse.MENSAJE);
+			goToNextStep();
 
 		}
 
 		return "";
 	}
 
-	@Override
-	public void comeIn(Integer currentStep) {
-		// if (currentStep == 1) {
-		// this.getControllerWindowWizard().updateListBoxAndFooter();
-		// BindUtils.postNotifyChange(null, null, this, "objectsList");
-		// }
+	public String getNameImage() {
+		return nameImage;
+	}
+
+	public void setNameImage(String nameImage) {
+		this.nameImage = nameImage;
+	}
+
+	public String getExtensionImage() {
+		return extensionImage;
+	}
+
+	public void setExtensionImage(String extensionImage) {
+		this.extensionImage = extensionImage;
+	}
+
+	public String getUrlImage() {
+		return urlImage;
+	}
+
+	public void setUrlImage(String urlImage) {
+		this.urlImage = urlImage;
+	}
+
+	public String getTypeMedia() {
+		return typeMedia;
+	}
+
+	public void setTypeMedia(String typeMedia) {
+		this.typeMedia = typeMedia;
 	}
 
 	@Override
 	public BufferedImage getImageContent() {
-		try {
-			return loadImage();
-		} catch (Exception e) {
-			return null;
+		if (bytes != null) {
+			try {
+				return ImageIO.read(new ByteArrayInputStream(bytes));
+			} catch (IOException e) {
+				return null;
+			}
 		}
+
+		if (urlImage != null) {
+			bytes = Zki.getBytes(urlImage);
+			return Zki.getBufferedImage(urlImage);
+		}
+
+		return null;
 	}
 
 	@Override
 	public void onUploadImageSingle(UploadEvent event, String idUpload) {
 		org.zkoss.util.media.Media media = event.getMedia();
+
 		if (media instanceof org.zkoss.image.Image) {
-			bytes = media.getByteData();
-			this.nameImage = media.getName();
-			if (UtilMultimedia.validateFile(nameImage.substring(this.nameImage
-					.lastIndexOf(".") + 1))) {
-				Multimedia multimedia = new Multimedia();
-				multimedia.setNombre(nameImage);
-				multimedia.setTipoMultimedia(TipoMultimediaEnum.IMAGEN
-						.ordinal());
-				multimedia.setUrl(new StringBuilder()
-						.append("/Smile/Patrocinador/").append(nameImage)
-						.toString());
-				multimedia.setExtension(UtilMultimedia
-						.stringToExtensionEnum(
-								nameImage.substring(this.nameImage
-										.lastIndexOf(".") + 1)).ordinal());
-				multimedia.setDescripcion("Imgen del patrocinador.");
-				this.getTsPlan().setFkMultimedia(multimedia);
+
+			if (UtilMultimedia.validateImage(media.getName().substring(
+					media.getName().lastIndexOf(".") + 1))) {
+
+				this.extensionImage = media.getName().substring(
+						media.getName().lastIndexOf(".") + 1);
+
+				this.bytes = media.getByteData();
+				this.typeMedia = media.getContentType();
+
 			} else {
-				this.getTsPlan().setFkMultimedia(null);
+				this.getDirectorio().setFkMultimedia(null);
 				Alert.showMessage("E: Error Code: 100-El formato de la <b>imagen</b> es inválido");
-
 			}
-
+		} else {
+			this.getDirectorio().setFkMultimedia(null);
+			Alert.showMessage("E: Error Code: 100-El formato de la <b>imagen</b> es inválido");
 		}
 	}
 
 	@Override
 	public void onRemoveImageSingle(String idUpload) {
 		bytes = null;
-		this.getTsPlan().setFkMultimedia(null);
 	}
 
 	public byte[] getBytes() {
@@ -373,23 +446,5 @@ public class VM_TrabajoSocialPlanificadoRegistroIndex extends
 
 	public void setBytes(byte[] bytes) {
 		this.bytes = bytes;
-	}
-
-	private BufferedImage loadImage() throws Exception {
-		try {
-			Path path = Paths.get(this.getUrlImagen());
-			bytes = Files.readAllBytes(path);
-			return ImageIO.read(new File(this.getUrlImagen()));
-		} catch (Exception e) {
-			return null;
-		}
-	}
-
-	public String getUrlImagen() {
-		return urlImagen;
-	}
-
-	public void setUrlImagen(String urlImagen) {
-		this.urlImagen = urlImagen;
 	}
 }

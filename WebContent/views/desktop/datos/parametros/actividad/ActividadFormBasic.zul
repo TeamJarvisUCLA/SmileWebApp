@@ -13,7 +13,8 @@
 						value="@bind(vm.actividad.nombre)">
 					</textbox>
 				</div>
-				<span sclass="fa fa-question-circle fa-lg help-icon" tooltip="pop_nombre, position=after_end"/>
+				<span sclass="fa fa-question-circle fa-lg help-icon"
+					tooltip="pop_nombre, position=after_end" />
 			</div>
 
 			<div sclass="col s12">
@@ -30,7 +31,8 @@
 						</template>
 					</combobox>
 				</div>
-				<span sclass="fa fa-question-circle fa-lg help-icon" tooltip="pop_clasificador, position=after_end"/>
+				<span sclass="fa fa-question-circle fa-lg help-icon"
+					tooltip="pop_clasificador, position=after_end" />
 			</div>
 
 			<div class="col s12">
@@ -41,33 +43,38 @@
 						value="@bind(vm.actividad.descripcion)">
 					</textbox>
 				</div>
-				<span sclass="fa fa-question-circle fa-lg help-icon" tooltip="pop_descripcion, position=after_end"/>
+				<span sclass="fa fa-question-circle fa-lg help-icon"
+					tooltip="pop_descripcion, position=after_end" />
 			</div>
 		</div>
-		
-		
+
+
 		<popup id="pop_nombre" width="200px">
-        	<html><![CDATA[
-            	Por favor, indique el nombre de la actividad que desea 
-            	registrar.<br /><font color="#3b85a1">Ejemplo: Organizar visitas a la escuelita.</font>
-        	]]></html>
-    	</popup>
-    	
-    	<popup id="pop_clasificador" width="200px">
-        	<html><![CDATA[
-            	Por favor, indique un clasificador para la actividad que desea
-            	registrar.<br /><font color="#3b85a1">Ejemplo:Visitas.</font>
-        	]]></html>
-    	</popup>
-    	
-    	<popup id="pop_descripcion" width="200px">
-        	<html><![CDATA[
-            	Por favor, indique una descripción breve, sobre la actividad que desea
-            	registrar.<br /><font color="#3b85a1">Ejemplo:Organizar el orden de las 
-            	visitas correspondientes a la escuelita del hospital.</font>
-        	]]></html>
-    	</popup>
-		
+			<html>
+				<![CDATA[ Por favor, indique el nombre de la actividad
+				que desea registrar.<br /><font color="#3b85a1">Ejemplo:
+				Organizar visitas a la escuelita.</font> ]]>
+			</html>
+		</popup>
+
+		<popup id="pop_clasificador" width="200px">
+			<html>
+				<![CDATA[ Por favor, indique un clasificador para la
+				actividad que desea registrar.<br /><font
+				color="#3b85a1">Ejemplo:Visitas.</font> ]]>
+			</html>
+		</popup>
+
+		<popup id="pop_descripcion" width="200px">
+			<html>
+				<![CDATA[ Por favor, indique una descripción breve,
+				sobre la actividad que desea registrar.<br /><font
+				color="#3b85a1">Ejemplo:Organizar el orden de las
+				visitas correspondientes a la escuelita del
+				hospital.</font> ]]>
+			</html>
+		</popup>
+
 
 		<div id="divButtonsForm"
 			use="karen.core.form.buttons.containers.DivButtonsForm">

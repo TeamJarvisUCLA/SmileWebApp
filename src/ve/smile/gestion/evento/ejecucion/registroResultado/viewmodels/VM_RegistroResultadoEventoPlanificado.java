@@ -5,11 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import karen.core.dialog.catalogue.generic.data.CatalogueDialogData;
-import karen.core.dialog.catalogue.generic.events.CatalogueDialogCloseEvent;
-import karen.core.dialog.catalogue.generic.events.listeners.CatalogueDialogCloseListener;
-import karen.core.dialog.generic.enums.DialogActionEnum;
-import karen.core.util.UtilDialog;
+import karen.core.util.payload.UtilPayload;
 import karen.core.wizard.buttons.data.OperacionWizard;
 import karen.core.wizard.buttons.enums.OperacionWizardEnum;
 import karen.core.wizard.buttons.helpers.OperacionWizardHelper;
@@ -18,8 +14,6 @@ import lights.core.enums.TypeQuery;
 import lights.core.payload.response.IPayloadResponse;
 
 import org.zkoss.bind.BindUtils;
-import org.zkoss.bind.annotation.BindingParam;
-import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
 
 import ve.smile.consume.services.S;
@@ -27,15 +21,12 @@ import ve.smile.dto.EventPlanTarea;
 import ve.smile.dto.EventoPlanificado;
 import ve.smile.dto.Indicador;
 import ve.smile.dto.IndicadorEventoPlanTarea;
-import ve.smile.dto.IndicadorTsPlanActividad;
 import ve.smile.payload.response.PayloadEventPlanTareaResponse;
 import ve.smile.payload.response.PayloadEventoPlanificadoResponse;
 import ve.smile.payload.response.PayloadIndicadorEventoPlanTareaResponse;
 
-public class VM_RegistroResultadoEventoPlanificado extends
-		VM_WindowWizard {
+public class VM_RegistroResultadoEventoPlanificado extends VM_WindowWizard {
 
-	private List<Indicador> auxlistIndicadors = new ArrayList<>();
 	private List<EventPlanTarea> listEventPlanTareas = new ArrayList<>();
 	private int indexTarea;
 
@@ -44,8 +35,6 @@ public class VM_RegistroResultadoEventoPlanificado extends
 
 	}
 
-	
-	
 	@Override
 	public Map<Integer, List<OperacionWizard>> getButtonsToStep() {
 		Map<Integer, List<OperacionWizard>> botones = new HashMap<Integer, List<OperacionWizard>>();
@@ -65,8 +54,10 @@ public class VM_RegistroResultadoEventoPlanificado extends
 		botones.put(2, listOperacionWizard2);
 
 		List<OperacionWizard> listOperacionWizard3 = new ArrayList<OperacionWizard>();
-		listOperacionWizard3.add(OperacionWizardHelper
-				.getPorType(OperacionWizardEnum.CUSTOM1));
+		OperacionWizard operacionWizardCustom = new OperacionWizard(
+				OperacionWizardEnum.CUSTOM1.ordinal(), "Aceptar", "Custom1",
+				"fa fa-check", "indigo", "Aceptar");
+		listOperacionWizard3.add(operacionWizardCustom);
 
 		botones.put(3, listOperacionWizard3);
 
@@ -76,47 +67,20 @@ public class VM_RegistroResultadoEventoPlanificado extends
 	@Override
 	public String executeFinalizar(Integer currentStep) {
 		if (currentStep == 2) {
-			PayloadIndicadorEventoPlanTareaResponse indicadorEventoPlanTareaResponse = null;
-			PayloadEventPlanTareaResponse payloadEventPlanTareaResponse = new PayloadEventPlanTareaResponse();
 			for (EventPlanTarea obj : listEventPlanTareas) {
-				/*Map<String, String> criterios = new HashMap<String, String>();
-				criterios.put("fkEventPlanTarea.idEventPlanTarea",
-						obj.getIdEventPlanTarea() + "");
-
-				indicadorEventoPlanTareaResponse = S.IndicadorEventoPlanTareaService
-						.consultarCriterios(TypeQuery.EQUAL, criterios);
-				if (indicadorEventoPlanTareaResponse.getObjetos().size() > 0) {
-					for (IndicadorEventoPlanTarea indicEvenTarea : indicadorEventoPlanTareaResponse
-							.getObjetos()) {
-						S.IndicadorEventoPlanTareaService
-								.eliminar(indicEvenTarea
-										.getIdIndicadorEventoPlanTarea());
-					}
-
-				}*/
-				if (obj.getIndicadorEventoPlanTareas() != null) {
-					for (IndicadorEventoPlanTarea indicadorEventoPlanTarea : obj
-							.getIndicadorEventoPlanTareas()) {
-						IndicadorEventoPlanTarea eventoPlanTarea = new IndicadorEventoPlanTarea();
-						EventPlanTarea eventPlanTarea = new EventPlanTarea();
-						eventPlanTarea
-								.setIdEventPlanTarea(indicadorEventoPlanTarea
-										.getFkEventPlanTarea()
-										.getIdEventPlanTarea());
-						eventoPlanTarea.setFkEventPlanTarea(eventPlanTarea);
-						eventoPlanTarea.setFkIndicador(indicadorEventoPlanTarea
-								.getFkIndicador());
-						eventoPlanTarea
-								.setValorEsperado(indicadorEventoPlanTarea
-										.getValorEsperado());
-						indicadorEventoPlanTareaResponse = S.IndicadorEventoPlanTareaService
-								.incluir(eventoPlanTarea);
+				if (obj.getIndicadorEventoPlanTareas() != null & obj.getIndicadorEventoPlanTareas() .size()>0) {
+					for (IndicadorEventoPlanTarea indicadorEventoPlanTarea : obj.getIndicadorEventoPlanTareas()) {						
+						IndicadorEventoPlanTarea eventoPlanTarea = S.IndicadorEventoPlanTareaService.consultarUno(indicadorEventoPlanTarea.getIdIndicadorEventoPlanTarea()).getObjetos().get(0);
+						  eventoPlanTarea.setValorReal(indicadorEventoPlanTarea.getValorReal());						
+						 PayloadIndicadorEventoPlanTareaResponse indicadorEventoPlanTareaResponse = S.IndicadorEventoPlanTareaService
+								.modificar(eventoPlanTarea);
+						if (!UtilPayload.isOK(indicadorEventoPlanTareaResponse)) {
+							 return (String) indicadorEventoPlanTareaResponse.getInformacion(IPayloadResponse.MENSAJE);
+						 }
 					}
 				}
 			}
 			goToNextStep();
-			return (String) payloadEventPlanTareaResponse
-					.getInformacion(IPayloadResponse.MENSAJE);
 		}
 
 		return "";
@@ -156,8 +120,10 @@ public class VM_RegistroResultadoEventoPlanificado extends
 	public String executeSiguiente(Integer currentStep) {
 		if (currentStep == 1) {
 			Map<String, String> parametro = new HashMap<String, String>();
-			parametro.put("fkEventoPlanificado.idEventoPlanificado",
-					((EventoPlanificado) selectedObject).getIdEventoPlanificado() + "");
+			parametro.put(
+					"fkEventoPlanificado.idEventoPlanificado",
+					((EventoPlanificado) selectedObject)
+							.getIdEventoPlanificado() + "");
 			this.listEventPlanTareas = new ArrayList<>();
 			this.listEventPlanTareas = S.EventPlanTareaService
 					.consultarCriterios(TypeQuery.EQUAL, parametro)
@@ -171,9 +137,29 @@ public class VM_RegistroResultadoEventoPlanificado extends
 					PayloadIndicadorEventoPlanTareaResponse indicadorEventoPlanTareaResponse = S.IndicadorEventoPlanTareaService
 							.consultarCriterios(TypeQuery.EQUAL, criterios);
 					if (indicadorEventoPlanTareaResponse.getObjetos().size() > 0) {
-						
-						listEventPlanTareas.get(i).setIndicadorEventoPlanTareas(indicadorEventoPlanTareaResponse
-												.getObjetos());
+						List<IndicadorEventoPlanTarea> listIndicadorEventoPlanTareas = new ArrayList<IndicadorEventoPlanTarea>();
+						for (IndicadorEventoPlanTarea indEvenPs : indicadorEventoPlanTareaResponse
+								.getObjetos()) {
+							IndicadorEventoPlanTarea indicadEventoPlanTarea = new IndicadorEventoPlanTarea();
+							indicadEventoPlanTarea
+									.setFkEventPlanTarea(indEvenPs
+											.getFkEventPlanTarea());
+							indicadEventoPlanTarea.setFkIndicador(indEvenPs
+									.getFkIndicador());
+							indicadEventoPlanTarea
+									.setIdIndicadorEventoPlanTarea(indEvenPs
+											.getIdIndicadorEventoPlanTarea());
+							indicadEventoPlanTarea.setValorEsperado(indEvenPs
+									.getValorEsperado());
+							indicadEventoPlanTarea.setValorReal(indEvenPs
+									.getValorEsperado());
+							listIndicadorEventoPlanTareas
+									.add(indicadEventoPlanTarea);
+						}
+
+						listEventPlanTareas.get(i)
+								.setIndicadorEventoPlanTareas(
+										listIndicadorEventoPlanTareas);
 					}
 
 				}
@@ -184,7 +170,6 @@ public class VM_RegistroResultadoEventoPlanificado extends
 
 		return "";
 	}
-
 
 	@Override
 	public String executeAtras(Integer currentStep) {
@@ -207,7 +192,7 @@ public class VM_RegistroResultadoEventoPlanificado extends
 
 		return "";
 	}
-	
+
 	@Override
 	public String executeCustom1(Integer currentStep) {
 		this.setListEventPlanTareas(new ArrayList<EventPlanTarea>());
@@ -218,7 +203,6 @@ public class VM_RegistroResultadoEventoPlanificado extends
 		restartWizard();
 		return "";
 	}
-
 
 	public List<EventPlanTarea> getListEventPlanTareas() {
 		return listEventPlanTareas;
@@ -234,14 +218,6 @@ public class VM_RegistroResultadoEventoPlanificado extends
 
 	public void setIndexTarea(int indexTarea) {
 		this.indexTarea = indexTarea;
-	}
-
-	public List<Indicador> getAuxlistIndicadors() {
-		return auxlistIndicadors;
-	}
-
-	public void setAuxlistIndicadors(List<Indicador> auxlistIndicadors) {
-		this.auxlistIndicadors = auxlistIndicadors;
 	}
 
 }

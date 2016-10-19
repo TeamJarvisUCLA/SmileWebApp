@@ -346,7 +346,7 @@ public class VM_EgresoPadrinoIndex extends VM_WindowWizard {
 	public IPayloadResponse<Padrino> getDataToTable(
 			Integer cantidadRegistrosPagina, Integer pagina) {
 		Map<String, String> criterios = new HashMap<>();
-		EstatusPadrinoEnum.POSTULADO.ordinal();
+		EstatusPadrinoEnum.ACTIVO.ordinal();
 		criterios.put("estatusPadrino",
 				String.valueOf(EstatusPadrinoEnum.ACTIVO.ordinal()));
 		PayloadPadrinoResponse payloadPadrinoResponse = S.PadrinoService

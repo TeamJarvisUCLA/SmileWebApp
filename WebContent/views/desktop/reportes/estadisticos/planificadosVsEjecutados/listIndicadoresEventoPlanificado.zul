@@ -1,0 +1,163 @@
+<zk xmlns:n="native" xmlns:w="client">
+	<style>
+		.line-evento{ width: 100%; background-color: #D9EB52; height:
+		20px; margin-top: 20px; }
+
+		.titulo-evento{ color: #f26b7a !important; line-height: 28px;
+		text-align: center; font-size: 18px; text-transform: capitalize;
+		display: inherit; }
+
+
+		.subtitulo-evento{ color: #3b85a1 !important; line-height: 45px;
+		text-align: center; font-size: 18px; text-transform: capitalize;
+		display: inherit;}
+
+		.descripcion-evento { color: #8d7a6f !important; line-height:
+		18px; text-align: justify; font-size: 13px; display: inherit;
+		text-indent: 14px; }
+
+		.info-titulo-evento{ color:#3b85a1 !important; font-weight: 600;
+		font-size: 14px;}
+
+
+		.info-descripcion-evento{ color:#8d7a6f; font-size: 14px;}
+
+
+	</style>
+	<div sclass="animated fadeInLeft">
+		<div sclass="row">
+			<div sclass="col s12">
+				<div class=" col s12">
+					<div class=" row line-evento" style="margin:0px"></div>
+				</div>
+				<div class=" col s12">
+					<div sclass="row"
+						style="margin:0px;background: #FFF">
+
+						<div sclass="col s3">
+							<n:br></n:br>
+							<n:br></n:br>
+							<image class="img-responsive center-block"
+								src="/imagenes/portal/icon/icon-bingo.png" width="128px"
+								height="128px">
+							</image>
+							<n:br></n:br>
+						</div>
+						<div sclass="col s9" align="center">
+							<div sclass="col s12" align="center">
+								<label sclass="titulo-evento"
+									value="@bind(vm.selectedObject.fkEvento.nombre)">
+								</label>
+
+								<label sclass="subtitulo-evento"
+									value="@bind(vm.selectedObject.fkEvento.fkClasificadorEvento.nombre)">
+								</label>
+
+								<div sclass="row">
+									<label sclass="descripcion-evento"
+										value="@bind(vm.selectedObject.fkEvento.descripcion)">
+
+									</label>
+								</div>
+								<div sclass="row">
+									<div sclass="col s8" align="left"
+										style="padding:0px">
+
+										<label
+											sclass="info-titulo-evento">
+											Fecha:
+										</label>
+										<label
+											sclass="info-descripcion-evento" value="">
+										</label>
+										<n:br></n:br>
+										<label
+											sclass="info-titulo-evento">
+											Lugar:
+										</label>
+										<label
+											sclass="info-descripcion-evento"
+											value="@bind(vm.selectedObject.fkDirectorio.nombre)">
+										</label>
+										<n:br></n:br>
+										<label
+											sclass="info-titulo-evento">
+											Dirección:
+										</label>
+										<label
+											sclass="info-descripcion-evento"
+											value="@bind(vm.selectedObject.fkDirectorio.direccion)">
+
+										</label>
+										<n:br></n:br>
+
+									</div>
+									<div sclass="col s4">
+										<image
+											class="img-responsive center-block"
+											src="/imagenes/portal/icon/mapa.png"
+											style="width: auto;padding: 0px;margin: 0px;display: inline-block;">
+										</image>
+										<span
+											class="fa fa-search center-block"
+											style=" width: auto; margin: 0px; display: inline-block;vertical-align: bottom;color:#3b85a1">
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class=" col s12">
+					<div class=" row line-evento" style="margin:0px"></div>
+				</div>
+			</div>
+		</div>
+		<separator height="20px"></separator>
+
+
+		<div>
+
+			<div class="row">
+				<div class="col s12">
+
+					<listbox height="300px"
+						emptyMessage="No hay indicadores asociados al evento."
+						model="@bind(vm.indicadorEventoPlanificado)">
+						<listhead sizable="true">
+							<listheader label="Indicador" />
+							<listheader label="Unidad de Medida" />
+							<listheader label="Valor Esperado"
+								align="center" />
+							<listheader label="Valor Real"
+								align="center" />
+						</listhead>
+						<template name="model">
+							<listitem>
+								<listcell
+									label="@load(each.fkIndicador.nombre)">
+								</listcell>
+								<listcell
+									label="@load(each.fkIndicador.fkUnidadMedida.nombre)">
+								</listcell>
+
+								<listcell>
+									<intbox
+										style="    height: 1em; border: 1px solid #999999; border-radius: 7px; font-size:1.2em;  text-align: center;"
+										value="@bind(each.valorEsperado)" disabled="true">
+									</intbox>
+								</listcell>
+								<listcell>
+									<intbox
+										style="    height: 1em; border: 1px solid #999999; border-radius: 7px; font-size:1.2em;  text-align: center;"
+										value="@bind(each.valorReal)">
+									</intbox>
+								</listcell>
+							</listitem>
+						</template>
+					</listbox>
+				</div>
+			</div>
+		</div>
+	</div>
+</zk>

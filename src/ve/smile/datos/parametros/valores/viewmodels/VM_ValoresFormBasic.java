@@ -47,7 +47,8 @@ public class VM_ValoresFormBasic extends VM_WindowForm implements
 		// NOTHING OK!
 
 		if (this.getValores() != null
-				&& this.getValores().getFkMultimedia() != null) {
+				&& this.getValores().getFkMultimedia() != null
+				&& this.getValores().getFkMultimedia().getIdMultimedia() != null) {
 
 			this.setUrlImage(this.getValores().getFkMultimedia().getUrl());
 

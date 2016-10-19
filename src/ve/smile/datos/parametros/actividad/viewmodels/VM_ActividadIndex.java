@@ -115,19 +115,19 @@ public class VM_ActividadIndex extends VM_WindowSimpleListPrincipal<Actividad> {
 				Double.valueOf(String.valueOf(payloadTsPlanActividadVoluntarioResponse.getInformacion(IPayloadResponse.COUNT))).intValue();
 
 		if (countTsPlanActividades > 0) {
-			return "E:Error 0:No se puede eliminar la <b>Actividad</b> seleccionada ya que est· siendo utilizada en " + countTsPlanActividades + " Trabajo Social Planificado";
+			return "E:Error 0:No se puede eliminar la <b>Actividad</b> seleccionada ya que est√° siendo utilizada en " + countTsPlanActividades + " Trabajo Social Planificado";
 		}
 		
 		if (countTsPlanActividadRecursos > 0) {
-			return "E:Error 0:No se puede eliminar la <b>Actividad</b> seleccionada ya que est· siendo utilizada en " + countTsPlanActividadRecursos + " Trabajo Social Planificado Recurso";
+			return "E:Error 0:No se puede eliminar la <b>Actividad</b> seleccionada ya que est√° siendo utilizada en " + countTsPlanActividadRecursos + " Trabajo Social Planificado Recurso";
 		}
 		
 		if (countTsPlanActividadTrabajadores > 0) {
-			return "E:Error 0:No se puede eliminar la <b>Actividad</b> seleccionada ya que est· siendo utilizada en " + countTsPlanActividadTrabajadores + " Trabajo Social Planificado Trabajador";
+			return "E:Error 0:No se puede eliminar la <b>Actividad</b> seleccionada ya que est√° siendo utilizada en " + countTsPlanActividadTrabajadores + " Trabajo Social Planificado Trabajador";
 		}
 		
 		if (countTsPlanActividadVoluntarios > 0) {
-			return "E:Error 0:No se puede eliminar la <b>Actividad</b> seleccionada ya que est· siendo utilizada en " + countTsPlanActividadVoluntarios + " Trabajo Social Planificado Recurso";
+			return "E:Error 0:No se puede eliminar la <b>Actividad</b> seleccionada ya que est√° siendo utilizada en " + countTsPlanActividadVoluntarios + " Trabajo Social Planificado Voluntarios";
 		}
 
 		return "";

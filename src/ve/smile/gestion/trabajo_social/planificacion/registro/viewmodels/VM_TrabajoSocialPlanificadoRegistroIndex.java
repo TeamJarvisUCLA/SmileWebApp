@@ -26,6 +26,7 @@ import karen.core.wizard.buttons.enums.OperacionWizardEnum;
 import karen.core.wizard.buttons.helpers.OperacionWizardHelper;
 import karen.core.wizard.viewmodels.VM_WindowWizard;
 import lights.core.payload.response.IPayloadResponse;
+import lights.smile.util.UtilConverterDataList;
 import lights.smile.util.UtilMultimedia;
 import lights.smile.util.Zki;
 
@@ -37,11 +38,16 @@ import org.zkoss.zk.ui.event.UploadEvent;
 import ve.smile.consume.services.S;
 import ve.smile.dto.Directorio;
 import ve.smile.dto.Multimedia;
+import ve.smile.dto.NotificacionUsuario;
 import ve.smile.dto.Persona;
 import ve.smile.dto.TrabajoSocial;
 import ve.smile.dto.TsPlan;
+import ve.smile.enums.EstatusNotificacionEnum;
+import ve.smile.enums.EstatusTrabajoSocialPlanificadoEnum;
 import ve.smile.enums.TipoMultimediaEnum;
+import ve.smile.enums.TipoReferenciaNotificacionEnum;
 import ve.smile.payload.response.PayloadMultimediaResponse;
+import ve.smile.payload.response.PayloadNotificacionUsuarioResponse;
 import ve.smile.payload.response.PayloadTrabajoSocialResponse;
 import ve.smile.payload.response.PayloadTsPlanResponse;
 import app.UploadImageSingle;
@@ -53,6 +59,9 @@ public class VM_TrabajoSocialPlanificadoRegistroIndex extends VM_WindowWizard
 	private Persona persona = new Persona();
 	private Directorio directorio = new Directorio();
 	private Date fechaPlanificada = new Date();
+
+	private Date fechaInicio = new Date();
+	private Date fechaFin = new Date();
 
 	private byte[] bytes = null;
 	private String nameImage;
@@ -100,6 +109,22 @@ public class VM_TrabajoSocialPlanificadoRegistroIndex extends VM_WindowWizard
 
 	public void setFechaPlanificada(Date fechaPlanificada) {
 		this.fechaPlanificada = fechaPlanificada;
+	}
+
+	public Date getFechaInicio() {
+		return fechaInicio;
+	}
+
+	public void setFechaInicio(Date fechaInicio) {
+		this.fechaInicio = fechaInicio;
+	}
+
+	public Date getFechaFin() {
+		return fechaFin;
+	}
+
+	public void setFechaFin(Date fechaFin) {
+		this.fechaFin = fechaFin;
 	}
 
 	@Command("buscarVoluntario")
@@ -271,12 +296,9 @@ public class VM_TrabajoSocialPlanificadoRegistroIndex extends VM_WindowWizard
 			if (selectedObject == null) {
 				return "E:Error Code 5-Debe seleccionar un <b>Trabajo Social</b>";
 			}
+			this.getTsPlan()
+					.setFkTrabajoSocial(this.getTrabajoSocialSelected());
 		}
-
-		if (currentStep == 2) {
-			return "E:Error Code 5-No hay otro paso";
-		}
-
 		return "";
 	}
 
@@ -284,10 +306,14 @@ public class VM_TrabajoSocialPlanificadoRegistroIndex extends VM_WindowWizard
 	public String isValidPreconditionsFinalizar(Integer currentStep) {
 		if (currentStep == 2) {
 			try {
-				UtilValidate.validateDate(this.getFechaPlanificada().getTime(),
-						"Fecha Planificada", ValidateOperator.GREATER_THAN,
+				UtilValidate.validateDate(this.getFechaInicio().getTime(),
+						"Fecha Inicio", ValidateOperator.GREATER_THAN,
 						new SimpleDateFormat("yyyy-MM-dd").format(new Date()),
 						"dd/MM/yyyy");
+				UtilValidate.validateDate(this.getFechaFin().getTime(),
+						"Fecha Fin", ValidateOperator.GREATER_THAN,
+						new SimpleDateFormat("yyyy-MM-dd").format(this
+								.getFechaFin()), "dd/MM/yyyy");
 				UtilValidate.validateNull(this.getPersona().getIdPersona(),
 						"Responsable");
 				UtilValidate.validateNull(this.getDirectorio()
@@ -304,6 +330,10 @@ public class VM_TrabajoSocialPlanificadoRegistroIndex extends VM_WindowWizard
 	@Override
 	public String executeFinalizar(Integer currentStep) {
 		if (currentStep == 2) {
+			this.getTsPlan().setFechaInicio(this.getFechaInicio().getTime());
+			this.getTsPlan().setEstatusTsPlan(
+					EstatusTrabajoSocialPlanificadoEnum.PLANIFICADO.ordinal());
+			this.getTsPlan().setFechaFin(this.getFechaFin().getTime());
 			this.getTsPlan().setFechaPlanificada(
 					this.getFechaPlanificada().getTime());
 			this.getTsPlan().setFkDirectorio(this.getDirectorio());
@@ -353,6 +383,29 @@ public class VM_TrabajoSocialPlanificadoRegistroIndex extends VM_WindowWizard
 
 				}
 			}
+			if (this.getTsPlan().getFkPersona().getFkUsuario() != null
+					&& this.getTsPlan().getFkPersona().getFkUsuario()
+							.getIdUsuario() != null) {
+				String contenido = "Ha sido asignado responsable del Evento "
+						+ this.getTsPlan().getFkTrabajoSocial().getNombre()
+						+ " a realizar el "
+						+ UtilConverterDataList.convertirLongADate(this
+								.getFechaPlanificada().getTime());
+				NotificacionUsuario notificacionUsuario = new NotificacionUsuario(
+						this.getTsPlan().getFkPersona().getFkUsuario(),
+						new Date().getTime(),
+						this.getTsPlan().getIdTsPlan(),
+						EstatusNotificacionEnum.PENDIENTE.ordinal(),
+						TipoReferenciaNotificacionEnum.TRABAJO_SOCIAL.ordinal(),
+						contenido);
+				PayloadNotificacionUsuarioResponse payloadNotificacionUsuarioResponse = S.NotificacionUsuarioService
+						.incluir(notificacionUsuario);
+				if (!UtilPayload.isOK(payloadNotificacionUsuarioResponse)) {
+					return (String) payloadNotificacionUsuarioResponse
+							.getInformacion(IPayloadResponse.MENSAJE);
+				}
+			}
+
 			goToNextStep();
 
 		}
@@ -446,5 +499,9 @@ public class VM_TrabajoSocialPlanificadoRegistroIndex extends VM_WindowWizard
 
 	public void setBytes(byte[] bytes) {
 		this.bytes = bytes;
+	}
+
+	public TrabajoSocial getTrabajoSocialSelected() {
+		return (TrabajoSocial) selectedObject;
 	}
 }

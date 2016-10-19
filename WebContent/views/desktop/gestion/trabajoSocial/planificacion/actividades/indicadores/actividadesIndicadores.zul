@@ -1,102 +1,218 @@
-<div sclass="row section animated fadeInLeft">
-	<div sclass="col s12">
-		<grid id="Grid" sclass="periodo grid" height="300px"
-			model="@bind(vm.listTsPlanActividads)">
-			<columns sclass="header-periodo-vacacional">
-				<column width="5%" />
-				<column label="Nombre" width="25%" />
-				<column label="Descripción" align="center" width="35%" />
-				<column label="Clasificador de Actividad" align="center"
-					width="23%" />
-				<column label="Indicadores" align="center"
-					width="12%">
-				</column>
-			</columns>
-			<template name="model" var="actividad"
-				status="statusActividad">
-				<row style="overflow:auto; max-height:200px"
-					sclass="row-vacaciones">
+<zk xmlns:n="native" xmlns:w="client">
+	<style>
+		.z-auxheader-content, .z-auxheader-content:hover { background:
+		#594e46 !important; border-right: none; height: 41px; color:
+		white; }
+	</style>
+	<div sclass="row section animated fadeInLeft">
+		<div sclass="row">
+			<div sclass="col s12">
+				<div class=" col s12">
+					<div class=" row line-evento" style="margin:0px"></div>
+				</div>
+				<div class=" col s12">
+					<div sclass="row"
+						style="margin:0px;background: #FFF">
 
+						<div sclass="col s3">
+							<n:br></n:br>
+							<n:br></n:br>
+							<div align="center"
+								visible="@load(not empty vm.selectedObject.fkMultimedia and not empty vm.selectedObject.fkMultimedia.url)">
+								<image
+									class="img-responsive circle center-block"
+									src="${m:getUrlWeb(vm.selectedObject.fkMultimedia.url)}"
+									width="128px" height="128px">
+								</image>
+							</div>
+							<n:br></n:br>
+						</div>
+						<div sclass="col s9" align="center">
+							<div sclass="col s12" align="center">
+								<label sclass="titulo-evento"
+									value="@bind(vm.selectedObject.fkTrabajoSocial.nombre)">
+								</label>
 
-					<detail open="false" fulfill="onOpen">
+								<label sclass="subtitulo-evento"
+									value="@bind(vm.selectedObject.fkTrabajoSocial.fkClasificadorTrabajoSocial.nombre)">
+								</label>
 
-						<grid sclass="vacacion"
-							model="@bind(actividad.indicadorTsPlanActividads)">
-							<auxhead>
-								<auxheader colspan="4" align="center"
-									label="INDICADORES ASOCIADOS">
-								</auxheader>
-							</auxhead>
-							<columns sclass="header-periodo-disfute">
+								<div sclass="row">
+									<label sclass="descripcion-evento"
+										value="@bind(vm.selectedObject.fkTrabajoSocial.descripcion)">
 
-								<column label="Nombre" width="21%" />
+									</label>
+								</div>
+								<div sclass="row">
+									<div sclass="col s8" align="left"
+										style="padding:0px">
 
-								<column label="Unidad de Medida"
-									align="center" width="29%" />
-								<column label="Valor Esperado"
-									align="center" width="20%">
-
-								</column>
-								<column label="Eliminar" align="center"
-									width="10%">
-
-								</column>
-							</columns>
-							<template name="model">
-								<row sclass="last">
-
-									<cell sclass="vacacion">
 										<label
-											value="@bind(each.fkIndicador.nombre)" />
-									</cell>
-
-									<cell sclass="vacacion">
+											sclass="info-titulo-evento">
+											Fecha Inicio:
+										</label>
 										<label
-											value="@bind(each.fkIndicador.fkUnidadMedida.nombre)" />
-									</cell>
-									<cell sclass="vacacion">
-										<intbox
-											style="height: 1em; border: 1px solid #999999; border-radius: 7px; font-size:1.2em;  text-align: center;"
-											value="@bind(each.valorEsperado)">
-										</intbox>
-									</cell>
-									<cell sclass="vacacion"
-										style="    border-left: 2px solid #EEEEEE !important;">
-										<button
-											onClick="@command('eliminarIndicador', indicadorTsPlanActividad=each, index=statusActividad.index)"
-											sclass="btn-sm-grid btn-pink " style="margin-left: 3px;"
-											tooltiptext="Eliminar" iconSclass="fa fa-trash">
-										</button>
-									</cell>
-								</row>
-							</template>
-						</grid>
-					</detail>
+											sclass="info-descripcion-evento"
+											value="${m:convertirLongADate(vm.selectedObject.fechaInicio)}">
 
-					<cell sclass="periodo">
-						<label
-							value="@bind(actividad.fkActividad.nombre) " />
-					</cell>
+										</label>
+										<label
+											sclass="info-descripcion-evento" value="        ">
+										</label>
+										<label
+											sclass="info-titulo-evento">
+											Fecha Fin:
+										</label>
+										<label
+											sclass="info-descripcion-evento"
+											value="${m:convertirLongADate(vm.selectedObject.fechaFin)}">
 
-					<cell sclass="periodo">
-						<label
-							value="@bind(actividad.fkActividad.descripcion)" />
-					</cell>
-					<cell sclass="periodo">
-						<label
-							value="@bind(actividad.fkActividad.fkClasificadorActividad.nombre)" />
-					</cell>
-					<cell sclass="periodo">
-						<button
-							sclass="teal lighten-1 waves-effect waves-light"
-							onClick="@command('buscarIndicadores', index=statusActividad.index)"
-							iconSclass="fa fa-search" tooltiptext="Editar Lugar"
-							style="/padding: 5px 6px; background-color: #2AA4EF !important; float: center">
-						</button>
-					</cell>
-				</row>
-			</template>
-		</grid>
+										</label>
+										<n:br></n:br>
+										<label
+											sclass="info-titulo-evento">
+											Lugar:
+										</label>
+										<label
+											sclass="info-descripcion-evento"
+											value="@bind(vm.selectedObject.fkDirectorio.nombre)">
+										</label>
+										<n:br></n:br>
+										<label
+											sclass="info-titulo-evento">
+											Dirección:
+										</label>
+										<label
+											sclass="info-descripcion-evento"
+											value="@bind(vm.selectedObject.fkDirectorio.direccion)">
+
+										</label>
+										<n:br></n:br>
+
+									</div>
+									<div sclass="col s4">
+										<image
+											class="img-responsive center-block"
+											src="/imagenes/portal/icon/mapa.png"
+											style="width: auto;padding: 0px;margin: 0px;display: inline-block;">
+										</image>
+										<span
+											class="fa fa-search center-block"
+											style=" width: auto; margin: 0px; display: inline-block;vertical-align: bottom;color:#3b85a1">
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class=" col s12">
+					<div class=" row line-evento" style="margin:0px"></div>
+				</div>
+			</div>
+		</div>
+		<separator height="20px"></separator>
+		<div sclass="col s12">
+			<grid id="Grid" sclass="periodo grid" height="400px"
+				model="@bind(vm.listTsPlanActividads)">
+				<columns sclass="header-periodo-vacacional">
+					<column width="5%" />
+					<column label="Nombre" width="25%" />
+					<column label="Descripción" align="center"
+						width="35%" />
+					<column label="Clasificador de Actividad"
+						align="center" width="23%" />
+					<column label="Indicadores" align="center"
+						width="12%">
+					</column>
+				</columns>
+				<template name="model" var="actividad"
+					status="statusActividad">
+					<row style="overflow:auto; max-height:200px"
+						sclass="row-vacaciones">
+
+
+						<detail open="false" fulfill="onOpen">
+
+							<grid sclass="vacacion"
+								model="@bind(actividad.indicadorTsPlanActividads)">
+								<auxhead>
+									<auxheader colspan="4"
+										align="center" label="INDICADORES ASOCIADOS">
+									</auxheader>
+								</auxhead>
+								<columns
+									sclass="header-periodo-disfute">
+
+									<column label="Nombre" width="21%" />
+
+									<column label="Unidad de Medida"
+										align="center" width="29%" />
+									<column label="Valor Esperado"
+										align="center" width="20%">
+
+									</column>
+									<column label="Eliminar"
+										align="center" width="10%">
+
+									</column>
+								</columns>
+								<template name="model">
+									<row sclass="last">
+
+										<cell sclass="vacacion">
+											<label
+												value="@bind(each.fkIndicador.nombre)" />
+										</cell>
+
+										<cell sclass="vacacion">
+											<label
+												value="@bind(each.fkIndicador.fkUnidadMedida.nombre)" />
+										</cell>
+										<cell sclass="vacacion">
+											<intbox
+												style="height: 1em; border: 1px solid #999999 !important; border-radius: 7px; font-size: 1.2em; text-align: center;"
+												value="@bind(each.valorEsperado)">
+											</intbox>
+										</cell>
+										<cell sclass="vacacion"
+											style="    border-left: 2px solid #EEEEEE !important;">
+											<button
+												onClick="@command('eliminarIndicador', indicadorTsPlanActividad=each, index=statusActividad.index)"
+												sclass="btn-sm-grid btn-pink " style="margin-left: 3px;"
+												tooltiptext="Eliminar" iconSclass="fa fa-trash">
+											</button>
+										</cell>
+									</row>
+								</template>
+							</grid>
+						</detail>
+
+						<cell sclass="periodo">
+							<label
+								value="@bind(actividad.fkActividad.nombre) " />
+						</cell>
+
+						<cell sclass="periodo">
+							<label
+								value="@bind(actividad.fkActividad.descripcion)" />
+						</cell>
+						<cell sclass="periodo">
+							<label
+								value="@bind(actividad.fkActividad.fkClasificadorActividad.nombre)" />
+						</cell>
+						<cell sclass="periodo">
+							<button
+								sclass="teal lighten-1 waves-effect waves-light"
+								onClick="@command('buscarIndicadores', index=statusActividad.index)"
+								iconSclass="fa fa-plus" tooltiptext="Agregar Indicadores"
+								style="/padding: 5px 6px; background-color: #2AA4EF !important; float: center">
+							</button>
+						</cell>
+					</row>
+				</template>
+			</grid>
+		</div>
+
 	</div>
-
-</div>
+</zk>

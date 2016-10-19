@@ -35,8 +35,13 @@ import ve.smile.dto.Directorio;
 import ve.smile.dto.PlantillaTrabajoSocialActividad;
 import ve.smile.dto.TsPlan;
 import ve.smile.dto.TsPlanActividad;
+import ve.smile.enums.EstatusTrabajoSocialPlanificadoEnum;
 import ve.smile.payload.response.PayloadActividadResponse;
+import ve.smile.payload.response.PayloadIndicadorTsPlanActividadResponse;
+import ve.smile.payload.response.PayloadTsPlanActividadRecursoResponse;
 import ve.smile.payload.response.PayloadTsPlanActividadResponse;
+import ve.smile.payload.response.PayloadTsPlanActividadTrabajadorResponse;
+import ve.smile.payload.response.PayloadTsPlanActividadVoluntarioResponse;
 import ve.smile.payload.response.PayloadTsPlanResponse;
 
 public class VM_ActividadesTrabajoSocialPlanificadoIndex extends
@@ -76,8 +81,96 @@ public class VM_ActividadesTrabajoSocialPlanificadoIndex extends
 	public void removerActividadesPlantilla() {
 		if (this.getTrabajoSocialActividadesSeleccionadas() != null
 				&& this.getTrabajoSocialActividadesSeleccionadas().size() > 0) {
-			this.getTrabajoSocialActividades().removeAll(
-					trabajoSocialActividadesSeleccionadas);
+			for (Actividad actividad : trabajoSocialActividadesSeleccionadas) {
+				Map<String, String> criterios = new HashMap<String, String>();
+
+				criterios
+						.put("fkTsPlanActividad.fkTsPlan.idTsPlan", String
+								.valueOf(this.getTsPlanificadoSelected()
+										.getIdTsPlan()));
+				criterios.put("fkTsPlanActividad.fkActividad.idActividad",
+						String.valueOf(actividad.getIdActividad()));
+				// Table Relation TsPlanActividadTrabajadores
+				PayloadTsPlanActividadTrabajadorResponse payloadTsPlanActividadTrabajadorResponse = S.TsPlanActividadTrabajadorService
+						.contarCriterios(TypeQuery.EQUAL, criterios);
+
+				if (!UtilPayload.isOK(payloadTsPlanActividadTrabajadorResponse)) {
+					Alert.showMessage(payloadTsPlanActividadTrabajadorResponse
+							.getInformacion(IPayloadResponse.MENSAJE));
+					return;
+				}
+
+				Integer countTsPlanActividadesTrabajadores = Double.valueOf(
+						String.valueOf(payloadTsPlanActividadTrabajadorResponse
+								.getInformacion(IPayloadResponse.COUNT)))
+						.intValue();
+				if (countTsPlanActividadesTrabajadores > 0) {
+					Alert.showMessage("E:Error 0:No se puede eliminar la <b>Actividad</b> seleccionada ya que se encuentra asignada a "
+							+ countTsPlanActividadesTrabajadores
+							+ " Trabajadores");
+					return;
+				}
+				// Table Relation TsPlanActividadVoluntario
+				PayloadTsPlanActividadVoluntarioResponse payloadTsPlanActividadVoluntarioResponse = S.TsPlanActividadVoluntarioService
+						.contarCriterios(TypeQuery.EQUAL, criterios);
+
+				if (!UtilPayload.isOK(payloadTsPlanActividadVoluntarioResponse)) {
+					Alert.showMessage(payloadTsPlanActividadVoluntarioResponse
+							.getInformacion(IPayloadResponse.MENSAJE));
+					return;
+				}
+
+				Integer countTsPlanActividadVoluntarios = Double.valueOf(
+						String.valueOf(payloadTsPlanActividadVoluntarioResponse
+								.getInformacion(IPayloadResponse.COUNT)))
+						.intValue();
+
+				if (countTsPlanActividadVoluntarios > 0) {
+					Alert.showMessage("E:Error 0:No se puede eliminar la <b>Actividad</b> seleccionada ya que se encuentra asignada a "
+							+ countTsPlanActividadVoluntarios + " Voluntarios");
+					return;
+				}
+
+				// Table Relation TsPlanActividadVoluntario
+				PayloadIndicadorTsPlanActividadResponse payloadIndicadorTsPlanActividadResponse = S.IndicadorTsPlanActividadService
+						.contarCriterios(TypeQuery.EQUAL, criterios);
+
+				if (!UtilPayload.isOK(payloadIndicadorTsPlanActividadResponse)) {
+					Alert.showMessage(payloadIndicadorTsPlanActividadResponse);
+				}
+
+				Integer countIndicadorTsPlanActividad = Double.valueOf(
+						String.valueOf(payloadIndicadorTsPlanActividadResponse
+								.getInformacion(IPayloadResponse.COUNT)))
+						.intValue();
+
+				if (countIndicadorTsPlanActividad > 0) {
+					Alert.showMessage("E:Error 0:No se puede eliminar la <b>Actividad</b> seleccionada ya que está asociada a "
+							+ countIndicadorTsPlanActividad + " Indicadores");
+					return;
+				}
+				// Table Relation TsPlanActividadRecurso
+				PayloadTsPlanActividadRecursoResponse payloadTsPlanActividadRecursoResponse = S.TsPlanActividadRecursoService
+						.contarCriterios(TypeQuery.EQUAL, criterios);
+
+				if (!UtilPayload.isOK(payloadTsPlanActividadRecursoResponse)) {
+					Alert.showMessage(payloadTsPlanActividadRecursoResponse);
+					return;
+				}
+
+				Integer countTsPlanActividadRecursos = Double.valueOf(
+						String.valueOf(payloadTsPlanActividadRecursoResponse
+								.getInformacion(IPayloadResponse.COUNT)))
+						.intValue();
+
+				if (countTsPlanActividadRecursos > 0) {
+					Alert.showMessage("E:Error 0:No se puede eliminar la <b>Actividad</b> seleccionada ya que está asociada a "
+							+ countTsPlanActividadRecursos + " Recursos");
+					return;
+				}
+				this.getTrabajoSocialActividades().remove(actividad);
+			}
+
 			this.getActividadesSeleccionadas().clear();
 			this.getTrabajoSocialActividadesSeleccionadas().clear();
 		}
@@ -111,6 +204,13 @@ public class VM_ActividadesTrabajoSocialPlanificadoIndex extends
 				.showDialog(
 						"views/desktop/gestion/trabajoSocial/planificacion/actividades/asignacion/catalogoDirectorio.zul",
 						catalogueDialogData);
+	}
+
+	@Command("removerDirectorio")
+	public void removerDirectorio(@BindingParam("index") int index) {
+		this.getTsPlanActividads().get(indexActividad)
+				.setFkDirectorio(new Directorio());
+		BindUtils.postNotifyChange(null, null, this, "tsPlanActividads");
 	}
 
 	public void refreshVoluntario() {
@@ -192,7 +292,8 @@ public class VM_ActividadesTrabajoSocialPlanificadoIndex extends
 				.getPorType(OperacionWizardEnum.ATRAS));
 		listOperacionWizard3.add(OperacionWizardHelper
 				.getPorType(OperacionWizardEnum.FINALIZAR));
-
+		listOperacionWizard3.add(OperacionWizardHelper
+				.getPorType(OperacionWizardEnum.CANCELAR));
 		botones.put(3, listOperacionWizard3);
 
 		List<OperacionWizard> listOperacionWizard4 = new ArrayList<OperacionWizard>();
@@ -244,9 +345,14 @@ public class VM_ActividadesTrabajoSocialPlanificadoIndex extends
 	@Override
 	public IPayloadResponse<TsPlan> getDataToTable(
 			Integer cantidadRegistrosPagina, Integer pagina) {
+		Map<String, String> criterios = new HashMap<>();
+		criterios.put("estatusTsPlan", String
+				.valueOf(EstatusTrabajoSocialPlanificadoEnum.PLANIFICADO
+						.ordinal()));
 
 		PayloadTsPlanResponse payloadTsPlanResponse = S.TsPlanService
-				.consultarPaginacion(cantidadRegistrosPagina, pagina);
+				.consultarPaginacionCriterios(cantidadRegistrosPagina, pagina,
+						TypeQuery.EQUAL, criterios);
 		return payloadTsPlanResponse;
 	}
 
@@ -290,6 +396,8 @@ public class VM_ActividadesTrabajoSocialPlanificadoIndex extends
 
 			BindUtils.postNotifyChange(null, null, this,
 					"trabajoSocialIndicadores");
+			BindUtils.postNotifyChange(null, null, this,
+					"tsPlanificadoSelected");
 		}
 
 		if (currentStep == 2) {

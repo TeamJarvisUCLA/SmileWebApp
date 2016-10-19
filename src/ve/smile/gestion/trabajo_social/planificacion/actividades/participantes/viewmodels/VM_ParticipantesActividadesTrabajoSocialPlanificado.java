@@ -30,6 +30,7 @@ import ve.smile.dto.TsPlanActividad;
 import ve.smile.dto.TsPlanActividadTrabajador;
 import ve.smile.dto.TsPlanActividadVoluntario;
 import ve.smile.dto.Voluntario;
+import ve.smile.enums.EstatusTrabajoSocialPlanificadoEnum;
 import ve.smile.payload.response.PayloadTsPlanActividadResponse;
 import ve.smile.payload.response.PayloadTsPlanActividadTrabajadorResponse;
 import ve.smile.payload.response.PayloadTsPlanActividadVoluntarioResponse;
@@ -273,8 +274,14 @@ public class VM_ParticipantesActividadesTrabajoSocialPlanificado extends
 	@Override
 	public IPayloadResponse<TsPlan> getDataToTable(
 			Integer cantidadRegistrosPagina, Integer pagina) {
+		Map<String, String> criterios = new HashMap<>();
+		criterios.put("estatusTsPlan", String
+				.valueOf(EstatusTrabajoSocialPlanificadoEnum.PLANIFICADO
+						.ordinal()));
+
 		PayloadTsPlanResponse payloadTsPlanResponse = S.TsPlanService
-				.consultarPaginacion(cantidadRegistrosPagina, pagina);
+				.consultarPaginacionCriterios(cantidadRegistrosPagina, pagina,
+						TypeQuery.EQUAL, criterios);
 		return payloadTsPlanResponse;
 	}
 
@@ -358,6 +365,25 @@ public class VM_ParticipantesActividadesTrabajoSocialPlanificado extends
 		if (currentStep == 1) {
 			if (selectedObject == null) {
 				return "E:Error Code 5-Debe seleccionar un <b>Trabajo Social Planificado</b>";
+			}
+			Map<String, String> parametro = new HashMap<String, String>();
+			parametro.put("fkTsPlan.idTsPlan",
+					String.valueOf(getTsPlanSelected().getIdTsPlan()));
+
+			this.setListTsPlanActividads(null);
+			PayloadTsPlanActividadResponse payloadTsPlanActividadResponse = S.TsPlanActividadService
+					.contarCriterios(TypeQuery.EQUAL, parametro);
+			if (!UtilPayload.isOK(payloadTsPlanActividadResponse)) {
+				return (String) payloadTsPlanActividadResponse
+						.getInformacion(IPayloadResponse.MENSAJE);
+			}
+
+			Integer countTsPlanActividadesTrabajadores = Double.valueOf(
+					String.valueOf(payloadTsPlanActividadResponse
+							.getInformacion(IPayloadResponse.COUNT)))
+					.intValue();
+			if (countTsPlanActividadesTrabajadores <= 0) {
+				return "E:Error 0:El trabajo social planificado seleccionado <b>no tiene actividades asignadas.</b>";
 			}
 		}
 

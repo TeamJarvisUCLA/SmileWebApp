@@ -30,10 +30,11 @@ import ve.smile.dto.Recurso;
 import ve.smile.dto.TsPlan;
 import ve.smile.dto.TsPlanActividad;
 import ve.smile.dto.TsPlanActividadRecurso;
-import ve.smile.payload.response.PayloadEventoPlanificadoResponse;
+import ve.smile.enums.EstatusTrabajoSocialPlanificadoEnum;
 import ve.smile.payload.response.PayloadTsPlanActividadResponse;
 import ve.smile.payload.response.PayloadTsPlanActividadTrabajadorResponse;
 import ve.smile.payload.response.PayloadTsPlanActividadVoluntarioResponse;
+import ve.smile.payload.response.PayloadTsPlanResponse;
 
 public class VM_ActividadesRecursosTrabajoSocialPlanificado extends
 		VM_WindowWizard {
@@ -145,11 +146,17 @@ public class VM_ActividadesRecursosTrabajoSocialPlanificado extends
 	}
 
 	@Override
-	public IPayloadResponse<EventoPlanificado> getDataToTable(
+	public IPayloadResponse<TsPlan> getDataToTable(
 			Integer cantidadRegistrosPagina, Integer pagina) {
-		PayloadEventoPlanificadoResponse payloadEventoPlanificadoResponse = S.EventoPlanificadoService
-				.consultarPaginacion(cantidadRegistrosPagina, pagina);
-		return payloadEventoPlanificadoResponse;
+		Map<String, String> criterios = new HashMap<>();
+		criterios.put("estatusTsPlan", String
+				.valueOf(EstatusTrabajoSocialPlanificadoEnum.PLANIFICADO
+						.ordinal()));
+
+		PayloadTsPlanResponse payloadTsPlanResponse = S.TsPlanService
+				.consultarPaginacionCriterios(cantidadRegistrosPagina, pagina,
+						TypeQuery.EQUAL, criterios);
+		return payloadTsPlanResponse;
 	}
 
 	@Override

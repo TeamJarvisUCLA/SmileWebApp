@@ -383,7 +383,7 @@ public class VM_ParticipantesActividadesTrabajoSocialPlanificado extends
 							.getInformacion(IPayloadResponse.COUNT)))
 					.intValue();
 			if (countTsPlanActividadesTrabajadores <= 0) {
-				return "E:Error 0:El trabajo social planificado seleccionado <b>no tiene actividades asignadas.</b>";
+				return "E:Error 0:El trabajo social planificado seleccionado <b>no tiene actividades asignadas</b>, debe asignarle al menos una.";
 			}
 		}
 

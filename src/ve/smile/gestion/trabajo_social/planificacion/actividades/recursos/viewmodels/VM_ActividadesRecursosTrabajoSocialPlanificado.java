@@ -174,9 +174,9 @@ public class VM_ActividadesRecursosTrabajoSocialPlanificado extends
 	public List<String> getUrlPageToStep() {
 		List<String> urls = new ArrayList<String>();
 
-		urls.add("views/desktop/gestion/evento/planificacion/tareas/recursos/selectEventoPlanificado.zul");
-		urls.add("views/desktop/gestion/evento/planificacion/tareas/recursos/tareaRecursos.zul");
-		urls.add("views/desktop/gestion/evento/planificacion/tareas/recursos/registroCompletado.zul");
+		urls.add("views/desktop/gestion/trabajoSocial/planificacion/actividades/recursos/selectEventoPlanificado.zul");
+		urls.add("views/desktop/gestion/trabajoSocial/planificacion/actividades/recursos/actividadesRecursos.zul");
+		urls.add("views/desktop/gestion/trabajoSocial/planificacion/actividades/recursos/registroCompletado.zul");
 
 		return urls;
 	}
@@ -240,6 +240,29 @@ public class VM_ActividadesRecursosTrabajoSocialPlanificado extends
 			if (selectedObject == null) {
 				return "E:Error Code 5-Debe seleccionar un <b>Trabajo Social Planificado</b>";
 			}
+			if (selectedObject == null) {
+				return "E:Error Code 5-Debe seleccionar un <b>Trabajo Social Planificado</b>";
+			}
+			Map<String, String> parametro = new HashMap<String, String>();
+			parametro.put("fkTsPlan.idTsPlan",
+					String.valueOf(getTsPlanSelected().getIdTsPlan()));
+
+			this.setListTsPlanActividads(null);
+			PayloadTsPlanActividadResponse payloadTsPlanActividadResponse = S.TsPlanActividadService
+					.contarCriterios(TypeQuery.EQUAL, parametro);
+			if (!UtilPayload.isOK(payloadTsPlanActividadResponse)) {
+				return (String) payloadTsPlanActividadResponse
+						.getInformacion(IPayloadResponse.MENSAJE);
+			}
+
+			Integer countTsPlanActividadesTrabajadores = Double.valueOf(
+					String.valueOf(payloadTsPlanActividadResponse
+							.getInformacion(IPayloadResponse.COUNT)))
+					.intValue();
+			if (countTsPlanActividadesTrabajadores <= 0) {
+				return "E:Error 0:El trabajo social planificado seleccionado <b>no tiene actividades asignadas</b>, debe asignarle al menos una.";
+			}
+
 		}
 
 		return "";

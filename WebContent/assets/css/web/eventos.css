@@ -20,6 +20,13 @@
 	margin-bottom: 10px;
 }
 
+
+.tituloEvento{
+	color: #383330;
+	 font-family: 'Open Sans';
+    font-size: 15px;
+    font-weight: bold;
+}
 .view {
     width: 100%;
     height: 100%;
@@ -29,6 +36,9 @@
 /*     text-align: center; */
     box-shadow: 1px 1px 2px #e6e6e6;
     cursor: default;
+}
+.card .card-content .card-title {
+    line-height: 27px;
 }
 
 .view .mask, .view .content {

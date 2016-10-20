@@ -135,7 +135,7 @@
 							sclass="row-vacaciones">
 							<detail open="false" fulfill="onOpen">
 								<grid sclass="vacacion"
-									model="@bind(actividad.indicadorTsPlanActividads)">
+									model="@bind(tsPlan.indicadorTsPlanActividads)">
 									<auxhead>
 										<auxheader colspan="5"
 											align="center" label="INDICADORES ASOCIADOS">
@@ -154,7 +154,7 @@
 
 										</column>
 										<column label="Valor Real"
-											align="left" width="17%">
+											align="center" width="17%">
 
 										</column>
 									</columns>
@@ -174,13 +174,13 @@
 											</cell>
 											<cell sclass="vacacion">
 												<intbox
-													style="height: 1em; border: 1px solid #999999; border-radius: 7px; font-size:1.2em;  text-align: center;"
+													style="  width: 95%;  margin-top: 8px; height: 1em; border-radius: 7px; font-size: 1.2em; text-align: center; background: #cfcfcf; color: #594e46"
 													value="@bind(each.valorEsperado)" readonly="true">
 												</intbox>
 											</cell>
 											<cell sclass="vacacion">
 												<intbox
-													style="height: 1em; border: 1px solid #999999; border-radius: 7px; font-size:1.2em;  text-align: center;"
+													style=" width: 95%;   margin-top: 8px; height: 1em; border: 1px solid #999999 !important; border-radius: 7px; font-size: 1.2em; text-align: center;"
 													value="@bind(each.valorReal)">
 												</intbox>
 											</cell>

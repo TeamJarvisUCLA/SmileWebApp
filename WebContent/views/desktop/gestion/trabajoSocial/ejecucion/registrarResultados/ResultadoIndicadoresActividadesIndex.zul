@@ -3,7 +3,6 @@
 <?xel-method prefix="m" name="convertirLongADate" class="lights.smile.util.UtilConverterDataList" 
 	signature="java.lang.String convertirLongADate(java.lang.Long)" ?>
 
-
 <zk xmlns:n="native" xmlns:w="client">
 	<div class="wizard ${arg.animation_}"
 		use="karen.core.wizard.controllers.C_WindowWizard"

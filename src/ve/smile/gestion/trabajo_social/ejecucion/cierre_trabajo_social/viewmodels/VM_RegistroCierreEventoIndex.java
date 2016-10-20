@@ -58,7 +58,7 @@ public class VM_RegistroCierreEventoIndex extends VM_WindowWizard {
 
 		UtilDialog
 				.showDialog(
-						"views/desktop/gestion/evento/ejecucion/cierreEvento/catalogoMotivo.zul",
+						"views/desktop/gestion/trabajoSocial/ejecucion/cierreTrabajoSocial/catalogoMotivo.zul",
 						catalogueDialogData);
 	}
 
@@ -82,7 +82,8 @@ public class VM_RegistroCierreEventoIndex extends VM_WindowWizard {
 				.getPorType(OperacionWizardEnum.ATRAS));
 		listOperacionWizard2.add(OperacionWizardHelper
 				.getPorType(OperacionWizardEnum.FINALIZAR));
-
+		listOperacionWizard2.add(OperacionWizardHelper
+				.getPorType(OperacionWizardEnum.CANCELAR));
 		botones.put(2, listOperacionWizard2);
 
 		List<OperacionWizard> listOperacionWizard3 = new ArrayList<OperacionWizard>();
@@ -122,9 +123,9 @@ public class VM_RegistroCierreEventoIndex extends VM_WindowWizard {
 	public List<String> getUrlPageToStep() {
 		List<String> urls = new ArrayList<String>();
 
-		urls.add("views/desktop/gestion/evento/ejecucion/cierreEvento/selectEventoPlanificado.zul");
-		urls.add("views/desktop/gestion/evento/ejecucion/cierreEvento/registroCierreEvento.zul");
-		urls.add("views/desktop/gestion/evento/ejecucion/cierreEvento/registroCompletado.zul");
+		urls.add("views/desktop/gestion/trabajoSocial/ejecucion/cierreTrabajoSocial/selectTrabajoSocialPlanificado.zul");
+		urls.add("views/desktop/gestion/trabajoSocial/ejecucion/cierreTrabajoSocial/registroCierreTrabajoSocial.zul");
+		urls.add("views/desktop/gestion/trabajoSocial/ejecucion/cierreTrabajoSocial/registroCompletado.zul");
 		return urls;
 	}
 
@@ -149,17 +150,22 @@ public class VM_RegistroCierreEventoIndex extends VM_WindowWizard {
 					.consultarCriterios(TypeQuery.EQUAL, criterios);
 			if (payloadIndicadorEventoPlanificadoResponse.getObjetos().size() > 0
 					& payloadIndicadorEventoPlanificadoResponse.getObjetos() != null) {
-				 for(IndicadorEventoPlanificado indicaEventPlanificado:
-				 payloadIndicadorEventoPlanificadoResponse.getObjetos()){
-				 IndicadorEventoPlanificado indEventPla = new
-				 IndicadorEventoPlanificado();
-				 indEventPla.setFkEventoPlanificado(indicaEventPlanificado.getFkEventoPlanificado());
-				 indEventPla.setFkIndicador(indicaEventPlanificado.getFkIndicador());
-				 indEventPla.setIdIndicadorEventoPlanificado(indicaEventPlanificado.getIdIndicadorEventoPlanificado());
-				 indEventPla.setValorEsperado(indicaEventPlanificado.getValorEsperado());
-				 indEventPla.setValorReal(indicaEventPlanificado.getValorEsperado());
-				 this.indicadorEventoPlanificado.add(indEventPla);
-				 }
+				for (IndicadorEventoPlanificado indicaEventPlanificado : payloadIndicadorEventoPlanificadoResponse
+						.getObjetos()) {
+					IndicadorEventoPlanificado indEventPla = new IndicadorEventoPlanificado();
+					indEventPla.setFkEventoPlanificado(indicaEventPlanificado
+							.getFkEventoPlanificado());
+					indEventPla.setFkIndicador(indicaEventPlanificado
+							.getFkIndicador());
+					indEventPla
+							.setIdIndicadorEventoPlanificado(indicaEventPlanificado
+									.getIdIndicadorEventoPlanificado());
+					indEventPla.setValorEsperado(indicaEventPlanificado
+							.getValorEsperado());
+					indEventPla.setValorReal(indicaEventPlanificado
+							.getValorEsperado());
+					this.indicadorEventoPlanificado.add(indEventPla);
+				}
 				this.setFechaEjecucion(new Date(eventoPlanificado
 						.getFechaPlanificada()));
 				this.setFechaPlanificada(new Date(eventoPlanificado
@@ -176,49 +182,40 @@ public class VM_RegistroCierreEventoIndex extends VM_WindowWizard {
 	@Override
 	public String executeFinalizar(Integer currentStep) {
 		if (currentStep == 2) {
-			if(this.estatus){
-			for (IndicadorEventoPlanificado indicadorEventPlan : this.getIndicadorEventoPlanificado()) {
-				PayloadIndicadorEventoPlanificadoResponse payloadIndicadorEventoPlanificadoResponse = S.IndicadorEventoPlanificadoService
-						.consultarUno(indicadorEventPlan
-								.getIdIndicadorEventoPlanificado());
-				if (payloadIndicadorEventoPlanificadoResponse.getObjetos()
-						.size() > 0
-						& payloadIndicadorEventoPlanificadoResponse
-								.getObjetos() != null) {
-					IndicadorEventoPlanificado indicadorEventoPlanificado = payloadIndicadorEventoPlanificadoResponse
-							.getObjetos().get(0);
-					indicadorEventoPlanificado.setValorReal(indicadorEventPlan
-							.getValorReal());
+			if (this.estatus) {
+				for (IndicadorEventoPlanificado indicadorEventPlan : this
+						.getIndicadorEventoPlanificado()) {
+
 					PayloadIndicadorEventoPlanificadoResponse payloadIndicadorEventPlanResponse = S.IndicadorEventoPlanificadoService
-							.modificar(indicadorEventoPlanificado);
+							.modificar(indicadorEventPlan);
 					if (!UtilPayload.isOK(payloadIndicadorEventPlanResponse)) {
 						return (String) payloadIndicadorEventPlanResponse
 								.getInformacion(IPayloadResponse.MENSAJE);
 					}
+
+					EventoPlanificado eventoPlanificado = (EventoPlanificado) selectedObject;
+					eventoPlanificado.setFechaEjecutada(this.fechaEjecucion
+							.getTime());
+					eventoPlanificado.setFkMotivo(null);
+					PayloadEventoPlanificadoResponse eventoPlanificadoResponse = S.EventoPlanificadoService
+							.modificar(eventoPlanificado);
+					if (!UtilPayload.isOK(eventoPlanificadoResponse)) {
+						return (String) eventoPlanificadoResponse
+								.getInformacion(IPayloadResponse.MENSAJE);
+					}
+
 				}
-				
-				 EventoPlanificado eventoPlanificado = (EventoPlanificado)selectedObject;
-				 eventoPlanificado.setFechaEjecutada(this.fechaEjecucion.getTime());
-				 eventoPlanificado.setFkMotivo(null);
-				 PayloadEventoPlanificadoResponse eventoPlanificadoResponse =
-				 S.EventoPlanificadoService
-				 .modificar(eventoPlanificado);
-				 if (!UtilPayload.isOK(eventoPlanificadoResponse)) {
-					 return (String) eventoPlanificadoResponse.getInformacion(IPayloadResponse.MENSAJE);
-				 }
-				
+			} else {
+				EventoPlanificado eventoPlanificado = (EventoPlanificado) selectedObject;
+				PayloadEventoPlanificadoResponse eventoPlanificadoResponse = S.EventoPlanificadoService
+						.modificar(eventoPlanificado);
+				if (!UtilPayload.isOK(eventoPlanificadoResponse)) {
+					return (String) eventoPlanificadoResponse
+							.getInformacion(IPayloadResponse.MENSAJE);
+				}
+
 			}
-			}else{
-				 EventoPlanificado eventoPlanificado = (EventoPlanificado)selectedObject;
-				 PayloadEventoPlanificadoResponse eventoPlanificadoResponse =
-				 S.EventoPlanificadoService
-				 .modificar(eventoPlanificado);
-				 if (!UtilPayload.isOK(eventoPlanificadoResponse)) {
-					 return (String) eventoPlanificadoResponse.getInformacion(IPayloadResponse.MENSAJE);
-				 }
-				
-			}
-			
+
 			goToNextStep();
 		}
 

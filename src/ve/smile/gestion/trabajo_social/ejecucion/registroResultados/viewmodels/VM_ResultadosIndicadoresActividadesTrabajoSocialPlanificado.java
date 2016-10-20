@@ -223,6 +223,8 @@ public class VM_ResultadosIndicadoresActividadesTrabajoSocialPlanificado extends
 						tsPlanActividad.getIndicadorTsPlanActividads().addAll(
 								payloadIndicadorTsPlanActividadResponse
 										.getObjetos());
+						System.err.println(payloadIndicadorTsPlanActividadResponse
+										.getObjetos().size());
 					}
 
 				}
@@ -230,7 +232,7 @@ public class VM_ResultadosIndicadoresActividadesTrabajoSocialPlanificado extends
 			}
 
 			BindUtils
-					.postNotifyChange(null, null, this, "listTsPlanActividads");
+					.postNotifyChange(null, null, this, "*");
 
 		}
 

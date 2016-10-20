@@ -334,6 +334,10 @@ public class VM_ParticipantesActividadesTrabajoSocialPlanificado extends
 					tsPlanActividad
 							.setTsPlanActividadVoluntarios(payloadTsPlanActividadVoluntarioResponse
 									.getObjetos());
+					if (tsPlanActividad.getTsPlanActividadVoluntarios() == null) {
+						tsPlanActividad
+								.setTsPlanActividadVoluntarios(new ArrayList<TsPlanActividadVoluntario>());
+					}
 				}
 
 				PayloadTsPlanActividadTrabajadorResponse payloadTsPlanActividadTrabajadorResponse = S.TsPlanActividadTrabajadorService
@@ -343,6 +347,10 @@ public class VM_ParticipantesActividadesTrabajoSocialPlanificado extends
 					tsPlanActividad
 							.setTsPlanActividadTrabajadors(payloadTsPlanActividadTrabajadorResponse
 									.getObjetos());
+					if (tsPlanActividad.getTsPlanActividadTrabajadors() == null) {
+						tsPlanActividad
+								.setTsPlanActividadTrabajadors(new ArrayList<TsPlanActividadTrabajador>());
+					}
 				}
 
 			}
@@ -400,6 +408,7 @@ public class VM_ParticipantesActividadesTrabajoSocialPlanificado extends
 	public String isValidSearchDataFinalizar(Integer currentStep) {
 		if (currentStep == 2) {
 			PayloadTsPlanActividadTrabajadorResponse payloadTsPlanActividadTrabajadorResponse = new PayloadTsPlanActividadTrabajadorResponse();
+			PayloadTsPlanActividadVoluntarioResponse payloadTsPlanActividadVoluntarioResponse = new PayloadTsPlanActividadVoluntarioResponse();
 			for (TsPlanActividad obj : this.getListTsPlanActividads()) {
 
 				for (TsPlanActividadTrabajador tsPlanActividadTrabajador : obj
@@ -432,19 +441,6 @@ public class VM_ParticipantesActividadesTrabajoSocialPlanificado extends
 					}
 				}
 
-			}
-			for (TsPlanActividadTrabajador tsPlanActividadTrabajador : this
-					.getListTsPlanActividadTrabajadors()) {
-				if (tsPlanActividadTrabajador.getIdTsPlanActividadTrabajador() != null) {
-					payloadTsPlanActividadTrabajadorResponse = S.TsPlanActividadTrabajadorService
-							.eliminar(tsPlanActividadTrabajador
-									.getIdTsPlanActividadTrabajador());
-				}
-
-			}
-
-			PayloadTsPlanActividadVoluntarioResponse payloadTsPlanActividadVoluntarioResponse = new PayloadTsPlanActividadVoluntarioResponse();
-			for (TsPlanActividad obj : this.getListTsPlanActividads()) {
 				for (TsPlanActividadVoluntario tsPlanActividadVoluntario : obj
 						.getTsPlanActividadVoluntarios()) {
 					TsPlanActividadVoluntario tsPlanActividadVoluntario2 = new TsPlanActividadVoluntario(
@@ -475,6 +471,16 @@ public class VM_ParticipantesActividadesTrabajoSocialPlanificado extends
 				}
 
 			}
+			for (TsPlanActividadTrabajador tsPlanActividadTrabajador : this
+					.getListTsPlanActividadTrabajadors()) {
+				if (tsPlanActividadTrabajador.getIdTsPlanActividadTrabajador() != null) {
+					payloadTsPlanActividadTrabajadorResponse = S.TsPlanActividadTrabajadorService
+							.eliminar(tsPlanActividadTrabajador
+									.getIdTsPlanActividadTrabajador());
+				}
+
+			}
+
 			for (TsPlanActividadVoluntario tsPlanActividadVoluntario : this
 					.getListTsPlanActividadVoluntarios()) {
 				if (tsPlanActividadVoluntario.getIdTsPlanActividadVoluntario() != null) {

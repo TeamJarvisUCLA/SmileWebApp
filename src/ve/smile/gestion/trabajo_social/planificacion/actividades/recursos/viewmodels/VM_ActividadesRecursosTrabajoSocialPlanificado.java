@@ -1,6 +1,7 @@
 package ve.smile.gestion.trabajo_social.planificacion.actividades.recursos.viewmodels;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -31,9 +32,8 @@ import ve.smile.dto.TsPlan;
 import ve.smile.dto.TsPlanActividad;
 import ve.smile.dto.TsPlanActividadRecurso;
 import ve.smile.enums.EstatusTrabajoSocialPlanificadoEnum;
+import ve.smile.payload.response.PayloadTsPlanActividadRecursoResponse;
 import ve.smile.payload.response.PayloadTsPlanActividadResponse;
-import ve.smile.payload.response.PayloadTsPlanActividadTrabajadorResponse;
-import ve.smile.payload.response.PayloadTsPlanActividadVoluntarioResponse;
 import ve.smile.payload.response.PayloadTsPlanResponse;
 
 public class VM_ActividadesRecursosTrabajoSocialPlanificado extends
@@ -72,7 +72,7 @@ public class VM_ActividadesRecursosTrabajoSocialPlanificado extends
 
 		UtilDialog
 				.showDialog(
-						"views/desktop/gestion/evento/planificacion/tareas/recursos/catalogoRecursos.zul",
+						"views/desktop/gestion/trabajoSocial/planificacion/actividades/recursos/catalogoRecursos.zul",
 						catalogueDialogData);
 	}
 
@@ -106,7 +106,7 @@ public class VM_ActividadesRecursosTrabajoSocialPlanificado extends
 			}
 			validar = true;
 		}
-		BindUtils.postNotifyChange(null, null, this, "tsPlanActividadRecurso");
+		BindUtils.postNotifyChange(null, null, this, "listTsPlanActividads");
 	}
 
 	@Command("eliminarRecurso")
@@ -149,10 +149,101 @@ public class VM_ActividadesRecursosTrabajoSocialPlanificado extends
 	@Override
 	public String executeFinalizar(Integer currentStep) {
 		if (currentStep == 2) {
+			PayloadTsPlanActividadRecursoResponse payloadTsPlanActividadRecursoResponse = new PayloadTsPlanActividadRecursoResponse();
+			for (TsPlanActividad obj : this.getListTsPlanActividads()) {
+				for (TsPlanActividadRecurso tsPlanActividadRecurso : obj
+						.getTsPlanActividadRecursos()) {
+					TsPlanActividadRecurso tsPlanActividadRecurso2 = new TsPlanActividadRecurso(
+							new TsPlanActividad(obj.getIdTsPlanActividad()),
+							tsPlanActividadRecurso.getFkRecurso(),
+							tsPlanActividadRecurso.getCantidad(),
+							tsPlanActividadRecurso.getFechaAsignacion());
+					tsPlanActividadRecurso2
+							.setIdTsPlanActividadRecurso(tsPlanActividadRecurso
+									.getIdTsPlanActividadRecurso());
+					if (tsPlanActividadRecurso2.getIdTsPlanActividadRecurso() == null) {
+
+						payloadTsPlanActividadRecursoResponse = S.TsPlanActividadRecursoService
+								.incluir(tsPlanActividadRecurso2);
+					} else {
+						payloadTsPlanActividadRecursoResponse = S.TsPlanActividadRecursoService
+								.modificar(tsPlanActividadRecurso2);
+					}
+
+					if (!UtilPayload
+							.isOK(payloadTsPlanActividadRecursoResponse)) {
+						return (String) payloadTsPlanActividadRecursoResponse
+								.getInformacion(IPayloadResponse.MENSAJE);
+					}
+				}
+
+			}
+			for (TsPlanActividadRecurso tsPlanActividadRecurso : this
+					.getListTsPlanActividadRecursoDelete()) {
+				if (tsPlanActividadRecurso.getIdTsPlanActividadRecurso() != null) {
+					payloadTsPlanActividadRecursoResponse = S.TsPlanActividadRecursoService
+							.eliminar(tsPlanActividadRecurso
+									.getIdTsPlanActividadRecurso());
+					if (!UtilPayload
+							.isOK(payloadTsPlanActividadRecursoResponse)) {
+						return (String) payloadTsPlanActividadRecursoResponse
+								.getInformacion(IPayloadResponse.MENSAJE);
+					}
+				}
+
+			}
 
 			goToNextStep();
 		}
 
+		return "";
+	}
+
+	@Override
+	public String isValidPreconditionsFinalizar(Integer currentStep) {
+
+		if (currentStep == 2) {
+			String actividades = new String();
+			StringBuilder stringBuilder = new StringBuilder();
+			StringBuilder stringBuilder2 = new StringBuilder();
+			Calendar calendar = Calendar.getInstance();
+			calendar.setTime(new Date());
+			calendar.add(Calendar.DAY_OF_YEAR, -1);
+			for (TsPlanActividad tsPlanActividad : this
+					.getListTsPlanActividads()) {
+
+				for (TsPlanActividadRecurso tsPlanActividadRecurso : tsPlanActividad
+						.getTsPlanActividadRecursos()) {
+					if (tsPlanActividadRecurso.getFechaAsignacion() == null) {
+						if (!stringBuilder.toString().trim().isEmpty()) {
+							stringBuilder.append(",  ");
+						}
+						stringBuilder.append(tsPlanActividadRecurso
+								.getFkRecurso().getNombre());
+					}
+
+					if (tsPlanActividadRecurso.getCantidad() == null
+							|| tsPlanActividadRecurso.getCantidad() <= 0) {
+						if (!stringBuilder2.toString().trim().isEmpty()) {
+							stringBuilder2.append(",  ");
+						}
+						stringBuilder2.append(tsPlanActividadRecurso
+								.getFkRecurso().getNombre());
+					}
+				}
+			}
+			actividades = stringBuilder.toString();
+			if (!actividades.trim().isEmpty()) {
+				return "E:Error Code 5-Debe verificar la  <b> Fecha de Asignación </b> de los siguientes recursos: <b>"
+						+ actividades + "</b>";
+			}
+
+			if (!stringBuilder2.toString().trim().isEmpty()) {
+				return "E:Error Code 5-Debe verificar la  <b> Cantidad </b> de los siguientes recursos: <b>"
+						+ stringBuilder2.toString() + "</b>";
+			}
+
+		}
 		return "";
 	}
 
@@ -185,7 +276,7 @@ public class VM_ActividadesRecursosTrabajoSocialPlanificado extends
 	public List<String> getUrlPageToStep() {
 		List<String> urls = new ArrayList<String>();
 
-		urls.add("views/desktop/gestion/trabajoSocial/planificacion/actividades/recursos/selectEventoPlanificado.zul");
+		urls.add("views/desktop/gestion/trabajoSocial/planificacion/actividades/recursos/selectTrabajoSocialPlanificado.zul");
 		urls.add("views/desktop/gestion/trabajoSocial/planificacion/actividades/recursos/actividadesRecursos.zul");
 		urls.add("views/desktop/gestion/trabajoSocial/planificacion/actividades/recursos/registroCompletado.zul");
 
@@ -213,21 +304,16 @@ public class VM_ActividadesRecursosTrabajoSocialPlanificado extends
 				Map<String, String> criterios = new HashMap<String, String>();
 				criterios.put("fkTsPlanActividad.idTsPlanActividad",
 						String.valueOf(tsPlanActividad.getIdTsPlanActividad()));
-				PayloadTsPlanActividadVoluntarioResponse payloadTsPlanActividadVoluntarioResponse = S.TsPlanActividadVoluntarioService
+				PayloadTsPlanActividadRecursoResponse payloadTsPlanActividadRecursoResponse = S.TsPlanActividadRecursoService
 						.consultarCriterios(TypeQuery.EQUAL, criterios);
-				if (UtilPayload.isOK(payloadTsPlanActividadVoluntarioResponse)) {
+				if (UtilPayload.isOK(payloadTsPlanActividadRecursoResponse)) {
 					tsPlanActividad
-							.setTsPlanActividadVoluntarios(payloadTsPlanActividadVoluntarioResponse
+							.setTsPlanActividadRecursos(payloadTsPlanActividadRecursoResponse
 									.getObjetos());
-				}
-
-				PayloadTsPlanActividadTrabajadorResponse payloadTsPlanActividadTrabajadorResponse = S.TsPlanActividadTrabajadorService
-						.consultarCriterios(TypeQuery.EQUAL, criterios);
-				if (UtilPayload.isOK(payloadTsPlanActividadTrabajadorResponse)) {
-
-					tsPlanActividad
-							.setTsPlanActividadTrabajadors(payloadTsPlanActividadTrabajadorResponse
-									.getObjetos());
+					if (tsPlanActividad.getTsPlanActividadRecursos() == null) {
+						tsPlanActividad
+								.setTsPlanActividadRecursos(new ArrayList<TsPlanActividadRecurso>());
+					}
 				}
 
 			}
@@ -248,9 +334,6 @@ public class VM_ActividadesRecursosTrabajoSocialPlanificado extends
 	@Override
 	public String isValidPreconditionsSiguiente(Integer currentStep) {
 		if (currentStep == 1) {
-			if (selectedObject == null) {
-				return "E:Error Code 5-Debe seleccionar un <b>Trabajo Social Planificado</b>";
-			}
 			if (selectedObject == null) {
 				return "E:Error Code 5-Debe seleccionar un <b>Trabajo Social Planificado</b>";
 			}

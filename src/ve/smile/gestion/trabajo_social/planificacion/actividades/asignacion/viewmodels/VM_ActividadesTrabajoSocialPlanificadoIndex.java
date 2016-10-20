@@ -477,6 +477,9 @@ public class VM_ActividadesTrabajoSocialPlanificadoIndex extends
 			for (TsPlanActividad tsPlanActividad : this.getTsPlanActividads()) {
 				PayloadTsPlanActividadResponse payloadTsPlanActividadResponse;
 				if (tsPlanActividad.getIdTsPlanActividad() == null) {
+					tsPlanActividad.setEjecucion(true);
+					tsPlanActividad.setFechaEjecutada(tsPlanActividad
+							.getFechaPlanificada());
 					payloadTsPlanActividadResponse = S.TsPlanActividadService
 							.incluir(tsPlanActividad);
 				} else {

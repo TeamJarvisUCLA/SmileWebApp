@@ -1,6 +1,8 @@
 package ve.smile.gestion.trabajo_social.ejecucion.evaluarActividades.viewmodels;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,6 +28,7 @@ import ve.smile.consume.services.S;
 import ve.smile.dto.Motivo;
 import ve.smile.dto.TsPlan;
 import ve.smile.dto.TsPlanActividad;
+import ve.smile.enums.EstatusTrabajoSocialPlanificadoEnum;
 import ve.smile.payload.response.PayloadTsPlanActividadResponse;
 import ve.smile.payload.response.PayloadTsPlanResponse;
 
@@ -34,6 +37,20 @@ public class VM_EvaluarActividadIndex extends VM_WindowWizard {
 	private List<TsPlanActividad> listTsPlanActividads;
 	private int indexActividad;
 	private Motivo motivo = new Motivo();
+
+	@Command("changeCheck")
+	public void changeCheck(@BindingParam("index") int index,
+			@BindingParam("check") boolean check) {
+		this.getListTsPlanActividads().get(index).setEjecucion(check);
+		if (check) {
+			this.getListTsPlanActividads().get(index).setFkMotivo(null);
+		}
+	}
+
+	@Command("removerMotivo")
+	public void removerMotivo(@BindingParam("index") int index) {
+		this.getListTsPlanActividads().get(index).setFkMotivo(null);
+	}
 
 	@Command("buscarMotivo")
 	public void buscarMotivo(@BindingParam("index") int index) {
@@ -81,6 +98,8 @@ public class VM_EvaluarActividadIndex extends VM_WindowWizard {
 				.getPorType(OperacionWizardEnum.ATRAS));
 		listOperacionWizard2.add(OperacionWizardHelper
 				.getPorType(OperacionWizardEnum.FINALIZAR));
+		listOperacionWizard2.add(OperacionWizardHelper
+				.getPorType(OperacionWizardEnum.CANCELAR));
 
 		botones.put(2, listOperacionWizard2);
 
@@ -127,12 +146,8 @@ public class VM_EvaluarActividadIndex extends VM_WindowWizard {
 					.consultarCriterios(TypeQuery.EQUAL, parametro);
 			if (UtilPayload.isOK(payloadTsPlanActividadResponse)) {
 				if (payloadTsPlanActividadResponse.getObjetos() != null) {
-					for (TsPlanActividad tsPlanActividad : payloadTsPlanActividadResponse
-							.getObjetos()) {
-						tsPlanActividad.setFechaEjecutada(tsPlanActividad
-								.getFechaPlanificada());
-						this.getListTsPlanActividads().add(tsPlanActividad);
-					}
+					this.getListTsPlanActividads().addAll(
+							payloadTsPlanActividadResponse.getObjetos());
 				}
 
 			}
@@ -144,11 +159,97 @@ public class VM_EvaluarActividadIndex extends VM_WindowWizard {
 	}
 
 	@Override
+	public String isValidPreconditionsSiguiente(Integer currentStep) {
+		if (currentStep == 1) {
+			if (selectedObject == null) {
+				return "E:Error Code 5-Debe seleccionar un <b>Trabajo Social Planificado</b>";
+			}
+			Map<String, String> parametro = new HashMap<String, String>();
+			parametro.put("fkTsPlan.idTsPlan",
+					String.valueOf(getTsPlanSelected().getIdTsPlan()));
+
+			this.setListTsPlanActividads(null);
+			PayloadTsPlanActividadResponse payloadTsPlanActividadResponse = S.TsPlanActividadService
+					.contarCriterios(TypeQuery.EQUAL, parametro);
+			if (!UtilPayload.isOK(payloadTsPlanActividadResponse)) {
+				return (String) payloadTsPlanActividadResponse
+						.getInformacion(IPayloadResponse.MENSAJE);
+			}
+
+			Integer countTsPlanActividadesTrabajadores = Double.valueOf(
+					String.valueOf(payloadTsPlanActividadResponse
+							.getInformacion(IPayloadResponse.COUNT)))
+					.intValue();
+			if (countTsPlanActividadesTrabajadores <= 0) {
+				return "E:Error 0:El trabajo social planificado seleccionado <b>no tiene actividades asignadas</b>, debe asignarle al menos una.";
+			}
+		}
+
+		return "";
+	}
+
+	@Override
 	public IPayloadResponse<TsPlan> getDataToTable(
 			Integer cantidadRegistrosPagina, Integer pagina) {
+		Map<String, String> criterios = new HashMap<>();
+		criterios.put("estatusTsPlan", String
+				.valueOf(EstatusTrabajoSocialPlanificadoEnum.PLANIFICADO
+						.ordinal()));
+
 		PayloadTsPlanResponse payloadTsPlanResponse = S.TsPlanService
-				.consultarPaginacion(cantidadRegistrosPagina, pagina);
+				.consultarPaginacionCriterios(cantidadRegistrosPagina, pagina,
+						TypeQuery.EQUAL, criterios);
 		return payloadTsPlanResponse;
+	}
+
+	@Override
+	public String isValidPreconditionsFinalizar(Integer currentStep) {
+
+		if (currentStep == 3) {
+			String actividades = new String();
+			StringBuilder stringBuilder = new StringBuilder();
+			for (TsPlanActividad tsPlanActividad : this
+					.getListTsPlanActividads()) {
+				Calendar calendar = Calendar.getInstance();
+				calendar.setTime(new Date());
+				calendar.add(Calendar.DAY_OF_YEAR, -1);
+
+				if (tsPlanActividad.getFechaEjecutada() == null
+						|| !tsPlanActividad.getFechaEjecutadaDate().before(
+								calendar.getTime())) {
+					if (!stringBuilder.toString().trim().isEmpty()) {
+						stringBuilder.append(",  ");
+					}
+					stringBuilder.append(tsPlanActividad.getFkActividad()
+							.getNombre());
+				}
+			}
+			actividades = stringBuilder.toString();
+			if (!actividades.trim().isEmpty()) {
+				return "E:Error Code 5-Debe verificar la  <b> Fecha de Ejecución </b> de los siguientes actividades: <b>"
+						+ actividades + "</b>";
+			}
+
+		}
+		return "";
+	}
+
+	@Override
+	public String executeFinalizar(Integer currentStep) {
+		if (currentStep == 2) {
+			for (TsPlanActividad tsPlanActividad : this
+					.getListTsPlanActividads()) {
+				PayloadTsPlanActividadResponse payloadTsPlanActividadResponse = S.TsPlanActividadService
+						.modificar(tsPlanActividad);
+				if (!UtilPayload.isOK(payloadTsPlanActividadResponse)) {
+					return String.valueOf(payloadTsPlanActividadResponse
+							.getInformacion(IPayloadResponse.MENSAJE));
+				}
+			}
+			goToNextStep();
+		}
+
+		return "";
 	}
 
 	@Override
@@ -163,6 +264,18 @@ public class VM_EvaluarActividadIndex extends VM_WindowWizard {
 		goToPreviousStep();
 
 		return "";
+	}
+
+	@Override
+	public String executeCustom1(Integer currentStep) {
+		restartWizard();
+		return super.executeCustom1(currentStep);
+	}
+
+	@Override
+	public String executeCancelar(Integer currentStep) {
+		restartWizard();
+		return super.executeCancelar(currentStep);
 	}
 
 	public Motivo getMotivo() {

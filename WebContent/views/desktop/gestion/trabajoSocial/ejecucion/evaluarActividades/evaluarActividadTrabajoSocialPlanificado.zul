@@ -1,10 +1,17 @@
 <zk xmlns:n="native" xmlns:w="client">
 	<style>
-		.z-datebox input, .z-datebox-input:focus,
-		.z-datebox-input:active{ font-size: 1.2em !important;
-		text-align: center; height: 1.5em !important; border: 1px solid
-		#999999; border-radius: 7px; font-size: 1em !important;
-		text-align: center; margin-top: 4px; width: 93%;}
+		.z-datebox input, .z-datebox input:disabled,
+		.z-datebox-input:focus, .z-datebox-input:active{ font-size:
+		1.2em !important; text-align: center; height: 1.5em !important;
+		border: 1px solid #999999; border-radius: 7px; font-size: 1em
+		!important; text-align: center; width: 93%; background: #f2fca5
+		!important;}
+
+
+		.z-combobox-disabled *, .z-bandbox-disabled *,
+		.z-datebox-disabled *, .z-timebox-disabled *,
+		.z-spinner-disabled *, .z-doublespinner-disabled * { color:
+		#636363!important; }
 
 		.switch .z-checkbox input[type="checkbox"]:checked + label {
 		background-color: #0086a4; }
@@ -23,14 +30,124 @@
 		.z-listitem.z-listitem-selected:hover>.z-listcell>.z-listcell-content
 		label {color: #594e46 !important;}
 
+		.z-button{ background-image: none;} .z-button[disabled] { color:
+		#594e46 !important; }
 	</style>
 	<div sclass="animated fadeInLeft">
+		<div sclass="row">
+			<div sclass="col s12">
+				<div class=" col s12">
+					<div class=" row line-evento" style="margin:0px">
+					</div>
+				</div>
+				<div class=" col s12">
+					<div sclass="row"
+						style="margin:0px;background: #FFF">
 
+						<div sclass="col s3">
+							<n:br></n:br>
+							<n:br></n:br>
+							<div align="center"
+								visible="@load(not empty vm.selectedObject.fkMultimedia and not empty vm.selectedObject.fkMultimedia.url)">
+								<image
+									class="img-responsive circle center-block"
+									src="${m:getUrlWeb(vm.selectedObject.fkMultimedia.url)}"
+									width="128px" height="128px">
+								</image>
+							</div>
+							<n:br></n:br>
+						</div>
+						<div sclass="col s9" align="center">
+							<div sclass="col s12" align="center">
+								<label sclass="titulo-evento"
+									value="@bind(vm.selectedObject.fkTrabajoSocial.nombre)">
+								</label>
+
+								<label sclass="subtitulo-evento"
+									value="@bind(vm.selectedObject.fkTrabajoSocial.fkClasificadorTrabajoSocial.nombre)">
+								</label>
+
+								<div sclass="row">
+									<label sclass="descripcion-evento"
+										value="@bind(vm.selectedObject.fkTrabajoSocial.descripcion)">
+
+									</label>
+								</div>
+								<div sclass="row">
+									<div sclass="col s8" align="left"
+										style="padding:0px">
+
+										<label
+											sclass="info-titulo-evento">
+											Fecha Inicio:
+										</label>
+										<label
+											sclass="info-descripcion-evento"
+											value="${m:convertirLongADate(vm.selectedObject.fechaInicio)}">
+
+										</label>
+										<label
+											sclass="info-descripcion-evento" value="        ">
+										</label>
+										<label
+											sclass="info-titulo-evento">
+											Fecha Fin:
+										</label>
+										<label
+											sclass="info-descripcion-evento"
+											value="${m:convertirLongADate(vm.selectedObject.fechaFin)}">
+
+										</label>
+										<n:br></n:br>
+										<label
+											sclass="info-titulo-evento">
+											Lugar:
+										</label>
+										<label
+											sclass="info-descripcion-evento"
+											value="@bind(vm.selectedObject.fkDirectorio.nombre)">
+										</label>
+										<n:br></n:br>
+										<label
+											sclass="info-titulo-evento">
+											Dirección:
+										</label>
+										<label
+											sclass="info-descripcion-evento"
+											value="@bind(vm.selectedObject.fkDirectorio.direccion)">
+
+										</label>
+										<n:br></n:br>
+
+									</div>
+									<div sclass="col s4">
+										<image
+											class="img-responsive center-block"
+											src="/imagenes/portal/icon/mapa.png"
+											style="width: auto;padding: 0px;margin: 0px;display: inline-block;">
+										</image>
+										<span
+											class="fa fa-search center-block"
+											style=" width: auto; margin: 0px; display: inline-block;vertical-align: bottom;color:#3b85a1">
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class=" col s12">
+					<div class=" row line-evento" style="margin:0px">
+					</div>
+				</div>
+			</div>
+		</div>
+		<separator height="20px"></separator>
 		<div class="row">
 			<div class="col s12" align="center"
 				style="margin-bottom: 15px;">
 				<label
-					value="Complete la información de las tareas seleccionados"
+					value="Complete la información de las actividades"
 					sclass="label-medium-500">
 				</label>
 			</div>
@@ -40,16 +157,16 @@
 			<div class="col s12">
 
 				<listbox height="300px"
-					emptyMessage="No hay tareas asociados al evento."
+					emptyMessage="No hay Actividades asociados al Trabajo social"
 					model="@load(vm.listTsPlanActividads)">
 					<listhead sizable="true">
-						<listheader width="15%" label="Ejecutada" />
-						<listheader width="25%" label="Actividad" />
+						<listheader width="15%" label="Ejecución" />
+						<listheader width="20%" label="Actividad" />
 						<listheader width="20%"
 							label="Fecha Planificada" />
 						<listheader width="15%" label="Fecha Ejecución"
 							align="center" />
-						<listheader width="15%" label="Motivo"
+						<listheader width="20%" label="Motivo"
 							align="center" />
 						<listheader width="8%" label="" align="right" />
 					</listhead>
@@ -57,15 +174,19 @@
 						<listitem>
 							<listcell>
 								<n:div class="switch">
-									<n:label>
+									<n:label
+										style=" font-size: 16px;">
 										NO
-										<checkbox></checkbox>
+										<checkbox
+											onClick="@command('changeCheck', index=forEachStatus.index,  check=self.isChecked())"
+											checked="@bind(each.ejecucion)">
+										</checkbox>
 										SI
 									</n:label>
 								</n:div>
 							</listcell>
 							<listcell
-								label="@load(each.fkActividad.nombre)">
+								label="@bind(each.fkActividad.nombre)">
 							</listcell>
 							<listcell>
 								<datebox format="dd/MM/yyyy"
@@ -84,12 +205,14 @@
 								</label>
 							</listcell>
 							<listcell>
-								<button
+
+								<button disabled="@bind(each.ejecucion)"
 									sclass="teal lighten-1 waves-effect waves-light"
 									onClick="@command('buscarMotivo', index=forEachStatus.index)"
 									iconSclass="fa fa-search" tooltiptext="Buscar Motivo"
-									style="/padding: 5px 6px; background-color: #2AA4EF !important; float: right">
+									style="padding: 5px 6px; background-color: #2AA4EF !important; float: right">
 								</button>
+
 							</listcell>
 						</listitem>
 					</template>

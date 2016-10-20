@@ -271,11 +271,11 @@ public class VM_IndicadoresActividadesTrabajoSocialPlanificado extends
 						.getInformacion(IPayloadResponse.MENSAJE);
 			}
 
-			Integer countTsPlanActividadesTrabajadores = Double.valueOf(
+			Integer countTsPlanActividades = Double.valueOf(
 					String.valueOf(payloadTsPlanActividadResponse
 							.getInformacion(IPayloadResponse.COUNT)))
 					.intValue();
-			if (countTsPlanActividadesTrabajadores <= 0) {
+			if (countTsPlanActividades<= 0) {
 				return "E:Error 0:El trabajo social planificado seleccionado <b>no tiene actividades asignadas.</b>";
 			}
 

@@ -8,6 +8,7 @@ import java.util.Map;
 import karen.core.crux.session.DataCenter;
 
 import org.zkoss.bind.BindUtils;
+import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
 
 import ve.smile.consume.services.S;
@@ -118,6 +119,11 @@ public class VM_Participa {
 		}
 
 		return participa;
+	}
+	@Command
+	public void contactanos() {
+		DataCenter.updateSrcPageContent(null, null, "/views/web/contactanos.zul");
+		
 	}
 
 }

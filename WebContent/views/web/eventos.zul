@@ -66,7 +66,7 @@
 											</div>											
 										</div>
 										<n:p>
-											<label sclass="text-justify"
+											<label class="text-justify" 
 												value="@load(each.fkEvento.descripcion)">
 											</label>
 										</n:p>
@@ -77,12 +77,7 @@
 										</n:a>
 									</div>
 								</div>
-							</div>
-							
-							<div class="col s12 fechaNoticia">
-											
-										</div>
-							
+							</div>													
 							<div class="card-content"
 								style="padding: 0 20px;">
 								<label
@@ -97,18 +92,17 @@
 							</div>
 							<div class="card-reveal white-text"
 								style="background-color: #8AC7DE;">
-								<span class="card-title"
-									style="line-height: 5px; font-size: 18px; font-weight: bold; color: #F26B7A;">
-									<label
+								<span class="card-title" style="line-height: 4px" >
+									<label style=" font-size: 16px; font-weight: bold; 	color: #F26B7A;"
 										value="@load(each.fkEvento.nombre)">
 									</label>
 									<n:i class="material-icons right"
-										style="line-height: 0;">
+										style="line-height: -1;">
 										close
 									</n:i>
 								</span>
 								<label
-									style="font-size: 14px; margin-top: 30px;"
+									style="font-size: 14px; margin-top: 30px;padding:5px; line-height: 4px"
 									sclass="text-justify"
 									value="@load(each.fkEvento.descripcion)">
 								</label>

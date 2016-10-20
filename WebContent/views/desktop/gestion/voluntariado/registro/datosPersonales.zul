@@ -94,7 +94,7 @@
 							
 					<div class="input-field col s6">
 						<n:label class="active"	for="fk_estado">Estado</n:label>
-						<combobox id="fk_estado" readonly="true" placeholder="Seleccione un estado" instant="true" onSelect="@command('changeEstado')" model="@bind(vm.estados)" selectedItem="@bind(vm.selectedObject.fkPersona.fkCiudad.fkEstado)">
+						<combobox id="fk_estado" readonly="true" placeholder="Seleccione un estado" instant="true" onSelect="@command('changeEstado')" model="@bind(vm.estados)" selectedItem="@bind(vm.estado)">
 							<template name="model">
 								<comboitem label="@load(each.nombre)" />
 							</template>

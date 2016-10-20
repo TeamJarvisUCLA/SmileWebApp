@@ -35,28 +35,22 @@
 						<auxhead>
 							<auxheader>
 								<div>
-									<span class="prefix filter fa fa-filter"> </span>
-									<combobox id="tipo_persona" inplace="true" tooltip="Tipo de persona" placeholder="Tipo de persona"
-											  model="@bind(vm.tipoPersonaEnums)"
-										      selectedItem="@bind(vm.tipoPersonaEnum)"
-										      onChange="@command('changeFilter')"
-										      style="background: rgb(89, 78, 70); margin: 0px; margin-left: 6px; margin-top: 0px; display: inline;  width: 75%;">
-										<template name="model">
-											<comboitem label="@load(each)" />
-										</template>
-									</combobox>
+									<span style="margin-right: 3px;" class="prefix filter fa fa-filter"> </span>
+									<textbox id="CedulaRif" instant="true" placeholder="Cédula/RIF" value="@bind(vm.identificacion)" onChange="@command('changeFilter')" style="height: 30px;font-size: 14px;margin-top: 1px;"> </textbox>
 								</div>
 							</auxheader>
-							<auxheader></auxheader>
-							<auxheader></auxheader>
+							
+							<auxheader>
+								<div>
+									<span class="prefix filter fa fa-filter"> </span>
+									<textbox id="nombre" instant="true" placeholder="Voluntario" value="@bind(vm.nombre)" onChange="@command('changeFilter')" style="height: 30px;font-size: 14px;margin-top: 1px;"></textbox>
+								</div>
+							</auxheader>
+							
 							<auxheader>
 								<div sclass="col s12">
 									<span class="prefix filter fa fa-filter"> </span>
-									<combobox id="Estatus"
-										inplace="true" tooltip="Estatus" model="@bind(vm.estatusVoluntarioEnums)"
-										onChange="@command('changeFilter')"
-										style="background: rgb(89, 78, 70); margin: 0px; margin-left: 6px; margin-top: 0px; display: inline;  width: 75%;"
-										selectedItem="@bind(vm.estatusVoluntarioEnum)">
+									<combobox id="Estatus" inplace="true" tooltip="Estatus" model="@bind(vm.estatusVoluntarioEnums)" onChange="@command('changeFilter')" style="background: rgb(89, 78, 70); margin: 0px; margin-left: 6px; margin-top: 0px; display: inline;  width: 75%;" selectedItem="@bind(vm.estatusVoluntarioEnum)">
 										<template name="model">
 											<comboitem label="@load(each.toString())" />
 										</template>
@@ -65,18 +59,15 @@
 							</auxheader>
 						</auxhead>
 						
-						
 						<listhead sizable="true">
 							<listheader width="25%" label="Cédula" />
-							<listheader width="25%" label="Nombre" />
-							<listheader width="25%" label="Apellido" />
+							<listheader width="50%" label="Voluntario" />
 							<listheader width="25%" label="Fecha de ingreso" />
 						</listhead>
 						<template name="model">
 							<listitem>
 								<listcell label="@load(each.fkPersona.identificacion)" />
-								<listcell label="@load(each.fkPersona.nombre)" />
-								<listcell label="@load(each.fkPersona.apellido)" />
+								<listcell label="@load(each.fkPersona.nombre.concat(' ').concat(each.fkPersona.apellido))" />
 								<listcell label="${m:convertirLongADate(each.fechaIngreso)}" />
 							</listitem>
 						</template>

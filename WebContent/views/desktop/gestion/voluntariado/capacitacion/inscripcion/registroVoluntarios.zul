@@ -9,6 +9,52 @@
 		<div width="100%">
 			<div class="row">
 				<div class="col s12">
+				
+					<div class="input-field col s12">
+						<n:label for="nombre" class="active">Capacitación planificada</n:label>
+						<textbox id="nombre" type="text" disabled="true" value="@bind(vm.selectedObject.fkCapacitacion.nombre)"> </textbox>
+					</div>
+					
+					<div class="input-field col s6">
+						<n:label for="lugar" class="active">Lugar</n:label>
+						<textbox id="lugar" type="text" disabled="true" value="@bind(vm.selectedObject.fkDirectorio.nombre)"> </textbox>
+					</div>
+					
+					<div class="input-field col s6">
+						<n:label for="fecha_planificada" class="active">Fecha planificada</n:label>
+						<datebox id="fecha_planificada" readonly="true" disabled="true" cols="20" format="dd/MM/yyyy" value="@bind(vm.selectedObject.fechaPlanificada)" />
+					</div>
+					
+					<div class="input-field col s12">
+						<n:label for="direccion" class="active">Dirección de la capacitación</n:label>
+						<textbox id="direccion" type="text" disabled="true" value="@bind(vm.selectedObject.fkDirectorio.direccion)"> </textbox>
+					</div>
+					
+					<button
+						sclass="teal lighten-1 waves-effect waves-light"
+						onClick="@command('buscarVoluntarios')"
+						iconSclass="fa fa-search" tooltiptext="Buscar voluntarios"
+						style="/padding: 5px 6px; background-color: #2AA4EF !important; float: center">
+					</button>
+					
+					<div class="row">
+						<div class="col s12">
+							<listbox id="tabla" height="300px" emptyMessage="No hay voluntarios registrados en la capacitación" model="@bind(vm.voluntariosInscritos)">
+								<listhead sizable="true">
+									<listheader align="center" label="Cédula"  />
+									<listheader align="center" label="Voluntario" />
+								</listhead>
+								<template name="model">
+									<listitem>
+										<listcell label="@load(each.fkPersona.identificacion)"> </listcell>
+										<listcell label="@load(each.fkPersona.nombre.concat(' ').concat(each.fkPersona.apellido))" />
+									</listitem>
+								</template>
+							</listbox>
+						</div>
+					</div>
+					
+					<!--
 					
 					<div sclass="col s5" style="padding:0px">
 						<listbox model="@load(vm.voluntarios)" emptyMessage="No hay voluntarios registrados" selectedItems="@bind(vm.voluntariosSeleccionados)" multiple="true">
@@ -42,6 +88,8 @@
 							</template>
 						</listbox>
 					</div>
+					
+					-->
 					
 				</div>
 			</div>

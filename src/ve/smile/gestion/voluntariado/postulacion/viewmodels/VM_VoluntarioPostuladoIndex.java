@@ -1,6 +1,5 @@
 package ve.smile.gestion.voluntariado.postulacion.viewmodels;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -40,7 +39,6 @@ public class VM_VoluntarioPostuladoIndex extends VM_WindowWizard<Voluntario>
 	private Estado estado = new Estado();
 	private Motivo motivo = new Motivo();
 	private Date fechaNacimiento = new Date();
-	private Voluntario voluntario = new Voluntario();
 	
 	private SexoEnum sexoEnum;
 	private TipoPersonaEnum tipoPersonaEnum;
@@ -59,18 +57,6 @@ public class VM_VoluntarioPostuladoIndex extends VM_WindowWizard<Voluntario>
 		estado = new Estado(); 
 		motivo = new Motivo();
 		fechaNacimiento = new Date();
-		voluntario = new Voluntario();
-	}
-
-	// VOLUNTARIO
-	public Voluntario getVoluntario()
-	{
-		return voluntario;
-	}
-
-	public void setVoluntario(Voluntario voluntario)
-	{
-		this.voluntario = voluntario;
 	}
 
 	// ENUM SEXO
@@ -82,7 +68,7 @@ public class VM_VoluntarioPostuladoIndex extends VM_WindowWizard<Voluntario>
 	public void setSexoEnum(SexoEnum sexoEnum)
 	{
 		this.sexoEnum = sexoEnum;
-		selectedObject.getFkPersona().setSexo(this.sexoEnum.ordinal());
+		this.getVoluntarioSelected().getFkPersona().setSexo(this.sexoEnum.ordinal());
 	}
 
 	public List<SexoEnum> getSexoEnums()
@@ -116,7 +102,7 @@ public class VM_VoluntarioPostuladoIndex extends VM_WindowWizard<Voluntario>
 	public void setTipoPersonaEnum(TipoPersonaEnum tipoPersonaEnum)
 	{
 		this.tipoPersonaEnum = tipoPersonaEnum;
-		selectedObject.getFkPersona().setTipoPersona(this.tipoPersonaEnum.ordinal());
+		this.getVoluntarioSelected().getFkPersona().setTipoPersona(this.tipoPersonaEnum.ordinal());
 	}
 
 	public List<TipoPersonaEnum> getTipoPersonaEnums()
@@ -138,30 +124,6 @@ public class VM_VoluntarioPostuladoIndex extends VM_WindowWizard<Voluntario>
 	public void setTipoPersonaEnums(List<TipoPersonaEnum> tipoPersonaEnums)
 	{
 		this.tipoPersonaEnums = tipoPersonaEnums;
-	}
-
-	// CIUDADES
-	public List<Ciudad> getCiudades()
-	{
-		if (this.ciudades == null)
-		{
-			this.ciudades = new ArrayList<>();
-		}
-		if (this.ciudades.isEmpty())
-		{
-			PayloadCiudadResponse payloadCiudadResponse = S.CiudadService.consultarTodos();
-			if (!UtilPayload.isOK(payloadCiudadResponse))
-			{
-				Alert.showMessage(payloadCiudadResponse);
-			}
-			this.ciudades.addAll(payloadCiudadResponse.getObjetos());
-		}
-		return ciudades;
-	}
-
-	public void setCiudades(List<Ciudad> ciudades)
-	{
-		this.ciudades = ciudades;
 	}
 
 	// ESTADOS
@@ -197,14 +159,29 @@ public class VM_VoluntarioPostuladoIndex extends VM_WindowWizard<Voluntario>
 	{
 		this.estados = estados;
 	}
+	
+	// CIUDADES
+	public List<Ciudad> getCiudades()
+	{
+		if (this.ciudades == null)
+		{
+			this.ciudades = new ArrayList<>();
+		}
+		return ciudades;
+	}
+
+	public void setCiudades(List<Ciudad> ciudades)
+	{
+		this.ciudades = ciudades;
+	}
 
 	// CIUDADES POR ESTADO
 	@Command("changeEstado")
-	@NotifyChange({"ciudades"})
+	@NotifyChange({ "ciudades" })
 	public void changeEstado()
 	{
 		this.getCiudades().clear();
-		this.getSelectedObject().getFkPersona().setFkCiudad(null);
+		this.getVoluntarioSelected().getFkPersona().setFkCiudad(null);
 		Map<String, String> criterios = new HashMap<>();
 		criterios.put("fkEstado.idEstado", String.valueOf(estado.getIdEstado()));
 		PayloadCiudadResponse payloadCiudadResponse = S.CiudadService.consultarCriterios(TypeQuery.EQUAL, criterios);
@@ -215,16 +192,16 @@ public class VM_VoluntarioPostuladoIndex extends VM_WindowWizard<Voluntario>
 		this.getCiudades().addAll(payloadCiudadResponse.getObjetos());
 	}
 	
-	// FECHAS
+	// FECHA NACIMIENTO
 	public Date getFechaNacimiento()
 	{
 		return fechaNacimiento;
 	}
-	
-	public void setFechaNacimiento (Date fechaNacimiento)
+
+	public void setFechaNacimiento(Date fechaNacimiento)
 	{
 		this.fechaNacimiento = fechaNacimiento;
-		this.getSelectedObject().getFkPersona().setFechaNacimiento(fechaNacimiento.getTime());
+		this.getVoluntarioSelected().getFkPersona().setFechaNacimiento(fechaNacimiento.getTime());
 	}
 	
 	// ESTATUS VOLUNTARIO
@@ -236,7 +213,7 @@ public class VM_VoluntarioPostuladoIndex extends VM_WindowWizard<Voluntario>
 	public void setEstatusVoluntarioEnum(EstatusVoluntarioEnum estatusVoluntarioEnum)
 	{
 		this.estatusVoluntarioEnum = estatusVoluntarioEnum;
-		this.getVoluntario().setEstatusVoluntarioEnum(estatusVoluntarioEnum);
+		this.getVoluntarioSelected().setEstatusVoluntarioEnum(estatusVoluntarioEnum);
 	}
 
 	public List<EstatusVoluntarioEnum> getEstatusVoluntarioEnums()
@@ -269,7 +246,7 @@ public class VM_VoluntarioPostuladoIndex extends VM_WindowWizard<Voluntario>
 	public void setMotivo (Motivo motivo)
 	{
 		this.motivo = motivo;
-		this.getVoluntario().setFkMotivo(this.motivo);
+		this.getVoluntarioSelected().setFkMotivo(this.motivo);
 	}
 
 	public List<Motivo> getMotivos()
@@ -314,13 +291,9 @@ public class VM_VoluntarioPostuladoIndex extends VM_WindowWizard<Voluntario>
 		
 		List<OperacionWizard> listOperacionWizard3 = new ArrayList<OperacionWizard>();
 		listOperacionWizard3.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.ATRAS));
-		listOperacionWizard3.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.SIGUIENTE));
+		listOperacionWizard3.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.FINALIZAR));
 		listOperacionWizard3.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.CANCELAR));
 		botones.put(3, listOperacionWizard3);
-		
-		List<OperacionWizard> listOperacionWizard4 = new ArrayList<OperacionWizard>();
-		listOperacionWizard4.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.FINALIZAR));
-		botones.put(4, listOperacionWizard4);
 		
 		return botones;
 	}
@@ -332,7 +305,6 @@ public class VM_VoluntarioPostuladoIndex extends VM_WindowWizard<Voluntario>
 		iconos.add("fa fa-user");
 		iconos.add("fa fa-pencil-square-o");
 		iconos.add("fa fa-pencil-square-o");
-		iconos.add("fa fa-check-square-o");
 		return iconos;
 	}
 
@@ -343,7 +315,6 @@ public class VM_VoluntarioPostuladoIndex extends VM_WindowWizard<Voluntario>
 		urls.add("views/desktop/gestion/voluntariado/postulacion/selectPostulado.zul");
 		urls.add("views/desktop/gestion/voluntariado/postulacion/datosPostulado.zul");
 		urls.add("views/desktop/gestion/voluntariado/postulacion/registroMotivo.zul");
-		urls.add("views/desktop/gestion/voluntariado/postulacion/registroCompletado.zul");
 		return urls;
 	}
 	
@@ -362,7 +333,6 @@ public class VM_VoluntarioPostuladoIndex extends VM_WindowWizard<Voluntario>
 	public IPayloadResponse<Voluntario> getDataToTable(Integer cantidadRegistrosPagina, Integer pagina)
 	{
 		Map<String, String> criterios = new HashMap<>();
-		EstatusVoluntarioEnum.POSTULADO.ordinal();
 		criterios.put("estatusVoluntario", String.valueOf(EstatusVoluntarioEnum.POSTULADO.ordinal()));
 		PayloadVoluntarioResponse payloadVoluntarioResponse = S.VoluntarioService.consultarPaginacionCriterios(cantidadRegistrosPagina, pagina,	TypeQuery.EQUAL, criterios);
 		return payloadVoluntarioResponse;
@@ -395,38 +365,36 @@ public class VM_VoluntarioPostuladoIndex extends VM_WindowWizard<Voluntario>
 				return "E:Error Code 5-Debe seleccionar un <b>postulado</b>";
 			}
 		}
-		if (currentStep == 3)
-		{
-			try
-			{
-				UtilValidate.validateNull(this.getVoluntario().getFkMotivo(), "Motivo");
-			}
-			catch (Exception e)
-			{
-				return e.getMessage();
-			}
-		}
 		return "";
 	}
 
 	@Override
 	public String executeSiguiente(Integer currentStep)
 	{
+		if (currentStep == 1)
+		{
+			this.setEstado(this.getVoluntarioSelected().getFkPersona().getFkCiudad().getFkEstado());
+			this.setSexoEnum(SexoEnum.values()[this.getVoluntarioSelected().getFkPersona().getSexo()]);
+			this.setTipoPersonaEnum(TipoPersonaEnum.values()[this.getVoluntarioSelected().getFkPersona().getTipoPersona()]);
+			this.setMotivo(this.getVoluntarioSelected().getFkMotivo());
+			Map<String, String> criterios = new HashMap<>();
+			criterios.put("fkEstado.idEstado", String.valueOf(estado.getIdEstado()));
+			PayloadCiudadResponse payloadCiudadResponse = S.CiudadService.consultarCriterios(TypeQuery.EQUAL, criterios);
+			if (!UtilPayload.isOK(payloadCiudadResponse))
+			{
+				Alert.showMessage(payloadCiudadResponse);
+			}
+			this.getCiudades().addAll(payloadCiudadResponse.getObjetos());
+			BindUtils.postNotifyChange(null, null, this, "estado");
+			BindUtils.postNotifyChange(null, null, this, "ciudades");
+			BindUtils.postNotifyChange(null, null, this, "sexoEnum");
+			BindUtils.postNotifyChange(null, null, this, "tipoPersonaEnum");
+			BindUtils.postNotifyChange(null, null, this, "motivo");
+			BindUtils.postNotifyChange(null, null, this, "selectedObject");
+		}
 		if (currentStep == 2)
 		{
 			// NOTHING
-		}
-		if (currentStep == 3)
-		{
-			this.selectedObject.setFkMotivo(this.getMotivo());
-			PayloadVoluntarioResponse payloadVoluntarioResponse = S.VoluntarioService.modificar(this.selectedObject);
-			if (UtilPayload.isOK(payloadVoluntarioResponse))
-			{
-				this.setSelectedObject(new Voluntario());
-				this.setVoluntario(new Voluntario());
-				BindUtils.postNotifyChange(null, null, this, "selectedObject");
-				BindUtils.postNotifyChange(null, null, this, "voluntario");
-			}
 		}
 		goToNextStep();
 		return "";
@@ -437,17 +405,16 @@ public class VM_VoluntarioPostuladoIndex extends VM_WindowWizard<Voluntario>
 	public String executeCustom1(Integer currentStep)
 	{
 		// POR COMPLETAR DATOS
-		this.selectedObject.setEstatusVoluntario(EstatusVoluntarioEnum.POR_COMPLETAR.ordinal());
-		PayloadVoluntarioResponse payloadVoluntarioResponse = S.VoluntarioService.modificar(this.selectedObject);
+		this.getVoluntarioSelected().setEstatusVoluntario(EstatusVoluntarioEnum.POR_COMPLETAR.ordinal());
+		PayloadVoluntarioResponse payloadVoluntarioResponse = S.VoluntarioService.modificar(this.getVoluntarioSelected());
 		if (UtilPayload.isOK(payloadVoluntarioResponse))
 		{
+			restartWizard();
 			this.setSelectedObject(new Voluntario());
-			this.setVoluntario(new Voluntario());
 			BindUtils.postNotifyChange(null, null, this, "selectedObject");
 			BindUtils.postNotifyChange(null, null, this, "voluntario");
+			return (String) payloadVoluntarioResponse.getInformacion(IPayloadResponse.MENSAJE);
 		}
-		goToNextStep();
-		goToNextStep();
 		return "";
 	}
 		
@@ -455,7 +422,7 @@ public class VM_VoluntarioPostuladoIndex extends VM_WindowWizard<Voluntario>
 	public String executeCustom2(Integer currentStep)
 	{
 		// RECHAZADO
-		this.selectedObject.setEstatusVoluntario(EstatusVoluntarioEnum.RECHAZADO.ordinal());
+		this.getVoluntarioSelected().setEstatusVoluntario(EstatusVoluntarioEnum.RECHAZADO.ordinal());
 		goToNextStep();
 		return "";
 	}
@@ -468,7 +435,7 @@ public class VM_VoluntarioPostuladoIndex extends VM_WindowWizard<Voluntario>
 		{
 			try
 			{
-				// NOTHING
+				UtilValidate.validateNull(this.getVoluntarioSelected().getFkMotivo(), "Motivo");
 			}
 			catch (Exception e)
 			{
@@ -481,7 +448,20 @@ public class VM_VoluntarioPostuladoIndex extends VM_WindowWizard<Voluntario>
 	@Override
 	public String executeFinalizar(Integer currentStep)
 	{
-		restartWizard();
+		if (currentStep == 3)
+		{
+			this.getVoluntarioSelected().setFkMotivo(this.getMotivo());
+			PayloadVoluntarioResponse payloadVoluntarioResponse = S.VoluntarioService.modificar(this.getVoluntarioSelected());
+			if (UtilPayload.isOK(payloadVoluntarioResponse))
+			{
+				restartWizard();
+				this.setSelectedObject(new Voluntario());
+				BindUtils.postNotifyChange(null, null, this, "selectedObject");
+				BindUtils.postNotifyChange(null, null, this, "voluntario");
+				return (String) payloadVoluntarioResponse.getInformacion(IPayloadResponse.MENSAJE);
+				
+			}
+		}
 		return "";
 	}
 	

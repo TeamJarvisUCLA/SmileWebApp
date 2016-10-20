@@ -1,6 +1,7 @@
 package ve.smile.gestion.trabajo_social.planificacion.actividades.participantes.viewmodels;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +18,7 @@ import karen.core.wizard.buttons.helpers.OperacionWizardHelper;
 import karen.core.wizard.viewmodels.VM_WindowWizard;
 import lights.core.enums.TypeQuery;
 import lights.core.payload.response.IPayloadResponse;
+import lights.smile.util.UtilConverterDataList;
 
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.BindingParam;
@@ -24,13 +26,17 @@ import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
 
 import ve.smile.consume.services.S;
+import ve.smile.dto.NotificacionUsuario;
 import ve.smile.dto.Trabajador;
 import ve.smile.dto.TsPlan;
 import ve.smile.dto.TsPlanActividad;
 import ve.smile.dto.TsPlanActividadTrabajador;
 import ve.smile.dto.TsPlanActividadVoluntario;
 import ve.smile.dto.Voluntario;
+import ve.smile.enums.EstatusNotificacionEnum;
 import ve.smile.enums.EstatusTrabajoSocialPlanificadoEnum;
+import ve.smile.enums.TipoReferenciaNotificacionEnum;
+import ve.smile.payload.response.PayloadNotificacionUsuarioResponse;
 import ve.smile.payload.response.PayloadTsPlanActividadResponse;
 import ve.smile.payload.response.PayloadTsPlanActividadTrabajadorResponse;
 import ve.smile.payload.response.PayloadTsPlanActividadVoluntarioResponse;
@@ -439,6 +445,33 @@ public class VM_ParticipantesActividadesTrabajoSocialPlanificado extends
 						return (String) payloadTsPlanActividadTrabajadorResponse
 								.getInformacion(IPayloadResponse.MENSAJE);
 					}
+					if (tsPlanActividadTrabajador.getFkTrabajador()
+							.getFkPersona().getFkUsuario() != null) {
+						String contenido = "Se le ha asignado la Actividad "
+								+ obj.getFkActividad().getNombre()
+								+ " del Trabajo Social "
+								+ obj.getFkTsPlan().getFkTrabajoSocial()
+										.getNombre()
+								+ " que debe realizar el "
+								+ UtilConverterDataList.convertirLongADate(obj
+										.getFechaPlanificada());
+						NotificacionUsuario notificacionUsuario = new NotificacionUsuario(
+								tsPlanActividadTrabajador.getFkTrabajador()
+										.getFkPersona().getFkUsuario(),
+								new Date().getTime(), obj.getFkTsPlan()
+										.getIdTsPlan(),
+								EstatusNotificacionEnum.PENDIENTE.ordinal(),
+								TipoReferenciaNotificacionEnum.ACTIVIDAD
+										.ordinal(), contenido);
+						PayloadNotificacionUsuarioResponse payloadNotificacionUsuarioResponse = S.NotificacionUsuarioService
+								.incluir(notificacionUsuario);
+						if (!UtilPayload
+								.isOK(payloadNotificacionUsuarioResponse)) {
+							return (String) payloadNotificacionUsuarioResponse
+									.getInformacion(IPayloadResponse.MENSAJE);
+						}
+					}
+
 				}
 
 				for (TsPlanActividadVoluntario tsPlanActividadVoluntario : obj
@@ -468,6 +501,33 @@ public class VM_ParticipantesActividadesTrabajoSocialPlanificado extends
 						return (String) payloadTsPlanActividadVoluntarioResponse
 								.getInformacion(IPayloadResponse.MENSAJE);
 					}
+
+					if (tsPlanActividadVoluntario.getFkVoluntario()
+							.getFkPersona().getFkUsuario() != null) {
+						String contenido = "Se le ha asignado la Actividad "
+								+ obj.getFkActividad().getNombre()
+								+ " del Trabajo Social "
+								+ obj.getFkTsPlan().getFkTrabajoSocial()
+										.getNombre()
+								+ " que debe realizar el "
+								+ UtilConverterDataList.convertirLongADate(obj
+										.getFechaPlanificada());
+						NotificacionUsuario notificacionUsuario = new NotificacionUsuario(
+								tsPlanActividadVoluntario.getFkVoluntario()
+										.getFkPersona().getFkUsuario(),
+								new Date().getTime(), obj.getFkTsPlan()
+										.getIdTsPlan(),
+								EstatusNotificacionEnum.PENDIENTE.ordinal(),
+								TipoReferenciaNotificacionEnum.ACTIVIDAD
+										.ordinal(), contenido);
+						PayloadNotificacionUsuarioResponse payloadNotificacionUsuarioResponse = S.NotificacionUsuarioService
+								.incluir(notificacionUsuario);
+						if (!UtilPayload
+								.isOK(payloadNotificacionUsuarioResponse)) {
+							return (String) payloadNotificacionUsuarioResponse
+									.getInformacion(IPayloadResponse.MENSAJE);
+						}
+					}
 				}
 
 			}
@@ -484,14 +544,12 @@ public class VM_ParticipantesActividadesTrabajoSocialPlanificado extends
 			for (TsPlanActividadVoluntario tsPlanActividadVoluntario : this
 					.getListTsPlanActividadVoluntarios()) {
 				if (tsPlanActividadVoluntario.getIdTsPlanActividadVoluntario() != null) {
-					payloadTsPlanActividadTrabajadorResponse = S.TsPlanActividadTrabajadorService
+					payloadTsPlanActividadVoluntarioResponse= S.TsPlanActividadVoluntarioService
 							.eliminar(tsPlanActividadVoluntario
 									.getIdTsPlanActividadVoluntario());
 				}
 
 			}
-
-			goToNextStep();
 		}
 		return "";
 	}

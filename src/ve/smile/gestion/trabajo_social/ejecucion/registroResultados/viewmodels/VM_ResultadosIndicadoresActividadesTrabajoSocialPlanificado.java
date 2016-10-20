@@ -25,7 +25,8 @@ import ve.smile.payload.response.PayloadEventoPlanificadoResponse;
 import ve.smile.payload.response.PayloadIndicadorTsPlanActividadResponse;
 import ve.smile.payload.response.PayloadTsPlanActividadResponse;
 
-public class VM_ResultadosIndicadoresActividadesTrabajoSocialPlanificado extends VM_WindowWizard {
+public class VM_ResultadosIndicadoresActividadesTrabajoSocialPlanificado extends
+		VM_WindowWizard {
 
 	private List<TsPlanActividad> listTsPlanActividads;
 	private int indexActividad;
@@ -54,8 +55,10 @@ public class VM_ResultadosIndicadoresActividadesTrabajoSocialPlanificado extends
 		botones.put(2, listOperacionWizard2);
 
 		List<OperacionWizard> listOperacionWizard3 = new ArrayList<OperacionWizard>();
-		listOperacionWizard3.add(OperacionWizardHelper
-				.getPorType(OperacionWizardEnum.CUSTOM1));
+		OperacionWizard operacionWizardCustom = new OperacionWizard(
+				OperacionWizardEnum.CUSTOM1.ordinal(), "Aceptar", "Custom1",
+				"fa fa-check", "indigo", "Aceptar");
+		listOperacionWizard3.add(operacionWizardCustom);
 
 		botones.put(3, listOperacionWizard3);
 

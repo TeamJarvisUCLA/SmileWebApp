@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -96,6 +97,7 @@ public class VM_EgresoFamiliarIndex extends
 
 	private Familiar familiar;
 
+	private List<Motivo> motivos ;
 
 
 	@Init(superclass = true)
@@ -104,6 +106,28 @@ public class VM_EgresoFamiliarIndex extends
 		familiar = new Familiar();
 		
 		
+	}
+	
+	public void setMotivos(List<Motivo> motivos) {
+		this.motivos = motivos;
+	}
+	
+	public List<Motivo> getMotivos() {
+		if (this.motivos == null) {
+			this.motivos = new ArrayList<>();
+		}
+		if (this.motivos.isEmpty()) {
+			PayloadMotivoResponse payloadMotivoResponse = S.MotivoService
+					.consultarTodos();
+
+			if (!UtilPayload.isOK(payloadMotivoResponse)) {
+				Alert.showMessage(payloadMotivoResponse);
+			}
+
+			this.motivos.addAll(payloadMotivoResponse.getObjetos());
+		}
+
+		return motivos;
 	}
 	// ENUN SEXO
 		public SexoEnum getSexoEnum() {
@@ -393,24 +417,22 @@ public class VM_EgresoFamiliarIndex extends
 		return "";
 	}
 
-	/*@Override
+	@Override
 	public String isValidPreconditionsFinalizar(Integer currentStep) {
 		
-		if (currentStep == 3) {
+		if(currentStep == 3){
 			try {
-				UtilValidate.validateDate(this.getFecha().getTime(),
-						"Fecha Planificada", ValidateOperator.GREATER_THAN,
-						new SimpleDateFormat("yyyy-MM-dd").format(new Date()),
-						"dd/MM/yyyy");
-				UtilValidate.validateString(this.getFamiliar().getResultado(), "Resutlado", 100);
+				UtilValidate.validateNull(this.getFamiliar().getFkMotivo(), "Motivo");
+				
+				UtilValidate.validateString(this.getFamiliar().getObservacion(),
+						"Detalle de Rechazo", 100);
 			} catch (Exception e) {
 				return e.getMessage();
 			}
-
 		}
 		
 		return "";
-	}*/
+	}
 
 	@Override
 	public String executeFinalizar(Integer currentStep) {
@@ -482,8 +504,16 @@ public class VM_EgresoFamiliarIndex extends
 					.getFkCiudad().getFkEstado());
 			this.setSexoEnum(SexoEnum.values()[this.getFamiliar()
 					.getFkPersona().getSexo()]);
-			this.setTipoPersonaEnum(TipoPersonaEnum.values()[this
-					.getFamiliar().getFkPersona().getTipoPersona()]);
+			this.setTipoPersonaEnum(this.getFamiliar().getFkPersona().getTipoPersonaEnum());
+			
+			
+			Calendar cal = Calendar.getInstance();
+			cal.setTimeInMillis(this.getFamiliar().getFechaIngreso());
+			this.setFechaIngreso(cal.getTime());
+			
+			Calendar cal2 = Calendar.getInstance();
+			cal2.setTimeInMillis(this.getFamiliar().getFkPersona().getFechaNacimiento());
+			this.setFechaNacimiento(cal2.getTime());
 			
 			Map<String, String> criterios = new HashMap<>();
 			criterios.put("fkEstado.idEstado",

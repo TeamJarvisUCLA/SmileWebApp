@@ -38,6 +38,7 @@ import org.zkoss.zk.ui.event.UploadEvent;
 
 import ve.smile.consume.services.S;
 import ve.smile.dto.Directorio;
+import ve.smile.dto.EstudioSocioEconomico;
 import ve.smile.dto.Multimedia;
 import ve.smile.dto.SolicitudAyuda;
 import ve.smile.dto.SolicitudAyudaRecurso;
@@ -45,6 +46,7 @@ import ve.smile.dto.Recurso;
 import ve.smile.enums.EstatusPadrinoEnum;
 import ve.smile.enums.EstatusSolicitudEnum;
 import ve.smile.enums.TipoMultimediaEnum;
+import ve.smile.payload.response.PayloadEstudioSocioEconomicoResponse;
 import ve.smile.payload.response.PayloadMultimediaResponse;
 import ve.smile.payload.response.PayloadSolicitudAyudaResponse;
 import ve.smile.payload.response.PayloadSolicitudAyudaRecursoResponse;
@@ -234,14 +236,25 @@ public class VM_AsignacionAyudaIndex extends
 
 	@Override
 	public String isValidPreconditionsFinalizar(Integer currentStep) {
-		
+		/*Map<String, String> criterios = new HashMap<>();
+		EstatusPadrinoEnum.POSTULADO.ordinal();
+		criterios.put("fkSolicitudAyuda",
+				String.valueOf(selectedObject.getIdSolicitudAyuda()));
+		PayloadEstudioSocioEconomicoResponse payloadEstudioSocioEconomicoResponse = S.EstudioSocioEconomicoService
+				.consultarCriterios(
+						TypeQuery.EQUAL, criterios);
+		EstudioSocioEconomico economico =  payloadEstudioSocioEconomicoResponse.getObjetos().get(0);*/
 
 		if (currentStep == 2) {
 			try {
+				
+				
 				UtilValidate.validateDate(this.getFechaAsignacion().getTime(),
 						"Fecha Planificada", ValidateOperator.GREATER_THAN,
 						new SimpleDateFormat("yyyy-MM-dd").format(new Date()),
 						"dd/MM/yyyy");
+				UtilValidate.validateInteger(this.getSolicitudAyudaRecurso().getCantidad(),
+						"Cantidad", ValidateOperator.GREATER_THAN, 0);
 				UtilValidate.validateNull(this.getRecurso()
 						.getIdRecurso(), "Recurso");
 				//UtilValidate.validateInteger(getSolicitudAyudaRecurso().getCantidad(), "cantidad", null, null);

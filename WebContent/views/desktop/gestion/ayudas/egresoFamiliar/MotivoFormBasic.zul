@@ -5,20 +5,19 @@
 			<div class="col s12">
 				
 				
-				<!-- 
 				
 				<div class="row">
 					<div class="input-field col s12">
 						<n:label for="motivo"
 									class="active">
-									Motivo de Rechazo
+									Motivo de Egreso
 								</n:label>
 						<span
 							sclass="fa fa-question-circle fa-lg help-icon-special"
 							tooltip="pop_direccion, position=after_end" />
 						<combobox id="motivo"
 									readonly="true" model="@bind(vm.motivos)"
-									selectedItem="@bind(vm.solicitudAyuda.fkMotivo)">
+									selectedItem="@bind(vm.familiar.fkMotivo)">
 									<template name="model">
 										<comboitem label="@load(each.nombre)" />
 									</template>
@@ -29,13 +28,13 @@
 				
 				<div class="row">
 					<div class="input-field col s12">
-						<n:label for="detalle">Detalle Rechazo</n:label>
+						<n:label for="detalle">Detalle Egreso</n:label>
 						<span
 							sclass="fa fa-question-circle fa-lg help-icon-special"
 							tooltip="pop_direccion, position=after_end" />
 						<textbox id="detalle" type="text"
 							sclass="materialize-textarea" multiline="true"
-							value="@bind(vm.solicitudAyuda.detalleRechazo)">
+							value="@bind(vm.familiar.observacion)">
 						</textbox>
 					</div>
 				</div>
@@ -43,7 +42,6 @@
 				
 				
 
- 			-->
 				
 			</div>
 			

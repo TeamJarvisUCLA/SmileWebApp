@@ -11,24 +11,26 @@
 		</div>
 		<div width="100%">
 
-			<div class="row">
-				<div class="col s12">
-					<div class="col s12">
+			<div style="overflow: auto;" class="row">
+			<div class="col s12">
+				<div class="col s12" style="overflow: scroll;">
 						<listbox id="listbox"
 							model="@load(vm.trabajadores)"
 							selectedItem="@bind(vm.estudioSocioEconomico.fkTrabajador)">
 
 							<listhead sizable="true">
-								<listheader width="15%" label="Nombre" />
-							<listheader width="20%" label="Apellido" />
-							<listheader width="20%" label="Direccion" />
-							<listheader width="10%" label="Correo" />
-							<listheader width="10%" label="Telefono" />
+								<listheader width="200px" label="Nombre" />
+							<listheader width="200px" label="Apellido" />
+							<listheader width="200px" label="Identificacion" />
+							<listheader width="200px" label="Direccion" />
+							<listheader width="200px" label="Correo" />
+							<listheader width="200px" label="Telefono" />
 							</listhead>
 							<template name="model">
 								<listitem>
 									<listcell label="@load(each.fkPersona.nombre)" />
 									<listcell label="@load(each.fkPersona.apellido)" />
+									<listcell label="@load(each.fkPersona.identificacion)" />
 									<listcell label="@load(each.fkPersona.direccion)" />
 									<listcell label="@load(each.fkPersona.correo)" />
 									<listcell label="@load(each.fkPersona.telefono1)" />

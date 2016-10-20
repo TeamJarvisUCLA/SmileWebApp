@@ -13,9 +13,9 @@
 		</div>
 		<div width="100%">
 
-			<div class="row">
-				<div class="col s12">
-					<div class="col s12">
+			<div style="overflow: auto;" class="row">
+			<div class="col s12">
+				<div class="col s12" style="overflow: scroll;">
 						<listbox id="listbox"
 							model="@load(vm.objectsList)"
 							selectedItem="@bind(vm.selectedObject)">
@@ -24,9 +24,9 @@
 							<listhead sizable="true">
 					
 
-							<listheader width="20%" label="Nombre de Solicitante" />
-							<listheader width="20%" label="Apellido de Solicitante" />
-							<listheader width="20%" label="Identificacion" />
+							<listheader width="250px" label="Nombre de Solicitante" />
+							<listheader width="250px" label="Apellido de Solicitante" />
+							<listheader width="250px" label="Identificacion" />
 							
 							
 

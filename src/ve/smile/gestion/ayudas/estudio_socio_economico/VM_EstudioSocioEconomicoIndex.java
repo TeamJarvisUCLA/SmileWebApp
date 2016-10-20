@@ -48,6 +48,7 @@ import ve.smile.enums.EstatusPadrinoEnum;
 import ve.smile.enums.EstatusSolicitudEnum;
 import ve.smile.enums.EstatusTrabajadorEnum;
 import ve.smile.enums.TipoMultimediaEnum;
+import ve.smile.enums.UrgenciaEnum;
 import ve.smile.payload.response.PayloadMultimediaResponse;
 import ve.smile.payload.response.PayloadEstudioSocioEconomicoResponse;
 import ve.smile.payload.response.PayloadEstudioSocioEconomicoResponse;
@@ -65,6 +66,14 @@ public class VM_EstudioSocioEconomicoIndex extends
 	private Date fecha = new Date();
 	
 	private List<Trabajador> trabajadores ;
+	
+	private Trabajador trabajador;
+	
+	private List<EstatusSolicitudEnum> estatusSolicitudEnums;
+	private EstatusSolicitudEnum estatusSolicitudEnum;
+
+	private List<UrgenciaEnum> urgenciaEnums;
+	private UrgenciaEnum urgenciaEnum;
 
 	@Init(superclass = true)
 	public void childInit() {
@@ -74,6 +83,60 @@ public class VM_EstudioSocioEconomicoIndex extends
 		fecha = new Date();
 	}
 
+	public EstatusSolicitudEnum getEstatusSolicitudEnum() {
+		return estatusSolicitudEnum;
+	}
+
+	public void setEstatusSolicitudEnum(
+			EstatusSolicitudEnum estatusSolicitudEnum) {
+		this.estatusSolicitudEnum = estatusSolicitudEnum;
+		this.getSolicitudAyuda().setEstatusSolicitud(
+				estatusSolicitudEnum.ordinal());
+	}
+
+	public List<EstatusSolicitudEnum> getEstatusSolicitudEnums() {
+		if (this.estatusSolicitudEnums == null) {
+			this.estatusSolicitudEnums = new ArrayList<>();
+		}
+		if (this.estatusSolicitudEnums.isEmpty()) {
+			for (EstatusSolicitudEnum estatusSolicitudEnum : EstatusSolicitudEnum
+					.values()) {
+				this.estatusSolicitudEnums.add(estatusSolicitudEnum);
+			}
+		}
+		return estatusSolicitudEnums;
+	}
+
+	public void setEstatusSolicitudEnums(
+			List<EstatusSolicitudEnum> estatusSolicitudEnums) {
+		this.estatusSolicitudEnums = estatusSolicitudEnums;
+	}
+
+	public UrgenciaEnum getUrgenciaEnum() {
+		return urgenciaEnum;
+	}
+
+	public void setUrgenciaEnum(UrgenciaEnum urgenciaEnum) {
+		this.urgenciaEnum = urgenciaEnum;
+		this.getSolicitudAyuda().setUrgencia(urgenciaEnum.ordinal());
+	}
+
+	public List<UrgenciaEnum> getUrgenciaEnums() {
+		if (this.urgenciaEnums == null) {
+			this.urgenciaEnums = new ArrayList<>();
+		}
+		if (this.urgenciaEnums.isEmpty()) {
+			for (UrgenciaEnum urgenciaEnum : UrgenciaEnum.values()) {
+				this.urgenciaEnums.add(urgenciaEnum);
+			}
+		}
+		return urgenciaEnums;
+	}
+
+	public void setUrgenciaEnums(List<UrgenciaEnum> urgenciaEnums) {
+		this.urgenciaEnums = urgenciaEnums;
+	}
+	
 	
 	public List<Trabajador> getTrabajadores() {
 		if (this.trabajadores == null) {
@@ -257,7 +320,7 @@ public class VM_EstudioSocioEconomicoIndex extends
 			try {
 				UtilValidate.validateDate(this.getFecha().getTime(),
 						"Fecha Planificada", ValidateOperator.GREATER_THAN,
-						new SimpleDateFormat("yyyy-MM-dd").format(new Date()),
+						new SimpleDateFormat("yyyy-MM-dd").format(this.getSolicitudAyuda().getFecha()),
 						"dd/MM/yyyy");
 			} catch (Exception e) {
 				return e.getMessage();
@@ -306,6 +369,14 @@ public class VM_EstudioSocioEconomicoIndex extends
 			this.getControllerWindowWizard().updateListBoxAndFooter();
 			BindUtils.postNotifyChange(null, null, this, "objectsList");
 		}
+		
+		if(currentStep==2){
+			this.setSolicitudAyuda(selectedObject);
+		}
+		
+		if(currentStep==3){
+			this.setTrabajador(this.estudioSocioEconomico.getFkTrabajador());
+		}
 	}
 
 
@@ -316,6 +387,16 @@ public class VM_EstudioSocioEconomicoIndex extends
 
 	public void setSolicitudAyuda(SolicitudAyuda solicitudAyuda) {
 		this.solicitudAyuda = solicitudAyuda;
+	}
+
+
+	public Trabajador getTrabajador() {
+		return trabajador;
+	}
+
+
+	public void setTrabajador(Trabajador trabajador) {
+		this.trabajador = trabajador;
 	}
 
 

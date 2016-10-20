@@ -5,93 +5,206 @@
 		
 		
 			<div class="col s12">
-				<div class="input-field offset-s2 col s8">
-				
-				<n:label for="titulo" class="active">Titulo:</n:label>
-					<textbox disabled="true" id="titulo" type="text" maxlength="100"
-						value="@bind(vm.solicitudAyuda.titulo)">
+				<div class="row">
+
+					<div class="input-field col s12">
+						<n:label for="titulo_solicitud" class="active">
+						Titulo Solicitud Ayuda:
+					</n:label>
+					<textbox id="titulo_solicitud" type="text"
+						value="@bind(vm.solicitudAyuda.titulo)" disabled="true">
 					</textbox>
-				</div>
-			</div>
-			
-			
-			
-			<div class="input-field offset-s2 col s8">
-					<n:label for="beneficiario" class="active">Nombre de Beneficiario:</n:label>
-					<textbox id="beneficiario" type="text" value="@bind(vm.beneficiario.fkPersona.nombre)" disabled="true"></textbox>
-				</div>
-			
-				
-				<div class="input-field offset-s2 col s8">
-					<textbox id="ayuda" type="text" value="@bind(vm.ayuda.nombre)" disabled="true"></textbox>
-				</div>
-				
-			
-			
+					</div>
 
-			
-		
-			
-			<div class="col s12">
-				<div class="input-field offset-s2 col s8">
+				</div>
 				
-				<n:label for="estatus_solicitud" class="active">Estatus de Solicitud:</n:label>
-				
+				<div class="row">
 
-								<combobox  disabled="true" id="estatus_solicitud"
-									readonly="true" model="@bind(vm.estatusSolicitudEnums)"
-									selectedItem="@bind(vm.estatusSolicitudEnum)">
-									<template name="model">
-										<comboitem label="@load(each)" />
-									</template>
-								</combobox>
-					
-				</div>
-			</div>
-			
-			<div class="col s12">
-				<div class="input-field offset-s2 col s8">
-				
-				<n:label for="urgencia" class="active">Urgencia:</n:label>
-					
-
-								<combobox disabled="true" id="urgencia"
-									readonly="true" model="@bind(vm.urgenciaEnums)"
-									selectedItem="@bind(vm.urgenciaEnum)">
-									<template name="model">
-										<comboitem label="@load(each)" />
-									</template>
-								</combobox>
-					
-				</div>
-			</div>
-			
-			
-			
-			
-			
-			<div class="col s12">
-				<div class="input-field offset-s2 col s8">
-					
-					<n:label for="fecha_solicitud" class="active">Urgencia:</n:label>
-									<datebox disabled="true" id="fecha_solicitud"
-										cols="20" format="dd/MM/yyyy" readonly="true"
-										value="@bind(vm.fecha)" />
-					
-				</div>
-			</div>
-			
-								
-			
-			<div class="col s12">
-				<div class="input-field offset-s2 col s8">
-				<n:label for="observacion" class="active">Observacion:</n:label>
-					<textbox disabled="true" type="text"
-							sclass="materialize-textarea" multiline="true"
-						value="@bind(vm.solicitudAyuda.observacion)">
+					<div class="input-field col s12">
+						<n:label for="beneficiario_solicitud" class="active">
+						Nombre Beneficiario Solicitud Ayuda:
+					</n:label>
+					<textbox id="beneficiario_solicitud" type="text"
+						value="@bind(vm.solicitudAyuda.fkBeneficiario.fkPersona.nombre)" disabled="true">
 					</textbox>
+					</div>
+
+				</div>
+				
+				<div class="row">
+
+					<div class="input-field col s12">
+						<n:label for="beneficiario2_solicitud" class="active">
+						Apellido Beneficiario Solicitud Ayuda:
+					</n:label>
+					<textbox id="beneficiario2_solicitud" type="text"
+						value="@bind(vm.solicitudAyuda.fkBeneficiario.fkPersona.apellido)" disabled="true">
+					</textbox>
+					</div>
+
+				</div>
+				
+				<div class="row">
+
+					<div class="input-field col s12">
+						<n:label for="beneficiario3_solicitud" class="active">
+						Documento de Identificacion Beneficiario Solicitud Ayuda:
+					</n:label>
+					<textbox id="beneficiario3_solicitud" type="text"
+						value="@bind(vm.solicitudAyuda.fkBeneficiario.fkPersona.identificacion)" disabled="true">
+					</textbox>
+					</div>
+
+				</div>
+				
+				
+				<div class="row">
+
+					<div class="input-field col s12">
+						<n:label for="familiar_solicitud" class="active">
+						Nombre Familiar Solicitud Ayuda:
+					</n:label>
+					<textbox id="familiar_solicitud" type="text"
+						value="@bind(vm.solicitudAyuda.fkBeneficiario.fkFamiliar.fkPersona.nombre)" disabled="true">
+					</textbox>
+					</div>
+
+				</div>
+				
+				<div class="row">
+
+					<div class="input-field col s12">
+						<n:label for="familiar2_solicitud" class="active">
+						Apellido Familiar Solicitud Ayuda:
+					</n:label>
+					<textbox id="familiar2_solicitud" type="text"
+						value="@bind(vm.solicitudAyuda.fkBeneficiario.fkFamiliar.fkPersona.apellido)" disabled="true">
+					</textbox>
+					</div>
+
+				</div>
+				
+				<div class="row">
+
+					<div class="input-field col s12">
+						<n:label for="familiar3_solicitud" class="active">
+						Documento de Identificacion Familiar Solicitud Ayuda:
+					</n:label>
+					<textbox id="familiar3_solicitud" type="text"
+						value="@bind(vm.solicitudAyuda.fkBeneficiario.fkFamiliar.fkPersona.identificacion)" disabled="true">
+					</textbox>
+					</div>
+
+				</div>
+				
+				<div class="row">
+
+					<div class="input-field col s12">
+						<n:label for="ayuda_solicitud" class="active">
+						Ayuda Solicitada:
+					</n:label>
+					<textbox id="ayuda_solicitud" type="text"
+						value="@bind(vm.solicitudAyuda.fkAyuda.nombre)" disabled="true">
+					</textbox>
+					</div>
+
+				</div>
+				
+				<div class="row">
+
+					<div class="input-field col s12">
+						<n:label for="ayuda2_solicitud" class="active">
+						Urgencia Solicitud:
+					</n:label>
+					<textbox id="ayuda2_solicitud" type="text"
+						value="@bind(vm.solicitudAyuda.urgenciaEnum)" disabled="true">
+					</textbox>
+					</div>
+
+				</div>
+				
+				<div class="row">
+
+					<div class="input-field col s12">
+						<n:label for="ayuda3_solicitud" class="active">
+						Estatus Solicitud:
+					</n:label>
+					<textbox id="ayuda3_solicitud" type="text"
+						value="@bind(vm.solicitudAyuda.estatusSolicitudEnum)" disabled="true">
+					</textbox>
+					</div>
+
+				</div>
+				
+				<div class="row">
+
+					<div class="input-field col s12">
+						<n:label for="evaluador_solicitud" class="active">
+						Nombre de Evaluador:
+					</n:label>
+					<textbox id="evaluador_solicitud" type="text"
+						value="@bind(vm.estudioSocioEconomico.fkTrabajador.fkPersona.nombre)" disabled="true">
+					</textbox>
+					</div>
+
+				</div>
+				
+				<div class="row">
+
+					<div class="input-field col s12">
+						<n:label for="evaluador2_solicitud" class="active">
+						Apellido de Evaluador:
+					</n:label>
+					<textbox id="evaluador2_solicitud" type="text"
+						value="@bind(vm.estudioSocioEconomico.fkTrabajador.fkPersona.apellido)" disabled="true">
+					</textbox>
+					</div>
+
+				</div>
+				
+				<div class="row">
+
+					<div class="input-field col s12">
+						<n:label for="evaluador3_solicitud" class="active">
+						Identificacion de Evaluador:
+					</n:label>
+					<textbox id="evaluador3_solicitud" type="text"
+						value="@bind(vm.estudioSocioEconomico.fkTrabajador.fkPersona.identificacion)" disabled="true">
+					</textbox>
+					</div>
+
+				</div>
+				
+				<div class="row">
+
+					<div class="input-field col s12">
+						<n:label for="evaluador4_solicitud" class="active">
+						Fecha de Realizacion de Estudio Socio Economico:
+					</n:label>
+					<textbox id="evaluador4_solicitud" type="text"
+						value="@bind(vm.fechaEjecutada)" disabled="true">
+					</textbox>
+					</div>
+
+				</div>
+				
+				<div class="row">
+
+					<div class="input-field col s12">
+						<n:label for="evaluador5_solicitud" class="active">
+						Resultado de Estudio Socio Economico:
+					</n:label>
+					<textbox id="evaluador5_solicitud" type="text"
+						value="@bind(vm.estudioSocioEconomico.resultado)" disabled="true">
+					</textbox>
+					</div>
+
 				</div>
 			</div>
+			
+			
+			
+			
 			
 			
 					

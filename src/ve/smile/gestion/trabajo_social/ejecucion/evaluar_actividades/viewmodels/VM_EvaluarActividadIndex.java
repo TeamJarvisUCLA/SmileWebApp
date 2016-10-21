@@ -1,4 +1,4 @@
-package ve.smile.gestion.trabajo_social.ejecucion.evaluarActividades.viewmodels;
+package ve.smile.gestion.trabajo_social.ejecucion.evaluar_actividades.viewmodels;
 
 import java.util.ArrayList;
 import java.util.Calendar;

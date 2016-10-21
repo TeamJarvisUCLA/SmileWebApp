@@ -7,7 +7,7 @@
 	<div class="wizard ${arg.animation_}"
 		use="karen.core.wizard.controllers.C_WindowWizard"
 		apply="org.zkoss.bind.BindComposer"
-		viewModel="@id('vm') @init('ve.smile.gestion.trabajo_social.ejecucion.registroResultados.viewmodels.VM_ResultadosIndicadoresActividadesTrabajoSocialPlanificado')">
+		viewModel="@id('vm') @init('ve.smile.gestion.trabajo_social.ejecucion.registro_resultados.viewmodels.VM_ResultadosIndicadoresActividadesTrabajoSocialPlanificado')">
 		<div class="row">
 			<div id="ulHeaderWizard"
 				use="karen.core.wizard.buttons.containers.UlHeaderWizard">

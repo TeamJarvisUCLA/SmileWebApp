@@ -3,12 +3,11 @@
 <?xel-method prefix="m" name="convertirLongADate" class="lights.smile.util.UtilConverterDataList" 
 	signature="java.lang.String convertirLongADate(java.lang.Long)" ?>
 
-
 <zk xmlns:n="native" xmlns:w="client">
-	<div class="wizard ${arg.animation_}"
+	<div class="wizard ${arg.animation_}" style="padding:0px auto"
 		use="karen.core.wizard.controllers.C_WindowWizard"
 		apply="org.zkoss.bind.BindComposer"
-		viewModel="@id('vm') @init('ve.smile.gestion.trabajo_social.ejecucion.evaluar_actividades.viewmodels.VM_EvaluarActividadIndex')">
+		viewModel="@id('vm') @init('ve.smile.gestion.trabajo_social.ejecucion.participacion_actividades.viewmodels.VM_ParticipacionActividadesIndex')">
 		<div class="row">
 			<div id="ulHeaderWizard"
 				use="karen.core.wizard.buttons.containers.UlHeaderWizard">

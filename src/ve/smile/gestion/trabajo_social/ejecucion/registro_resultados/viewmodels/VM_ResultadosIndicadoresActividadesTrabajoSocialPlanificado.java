@@ -1,4 +1,4 @@
-package ve.smile.gestion.trabajo_social.ejecucion.registroResultados.viewmodels;
+package ve.smile.gestion.trabajo_social.ejecucion.registro_resultados.viewmodels;
 
 import java.util.ArrayList;
 import java.util.HashMap;

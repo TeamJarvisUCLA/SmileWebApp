@@ -14,9 +14,6 @@ import lights.core.payload.response.IPayloadResponse;
 
 public class VM_OrganizacionIndex extends VM_WindowSimpleListPrincipal<Organizacion>{
 	
-	
-	
-	
 	@Init(superclass = true)
 	public void childInit() {
 		PayloadOrganizacionResponse payloadOrganizacionResponse = S.OrganizacionService.consultarTodos();
@@ -24,8 +21,6 @@ public class VM_OrganizacionIndex extends VM_WindowSimpleListPrincipal<Organizac
 		setSelectedObject(payloadOrganizacionResponse.getObjetos().get(0));
 		
 	}
-
-
 
 	@Override
 	public IPayloadResponse<Organizacion> getDataToTable(Integer cantidadRegistrosPagina, Integer pagina) {

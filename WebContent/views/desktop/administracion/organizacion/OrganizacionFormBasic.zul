@@ -102,7 +102,6 @@
 			
 			</tabpanel>
 
-
 			<tabpanel>
 				<div class="input-field col s12">
 					<n:label for="direccion" class= "active">Dirección</n:label>

@@ -1,6 +1,8 @@
 package ve.smile.web.viewmodels.detalleNoticia;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.zkoss.bind.annotation.Command;
@@ -51,6 +53,7 @@ public class VM_DetalleNoticia {
 		
 	}
 	
+	
 	@Command
 	@NotifyChange({"noticia"})
 	public void volver() {
@@ -73,4 +76,31 @@ public class VM_DetalleNoticia {
 	
 	}
 
+	private String fecha;	
+	private Date fechaI;
+	
+	private Cartelera carteleras;
+
+	public Cartelera getCarteleras() {
+			this.carteleras = (Cartelera) DataCenter.getEntity();
+		return carteleras;
+	}
+
+	public void setCartelera(Cartelera carteleras) {
+		this.carteleras = carteleras;
+	}
+	public Date getFechaI() {
+		this.fechaI = new Date(getCarteleras().getFechaInicio());		
+		return fechaI;
+	}
+	
+	public String getFecha() {
+	
+			this.fecha=new SimpleDateFormat("dd-MM-yyyy").format(getFechaI());
+			return fecha;
+		
+	}
+
+
+	
 }

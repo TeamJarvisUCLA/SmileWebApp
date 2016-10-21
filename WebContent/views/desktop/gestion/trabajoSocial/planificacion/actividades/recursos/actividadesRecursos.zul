@@ -187,10 +187,10 @@
 													value="@bind(each.fkRecurso.fkUnidadMedida.nombre)" />
 											</cell>
 											<cell sclass="vacacion">
-												<intbox
+												<doublebox format="0.00"
 													style=" margin-top: 4px;height: 1em; border: 1px solid #999999 !important; border-radius: 7px; font-size:1.2em;  text-align: center;"
 													value="@bind(each.cantidad)">
-												</intbox>
+												</doublebox>
 											</cell>
 											<cell>
 												<datebox

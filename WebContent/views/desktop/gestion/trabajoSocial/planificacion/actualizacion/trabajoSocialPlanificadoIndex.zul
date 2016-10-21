@@ -1,0 +1,52 @@
+<?xel-method prefix="m" name="getUrlWeb" class="lights.smile.util.Zki" 
+	signature="java.lang.String getUrlWeb(java.lang.String)" ?>
+<?xel-method prefix="m" name="convertirLongADate" class="lights.smile.util.UtilConverterDataList" 
+	signature="java.lang.String convertirLongADate(java.lang.Long)" ?>
+
+<zk xmlns:n="native" xmlns:w="client">
+	<div width="100%" class="${arg.animation_}"
+		use="karen.core.simple_list_principal.controllers.C_WindowSimpleListPrincipal"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('ve.smile.datos.parametros.actividad.viewmodels.VM_ActividadIndex')">
+
+		<div class="row">
+			<div class="col s12">
+				<listbox id="listbox" model="@load(vm.objectsList)"
+					emptyMessage="No hay Trabajos Sociales Planificados"
+					selectedItem="@bind(vm.selectedObject)">
+
+					<listhead>
+						<listheader width="20%" label="Nombre" />
+						<listheader width="20%" label="Descripción" />
+						<listheader width="15%" label="Fecha Inicio" />
+						<listheader width="15%" label="Fecha Fin" />
+						<listheader width="15%" label="Coordinador" />
+					</listhead>
+					<template name="model">
+						<listitem>
+							<listcell
+								label="@load(each.fkTrabajoSocial.nombre)" />
+							<listcell
+								label="@load(each.fkTrabajoSocial.descripcion)" />
+							<listcell
+								label="${m:convertirLongADate(each.fechaInicio)}" />
+							<listcell
+								label="${m:convertirLongADate(each.fechaFin)}" />
+							<listcell
+								label="@load(each.fkPersona.nombre.concat(' ').concat(each.fkPersona.apellido))" />
+						</listitem>
+					</template>
+					<listfoot>
+						<listfooter id="listFoot" span="5"
+							use="karen.core.listfoot.ListFoot">
+						</listfooter>
+					</listfoot>
+				</listbox>
+			</div>
+		</div>
+
+		<toolbar id="toolbar" align="center"
+			use="karen.core.toolbar.Toolbar">
+		</toolbar>
+	</div>
+</zk>

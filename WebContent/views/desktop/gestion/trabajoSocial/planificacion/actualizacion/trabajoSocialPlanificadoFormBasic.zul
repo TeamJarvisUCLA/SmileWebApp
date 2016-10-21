@@ -1,0 +1,140 @@
+<?component name="uploadImageSingle" macroURI="/assets/theme/components/upload_image_single.zul"?>
+<?xel-method prefix="m" name="getUrlWeb" class="lights.smile.util.Zki" 
+	signature="java.lang.String getUrlWeb(java.lang.String)" ?>
+<zk xmlns:n="native" xmlns:w="client">
+
+	<div sclass="animated fadeInLeft">
+		<div class="row detailSectionWizard">
+			<div class="row">
+				<div sclass="input-field col s11">
+					<n:label for="nombre" class="active">
+						Trabajo Social Seleccionado:
+					</n:label>
+				</div>
+				<div class="input-field col s1"
+					style="font-size: 2em;">
+					<button
+						sclass="teal lighten-1 waves-effect waves-light"
+						onClick="@command('buscarTrabajoSocial')" iconSclass="fa fa-edit"
+						style="padding: 5px 15px; background-color: #2AA4EF !important">
+					</button>
+				</div>
+			</div>
+			<div sclass="row">
+				<div class="input-field col s6">
+					<n:label for="nombre" class="active">
+						Nombre:
+					</n:label>
+					<label style="font-size: 16px;"
+						value="@bind(vm.tsPlan.fkTrabajoSocial.nombre)">
+					</label>
+				</div>
+
+				<div class="input-field col s6">
+					<n:label for="clasficador" class="active">
+						Clasificador:
+					</n:label>
+					<label style="font-size: 16px;"
+						value="@bind(vm.tsPlan.fkTrabajoSocial.fkClasificadorTrabajoSocial.nombre)">
+					</label>
+				</div>
+			</div>
+			<div sclass="row"
+				style="border-bottom: 3px solid #3b85a1; padding-bottom: 15px;">
+				<div class="input-field col s12">
+					<n:label for="decripcion_tsSocial" class="active">
+						Descripción
+					</n:label>
+					<label id="decripcion_tsSocial"
+						style="font-size: 16px;"
+						value="@bind(vm.tsPlan.fkTrabajoSocial.descripcion)">
+					</label>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col s6">
+					<div class="row">
+						<div class="input-field col s12">
+							<n:label for="fecha_inicio"
+								class="active">
+								Fecha Inicio:
+							</n:label>
+							<datebox id="fecha_inicio" readonly="true"
+								cols="20" format="dd/MM/yyyy" value="@bind(vm.fechaInicio)" />
+						</div>
+						<div class="input-field col s12">
+							<n:label for="fecha_fin" class="active">
+								Fecha Fin:
+							</n:label>
+							<datebox id="fecha_fin" readonly="true"
+								cols="20" format="dd/MM/yyyy" value="@bind(vm.fechaFin)" />
+						</div>
+					</div>
+					<div class="row">
+
+						<div class="input-field col s11">
+							<n:label for="lugar" class="active">
+								Lugar:
+							</n:label>
+							<textbox id="lugar" type="text"
+								disabled="true" sclass="materialize-textarea" multiline="true"
+								value="@bind(vm.directorio.nombre.concat(' - ').concat(vm.directorio.direccion))">
+							</textbox>
+
+						</div>
+						<div class="input-field col s1"
+							style="font-size: 2em;">
+							<button
+								sclass="teal lighten-1 waves-effect waves-light"
+								onClick="@command('buscarDirectorio')" iconSclass="fa fa-search"
+								style="padding: 5px 15px; background-color: #2AA4EF !important">
+							</button>
+
+						</div>
+					</div>
+					<div class="row">
+						<div class="input-field col s2">
+							<div align="center"
+								visible="@load(not empty vm.persona.fkMultimedia and not empty vm.persona.fkMultimedia.url)">
+								<image
+									src="${m:getUrlWeb(vm.persona.fkMultimedia.url)}" width="30px"
+									height="30px" sclass="circle">
+								</image>
+							</div>
+						</div>
+						<div class="input-field col s9">
+							<n:label for="responsable" class="active">
+								Responsable:
+							</n:label>
+							<textbox id="responsable" type="text"
+								disabled="true" multiline="true" sclass="materialize-textarea"
+								value="@bind(vm.persona.identificacion.concat(' - ').concat(vm.persona.nombre.concat(' ')).concat(vm.persona.apellido))">
+							</textbox>
+						</div>
+						<div class="input-field col s1"
+							style="font-size: 2em;">
+							<button
+								sclass="teal lighten-1 waves-effect waves-light"
+								onClick="@command('buscarVoluntario')" iconSclass="fa fa-search"
+								style="padding: 5px 15px; background-color: #2AA4EF !important">
+							</button>
+						</div>
+
+					</div>
+				</div>
+				<div class="input-field col s5">
+					<div class="input-field col s12">
+						<label class="center-transform-x"
+							style="    color: #a6a6a6;font-size: 17px;">
+							Imagen del Trabajo Social
+						</label>
+						<uploadImageSingle maxsize="9000" size="200"
+							idUpload="1" title="" />
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</zk>

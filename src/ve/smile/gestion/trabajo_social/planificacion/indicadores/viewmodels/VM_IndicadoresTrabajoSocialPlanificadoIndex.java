@@ -31,6 +31,7 @@ import ve.smile.dto.Indicador;
 import ve.smile.dto.IndicadorTsPlan;
 import ve.smile.dto.PlantillaTrabajoSocialIndicador;
 import ve.smile.dto.TsPlan;
+import ve.smile.enums.EstatusTrabajoSocialPlanificadoEnum;
 import ve.smile.payload.response.PayloadIndicadorResponse;
 import ve.smile.payload.response.PayloadIndicadorTsPlanResponse;
 import ve.smile.payload.response.PayloadTsPlanResponse;
@@ -158,9 +159,14 @@ public class VM_IndicadoresTrabajoSocialPlanificadoIndex extends
 	@Override
 	public IPayloadResponse<TsPlan> getDataToTable(
 			Integer cantidadRegistrosPagina, Integer pagina) {
+		Map<String, String> criterios = new HashMap<>();
+		criterios.put("estatusTsPlan", String
+				.valueOf(EstatusTrabajoSocialPlanificadoEnum.PLANIFICADO
+						.ordinal()));
 
 		PayloadTsPlanResponse payloadTsPlanResponse = S.TsPlanService
-				.consultarPaginacion(cantidadRegistrosPagina, pagina);
+				.consultarPaginacionCriterios(cantidadRegistrosPagina, pagina,
+						TypeQuery.EQUAL, criterios);
 		return payloadTsPlanResponse;
 	}
 

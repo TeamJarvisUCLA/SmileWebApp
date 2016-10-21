@@ -21,6 +21,7 @@ import ve.smile.dto.EventoPlanificado;
 import ve.smile.dto.IndicadorEventoPlanificado;
 import ve.smile.payload.response.PayloadEventoPlanificadoResponse;
 import ve.smile.payload.response.PayloadIndicadorEventoPlanificadoResponse;
+import ve.smile.reportes.Reporte;
 
 public class VM_ReportPlanificadosVsEjecutadosIndex extends VM_WindowWizard {
 
@@ -207,6 +208,19 @@ public class VM_ReportPlanificadosVsEjecutadosIndex extends VM_WindowWizard {
 		}
 		if (currentStep == 2) {
 			parametros.put("titulo", "Reporte Estadistico de Eventos Planificados Vs Ejecutados");
+			
+			String direccion  =  Reporte.class.getResource("Reporte.jasper").getPath().replace("WEB-INF/classes/ve/smile/reportes/Reporte.jasper", "imagenes/logo_fanca.jpg");
+			direccion = direccion.replaceFirst("/", "");
+			System.out.println(direccion);
+			direccion = direccion.replace("/", "\\");
+			System.out.println(direccion);
+			parametros.put("timagen1", direccion);
+			
+			direccion  =  Reporte.class.getResource("Reporte.jasper").getPath().replace("WEB-INF/classes/ve/smile/reportes/Reporte.jasper", "imagenes/smiles_webdesktop.png");
+			direccion = direccion.replaceFirst("/", "");
+			System.out.println(direccion);
+			direccion = direccion.replace("/", "\\");
+			parametros.put("timagen2", direccion);
 			
 			parametros.put("pIndicador", "Indicador");
 			parametros.put("pUnidadDeMedida", "Unidad de Medida");

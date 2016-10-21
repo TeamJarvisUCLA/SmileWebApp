@@ -1,0 +1,240 @@
+<zk xmlns:n="native" xmlns:w="client">
+	<style>
+		.z-auxheader-content, .z-auxheader-content:hover { background:
+		#594e46 !important; border-right: none; height: 41px; color:
+		white; }
+
+		.z-datebox input, .z-datebox-input:focus,
+		.z-datebox-input:active { width: 166px; height: 1.5em
+		!important; border: 1px solid #999999 !important; border-radius:
+		7px; font-size: 1.4em !important; text-align: center !important;
+		margin-top: 4px; background: #f2fca5; } .z-datebox input{
+		border: 1px solid #999999 !important; }
+	</style>
+	<div sclass="row section animated fadeInLeft">
+		<div sclass="row">
+			<div sclass="col s12">
+				<div class=" col s12">
+					<div class=" row line-evento" style="margin:0px"></div>
+				</div>
+				<div class=" col s12">
+					<div sclass="row"
+						style="margin:0px;background: #FFF">
+
+						<div sclass="col s3">
+							<n:br></n:br>
+							<n:br></n:br>
+							<div align="center"
+								visible="@load(not empty vm.selectedObject.fkMultimedia and not empty vm.selectedObject.fkMultimedia.url)">
+								<image
+									class="img-responsive circle center-block"
+									src="${m:getUrlWeb(vm.selectedObject.fkMultimedia.url)}"
+									width="128px" height="128px">
+								</image>
+							</div>
+							<n:br></n:br>
+						</div>
+						<div sclass="col s9" align="center">
+							<div sclass="col s12" align="center">
+								<label sclass="titulo-evento"
+									value="@bind(vm.selectedObject.fkTrabajoSocial.nombre)">
+								</label>
+
+								<label sclass="subtitulo-evento"
+									value="@bind(vm.selectedObject.fkTrabajoSocial.fkClasificadorTrabajoSocial.nombre)">
+								</label>
+
+								<div sclass="row">
+									<label sclass="descripcion-evento"
+										value="@bind(vm.selectedObject.fkTrabajoSocial.descripcion)">
+
+									</label>
+								</div>
+								<div sclass="row">
+									<div sclass="col s8" align="left"
+										style="padding:0px">
+
+										<label
+											sclass="info-titulo-evento">
+											Fecha Inicio:
+										</label>
+										<label
+											sclass="info-descripcion-evento"
+											value="${m:convertirLongADate(vm.selectedObject.fechaInicio)}">
+
+										</label>
+										<label
+											sclass="info-descripcion-evento" value="        ">
+										</label>
+										<label
+											sclass="info-titulo-evento">
+											Fecha Fin:
+										</label>
+										<label
+											sclass="info-descripcion-evento"
+											value="${m:convertirLongADate(vm.selectedObject.fechaFin)}">
+
+										</label>
+										<n:br></n:br>
+										<label
+											sclass="info-titulo-evento">
+											Lugar:
+										</label>
+										<label
+											sclass="info-descripcion-evento"
+											value="@bind(vm.selectedObject.fkDirectorio.nombre)">
+										</label>
+										<n:br></n:br>
+										<label
+											sclass="info-titulo-evento">
+											Dirección:
+										</label>
+										<label
+											sclass="info-descripcion-evento"
+											value="@bind(vm.selectedObject.fkDirectorio.direccion)">
+
+										</label>
+										<n:br></n:br>
+
+									</div>
+									<div sclass="col s4">
+										<image
+											class="img-responsive center-block"
+											src="/imagenes/portal/icon/mapa.png"
+											style="width: auto;padding: 0px;margin: 0px;display: inline-block;">
+										</image>
+										<span
+											class="fa fa-search center-block"
+											style=" width: auto; margin: 0px; display: inline-block;vertical-align: bottom;color:#3b85a1">
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class=" col s12">
+					<div class=" row line-evento" style="margin:0px"></div>
+				</div>
+			</div>
+		</div>
+		<separator height="20px"></separator>
+
+
+		<div sclass="row section">
+			<div sclass="col s12">
+				<grid id="Grid" sclass="periodo grid" height="500px"
+					emptyMessage="No hay actividades asociadas al trabajo social"
+					model="@bind(vm.listTsPlanActividads)">
+					<columns sclass="header-periodo-vacacional">
+						<column width="5%" />
+						<column label="Nombre" sort="auto(nombre)"
+							width="25%" />
+						<column label="Descripción"
+							sort="auto(descripcion)" align="center" width="35%" />
+						<column label="Clasificador de Tarea"
+							sort="auto(clasificadoTarea)" align="center" width="23%" />
+						<column label="Recursos" align="center"
+							width="12%">
+
+						</column>
+					</columns>
+					<template name="model" var="actividad"
+						status="statusActividad">
+						<row style="overflow:auto; max-height:400px"
+							sclass="row-vacaciones">
+
+
+							<detail open="false" fulfill="onOpen">
+
+								<grid sclass="vacacion"
+									model="@bind(actividad.tsPlanActividadRecursos)">
+									<auxhead>
+										<auxheader colspan="6"
+											align="center" label="RECURSOS ASOCIADOS">
+										</auxheader>
+									</auxhead>
+									<columns
+										sclass="header-periodo-disfute">
+										<column label="Nombre"
+											width="15%" />
+										<column label="Descripción"
+											align="center" width="20%" />
+										<column label="Unidad de Medida"
+											align="center" width="20%" />
+										<column label="Cantidad"
+											align="center" width="15%">
+										</column>
+										<column
+											label="Fecha de Asignación" align="center" width="20%">
+										</column>
+										<column label="Eliminar"
+											align="center" width="10%">
+										</column>
+									</columns>
+									<template name="model">
+										<row sclass="last">
+											<cell sclass="vacacion">
+												<label
+													value="@bind(each.fkRecurso.nombre)" />
+											</cell>
+											<cell sclass="vacacion">
+												<label
+													value="@bind(each.fkRecurso.descripcion)" />
+											</cell>
+											<cell sclass="vacacion">
+												<label
+													value="@bind(each.fkRecurso.fkUnidadMedida.nombre)" />
+											</cell>
+											<cell sclass="vacacion">
+												<intbox
+													style=" margin-top: 4px;height: 1em; border: 1px solid #999999 !important; border-radius: 7px; font-size:1.2em;  text-align: center;"
+													value="@bind(each.cantidad)">
+												</intbox>
+											</cell>
+											<cell>
+												<datebox
+													format="dd/MM/yyyy" value="@bind(each.fechaAsignacionDate)"
+													width="190px">
+												</datebox>
+											</cell>
+											<cell sclass="vacacion"
+												style="    border-left: 2px solid #EEEEEE !important;">
+												<button
+													onClick="@command('eliminarRecurso', tsPlanActividadRecurso=each, index=statusActividad.index)"
+													sclass="btn-sm-grid btn-pink " style="margin-left: 3px;"
+													tooltiptext="Eliminar" iconSclass="fa fa-trash">
+												</button>
+											</cell>
+										</row>
+									</template>
+								</grid>
+							</detail>
+
+							<cell sclass="periodo">
+								<label
+									value="@bind(actividad.fkActividad.nombre) " />
+							</cell>
+
+							<cell sclass="periodo">
+								<label
+									value="@bind(actividad.fkActividad.descripcion)" />
+							</cell>
+							<cell sclass="periodo">
+								<label
+									value="@bind(actividad.fkActividad.fkClasificadorActividad.nombre)" />
+							</cell>
+							<cell sclass="periodo">
+								<button sclass="btn-sm-grid"
+									onClick="@command('buscarRecursos', index=statusActividad.index)"
+									iconSclass="fa fa-plus" tooltiptext="Agregar Recursos"
+									style="margin-left: 3px; background-color: #2AA4EF !important; float: center">
+								</button>
+							</cell>
+						</row>
+					</template>
+				</grid>
+			</div>
+		</div>
+	</div>
+</zk>

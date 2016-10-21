@@ -24,6 +24,7 @@ import ve.smile.dto.Profesion;
 import ve.smile.dto.Voluntario;
 import ve.smile.enums.EstatusVoluntarioEnum;
 import ve.smile.payload.response.PayloadVoluntarioResponse;
+import ve.smile.reportes.Reporte;
 
 public class VM_ReporteVoluntarioIndex extends VM_WindowWizard {
 
@@ -579,12 +580,26 @@ public class VM_ReporteVoluntarioIndex extends VM_WindowWizard {
 
 			System.out.println(sql);
 			if (listVoluntarios.isEmpty()) {
-				return "E:Error Code 5-Los criterios seleccionados no aportan información para <b>Voluntarios</b>";
+				return "E:Error Code 5-Los criterios seleccionados no aportan informaciï¿½n para <b>Voluntarios</b>";
 			}
 
 			jrDataSource = new JRBeanCollectionDataSource(listVoluntarios);
 		}
 		if (currentStep == 2) {
+			
+			String direccion  =  Reporte.class.getResource("Reporte.jasper").getPath().replace("WEB-INF/classes/ve/smile/reportes/Reporte.jasper", "imagenes/logo_fanca.jpg");
+			direccion = direccion.replaceFirst("/", "");
+			System.out.println(direccion);
+			direccion = direccion.replace("/", "\\");
+			System.out.println(direccion);
+			parametros.put("timagen1", direccion);
+			
+			direccion  =  Reporte.class.getResource("Reporte.jasper").getPath().replace("WEB-INF/classes/ve/smile/reportes/Reporte.jasper", "imagenes/smiles_webdesktop.png");
+			direccion = direccion.replaceFirst("/", "");
+			System.out.println(direccion);
+			direccion = direccion.replace("/", "\\");
+			parametros.put("timagen2", direccion);
+			
 			type = "pdf";
 			if (!estatusVoluntariosS.equals("")) {
 				tStatus = "Estatus";

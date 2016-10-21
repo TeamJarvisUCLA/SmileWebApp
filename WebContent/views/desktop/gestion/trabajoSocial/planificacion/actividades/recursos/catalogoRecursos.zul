@@ -4,11 +4,11 @@
 		action="show: slideIn;hide: slideOut"
 		use="karen.core.dialog.catalogue.list_pagination.controllers.C_ListPaginationCatalogueDialog"
 		apply="org.zkoss.bind.BindComposer"
-		viewModel="@id('vm') @init('ve.smile.gestion.evento.planificaion.tarea.recursos.viewmodels.VM_CatalogoRecursos', dialogData=arg.get('dialogData'))">
+		viewModel="@id('vm') @init('ve.smile.gestion.trabajo_social.planificacion.actividades.recursos.viewmodels.VM_CatalogoRecursos', dialogData=arg.get('dialogData'))">
 		<caption label="RECURSOS" style="margin-left: 40%;" />
 		<separator height="20px"></separator>
 		<n:h6 style="margin-left: 5%;">
-			Por favor seleccione los recursos para la tarea:
+			Por favor seleccione los recursos para la Actividad:
 		</n:h6>
 		<separator height="20px"></separator>
 		<listbox id="listbox" model="@load(vm.objectList)"

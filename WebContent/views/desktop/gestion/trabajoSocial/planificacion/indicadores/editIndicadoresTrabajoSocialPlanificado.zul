@@ -1,5 +1,120 @@
+<?xel-method prefix="m" name="getUrlWeb" class="lights.smile.util.Zki" 
+	signature="java.lang.String getUrlWeb(java.lang.String)" ?>
+<?xel-method prefix="m" name="convertirLongADate" class="lights.smile.util.UtilConverterDataList" 
+	signature="java.lang.String convertirLongADate(java.lang.Long)" ?>
+
 <zk xmlns:n="native" xmlns:w="client">
 	<div sclass="animated fadeInLeft">
+		<div sclass="row">
+			<div sclass="col s12">
+				<div class=" col s12">
+					<div class=" row line-evento" style="margin:0px">
+					</div>
+				</div>
+				<div class=" col s12">
+					<div sclass="row"
+						style="margin:0px;background: #FFF">
+
+						<div sclass="col s3">
+							<n:br></n:br>
+							<n:br></n:br>
+							<div align="center"
+								visible="@load(not empty vm.selectedObject.fkMultimedia and not empty vm.selectedObject.fkMultimedia.url)">
+								<image
+									class="img-responsive circle center-block"
+									src="${m:getUrlWeb(vm.selectedObject.fkMultimedia.url)}"
+									width="128px" height="128px">
+								</image>
+							</div>
+							<n:br></n:br>
+						</div>
+						<div sclass="col s9" align="center">
+							<div sclass="col s12" align="center">
+								<label sclass="titulo-evento"
+									value="@bind(vm.selectedObject.fkTrabajoSocial.nombre)">
+								</label>
+
+								<label sclass="subtitulo-evento"
+									value="@bind(vm.selectedObject.fkTrabajoSocial.fkClasificadorTrabajoSocial.nombre)">
+								</label>
+
+								<div sclass="row">
+									<label sclass="descripcion-evento"
+										value="@bind(vm.selectedObject.fkTrabajoSocial.descripcion)">
+
+									</label>
+								</div>
+								<div sclass="row">
+									<div sclass="col s8" align="left"
+										style="padding:0px">
+
+										<label
+											sclass="info-titulo-evento">
+											Fecha Inicio:
+										</label>
+										<label
+											sclass="info-descripcion-evento"
+											value="${m:convertirLongADate(vm.selectedObject.fechaInicio)}">
+
+										</label>
+										<label
+											sclass="info-descripcion-evento" value="        ">
+										</label>
+										<label
+											sclass="info-titulo-evento">
+											Fecha Fin:
+										</label>
+										<label
+											sclass="info-descripcion-evento"
+											value="${m:convertirLongADate(vm.selectedObject.fechaFin)}">
+
+										</label>
+										<n:br></n:br>
+										<label
+											sclass="info-titulo-evento">
+											Lugar:
+										</label>
+										<label
+											sclass="info-descripcion-evento"
+											value="@bind(vm.selectedObject.fkDirectorio.nombre)">
+										</label>
+										<n:br></n:br>
+										<label
+											sclass="info-titulo-evento">
+											Dirección:
+										</label>
+										<label
+											sclass="info-descripcion-evento"
+											value="@bind(vm.selectedObject.fkDirectorio.direccion)">
+
+										</label>
+										<n:br></n:br>
+
+									</div>
+									<div sclass="col s4">
+										<image
+											class="img-responsive center-block"
+											src="/imagenes/portal/icon/mapa.png"
+											style="width: auto;padding: 0px;margin: 0px;display: inline-block;">
+										</image>
+										<span
+											class="fa fa-search center-block"
+											style=" width: auto; margin: 0px; display: inline-block;vertical-align: bottom;color:#3b85a1">
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class=" col s12">
+					<div class=" row line-evento" style="margin:0px">
+					</div>
+				</div>
+			</div>
+		</div>
+		<separator height="20px"></separator>
+
 		<div class="row">
 			<div class="col s12" align="center"
 				style="margin-bottom: 15px;">
@@ -31,11 +146,10 @@
 							</listcell>
 
 							<listcell>
-								<intbox
-									style="height: 1em; border: 1px solid #999999; border-radius: 7px; font-size:1.2em;  text-align: center;"
+								<doublebox format="0.00"
+									style="background: #f2fca5; height: 1em; border: 1px solid #999999; border-radius: 7px; font-size:1.2em;  text-align: center;"
 									value="@bind(each.valorEsperado)">
-								</intbox>
-							</listcell>
+								</doublebox>
 						</listitem>
 					</template>
 				</listbox>

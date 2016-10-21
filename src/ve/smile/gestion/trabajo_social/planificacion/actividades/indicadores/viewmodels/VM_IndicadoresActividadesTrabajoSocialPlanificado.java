@@ -28,6 +28,7 @@ import ve.smile.dto.Indicador;
 import ve.smile.dto.IndicadorTsPlanActividad;
 import ve.smile.dto.TsPlan;
 import ve.smile.dto.TsPlanActividad;
+import ve.smile.enums.EstatusTrabajoSocialPlanificadoEnum;
 import ve.smile.payload.response.PayloadIndicadorTsPlanActividadResponse;
 import ve.smile.payload.response.PayloadTsPlanActividadResponse;
 import ve.smile.payload.response.PayloadTsPlanResponse;
@@ -175,8 +176,14 @@ public class VM_IndicadoresActividadesTrabajoSocialPlanificado extends
 	@Override
 	public IPayloadResponse<TsPlan> getDataToTable(
 			Integer cantidadRegistrosPagina, Integer pagina) {
+		Map<String, String> criterios = new HashMap<>();
+		criterios.put("estatusTsPlan", String
+				.valueOf(EstatusTrabajoSocialPlanificadoEnum.PLANIFICADO
+						.ordinal()));
+
 		PayloadTsPlanResponse payloadTsPlanResponse = S.TsPlanService
-				.consultarPaginacion(cantidadRegistrosPagina, pagina);
+				.consultarPaginacionCriterios(cantidadRegistrosPagina, pagina,
+						TypeQuery.EQUAL, criterios);
 		return payloadTsPlanResponse;
 	}
 
@@ -252,6 +259,26 @@ public class VM_IndicadoresActividadesTrabajoSocialPlanificado extends
 			if (selectedObject == null) {
 				return "E:Error Code 5-Debe seleccionar un <b>Trabajo Social Planificado</b>";
 			}
+			Map<String, String> parametro = new HashMap<String, String>();
+			parametro.put("fkTsPlan.idTsPlan",
+					String.valueOf(getTsPlanSelected().getIdTsPlan()));
+
+			this.setListTsPlanActividads(null);
+			PayloadTsPlanActividadResponse payloadTsPlanActividadResponse = S.TsPlanActividadService
+					.contarCriterios(TypeQuery.EQUAL, parametro);
+			if (!UtilPayload.isOK(payloadTsPlanActividadResponse)) {
+				return (String) payloadTsPlanActividadResponse
+						.getInformacion(IPayloadResponse.MENSAJE);
+			}
+
+			Integer countTsPlanActividades = Double.valueOf(
+					String.valueOf(payloadTsPlanActividadResponse
+							.getInformacion(IPayloadResponse.COUNT)))
+					.intValue();
+			if (countTsPlanActividades<= 0) {
+				return "E:Error 0:El trabajo social planificado seleccionado <b>no tiene actividades asignadas.</b>";
+			}
+
 		}
 
 		return "";
@@ -271,17 +298,15 @@ public class VM_IndicadoresActividadesTrabajoSocialPlanificado extends
 
 				for (IndicadorTsPlanActividad indicadorTsPlanActividad : obj
 						.getIndicadorTsPlanActividads()) {
-					IndicadorTsPlanActividad indicadorTsPlanActividad2 = new IndicadorTsPlanActividad(
-							new TsPlanActividad(obj.getIdTsPlanActividad()),
-							indicadorTsPlanActividad.getFkIndicador(), null,
-							null, indicadorTsPlanActividad.getValorEsperado(),
-							new Double(0));
+					IndicadorTsPlanActividad indicadorTsPlanActividad2 = new IndicadorTsPlanActividad();
+					indicadorTsPlanActividad2.setFkTsPlanActividad(new TsPlanActividad(obj.getIdTsPlanActividad()));
+					indicadorTsPlanActividad2.setFkIndicador(indicadorTsPlanActividad.getFkIndicador());
+					indicadorTsPlanActividad2.setValorEsperado(indicadorTsPlanActividad.getValorEsperado());
 					indicadorTsPlanActividad2
 							.setIdIndicadorTsPlanActividad(indicadorTsPlanActividad
 									.getIdIndicadorTsPlanActividad());
 					if (indicadorTsPlanActividad
 							.getIdIndicadorTsPlanActividad() == null) {
-
 						payloadIndicadorTsPlanActividadResponse = S.IndicadorTsPlanActividadService
 								.incluir(indicadorTsPlanActividad2);
 					} else {

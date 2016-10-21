@@ -59,7 +59,7 @@
 				</listitem>
 			</template>
 			<listfoot>
-				<listfooter id="listFoot" span="4"
+				<listfooter id="listFoot" span="6"
 					use="karen.core.listfoot.ListFoot">
 				</listfooter>
 			</listfoot>

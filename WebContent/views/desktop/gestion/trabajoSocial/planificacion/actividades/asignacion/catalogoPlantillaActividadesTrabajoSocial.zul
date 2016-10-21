@@ -19,7 +19,7 @@
 			style="width: 90%; margin-left: 5%;padding-bottom: 5%;">
 
 			<listhead sizable="true">
-				<listheader label="Activida" />
+				<listheader label="Actividad" />
 				<listheader label="Descripción" />
 				<listheader label="Clasificador" />
 			</listhead>

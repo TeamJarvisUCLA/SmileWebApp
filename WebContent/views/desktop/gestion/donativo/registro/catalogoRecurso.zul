@@ -12,7 +12,8 @@
 		<separator height="20px"></separator>
 		<listbox id="listbox" model="@load(vm.objectList)"
 			selectedItem="@bind(vm.selectedObject)"
-			style="width: 90%; margin-left: 5%;padding-bottom: 5%;">
+			style="width: 90%; margin-left: 5%;padding-bottom: 5%;"
+			emptyMessage="No existen elementos para mostrar en la lista">
 			<auxhead>
 				<auxheader>
 					<div>

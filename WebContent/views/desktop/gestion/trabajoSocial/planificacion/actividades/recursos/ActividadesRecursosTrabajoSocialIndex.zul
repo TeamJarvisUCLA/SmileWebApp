@@ -5,10 +5,10 @@
 
 
 <zk xmlns:n="native" xmlns:w="client">
-	<div class="wizard ${arg.animation_}"
+	<div class="wizard ${arg.animation_} "
 		use="karen.core.wizard.controllers.C_WindowWizard"
 		apply="org.zkoss.bind.BindComposer"
-		viewModel="@id('vm') @init('ve.smile.gestion.trabajo_social.ejecucion.evaluarActividades.viewmodels.VM_EvaluarActividadIndex')">
+		viewModel="@id('vm') @init('ve.smile.gestion.trabajo_social.planificacion.actividades.recursos.viewmodels.VM_ActividadesRecursosTrabajoSocialPlanificado')">
 		<div class="row">
 			<div id="ulHeaderWizard"
 				use="karen.core.wizard.buttons.containers.UlHeaderWizard">

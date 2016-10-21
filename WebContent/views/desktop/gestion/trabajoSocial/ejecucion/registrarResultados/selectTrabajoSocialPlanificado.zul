@@ -6,7 +6,7 @@
 		<div class="row">
 			<div class="col s12" align="center"
 				style="margin-bottom: 15px;">
-				<label value="Seleccione el trabajo social planificado"
+				<label value="Seleccione el trabajo social a planificar"
 					sclass="label-medium-500">
 				</label>
 			</div>
@@ -19,16 +19,18 @@
 					<div class="col s12">
 						<listbox id="listbox"
 							model="@load(vm.objectsList)"
+							emptyMessage="No hay Trabajos Sociales Planificados"
 							selectedItem="@bind(vm.selectedObject)">
 
-							<listhead sizable="true">
+							<listhead>
 								<listheader width="20%" label="Nombre" />
 								<listheader width="20%"
 									label="Descripción" />
-								<listheader width="20%"
-									label="Fecha Planificada" />
-								<listheader width="20%" label="Lugar" />
-								<listheader width="20%"
+								<listheader width="15%"
+									label="Fecha Inicio" />
+								<listheader width="15%"
+									label="Fecha Fin" />
+								<listheader width="15%"
 									label="Coordinador" />
 							</listhead>
 							<template name="model">
@@ -36,11 +38,11 @@
 									<listcell
 										label="@load(each.fkTrabajoSocial.nombre)" />
 									<listcell
-										label="@load(each.descripcion)" />
+										label="@load(each.fkTrabajoSocial.descripcion)" />
 									<listcell
-										label="${m:convertirLongADate(each.fechaPlanificada)}" />
+										label="${m:convertirLongADate(each.fechaInicio)}" />
 									<listcell
-										label="@load(each.fkDirectorio.nombre)" />
+										label="${m:convertirLongADate(each.fechaFin)}" />
 									<listcell
 										label="@load(each.fkPersona.nombre.concat(' ').concat(each.fkPersona.apellido))" />
 								</listitem>

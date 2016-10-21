@@ -1,6 +1,7 @@
 package ve.smile.gestion.trabajo_social.planificacion.actividades.recursos.viewmodels;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -30,16 +31,17 @@ import ve.smile.dto.Recurso;
 import ve.smile.dto.TsPlan;
 import ve.smile.dto.TsPlanActividad;
 import ve.smile.dto.TsPlanActividadRecurso;
-import ve.smile.payload.response.PayloadEventoPlanificadoResponse;
+import ve.smile.enums.EstatusTrabajoSocialPlanificadoEnum;
+import ve.smile.payload.response.PayloadTsPlanActividadRecursoResponse;
 import ve.smile.payload.response.PayloadTsPlanActividadResponse;
-import ve.smile.payload.response.PayloadTsPlanActividadTrabajadorResponse;
-import ve.smile.payload.response.PayloadTsPlanActividadVoluntarioResponse;
+import ve.smile.payload.response.PayloadTsPlanResponse;
 
 public class VM_ActividadesRecursosTrabajoSocialPlanificado extends
 		VM_WindowWizard {
 
 	private List<TsPlanActividad> listTsPlanActividads;
 	private int indexActividad;
+	private List<TsPlanActividadRecurso> listTsPlanActividadRecursoDelete;
 
 	@Init(superclass = true)
 	public void childInit() {
@@ -70,7 +72,7 @@ public class VM_ActividadesRecursosTrabajoSocialPlanificado extends
 
 		UtilDialog
 				.showDialog(
-						"views/desktop/gestion/evento/planificacion/tareas/recursos/catalogoRecursos.zul",
+						"views/desktop/gestion/trabajoSocial/planificacion/actividades/recursos/catalogoRecursos.zul",
 						catalogueDialogData);
 	}
 
@@ -104,7 +106,17 @@ public class VM_ActividadesRecursosTrabajoSocialPlanificado extends
 			}
 			validar = true;
 		}
-		BindUtils.postNotifyChange(null, null, this, "tsPlanActividadRecurso");
+		BindUtils.postNotifyChange(null, null, this, "listTsPlanActividads");
+	}
+
+	@Command("eliminarRecurso")
+	public void eliminarRecurso(
+			@BindingParam("tsPlanActividadRecurso") TsPlanActividadRecurso tsPlanActividadRecurso,
+			@BindingParam("index") int index) {
+		this.getListTsPlanActividadRecursoDelete().add(tsPlanActividadRecurso);
+		this.getListTsPlanActividads().get(index).getTsPlanActividadRecursos()
+				.remove(tsPlanActividadRecurso);
+		BindUtils.postNotifyChange(null, null, this, "listTsPlanActividads");
 	}
 
 	@Override
@@ -126,8 +138,10 @@ public class VM_ActividadesRecursosTrabajoSocialPlanificado extends
 		botones.put(2, listOperacionWizard2);
 
 		List<OperacionWizard> listOperacionWizard3 = new ArrayList<OperacionWizard>();
-		listOperacionWizard3.add(OperacionWizardHelper
-				.getPorType(OperacionWizardEnum.CUSTOM1));
+		OperacionWizard operacionWizardCustom = new OperacionWizard(
+				OperacionWizardEnum.CUSTOM1.ordinal(), "Aceptar", "Custom1",
+				"fa fa-check", "indigo", "Aceptar");
+		listOperacionWizard3.add(operacionWizardCustom);
 
 		botones.put(3, listOperacionWizard3);
 
@@ -137,6 +151,54 @@ public class VM_ActividadesRecursosTrabajoSocialPlanificado extends
 	@Override
 	public String executeFinalizar(Integer currentStep) {
 		if (currentStep == 2) {
+			PayloadTsPlanActividadRecursoResponse payloadTsPlanActividadRecursoResponse = new PayloadTsPlanActividadRecursoResponse();
+			for (TsPlanActividad obj : this.getListTsPlanActividads()) {
+				for (TsPlanActividadRecurso tsPlanActividadRecurso : obj
+						.getTsPlanActividadRecursos()) {
+					TsPlanActividadRecurso tsPlanActividadRecurso2 = new TsPlanActividadRecurso();
+					tsPlanActividadRecurso2
+							.setFkTsPlanActividad(new TsPlanActividad(obj
+									.getIdTsPlanActividad()));
+					tsPlanActividadRecurso2.setFkRecurso(tsPlanActividadRecurso
+							.getFkRecurso());
+					tsPlanActividadRecurso2.setCantidad(tsPlanActividadRecurso
+							.getCantidad());
+					tsPlanActividadRecurso2
+							.setFechaAsignacion(tsPlanActividadRecurso
+									.getFechaAsignacion());
+					tsPlanActividadRecurso2
+							.setIdTsPlanActividadRecurso(tsPlanActividadRecurso
+									.getIdTsPlanActividadRecurso());
+					if (tsPlanActividadRecurso2.getIdTsPlanActividadRecurso() == null) {
+						payloadTsPlanActividadRecursoResponse = S.TsPlanActividadRecursoService
+								.incluir(tsPlanActividadRecurso2);
+					} else {
+						payloadTsPlanActividadRecursoResponse = S.TsPlanActividadRecursoService
+								.modificar(tsPlanActividadRecurso2);
+					}
+
+					if (!UtilPayload
+							.isOK(payloadTsPlanActividadRecursoResponse)) {
+						return (String) payloadTsPlanActividadRecursoResponse
+								.getInformacion(IPayloadResponse.MENSAJE);
+					}
+				}
+
+			}
+			for (TsPlanActividadRecurso tsPlanActividadRecurso : this
+					.getListTsPlanActividadRecursoDelete()) {
+				if (tsPlanActividadRecurso.getIdTsPlanActividadRecurso() != null) {
+					payloadTsPlanActividadRecursoResponse = S.TsPlanActividadRecursoService
+							.eliminar(tsPlanActividadRecurso
+									.getIdTsPlanActividadRecurso());
+					if (!UtilPayload
+							.isOK(payloadTsPlanActividadRecursoResponse)) {
+						return (String) payloadTsPlanActividadRecursoResponse
+								.getInformacion(IPayloadResponse.MENSAJE);
+					}
+				}
+
+			}
 
 			goToNextStep();
 		}
@@ -145,11 +207,65 @@ public class VM_ActividadesRecursosTrabajoSocialPlanificado extends
 	}
 
 	@Override
-	public IPayloadResponse<EventoPlanificado> getDataToTable(
+	public String isValidPreconditionsFinalizar(Integer currentStep) {
+
+		if (currentStep == 2) {
+			String actividades = new String();
+			StringBuilder stringBuilder = new StringBuilder();
+			StringBuilder stringBuilder2 = new StringBuilder();
+			Calendar calendar = Calendar.getInstance();
+			calendar.setTime(new Date());
+			calendar.add(Calendar.DAY_OF_YEAR, -1);
+			for (TsPlanActividad tsPlanActividad : this
+					.getListTsPlanActividads()) {
+
+				for (TsPlanActividadRecurso tsPlanActividadRecurso : tsPlanActividad
+						.getTsPlanActividadRecursos()) {
+					if (tsPlanActividadRecurso.getFechaAsignacion() == null) {
+						if (!stringBuilder.toString().trim().isEmpty()) {
+							stringBuilder.append(",  ");
+						}
+						stringBuilder.append(tsPlanActividadRecurso
+								.getFkRecurso().getNombre());
+					}
+
+					if (tsPlanActividadRecurso.getCantidad() == null
+							|| tsPlanActividadRecurso.getCantidad() <= 0) {
+						if (!stringBuilder2.toString().trim().isEmpty()) {
+							stringBuilder2.append(",  ");
+						}
+						stringBuilder2.append(tsPlanActividadRecurso
+								.getFkRecurso().getNombre());
+					}
+				}
+			}
+			actividades = stringBuilder.toString();
+			if (!actividades.trim().isEmpty()) {
+				return "E:Error Code 5-Debe verificar la  <b> Fecha de Asignación </b> de los siguientes recursos: <b>"
+						+ actividades + "</b>";
+			}
+
+			if (!stringBuilder2.toString().trim().isEmpty()) {
+				return "E:Error Code 5-Debe verificar la  <b> Cantidad </b> de los siguientes recursos: <b>"
+						+ stringBuilder2.toString() + "</b>";
+			}
+
+		}
+		return "";
+	}
+
+	@Override
+	public IPayloadResponse<TsPlan> getDataToTable(
 			Integer cantidadRegistrosPagina, Integer pagina) {
-		PayloadEventoPlanificadoResponse payloadEventoPlanificadoResponse = S.EventoPlanificadoService
-				.consultarPaginacion(cantidadRegistrosPagina, pagina);
-		return payloadEventoPlanificadoResponse;
+		Map<String, String> criterios = new HashMap<>();
+		criterios.put("estatusTsPlan", String
+				.valueOf(EstatusTrabajoSocialPlanificadoEnum.PLANIFICADO
+						.ordinal()));
+
+		PayloadTsPlanResponse payloadTsPlanResponse = S.TsPlanService
+				.consultarPaginacionCriterios(cantidadRegistrosPagina, pagina,
+						TypeQuery.EQUAL, criterios);
+		return payloadTsPlanResponse;
 	}
 
 	@Override
@@ -167,9 +283,9 @@ public class VM_ActividadesRecursosTrabajoSocialPlanificado extends
 	public List<String> getUrlPageToStep() {
 		List<String> urls = new ArrayList<String>();
 
-		urls.add("views/desktop/gestion/evento/planificacion/tareas/recursos/selectEventoPlanificado.zul");
-		urls.add("views/desktop/gestion/evento/planificacion/tareas/recursos/tareaRecursos.zul");
-		urls.add("views/desktop/gestion/evento/planificacion/tareas/recursos/registroCompletado.zul");
+		urls.add("views/desktop/gestion/trabajoSocial/planificacion/actividades/recursos/selectTrabajoSocialPlanificado.zul");
+		urls.add("views/desktop/gestion/trabajoSocial/planificacion/actividades/recursos/actividadesRecursos.zul");
+		urls.add("views/desktop/gestion/trabajoSocial/planificacion/actividades/recursos/registroCompletado.zul");
 
 		return urls;
 	}
@@ -195,21 +311,16 @@ public class VM_ActividadesRecursosTrabajoSocialPlanificado extends
 				Map<String, String> criterios = new HashMap<String, String>();
 				criterios.put("fkTsPlanActividad.idTsPlanActividad",
 						String.valueOf(tsPlanActividad.getIdTsPlanActividad()));
-				PayloadTsPlanActividadVoluntarioResponse payloadTsPlanActividadVoluntarioResponse = S.TsPlanActividadVoluntarioService
+				PayloadTsPlanActividadRecursoResponse payloadTsPlanActividadRecursoResponse = S.TsPlanActividadRecursoService
 						.consultarCriterios(TypeQuery.EQUAL, criterios);
-				if (UtilPayload.isOK(payloadTsPlanActividadVoluntarioResponse)) {
+				if (UtilPayload.isOK(payloadTsPlanActividadRecursoResponse)) {
 					tsPlanActividad
-							.setTsPlanActividadVoluntarios(payloadTsPlanActividadVoluntarioResponse
+							.setTsPlanActividadRecursos(payloadTsPlanActividadRecursoResponse
 									.getObjetos());
-				}
-
-				PayloadTsPlanActividadTrabajadorResponse payloadTsPlanActividadTrabajadorResponse = S.TsPlanActividadTrabajadorService
-						.consultarCriterios(TypeQuery.EQUAL, criterios);
-				if (UtilPayload.isOK(payloadTsPlanActividadTrabajadorResponse)) {
-
-					tsPlanActividad
-							.setTsPlanActividadTrabajadors(payloadTsPlanActividadTrabajadorResponse
-									.getObjetos());
+					if (tsPlanActividad.getTsPlanActividadRecursos() == null) {
+						tsPlanActividad
+								.setTsPlanActividadRecursos(new ArrayList<TsPlanActividadRecurso>());
+					}
 				}
 
 			}
@@ -233,6 +344,26 @@ public class VM_ActividadesRecursosTrabajoSocialPlanificado extends
 			if (selectedObject == null) {
 				return "E:Error Code 5-Debe seleccionar un <b>Trabajo Social Planificado</b>";
 			}
+			Map<String, String> parametro = new HashMap<String, String>();
+			parametro.put("fkTsPlan.idTsPlan",
+					String.valueOf(getTsPlanSelected().getIdTsPlan()));
+
+			this.setListTsPlanActividads(null);
+			PayloadTsPlanActividadResponse payloadTsPlanActividadResponse = S.TsPlanActividadService
+					.contarCriterios(TypeQuery.EQUAL, parametro);
+			if (!UtilPayload.isOK(payloadTsPlanActividadResponse)) {
+				return (String) payloadTsPlanActividadResponse
+						.getInformacion(IPayloadResponse.MENSAJE);
+			}
+
+			Integer countTsPlanActividadesTrabajadores = Double.valueOf(
+					String.valueOf(payloadTsPlanActividadResponse
+							.getInformacion(IPayloadResponse.COUNT)))
+					.intValue();
+			if (countTsPlanActividadesTrabajadores <= 0) {
+				return "E:Error 0:El trabajo social planificado seleccionado <b>no tiene actividades asignadas</b>, debe asignarle al menos una.";
+			}
+
 		}
 
 		return "";
@@ -273,6 +404,18 @@ public class VM_ActividadesRecursosTrabajoSocialPlanificado extends
 
 	public void setIndexActividad(int indexActividad) {
 		this.indexActividad = indexActividad;
+	}
+
+	public List<TsPlanActividadRecurso> getListTsPlanActividadRecursoDelete() {
+		if (this.listTsPlanActividadRecursoDelete == null) {
+			listTsPlanActividadRecursoDelete = new ArrayList<>();
+		}
+		return listTsPlanActividadRecursoDelete;
+	}
+
+	public void setListTsPlanActividadRecursoDelete(
+			List<TsPlanActividadRecurso> listTsPlanActividadRecursoDelete) {
+		this.listTsPlanActividadRecursoDelete = listTsPlanActividadRecursoDelete;
 	}
 
 	public TsPlan getTsPlanSelected() {

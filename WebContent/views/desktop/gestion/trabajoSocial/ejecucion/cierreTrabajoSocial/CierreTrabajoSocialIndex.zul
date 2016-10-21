@@ -8,7 +8,7 @@
 	<div class="wizard ${arg.animation_}"
 		use="karen.core.wizard.controllers.C_WindowWizard"
 		apply="org.zkoss.bind.BindComposer"
-		viewModel="@id('vm') @init('ve.smile.gestion.trabajo_social.ejecucion.evaluarActividades.viewmodels.VM_EvaluarActividadIndex')">
+		viewModel="@id('vm') @init('ve.smile.gestion.trabajo_social.ejecucion.cierre_trabajo_social.viewmodels.VM_RegistroCierreTrabajoSocialIndex')">
 		<div class="row">
 			<div id="ulHeaderWizard"
 				use="karen.core.wizard.buttons.containers.UlHeaderWizard">
@@ -28,4 +28,5 @@
 			</div>
 		</div>
 	</div>
+
 </zk>

@@ -16,7 +16,8 @@
 					<div class="col s12">
 						<listbox 
 							model="@load(vm.tipoProcedenciaEnums)"
-							selectedItem="@bind(vm.procedenciaEnums)">
+							selectedItem="@bind(vm.procedenciaEnums)"
+							emptyMessage="No existen registros para mostrar">
 
 							<listhead sizable="true">
 								<listheader width="100%"

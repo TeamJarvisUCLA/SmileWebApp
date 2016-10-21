@@ -1,6 +1,7 @@
 package ve.smile.gestion.trabajo_social.planificacion.actividades.participantes.viewmodels;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +18,7 @@ import karen.core.wizard.buttons.helpers.OperacionWizardHelper;
 import karen.core.wizard.viewmodels.VM_WindowWizard;
 import lights.core.enums.TypeQuery;
 import lights.core.payload.response.IPayloadResponse;
+import lights.smile.util.UtilConverterDataList;
 
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.BindingParam;
@@ -24,12 +26,17 @@ import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
 
 import ve.smile.consume.services.S;
+import ve.smile.dto.NotificacionUsuario;
 import ve.smile.dto.Trabajador;
 import ve.smile.dto.TsPlan;
 import ve.smile.dto.TsPlanActividad;
 import ve.smile.dto.TsPlanActividadTrabajador;
 import ve.smile.dto.TsPlanActividadVoluntario;
 import ve.smile.dto.Voluntario;
+import ve.smile.enums.EstatusNotificacionEnum;
+import ve.smile.enums.EstatusTrabajoSocialPlanificadoEnum;
+import ve.smile.enums.TipoReferenciaNotificacionEnum;
+import ve.smile.payload.response.PayloadNotificacionUsuarioResponse;
 import ve.smile.payload.response.PayloadTsPlanActividadResponse;
 import ve.smile.payload.response.PayloadTsPlanActividadTrabajadorResponse;
 import ve.smile.payload.response.PayloadTsPlanActividadVoluntarioResponse;
@@ -273,8 +280,14 @@ public class VM_ParticipantesActividadesTrabajoSocialPlanificado extends
 	@Override
 	public IPayloadResponse<TsPlan> getDataToTable(
 			Integer cantidadRegistrosPagina, Integer pagina) {
+		Map<String, String> criterios = new HashMap<>();
+		criterios.put("estatusTsPlan", String
+				.valueOf(EstatusTrabajoSocialPlanificadoEnum.PLANIFICADO
+						.ordinal()));
+
 		PayloadTsPlanResponse payloadTsPlanResponse = S.TsPlanService
-				.consultarPaginacion(cantidadRegistrosPagina, pagina);
+				.consultarPaginacionCriterios(cantidadRegistrosPagina, pagina,
+						TypeQuery.EQUAL, criterios);
 		return payloadTsPlanResponse;
 	}
 
@@ -327,6 +340,10 @@ public class VM_ParticipantesActividadesTrabajoSocialPlanificado extends
 					tsPlanActividad
 							.setTsPlanActividadVoluntarios(payloadTsPlanActividadVoluntarioResponse
 									.getObjetos());
+					if (tsPlanActividad.getTsPlanActividadVoluntarios() == null) {
+						tsPlanActividad
+								.setTsPlanActividadVoluntarios(new ArrayList<TsPlanActividadVoluntario>());
+					}
 				}
 
 				PayloadTsPlanActividadTrabajadorResponse payloadTsPlanActividadTrabajadorResponse = S.TsPlanActividadTrabajadorService
@@ -336,6 +353,10 @@ public class VM_ParticipantesActividadesTrabajoSocialPlanificado extends
 					tsPlanActividad
 							.setTsPlanActividadTrabajadors(payloadTsPlanActividadTrabajadorResponse
 									.getObjetos());
+					if (tsPlanActividad.getTsPlanActividadTrabajadors() == null) {
+						tsPlanActividad
+								.setTsPlanActividadTrabajadors(new ArrayList<TsPlanActividadTrabajador>());
+					}
 				}
 
 			}
@@ -359,6 +380,25 @@ public class VM_ParticipantesActividadesTrabajoSocialPlanificado extends
 			if (selectedObject == null) {
 				return "E:Error Code 5-Debe seleccionar un <b>Trabajo Social Planificado</b>";
 			}
+			Map<String, String> parametro = new HashMap<String, String>();
+			parametro.put("fkTsPlan.idTsPlan",
+					String.valueOf(getTsPlanSelected().getIdTsPlan()));
+
+			this.setListTsPlanActividads(null);
+			PayloadTsPlanActividadResponse payloadTsPlanActividadResponse = S.TsPlanActividadService
+					.contarCriterios(TypeQuery.EQUAL, parametro);
+			if (!UtilPayload.isOK(payloadTsPlanActividadResponse)) {
+				return (String) payloadTsPlanActividadResponse
+						.getInformacion(IPayloadResponse.MENSAJE);
+			}
+
+			Integer countTsPlanActividadesTrabajadores = Double.valueOf(
+					String.valueOf(payloadTsPlanActividadResponse
+							.getInformacion(IPayloadResponse.COUNT)))
+					.intValue();
+			if (countTsPlanActividadesTrabajadores <= 0) {
+				return "E:Error 0:El trabajo social planificado seleccionado <b>no tiene actividades asignadas</b>, debe asignarle al menos una.";
+			}
 		}
 
 		return "";
@@ -374,18 +414,19 @@ public class VM_ParticipantesActividadesTrabajoSocialPlanificado extends
 	public String isValidSearchDataFinalizar(Integer currentStep) {
 		if (currentStep == 2) {
 			PayloadTsPlanActividadTrabajadorResponse payloadTsPlanActividadTrabajadorResponse = new PayloadTsPlanActividadTrabajadorResponse();
+			PayloadTsPlanActividadVoluntarioResponse payloadTsPlanActividadVoluntarioResponse = new PayloadTsPlanActividadVoluntarioResponse();
 			for (TsPlanActividad obj : this.getListTsPlanActividads()) {
 
 				for (TsPlanActividadTrabajador tsPlanActividadTrabajador : obj
 						.getTsPlanActividadTrabajadors()) {
-					TsPlanActividadTrabajador tsPlanActividadTrabajador2 = new TsPlanActividadTrabajador(
-							tsPlanActividadTrabajador.getFkTrabajador(),
-							new TsPlanActividad(obj.getIdTsPlanActividad()),
-							null, null,
-							tsPlanActividadTrabajador.getEjecucion(), null,
-							tsPlanActividadTrabajador.getParticipacion(),
-							tsPlanActividadTrabajador.getObservacion(),
-							tsPlanActividadTrabajador.getEstatusActividad());
+					TsPlanActividadTrabajador tsPlanActividadTrabajador2 = new TsPlanActividadTrabajador();
+					tsPlanActividadTrabajador2
+							.setFkTrabajador(tsPlanActividadTrabajador
+									.getFkTrabajador());
+					tsPlanActividadTrabajador2
+							.setFkTsPlanActividad(new TsPlanActividad(obj
+									.getIdTsPlanActividad()));
+
 					tsPlanActividadTrabajador2
 							.setIdTsPlanActividadTrabajador(tsPlanActividadTrabajador
 									.getIdTsPlanActividadTrabajador());
@@ -404,30 +445,46 @@ public class VM_ParticipantesActividadesTrabajoSocialPlanificado extends
 						return (String) payloadTsPlanActividadTrabajadorResponse
 								.getInformacion(IPayloadResponse.MENSAJE);
 					}
+					if (tsPlanActividadTrabajador.getFkTrabajador()
+							.getFkPersona().getFkUsuario() != null) {
+						String contenido = "Se le ha asignado la Actividad "
+								+ obj.getFkActividad().getNombre()
+								+ " del Trabajo Social "
+								+ obj.getFkTsPlan().getFkTrabajoSocial()
+										.getNombre()
+								+ " que debe realizar el "
+								+ UtilConverterDataList.convertirLongADate(obj
+										.getFechaPlanificada());
+						NotificacionUsuario notificacionUsuario = new NotificacionUsuario(
+								tsPlanActividadTrabajador.getFkTrabajador()
+										.getFkPersona().getFkUsuario(),
+								new Date().getTime(), obj.getFkTsPlan()
+										.getIdTsPlan(),
+								EstatusNotificacionEnum.PENDIENTE.ordinal(),
+								TipoReferenciaNotificacionEnum.ACTIVIDAD
+										.ordinal(), contenido);
+						PayloadNotificacionUsuarioResponse payloadNotificacionUsuarioResponse = S.NotificacionUsuarioService
+								.incluir(notificacionUsuario);
+						if (!UtilPayload
+								.isOK(payloadNotificacionUsuarioResponse)) {
+							return (String) payloadNotificacionUsuarioResponse
+									.getInformacion(IPayloadResponse.MENSAJE);
+						}
+					}
+
 				}
 
-			}
-			for (TsPlanActividadTrabajador tsPlanActividadTrabajador : this
-					.getListTsPlanActividadTrabajadors()) {
-				if (tsPlanActividadTrabajador.getIdTsPlanActividadTrabajador() != null) {
-					payloadTsPlanActividadTrabajadorResponse = S.TsPlanActividadTrabajadorService
-							.eliminar(tsPlanActividadTrabajador
-									.getIdTsPlanActividadTrabajador());
-				}
-
-			}
-
-			PayloadTsPlanActividadVoluntarioResponse payloadTsPlanActividadVoluntarioResponse = new PayloadTsPlanActividadVoluntarioResponse();
-			for (TsPlanActividad obj : this.getListTsPlanActividads()) {
 				for (TsPlanActividadVoluntario tsPlanActividadVoluntario : obj
 						.getTsPlanActividadVoluntarios()) {
-					TsPlanActividadVoluntario tsPlanActividadVoluntario2 = new TsPlanActividadVoluntario(
-							new TsPlanActividad(obj.getIdTsPlanActividad()),
-							tsPlanActividadVoluntario.getFkVoluntario(), null,
-							null, tsPlanActividadVoluntario.getEjecucion(),
-							null, tsPlanActividadVoluntario.getParticipacion(),
-							tsPlanActividadVoluntario.getObservacion(),
-							tsPlanActividadVoluntario.getEstatusActividad());
+					TsPlanActividadVoluntario tsPlanActividadVoluntario2 = new TsPlanActividadVoluntario();
+
+					tsPlanActividadVoluntario2
+							.setFkTsPlanActividad(new TsPlanActividad(obj
+									.getIdTsPlanActividad()));
+
+					tsPlanActividadVoluntario2
+							.setFkVoluntario(tsPlanActividadVoluntario
+									.getFkVoluntario());
 					tsPlanActividadVoluntario2
 							.setIdTsPlanActividadVoluntario(tsPlanActividadVoluntario
 									.getIdTsPlanActividadVoluntario());
@@ -446,20 +503,55 @@ public class VM_ParticipantesActividadesTrabajoSocialPlanificado extends
 						return (String) payloadTsPlanActividadVoluntarioResponse
 								.getInformacion(IPayloadResponse.MENSAJE);
 					}
+
+					if (tsPlanActividadVoluntario.getFkVoluntario()
+							.getFkPersona().getFkUsuario() != null) {
+						String contenido = "Se le ha asignado la Actividad "
+								+ obj.getFkActividad().getNombre()
+								+ " del Trabajo Social "
+								+ obj.getFkTsPlan().getFkTrabajoSocial()
+										.getNombre()
+								+ " que debe realizar el "
+								+ UtilConverterDataList.convertirLongADate(obj
+										.getFechaPlanificada());
+						NotificacionUsuario notificacionUsuario = new NotificacionUsuario(
+								tsPlanActividadVoluntario.getFkVoluntario()
+										.getFkPersona().getFkUsuario(),
+								new Date().getTime(), obj.getFkTsPlan()
+										.getIdTsPlan(),
+								EstatusNotificacionEnum.PENDIENTE.ordinal(),
+								TipoReferenciaNotificacionEnum.ACTIVIDAD
+										.ordinal(), contenido);
+						PayloadNotificacionUsuarioResponse payloadNotificacionUsuarioResponse = S.NotificacionUsuarioService
+								.incluir(notificacionUsuario);
+						if (!UtilPayload
+								.isOK(payloadNotificacionUsuarioResponse)) {
+							return (String) payloadNotificacionUsuarioResponse
+									.getInformacion(IPayloadResponse.MENSAJE);
+						}
+					}
 				}
 
 			}
+			for (TsPlanActividadTrabajador tsPlanActividadTrabajador : this
+					.getListTsPlanActividadTrabajadors()) {
+				if (tsPlanActividadTrabajador.getIdTsPlanActividadTrabajador() != null) {
+					payloadTsPlanActividadTrabajadorResponse = S.TsPlanActividadTrabajadorService
+							.eliminar(tsPlanActividadTrabajador
+									.getIdTsPlanActividadTrabajador());
+				}
+
+			}
+
 			for (TsPlanActividadVoluntario tsPlanActividadVoluntario : this
 					.getListTsPlanActividadVoluntarios()) {
 				if (tsPlanActividadVoluntario.getIdTsPlanActividadVoluntario() != null) {
-					payloadTsPlanActividadTrabajadorResponse = S.TsPlanActividadTrabajadorService
+					payloadTsPlanActividadVoluntarioResponse = S.TsPlanActividadVoluntarioService
 							.eliminar(tsPlanActividadVoluntario
 									.getIdTsPlanActividadVoluntario());
 				}
 
 			}
-
-			goToNextStep();
 		}
 		return "";
 	}

@@ -37,6 +37,11 @@
 					<textbox id="imagen" type="text" maxlength="100"
 						value="@bind(vm.organizacion.fkMultimedia.url)">
 					</textbox>
+					<image 
+								class="img-responsive center-block"
+								src="@bind(vm.organizacion.fkMultimedia.url)"
+								style="width: auto;padding: 0px;margin: 0px;display: inline-block;">
+					</image>
 				</div>
 				
 				<div class="input-field col s12">
@@ -69,7 +74,6 @@
 				
 			</tabpanel>
 			
-			
 			<tabpanel>
 				<div class="input-field col s6">
 						<n:label for="correo" class= "active">Correo</n:label>
@@ -87,6 +91,12 @@
 						<n:label for="telefono2" class= "active">Telefono2</n:label>
 						<textbox id="telefono2" type="text"  maxlength="100"
 							value="@bind(vm.organizacion.telefono2)">
+						</textbox>
+					</div>
+					<div class="input-field col s6">
+						<n:label for="fax" class= "active">Fax</n:label>
+						<textbox id="fax" type="text"  maxlength="100"
+							value="@bind(vm.organizacion.fax)">
 						</textbox>
 					</div>
 			

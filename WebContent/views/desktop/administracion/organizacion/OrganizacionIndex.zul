@@ -5,33 +5,66 @@
 		viewModel="@id('vm') @init('ve.smile.administracion.organizacion.viewmodels.VM_OrganizacionIndex')">
 
 		<div class="row">
-			<div class="col s12">
-				<div class="col s12">
-					<listbox id="listbox" model="@load(vm.objectsList)"
-						selectedItem="@bind(vm.selectedObject)">
-						<listhead sizable="true">
-							<listheader width="25%" label="Rif" />
-							<listheader width="25%" label="Nombre" />
-							<listheader width="25%" label="Correo" />                   
-							<listheader width="25%" label="Teléfono" />
-							
-						</listhead>
-						<template name="model">
-							<listitem>
-								<listcell label="@load(each.rif)" />
-								<listcell label="@load(each.nombre)" />
-								<listcell label="@load(each.correo)" />             
-								<listcell label="@load(each.telefono)" />
-							</listitem>
-						</template>
-						<listfoot>
-							<listfooter id="listFoot" span="4"
-								use="karen.core.listfoot.ListFoot">
-							</listfooter>
-						</listfoot>
-					</listbox>
+		 	<div class="col s12">
+					<div sclass="row">
+						<div class="input-field col s6">
+							<n:label for="rif" class="active">
+								Rif:
+							</n:label>
+							<label style="font-size: 16px;"
+								value="@bind(vm.selectedObject.rif)">
+							</label>
+						</div>
+
+						<div class="input-field col s6">
+							<n:label for="nombre" class="active">
+								Nombre:
+							</n:label>
+							<label style="font-size: 16px;"
+								value="@bind(vm.selectedObject.nombre)">
+							</label>
+						</div>
+					</div>
+		
+				<div sclass="row">
+						<div class="input-field col s12">
+							<n:label for="direccion" class="active">
+								Dirección:
+							</n:label>
+							<label style="font-size: 16px;"
+								value="@bind(vm.selectedObject.direccion)">
+							</label>
+						</div>			
 				</div>
-			</div>
+				
+				<div sclass="row">
+						<div class="input-field col s6">
+							<n:label for="telefono" class="active">
+								Teléfono:
+							</n:label>
+							<label style="font-size: 16px;"
+								value="@bind(vm.selectedObject.telefono)">
+							</label>
+						</div>
+
+						<div class="input-field col s6">
+							<n:label for="correo" class="active">
+								Correo:
+							</n:label>
+							<label style="font-size: 16px;"
+								value="@bind(vm.selectedObject.correo)">
+							</label>
+						</div>
+				</div>		
+						<div sclass="col s4">
+							<image 
+								class="img-responsive center-block"
+								src="@bind(vm.selectedObject.fkMultimedia.url)"
+								style="width: auto;padding: 0px;margin: 0px;display: inline-block;">
+							</image>
+										
+						</div>	
+			</div>	
 		</div>
 
 		<toolbar id="toolbar" align="center"

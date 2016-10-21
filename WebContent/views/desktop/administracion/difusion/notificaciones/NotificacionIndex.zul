@@ -1,0 +1,85 @@
+<?xel-method prefix="m" name="convertirLongADate" class="lights.smile.util.UtilConverterDataList" signature="java.lang.String convertirLongADate(Long)"?>
+
+<zk xmlns:n="native" xmlns:w="client">
+
+	<style>
+		input { background: #FFFFFF !important; height: 17px; }
+
+		.page-content-main input[type="text"], .page-content-main
+		input[type="password"], .page-content-main input[type="email"],
+		.page-content-main input[type="url"], .page-content-main
+		input[type="time"], .page-content-main input[type="date"],
+		.page-content-main input[type="datetime-local"],
+		.page-content-main input[type="tel"], .page-content-main
+		input[type="number"], .page-content-main input[type="search"],
+		.page-content-main textarea.materialize-textarea { height: 23px;
+		font-size: 1.2em; }
+
+		.z-combobox-inplace .z-combobox-input, .z-bandbox-inplace
+		.z-bandbox-input, .z-datebox-inplace .z-datebox-input,
+		.z-timebox-inplace .z-timebox-input, .z-spinner-inplace
+		.z-spinner-input, .z-doublespinner-inplace
+		.z-doublespinner-input { border: 0; padding: 0px; }
+	</style>
+
+	<div width="100%" class='${arg.animation_}'
+		use="karen.core.simple_list_principal.controllers.C_WindowSimpleListPrincipal"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('ve.smile.administracion.difusion.notificaciones.viewmodels.VM_NotificacionIndex')">
+
+		<div class="row">
+			<div class="col s12">
+				<div class="col s12">
+					<listbox id="listbox" model="@load(vm.objectsList)"  selectedItem="@bind(vm.selectedObject)" emptyMessage="No hay notificaciones para mostrar">
+						
+						<auxhead>
+							<auxheader>
+								<div sclass="col s12">
+									<span class="prefix filter fa fa-filter"> </span>
+									<combobox id="Referencia" inplace="true" tooltip="Referencia" model="@bind(vm.tipoReferenciaNotificacionEnums)" onChange="@command('changeFilter')" style="background: rgb(89, 78, 70); margin: 0px; margin-left: 6px; margin-top: 0px; display: inline;  width: 75%;" selectedItem="@bind(vm.tipoReferenciaNotificacionEnum)">
+										<template name="model">
+											<comboitem label="@load(each.toString())" />
+										</template>
+									</combobox>
+								</div>
+							</auxheader>
+							<auxheader></auxheader>
+							<auxheader>
+								<div sclass="col s12">
+									<span class="prefix filter fa fa-filter"> </span>
+									<combobox id="Estatus" inplace="true" tooltip="Estatus" model="@bind(vm.estatusNotificacionEnums)" onChange="@command('changeFilter')" style="background: rgb(89, 78, 70); margin: 0px; margin-left: 6px; margin-top: 0px; display: inline;  width: 75%;" selectedItem="@bind(vm.estatusNotificacionEnum)">
+										<template name="model">
+											<comboitem label="@load(each.toString())" />
+										</template>
+									</combobox>
+								</div>
+							</auxheader>
+						</auxhead>
+						
+						<listhead sizable="true">
+							<listheader width="25%" label="Fecha" />
+							<listheader width="50%" label="Usuario" />
+							<listheader width="25%" label="Tipo de referencia" />
+						</listhead>
+						<template name="model">
+							<listitem>
+								<listcell label="${m:convertirLongADate(each.fecha)}" />
+								<listcell label="@load(each.fkUsuario.correo)" />
+								<listcell label="@load(each.tipoReferenciaNotificacionEnum)" />
+							</listitem>
+						</template>
+						<listfoot>
+							<listfooter id="listFoot" span="3"
+								use="karen.core.listfoot.ListFoot">
+							</listfooter>
+						</listfoot>
+					</listbox>
+				</div>
+			</div>
+		</div>
+
+		<toolbar id="toolbar" align="center"
+			use="karen.core.toolbar.Toolbar">
+		</toolbar>
+	</div>
+</zk>

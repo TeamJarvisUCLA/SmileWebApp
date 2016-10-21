@@ -298,17 +298,15 @@ public class VM_IndicadoresActividadesTrabajoSocialPlanificado extends
 
 				for (IndicadorTsPlanActividad indicadorTsPlanActividad : obj
 						.getIndicadorTsPlanActividads()) {
-					IndicadorTsPlanActividad indicadorTsPlanActividad2 = new IndicadorTsPlanActividad(
-							new TsPlanActividad(obj.getIdTsPlanActividad()),
-							indicadorTsPlanActividad.getFkIndicador(), null,
-							null, indicadorTsPlanActividad.getValorEsperado(),
-							new Double(0));
+					IndicadorTsPlanActividad indicadorTsPlanActividad2 = new IndicadorTsPlanActividad();
+					indicadorTsPlanActividad2.setFkTsPlanActividad(new TsPlanActividad(obj.getIdTsPlanActividad()));
+					indicadorTsPlanActividad2.setFkIndicador(indicadorTsPlanActividad.getFkIndicador());
+					indicadorTsPlanActividad2.setValorEsperado(indicadorTsPlanActividad.getValorEsperado());
 					indicadorTsPlanActividad2
 							.setIdIndicadorTsPlanActividad(indicadorTsPlanActividad
 									.getIdIndicadorTsPlanActividad());
 					if (indicadorTsPlanActividad
 							.getIdIndicadorTsPlanActividad() == null) {
-
 						payloadIndicadorTsPlanActividadResponse = S.IndicadorTsPlanActividadService
 								.incluir(indicadorTsPlanActividad2);
 					} else {

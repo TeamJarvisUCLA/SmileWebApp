@@ -11,7 +11,8 @@
 		<div sclass="row">
 			<div sclass="col s12">
 				<div class=" col s12">
-					<div class=" row line-evento" style="margin:0px"></div>
+					<div class=" row line-evento" style="margin:0px">
+					</div>
 				</div>
 				<div class=" col s12">
 					<div sclass="row"
@@ -20,25 +21,29 @@
 						<div sclass="col s3">
 							<n:br></n:br>
 							<n:br></n:br>
-							<image class="img-responsive center-block"
-								src="/imagenes/portal/icon/icon-bingo.png" width="128px"
-								height="128px">
-							</image>
+							<div align="center"
+								visible="@load(not empty vm.selectedObject.fkMultimedia and not empty vm.selectedObject.fkMultimedia.url)">
+								<image
+									class="img-responsive circle center-block"
+									src="${m:getUrlWeb(vm.selectedObject.fkMultimedia.url)}"
+									width="128px" height="128px">
+								</image>
+							</div>
 							<n:br></n:br>
 						</div>
 						<div sclass="col s9" align="center">
 							<div sclass="col s12" align="center">
 								<label sclass="titulo-evento"
-									value="@bind(vm.selectedObject.fkEvento.nombre)">
+									value="@bind(vm.selectedObject.fkTrabajoSocial.nombre)">
 								</label>
 
 								<label sclass="subtitulo-evento"
-									value="@bind(vm.selectedObject.fkEvento.fkClasificadorEvento.nombre)">
+									value="@bind(vm.selectedObject.fkTrabajoSocial.fkClasificadorTrabajoSocial.nombre)">
 								</label>
 
 								<div sclass="row">
 									<label sclass="descripcion-evento"
-										value="@bind(vm.selectedObject.fkEvento.descripcion)">
+										value="@bind(vm.selectedObject.fkTrabajoSocial.descripcion)">
 
 									</label>
 								</div>
@@ -48,10 +53,24 @@
 
 										<label
 											sclass="info-titulo-evento">
-											Fecha:
+											Fecha Inicio:
 										</label>
 										<label
-											sclass="info-descripcion-evento" value="">
+											sclass="info-descripcion-evento"
+											value="${m:convertirLongADate(vm.selectedObject.fechaInicio)}">
+
+										</label>
+										<label
+											sclass="info-descripcion-evento" value="        ">
+										</label>
+										<label
+											sclass="info-titulo-evento">
+											Fecha Fin:
+										</label>
+										<label
+											sclass="info-descripcion-evento"
+											value="${m:convertirLongADate(vm.selectedObject.fechaFin)}">
+
 										</label>
 										<n:br></n:br>
 										<label
@@ -92,15 +111,17 @@
 					</div>
 				</div>
 				<div class=" col s12">
-					<div class=" row line-evento" style="margin:0px"></div>
+					<div class=" row line-evento" style="margin:0px">
+					</div>
 				</div>
 			</div>
 		</div>
 		<separator height="20px"></separator>
+
 		<div class="row">
 			<div class="col s12" align="center">
 				<div class="col s12">
-					<n:h6>Evento ejecutado</n:h6>
+					<n:h6>Trabajo Social Ejecutado</n:h6>
 				</div>
 				<div class="col s12">
 					<div class="input-field col s6 offset-s3">
@@ -150,18 +171,36 @@
 			<div class="row">
 				<div class="input-field offset-s1 col s4">
 					<n:label for="nombre" class="active">
-						Fecha de Planificada
+						Fecha de Inicio Planificada
 					</n:label>
 					<datebox format="dd/MM/yyyy"
-						value="@bind(vm.fechaPlanificada)" disabled="true">
+						value="@bind(vm.fechaPlanificadaInicio)" disabled="true">
 					</datebox>
 				</div>
 				<div class="input-field offset-s1 col s4">
 					<n:label for="nombre" class="active">
-						Fecha de Ejecución
+						Fecha de Fin Planificada
+					</n:label>
+					<datebox format="dd/MM/yyyy" disabled="true"
+						value="@bind(vm.fechaPlanificadaFin)">
+					</datebox>
+				</div>
+			</div>
+			<div class="row">
+				<div class="input-field offset-s1 col s4">
+					<n:label for="nombre" class="active">
+						Fecha de Inicio de Ejecución
 					</n:label>
 					<datebox format="dd/MM/yyyy"
-						value="@bind(vm.fechaEjecucion)">
+						value="@bind(vm.fechaEjecucionInicio)">
+					</datebox>
+				</div>
+				<div class="input-field offset-s1 col s4">
+					<n:label for="nombre" class="active">
+						Fecha de Fin de Ejecución
+					</n:label>
+					<datebox format="dd/MM/yyyy"
+						value="@bind(vm.fechaEjecucionFin)">
 					</datebox>
 				</div>
 			</div>
@@ -169,7 +208,8 @@
 			<div class="row">
 				<div class="col s12" align="center"
 					style="margin-bottom: 15px;">
-					<label value="Complete la información del evento"
+					<label
+						value="Complete la información del Trabajo Social"
 						sclass="label-medium-500">
 					</label>
 				</div>
@@ -180,14 +220,15 @@
 				<div class="col s12">
 
 					<listbox height="300px"
-						emptyMessage="No hay indicadores asociados al evento."
-						model="@bind(vm.indicadorEventoPlanificado)">
+						emptyMessage="No hay indicadores asociados al Trabajo Social Planificado."
+						model="@bind(vm.indicadorTsPlans)">
 						<listhead sizable="true">
-							<listheader label="Indicador" />
-							<listheader label="Unidad de Medida" />
-							<listheader label="Valor Esperado"
-								align="center" />
-							<listheader label="Valor Real"
+							<listheader width="30%" label="Indicador" />
+							<listheader width="30%"
+								label="Unidad de Medida" />
+							<listheader width="20%"
+								label="Valor Esperado" align="center" />
+							<listheader width="20%" label="Valor Real"
 								align="center" />
 						</listhead>
 						<template name="model">
@@ -200,16 +241,16 @@
 								</listcell>
 
 								<listcell>
-									<intbox
-										style="    height: 1em; border: 1px solid #999999; border-radius: 7px; font-size:1.2em;  text-align: center;"
+									<doublebox format="0.00"
+										style="   background: #f2fca5 !important; height: 1em; border: 1px solid #999999; border-radius: 7px; font-size:1.2em;  text-align: center;"
 										value="@bind(each.valorEsperado)" disabled="true">
-									</intbox>
+									</doublebox>
 								</listcell>
 								<listcell>
-									<intbox
-										style="    height: 1em; border: 1px solid #999999; border-radius: 7px; font-size:1.2em;  text-align: center;"
+									<doublebox format="0.00"
+										style="   background: #f2fca5; height: 1em; border: 1px solid #999999; border-radius: 7px; font-size:1.2em;  text-align: center;"
 										value="@bind(each.valorReal)">
-									</intbox>
+									</doublebox>
 								</listcell>
 							</listitem>
 						</template>

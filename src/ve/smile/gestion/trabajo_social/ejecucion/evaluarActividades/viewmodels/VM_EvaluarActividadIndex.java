@@ -23,6 +23,7 @@ import lights.core.payload.response.IPayloadResponse;
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
+import org.zkoss.bind.annotation.Init;
 
 import ve.smile.consume.services.S;
 import ve.smile.dto.Motivo;
@@ -38,6 +39,11 @@ public class VM_EvaluarActividadIndex extends VM_WindowWizard {
 	private int indexActividad;
 	private Motivo motivo = new Motivo();
 
+	@Init(superclass = true)
+	public void childInit() {
+
+	}
+	
 	@Command("changeCheck")
 	public void changeCheck(@BindingParam("index") int index,
 			@BindingParam("check") boolean check) {
@@ -146,8 +152,15 @@ public class VM_EvaluarActividadIndex extends VM_WindowWizard {
 					.consultarCriterios(TypeQuery.EQUAL, parametro);
 			if (UtilPayload.isOK(payloadTsPlanActividadResponse)) {
 				if (payloadTsPlanActividadResponse.getObjetos() != null) {
-					this.getListTsPlanActividads().addAll(
-							payloadTsPlanActividadResponse.getObjetos());
+
+					for (TsPlanActividad tsPlanActividad : payloadTsPlanActividadResponse
+							.getObjetos()) {
+						if (tsPlanActividad.getFechaEjecutada() == null) {
+							tsPlanActividad.setFechaEjecutada(tsPlanActividad
+									.getFechaPlanificada());
+						}
+						this.getListTsPlanActividads().add(tsPlanActividad);
+					}
 				}
 
 			}

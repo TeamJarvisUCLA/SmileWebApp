@@ -155,16 +155,21 @@ public class VM_ActividadesRecursosTrabajoSocialPlanificado extends
 			for (TsPlanActividad obj : this.getListTsPlanActividads()) {
 				for (TsPlanActividadRecurso tsPlanActividadRecurso : obj
 						.getTsPlanActividadRecursos()) {
-					TsPlanActividadRecurso tsPlanActividadRecurso2 = new TsPlanActividadRecurso(
-							new TsPlanActividad(obj.getIdTsPlanActividad()),
-							tsPlanActividadRecurso.getFkRecurso(),
-							tsPlanActividadRecurso.getCantidad(),
-							tsPlanActividadRecurso.getFechaAsignacion());
+					TsPlanActividadRecurso tsPlanActividadRecurso2 = new TsPlanActividadRecurso();
+					tsPlanActividadRecurso2
+							.setFkTsPlanActividad(new TsPlanActividad(obj
+									.getIdTsPlanActividad()));
+					tsPlanActividadRecurso2.setFkRecurso(tsPlanActividadRecurso
+							.getFkRecurso());
+					tsPlanActividadRecurso2.setCantidad(tsPlanActividadRecurso
+							.getCantidad());
+					tsPlanActividadRecurso2
+							.setFechaAsignacion(tsPlanActividadRecurso
+									.getFechaAsignacion());
 					tsPlanActividadRecurso2
 							.setIdTsPlanActividadRecurso(tsPlanActividadRecurso
 									.getIdTsPlanActividadRecurso());
 					if (tsPlanActividadRecurso2.getIdTsPlanActividadRecurso() == null) {
-
 						payloadTsPlanActividadRecursoResponse = S.TsPlanActividadRecursoService
 								.incluir(tsPlanActividadRecurso2);
 					} else {

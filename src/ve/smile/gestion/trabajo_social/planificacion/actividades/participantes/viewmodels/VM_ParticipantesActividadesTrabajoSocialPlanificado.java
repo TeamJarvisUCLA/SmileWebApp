@@ -419,14 +419,14 @@ public class VM_ParticipantesActividadesTrabajoSocialPlanificado extends
 
 				for (TsPlanActividadTrabajador tsPlanActividadTrabajador : obj
 						.getTsPlanActividadTrabajadors()) {
-					TsPlanActividadTrabajador tsPlanActividadTrabajador2 = new TsPlanActividadTrabajador(
-							tsPlanActividadTrabajador.getFkTrabajador(),
-							new TsPlanActividad(obj.getIdTsPlanActividad()),
-							null, null,
-							tsPlanActividadTrabajador.getEjecucion(), null,
-							tsPlanActividadTrabajador.getParticipacion(),
-							tsPlanActividadTrabajador.getObservacion(),
-							tsPlanActividadTrabajador.getEstatusActividad());
+					TsPlanActividadTrabajador tsPlanActividadTrabajador2 = new TsPlanActividadTrabajador();
+					tsPlanActividadTrabajador2
+							.setFkTrabajador(tsPlanActividadTrabajador
+									.getFkTrabajador());
+					tsPlanActividadTrabajador2
+							.setFkTsPlanActividad(new TsPlanActividad(obj
+									.getIdTsPlanActividad()));
+
 					tsPlanActividadTrabajador2
 							.setIdTsPlanActividadTrabajador(tsPlanActividadTrabajador
 									.getIdTsPlanActividadTrabajador());
@@ -476,13 +476,15 @@ public class VM_ParticipantesActividadesTrabajoSocialPlanificado extends
 
 				for (TsPlanActividadVoluntario tsPlanActividadVoluntario : obj
 						.getTsPlanActividadVoluntarios()) {
-					TsPlanActividadVoluntario tsPlanActividadVoluntario2 = new TsPlanActividadVoluntario(
-							new TsPlanActividad(obj.getIdTsPlanActividad()),
-							tsPlanActividadVoluntario.getFkVoluntario(), null,
-							null, tsPlanActividadVoluntario.getEjecucion(),
-							null, tsPlanActividadVoluntario.getParticipacion(),
-							tsPlanActividadVoluntario.getObservacion(),
-							tsPlanActividadVoluntario.getEstatusActividad());
+					TsPlanActividadVoluntario tsPlanActividadVoluntario2 = new TsPlanActividadVoluntario();
+
+					tsPlanActividadVoluntario2
+							.setFkTsPlanActividad(new TsPlanActividad(obj
+									.getIdTsPlanActividad()));
+
+					tsPlanActividadVoluntario2
+							.setFkVoluntario(tsPlanActividadVoluntario
+									.getFkVoluntario());
 					tsPlanActividadVoluntario2
 							.setIdTsPlanActividadVoluntario(tsPlanActividadVoluntario
 									.getIdTsPlanActividadVoluntario());
@@ -544,7 +546,7 @@ public class VM_ParticipantesActividadesTrabajoSocialPlanificado extends
 			for (TsPlanActividadVoluntario tsPlanActividadVoluntario : this
 					.getListTsPlanActividadVoluntarios()) {
 				if (tsPlanActividadVoluntario.getIdTsPlanActividadVoluntario() != null) {
-					payloadTsPlanActividadVoluntarioResponse= S.TsPlanActividadVoluntarioService
+					payloadTsPlanActividadVoluntarioResponse = S.TsPlanActividadVoluntarioService
 							.eliminar(tsPlanActividadVoluntario
 									.getIdTsPlanActividadVoluntario());
 				}

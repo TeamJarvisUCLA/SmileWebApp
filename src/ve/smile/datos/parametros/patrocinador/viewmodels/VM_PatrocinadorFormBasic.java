@@ -2,11 +2,7 @@ package ve.smile.datos.parametros.patrocinador.viewmodels;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -22,7 +18,6 @@ import karen.core.form.buttons.data.OperacionForm;
 import karen.core.form.buttons.enums.OperacionFormEnum;
 import karen.core.form.buttons.helpers.OperacionFormHelper;
 import karen.core.form.viewmodels.VM_WindowForm;
-import karen.core.util.UtilDialog;
 import karen.core.util.payload.UtilPayload;
 import karen.core.util.validate.UtilValidate;
 import karen.core.util.validate.UtilValidate.ValidateOperator;
@@ -30,7 +25,6 @@ import lights.core.enums.TypeQuery;
 import lights.smile.util.UtilMultimedia;
 import lights.smile.util.Zki;
 
-import org.apache.commons.io.FileUtils;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
@@ -42,11 +36,9 @@ import ve.smile.dto.Estado;
 import ve.smile.dto.Multimedia;
 import ve.smile.dto.Patrocinador;
 import ve.smile.dto.Persona;
-import ve.smile.enums.EstatusColaboradorEnum;
 import ve.smile.enums.TipoMultimediaEnum;
 import ve.smile.enums.TipoPersonaEnum;
 import ve.smile.payload.response.PayloadCiudadResponse;
-import ve.smile.payload.response.PayloadColaboradorResponse;
 import ve.smile.payload.response.PayloadEstadoResponse;
 import ve.smile.payload.response.PayloadMultimediaResponse;
 import ve.smile.payload.response.PayloadPatrocinadorResponse;
@@ -292,7 +284,7 @@ public class VM_PatrocinadorFormBasic extends VM_WindowForm implements
 		if (operacionEnum.equals(OperacionEnum.INCLUIR)) {
 			Patrocinador patrocinador = this.getPatrocinador();
 			patrocinador.setFechaIngreso(this.getFechaIngreso().getTime());
-			patrocinador.setFechaSalida(new Date().getTime());
+			
 
 			if (bytes != null) {
 				Multimedia multimedia = new Multimedia();

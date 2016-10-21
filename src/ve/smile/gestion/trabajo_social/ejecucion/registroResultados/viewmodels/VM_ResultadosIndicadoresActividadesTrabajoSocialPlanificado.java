@@ -220,19 +220,24 @@ public class VM_ResultadosIndicadoresActividadesTrabajoSocialPlanificado extends
 					tsPlanActividad
 							.setIndicadorTsPlanActividads(new ArrayList<IndicadorTsPlanActividad>());
 					if (payloadIndicadorTsPlanActividadResponse.getObjetos() != null) {
-						tsPlanActividad.getIndicadorTsPlanActividads().addAll(
-								payloadIndicadorTsPlanActividadResponse
-										.getObjetos());
-						System.err.println(payloadIndicadorTsPlanActividadResponse
-										.getObjetos().size());
+
+						for (IndicadorTsPlanActividad indicadorTsPlanActividad : payloadIndicadorTsPlanActividadResponse
+								.getObjetos()) {
+							if (indicadorTsPlanActividad.getValorReal() == null) {
+								indicadorTsPlanActividad
+										.setValorReal(indicadorTsPlanActividad
+												.getValorEsperado());
+							}
+							tsPlanActividad.getIndicadorTsPlanActividads().add(
+									indicadorTsPlanActividad);
+						}
 					}
 
 				}
 
 			}
 
-			BindUtils
-					.postNotifyChange(null, null, this, "*");
+			BindUtils.postNotifyChange(null, null, this, "*");
 
 		}
 

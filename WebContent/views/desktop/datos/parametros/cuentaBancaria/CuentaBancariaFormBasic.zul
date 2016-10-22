@@ -56,13 +56,31 @@
 			</div>
 
 			<div class="input-field col s6">
-				<n:label for="propietario">Tipo de cuenta</n:label>
-				<textbox id="propietario" type="text" maxlength="100"
-					disabled="true" value="@bind(vm.propietarioEnum)">
-				</textbox>
-			</div>
-		</div>
 
+				<n:label for="tipo_reconocimiento" class="active">
+					TIPO DE PROPIETARIO
+				</n:label>
+				
+				<combobox id="fk_estado" readonly="true"
+					model="@bind(vm.propietarioEnums)"
+					selectedItem="@bind(vm.propietarioEnum)">
+					<template name="model">
+						<comboitem label="@load(each)" />
+					</template>
+				</combobox>
+				<span 
+					sclass="fa fa-question-circle fa-lg help-icon-special"
+					tooltip="pop_propietario, position=after_end" />
+			</div>
+			
+		</div>
+		<popup id="pop_propietario" width="200px">
+			<html>				
+				<![CDATA[ Por favor, indique un tipo de propietario sobre
+				la cuenta bancaria  que desea registrar.<br /><font
+				color="#3b85a1">Ejemplo:ORGANIZACIÓN.</font> ]]>
+			</html>
+		</popup>
 		<div id="divButtonsForm"
 			use="karen.core.form.buttons.containers.DivButtonsForm">
 		</div>

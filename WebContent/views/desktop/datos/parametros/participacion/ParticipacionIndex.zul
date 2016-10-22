@@ -12,18 +12,38 @@
 						emptyMessage="No existen elementos para mostrar en la lista">
 
 						<listhead sizable="true">
-							<listheader width="50%" label="Nombre" />
-							<listheader width="50%" label="Descripción" />
+							<listheader width="30%" label="Nombre" />
+							<listheader width="30%" label="Descripción" />
+							<listheader width="10%" label="Formulario"
+								align="center" />
+							<listheader width="30%"
+								label="Tipo Formulario" />
 						</listhead>
 						<template name="model">
 							<listitem>
 								<listcell label="@load(each.nombre)" />
 								<listcell
 									label="@load(each.descripcion)" />
+								<listcell>
+									<label value="SI"
+										visible="@load(each.formulario)">
+									</label>
+									<label value="NO"
+										visible="@load(!each.formulario)">
+									</label>
+								</listcell>
+								<listcell>
+									<label value="VOLUNTARIO"
+										visible="@load(each.tipoFormulario eq 0)">
+									</label>
+									<label value="PADRINO"
+										visible="@load(each.tipoFormulario eq 1)">
+									</label>
+									</listcell>
 							</listitem>
 						</template>
 						<listfoot>
-							<listfooter id="listFoot" span="3"
+							<listfooter id="listFoot" span="4"
 								use="karen.core.listfoot.ListFoot">
 							</listfooter>
 						</listfoot>

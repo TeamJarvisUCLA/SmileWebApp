@@ -81,7 +81,8 @@ public class VM_DirectorioFormBasic extends VM_WindowForm implements
 		}
 
 		if (this.getDirectorio() != null
-				&& this.getDirectorio().getFkMultimedia() != null) {
+				&& this.getDirectorio().getFkMultimedia() != null
+				&& this.getDirectorio().getFkMultimedia().getIdMultimedia() != null) {
 
 			this.setUrlImage(this.getDirectorio().getFkMultimedia().getUrl());
 
@@ -254,7 +255,9 @@ public class VM_DirectorioFormBasic extends VM_WindowForm implements
 			}
 			Multimedia multimedia = this.getDirectorio().getFkMultimedia();
 
-			if (bytes == null && this.getDirectorio().getFkMultimedia() != null) {
+			if (bytes == null
+					&& this.getDirectorio().getFkMultimedia() != null
+					&& this.getDirectorio().getFkMultimedia().getIdMultimedia() != null) {
 				Zki.remove(this.getDirectorio().getFkMultimedia().getUrl());
 				getDirectorio().setFkMultimedia(null);
 			}
@@ -262,7 +265,8 @@ public class VM_DirectorioFormBasic extends VM_WindowForm implements
 			PayloadDirectorioResponse payloadDirectorioResponse = S.DirectorioService
 					.modificar(getDirectorio());
 
-			if (bytes == null && multimedia != null) {
+			if (bytes == null &&  multimedia != null
+					&& multimedia.getIdMultimedia() != null) {
 				PayloadMultimediaResponse payloadMultimediaResponse = S.MultimediaService
 						.eliminar(multimedia.getIdMultimedia());
 				if (!UtilPayload.isOK(payloadMultimediaResponse)) {

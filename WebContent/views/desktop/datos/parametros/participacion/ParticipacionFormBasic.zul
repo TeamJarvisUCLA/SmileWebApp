@@ -1,10 +1,5 @@
 <?component name="uploadImageSingle" macroURI="/assets/theme/components/upload_image_single.zul"?>
 <zk xmlns:n="native" xmlns:w="client">
-<style>
-		.center-transform-x { transform: inherit !important; left: auto
-		!important; } .center-transform-x.center-transform-y {
-		transform: translateX(200%) translateY(-57%) !important; }
-	</style>
 	<div width="80%" class="container ${arg.animation_}"
 		use="karen.core.form.controllers.C_WindowForm"
 		apply="org.zkoss.bind.BindComposer"
@@ -36,54 +31,103 @@
 			</div>
 
 			<div class="row">
-				<div class="col s12">
-					<div class="input-field offset-s2 col s8">
-						<uploadImageSingle maxsize="9000" size="200"
-							idUpload="1" title="Imagen referente a la Participación" />
+			
+					<div class=" col offset-s2 col s4 ">
+						<div class="row">
+							<div class="input-field s11">
+								<n:div class="switch">
+									<n:label>
+										NO
+										<checkbox
+											checked="@bind(vm.participacion.formulario)">
+										</checkbox>
+										SI
+									</n:label>
+									<span style="    margin-left: 20px;"
+									sclass="fa fa-question-circle fa-lg help-icon"
+									tooltip="pop_formulario, position=after_end" />
+								</n:div>
+								
+							</div>
+						</div>
+						<div class="row"
+							visible="@bind(vm.participacion.formulario)">
+							<div class="input-field s12">
+								<n:label for="tipo_reconocimiento" class="active">
+									Tipo de Formulario
+								</n:label>
+								<combobox id="fk_estado" readonly="true"
+									model="@bind(vm.tipoFormularioEnums)"
+									selectedItem="@bind(vm.tipoFormularioEnum)">
+									<template name="model">
+										<comboitem label="@load(each)" />
+									</template>
+								</combobox>
+								<span style="    margin-left: 20px;"
+									sclass="fa fa-question-circle fa-lg help-icon"
+									tooltip="pop_tipoformulario, position=after_end" />
+							</div>
+						</div>
 					</div>
-				</div>
+
+					<div class="col s4">
+						<div class="row" align="center">
+							<div class="col s12">
+								<uploadImageSingle maxsize="9000"
+									size="200" idUpload="1" title=" Imagen" />
+							</div>
+						</div>
+					</div>
 			</div>
 
 		</div>
 
 
 		<popup id="pop_nombre" width="200px">
-			<html>
-
-				
+			<html>				
 				<![CDATA[ Por favor, indique el nombre de la
 				participación que desea registrar.<br /><font
 				color="#3b85a1">Ejemplo: Voluntariado Extra
 				Hospitalario.</font> ]]>
-				
-				
+
 			</html>
 		</popup>
 
 		<popup id="pop_multimedia" width="200px">
 			<html>
 
-				
-				<![CDATA[ Por favor, seleccione un archivo
-				multimedia.]]>
-				
+				<![CDATA[ Por favor, seleccione una imagen para mostrar en el portal.]]>
 				
 			</html>
 		</popup>
 
 		<popup id="pop_descripcion" width="200px">
-			<html>
-
-				
+			<html>				
 				<![CDATA[ Por favor, indique una descripción breve,
 				sobre la participación que desea registrar.<br /><font
 				color="#3b85a1">Ejemplo:Participan en las actividades
 				que realiza la fundación fuera del hospital.</font> ]]>
-				
-				
+
 			</html>
 		</popup>
 
+		<popup id="pop_formulario" width="200px">
+			<html>
+				
+				<![CDATA[ Por favor, indique si la información de
+				participación lleva un formulario de postulación</font>
+				]]>
+
+			</html>
+		</popup>
+				<popup id="pop_tipoformulario" width="200px">
+			<html>				
+				<![CDATA[ Por favor, indique un tipo de formulario
+				sobre la participación que desea registrar.<br /><font
+				color="#3b85a1">Ejemplo:VOLUNTARIOS.</font> ]]>
+
+			</html>
+		</popup>
 
 		<div id="divButtonsForm"
 			use="karen.core.form.buttons.containers.DivButtonsForm">

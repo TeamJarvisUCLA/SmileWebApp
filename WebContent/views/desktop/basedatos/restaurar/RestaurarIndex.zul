@@ -9,7 +9,8 @@
 		<div class="row">
 			<div class="col s12">
 				<div class="col s8">
-					<listbox id="listbox" model="@load(vm.objectsList)" onSelect="@command('findByRespaldo')"
+					<listbox id="listbox" model="@load(vm.objectsList)"
+						onSelect="@command('findByRespaldo')"
 						selectedItem="@bind(vm.selectedObject)">
 						<auxhead>
 							<auxheader>
@@ -23,6 +24,7 @@
 									</textbox>
 								</div>
 							</auxheader>
+							<auxheader></auxheader>
 						</auxhead>
 						<listhead sizable="true">
 							<listheader width="50%"
@@ -33,8 +35,8 @@
 						<template name="model">
 							<listitem>
 								<listcell
-									label="@load(each.fkMultimedia.nombre)" />
-
+									label="@load(each.fkMultimedia.nombre)">
+								</listcell>
 								<listcell
 									label="${m:convertirLongATimestamp(each.fechaRespaldo)}" />
 							</listitem>
@@ -47,22 +49,24 @@
 					</listbox>
 
 				</div>
-									<div class="col s4" style="margin-left:-40px;">
-						<listbox id="listbox2"
-							model="@load(vm.listsTabla)"
-							 mold="paging"
-							pageSize="10">
-							<listhead sizable="true">
-								<listheader width="49%" label="Nombre" />
-							</listhead>
-							<template name="model">
-								<listitem>
-									<listcell
-										label="@load(each.nombre)" />
-								</listitem>
-							</template>
-						</listbox>
-					</div>
+				<div class="col s4">
+					<listbox id="listbox2" model="@load(vm.listsTabla)"
+						mold="paging" pageSize="10">
+						<listhead sizable="true">
+							<listheader width="49%" label="Nombre" />
+						</listhead>
+						<template name="model">
+							<listitem>
+								<listcell label="@load(each.nombre)">
+									<zscript>	<![CDATA[
+	self.label = each.nombre.substring(3).replace('_', ' ');
+]]>
+</zscript>
+								</listcell>
+							</listitem>
+						</template>
+					</listbox>
+				</div>
 			</div>
 		</div>
 

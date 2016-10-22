@@ -150,6 +150,7 @@
 									style="background: #f2fca5; height: 1em; border: 1px solid #999999; border-radius: 7px; font-size:1.2em;  text-align: center;"
 									value="@bind(each.valorEsperado)">
 								</doublebox>
+							</listcell>
 						</listitem>
 					</template>
 				</listbox>

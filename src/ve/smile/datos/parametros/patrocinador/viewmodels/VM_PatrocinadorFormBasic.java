@@ -85,7 +85,9 @@ public class VM_PatrocinadorFormBasic extends VM_WindowForm implements
 					.getTipoPersona()]);
 		}
 		if (this.getPatrocinador().getFkPersona() != null
-				&& this.getPatrocinador().getFkPersona().getFkMultimedia() != null) {
+				&& this.getPatrocinador().getFkPersona().getFkMultimedia() != null
+				&& this.getPatrocinador().getFkPersona().getFkMultimedia()
+						.getIdMultimedia() != null) {
 			this.setUrlImage(this.getPersona().getFkMultimedia().getUrl());
 			this.nameImage = this.getPersona().getFkMultimedia().getNombre();
 			this.extensionImage = nameImage.substring(nameImage
@@ -252,8 +254,6 @@ public class VM_PatrocinadorFormBasic extends VM_WindowForm implements
 		this.getCiudades().addAll(payloadCiudadResponse.getObjetos());
 	}
 
-
-
 	@Override
 	public List<OperacionForm> getOperationsForm(OperacionEnum operacionEnum) {
 		List<OperacionForm> operacionesForm = new ArrayList<OperacionForm>();
@@ -284,7 +284,6 @@ public class VM_PatrocinadorFormBasic extends VM_WindowForm implements
 		if (operacionEnum.equals(OperacionEnum.INCLUIR)) {
 			Patrocinador patrocinador = this.getPatrocinador();
 			patrocinador.setFechaIngreso(this.getFechaIngreso().getTime());
-			
 
 			if (bytes != null) {
 				Multimedia multimedia = new Multimedia();
@@ -397,7 +396,8 @@ public class VM_PatrocinadorFormBasic extends VM_WindowForm implements
 				Alert.showMessage(payloadPersonaResponse);
 				return true;
 			}
-			if (bytes == null && multimedia != null && multimedia.getIdMultimedia() != null) {
+			if (bytes == null && multimedia != null
+					&& multimedia.getIdMultimedia() != null) {
 				PayloadMultimediaResponse payloadMultimediaResponse = S.MultimediaService
 						.eliminar(multimedia.getIdMultimedia());
 				if (!UtilPayload.isOK(payloadMultimediaResponse)) {
@@ -484,101 +484,101 @@ public class VM_PatrocinadorFormBasic extends VM_WindowForm implements
 	}
 
 	// Propiedades de la Imagen
-		public String getNameImage() {
-			return nameImage;
-		}
+	public String getNameImage() {
+		return nameImage;
+	}
 
-		public void setNameImage(String nameImage) {
-			this.nameImage = nameImage;
-		}
+	public void setNameImage(String nameImage) {
+		this.nameImage = nameImage;
+	}
 
-		public String getExtensionImage() {
-			return extensionImage;
-		}
+	public String getExtensionImage() {
+		return extensionImage;
+	}
 
-		public void setExtensionImage(String extensionImage) {
-			this.extensionImage = extensionImage;
-		}
+	public void setExtensionImage(String extensionImage) {
+		this.extensionImage = extensionImage;
+	}
 
-		public String getUrlImage() {
-			return urlImage;
-		}
+	public String getUrlImage() {
+		return urlImage;
+	}
 
-		public void setUrlImage(String urlImage) {
-			this.urlImage = urlImage;
-		}
+	public void setUrlImage(String urlImage) {
+		this.urlImage = urlImage;
+	}
 
-		public String getTypeMedia() {
-			return typeMedia;
-		}
+	public String getTypeMedia() {
+		return typeMedia;
+	}
 
-		public void setTypeMedia(String typeMedia) {
-			this.typeMedia = typeMedia;
-		}
+	public void setTypeMedia(String typeMedia) {
+		this.typeMedia = typeMedia;
+	}
 
-		@Override
-		public BufferedImage getImageContent() {
-			if (bytes != null) {
-				try {
-					return ImageIO.read(new ByteArrayInputStream(bytes));
-				} catch (IOException e) {
-					return null;
-				}
+	@Override
+	public BufferedImage getImageContent() {
+		if (bytes != null) {
+			try {
+				return ImageIO.read(new ByteArrayInputStream(bytes));
+			} catch (IOException e) {
+				return null;
 			}
-
-			if (urlImage != null) {
-				bytes = Zki.getBytes(urlImage);
-				return Zki.getBufferedImage(urlImage);
-			}
-
-			return null;
 		}
 
-		@Override
-		public void onUploadImageSingle(UploadEvent event, String idUpload) {
-			org.zkoss.util.media.Media media = event.getMedia();
+		if (urlImage != null) {
+			bytes = Zki.getBytes(urlImage);
+			return Zki.getBufferedImage(urlImage);
+		}
 
-			if (media instanceof org.zkoss.image.Image) {
+		return null;
+	}
 
-				if (UtilMultimedia.validateImage(media.getName().substring(
-						media.getName().lastIndexOf(".") + 1))) {
-					this.bytes = media.getByteData();
-					this.extensionImage = media.getName().substring(
-							media.getName().lastIndexOf(".") + 1);
-					this.typeMedia = media.getContentType();
+	@Override
+	public void onUploadImageSingle(UploadEvent event, String idUpload) {
+		org.zkoss.util.media.Media media = event.getMedia();
 
-					if (this.getPersona().getIdPersona() != null) {
-						this.nameImage = new StringBuilder().append(Zki.PERSONAS)
-								.append(this.getPersona().getIdPersona())
-								.append(".").append(extensionImage).toString();
+		if (media instanceof org.zkoss.image.Image) {
 
-						this.urlImage = new StringBuilder().append(Zki.PERSONAS)
-								.append(this.getPersona().getIdPersona())
-								.append(".").append(extensionImage).toString();
+			if (UtilMultimedia.validateImage(media.getName().substring(
+					media.getName().lastIndexOf(".") + 1))) {
+				this.bytes = media.getByteData();
+				this.extensionImage = media.getName().substring(
+						media.getName().lastIndexOf(".") + 1);
+				this.typeMedia = media.getContentType();
 
-					}
-				} else {
-					this.getPersona().setFkMultimedia(null);
-					Alert.showMessage("E: Error Code: 100-El formato de la <b>imagen</b> es inválido");
+				if (this.getPersona().getIdPersona() != null) {
+					this.nameImage = new StringBuilder().append(Zki.PERSONAS)
+							.append(this.getPersona().getIdPersona())
+							.append(".").append(extensionImage).toString();
+
+					this.urlImage = new StringBuilder().append(Zki.PERSONAS)
+							.append(this.getPersona().getIdPersona())
+							.append(".").append(extensionImage).toString();
 
 				}
 			} else {
 				this.getPersona().setFkMultimedia(null);
 				Alert.showMessage("E: Error Code: 100-El formato de la <b>imagen</b> es inválido");
+
 			}
+		} else {
+			this.getPersona().setFkMultimedia(null);
+			Alert.showMessage("E: Error Code: 100-El formato de la <b>imagen</b> es inválido");
 		}
+	}
 
-		@Override
-		public void onRemoveImageSingle(String idUpload) {
-			bytes = null;
-		}
+	@Override
+	public void onRemoveImageSingle(String idUpload) {
+		bytes = null;
+	}
 
-		public byte[] getBytes() {
-			return bytes;
-		}
+	public byte[] getBytes() {
+		return bytes;
+	}
 
-		public void setBytes(byte[] bytes) {
-			this.bytes = bytes;
-		}
+	public void setBytes(byte[] bytes) {
+		this.bytes = bytes;
+	}
 
 }

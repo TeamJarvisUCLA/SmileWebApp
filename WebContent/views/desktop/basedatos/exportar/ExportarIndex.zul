@@ -1,62 +1,127 @@
 <zk xmlns:n="native" xmlns:w="client">
-	<div width="100%"
+	<div width="100%" class="${arg.animation_}"
 		apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('ve.smile.basedatos.viewmodels.VM_ExportarIndex')">
-
 		<div class="row">
-			<div class="input-field col s4">
-				<n:label for="nombre">Nombre Respaldo</n:label>
-				<textbox id="nombre" type="text" value="@bind(vm.nombre)"/>
-			</div>
-			<div class="input-field col s8">
-				<n:label for="nombre">Descripcion del Respaldo</n:label>
-				<textbox  id="descripcion" type="text" value="@bind(vm.descripcion)"/>
-			</div>
 			<div class="col s12">
-				<div class="col s5">
-					<listbox id="listbox" model="@load(vm.objectsList)" 
-					mold="paging" pageSize="10"
-						selectedItem="@bind(vm.selectedObject)">
-						<listhead >
-							<listheader width="49%" label="Nombre" />
-						</listhead>
-						<template name="model">
-							<listitem>
-								<listcell label="@load(each.nombre)" />
-							</listitem>
-						</template>
-					</listbox>
-
-
+				<div class="row">
+					<div class="input-field col offset-s2 s6">
+						<n:label for="nombre">Nombre Respaldo</n:label>
+						<textbox id="nombre" type="text" maxlength="300"
+							value="@bind(vm.nombre)" />
+					</div>
 				</div>
-				<vbox class="col s1">
-					<image style="cursor:pointer" id="chooseAllBtn"
-						onClick="@command('onChooseAllItem')"
-						src="imagenes/rightrightarrow_g.png" />
-					<image style="cursor:pointer" id="chooseBtn"
-						src="imagenes/rightarrow_g.png"
-						onClick="@command('onChooseItem')" />
-					<image style="cursor:pointer" id="removeBtn"
-						src="imagenes/leftarrow_g.png" onClick="@command('onRemoveItem')" />
-					<image style="cursor:pointer" id="removeAllBtn"
-						src="imagenes/leftleftarrow_g.png"
-						onClick="@command('onRemoveAllItem')" />
-				</vbox>
-				<div class="col s6" style="margin-left:-40px;">
-					<listbox id="listbox2" model="@load(vm.listsTabla)"
-						selectedItem="@bind(vm.posibleTabla)" mold="paging" pageSize="10">
-						<listhead sizable="true">
-							<listheader width="49%" label="Nombre" />
-						</listhead>
-						<template name="model">
-							<listitem>
-								<listcell label="@load(each.nombre)" />
-							</listitem>
-						</template>
-					</listbox>
+				<div class="row">
+					<div class="input-field offset-s2 col s6">
+						<n:label for="descripcion">
+							Descripción del Respaldo
+						</n:label>
+						<textbox id="descripcion" type="text"
+							maxlength="300" sclass="materialize-textarea" multiline="true"
+							value="@bind(vm.descripcion)" />
+					</div>
+				</div>
+				<div class="row">
+					<div class="col s12"
+						style="
+    padding: 0px 40px;">
+						<div class="col s5">
+							<listbox id="listbox"
+								model="@load(vm.objectsList)" mold="paging" pageSize="10"
+								selectedItem="@bind(vm.selectedObject)">
+								<listhead>
+									<listheader width="49%"
+										label="Nombre" />
+								</listhead>
+								<template name="model">
+									<listitem>
+										<listcell
+											style="text-transform: capitalize;">
+											<zscript>	<![CDATA[
+	self.label = each.nombre.substring(3).replace('_', ' ');
+]]>
+</zscript>
+										</listcell>
+									</listitem>
+								</template>
+							</listbox>
+
+
+						</div>
+						<vbox class="col s1" align="center">
+							<image style="cursor:pointer"
+								id="chooseAllBtn" onClick="@command('onChooseAllItem')"
+								src="imagenes/rightrightarrow_g.png" />
+							<image style="cursor:pointer" id="chooseBtn"
+								src="imagenes/rightarrow_g.png"
+								onClick="@command('onChooseItem')" />
+							<image style="cursor:pointer" id="removeBtn"
+								src="imagenes/leftarrow_g.png"
+								onClick="@command('onRemoveItem')" />
+							<image style="cursor:pointer"
+								id="removeAllBtn" src="imagenes/leftleftarrow_g.png"
+								onClick="@command('onRemoveAllItem')" />
+						</vbox>
+						<div class="col s6">
+							<listbox id="listbox2"
+								model="@load(vm.listsTabla)"
+								selectedItem="@bind(vm.posibleTabla)" mold="paging"
+								pageSize="10">
+								<listhead sizable="true">
+									<listheader width="49%"
+										label="Nombre" />
+								</listhead>
+								<template name="model">
+									<listitem>
+										<listcell
+											style="text-transform: capitalize;">
+											<zscript>
+	self.label = each.nombre.substring(3).replace('_', ' ');
+</zscript>
+										</listcell>
+
+									</listitem>
+								</template>
+							</listbox>
+						</div>
+					</div>
+					<div sclass="row" align="center">
+						<button iconSclass="fa fa-download"
+							class="indigo waves-effect waves-light btn"
+							onClick="@command('respaldarTablas')" label="Respaldar">
+						</button>
+						<button iconSclass="fa fa-download"
+							class="indigo waves-effect waves-light btn"
+							onClick="@command('respaldarTablas')" label="Importar">
+						</button>
+
+						<button label="Load Excel to listview"
+							upload="true,maxsize=300">
+							<!--         <attribute name="onUpload"><![CDATA[ -->
+
+							<!--             import java.io.File; -->
+							<!--             import org.zkoss.io.Files; -->
+							<!--             import org.zkoss.util.media.Media; -->
+
+							<!--             String path = Executions.getCurrent().getDesktop().getWebApp().getRealPath("/"); -->
+							<!--             //alert(path); -->
+							<!--             Media media = event.getMedia(); -->
+
+							<!--             Files.copy(new File(path+ "upload\\" + media.getName()), media.getStreamData()); -->
+							<!--             com.function.ZKextend zke=new com.function.ZKextend(); -->
+							<!--             //zke.ImportExcelProd(win,"box",media); -->
+							<!--             zke.ImportExcel(win,"box",media); -->
+
+
+							<!--         ]]></attribute> -->
+						</button>
+						<button label="Upload" upload="true"
+							onUpload="@command('onUploadFile',upEvent=event)">
+						</button>
+					</div>
 				</div>
 			</div>
-			<button iconSclass="fa fa-download" class="indigo waves-effect waves-light btn" mold="os" onClick="@command('respaldarTablas')" label="Respaldar" style="margin-left:410px;background-color:#65c8e0;width:200px;height: 40px; padding: 0 1em !important;"></button>
-		</div>	
+		</div>
 	</div>
+
 </zk>

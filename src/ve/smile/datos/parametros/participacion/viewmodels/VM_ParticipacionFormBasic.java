@@ -16,6 +16,7 @@ import karen.core.form.buttons.helpers.OperacionFormHelper;
 import karen.core.form.viewmodels.VM_WindowForm;
 import karen.core.util.payload.UtilPayload;
 import karen.core.util.validate.UtilValidate;
+import karen.core.util.validate.UtilValidate.ValidateOperator;
 import lights.smile.util.UtilMultimedia;
 import lights.smile.util.Zki;
 
@@ -25,6 +26,7 @@ import org.zkoss.zk.ui.event.UploadEvent;
 import ve.smile.consume.services.S;
 import ve.smile.dto.Multimedia;
 import ve.smile.dto.Participacion;
+import ve.smile.enums.TipoFormularioEnum;
 import ve.smile.enums.TipoMultimediaEnum;
 import ve.smile.payload.response.PayloadMultimediaResponse;
 import ve.smile.payload.response.PayloadParticipacionResponse;
@@ -41,15 +43,20 @@ public class VM_ParticipacionFormBasic extends VM_WindowForm implements
 
 	private String typeMedia;
 
+	private List<TipoFormularioEnum> tipoFormularioEnums;
+	private TipoFormularioEnum tipoFormularioEnum;
+
 	@Init(superclass = true)
 	public void childInit() {
 		// NOTHING OK!
 		if (this.getParticipacion() != null
-				&& this.getParticipacion().getFkMultimedia() != null) {
+				&& this.getParticipacion().getFkMultimedia() != null
+				&& this.getParticipacion().getFkMultimedia().getIdMultimedia() != null) {
 
 			this.setUrlImage(this.getParticipacion().getFkMultimedia().getUrl());
 
-			this.nameImage = this.getParticipacion().getFkMultimedia().getNombre();
+			this.nameImage = this.getParticipacion().getFkMultimedia()
+					.getNombre();
 			this.extensionImage = nameImage.substring(nameImage
 					.lastIndexOf(".") + 1);
 			this.typeMedia = this.getParticipacion().getFkMultimedia()
@@ -57,9 +64,41 @@ public class VM_ParticipacionFormBasic extends VM_WindowForm implements
 		} else {
 			this.getParticipacion().setFkMultimedia(new Multimedia());
 		}
+		if (this.getParticipacion().getFormulario()) {
+			this.setTipoFormularioEnum(TipoFormularioEnum.values()[this
+					.getParticipacion().getTipoFormulario()]);
+		}
 	}
 
-	
+	public List<TipoFormularioEnum> getTipoFormularioEnums() {
+		if (tipoFormularioEnums == null) {
+			tipoFormularioEnums = new ArrayList<>();
+		}
+		if (tipoFormularioEnums.isEmpty()) {
+			for (TipoFormularioEnum tipoFormularioEnum : TipoFormularioEnum
+					.values()) {
+				tipoFormularioEnums.add(tipoFormularioEnum);
+			}
+		}
+		return tipoFormularioEnums;
+	}
+
+	public void setTipoFormularioEnums(
+			List<TipoFormularioEnum> tipoFormularioEnums) {
+		this.tipoFormularioEnums = tipoFormularioEnums;
+	}
+
+	public TipoFormularioEnum getTipoFormularioEnum() {
+		return tipoFormularioEnum;
+	}
+
+	public void setTipoFormularioEnum(TipoFormularioEnum tipoFormularioEnum) {
+		this.tipoFormularioEnum = tipoFormularioEnum;
+		if (tipoFormularioEnum != null) {
+			getParticipacion().setTipoFormulario(tipoFormularioEnum.ordinal());
+		}
+	}
+
 	@Override
 	public List<OperacionForm> getOperationsForm(OperacionEnum operacionEnum) {
 		List<OperacionForm> operacionesForm = new ArrayList<OperacionForm>();
@@ -91,9 +130,12 @@ public class VM_ParticipacionFormBasic extends VM_WindowForm implements
 		if (!isFormValidated()) {
 			return true;
 		}
+		if (!this.getParticipacion().getFormulario()) {
+			this.getParticipacion().setTipoFormulario(null);
+		}
 
 		if (operacionEnum.equals(OperacionEnum.INCLUIR)) {
-			
+
 			if (bytes != null) {
 				Multimedia multimedia = new Multimedia();
 				multimedia.setNombre(nameImage);
@@ -111,17 +153,19 @@ public class VM_ParticipacionFormBasic extends VM_WindowForm implements
 						.getInformacion("id")).intValue());
 				this.getParticipacion().setFkMultimedia(multimedia);
 			}
-			
+
 			PayloadParticipacionResponse payloadParticipacionResponse = S.ParticipacionService
 					.incluir(getParticipacion());
 
-			this.getParticipacion().setIdParticipacion(
-					((Double) payloadParticipacionResponse.getInformacion("id"))
-							.intValue());
+			this.getParticipacion()
+					.setIdParticipacion(
+							((Double) payloadParticipacionResponse
+									.getInformacion("id")).intValue());
 			if (bytes != null) {
-				Zki.save(Zki.PARTICIPACION, getParticipacion().getIdParticipacion(),
-						extensionImage, bytes);
-				Multimedia multimedia = this.getParticipacion().getFkMultimedia();
+				Zki.save(Zki.PARTICIPACION, getParticipacion()
+						.getIdParticipacion(), extensionImage, bytes);
+				Multimedia multimedia = this.getParticipacion()
+						.getFkMultimedia();
 				multimedia.setNombre(Zki.PARTICIPACION
 						+ this.getParticipacion().getIdParticipacion() + "."
 						+ this.extensionImage);
@@ -147,7 +191,7 @@ public class VM_ParticipacionFormBasic extends VM_WindowForm implements
 		}
 
 		if (operacionEnum.equals(OperacionEnum.MODIFICAR)) {
-			
+
 			if (this.getBytes() != null) {
 
 				if (this.getParticipacion().getFkMultimedia() == null
@@ -184,20 +228,26 @@ public class VM_ParticipacionFormBasic extends VM_WindowForm implements
 							.modificar(multimedia);
 					Zki.save(Zki.PARTICIPACION, this.getParticipacion()
 							.getIdParticipacion(), extensionImage, bytes);
+					if (!UtilPayload.isOK(payloadMultimediaResponse)) {
+						Alert.showMessage(payloadMultimediaResponse);
+						return true;
+					}
 				}
 
 			}
 			Multimedia multimedia = this.getParticipacion().getFkMultimedia();
 
-			if (bytes == null && this.getParticipacion().getFkMultimedia() != null) {
+			if (bytes == null
+					&& this.getParticipacion().getFkMultimedia() != null) {
 				Zki.remove(this.getParticipacion().getFkMultimedia().getUrl());
 				getParticipacion().setFkMultimedia(null);
 			}
-			
+
 			PayloadParticipacionResponse payloadParticipacionResponse = S.ParticipacionService
 					.modificar(getParticipacion());
 
-			if (bytes == null && multimedia != null) {
+			if (bytes == null && multimedia != null
+					&& multimedia.getIdMultimedia() != null) {
 				PayloadMultimediaResponse payloadMultimediaResponse = S.MultimediaService
 						.eliminar(multimedia.getIdMultimedia());
 				if (!UtilPayload.isOK(payloadMultimediaResponse)) {
@@ -205,7 +255,7 @@ public class VM_ParticipacionFormBasic extends VM_WindowForm implements
 					return true;
 				}
 			}
-			
+
 			if (!UtilPayload.isOK(payloadParticipacionResponse)) {
 				Alert.showMessage(payloadParticipacionResponse);
 				return true;
@@ -242,6 +292,11 @@ public class VM_ParticipacionFormBasic extends VM_WindowForm implements
 					"Nombre", 100);
 			UtilValidate.validateString(getParticipacion().getDescripcion(),
 					"Descripción", 250);
+			if (this.getParticipacion().getFormulario()) {
+				UtilValidate.validateInteger(this.getParticipacion()
+						.getTipoFormulario(), "Tipo de Formulario",
+						ValidateOperator.LESS_THAN, 2);
+			}
 			return true;
 		} catch (Exception e) {
 			Alert.showMessage(e.getMessage());
@@ -249,7 +304,6 @@ public class VM_ParticipacionFormBasic extends VM_WindowForm implements
 		}
 	}
 
-	
 	public String getNameImage() {
 		return nameImage;
 	}
@@ -315,12 +369,16 @@ public class VM_ParticipacionFormBasic extends VM_WindowForm implements
 				this.bytes = media.getByteData();
 				this.typeMedia = media.getContentType();
 				if (this.getParticipacion().getIdParticipacion() != null) {
-					this.urlImage = new StringBuilder().append(Zki.PARTICIPACION)
-							.append(this.getParticipacion().getIdParticipacion())
-							.append(".").append(extensionImage).toString();
-					this.nameImage = new StringBuilder().append(Zki.PARTICIPACION)
-							.append(this.getParticipacion().getIdParticipacion())
-							.append(".").append(extensionImage).toString();
+					this.urlImage = new StringBuilder()
+							.append(Zki.PARTICIPACION)
+							.append(this.getParticipacion()
+									.getIdParticipacion()).append(".")
+							.append(extensionImage).toString();
+					this.nameImage = new StringBuilder()
+							.append(Zki.PARTICIPACION)
+							.append(this.getParticipacion()
+									.getIdParticipacion()).append(".")
+							.append(extensionImage).toString();
 				}
 
 			} else {

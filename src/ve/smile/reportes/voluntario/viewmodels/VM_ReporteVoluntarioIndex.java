@@ -1,12 +1,18 @@
 package ve.smile.reportes.voluntario.viewmodels;
 
+// import para Excel
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import karen.core.util.payload.UtilPayload;
 import karen.core.wizard.buttons.data.OperacionWizard;
 import karen.core.wizard.buttons.enums.OperacionWizardEnum;
 import karen.core.wizard.buttons.helpers.OperacionWizardHelper;
@@ -15,7 +21,13 @@ import lights.smile.util.UtilConverterDataList;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.Init;
+import org.zkoss.zul.Filedownload;
 
 import ve.smile.consume.services.S;
 import ve.smile.dto.ClasificadorVoluntario;
@@ -23,6 +35,9 @@ import ve.smile.dto.Fortaleza;
 import ve.smile.dto.Profesion;
 import ve.smile.dto.Voluntario;
 import ve.smile.enums.EstatusVoluntarioEnum;
+import ve.smile.payload.response.PayloadClasificadorVoluntarioResponse;
+import ve.smile.payload.response.PayloadFortalezaResponse;
+import ve.smile.payload.response.PayloadProfesionResponse;
 import ve.smile.payload.response.PayloadVoluntarioResponse;
 import ve.smile.reportes.Reporte;
 
@@ -33,8 +48,6 @@ public class VM_ReporteVoluntarioIndex extends VM_WindowWizard {
 	private boolean profesionVoluntario = false;
 
 	private boolean fortalezaVoluntario = false;
-
-	private boolean redesSociales = false;
 
 	private boolean fechaIngreso = false;
 
@@ -66,10 +79,6 @@ public class VM_ReporteVoluntarioIndex extends VM_WindowWizard {
 
 	private List<Fortaleza> listFortalezas = new ArrayList<>();
 
-	private List<String> listRedesSociales = new ArrayList<>();
-
-	private Set<String> redesSeleccionadas;
-
 	private Set<Fortaleza> fortalezasSeleccionados;
 
 	private List<Profesion> listProfesion = new ArrayList<>();
@@ -98,10 +107,14 @@ public class VM_ReporteVoluntarioIndex extends VM_WindowWizard {
 
 	String tProfesiones = "";
 
-
 	String fechaDesde = "";
 
 	String fechaHasta = "";
+
+	@Init(superclass = true)
+	public void childInit() {
+		parametros.clear();
+	}
 
 	public Set<ClasificadorVoluntario> getClasificadorVoluntariosSeleccionados() {
 		return clasificadorVoluntariosSeleccionados;
@@ -111,19 +124,6 @@ public class VM_ReporteVoluntarioIndex extends VM_WindowWizard {
 			Set<ClasificadorVoluntario> clasificadorVoluntariosSeleccionados) {
 
 		this.clasificadorVoluntariosSeleccionados = clasificadorVoluntariosSeleccionados;
-
-	}
-
-	@Init(superclass = true)
-	public void childInit() {
-
-		listClasificadorVoluntario = S.ClasificadorVoluntarioService
-				.consultarTodos().getObjetos();
-
-		listFortalezas = S.FortalezaService.consultarTodos().getObjetos();
-
-		listProfesion = S.ProfesionService.consultarTodos().getObjetos();
-
 
 	}
 
@@ -151,14 +151,6 @@ public class VM_ReporteVoluntarioIndex extends VM_WindowWizard {
 		this.fortalezaVoluntario = fortalezaVoluntario;
 	}
 
-	public boolean isRedesSociales() {
-		return redesSociales;
-	}
-
-	public void setRedesSociales(boolean redesSociales) {
-		this.redesSociales = redesSociales;
-	}
-
 	public boolean isFechaIngreso() {
 		return fechaIngreso;
 	}
@@ -176,7 +168,19 @@ public class VM_ReporteVoluntarioIndex extends VM_WindowWizard {
 	}
 
 	public List<ClasificadorVoluntario> getListClasificadorVoluntario() {
+		if (listClasificadorVoluntario == null) {
+			listClasificadorVoluntario = new ArrayList<>();
+		}
+		if (listClasificadorVoluntario.isEmpty()) {
+			PayloadClasificadorVoluntarioResponse payloadClasificadorVoluntarioResponse = S.ClasificadorVoluntarioService
+					.consultarTodos();
+			if (UtilPayload.isOK(payloadClasificadorVoluntarioResponse)) {
+				listClasificadorVoluntario = payloadClasificadorVoluntarioResponse
+						.getObjetos();
+			}
+		}
 		return listClasificadorVoluntario;
+
 	}
 
 	public void setListClasificadorVoluntario(
@@ -185,6 +189,16 @@ public class VM_ReporteVoluntarioIndex extends VM_WindowWizard {
 	}
 
 	public List<Fortaleza> getListFortalezas() {
+		if (listFortalezas == null) {
+			listFortalezas = new ArrayList<>();
+		}
+		if (listFortalezas.isEmpty()) {
+			PayloadFortalezaResponse payloadFortalezaResponse = S.FortalezaService
+					.consultarTodos();
+			if (UtilPayload.isOK(payloadFortalezaResponse)) {
+				listFortalezas = payloadFortalezaResponse.getObjetos();
+			}
+		}
 		return listFortalezas;
 	}
 
@@ -202,6 +216,17 @@ public class VM_ReporteVoluntarioIndex extends VM_WindowWizard {
 	}
 
 	public List<Profesion> getListProfesion() {
+		if (listProfesion == null) {
+
+		}
+		if (listProfesion.isEmpty()) {
+			PayloadProfesionResponse payloadProfesionResponse = S.ProfesionService
+					.consultarTodos();
+			if (UtilPayload.isOK(payloadProfesionResponse)) {
+				listProfesion = payloadProfesionResponse.getObjetos();
+			}
+
+		}
 		return listProfesion;
 	}
 
@@ -216,22 +241,6 @@ public class VM_ReporteVoluntarioIndex extends VM_WindowWizard {
 	public void setProfesionesSeleccionadas(
 			Set<Profesion> profesionesSeleccionadas) {
 		this.profesionesSeleccionadas = profesionesSeleccionadas;
-	}
-
-	public List<String> getListRedesSociales() {
-		return listRedesSociales;
-	}
-
-	public void setListRedesSociales(List<String> listRedesSociales) {
-		this.listRedesSociales = listRedesSociales;
-	}
-
-	public Set<String> getRedesSeleccionadas() {
-		return redesSeleccionadas;
-	}
-
-	public void setRedesSeleccionadas(Set<String> redesSeleccionadas) {
-		this.redesSeleccionadas = redesSeleccionadas;
 	}
 
 	public boolean isPorCompletar() {
@@ -350,16 +359,55 @@ public class VM_ReporteVoluntarioIndex extends VM_WindowWizard {
 
 	@Override
 	public String isValidPreconditionsFinalizar(Integer currentStep) {
-		if (currentStep == 2) {
-
+		if (currentStep == 3) {
+			parametros.clear();
+			clearElements();
+			BindUtils.postNotifyChange(null, null, this, "*");
 		}
 		return "";
+	}
+
+	public void clearElements() {
+		clasificadorVoluntario = false;
+		profesionVoluntario = false;
+		fortalezaVoluntario = false;
+		fechaIngreso = false;
+		postulado = false;
+		porCompletar = false;
+		activo = false;
+		egresado = false;
+		todos = false;
+		fechaDesdeDate = null;
+		fechaHastaDate = null;
+		type = new String();
+		source = new String();
+		listClasificadorVoluntario = new ArrayList<>();
+		clasificadorVoluntariosSeleccionados = new HashSet<>();
+		listFortalezas = new ArrayList<>();
+		fortalezasSeleccionados = new HashSet<>();
+		listProfesion = new ArrayList<>();
+		profesionesSeleccionadas = new HashSet<>();
+		voluntarios = new ArrayList<>();
+		voluntarioClasificadoP = "";
+		estatusVoluntariosS = "";
+		fortalezasP = "";
+		profesionesP = "";
+		tStatus = "";
+		tFechaDesde = "";
+		tFechaHasta = "";
+		tVoluntarioClasificado = "";
+		tFortalezas = "";
+		tProfesiones = "";
+		fechaDesde = "";
+		fechaHasta = "";
 	}
 
 	@Override
 	public String executeFinalizar(Integer currentStep) {
 		if (currentStep == 3) {
+			parametros.clear();
 			restartWizard();
+			parametros.clear();
 		}
 
 		return "";
@@ -372,14 +420,145 @@ public class VM_ReporteVoluntarioIndex extends VM_WindowWizard {
 
 	@Override
 	public String executeCustom1(Integer currentStep) {
-		
-			goToNextStep();
-		
+
+		goToNextStep();
+
 		return "";
 	}
 
 	@Override
 	public String executeCustom2(Integer currentStep) {
+		if (currentStep == 2) {
+			try {
+				HSSFWorkbook workBook = new HSSFWorkbook();
+				HSSFSheet workSheet = workBook.createSheet("VOLUNTARIOS");
+				Row excelRow = null;
+				Cell excelCell = null;
+				int rowNumber = 0;
+				excelRow = workSheet.createRow(rowNumber++);
+
+				excelCell = excelRow.createCell(4);
+				excelCell.setCellValue("VOLUNTARIOS");
+				excelRow = workSheet.createRow(rowNumber++);
+//				if (fechaDesdeDate != null) {
+//					excelRow = workSheet.createRow(rowNumber++);
+//
+//					excelCell = excelRow.createCell(1);
+//					excelCell.setCellValue("Fecha desde");
+//					excelCell = excelRow.createCell(2);
+//					excelCell.setCellValue(UtilConverterDataList
+//							.convertirLongADate(fechaDesdeDate.getTime()));
+//					excelRow = workSheet.createRow(rowNumber++);
+//				}
+//				if (fechaHastaDate != null) {
+//					excelRow = workSheet.createRow(rowNumber++);
+//
+//					excelCell = excelRow.createCell(1);
+//					excelCell.setCellValue("Fecha Hasta");
+//					excelCell = excelRow.createCell(2);
+//					excelCell.setCellValue(UtilConverterDataList
+//							.convertirLongADate(fechaDesdeDate.getTime()));
+//					excelRow = workSheet.createRow(rowNumber++);
+//				}
+//				if (!fortalezasP.trim().isEmpty()) {
+//					excelRow = workSheet.createRow(rowNumber++);
+//
+//					excelCell = excelRow.createCell(1);
+//					excelCell.setCellValue("Fortalezas");
+//					excelCell = excelRow.createCell(2);
+//					excelCell.setCellValue(fortalezasP);
+//					excelRow = workSheet.createRow(rowNumber++);
+//				}
+//				if (!profesionesP.trim().isEmpty()) {
+//					excelRow = workSheet.createRow(rowNumber++);
+//
+//					excelCell = excelRow.createCell(1);
+//					excelCell.setCellValue("PROFESIONES");
+//					excelCell = excelRow.createCell(2);
+//					excelCell.setCellValue(profesionesP);
+//					excelRow = workSheet.createRow(rowNumber++);
+//				}
+//				if (!estatusVoluntariosS.trim().isEmpty()) {
+//					excelRow = workSheet.createRow(rowNumber++);
+//
+//					excelCell = excelRow.createCell(1);
+//					excelCell.setCellValue("Estatus");
+//					excelCell = excelRow.createCell(2);
+//					excelCell.setCellValue(estatusVoluntariosS);
+//					excelRow = workSheet.createRow(rowNumber++);
+//				}
+//				if (!voluntarioClasificadoP.trim().isEmpty()) {
+//					excelRow = workSheet.createRow(rowNumber++);
+//
+//					excelCell = excelRow.createCell(1);
+//					excelCell.setCellValue("Clasificadores de Voluntario");
+//					excelCell = excelRow.createCell(2);
+//					excelCell.setCellValue(voluntarioClasificadoP);
+//					excelRow = workSheet.createRow(rowNumber++);
+//				}
+
+				excelRow = workSheet.createRow(rowNumber++);
+				excelCell = excelRow.createCell(0);
+				excelCell.setCellValue("CEDULA / RIF");
+				excelCell = excelRow.createCell(1);
+				excelCell.setCellValue("NOMBRES");
+				excelCell = excelRow.createCell(2);
+				excelCell.setCellValue("APELLIDOS");
+				excelCell = excelRow.createCell(3);
+				excelCell.setCellValue("CORREO");
+				excelCell = excelRow.createCell(4);
+				excelCell.setCellValue("DIRECCIÓN");
+				excelCell = excelRow.createCell(5);
+				excelCell.setCellValue("TELÉFONO");
+				excelCell = excelRow.createCell(6);
+				excelCell.setCellValue("ESTATUS");
+
+				for (Voluntario voluntario : this.getVoluntarios()) {
+
+					excelRow = workSheet.createRow(rowNumber++);
+					excelCell = excelRow.createCell(0);
+					excelCell.setCellValue(voluntario.getFkPersona()
+							.getIdentificacion());
+
+					excelCell = excelRow.createCell(1);
+					excelCell.setCellValue(voluntario.getFkPersona()
+							.getNombre());
+
+					excelCell = excelRow.createCell(2);
+					excelCell.setCellValue(voluntario.getFkPersona()
+							.getApellido());
+
+					excelCell = excelRow.createCell(3);
+					excelCell.setCellValue(voluntario.getFkPersona()
+							.getCorreo());
+
+					excelCell = excelRow.createCell(4);
+					excelCell.setCellValue(voluntario.getFkPersona()
+							.getDireccion());
+
+					excelCell = excelRow.createCell(5);
+					excelCell.setCellValue(voluntario.getFkPersona()
+							.getTelefono1());
+
+					if (voluntario.getEstatusVoluntario() != null) {
+						excelCell = excelRow.createCell(6);
+						excelCell
+								.setCellValue(voluntario
+										.getEstatusVoluntarioEnum().toString());
+					}
+					
+				}
+				File tempFile = new File("C:\\Smile\\Voluntarios.xls");
+				FileOutputStream outputStream = new FileOutputStream(tempFile);
+				workBook.write(outputStream);
+
+				outputStream.close();
+
+				Filedownload.save(tempFile, "application/file");
+			} catch (IOException e) {
+				return "E:Error Code 5-No se pudo generar el archivo";
+			}
+		}
 		return "";
 	}
 
@@ -387,14 +566,13 @@ public class VM_ReporteVoluntarioIndex extends VM_WindowWizard {
 	public String isValidPreconditionsCustom1(Integer currentStep) {
 
 		if (currentStep == 1) {
-
+			this.setVoluntarios(new ArrayList<Voluntario>());
 			String sql = "";
 
 			if (todos) {
 				sql = "SELECT DISTINCT v FROM Voluntario v  WHERE  v.idVoluntario = v.idVoluntario ";
 
 				if (fechaIngreso) {
-					System.out.println("entro");
 					if (fechaDesdeDate == null && fechaHastaDate == null) {
 
 						return "E:Error Code 5-No se han ingresado parametros de fechas ";
@@ -427,7 +605,7 @@ public class VM_ReporteVoluntarioIndex extends VM_WindowWizard {
 				sql = "SELECT DISTINCT v FROM Voluntario v  WHERE  v.idVoluntario = v.idVoluntario ";
 
 				if (fechaIngreso) {
-					System.out.println("entro");
+
 					if (fechaDesdeDate == null && fechaHastaDate == null) {
 
 						return "E:Error Code 5-No se han ingresado parametros de fechas ";
@@ -446,7 +624,6 @@ public class VM_ReporteVoluntarioIndex extends VM_WindowWizard {
 						return "E:Error Code 5-No se puede ingresar una <b>Fecha Desde</b>  mayor a la <b>Fecha Hasta</b> ";
 
 					} else {
-						System.out.println("no llego al final");
 						sql += " and v.fechaIngreso >= "
 								+ fechaDesdeDate.getTime()
 								+ " and v.fechaIngreso <= "
@@ -568,7 +745,7 @@ public class VM_ReporteVoluntarioIndex extends VM_WindowWizard {
 			}
 			if (sql.equals("SELECT DISTINCT v FROM Voluntario v  WHERE  v.idVoluntario = v.idVoluntario ")
 					&& !todos) {
-				
+
 				return "E:Error Code 5-No se han seleccionados criterios para la consulta <b>Voluntarios</b>";
 
 			}
@@ -586,20 +763,27 @@ public class VM_ReporteVoluntarioIndex extends VM_WindowWizard {
 			jrDataSource = new JRBeanCollectionDataSource(listVoluntarios);
 		}
 		if (currentStep == 2) {
-			
-			String direccion  =  Reporte.class.getResource("Reporte.jasper").getPath().replace("WEB-INF/classes/ve/smile/reportes/Reporte.jasper", "imagenes/logo_fanca.jpg");
+
+			String direccion = Reporte.class
+					.getResource("Reporte.jasper")
+					.getPath()
+					.replace(
+							"WEB-INF/classes/ve/smile/reportes/Reporte.jasper",
+							"imagenes/logo_fanca.jpg");
 			direccion = direccion.replaceFirst("/", "");
-			System.out.println(direccion);
 			direccion = direccion.replace("/", "\\");
-			System.out.println(direccion);
 			parametros.put("timagen1", direccion);
-			
-			direccion  =  Reporte.class.getResource("Reporte.jasper").getPath().replace("WEB-INF/classes/ve/smile/reportes/Reporte.jasper", "imagenes/smiles_webdesktop.png");
+
+			direccion = Reporte.class
+					.getResource("Reporte.jasper")
+					.getPath()
+					.replace(
+							"WEB-INF/classes/ve/smile/reportes/Reporte.jasper",
+							"imagenes/smiles_webdesktop.png");
 			direccion = direccion.replaceFirst("/", "");
-			System.out.println(direccion);
 			direccion = direccion.replace("/", "\\");
 			parametros.put("timagen2", direccion);
-			
+
 			type = "pdf";
 			if (!estatusVoluntariosS.equals("")) {
 				tStatus = "Estatus";
@@ -657,7 +841,6 @@ public class VM_ReporteVoluntarioIndex extends VM_WindowWizard {
 
 	@Override
 	public String isValidPreconditionsCustom2(Integer currentStep) {
-		System.out.println("algo paso por aqui pendiente");
 		return "";
 	}
 
@@ -736,8 +919,6 @@ public class VM_ReporteVoluntarioIndex extends VM_WindowWizard {
 		this.profesionesP = profesionesP;
 	}
 
-
-	
 	public String gettStatus() {
 		return tStatus;
 	}
@@ -785,7 +966,6 @@ public class VM_ReporteVoluntarioIndex extends VM_WindowWizard {
 	public void settProfesiones(String tProfesiones) {
 		this.tProfesiones = tProfesiones;
 	}
-
 
 	public Date getFechaDesdeDate() {
 		return fechaDesdeDate;

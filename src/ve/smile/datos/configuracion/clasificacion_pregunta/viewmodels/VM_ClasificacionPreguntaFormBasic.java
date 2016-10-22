@@ -29,14 +29,12 @@ public class VM_ClasificacionPreguntaFormBasic extends VM_WindowForm {
 	private List<Pregunta> preguntas;
 	private Set<Pregunta> preguntasSeleccionadas;
 	private List<Pregunta> clasificadorPreguntas;
-	private Set<Pregunta> clasificadorPreguntasSeleccionadas;	
+	private Set<Pregunta> clasificadorPreguntasSeleccionadas;
 
 	@Init(superclass = true)
 	public void childInit() {
-			this.getClasificadorPreguntas().addAll(
-this.getClasificadorPregunta().getPreguntasClasificadas());
-
-		
+		this.getClasificadorPreguntas().addAll(
+				this.getClasificadorPregunta().getPreguntasClasificadas());
 
 		if (this.getPreguntas().isEmpty()) {
 			PayloadPreguntaResponse payloadPreguntaResponse = S.PreguntaService
@@ -50,8 +48,8 @@ this.getClasificadorPregunta().getPreguntasClasificadas());
 	}
 
 	@Command("agregarPreguntasClasificador")
-	@NotifyChange({ "preguntas", "clasificadorPreguntas", "preguntasSeleccionadas",
-			"clasificadorPreguntasSeleccionadas" })
+	@NotifyChange({ "preguntas", "clasificadorPreguntas",
+			"preguntasSeleccionadas", "clasificadorPreguntasSeleccionadas" })
 	public void agregarPreguntasClasificador() {
 		if (this.getPreguntasSeleccionadas() != null
 				&& this.getPreguntasSeleccionadas().size() > 0) {
@@ -62,8 +60,8 @@ this.getClasificadorPregunta().getPreguntasClasificadas());
 	}
 
 	@Command("removerPreguntasClasificador")
-	@NotifyChange({ "preguntas", "clasificadorPreguntas", "preguntasSeleccionadas",
-			"clasificadorPreguntasSeleccionadas" })
+	@NotifyChange({ "preguntas", "clasificadorPreguntas",
+			"preguntasSeleccionadas", "clasificadorPreguntasSeleccionadas" })
 	public void removerPreguntasClasificador() {
 		if (this.getPreguntasSeleccionadas() != null
 				&& this.getPreguntasSeleccionadas().size() > 0) {
@@ -100,7 +98,8 @@ this.getClasificadorPregunta().getPreguntasClasificadas());
 
 		if (operacionEnum.equals(OperacionEnum.MODIFICAR)) {
 			this.getClasificadorPregunta().getPreguntasClasificadas().clear();
-			this.getClasificadorPregunta().getPreguntasClasificadas().addAll(this.getClasificadorPreguntas());
+			this.getClasificadorPregunta().getPreguntasClasificadas()
+					.addAll(this.getClasificadorPreguntas());
 			PayloadClasificadorPreguntaResponse payloadClasificadorPreguntaResponse = S.ClasificadorPreguntaService
 					.modificar(getClasificadorPregunta());
 			if (!UtilPayload.isOK(payloadClasificadorPreguntaResponse)) {
@@ -156,7 +155,7 @@ this.getClasificadorPregunta().getPreguntasClasificadas());
 		return preguntasSeleccionadas;
 	}
 
-	public void setPreguntasSeleccionadas (Set<Pregunta> preguntasSeleccionadas) {
+	public void setPreguntasSeleccionadas(Set<Pregunta> preguntasSeleccionadas) {
 		this.preguntasSeleccionadas = preguntasSeleccionadas;
 	}
 
@@ -179,7 +178,7 @@ this.getClasificadorPregunta().getPreguntasClasificadas());
 	}
 
 	public void setClasificadorPreguntasSeleccionadas(
-				Set<Pregunta> clasificadorPreguntasSeleccionadas) {
-			this.clasificadorPreguntasSeleccionadas = clasificadorPreguntasSeleccionadas;
-		}
+			Set<Pregunta> clasificadorPreguntasSeleccionadas) {
+		this.clasificadorPreguntasSeleccionadas = clasificadorPreguntasSeleccionadas;
+	}
 }

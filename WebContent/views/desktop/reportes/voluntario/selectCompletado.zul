@@ -1,3 +1,5 @@
+<?xel-method prefix="m" name="convertirLongADate" 
+	class="lights.smile.util.UtilConverterDataList" signature="java.lang.String convertirLongADate(Long)"?>
 <zk xmlns:n="native" xmlns:w="client">
 	<div sclass="animated fadeInLeft">
 		<div class="row">
@@ -5,13 +7,42 @@
 				style="margin-bottom: 15px;">
 				<div sclass="row">
 					<span sclass="fa fa-check-square-o "
-						style="font-size: 5em;color: #d2ec3f;">
+						style="font-size: 4em;color: #d2ec3f;">
 					</span>
 				</div>
 				<div sclass="row">
-					<label value="Consulta Generada exitosamente, Seleccione la Opción de su preferencia."
-						sclass="label-medium-500" style="font-size: 20px;">
+					<label
+						value="Consulta Generada exitosamente, Seleccione la Opción de su preferencia."
+						sclass="label-medium-500" style="font-size: 15px;">
 					</label>
+				</div>
+				<div sclass="row">
+
+					<listbox model="@bind(vm.voluntarios)"
+						height="400px">
+						<listhead sizable="true">
+							<listheader width="25%" label="Cédula/Rif" />
+							<listheader width="20%" label="Voluntario" />
+							<listheader width="20%" label="Dirección" />
+							<listheader width="20%" label="Teléfono" />
+							<listheader width="25%" label="Estatus" />
+						</listhead>
+						<template name="model">
+							<listitem>
+								<listcell
+									label="@load(each.fkPersona.identificacion)" />
+								<listcell
+									label="@load(each.fkPersona.nombre.concat(' ').concat(each.fkPersona.apellido))" />
+								<listcell
+									label="@load(each.fkPersona.direccion)" />
+								<listcell
+									label="@load(each.fkPersona.telefono1)" />
+								<listcell
+									label="@load(each.estatusVoluntarioEnum)" />
+							</listitem>
+						</template>
+
+					</listbox>
 				</div>
 			</div>
 		</div>

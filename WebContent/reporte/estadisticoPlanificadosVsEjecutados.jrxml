@@ -3,6 +3,7 @@
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
+	<subDataset name="dataset1" uuid="e9310eba-4b5c-4778-8f74-d8c6e31e199e"/>
 	<parameter name="pIndicador" class="java.lang.String"/>
 	<parameter name="pUnidadDeMedida" class="java.lang.String"/>
 	<parameter name="pValorEsperado" class="java.lang.String"/>
@@ -17,6 +18,12 @@
 	<parameter name="tDireccion" class="java.lang.String"/>
 	<parameter name="timagen1" class="java.lang.String"/>
 	<parameter name="timagen2" class="java.lang.String"/>
+	<parameter name="tNombreEvento" class="java.lang.String"/>
+	<parameter name="tTipoEvento" class="java.lang.String"/>
+	<parameter name="tFecha" class="java.lang.String"/>
+	<parameter name="tDescripcion" class="java.lang.String"/>
+	<parameter name="tLugar" class="java.lang.String"/>
+	<parameter name="tDireccionOrganizacion" class="java.lang.String"/>
 	<field name="fkIndicador.nombre" class="java.lang.String"/>
 	<field name="fkIndicador.fkUnidadMedida.nombre" class="java.lang.String"/>
 	<field name="valorEsperado" class="java.lang.Double"/>
@@ -46,84 +53,84 @@
 			<textField isStretchWithOverflow="true">
 				<reportElement x="5" y="41" width="546" height="23" uuid="c38bc29e-3c88-41c2-913d-f71cb3dcdde0"/>
 				<textElement textAlignment="Center" markup="html">
-					<font fontName="Roboto Medium" size="14" isBold="true"/>
+					<font fontName="Arial Black" size="14" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["<b>" + $P{titulo}.toUpperCase() + "</b>"]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="EEEEE dd MMMMM yyyy">
 				<reportElement x="357" y="9" width="193" height="20" uuid="8ba953e4-fc18-4958-ad86-2fcf95101a7f"/>
 				<textElement textAlignment="Right">
-					<font fontName="Roboto Light" size="12"/>
+					<font fontName="Arial Black" size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="86" y="81" width="463" height="20" forecolor="#87796F" uuid="b09465e3-13ca-4ef7-9fef-e24f45820216"/>
+				<reportElement x="138" y="81" width="406" height="20" forecolor="#87796F" uuid="b09465e3-13ca-4ef7-9fef-e24f45820216"/>
 				<textElement>
-					<font fontName="Roboto Medium"/>
+					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{pNombreEvento}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="86" y="108" width="463" height="20" forecolor="#87796F" uuid="2b972f42-d859-4b4d-9075-79d6c8c9a8b1"/>
+				<reportElement x="138" y="108" width="406" height="20" forecolor="#87796F" uuid="2b972f42-d859-4b4d-9075-79d6c8c9a8b1"/>
 				<textElement>
-					<font fontName="Roboto Medium"/>
+					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{pTipoEvento}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="86" y="160" width="463" height="20" forecolor="#87796F" uuid="80383281-cc05-464e-bf62-0abe5b1a46e3"/>
+				<reportElement x="138" y="160" width="406" height="20" forecolor="#87796F" uuid="80383281-cc05-464e-bf62-0abe5b1a46e3"/>
 				<textElement>
-					<font fontName="Roboto Medium"/>
+					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{pDescripcion}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="86" y="188" width="463" height="20" forecolor="#87796F" uuid="439cff84-5098-4118-8991-aeae09c8826d"/>
+				<reportElement x="138" y="188" width="406" height="20" forecolor="#87796F" uuid="439cff84-5098-4118-8991-aeae09c8826d"/>
 				<textElement>
-					<font fontName="Roboto Medium"/>
+					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{pLugar}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="86" y="215" width="463" height="20" forecolor="#87796F" uuid="1675ca11-c09e-4fbc-8782-aeadc8165844"/>
+				<reportElement x="138" y="216" width="406" height="20" forecolor="#87796F" uuid="1675ca11-c09e-4fbc-8782-aeadc8165844"/>
 				<textElement>
-					<font fontName="Roboto Medium"/>
+					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{pDireccion}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="87" y="135" width="462" height="20" forecolor="#87796F" uuid="4d2f5188-da6e-4b6e-bb4c-c5cd2356b5c6"/>
+				<reportElement x="139" y="135" width="405" height="20" forecolor="#87796F" uuid="4d2f5188-da6e-4b6e-bb4c-c5cd2356b5c6"/>
 				<textElement>
-					<font fontName="Roboto Medium"/>
+					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{pFecha}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement mode="Opaque" x="450" y="263" width="100" height="20" forecolor="#FFFFFF" backcolor="#3B85A1" uuid="bb7f8d30-8deb-426d-950b-3b58a38c2500"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Roboto Black" isBold="true"/>
+					<font fontName="Arial" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{pValorReal}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement mode="Opaque" x="336" y="263" width="100" height="20" forecolor="#FFFFFF" backcolor="#3B85A1" uuid="098db0b4-85e2-4aff-9e7e-b0c55fad51d1"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Roboto Black" isBold="true"/>
+					<font fontName="Arial" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{pValorEsperado}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement mode="Opaque" x="5" y="264" width="151" height="20" forecolor="#FFFFFF" backcolor="#3B85A1" uuid="eecfbe0e-fd7a-4311-b3af-f4abb05e0c0b"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Roboto Black" isBold="true"/>
+					<font fontName="Arial" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{pIndicador}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement mode="Opaque" x="170" y="263" width="151" height="20" forecolor="#FFFFFF" backcolor="#3B85A1" uuid="3ee72e19-c69f-4fdc-b027-92f2ce7cab8d"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Roboto Black" isBold="true"/>
+					<font fontName="Arial" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{pUnidadDeMedida}]]></textFieldExpression>
 			</textField>
@@ -139,6 +146,48 @@
 					<pen lineWidth="2.0" lineStyle="Solid"/>
 				</graphicElement>
 			</line>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="7" y="109" width="100" height="20" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" forecolor="#FFFFFF" backcolor="#3B85A1" uuid="3df395f3-77f3-4c10-a9fb-de5c09224297"/>
+				<textElement textAlignment="Left">
+					<font fontName="Arial" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{tTipoEvento}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="6" y="163" width="100" height="20" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" forecolor="#FFFFFF" backcolor="#3B85A1" uuid="72f5a1ce-179b-4849-b183-cbdf1064b9a3"/>
+				<textElement textAlignment="Left">
+					<font fontName="Arial" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{tDescripcion}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="7" y="82" width="100" height="20" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" forecolor="#FFFFFF" backcolor="#3B85A1" uuid="34a829a8-17c1-49cc-be40-41a25b104fa4"/>
+				<textElement textAlignment="Left">
+					<font fontName="Arial" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{tNombreEvento}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="7" y="136" width="100" height="20" isRemoveLineWhenBlank="true" forecolor="#FFFFFF" backcolor="#3B85A1" uuid="b14a1a70-16b7-4493-b1e9-da18ecda5191"/>
+				<textElement textAlignment="Left">
+					<font fontName="Arial" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{tFecha}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="7" y="190" width="100" height="20" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" forecolor="#FFFFFF" backcolor="#3B85A1" uuid="95ace01a-78ff-498a-ace1-5f904a2a260c"/>
+				<textElement textAlignment="Left">
+					<font fontName="Arial" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{tLugar}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="8" y="218" width="100" height="20" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" forecolor="#FFFFFF" backcolor="#3B85A1" uuid="95714cfc-881b-4563-a9ac-5e485e8a540c"/>
+				<textElement textAlignment="Left">
+					<font fontName="Arial" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{tDireccion}]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageHeader>
 	<detail>
@@ -146,28 +195,28 @@
 			<textField>
 				<reportElement x="337" y="2" width="100" height="20" uuid="fda9f53f-57a4-4d6c-a271-ae1b61e262f2"/>
 				<textElement textAlignment="Center" markup="styled">
-					<font fontName="Roboto Black"/>
+					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{valorEsperado}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="450" y="2" width="100" height="20" uuid="030aa001-4326-4116-a2c1-0a59ab91b8a9"/>
 				<textElement textAlignment="Center">
-					<font fontName="Roboto Black"/>
+					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{valorReal}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="170" y="2" width="151" height="20" uuid="44034ab7-0571-4b5b-b427-0d2b8f08c845"/>
 				<textElement textAlignment="Center" markup="styled">
-					<font fontName="Roboto Black"/>
+					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{fkIndicador.fkUnidadMedida.nombre}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
 				<reportElement positionType="Float" x="5" y="2" width="151" height="20" uuid="19d81e22-c2ce-4499-8217-e79a63aa8210"/>
 				<textElement textAlignment="Center" markup="styled">
-					<font fontName="Roboto Black"/>
+					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{fkIndicador.nombre}]]></textFieldExpression>
 			</textField>
@@ -178,30 +227,30 @@
 			<textField isStretchWithOverflow="true" evaluationTime="Report">
 				<reportElement x="510" y="42" width="42" height="20" uuid="f1d5e097-0f41-4aa2-af0e-18314d126bb4"/>
 				<textElement>
-					<font fontName="Roboto Light"/>
+					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
 				<reportElement x="439" y="42" width="67" height="20" uuid="64737f26-7f1c-4d37-9956-8d06edc8b98e"/>
 				<textElement textAlignment="Right">
-					<font fontName="Roboto Light"/>
+					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Pagina "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="113" y="42" width="322" height="20" forecolor="#C2D62D" uuid="af6405db-9065-40f0-9125-b48ab95b7f5d"/>
 				<textElement textAlignment="Center">
-					<font fontName="Roboto Light" size="11" isBold="false" isItalic="true"/>
+					<font fontName="Arial" size="11" isBold="false" isItalic="true"/>
 				</textElement>
 				<text><![CDATA["El deseo de sanarse siempre ha sido la mitad de la sanación"]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="2" y="12" width="552" height="20" forecolor="#F26B7A" uuid="0446bbc5-7327-413b-b071-0e9668a0da48"/>
 				<textElement textAlignment="Center">
-					<font fontName="Roboto Light"/>
+					<font fontName="Arial"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{tDireccion}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{tDireccionOrganizacion}]]></textFieldExpression>
 			</textField>
 			<line>
 				<reportElement x="1" y="5" width="555" height="2" forecolor="#F26B7A" uuid="fbf0c702-c585-46f0-b95a-374c3a1f30c0"/>

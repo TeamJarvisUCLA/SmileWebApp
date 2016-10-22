@@ -1,12 +1,10 @@
 package ve.smile.reportes.evento.viewmodels;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
 import karen.core.wizard.buttons.data.OperacionWizard;
 import karen.core.wizard.buttons.enums.OperacionWizardEnum;
 import karen.core.wizard.buttons.helpers.OperacionWizardHelper;
@@ -14,16 +12,15 @@ import karen.core.wizard.viewmodels.VM_WindowWizard;
 import lights.smile.util.UtilConverterDataList;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-
 import org.zkoss.bind.annotation.Init;
-
 import ve.smile.consume.services.S;
-import ve.smile.dto.ClasificadorVoluntario;
-import ve.smile.dto.Fortaleza;
-import ve.smile.dto.Profesion;
-import ve.smile.dto.Voluntario;
-import ve.smile.enums.EstatusVoluntarioEnum;
-import ve.smile.payload.response.PayloadVoluntarioResponse;
+import ve.smile.dto.ClasificadorEvento;
+import ve.smile.dto.EventoPlanificado;
+import ve.smile.dto.Indicador;
+import ve.smile.dto.Tarea;
+import ve.smile.enums.EstatusEventoPlanificadoEnum;
+import ve.smile.enums.TipoEventoEnum;
+import ve.smile.payload.response.PayloadEventoPlanificadoResponse;
 
 public class VM_ReporteEventoIndex extends VM_WindowWizard {
 
@@ -40,8 +37,12 @@ public class VM_ReporteEventoIndex extends VM_WindowWizard {
 	private boolean ejecutado = false;
 
 	private boolean cancelado = false;
+	
+	private boolean rechazado = false;
 
 	private boolean todos = false;
+
+	private boolean planificado = false;
 
 	private Date fechaDesdeDate;
 
@@ -55,22 +56,22 @@ public class VM_ReporteEventoIndex extends VM_WindowWizard {
 
 	private Map<String, Object> parametros = new HashMap<>();
 
-	private List<ClasificadorVoluntario> listClasificadorEvento = new ArrayList<>();
+	private List<ClasificadorEvento> listClasificadorEvento = new ArrayList<>();
 
-	private Set<ClasificadorVoluntario> clasificadorEventoSeleccionados;
+	private Set<ClasificadorEvento> clasificadorEventoSeleccionados;
 
-	private List<Fortaleza> listEvento = new ArrayList<>();
-	
-	private Set<Fortaleza> eventosSeleccionados;
+	private List<TipoEventoEnum> listEvento = new ArrayList<>();
 
-	private List<Profesion> listTareas = new ArrayList<>();
+	private Set<TipoEventoEnum> eventosSeleccionados;
 
-	private Set<Profesion> tareasSeleccionadas;
+	private List<Tarea> listTareas = new ArrayList<>();
 
-	private List<Voluntario> listIndicadores;
+	private Set<Tarea> tareasSeleccionadas;
 
-	private Set<Profesion> indicadoresSeleccionados;
-	
+	private List<Indicador> listIndicadores;
+
+	private Set<Indicador> indicadoresSeleccionados;
+
 	String eventosClasificadosP = "";
 
 	String estatusEventosP = "";
@@ -81,7 +82,6 @@ public class VM_ReporteEventoIndex extends VM_WindowWizard {
 
 	String eventosP = "";
 
-	
 	String tStatus = "";
 
 	String tFechaDesde = "";
@@ -94,27 +94,22 @@ public class VM_ReporteEventoIndex extends VM_WindowWizard {
 
 	String tTareas = "";
 
-
 	String fechaDesde = "";
 
 	String fechaHasta = "";
 
-
-
-
 	@Init(superclass = true)
 	public void childInit() {
 
-		listClasificadorEvento = S.ClasificadorVoluntarioService
-				.consultarTodos().getObjetos();
+		listClasificadorEvento = S.ClasificadorEventoService.consultarTodos()
+				.getObjetos();
 
-		listEvento = S.FortalezaService.consultarTodos().getObjetos();
+		listTareas = S.TareaService.consultarTodos().getObjetos();
+		System.out.println(listTareas.size());
 
-		listTareas = S.ProfesionService.consultarTodos().getObjetos();
-
+		listIndicadores = S.IndicadorService.consultarTodos().getObjetos();
 
 	}
-
 
 	@Override
 	public Map<Integer, List<OperacionWizard>> getButtonsToStep() {
@@ -230,9 +225,9 @@ public class VM_ReporteEventoIndex extends VM_WindowWizard {
 
 	@Override
 	public String executeCustom1(Integer currentStep) {
-		
-			goToNextStep();
-		
+
+		goToNextStep();
+
 		return "";
 	}
 
@@ -249,10 +244,10 @@ public class VM_ReporteEventoIndex extends VM_WindowWizard {
 			String sql = "";
 
 			if (todos) {
-				sql = "SELECT DISTINCT v FROM Voluntario v  WHERE  v.idVoluntario = v.idVoluntario ";
+
+				sql = "SELECT DISTINCT ep FROM EventoPlanificado ep  WHERE  ep.idEventoPlanificado = ep.idEventoPlanificado ";
 
 				if (fechaPlanificada) {
-					System.out.println("entro");
 					if (fechaDesdeDate == null && fechaHastaDate == null) {
 
 						return "E:Error Code 5-No se han ingresado parametros de fechas ";
@@ -271,21 +266,20 @@ public class VM_ReporteEventoIndex extends VM_WindowWizard {
 						return "E:Error Code 5-No se puede ingresar una <b>Fecha Desde</b>  mayor a la <b>Fecha Hasta</b> ";
 
 					} else {
-						sql += " and v.fechaIngreso >= "
+						sql += " and ep.fechaPlanificada >= "
 								+ fechaDesdeDate.getTime()
-								+ " and v.fechaIngreso <= "
+								+ " and ep.fechaPlanificada <= "
 								+ fechaHastaDate.getTime() + " ";
-						System.out.println(sql);
 					}
 				}
 
 			}
 
 			if (!todos) {
-				sql = "SELECT DISTINCT v FROM Voluntario v  WHERE  v.idVoluntario = v.idVoluntario ";
+				sql = "SELECT DISTINCT ep FROM EventoPlanificado ep  WHERE  ep.idEventoPlanificado = ep.idEventoPlanificado ";
 
 				if (fechaPlanificada) {
-					System.out.println("entro");
+		
 					if (fechaDesdeDate == null && fechaHastaDate == null) {
 
 						return "E:Error Code 5-No se han ingresado parametros de fechas ";
@@ -304,130 +298,138 @@ public class VM_ReporteEventoIndex extends VM_WindowWizard {
 						return "E:Error Code 5-No se puede ingresar una <b>Fecha Desde</b>  mayor a la <b>Fecha Hasta</b> ";
 
 					} else {
-						System.out.println("no llego al final");
-						sql += " and v.fechaIngreso >= "
+				
+						sql += " and ep.fechaPlanificada >= "
 								+ fechaDesdeDate.getTime()
-								+ " and v.fechaIngreso <= "
+								+ " and ep.fechaPlanificada <= "
 								+ fechaHastaDate.getTime() + " ";
-						System.out.println(sql);
 					}
 				}
 
-				if (cancelado || ejecutado) {
-					String estatusVoluntarios = "";
+				if (cancelado || ejecutado || planificado || rechazado) {
+					String estatusEventos = "";
 
 					if (cancelado) {
-						estatusVoluntarios += EstatusVoluntarioEnum.POR_COMPLETAR
+						estatusEventos += EstatusEventoPlanificadoEnum.CANCELADO
 								.ordinal() + ",";
-						estatusEventosP += EstatusVoluntarioEnum.POR_COMPLETAR
+						estatusEventosP += EstatusEventoPlanificadoEnum.CANCELADO
 								.toString() + " ";
 					}
 
 					if (ejecutado) {
-						estatusVoluntarios += EstatusVoluntarioEnum.POSTULADO
+
+						estatusEventos += EstatusEventoPlanificadoEnum.EJECUTADO
 								.ordinal() + ",";
-						estatusEventosP += EstatusVoluntarioEnum.POSTULADO
+						estatusEventosP += EstatusEventoPlanificadoEnum.EJECUTADO
 								.toString() + " ";
 					}
 
-					int tamano = estatusVoluntarios.length();
+					if (planificado) {
 
-					char[] tmp = estatusVoluntarios.toCharArray();
+						estatusEventos += EstatusEventoPlanificadoEnum.PLANIFICADO
+								.ordinal() + ",";
+						estatusEventosP += EstatusEventoPlanificadoEnum.PLANIFICADO
+								.toString() + " ";
+					}
+					
+					if (rechazado) {
+
+						estatusEventos += EstatusEventoPlanificadoEnum.RECHAZADO
+								.ordinal() + ",";
+						estatusEventosP += EstatusEventoPlanificadoEnum.RECHAZADO
+								.toString() + " ";
+					}
+
+					int tamano = estatusEventos.length();
+
+					char[] tmp = estatusEventos.toCharArray();
 
 					tmp[tamano - 1] = ' ';
 
-					estatusVoluntarios = new String(tmp);
+					estatusEventos = new String(tmp);
 
-					sql += "and v.estatusVoluntario in(" + estatusVoluntarios
-							+ ")";
+					sql += "and ep.estatusEvento in(" + estatusEventos + ")";
 				}
-				if (evento) {
-
+				if (indicador) {
 					if (indicadoresSeleccionados != null) {
-						String profesiones = "";
+						String indicadores = "";
 						int i = 0;
 
-						for (Profesion profesion : indicadoresSeleccionados) {
+						for (Indicador indicador : indicadoresSeleccionados) {
 							i++;
-							profesiones += profesion.getIdProfesion();
-							tareasP += profesion.getNombre() + "," + " ";
+							indicadores += indicador.getIdIndicador();
+							indicadoresP += indicador.getNombre() + "," + " ";
 
 							if (i != indicadoresSeleccionados.size()) {
-								profesiones += ",";
+								indicadores += ",";
 							}
 
 						}
 						sql = sql.replace("WHERE",
-								", VoluntarioProfesion pv WHERE");
-						sql += " and pv.fkVoluntario.idVoluntario = v.idVoluntario and pv.fkProfesion.idProfesion in ("
-								+ profesiones + ")";
+								", IndicadorEventoPlanificado epi WHERE");
+						sql += " and epi.fkEventoPlanificado.idEventoPlanificado = ep.idEventoPlanificado and epi.fkIndicador.idIndicador in ("
+								+ indicadores + ")";
 					}
 				}
 			}
 			if (tarea) {
-
-				if (eventosSeleccionados != null) {
-					String fortalezas = "";
+				if (tareasSeleccionadas != null) {
+					String tareas = "";
 					int i = 0;
 
-					for (Fortaleza fortaleza : eventosSeleccionados) {
+					for (Tarea tarea : tareasSeleccionadas) {
 						i++;
-						fortalezas += fortaleza.getIdFortaleza();
-						indicadoresP += fortaleza.getNombre() + "," + " ";
+						tareas += tarea.getIdTarea();
+						tareasP += tarea.getNombre() + "," + " ";
 
 						if (i != eventosSeleccionados.size()) {
-							fortalezas += ",";
+							tareas += ",";
 						}
 					}
-					sql = sql
-							.replace("WHERE", ", VoluntarioFortaleza vf WHERE");
-					sql += " and vf.fkVoluntario.idVoluntario = v.idVoluntario and vf.fkFortaleza.idFortaleza in ("
-							+ fortalezas + ")";
+					sql = sql.replace("WHERE", ", EventPlanTarea ept WHERE");
+					sql += " and ept.fkEventoPlanificado.idEventoPlanificado = ep.idEventoPlanificado and ept.fkTarea.idTarea in ("
+							+ tareas + ")";
 				}
 
 			}
 			if (clasificadorEvento) {
 
 				if (clasificadorEventoSeleccionados != null) {
-					String voluntarioClasificado = "";
+					String eventosClasificados = "";
 					int i = 0;
 
-					for (ClasificadorVoluntario clasificadorVoluntario : clasificadorEventoSeleccionados) {
+					for (ClasificadorEvento clasificadorEvento : clasificadorEventoSeleccionados) {
 						i++;
-						eventosClasificadosP += clasificadorVoluntario
-								.getNombre() + "," + " ";
-						voluntarioClasificado += clasificadorVoluntario
-								.getIdClasificadorVoluntario();
+						eventosClasificadosP += clasificadorEvento.getNombre()
+								+ "," + " ";
+						eventosClasificados += clasificadorEvento
+								.getIdClasificadorEvento();
 
 						if (i != clasificadorEventoSeleccionados.size()) {
-							voluntarioClasificado += ",";
+							eventosClasificados += ",";
 						}
 					}
-					sql = sql.replace("WHERE",
-							", VoluntarioClasificado vc WHERE");
-					sql += " and vc.fkVoluntario.idVoluntario = v.idVoluntario and vc.fkClasificadorVoluntario.idClasificadorVoluntario in ("
-							+ voluntarioClasificado + ")";
+					sql += " and  ep.fkEvento.fkClasificadorEvento.idClasificadorEvento in ("
+							+ eventosClasificados + ")";
 				}
 
 			}
-			if (sql.equals("SELECT DISTINCT v FROM Voluntario v  WHERE  v.idVoluntario = v.idVoluntario ")
+			if (sql.equals("SELECT DISTINCT v FROM EventoPlanificado ep  WHERE  ep.idEventoPlanificado = ep.idEventoPlanificado ")
 					&& !todos) {
-				
+
 				return "E:Error Code 5-No se han seleccionados criterios para la consulta <b>Voluntarios</b>";
 
 			}
-			PayloadVoluntarioResponse payloadVoluntarioResponse = S.VoluntarioService
-					.consultaVoluntariosParametrizado(sql);
-//			List<Voluntario> listVoluntarios = payloadVoluntarioResponse
-//					.getObjetos();
-//			this.getVoluntarios().addAll(listVoluntarios);
-//
-//			System.out.println(sql);
-//			if (listVoluntarios.isEmpty()) {
-//				return "E:Error Code 5-Los criterios seleccionados no aportan información para <b>Voluntarios</b>";
-//			}
-//
-//			jrDataSource = new JRBeanCollectionDataSource(listVoluntarios);
+			System.out.println(sql);
+			PayloadEventoPlanificadoResponse payloadEventoPlanificadoResponse = S.EventoPlanificadoService
+					.consultaEventosPlanificadosParametrizado(sql);
+			 List<EventoPlanificado> listEventosPlanificados = payloadEventoPlanificadoResponse.getObjetos();
+			 if (listEventosPlanificados.isEmpty()) {
+			 return
+			 "E:Error Code 5-Los criterios seleccionados no aportan información para <b>Voluntarios</b>";
+			}
+			System.out.println("Tamano de la lista "+ listEventosPlanificados.size());
+			 jrDataSource = new JRBeanCollectionDataSource(listEventosPlanificados);
 		}
 		if (currentStep == 2) {
 			type = "pdf";
@@ -435,13 +437,13 @@ public class VM_ReporteEventoIndex extends VM_WindowWizard {
 				tStatus = "Estatus";
 			}
 			if (!indicadoresP.equals("")) {
-				tIndicadores = "Fortalezas";
+				tIndicadores = "Indicadores";
 			}
 			if (!tareasP.equals("")) {
-				tTareas = "Profesiones";
+				tTareas = "Tareas";
 			}
 			if (!eventosClasificadosP.equals("")) {
-				tEventosClasificados = "Clasificacion de Voluntarios";
+				tEventosClasificados = "Clasificacion de Eventos";
 			}
 			fechaDesde = fechaDesdeDate == null ? "" : UtilConverterDataList
 					.convertirLongADate(fechaDesdeDate.getTime());
@@ -475,7 +477,7 @@ public class VM_ReporteEventoIndex extends VM_WindowWizard {
 
 			parametros.put("indicadoresP", indicadoresP);
 
-			parametros.put("tareasP", tareasP);
+			parametros.put("tareasP", indicadoresP);
 
 			parametros.put("eventosClasificadosP", eventosClasificadosP);
 
@@ -491,359 +493,312 @@ public class VM_ReporteEventoIndex extends VM_WindowWizard {
 		return "";
 	}
 
-
 	public boolean isClasificadorEvento() {
 		return clasificadorEvento;
 	}
-
 
 	public void setClasificadorEvento(boolean clasificadorEvento) {
 		this.clasificadorEvento = clasificadorEvento;
 	}
 
-
 	public boolean isEvento() {
 		return evento;
 	}
-
 
 	public void setEvento(boolean evento) {
 		this.evento = evento;
 	}
 
-
 	public boolean isTarea() {
 		return tarea;
 	}
-
 
 	public void setTarea(boolean tarea) {
 		this.tarea = tarea;
 	}
 
-
 	public boolean isIndicador() {
 		return indicador;
 	}
-
 
 	public void setIndicador(boolean indicador) {
 		this.indicador = indicador;
 	}
 
-
 	public boolean isFechaPlanificada() {
 		return fechaPlanificada;
 	}
-
 
 	public void setFechaPlanificada(boolean fechaPlanificada) {
 		this.fechaPlanificada = fechaPlanificada;
 	}
 
-
 	public boolean isEjecutado() {
 		return ejecutado;
 	}
-
 
 	public void setEjecutado(boolean ejecutado) {
 		this.ejecutado = ejecutado;
 	}
 
-
 	public boolean isCancelado() {
 		return cancelado;
 	}
-
 
 	public void setCancelado(boolean cancelado) {
 		this.cancelado = cancelado;
 	}
 
-
 	public boolean isTodos() {
 		return todos;
 	}
-
 
 	public void setTodos(boolean todos) {
 		this.todos = todos;
 	}
 
-
 	public Date getFechaDesdeDate() {
 		return fechaDesdeDate;
 	}
-
 
 	public void setFechaDesdeDate(Date fechaDesdeDate) {
 		this.fechaDesdeDate = fechaDesdeDate;
 	}
 
-
 	public Date getFechaHastaDate() {
 		return fechaHastaDate;
 	}
-
 
 	public void setFechaHastaDate(Date fechaHastaDate) {
 		this.fechaHastaDate = fechaHastaDate;
 	}
 
-
 	public String getType() {
 		return type;
 	}
-
 
 	public void setType(String type) {
 		this.type = type;
 	}
 
-
 	public String getSource() {
 		return source;
 	}
-
 
 	public void setSource(String source) {
 		this.source = source;
 	}
 
-
 	public JRDataSource getJrDataSource() {
 		return jrDataSource;
 	}
-
 
 	public void setJrDataSource(JRDataSource jrDataSource) {
 		this.jrDataSource = jrDataSource;
 	}
 
-
 	public Map<String, Object> getParametros() {
 		return parametros;
 	}
-
 
 	public void setParametros(Map<String, Object> parametros) {
 		this.parametros = parametros;
 	}
 
-
-	public List<ClasificadorVoluntario> getListClasificadorEvento() {
+	public List<ClasificadorEvento> getListClasificadorEvento() {
 		return listClasificadorEvento;
 	}
 
-
 	public void setListClasificadorEvento(
-			List<ClasificadorVoluntario> listClasificadorEvento) {
+			List<ClasificadorEvento> listClasificadorEvento) {
 		this.listClasificadorEvento = listClasificadorEvento;
 	}
 
-
-	public Set<ClasificadorVoluntario> getClasificadorEventoSeleccionados() {
+	public Set<ClasificadorEvento> getClasificadorEventoSeleccionados() {
 		return clasificadorEventoSeleccionados;
 	}
 
-
 	public void setClasificadorEventoSeleccionados(
-			Set<ClasificadorVoluntario> clasificadorEventoSeleccionados) {
+			Set<ClasificadorEvento> clasificadorEventoSeleccionados) {
 		this.clasificadorEventoSeleccionados = clasificadorEventoSeleccionados;
 	}
 
-
-	public List<Fortaleza> getListEvento() {
+	public List<TipoEventoEnum> getListEvento() {
+		if (this.listEvento == null) {
+			this.listEvento = new ArrayList<>();
+		}
+		if (this.listEvento.isEmpty()) {
+			for (TipoEventoEnum tipoEventoEnum : TipoEventoEnum.values()) {
+				this.listEvento.add(tipoEventoEnum);
+			}
+		}
 		return listEvento;
 	}
 
-
-	public void setListEvento(List<Fortaleza> listEvento) {
+	public void setListEvento(List<TipoEventoEnum> listEvento) {
 		this.listEvento = listEvento;
 	}
 
-
-	public Set<Fortaleza> getEventosSeleccionados() {
+	public Set<TipoEventoEnum> getEventosSeleccionados() {
 		return eventosSeleccionados;
 	}
 
-
-	public void setEventosSeleccionados(Set<Fortaleza> eventosSeleccionados) {
+	public void setEventosSeleccionados(Set<TipoEventoEnum> eventosSeleccionados) {
 		this.eventosSeleccionados = eventosSeleccionados;
 	}
 
-
-	public List<Profesion> getListTareas() {
+	public List<Tarea> getListTareas() {
 		return listTareas;
 	}
 
-
-	public void setListTareas(List<Profesion> listTareas) {
+	public void setListTareas(List<Tarea> listTareas) {
 		this.listTareas = listTareas;
 	}
 
-
-	public Set<Profesion> getTareasSeleccionadas() {
+	public Set<Tarea> getTareasSeleccionadas() {
 		return tareasSeleccionadas;
 	}
 
-
-	public void setTareasSeleccionadas(Set<Profesion> tareasSeleccionadas) {
+	public void setTareasSeleccionadas(Set<Tarea> tareasSeleccionadas) {
 		this.tareasSeleccionadas = tareasSeleccionadas;
 	}
 
-
-	public List<Voluntario> getListIndicadores() {
+	public List<Indicador> getListIndicadores() {
 		return listIndicadores;
 	}
 
-
-	public void setListIndicadores(List<Voluntario> listIndicadores) {
+	public void setListIndicadores(List<Indicador> listIndicadores) {
 		this.listIndicadores = listIndicadores;
 	}
 
-
-	public Set<Profesion> getIndicadoresSeleccionados() {
+	public Set<Indicador> getIndicadoresSeleccionados() {
 		return indicadoresSeleccionados;
 	}
 
-
-	public void setIndicadoresSeleccionados(Set<Profesion> indicadoresSeleccionados) {
+	public void setIndicadoresSeleccionados(
+			Set<Indicador> indicadoresSeleccionados) {
 		this.indicadoresSeleccionados = indicadoresSeleccionados;
 	}
-
 
 	public String getEventosClasificadosP() {
 		return eventosClasificadosP;
 	}
 
-
 	public void setEventosClasificadosP(String eventosClasificadosP) {
 		this.eventosClasificadosP = eventosClasificadosP;
 	}
-
 
 	public String getEstatusEventosP() {
 		return estatusEventosP;
 	}
 
-
 	public void setEstatusEventosP(String estatusEventosP) {
 		this.estatusEventosP = estatusEventosP;
 	}
-
 
 	public String getIndicadoresP() {
 		return indicadoresP;
 	}
 
-
 	public void setIndicadoresP(String indicadoresP) {
 		this.indicadoresP = indicadoresP;
 	}
 
-
 	public String getTareasP() {
-		return tareasP;
+		return indicadoresP;
 	}
-
 
 	public void setTareasP(String tareasP) {
-		this.tareasP = tareasP;
+		this.indicadoresP = tareasP;
 	}
-
 
 	public String getEventosP() {
 		return eventosP;
 	}
 
-
 	public void setEventosP(String eventosP) {
 		this.eventosP = eventosP;
 	}
-
 
 	public String gettStatus() {
 		return tStatus;
 	}
 
-
 	public void settStatus(String tStatus) {
 		this.tStatus = tStatus;
 	}
-
 
 	public String gettFechaDesde() {
 		return tFechaDesde;
 	}
 
-
 	public void settFechaDesde(String tFechaDesde) {
 		this.tFechaDesde = tFechaDesde;
 	}
-
 
 	public String gettFechaHasta() {
 		return tFechaHasta;
 	}
 
-
 	public void settFechaHasta(String tFechaHasta) {
 		this.tFechaHasta = tFechaHasta;
 	}
-
 
 	public String gettEventosClasificados() {
 		return tEventosClasificados;
 	}
 
-
 	public void settEventosClasificados(String tEventosClasificados) {
 		this.tEventosClasificados = tEventosClasificados;
 	}
-
 
 	public String gettIndicadores() {
 		return tIndicadores;
 	}
 
-
 	public void settIndicadores(String tIndicadores) {
 		this.tIndicadores = tIndicadores;
 	}
-
 
 	public String gettTareas() {
 		return tTareas;
 	}
 
-
 	public void settTareas(String tTareas) {
 		this.tTareas = tTareas;
 	}
-
 
 	public String getFechaDesde() {
 		return fechaDesde;
 	}
 
-
 	public void setFechaDesde(String fechaDesde) {
 		this.fechaDesde = fechaDesde;
 	}
-
 
 	public String getFechaHasta() {
 		return fechaHasta;
 	}
 
-
 	public void setFechaHasta(String fechaHasta) {
 		this.fechaHasta = fechaHasta;
 	}
-	
-	
+
+	public boolean isPlanificado() {
+		return planificado;
+	}
+
+	public void setPlanificado(boolean planificado) {
+		this.planificado = planificado;
+	}
+
+	public boolean isRechazado() {
+		return rechazado;
+	}
+
+	public void setRechazado(boolean rechazado) {
+		this.rechazado = rechazado;
+	}
 	
 	
 }

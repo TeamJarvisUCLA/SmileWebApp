@@ -1,44 +1,156 @@
+<?xel-method prefix="m" name="getUrlWeb" class="lights.smile.util.Zki" 
+	signature="java.lang.String getUrlWeb(java.lang.String)" ?>
+<?xel-method prefix="m" name="convertirLongADate" class="lights.smile.util.UtilConverterDataList" 
+	signature="java.lang.String convertirLongADate(java.lang.Long)" ?>
+
 <zk xmlns:n="native" xmlns:w="client">
+	<style>
+		.line-evento{ width: 100%; background-color: #D9EB52; height:
+		20px; margin-top: 20px; }
+
+		.titulo-evento{ color: #f26b7a !important; line-height: 28px;
+		text-align: center; font-size: 18px; text-transform: capitalize;
+		display: inherit; }
+
+
+		.subtitulo-evento{ color: #3b85a1 !important; line-height: 45px;
+		text-align: center; font-size: 18px; text-transform: capitalize;
+		display: inherit;}
+
+		.descripcion-evento { color: #8d7a6f !important; line-height:
+		18px; text-align: justify; font-size: 13px; display: inherit;
+		text-indent: 14px; }
+
+		.info-titulo-evento{ color:#3b85a1 !important; font-weight: 600;
+		font-size: 14px;}
+
+
+		.info-descripcion-evento{ color:#8d7a6f; font-size: 14px;}
+
+
+	</style>
+
 	<div width="80%" class="container ${arg.animation_}"
 		use="karen.core.form.controllers.C_WindowForm"
 		apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('ve.smile.administracion.portalweb.calendario.viewmodels.VM_CalendarioFormBasic')">
-		
-		<div class="row">
-			<div class="col s12">
-				<div class="input-field col s6">
-					<n:label for="evento">Evento</n:label>
-					<textbox id="evento" type="text" disabled= "true" maxlength="100"
-						value="@bind(vm.eventoPlanificado.fkEvento.nombre)">
-					</textbox>
+
+		<div sclass="row">
+			<div sclass="col s12">
+				<div class=" col s12">
+					<div class=" row line-evento" style="margin:0px"></div>
 				</div>
-				<div class="input-field col s6">
-					<n:label for="lugar">Lugar</n:label>
-					<textbox id="lugar" type="text" disabled= "true" maxlength="100"
-						value="@bind(vm.eventoPlanificado.fkDirectorio.nombre)">
-					</textbox>
+				<div class=" col s12">
+					<div sclass="row"
+						style="margin:0px;background: #FFF">
+
+						<div sclass="col s3">
+							<n:br></n:br>
+							<n:br></n:br>
+							<div align="center"
+								visible="@load(not empty vm.eventoPlanificado.fkMultimedia and not empty vm.selectedObject.fkMultimedia.url)">
+								<image
+									class="img-responsive circle center-block"
+									src="${m:getUrlWeb(vm.eventoPlanificado.fkMultimedia.url)}"
+									width="128px" height="128px">
+								</image>
+							</div>
+							<n:br></n:br>
+						</div>
+						<div sclass="col s9" align="center">
+							<div sclass="col s12" align="center">
+								<label sclass="titulo-evento"
+									value="@bind(vm.eventoPlanificado.fkEvento.nombre)">
+								</label>
+
+								<label sclass="subtitulo-evento"
+									value="@bind(vm.eventoPlanificado.fkEvento.fkClasificadorEvento.nombre)">
+								</label>
+
+								<div sclass="row">
+									<label sclass="descripcion-evento"
+										value="@bind(vm.eventoPlanificado.fkEvento.descripcion)">
+
+									</label>
+								</div>
+								<div sclass="row">
+									<div sclass="col s8" align="left"
+										style="padding:0px">
+
+										<label
+											sclass="info-titulo-evento">
+											Fecha:
+										</label>
+										<label
+											sclass="info-descripcion-evento"
+											value="${m:convertirLongADate(vm.selectedObject.fechaPlanificada)}">
+
+										</label>
+										<n:br></n:br>
+										<label
+											sclass="info-titulo-evento">
+											Lugar:
+										</label>
+										<label
+											sclass="info-descripcion-evento"
+											value="@bind(vm.eventoPlanificado.fkDirectorio.nombre)">
+										</label>
+										<n:br></n:br>
+										<label
+											sclass="info-titulo-evento">
+											Dirección:
+										</label>
+										<label
+											sclass="info-descripcion-evento"
+											value="@bind(vm.eventoPlanificado.fkDirectorio.direccion)">
+
+										</label>
+										<n:br></n:br>
+
+									</div>
+									<div sclass="col s4">
+										<image
+											class="img-responsive center-block"
+											src="/imagenes/portal/icon/mapa.png"
+											style="width: auto;padding: 0px;margin: 0px;display: inline-block;">
+										</image>
+										<span
+											class="fa fa-search center-block"
+											style=" width: auto; margin: 0px; display: inline-block;vertical-align: bottom;color:#3b85a1">
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
-				
-				<div class="input-field col s6">
-					<n:label for="album">Album Asociado</n:label>
-					<textbox id="album" type="text" disabled= "true" maxlength="100"
-						value="@bind(vm.eventoPlanificado.fkAlbum.titulo)">
-					</textbox>
+				<div class=" col s12">
+					<div class=" row line-evento" style="margin:0px"></div>
 				</div>
-				
-				<div class="input-field col s6">
-					<n:label for="responsable">Responsable</n:label>
-					<textbox id="responsable" type="text" disabled= "true" maxlength="100"
-						value="@bind(vm.eventoPlanificado.fkPersona.nombre)">
-					</textbox>
-				</div>
-			 
-				<div class="input-field col s12" align="center">
-					<checkbox label="Publicar en el Portal" id="publicar" checked="@bind(vm.eventoPlanificado.publicoPortal)"/>
-				</div>
-	
 			</div>
 		</div>
+		<separator height="20px"></separator>
+		<div class="row">
+			<div class="col s12" align="center">
+				<div class="col s12">
+					<n:h6>Publicar en el Portal</n:h6>
+				</div>
+				<div class="col s12">
+					<div class="input-field col s6 offset-s3">
+						<n:div class="switch">
+							<n:label>
+								NO
+								<checkbox
+									checked="@bind(vm.eventoPlanificado.publicoPortal)">
+								</checkbox>
+								SI
+							</n:label>
+						</n:div>
+					</div>
+				</div>
+			</div>
+		</div>
+
 		<div id="divButtonsForm"
 			use="karen.core.form.buttons.containers.DivButtonsForm">
 		</div>

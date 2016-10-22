@@ -260,10 +260,15 @@ public class VM_RegistrarPadrinoIndex extends VM_WindowWizard implements
 		listOperacionWizard3.add(OperacionWizardHelper
 				.getPorType(OperacionWizardEnum.ATRAS));
 		listOperacionWizard3.add(OperacionWizardHelper
-				.getPorType(OperacionWizardEnum.FINALIZAR));
+				.getPorType(OperacionWizardEnum.SIGUIENTE));
 		listOperacionWizard3.add(OperacionWizardHelper
 				.getPorType(OperacionWizardEnum.CANCELAR));
 		botones.put(3, listOperacionWizard3);
+		
+		List<OperacionWizard> listOperacionWizard4 = new ArrayList<OperacionWizard>();
+		listOperacionWizard4.add(OperacionWizardHelper
+				.getPorType(OperacionWizardEnum.FINALIZAR));
+		botones.put(4, listOperacionWizard4);
 		return botones;
 
 	}
@@ -274,6 +279,7 @@ public class VM_RegistrarPadrinoIndex extends VM_WindowWizard implements
 		iconos.add("fa fa-user");
 		iconos.add("fa fa-pencil-square-o");
 		iconos.add("fa fa-pencil-square-o");
+		iconos.add("fa fa-check-square-o");
 		return iconos;
 	}
 
@@ -283,6 +289,7 @@ public class VM_RegistrarPadrinoIndex extends VM_WindowWizard implements
 		urls.add("views/desktop/gestion/apadrinamiento/registro/selectPadrino.zul");
 		urls.add("views/desktop/gestion/apadrinamiento/registro/datosPersonales.zul");
 		urls.add("views/desktop/gestion/apadrinamiento/registro/datosContacto.zul");
+		urls.add("views/desktop/gestion/apadrinamiento/registro/registroCompletado.zul");
 		return urls;
 	}
 
@@ -321,6 +328,14 @@ public class VM_RegistrarPadrinoIndex extends VM_WindowWizard implements
 			BindUtils.postNotifyChange(null, null, this, "sexoEnum");
 			BindUtils.postNotifyChange(null, null, this, "ciudad");
 			BindUtils.postNotifyChange(null, null, this, "selectedObject");
+		}
+		if (currentStep == 2)
+		{
+			
+		}
+		if (currentStep == 3)
+		{
+			
 		}
 		goToNextStep();
 		return "";
@@ -406,12 +421,6 @@ public class VM_RegistrarPadrinoIndex extends VM_WindowWizard implements
 
 			}
 		}
-
-		return "";
-	}
-
-	@Override
-	public String isValidPreconditionsFinalizar(Integer currentStep) {
 		if (currentStep == 3) {
 			try {
 				UtilValidate.validateString(this.getPadrinoSelected()
@@ -430,8 +439,14 @@ public class VM_RegistrarPadrinoIndex extends VM_WindowWizard implements
 	}
 
 	@Override
+	public String isValidPreconditionsFinalizar(Integer currentStep) {
+		
+		return "";
+	}
+
+	@Override
 	public String executeFinalizar(Integer currentStep) {
-		if (currentStep == 3) {
+		if (currentStep == 4) {
 			if (bytes != null) {
 				Multimedia multimedia = new Multimedia();
 				multimedia.setNombre(nameImage);

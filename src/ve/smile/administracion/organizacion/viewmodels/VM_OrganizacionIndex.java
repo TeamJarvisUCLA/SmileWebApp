@@ -1,7 +1,10 @@
 package ve.smile.administracion.organizacion.viewmodels;
 
+import org.zkoss.bind.annotation.Init;
+
 import ve.smile.consume.services.S;
 import ve.smile.dto.Organizacion;
+
 import ve.smile.payload.response.PayloadOrganizacionResponse;
 import ve.smile.seguridad.enums.OperacionEnum;
 import karen.core.crux.alert.Alert;
@@ -9,11 +12,25 @@ import karen.core.simple_list_principal.viewmodels.VM_WindowSimpleListPrincipal;
 import karen.core.util.payload.UtilPayload;
 import lights.core.payload.response.IPayloadResponse;
 
-public class VM_OrganizacionIndex extends VM_WindowSimpleListPrincipal<Organizacion>{
+public class VM_OrganizacionIndex extends
+		VM_WindowSimpleListPrincipal<Organizacion> {
+
+	@Init(superclass = true)
+	public void childInit() {
+		PayloadOrganizacionResponse payloadOrganizacionResponse = S.OrganizacionService
+				.consultarTodos();
+		if (UtilPayload.isOK(payloadOrganizacionResponse)) {
+			setSelectedObject(payloadOrganizacionResponse.getObjetos().get(0));
+		}
+		
+	}
 
 	@Override
-	public IPayloadResponse<Organizacion> getDataToTable(Integer cantidadRegistrosPagina, Integer pagina) {
-		PayloadOrganizacionResponse payloadOrganizacionResponse = S.OrganizacionService.consultarPaginacion(cantidadRegistrosPagina, pagina);
+	public IPayloadResponse<Organizacion> getDataToTable(
+			Integer cantidadRegistrosPagina, Integer pagina) {
+		PayloadOrganizacionResponse payloadOrganizacionResponse = S.OrganizacionService
+				.consultarPaginacion(cantidadRegistrosPagina, pagina);
+
 		return payloadOrganizacionResponse;
 	}
 
@@ -24,10 +41,24 @@ public class VM_OrganizacionIndex extends VM_WindowSimpleListPrincipal<Organizac
 
 	@Override
 	public void doDelete() {
-		PayloadOrganizacionResponse payloadOrganizacionResponse = S.OrganizacionService.eliminar(getSelectedObject().getIdOrganizacion());
+		PayloadOrganizacionResponse payloadOrganizacionResponse = S.OrganizacionService
+				.eliminar(getSelectedObject().getIdOrganizacion());
 		Alert.showMessage(payloadOrganizacionResponse);
-		if (UtilPayload.isOK(payloadOrganizacionResponse)){
+		if (UtilPayload.isOK(payloadOrganizacionResponse)) {
 			getControllerWindowSimpleListPrincipal().updateListBoxAndFooter();
 		}
 	}
+
+	@Override
+	public void setSelectedObject(Organizacion selectedObject) {
+		// TODO Auto-generated method stub
+		super.setSelectedObject(selectedObject);
+	}
+
+	@Override
+	public Organizacion getSelectedObject() {
+		// TODO Auto-generated method stub
+		return super.getSelectedObject();
+	}
+
 }

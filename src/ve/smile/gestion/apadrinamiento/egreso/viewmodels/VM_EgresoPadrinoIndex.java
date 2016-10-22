@@ -298,9 +298,10 @@ public class VM_EgresoPadrinoIndex extends VM_WindowWizard {
 				"z-icon-times", "deep-orange", "EGRESAR");
 		listOperacionWizard2.add(OperacionWizardHelper
 				.getPorType(OperacionWizardEnum.ATRAS));
+		listOperacionWizard2.add(operacionWizardCustom1);
 		listOperacionWizard2.add(OperacionWizardHelper
 				.getPorType(OperacionWizardEnum.CANCELAR));
-		listOperacionWizard2.add(operacionWizardCustom1);
+		
 		botones.put(2, listOperacionWizard2);
 
 		List<OperacionWizard> listOperacionWizard3 = new ArrayList<OperacionWizard>();
@@ -341,7 +342,8 @@ public class VM_EgresoPadrinoIndex extends VM_WindowWizard {
 	}
 
 	// CARGAR OBJETOS
-
+	
+	
 	@Override
 	public IPayloadResponse<Padrino> getDataToTable(
 			Integer cantidadRegistrosPagina, Integer pagina) {

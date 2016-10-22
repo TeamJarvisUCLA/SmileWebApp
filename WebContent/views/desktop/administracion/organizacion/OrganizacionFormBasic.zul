@@ -1,131 +1,171 @@
+<?component name="uploadImageSingle" macroURI="/assets/theme/components/upload_image_single.zul"?>
+<?xel-method prefix="m" name="getUrlWeb" class="lights.smile.util.Zki" 
+	signature="java.lang.String getUrlWeb(java.lang.String)" ?>
 <zk xmlns:n="native" xmlns:w="client">
 	<div width="80%" class="container ${arg.animation_}"
 		use="karen.core.form.controllers.C_WindowForm"
 		apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('ve.smile.administracion.organizacion.viewmodels.VM_OrganizacionFormBasic')">
-		
+
 		<div class="row">
 			<div class="col s12">
-			
-			<tabbox id="tb" class="rtab ltab">
+
+				<tabbox id="tb" class="rtab ltab">
 					<tabs id="tabs">
 						<tab id="tabDatosOrganizacion"
 							label="Datos de la Organización" selected="true" />
-						<tab id="tabContacto"
-							label="Datos de contacto" />
+						<tab id="tabContacto" label="Datos de contacto" />
 						<tab id="tabUbicacion"
 							label="Datos de Ubicación" />
 					</tabs>
-			
-			<tabpanels>
-				<tabpanel>
-			
-				<div class="input-field col s6">
-					<n:label for="rif">Rif</n:label>
-					<textbox id="rif" type="text"  maxlength="100"
-						value="@bind(vm.organizacion.rif)">
-					</textbox>
-				</div>
-				<div class="input-field col s6">
-					<n:label for="nombre">Nombre</n:label>
-					<textbox id="nombre" type="text" maxlength="100"
-						value="@bind(vm.organizacion.nombre)">
-					</textbox>
-				</div>
-				<div class="input-field col s6">
-					<n:label for="imagen">Imagen</n:label>
-					<textbox id="imagen" type="text" maxlength="100"
-						value="@bind(vm.organizacion.fkMultimedia.url)">
-					</textbox>
-				</div>
-				
-				<div class="input-field col s12">
-					<n:label for="descripcion">Descripción</n:label>
-					<textbox id="descripcion" type="text" multiline= "true" class="materialize-textarea" maxlength="500"
-						value="@bind(vm.organizacion.descripcion)">
-					</textbox>
-				</div>
-				
-				<div class="input-field col s12">
-					<n:label for="mision">Misión</n:label>
-					<textbox id="mision" type="text" multiline= "true" class="materialize-textarea" maxlength="500"
-						value="@bind(vm.organizacion.mision)">
-					</textbox>
-				</div>
-				
-				<div class="input-field col s12">
-					<n:label for="vision">Visión</n:label>
-					<textbox id="vision" type="text" multiline= "true" class="materialize-textarea" maxlength="500"
-						value="@bind(vm.organizacion.vision)">
-					</textbox>
-				</div>
-				
-				<div class="input-field col s6">
-					<n:label for="slogan">Slogan</n:label>
-					<textbox id="slogan" type="text" multiline= "true" class="materialize-textarea" maxlength="500"
-						value="@bind(vm.organizacion.slogan)">
-					</textbox>
-				</div>
-				
-			</tabpanel>
-			
-			
-			<tabpanel>
-				<div class="input-field col s6">
-						<n:label for="correo" class= "active">Correo</n:label>
-						<textbox id="correo" type="text"  maxlength="100"
-							value="@bind(vm.organizacion.correo)">
-						</textbox>
-					</div>
-					<div class="input-field col s6">
-						<n:label for="telefono" class= "active">Telefono</n:label>
-						<textbox id="telefono" type="text" maxlength="100"
-							value="@bind(vm.organizacion.telefono)">
-						</textbox>
-					</div>
-					<div class="input-field col s6">
-						<n:label for="telefono2" class= "active">Telefono2</n:label>
-						<textbox id="telefono2" type="text"  maxlength="100"
-							value="@bind(vm.organizacion.telefono2)">
-						</textbox>
-					</div>
-			
-			</tabpanel>
 
+					<tabpanels>
+						<tabpanel>
 
-			<tabpanel>
-				<div class="input-field col s12">
-					<n:label for="direccion" class= "active">Dirección</n:label>
-					<textbox id="direccion" type="text"  multiline="true" class="materialize-textarea" maxlength="500"
-						value="@bind(vm.organizacion.direccion)">
-					</textbox>
-				</div>
-				
-				<div class="input-field col s12">
-					<n:label for="direccion2" class= "active">Dirección2</n:label>
-					<textbox id="direccion2" type="text"  multiline="true" class="materialize-textarea" maxlength="500"
-						value="@bind(vm.organizacion.direccion2)">
-					</textbox>
-				</div>
-				
-				<div class="input-field col s6">
-						<n:label for="latitud" class= "active">Latitud</n:label>
-						<textbox id="latitud" type="text" maxlength="100"
-							value="@bind(vm.organizacion.latitud)">
-						</textbox>
-					</div>
-					<div class="input-field col s6">
-						<n:label for="longitud" class= "active">Longitud</n:label>
-						<textbox id="longitud" type="text"  maxlength="100"
-							value="@bind(vm.organizacion.longitud)">
-						</textbox>
-					</div>
-			</tabpanel>
+							<div class="input-field col s6">
+								<n:label for="rif">Rif</n:label>
+								<textbox id="rif" type="text"
+									maxlength="100" value="@bind(vm.organizacion.rif)">
+								</textbox>
+							</div>
+							<div class="input-field col s6">
+								<n:label for="nombre">Nombre</n:label>
+								<textbox id="nombre" type="text"
+									maxlength="100" value="@bind(vm.organizacion.nombre)">
+								</textbox>
+							</div>
 
-		</tabpanels>
+							<div class="input-field col s5">
+								<div class="input-field col s12">
+									<label class="center-transform-x"
+										style="    color: #a6a6a6;font-size: 17px;">
+										Imagen del Trabajo Social
+									</label>
+									<uploadImageSingle maxsize="9000"
+										size="200" idUpload="1" title="" />
+								</div>
+							</div>
+
+							<div class="input-field col s12">
+								<n:label for="descripcion">
+									Descripción
+								</n:label>
+								<textbox id="descripcion" type="text"
+									multiline="true" class="materialize-textarea" maxlength="500"
+									value="@bind(vm.organizacion.descripcion)">
+								</textbox>
+							</div>
+
+							<div class="input-field col s12">
+								<n:label for="mision">Misión</n:label>
+								<textbox id="mision" type="text"
+									multiline="true" class="materialize-textarea" maxlength="500"
+									value="@bind(vm.organizacion.mision)">
+								</textbox>
+							</div>
+
+							<div class="input-field col s12">
+								<n:label for="vision">Visión</n:label>
+								<textbox id="vision" type="text"
+									multiline="true" class="materialize-textarea" maxlength="500"
+									value="@bind(vm.organizacion.vision)">
+								</textbox>
+							</div>
+
+							<div class="input-field col s6">
+								<n:label for="slogan">Slogan</n:label>
+								<textbox id="slogan" type="text"
+									multiline="true" class="materialize-textarea" maxlength="500"
+									value="@bind(vm.organizacion.slogan)">
+								</textbox>
+							</div>
+
+						</tabpanel>
+
+						<tabpanel>
+							<div class="input-field col s6">
+								<n:label for="correo" class="active">
+									Correo
+								</n:label>
+								<textbox id="correo" type="text"
+									maxlength="100" value="@bind(vm.organizacion.correo)">
+								</textbox>
+							</div>
+							<div class="input-field col s6">
+								<n:label for="telefono"
+									class="active">
+									Telefono
+								</n:label>
+								<textbox id="telefono" type="text"
+									maxlength="100" value="@bind(vm.organizacion.telefono)">
+								</textbox>
+							</div>
+							<div class="input-field col s6">
+								<n:label for="telefono2"
+									class="active">
+									Telefono2
+								</n:label>
+								<textbox id="telefono2" type="text"
+									maxlength="100" value="@bind(vm.organizacion.telefono2)">
+								</textbox>
+							</div>
+							<div class="input-field col s6">
+								<n:label for="fax" class="active">
+									Fax
+								</n:label>
+								<textbox id="fax" type="text"
+									maxlength="100" value="@bind(vm.organizacion.fax)">
+								</textbox>
+							</div>
+
+						</tabpanel>
+
+						<tabpanel>
+							<div class="input-field col s12">
+								<n:label for="direccion"
+									class="active">
+									Dirección
+								</n:label>
+								<textbox id="direccion" type="text"
+									multiline="true" class="materialize-textarea" maxlength="500"
+									value="@bind(vm.organizacion.direccion)">
+								</textbox>
+							</div>
+
+							<div class="input-field col s12">
+								<n:label for="direccion2"
+									class="active">
+									Dirección2
+								</n:label>
+								<textbox id="direccion2" type="text"
+									multiline="true" class="materialize-textarea" maxlength="500"
+									value="@bind(vm.organizacion.direccion2)">
+								</textbox>
+							</div>
+
+							<div class="input-field col s6">
+								<n:label for="latitud" class="active">
+									Latitud
+								</n:label>
+								<textbox id="latitud" type="text"
+									maxlength="100" value="@bind(vm.organizacion.latitud)">
+								</textbox>
+							</div>
+							<div class="input-field col s6">
+								<n:label for="longitud"
+									class="active">
+									Longitud
+								</n:label>
+								<textbox id="longitud" type="text"
+									maxlength="100" value="@bind(vm.organizacion.longitud)">
+								</textbox>
+							</div>
+						</tabpanel>
+
+					</tabpanels>
 
 				</tabbox>
-				
+
 			</div>
 		</div>
 		<div id="divButtonsForm"

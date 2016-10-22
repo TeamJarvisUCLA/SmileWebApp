@@ -281,10 +281,18 @@ public class VM_PostulacionIndex extends VM_WindowWizard {
 
 		List<OperacionWizard> listOperacionWizard3 = new ArrayList<OperacionWizard>();
 		listOperacionWizard3.add(OperacionWizardHelper
-				.getPorType(OperacionWizardEnum.FINALIZAR));
+				.getPorType(OperacionWizardEnum.ATRAS));
+		listOperacionWizard3.add(OperacionWizardHelper
+				.getPorType(OperacionWizardEnum.SIGUIENTE));
 		listOperacionWizard3.add(operacionWizardCustom3);
 
 		botones.put(3, listOperacionWizard3);
+		
+		List<OperacionWizard> listOperacionWizard4 = new ArrayList<OperacionWizard>();
+		listOperacionWizard4.add(OperacionWizardHelper
+				.getPorType(OperacionWizardEnum.FINALIZAR));
+		botones.put(4, listOperacionWizard4);
+		
 		return botones;
 	}
 
@@ -294,6 +302,7 @@ public class VM_PostulacionIndex extends VM_WindowWizard {
 		iconos.add("fa fa-user");
 		iconos.add("fa fa-pencil-square-o");
 		iconos.add("fa fa-pencil-square-o");
+		iconos.add("fa fa-check-square-o");
 		return iconos;
 	}
 
@@ -303,6 +312,7 @@ public class VM_PostulacionIndex extends VM_WindowWizard {
 		urls.add("views/desktop/gestion/apadrinamiento/postulacion/selectPostulado.zul");
 		urls.add("views/desktop/gestion/apadrinamiento/postulacion/datosPostulado.zul");
 		urls.add("views/desktop/gestion/apadrinamiento/postulacion/motivoRechazo.zul");
+		urls.add("views/desktop/gestion/apadrinamiento/postulacion/registroCompletado.zul");
 		return urls;
 	}
 
@@ -360,12 +370,23 @@ public class VM_PostulacionIndex extends VM_WindowWizard {
 				return "E:Error Code 5-Debe seleccionar un <b>postulado</b>";
 			}
 		}
+		if (currentStep == 3)
+		{
+			try
+			{
+				UtilValidate.validateNull(this.getPadrinoSelected().getFkMotivo(), "Motivo");
+			}
+			catch (Exception e)
+			{
+				return e.getMessage();
+			}
+		}
 		return "";
 	}
 
 	@Override
 	public String isValidPreconditionsFinalizar(Integer currentStep) {
-		if (currentStep == 3) {
+		if (currentStep == 4) {
 			try {
 				UtilValidate.validateNull(this.getPadrinoSelected()
 						.getFkMotivo(), "Motivo de Rechazo");
@@ -373,6 +394,7 @@ public class VM_PostulacionIndex extends VM_WindowWizard {
 				return e.getMessage();
 			}
 		}
+		
 		return "";
 	}
 
@@ -411,7 +433,7 @@ public class VM_PostulacionIndex extends VM_WindowWizard {
 
 	@Override
 	public String executeFinalizar(Integer currentStep) {
-		if (currentStep == 3) {
+		if (currentStep == 4) {
 			this.getPadrinoSelected().setEstatusPadrino(
 					EstatusPadrinoEnum.RECHAZADO.ordinal());
 			PayloadPadrinoResponse payloadPadrinoResponse = S.PadrinoService

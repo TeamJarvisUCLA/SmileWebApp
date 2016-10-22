@@ -202,15 +202,9 @@ public class VM_CapacitacionEjecutadaIndex extends VM_WindowWizard<CapacitacionP
 
 		List<OperacionWizard> listOperacionWizard2 = new ArrayList<OperacionWizard>();
 		listOperacionWizard2.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.ATRAS));
-		listOperacionWizard2.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.SIGUIENTE));
+		listOperacionWizard2.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.FINALIZAR));
 		listOperacionWizard2.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.CANCELAR));
 		botones.put(2, listOperacionWizard2);
-		
-		List<OperacionWizard> listOperacionWizard3 = new ArrayList<OperacionWizard>();
-		listOperacionWizard3.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.ATRAS));
-		listOperacionWizard3.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.FINALIZAR));
-		listOperacionWizard3.add(OperacionWizardHelper.getPorType(OperacionWizardEnum.CANCELAR));
-		botones.put(3, listOperacionWizard3);
 
 		return botones;
 	}
@@ -221,7 +215,6 @@ public class VM_CapacitacionEjecutadaIndex extends VM_WindowWizard<CapacitacionP
 		List<String> iconos = new ArrayList<String>();
 		iconos.add("fa fa-heart");
 		iconos.add("fa fa-pencil-square-o");
-		iconos.add("fa fa-pencil-square-o");
 		return iconos;
 	}
 
@@ -231,7 +224,6 @@ public class VM_CapacitacionEjecutadaIndex extends VM_WindowWizard<CapacitacionP
 		List<String> urls = new ArrayList<String>();
 		urls.add("views/desktop/gestion/voluntariado/capacitacion/ejecucion/selectCapacitacion.zul");
 		urls.add("views/desktop/gestion/voluntariado/capacitacion/ejecucion/registroCapacitacion.zul");
-		urls.add("views/desktop/gestion/voluntariado/capacitacion/ejecucion/registroVoluntarios.zul");
 		return urls;
 	}
 	
@@ -272,12 +264,24 @@ public class VM_CapacitacionEjecutadaIndex extends VM_WindowWizard<CapacitacionP
 				return "E:Error Code 5-Debe seleccionar una <b>capacitación planificada</b>";
 			}
 		}
-
+		return "";
+	}
+		
+	@Override
+	public String executeSiguiente(Integer currentStep)
+	{	
+		goToNextStep();
+		return "";
+	}
+	
+	// FINALIZAR
+	@Override
+	public String isValidPreconditionsFinalizar(Integer currentStep)
+	{
 		if (currentStep == 2)
 		{
 			try
 			{
-				UtilValidate.validateDate(this.getFechaEjecutada().getTime(), "Fecha ejecutada", ValidateOperator.LESS_THAN, new SimpleDateFormat("yyyy-MM-dd").format(new Date()), "dd/MM/yyyy");
 				this.voluntariosInscritos = new ArrayList<>();
 				Map<String, String> criterios = new HashMap<>();
 				criterios.put("fkCapacitacionPlanificada.idCapacitacionPlanificada", String.valueOf(this.getSelectedObject().getIdCapacitacionPlanificada()));
@@ -295,41 +299,25 @@ public class VM_CapacitacionEjecutadaIndex extends VM_WindowWizard<CapacitacionP
 		}
 		return "";
 	}
-		
-	@Override
-	public String executeSiguiente(Integer currentStep)
-	{
-		if (currentStep == 2)
-		{
-			// NOTHING
-		}		
-		goToNextStep();
-		return "";
-	}
-	
-	// FINALIZAR
-	@Override
-	public String isValidPreconditionsFinalizar(Integer currentStep)
-	{
-		if (currentStep == 4)
-		{
-			// NOTHING
-		}
-		return "";
-	}
 	
 	@Override
 	public String executeFinalizar(Integer currentStep)
 	{
-		if (currentStep == 4)
+		if (currentStep == 2)
 		{
 			// VOLUNTARIOS CAPACITACION PLANIFICADA
-			PayloadVolCapacitacionPlanificada payloadVolCapacitacionPlanificadaResponse = S.VolCapacitacionPlanificadaService.modificar(this.getVoluntariosInscritos());
-			if (UtilPayload.isOK(payloadVolCapacitacionPlanificadaResponse))
+			for (int k = 0; k < this.getVoluntariosInscritos().size(); k++)
 			{
-				
+				VolCapacitacionPlanificada vcp;
+				vcp = this.getVoluntariosInscritos().get(k);
+				// SETEAR VALORES DE TABLA
+				PayloadVolCapacitacionPlanificadaResponse payloadVolCapacitacionPlanificadaResponse = S.VolCapacitacionPlanificadaService.modificar(vcp);
+				if (!UtilPayload.isOK(payloadVolCapacitacionPlanificadaResponse))
+				{
+					Alert.showMessage(payloadVolCapacitacionPlanificadaResponse);
+				}
+				Alert.showMessage(payloadVolCapacitacionPlanificadaResponse);
 			}
-			
 			
 			// CAPACITACION PLANIFICADA
 			PayloadCapacitacionPlanificadaResponse payloadCapacitacionPlanificadaResponse = S.CapacitacionPlanificadaService.modificar(this.getCapacitacionPlanificadaSelected());

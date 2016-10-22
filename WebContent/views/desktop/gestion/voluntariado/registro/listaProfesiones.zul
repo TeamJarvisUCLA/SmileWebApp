@@ -16,7 +16,9 @@
 								<listheader label="Profesiones" />
 							</listhead>
 							<template name="model">
-								<listitem label="@load(each.nombre)">
+								<listitem>
+									<listcell style="width: 10%"/>
+									<listcell label="@load(each.nombre)"/>
 									<zscript> self.setDisabled(vm.disabledProfesion(each)); </zscript>
 								</listitem>
 							</template>
@@ -38,7 +40,10 @@
 								<listheader label="Profesiones del voluntario" />
 							</listhead>
 							<template name="model">
-								<listitem label="@load(each.nombre)" />
+								<listitem>
+									<listcell style="width: 10%"/>
+									<listcell label="@load(each.nombre)"/>
+								</listitem>
 							</template>
 						</listbox>
 					</div>

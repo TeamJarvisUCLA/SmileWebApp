@@ -10,11 +10,13 @@
 		<separator height="20px" orient="vertical"></separator>
 		<listbox id="listbox" model="@load(vm.objectList)" selectedItem="@bind(vm.selectedObject)" multiple="true" checkmark="true" style="width: 90%; margin-left: 5%;padding-bottom: 5%;">
 			<listhead>
-				<listheader width="25%" label="Cédula" />
+				<listheader width="5%"/>
+				<listheader width="20%" label="Cédula" />
 				<listheader width="75%" label="Voluntario" />
 			</listhead>
 			<template name="model">
 				<listitem>
+					<listcell/>
 					<listcell label="@load(each.fkPersona.identificacion)" />
 					<listcell label="@load(each.fkPersona.nombre.concat(' ').concat(each.fkPersona.apellido))" />
 				</listitem>

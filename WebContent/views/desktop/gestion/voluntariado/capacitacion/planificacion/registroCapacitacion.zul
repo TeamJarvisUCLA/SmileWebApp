@@ -56,10 +56,10 @@
 				</div>
 				
 				<popup id="pop_lugar" width="200px">
-        		<html>
-        			<![CDATA[Por favor, seleccione el lugar de la capacitación que desea registrar.<br/>]]>
-        		</html>
-    		</popup>
+        			<html>
+        				<![CDATA[Por favor, seleccione el lugar de la capacitación que desea registrar.<br/>]]>
+        			</html>
+    			</popup>
 			</div>
 		</div>
 	</div>

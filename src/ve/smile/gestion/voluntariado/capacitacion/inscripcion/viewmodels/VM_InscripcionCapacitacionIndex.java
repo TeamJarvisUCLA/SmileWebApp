@@ -28,6 +28,7 @@ import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 
 import ve.smile.consume.services.S;
+import ve.smile.dto.TsPlanActividadVoluntario;
 import ve.smile.dto.Voluntario;
 import ve.smile.dto.CapacitacionPlanificada;
 import ve.smile.dto.VolCapacitacionPlanificada;
@@ -77,123 +78,33 @@ public class VM_InscripcionCapacitacionIndex extends VM_WindowWizard <Capacitaci
 		UtilDialog.showDialog("views/desktop/gestion/voluntariado/capacitacion/inscripcion/catalogoVoluntarios.zul", catalogueDialogData);
 	}
 	
-	public void refreshVoluntarios(List<Voluntario> voluntariosInscritos)
+	public void refreshVoluntarios(List<Voluntario> listVoluntarios)
 	{
-		BindUtils.postNotifyChange(null, null, this, "voluntariosInscritos");		
-	}
-	
-	/*
-	private List<Voluntario> voluntarios;
-	private Set <Voluntario> voluntariosSeleccionados;
-	private List<Voluntario> voluntariosInscritos;
-	private Set <Voluntario> voluntariosInscritosSeleccionados;
-
-	@Init(superclass = true)
-	public void childInit()
-	{
-		// VOLUNTARIOS
-		if (this.getVoluntarios().isEmpty())
-		{			
-			Map<String, String> criterios = new HashMap<>();
-			criterios.put("estatusVoluntario", String.valueOf(EstatusVoluntarioEnum.ACTIVO.ordinal()));
-			PayloadVoluntarioResponse payloadVoluntarioResponse = S.VoluntarioService.consultarCriterios(TypeQuery.EQUAL, criterios);
-			if (!UtilPayload.isOK(payloadVoluntarioResponse))
+		boolean validar = true;
+		/* EJEMPLO
+		TsPlanActividadVoluntario tsPlanActividadVoluntario = new TsPlanActividadVoluntario();
+		for (Voluntario voluntario : listVoluntarios)
+		{
+			for (TsPlanActividadVoluntario tsPlanActividadVoluntario2 : listTsPlanActividads.get(indexActividad).getTsPlanActividadVoluntarios())
 			{
-				Alert.showMessage(payloadVoluntarioResponse);
+				if (tsPlanActividadVoluntario2.getFkVoluntario().getIdVoluntario().equals(voluntario.getIdVoluntario()))
+				{
+					validar = false;
+				}
 			}
-			else
+
+			if (validar)
 			{
-				voluntarios.addAll(payloadVoluntarioResponse.getObjetos());
-			}		
+				tsPlanActividadVoluntario = new TsPlanActividadVoluntario();
+				tsPlanActividadVoluntario.setFkTsPlanActividad(listTsPlanActividads.get(indexActividad));
+				tsPlanActividadVoluntario.setFkVoluntario(voluntario);
+				this.listTsPlanActividads.get(indexActividad).getTsPlanActividadVoluntarios().add(tsPlanActividadVoluntario);
+			}
+			validar = true;
 		}
+		BindUtils.postNotifyChange(null, null, this, "listTsPlanActividads");
+		*/
 	}
-	
-	// MÉTODOS DE LAS LISTAS
-	public boolean disabledVoluntario(Voluntario voluntario)
-	{
-		return this.getVoluntariosInscritos().contains(voluntario);
-	}
-	
-	public List<Voluntario> getVoluntarios()
-	{
-		if (this.voluntarios == null)
-		{
-			this.voluntarios = new ArrayList<>();
-		}
-		return voluntarios;
-	}
-
-	public void setVoluntarios(List<Voluntario> voluntarios)
-	{
-		this.voluntarios = voluntarios;
-	}
-
-	public Set<Voluntario> getVoluntariosSeleccionados()
-	{
-		if (this.voluntariosSeleccionados == null)
-		{
-			this.voluntariosSeleccionados = new HashSet<>();
-		}
-		return voluntariosSeleccionados;
-	}
-
-	public void setVoluntariosSeleccionados(Set<Voluntario> voluntariosSeleccionados)
-	{
-		this.voluntariosSeleccionados = voluntariosSeleccionados;
-	}
-	
-	public List<Voluntario> getVoluntariosInscritos()
-	{
-		if (this.voluntariosInscritos == null)
-		{
-			voluntariosInscritos = new ArrayList<>();
-		}
-		return voluntariosInscritos;
-	}
-
-	public void setVoluntariosInscritos (List<Voluntario> voluntariosInscritos)
-	{
-		this.voluntariosInscritos = voluntariosInscritos;
-	}
-
-	public Set<Voluntario> getVoluntariosInscritosSeleccionados()
-	{
-		if (this.voluntariosInscritosSeleccionados == null)
-		{
-			this.voluntariosInscritosSeleccionados = new HashSet<>();
-		}
-		return voluntariosInscritosSeleccionados;
-	}
-
-	public void setVoluntariosInscritosSeleccionados(Set<Voluntario> voluntariosInscritosSeleccionados)
-	{
-		this.voluntariosInscritosSeleccionados = voluntariosInscritosSeleccionados;
-	}
-		
-	@Command("agregarVoluntario")
-	@NotifyChange({"voluntarios", "voluntariosInscritos", "voluntariosSeleccionados", "voluntariosInscritosSeleccionados"})
-	public void agregarVoluntario()
-	{
-		if (this.getVoluntariosSeleccionados() != null && this.getVoluntariosSeleccionados().size() > 0)
-		{
-			this.getVoluntariosInscritos().addAll(voluntariosSeleccionados);
-			this.getVoluntariosSeleccionados().clear();
-			this.getVoluntariosInscritosSeleccionados().clear();
-		}
-	}
-
-	@Command("removerVoluntario")
-	@NotifyChange({"voluntarios", "voluntariosInscritos", "voluntariosSeleccionados", "voluntariosInscritosSeleccionados"})
-	public void removerVoluntario()
-	{
-		if (this.getVoluntariosInscritosSeleccionados() != null && this.getVoluntariosInscritosSeleccionados().size() > 0)
-		{
-			this.getVoluntariosInscritos().removeAll(voluntariosInscritosSeleccionados);
-			this.getVoluntariosSeleccionados().clear();
-			this.getVoluntariosInscritosSeleccionados().clear();
-		}
-	}
-	*/
 	
 	// MÉTODOS DEL WIZARD
 	@Override

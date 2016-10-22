@@ -3,79 +3,118 @@
 		<div class="row">
 			<div class="col s12" align="center"
 				style="margin-bottom: 15px;">
-				<label
-					value="Ingrese los datos de la capacitación ejecutada" sclass="label-medium-500">
-				</label>
+				<label value="Ingrese los datos de la capacitación ejecutada" sclass="label-medium-500"> </label>
 			</div>
 		</div>
 		
 		<div class="row">
 			<div class="col s12">
-			
-				<div class="input-field col s12">
-					<div class="input-field offset-s2 col s8">
-						<n:label for="fecha_ejecutada" class="active"> Fecha ejecutada </n:label>
-						<datebox id="fecha_ejecutada" readonly="true" cols="20" format="dd/MM/yyyy" value="@bind(vm.fechaEjecutada)" />
-						<span sclass="fa fa-question-circle fa-lg help-icon-special" tooltip="pop_fecha, position=after_end" />
-					</div>
+				<div class="input-field col s6">
+					<n:label for="fecha_planificada" class="active"> Fecha planificada </n:label>
+					<datebox id="fecha_planificada" readonly="true" disabled="true" cols="20" format="dd/MM/yyyy" value="@bind(vm.selectedObject.fechaPlanificada)" />
 				</div>
-					
-				<popup id="pop_fecha" width="200px">
-        			<html>
-        				<![CDATA[Por favor, seleccione la fecha de ejecución de la capacitación que desea registrar.<br/>]]>
-        			</html>
-    			</popup>
-					
-				<div class="col s12">
-					<div class="input-field offset-s2 col s8">
-						<n:label class="active" for="fk_motivo">Motivo</n:label>
-						<combobox id="fk_motivo" readonly="true" model="@bind(vm.motivos)" selectedItem="@bind(vm.motivo)">
-							<template name="model">
-								<comboitem label="@load(each.nombre)" />
-							</template>
-						</combobox>
-						<span sclass="fa fa-question-circle fa-lg help-icon" tooltip="pop_motivo, position=after_end"/>
-					</div>
-				</div>
-					
-				<popup id="pop_motivo" width="200px">
-        			<html>
-        				<![CDATA[Por favor, seleccione el motivo de la capacitación que desea registrar.<br/>]]>
-        			</html>
-    			</popup>
 				
-				<div class="input-field col s12">
-					<div class="input-field offset-s2 col s8">
-						<n:label for="observacion"> Observaciones </n:label>
-						<textbox id="descripcion" type="text" sclass="materialize-textarea" multiline="true" value="@bind(vm.observacion)"> </textbox>
-						<span sclass="fa fa-question-circle fa-lg help-icon-special" tooltip="pop_observacion, position=after_end" />
-					</div>
+				<div class="input-field col s6">
+					<n:label for="lugar" class="active"> Lugar </n:label>
+					<textbox id="lugar" readonly="true" disabled="true" type="text" sclass="materialize-textarea" value="@bind(vm.selectedObject.fkDirectorio.nombre)"> </textbox>
 				</div>
-					
-				<popup id="pop_observacion" width="200px">
-        			<html>
-        				<![CDATA[Por favor, ingrese las observaciones de la capacitación que desea registrar.<br/>]]>
-        			</html>
-    			</popup>
+			</div>
 				
-				<div class="input-field col s12">
-					<div class="input-field offset-s2 col s8">
-						<n:label for="fk_motivo" class="active"> Estado de la planificación </n:label>
-						<combobox id="fk_estatus" readonly="true" model="@bind(vm.estatusCapacitacionPlanificadaEnums)" selectedItem="@bind(vm.estatusCapacitacionPlanificadaEnum)">
-							<template name="model">
-								<comboitem label="@load(each)"/>
-							</template>
-						</combobox>
-						<span sclass="fa fa-question-circle fa-lg help-icon-special" tooltip="pop_estatus, position=after_end" />
+				<div class="row">
+					<div class="col s12" align="center">
+						<div class="col s12">
+							<n:h6>Capacitación ejecutada</n:h6>
+						</div>
+						<div class="col s12">
+							<div class="input-field col s6 offset-s3">
+								<n:div class="switch">
+									<n:label> NO <checkbox checked="@bind(vm.selectedObject.ejecucion)"></checkbox> SI </n:label>
+								</n:div>
+							</div>
+						</div>
 					</div>
 				</div>
-
-    			<popup id="pop_estatus" width="200px">
-        			<html>
-        				<![CDATA[Por favor, seleccione el estado de la capacitación que desea registrar.<br/>]]>
-        			</html>
-    			</popup>
+				
+				<div class="row" visible="@bind(!vm.selectedObject.ejecucion)">
+					
+					<div class="col s12">
+						<div class="input-field offset-s2 col s8">
+							<n:label class="active" for="fk_motivo">Motivo</n:label>
+							<combobox id="fk_motivo" readonly="true" model="@bind(vm.motivos)" selectedItem="@bind(vm.motivo)">
+								<template name="model">
+									<comboitem label="@load(each.nombre)" />
+								</template>
+							</combobox>
+							<span sclass="fa fa-question-circle fa-lg help-icon" tooltip="pop_motivo, position=after_end"/>
+						</div>
+					</div>
+					
+					<popup id="pop_motivo" width="200px">
+        				<html>
+        					<![CDATA[Por favor, seleccione el motivo de la capacitación que desea registrar.<br/>]]>
+        				</html>
+    				</popup>
+				
+					<div class="input-field col s12">
+						<div class="input-field offset-s2 col s8">
+							<n:label for="observacion"> Observaciones </n:label>
+							<textbox id="descripcion" type="text" sclass="materialize-textarea" multiline="true" value="@bind(vm.observacion)"> </textbox>
+							<span sclass="fa fa-question-circle fa-lg help-icon-special" tooltip="pop_observacion, position=after_end" />
+						</div>
+					</div>
+					
+					<popup id="pop_observacion" width="200px">
+        				<html>
+        					<![CDATA[Por favor, ingrese las observaciones de la capacitación que desea registrar.<br/>]]>
+        				</html>
+    				</popup>
+				
+				</div>
+				
+				<div class="row" visible="@bind(vm.selectedObject.ejecucion)">
+				
+					<div class="input-field col s12">
+						<div class="input-field offset-s2 col s8">
+							<n:label for="fecha_ejecutada" class="active"> Fecha ejecutada </n:label>
+							<datebox id="fecha_ejecutada" readonly="true" cols="20" format="dd/MM/yyyy" value="@bind(vm.fechaEjecutada)" />
+							<span sclass="fa fa-question-circle fa-lg help-icon-special" tooltip="pop_fecha, position=after_end" />
+						</div>
+					</div>
+					
+					<popup id="pop_fecha" width="200px">
+        				<html>
+        					<![CDATA[Por favor, seleccione la fecha de ejecución de la capacitación que desea registrar.<br/>]]>
+        				</html>
+    				</popup>
     				
+    				<div class="row">
+						<div class="col s12" align="center" style="margin-bottom: 15px;">
+							<label value="Seleccione lo sucedido en la ejecución de la capacitación" sclass="label-medium-500"> </label>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col s12">
+							<listbox height="300px" emptyMessage="No hay voluntarios registrados en la capacitación" model="@bind(vm.voluntariosInscritos)">
+								<listhead sizable="true">
+									<listheader align="center" label="Cédula"  />
+									<listheader align="center" label="Voluntario" />
+									<listheader align="center" label="Asistió"  />
+									<listheader align="center" label="Motivo"/>
+									<listheader align="center" label="Observación"/>
+								</listhead>
+								<template name="model">
+									<listitem>
+										<listcell label="@load(each.fkVoluntario.fkPersona.identificacion)"> </listcell>
+										<listcell label="@load(each.fkVoluntario.fkPersona.nombre.concat(' ').concat(each.fkVoluntario.fkPersona.apellido))" />
+										<listcell> <checkbox checked="@bind(each.asistencia)"> </checkbox> </listcell>
+										<listcell> <button sclass="teal lighten-1 waves-effect waves-light" onClick="@command('buscarMotivo')" iconSclass="fa fa-search" style="padding: 5px 15px; background-color: #2AA4EF !important"> </button> </listcell>
+										<listcell> <textbox style="height: 1em; border: 1px solid #999999; border-radius: 7px; font-size:0.8em;  text-align: left;" value="@bind(each.observacion)"> </textbox> </listcell>
+									</listitem>
+								</template>
+							</listbox>
+						</div>
+					</div>
 			</div>	
 		</div>
 	</div>

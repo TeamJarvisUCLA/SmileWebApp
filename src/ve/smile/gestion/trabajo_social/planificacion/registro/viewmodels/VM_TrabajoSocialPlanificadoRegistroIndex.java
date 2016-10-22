@@ -310,10 +310,13 @@ public class VM_TrabajoSocialPlanificadoRegistroIndex extends VM_WindowWizard
 						"Fecha Inicio", ValidateOperator.GREATER_THAN,
 						new SimpleDateFormat("yyyy-MM-dd").format(new Date()),
 						"dd/MM/yyyy");
-				UtilValidate.validateDate(this.getFechaFin().getTime(),
-						"Fecha Fin", ValidateOperator.GREATER_THAN,
-						new SimpleDateFormat("yyyy-MM-dd").format(this
-								.getFechaFin()), "dd/MM/yyyy");
+				if (this.getFechaInicio().compareTo(this.getFechaFin()) != 0) {
+					UtilValidate.validateDate(this.getFechaFin().getTime(),
+							"Fecha Fin de Ejecución",
+							ValidateOperator.GREATER_THAN,
+							new SimpleDateFormat("yyyy-MM-dd").format(this
+									.getFechaInicio()), "dd/MM/yyyy");
+				}
 				UtilValidate.validateNull(this.getPersona().getIdPersona(),
 						"Responsable");
 				UtilValidate.validateNull(this.getDirectorio()

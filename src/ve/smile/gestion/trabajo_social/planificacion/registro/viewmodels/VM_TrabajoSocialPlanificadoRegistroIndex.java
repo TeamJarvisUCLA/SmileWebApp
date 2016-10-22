@@ -386,11 +386,14 @@ public class VM_TrabajoSocialPlanificadoRegistroIndex extends VM_WindowWizard
 			if (this.getTsPlan().getFkPersona().getFkUsuario() != null
 					&& this.getTsPlan().getFkPersona().getFkUsuario()
 							.getIdUsuario() != null) {
-				String contenido = "Ha sido asignado responsable del Evento "
+				String contenido = "Ha sido asignado responsable del Trabajo Social "
 						+ this.getTsPlan().getFkTrabajoSocial().getNombre()
-						+ " a realizar el "
+						+ " con fecha de inicio el "
 						+ UtilConverterDataList.convertirLongADate(this
-								.getFechaPlanificada().getTime());
+								.getFechaInicio().getTime())
+						+ " y con fecha de finalización el "
+						+ UtilConverterDataList.convertirLongADate(this
+								.getFechaFin().getTime());
 				NotificacionUsuario notificacionUsuario = new NotificacionUsuario(
 						this.getTsPlan().getFkPersona().getFkUsuario(),
 						new Date().getTime(),

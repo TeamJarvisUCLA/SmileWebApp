@@ -7,14 +7,13 @@
 	<div width="100%" class="${arg.animation_}"
 		use="karen.core.simple_list_principal.controllers.C_WindowSimpleListPrincipal"
 		apply="org.zkoss.bind.BindComposer"
-		viewModel="@id('vm') @init('ve.smile.datos.parametros.actividad.viewmodels.VM_ActividadIndex')">
+		viewModel="@id('vm') @init('ve.smile.gestion.trabajo_social.planificacion.actualizacion.viewmodels.VM_TrabajoSocialPlanificadoIndex')">
 
 		<div class="row">
 			<div class="col s12">
 				<listbox id="listbox" model="@load(vm.objectsList)"
 					emptyMessage="No hay Trabajos Sociales Planificados"
 					selectedItem="@bind(vm.selectedObject)">
-
 					<listhead>
 						<listheader width="20%" label="Nombre" />
 						<listheader width="20%" label="Descripción" />

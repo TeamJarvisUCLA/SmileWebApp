@@ -347,7 +347,7 @@ public class VM_RegistroDonativoIndex extends VM_WindowWizard {
 
 		urls.add("views/desktop/gestion/donativo/registro/selectProcedencia.zul");
 		urls.add("views/desktop/gestion/donativo/registro/selectList.zul");
-		urls.add("views/desktop/gestion/donativo/registro/registroDonativoFormBasic.zul");
+		urls.add("views/desktop/gestion/donativo/registro/registroDonativoFormBasicf.zul");
 		urls.add("views/desktop/gestion/donativo/registro/registroCompletado.zul");
 		return urls;
 	}

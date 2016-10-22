@@ -44,41 +44,9 @@
 		line-height: 25px; 
 		}
 	</style>
-	<div sclass="animated fadeInLeft">
-	<div sclass="row">
-			<div sclass="col s12">
-				<div class=" col s12">
-					<div class=" row line-evento" style="margin:0px"></div>
-				</div>
-				<div class=" col s12">
-					<div sclass="row"
-						style="margin:0px;background: #FFF">
-						<div sclass="col s12" align="center">
-							<div sclass="col s12" align="center">
-								<label sclass="titulo-evento"
-									value="@bind(vm.selectedObject.nombre)">
-								</label>
-
-								<label sclass="subtitulo-evento"
-									value="@bind(vm.selectedObject.fkClasificadorEvento.nombre)">
-								</label>
-
-								<div sclass="row">
-									<label sclass="descripcion-evento"
-										value="@bind(vm.selectedObject.descripcion)">
-
-									</label>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class=" col s12">
-					<div class=" row line-evento" style="margin:0px"></div>
-				</div>
-			</div>
-		</div>
-		<separator height="20px"></separator>
+	<div sclass="animated fadeInLeft" use="karen.core.form.controllers.C_WindowForm"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('ve.smile.gestion.evento.actualizacionEventPs.viewmodels.VM_EventoPlanificado')">
 		<div class="row">
 			<div class="col s6">			
 				<div class="row">
@@ -101,7 +69,7 @@
 							Lugar:
 						</n:label>
 						<textbox id="lugar" type="text" disabled="true"
-							value="@bind(vm.directorio.direccion)">
+							value="@bind(vm.eventoPlanificado.fkDirectorio.direccion)">
 						</textbox>
 					</div>
 					<div class="input-field col s1"
@@ -144,6 +112,9 @@
 				</div>
 			</div>
 
+		</div>
+			<div id="divButtonsForm"
+			use="karen.core.form.buttons.containers.DivButtonsForm">
 		</div>
 	</div>
 </zk>

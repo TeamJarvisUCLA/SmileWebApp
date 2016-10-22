@@ -4,6 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import karen.core.dialog.catalogue.list_pagination.viewmodels.VM_ListPaginationCatalogueDialog;
+import karen.core.dialog.form.data.WindowFormDialogData;
+import karen.core.dialog.form.events.WindowFormDialogCloseEvent;
+import karen.core.dialog.form.events.listeners.WindowFormDialogCloseListener;
+import karen.core.form.buttons.enums.OperacionFormEnum;
+import karen.core.util.UtilDialog;
 import lights.core.enums.TypeQuery;
 import lights.core.payload.response.IPayloadResponse;
 
@@ -14,6 +19,7 @@ import ve.smile.consume.services.S;
 import ve.smile.dto.CuentaBancaria;
 import ve.smile.enums.PropietarioEnum;
 import ve.smile.payload.response.PayloadCuentaBancariaResponse;
+import ve.smile.seguridad.enums.OperacionEnum;
 
 public class VM_CatalogoCuentaBancaria extends
 		VM_ListPaginationCatalogueDialog<CuentaBancaria> {
@@ -63,6 +69,29 @@ public class VM_CatalogoCuentaBancaria extends
 		return payloadCuentaBancariaResponse;
 	}
 
+	@Command("aniadirCuentaBancaria")
+	public void aniadirCuentaBancaria() {
+		WindowFormDialogData<CuentaBancaria> windowFormDialogData = new WindowFormDialogData<CuentaBancaria>();
+		
+		windowFormDialogData.addWindowFormDialogCloseListeners(new WindowFormDialogCloseListener<CuentaBancaria>() {
+
+			@Override
+			public void onClose(WindowFormDialogCloseEvent<CuentaBancaria> windowFormDialogCloseEvent) {
+				if (windowFormDialogCloseEvent.getOperacionFormEnum().equals(OperacionFormEnum.CANCELAR)) {
+					return;
+				}
+				
+				//incidenciasEventos.add(windowFormDialogCloseEvent.getEntity());
+				
+				
+			}
+		} );
+		
+		windowFormDialogData.setOperacionEnum(OperacionEnum.INCLUIR);
+		UtilDialog.showDialog("views/desktop/gestion/donativo/registro/dialogoCuentaBancariaFormBasic.zul", windowFormDialogData);
+	}
+	
+	
 	public String getTitular() {
 		return titular;
 	}

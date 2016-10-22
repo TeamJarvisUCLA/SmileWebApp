@@ -40,6 +40,7 @@ import ve.smile.dto.Evento;
 import ve.smile.dto.EventoPlanificado;
 import ve.smile.dto.Multimedia;
 import ve.smile.dto.NotificacionUsuario;
+import ve.smile.dto.Persona;
 import ve.smile.dto.Voluntario;
 import ve.smile.enums.EstatusEventoPlanificadoEnum;
 import ve.smile.enums.EstatusNotificacionEnum;
@@ -58,6 +59,7 @@ public class VM_EventoPlanificadoRegistroIndex extends VM_WindowWizard
 	private Voluntario voluntario = new Voluntario();
 	private Directorio directorio = new Directorio();
 	private Date fechaPlanificada = new Date();
+	private Persona persona = new Persona();
 
 	private byte[] bytes = null;
 	private String nameImage;
@@ -77,20 +79,20 @@ public class VM_EventoPlanificadoRegistroIndex extends VM_WindowWizard
 
 	@Command("buscarVoluntario")
 	public void buscarVoluntario() {
-		CatalogueDialogData<Voluntario> catalogueDialogData = new CatalogueDialogData<Voluntario>();
+		CatalogueDialogData<Persona> catalogueDialogData = new CatalogueDialogData<Persona>();
 
 		catalogueDialogData
-				.addCatalogueDialogCloseListeners(new CatalogueDialogCloseListener<Voluntario>() {
+				.addCatalogueDialogCloseListeners(new CatalogueDialogCloseListener<Persona>() {
 
 					@Override
 					public void onClose(
-							CatalogueDialogCloseEvent<Voluntario> catalogueDialogCloseEvent) {
+							CatalogueDialogCloseEvent<Persona> catalogueDialogCloseEvent) {
 						if (catalogueDialogCloseEvent.getDialogAction().equals(
 								DialogActionEnum.CANCELAR)) {
 							return;
 						}
-
-						voluntario = catalogueDialogCloseEvent.getEntity();
+						
+						eventoPlanificado.setFkPersona(catalogueDialogCloseEvent.getEntity());
 
 						refreshVoluntario();
 					}
@@ -128,7 +130,7 @@ public class VM_EventoPlanificadoRegistroIndex extends VM_WindowWizard
 	}
 
 	public void refreshVoluntario() {
-		BindUtils.postNotifyChange(null, null, this, "voluntario");
+		BindUtils.postNotifyChange(null, null, this, "eventoPlanificado");
 	}
 
 	public void refreshDirectorio() {
@@ -478,5 +480,15 @@ public class VM_EventoPlanificadoRegistroIndex extends VM_WindowWizard
 	public void setBytes(byte[] bytes) {
 		this.bytes = bytes;
 	}
+
+	public Persona getPersona() {
+		return persona;
+	}
+
+	public void setPersona(Persona persona) {
+		this.persona = persona;
+	}
+	
+	
 
 }

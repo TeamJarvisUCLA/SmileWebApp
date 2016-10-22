@@ -11,18 +11,6 @@
 			Por favor seleccione un responsable:
 		</n:h6>
 		<separator height="20px"></separator>
-		<div sclass="row" style="margin-left: 5%;">
-			<div class="input-field col s6">
-				<n:label for="lugar" class="active">Tipo:</n:label>
-				<combobox id="lugar" model="@bind(vm.tipoPersona)"
-					onSelect="@command('changeFilter')" readonly="true"
-					selectedItem="@bind(vm.tipo)">
-					<template name="model">
-						<comboitem label="@load(each)" />
-					</template>
-				</combobox>
-			</div>
-		</div>
 		<listbox id="listbox" model="@load(vm.objectList)"
 			selectedItem="@bind(vm.selectedObject)"
 			style="width: 90%; margin-left: 5%;padding-bottom: 5%;">
@@ -33,8 +21,8 @@
 			</listhead>
 			<template name="model">
 				<listitem>
-					<listcell label="@load(each.nombre)" />
-					<listcell label="@load(each.apellido)" />
+					<listcell label="@load(each.fkPersona.nombre)" />
+					<listcell label="@load(each.fkPersona.apellido)" />
 				</listitem>
 			</template>
 			<listfoot>

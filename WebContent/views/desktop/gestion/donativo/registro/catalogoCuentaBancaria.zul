@@ -11,6 +11,16 @@
 			Por favor seleccione una Cuenta Bancaria:
 		</n:h6>
 		<separator height="20px"></separator>
+			<div class="col s12" align="right">
+						<div sclass="page-header">
+							<label sclass="formulario"
+								value="Agregar Incidencias" />
+							<button
+								sclass="btn-floating btn-small btn green darken-3 waves-effect waves-light"
+								iconSclass="fa fa-plus" onClick="@command('aniadirCuentaBancaria')"
+								tooltiptext="Añadir Incidencias" />
+						</div>
+					</div>
 		<listbox id="listbox" model="@load(vm.objectList)"
 			selectedItem="@bind(vm.selectedObject)"
 			style="width: 90%; margin-left: 5%;padding-bottom: 5%;"

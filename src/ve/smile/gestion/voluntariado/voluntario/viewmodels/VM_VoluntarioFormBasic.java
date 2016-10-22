@@ -129,18 +129,15 @@ public class VM_VoluntarioFormBasic extends VM_WindowForm implements UploadImage
 		}
 		
 		// BUSCAR PROFESIONES DEL VOLUNTARIO
-		System.out.println("1");
 		System.out.println(this.getVoluntario().getProfesiones().toString());
 		if (this.getVoluntario().getProfesiones() != null)
 		{
-			System.out.println("2");
 			this.setVoluntarioProfesiones(null);
 			Map<String, String> criterios = new HashMap<>();
 			criterios.put("fkVoluntario.idVoluntario", String.valueOf(this.getVoluntario().getIdVoluntario()));
 			PayloadVoluntarioProfesionResponse payloadVoluntarioProfesionResponse = S.VoluntarioProfesionService.consultarCriterios(TypeQuery.EQUAL, criterios);
 			if (payloadVoluntarioProfesionResponse.getObjetos() != null)
 			{
-				System.out.println("3");
 				for (VoluntarioProfesion vP : payloadVoluntarioProfesionResponse.getObjetos())
 				{
 					this.getVoluntarioProfesiones().add(vP.getFkProfesion());
@@ -398,7 +395,6 @@ public class VM_VoluntarioFormBasic extends VM_WindowForm implements UploadImage
 		this.getCiudades().addAll(payloadCiudadResponse.getObjetos());
 	}
 
-	
 	// MÉTODOS DEL FORMULARIO
 	@Override
 	public List<OperacionForm> getOperationsForm(OperacionEnum operacionEnum)

@@ -9,14 +9,36 @@
 		<div width="100%">
 			<div class="row">
 				<div class="col s12">
+				
+					<div class="input-field col s6">
+						<n:label for="nombre" class="active">Nombre</n:label>
+						<textbox id="nombre" type="text" disabled="true" value="@bind(vm.selectedObject.fkPersona.nombre)"> </textbox>
+					</div>
+				
+					<div class="input-field col s6">
+						<n:label for="apellido" class="active">Apellido</n:label>
+						<textbox id="apellido" type="text" disabled="true" value="@bind(vm.selectedObject.fkPersona.apellido)"> </textbox>
+					</div>
+						
+					<div class="input-field col s6">
+						<n:label for="identificacion" class="active">Cedula</n:label>
+						<textbox id="identificacion" type="text" disabled="true" value="@bind(vm.selectedObject.fkPersona.identificacion)"> </textbox>
+					</div>
+							
+					<div class="input-field col s6">
+						<n:label for="fecha_nacimiento" class="active">Fecha de nacimiento</n:label>
+						<datebox id="db" cols="20" format="dd/MM/yyyy" disabled="true" value="@bind(vm.selectedObject.fkPersona.fechaNacimiento)"/>
+					</div>
 					
 					<div sclass="col s5" style="padding:0px">
-						<listbox model="@load(vm.clasificaciones)" emptyMessage="No hay clasificaciones registradas" selectedItems="@bind(vm.clasificacionesSeleccionadas)" multiple="true">
+						<listbox model="@load(vm.clasificaciones)" emptyMessage="No hay clasificaciones registradas" selectedItems="@bind(vm.clasificacionesSeleccionadas)" multiple="true" checkmark="true">
 							<listhead sizable="true">
 								<listheader label="Clasificaciones" />
 							</listhead>
 							<template name="model">
-								<listitem label="@load(each.nombre)">
+								<listitem>
+									<listcell style="width: 10%"/>
+									<listcell label="@load(each.nombre)"/>
 									<zscript> self.setDisabled(vm.disabledClasificaciones(each)); </zscript>
 								</listitem>
 							</template>
@@ -33,12 +55,15 @@
 					</div>
 
 					<div sclass="col s5" style="padding:0px">
-						<listbox emptyMessage="No hay clasificaciones asociadas al voluntario seleccionado" model="@bind(vm.voluntarioClasificaciones)" selectedItems="@bind(vm.voluntarioClasificacionesSeleccionadas)" multiple="true">
+						<listbox emptyMessage="No hay clasificaciones asociadas al voluntario seleccionado" model="@bind(vm.voluntarioClasificaciones)" selectedItems="@bind(vm.voluntarioClasificacionesSeleccionadas)" multiple="true" checkmark="true">
 							<listhead sizable="true">
 								<listheader label="Clasificaciones del voluntario" />
 							</listhead>
 							<template name="model">
-								<listitem label="@load(each.nombre)" />
+								<listitem>
+									<listcell style="width: 10%"/>
+									<listcell label="@load(each.nombre)"/>
+								</listitem>
 							</template>
 						</listbox>
 					</div>

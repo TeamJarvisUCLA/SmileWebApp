@@ -24,8 +24,8 @@ import ve.smile.seguridad.enums.OperacionEnum;
 
 public class VM_VoluntarioIndex extends VM_WindowSimpleListPrincipal<Voluntario>
 {
-	private TipoPersonaEnum tipoPersonaEnum;
-	private List<TipoPersonaEnum> tipoPersonaEnums;
+	private String nombre;
+	private String identificacion;
 	private EstatusVoluntarioEnum estatusVoluntarioEnum;
 	private List<EstatusVoluntarioEnum> estatusVoluntarioEnums;
 	
@@ -34,23 +34,40 @@ public class VM_VoluntarioIndex extends VM_WindowSimpleListPrincipal<Voluntario>
 	{
 		estatusVoluntarioEnum = EstatusVoluntarioEnum.ACTIVO;
 	}
-
+	
+	// CARGAR OBJETOS
 	@Override
 	public IPayloadResponse<Voluntario> getDataToTable(Integer cantidadRegistrosPagina, Integer pagina)
 	{
 		Map<String, String> criterios = new HashMap<String, String>();
-		if (this.getTipoPersonaEnum() != null)
+		if (nombre != null && !nombre.equalsIgnoreCase(""))
 		{
-			criterios.put("fkPersona.tipoPersona", String.valueOf(this.tipoPersonaEnum.ordinal()));
+			criterios.put("fkPersona.nombre", nombre);
+		}
+		if (identificacion != null && !identificacion.equalsIgnoreCase(""))
+		{
+			criterios.put("fkPersona.identificacion", identificacion);
 		}
 		if (this.getEstatusVoluntarioEnum() != null)
 		{
 			criterios.put("estatusVoluntario", String.valueOf(this.estatusVoluntarioEnum.ordinal()));
 		}
-		PayloadVoluntarioResponse payloadVoluntarioResponse = S.VoluntarioService.consultarPaginacionCriterios(cantidadRegistrosPagina, pagina, TypeQuery.EQUAL, criterios);
+		PayloadVoluntarioResponse payloadVoluntarioResponse = S.VoluntarioService.consultarPaginacionCriterios(cantidadRegistrosPagina, pagina, TypeQuery.ILIKE, criterios);
 		return payloadVoluntarioResponse;
 	}
 
+	// VALIDACION
+	@Override
+	public String isValidSearchDataModificar()
+	{
+		if (selectedObject.getEstatusVoluntarioEnum().equals(EstatusVoluntarioEnum.POSTULADO) || selectedObject.getEstatusVoluntarioEnum().equals(EstatusVoluntarioEnum.INACTIVO) || selectedObject.getEstatusVoluntarioEnum().equals(EstatusVoluntarioEnum.RECHAZADO))
+		{
+			Alert.showMessage("E: Error Code: 100-El voluntario seleccionado no puede ser modicado su estatus es <b> " + selectedObject.getEstatusVoluntarioEnum().toString() + "</b>");
+		}
+		return super.isValidSearchDataModificar();
+	}
+	
+	// ELIMINAR
 	@Override
 	public void doDelete()
 	{
@@ -62,59 +79,40 @@ public class VM_VoluntarioIndex extends VM_WindowSimpleListPrincipal<Voluntario>
 		}
 	}
 
+	// FORMULARIO
 	@Override
 	public String getSrcFileZulForm(OperacionEnum operacionEnum)
 	{
 		return "views/desktop/gestion/voluntariado/voluntario/VoluntarioFormBasic.zul";
 	}
-	
-	@Override
-	public String isValidSearchDataModificar()
-	{
-		if (selectedObject.getEstatusVoluntarioEnum().equals(EstatusVoluntarioEnum.POSTULADO) ||
-			selectedObject.getEstatusVoluntarioEnum().equals(EstatusVoluntarioEnum.INACTIVO) ||
-			selectedObject.getEstatusVoluntarioEnum().equals(EstatusVoluntarioEnum.RECHAZADO))
-		{
-			Alert.showMessage("E: Error Code: 100-El voluntario seleccionado no puede ser modicado su estatus es <b> " + selectedObject.getEstatusVoluntarioEnum().toString() + "</b>");
-		}
-		return super.isValidSearchDataModificar();
-	}
 
+	// FILTRO
 	@Command
-	public void changeFilter() {
-		super.updateListBox(1, HowToSeeEnum.NORMAL);
+	public void changeFilter()
+	{
+		super.getControllerWindowSimpleListPrincipal().updateListBoxAndFooter();
 	}
 	
-	// TIPO PERSONA
-	public TipoPersonaEnum getTipoPersonaEnum()
+	// NOMBRE
+	public String getNombre()
 	{
-		return tipoPersonaEnum;
+		return nombre;
 	}
 
-	public void setTipoPersonaEnum(TipoPersonaEnum tipoPersonaEnum)
+	public void setNombre(String nombre)
 	{
-		this.tipoPersonaEnum = tipoPersonaEnum;
+		this.nombre = nombre;
 	}
 
-	public List<TipoPersonaEnum> getTipoPersonaEnums()
+	// IDENTIFICACION
+	public String getIdentificacion()
 	{
-		if (this.tipoPersonaEnums == null)
-		{
-			this.tipoPersonaEnums = new ArrayList<>();
-		}
-		if (this.tipoPersonaEnums.isEmpty())
-		{
-			for (TipoPersonaEnum tipoPersonaEnum : TipoPersonaEnum.values())
-			{
-				this.tipoPersonaEnums.add(tipoPersonaEnum);
-			}
-		}
-		return tipoPersonaEnums;
+		return identificacion;
 	}
 
-	public void setTipoPersonaEnums(List<TipoPersonaEnum> tipoPersonaEnums)
+	public void setIdentificacion(String identificacion)
 	{
-		this.tipoPersonaEnums = tipoPersonaEnums;
+		this.identificacion = identificacion;
 	}
 	
 	// ESTATUS VOLUNTARIO

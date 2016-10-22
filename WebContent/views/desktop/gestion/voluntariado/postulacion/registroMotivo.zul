@@ -10,10 +10,32 @@
 			<div class="row">
 				<div class="col s12">
 					
+					<div class="input-field offset-s2 col s8">
+						<div class="input-field col s6">
+							<n:label for="nombre" class="active">Nombre</n:label>
+							<textbox id="nombre" type="text" disabled="true" value="@bind(vm.selectedObject.fkPersona.nombre)"> </textbox>
+						</div>
+				
+						<div class="input-field col s6">
+							<n:label for="apellido" class="active">Apellido</n:label>
+							<textbox id="apellido" type="text" disabled="true" value="@bind(vm.selectedObject.fkPersona.apellido)"> </textbox>
+						</div>
+						
+						<div class="input-field col s6">
+							<n:label for="identificacion" class="active">Cedula</n:label>
+							<textbox id="identificacion" type="text" disabled="true" value="@bind(vm.selectedObject.fkPersona.identificacion)"> </textbox>
+						</div>
+							
+						<div class="input-field col s6">
+							<n:label for="fecha_nacimiento" class="active">Fecha de nacimiento</n:label>
+							<datebox id="db" cols="20" format="dd/MM/yyyy" disabled="true" value="@bind(vm.selectedObject.fkPersona.fechaNacimiento)"/>
+						</div>
+					</div>
+					
 					<div class="col s12">
 						<div class="input-field offset-s2 col s8">
 							<n:label class="active" for="fk_motivo">Motivo</n:label>
-							<combobox id="fk_motivo" readonly="true" model="@bind(vm.motivos)" selectedItem="@bind(vm.motivo)">
+							<combobox id="fk_motivo" readonly="true" placeholder="Seleccione un motivo" model="@bind(vm.motivos)" selectedItem="@bind(vm.motivo)">
 								<template name="model">
 									<comboitem label="@load(each.nombre)" />
 								</template>

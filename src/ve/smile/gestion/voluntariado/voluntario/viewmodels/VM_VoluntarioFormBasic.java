@@ -40,9 +40,7 @@ import ve.smile.dto.Estado;
 import ve.smile.dto.Profesion;
 import ve.smile.dto.Multimedia;
 import ve.smile.dto.Voluntario;
-import ve.smile.dto.VoluntarioClasificado;
 import ve.smile.dto.VoluntarioProfesion;
-import ve.smile.enums.EstatusVoluntarioEnum;
 import ve.smile.enums.SexoEnum;
 import ve.smile.enums.TipoMultimediaEnum;
 import ve.smile.enums.TipoPersonaEnum;
@@ -104,8 +102,7 @@ public class VM_VoluntarioFormBasic extends VM_WindowForm implements UploadImage
 		}
 		else
 		{
-			this.getVoluntario().getFkPersona().setFkMultimedia(new Multimedia());
-			
+			this.getVoluntario().getFkPersona().setFkMultimedia(new Multimedia());			
 		}
 		
 		if (this.getVoluntario().getFechaIngreso() != null)
@@ -132,6 +129,7 @@ public class VM_VoluntarioFormBasic extends VM_WindowForm implements UploadImage
 		}
 		
 		// BUSCAR PROFESIONES DEL VOLUNTARIO
+		System.out.println(this.getVoluntario().getProfesiones().toString());
 		if (this.getVoluntario().getProfesiones() != null)
 		{
 			this.setVoluntarioProfesiones(null);
@@ -143,6 +141,7 @@ public class VM_VoluntarioFormBasic extends VM_WindowForm implements UploadImage
 				for (VoluntarioProfesion vP : payloadVoluntarioProfesionResponse.getObjetos())
 				{
 					this.getVoluntarioProfesiones().add(vP.getFkProfesion());
+					System.out.println(vP.getFkProfesion().getNombre());
 				}
 			}
 			BindUtils.postNotifyChange(null, null, this, "*");
@@ -396,7 +395,6 @@ public class VM_VoluntarioFormBasic extends VM_WindowForm implements UploadImage
 		this.getCiudades().addAll(payloadCiudadResponse.getObjetos());
 	}
 
-	
 	// MÉTODOS DEL FORMULARIO
 	@Override
 	public List<OperacionForm> getOperationsForm(OperacionEnum operacionEnum)
@@ -488,7 +486,7 @@ public class VM_VoluntarioFormBasic extends VM_WindowForm implements UploadImage
 						
 			// PROFESIONES
 			//this.getVoluntario().getProfesiones().addAll(new ArrayList<Profesion>());
-			this.getVoluntario().getProfesiones().addAll(this.getVoluntarioProfesiones());
+			//this.getVoluntario().getProfesiones().addAll(this.getVoluntarioProfesiones());
 			
 			// VOLUNTARIO
 			PayloadVoluntarioResponse payloadVoluntarioResponse = S.VoluntarioService.modificar(this.getVoluntario());

@@ -14,20 +14,16 @@
 				<listbox height="300px" emptyMessage="No hay voluntarios registrados en la capacitación" model="@bind(vm.voluntariosInscritos)">
 					<listhead sizable="true">
 						<listheader align="center" label="Cédula"  />
-						<listheader align="center" label="Nombre" />
-						<listheader align="center" label="Apellido"/>
+						<listheader align="center" label="Voluntario" />
 						<listheader align="center" label="Asistió"  />
-						<listheader align="center" label="Participó" />
 						<listheader align="center" label="Motivo"/>
 						<listheader align="center" label="Observación"/>
 					</listhead>
 					<template name="model">
 						<listitem>
 							<listcell label="@load(each.fkVoluntario.fkPersona.identificacion)"> </listcell>
-							<listcell label="@load(each.fkVoluntario.fkPersona.nombre)"> </listcell>
-							<listcell label="@load(each.fkVoluntario.fkPersona.apellido)"> </listcell>
+							<listcell label="@load(each.fkVoluntario.fkPersona.nombre.concat(' ').concat(each.fkVoluntario.fkPersona.apellido))" />
 							<listcell> <checkbox checked="@bind(each.asistencia)"> </checkbox> </listcell>
-							<listcell> <checkbox checked="@bind(each.participa)"> </checkbox> </listcell>
 							<listcell> <button sclass="teal lighten-1 waves-effect waves-light" onClick="@command('buscarMotivo')" iconSclass="fa fa-search" style="padding: 5px 15px; background-color: #2AA4EF !important"> </button> </listcell>
 							<listcell> <textbox style="height: 1em; border: 1px solid #999999; border-radius: 7px; font-size:0.8em;  text-align: left;" value="@bind(each.observacion)"> </textbox> </listcell>
 						</listitem>

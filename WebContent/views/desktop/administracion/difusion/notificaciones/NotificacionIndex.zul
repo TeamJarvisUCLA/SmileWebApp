@@ -25,32 +25,29 @@
 	<div width="100%" class='${arg.animation_}'
 		use="karen.core.simple_list_principal.controllers.C_WindowSimpleListPrincipal"
 		apply="org.zkoss.bind.BindComposer"
-		viewModel="@id('vm') @init('ve.smile.gestion.voluntariado.voluntario.viewmodels.VM_VoluntarioIndex')">
+		viewModel="@id('vm') @init('ve.smile.administracion.difusion.notificaciones.viewmodels.VM_NotificacionIndex')">
 
 		<div class="row">
 			<div class="col s12">
 				<div class="col s12">
-					<listbox id="listbox" model="@load(vm.objectsList)"  selectedItem="@bind(vm.selectedObject)" emptyMessage="No hay voluntarios para mostrar">
+					<listbox id="listbox" model="@load(vm.objectsList)"  selectedItem="@bind(vm.selectedObject)" emptyMessage="No hay notificaciones para mostrar">
 						
 						<auxhead>
 							<auxheader>
-								<div>
-									<span style="margin-right: 3px;" class="prefix filter fa fa-filter"> </span>
-									<textbox id="CedulaRif" instant="true" placeholder="Cédula/RIF" value="@bind(vm.identificacion)" onChange="@command('changeFilter')" style="height: 30px;font-size: 14px;margin-top: 1px;"> </textbox>
-								</div>
-							</auxheader>
-							
-							<auxheader>
-								<div>
+								<div sclass="col s12">
 									<span class="prefix filter fa fa-filter"> </span>
-									<textbox id="nombre" instant="true" placeholder="Voluntario" value="@bind(vm.nombre)" onChange="@command('changeFilter')" style="height: 30px;font-size: 14px;margin-top: 1px;"></textbox>
+									<combobox id="Referencia" inplace="true" tooltip="Referencia" model="@bind(vm.tipoReferenciaNotificacionEnums)" onChange="@command('changeFilter')" style="background: rgb(89, 78, 70); margin: 0px; margin-left: 6px; margin-top: 0px; display: inline;  width: 75%;" selectedItem="@bind(vm.tipoReferenciaNotificacionEnum)">
+										<template name="model">
+											<comboitem label="@load(each.toString())" />
+										</template>
+									</combobox>
 								</div>
 							</auxheader>
-							
+							<auxheader></auxheader>
 							<auxheader>
 								<div sclass="col s12">
 									<span class="prefix filter fa fa-filter"> </span>
-									<combobox id="Estatus" inplace="true" tooltip="Estatus" model="@bind(vm.estatusVoluntarioEnums)" onChange="@command('changeFilter')" style="background: rgb(89, 78, 70); margin: 0px; margin-left: 6px; margin-top: 0px; display: inline;  width: 75%;" selectedItem="@bind(vm.estatusVoluntarioEnum)">
+									<combobox id="Estatus" inplace="true" tooltip="Estatus" model="@bind(vm.estatusNotificacionEnums)" onChange="@command('changeFilter')" style="background: rgb(89, 78, 70); margin: 0px; margin-left: 6px; margin-top: 0px; display: inline;  width: 75%;" selectedItem="@bind(vm.estatusNotificacionEnum)">
 										<template name="model">
 											<comboitem label="@load(each.toString())" />
 										</template>
@@ -60,19 +57,19 @@
 						</auxhead>
 						
 						<listhead sizable="true">
-							<listheader width="25%" label="Cédula" />
-							<listheader width="50%" label="Voluntario" />
-							<listheader width="25%" label="Fecha de ingreso" />
+							<listheader width="25%" label="Fecha" />
+							<listheader width="50%" label="Usuario" />
+							<listheader width="25%" label="Tipo de referencia" />
 						</listhead>
 						<template name="model">
 							<listitem>
-								<listcell label="@load(each.fkPersona.identificacion)" />
-								<listcell label="@load(each.fkPersona.nombre.concat(' ').concat(each.fkPersona.apellido))" />
-								<listcell label="${m:convertirLongADate(each.fechaIngreso)}" />
+								<listcell label="${m:convertirLongADate(each.fecha)}" />
+								<listcell label="@load(each.fkUsuario.correo)" />
+								<listcell label="@load(each.tipoReferenciaNotificacionEnum)" />
 							</listitem>
 						</template>
 						<listfoot>
-							<listfooter id="listFoot" span="4"
+							<listfooter id="listFoot" span="3"
 								use="karen.core.listfoot.ListFoot">
 							</listfooter>
 						</listfoot>

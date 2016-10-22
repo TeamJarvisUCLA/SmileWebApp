@@ -15,13 +15,12 @@
 		<div sclass="row">
 			<div sclass="col s12">
 				<div class=" col s12">
-					<div class=" row line-evento" style="margin:0px"></div>
-				</div>
-				<div class=" col s12">
 					<div sclass="row"
-						style="margin:0px;background: #FFF">
+						style="margin:0px;">
 
 						<div sclass="col s3">
+							<n:br></n:br>
+							<n:br></n:br>
 							<n:br></n:br>
 							<n:br></n:br>
 							<div align="center"
@@ -112,9 +111,6 @@
 							</div>
 						</div>
 					</div>
-				</div>
-				<div class=" col s12">
-					<div class=" row line-evento" style="margin:0px"></div>
 				</div>
 			</div>
 		</div>

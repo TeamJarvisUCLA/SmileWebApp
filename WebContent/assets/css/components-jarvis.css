@@ -889,7 +889,7 @@ tr.header-periodo-disfute {
 .label-medium-500 {
 	font-size: 18px;
 	line-height: 20px;
-	color: #0086a4;
+	color: #458ba5;
 }
 
 .z-grid .vacacion {
@@ -948,7 +948,6 @@ tr.header-periodo-disfute {
 .titulo-evento {
 	color: #f26b7a !important;
 	line-height: 32px;
-	text-align: center;
 	font-size: 22px;
 	text-transform: capitalize;
 	display: inherit;
@@ -957,7 +956,6 @@ tr.header-periodo-disfute {
 .subtitulo-evento {
 	color: #3b85a1 !important;
 	line-height: 45px;
-	text-align: center;
 	font-size: 22px;
 	text-transform: capitalize;
 	display: inherit;
@@ -969,7 +967,6 @@ tr.header-periodo-disfute {
 	text-align: justify;
 	font-size: 17px;
 	display: inherit;
-	text-indent: 16px;
 }
 
 .info-titulo-evento {

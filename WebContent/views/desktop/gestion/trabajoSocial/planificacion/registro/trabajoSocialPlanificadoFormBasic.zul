@@ -2,47 +2,38 @@
 <?xel-method prefix="m" name="getUrlWeb" class="lights.smile.util.Zki" 
 	signature="java.lang.String getUrlWeb(java.lang.String)" ?>
 <zk xmlns:n="native" xmlns:w="client">
-
 	<div sclass="animated fadeInLeft">
-		<div class="row detailSectionWizard">
-			<div class="row">
-				<div sclass="input-field col s12">
-					<n:label for="nombre" class="active">
-						Trabajo Social Seleccionado:
-					</n:label>
-				</div>
-			</div>
+		<div sclass="row">
 			<div sclass="row">
-				<div class="input-field col s6">
-					<n:label for="nombre" class="active">
-						Nombre:
-					</n:label>
-					<label style="font-size: 16px;"
-						value="@bind(vm.tsPlan.fkTrabajoSocial.nombre)">
-					</label>
-				</div>
+				<div sclass="col s12">
+					<div class=" col s12">
+						<div sclass="row" style="margin:0px">
+							<div sclass="col s12">
+								<div sclass="col s12">
+									<label sclass="titulo-evento"
+										value="@bind(vm.tsPlan.fkTrabajoSocial.nombre)">
+									</label>
 
-				<div class="input-field col s6">
-					<n:label for="clasficador" class="active">
-						Clasificador:
-					</n:label>
-					<label style="font-size: 16px;"
-						value="@bind(vm.tsPlan.fkTrabajoSocial.fkClasificadorTrabajoSocial.nombre)">
-					</label>
+									<label sclass="subtitulo-evento"
+										value="@bind(vm.tsPlan.fkTrabajoSocial.fkClasificadorTrabajoSocial.nombre)">
+									</label>
+
+									<div sclass="row">
+										<label
+											sclass="descripcion-evento"
+											value="@bind(vm.tsPlan.fkTrabajoSocial.descripcion)">
+
+										</label>
+									</div>
+
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
-			<div sclass="row"
-				style="border-bottom: 3px solid #3b85a1; padding-bottom: 15px;">
-				<div class="input-field col s12">
-					<n:label for="decripcion_tsSocial" class="active">
-						Descripción
-					</n:label>
-					<label id="decripcion_tsSocial"
-						style="font-size: 16px;"
-						value="@bind(vm.tsPlan.fkTrabajoSocial.descripcion)">
-					</label>
-				</div>
-			</div>
+			<separator height="20px"></separator>
+
 
 			<div class="row">
 				<div class="col s6">
@@ -125,7 +116,6 @@
 							idUpload="1" title="" />
 					</div>
 				</div>
-
 			</div>
 		</div>
 	</div>

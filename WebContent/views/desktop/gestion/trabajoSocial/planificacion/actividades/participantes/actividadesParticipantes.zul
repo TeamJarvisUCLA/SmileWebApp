@@ -9,13 +9,11 @@
 		<div sclass="row">
 			<div sclass="col s12">
 				<div class=" col s12">
-					<div class=" row line-evento" style="margin:0px"></div>
-				</div>
-				<div class=" col s12">
-					<div sclass="row"
-						style="margin:0px;background: #FFF">
+					<div sclass="row" style="margin:0px">
 
 						<div sclass="col s3">
+							<n:br></n:br>
+							<n:br></n:br>
 							<n:br></n:br>
 							<n:br></n:br>
 							<div align="center"
@@ -107,9 +105,6 @@
 						</div>
 					</div>
 				</div>
-				<div class=" col s12">
-					<div class=" row line-evento" style="margin:0px"></div>
-				</div>
 			</div>
 		</div>
 		<separator height="20px"></separator>
@@ -134,7 +129,8 @@
 									sort="auto(nombre)" width="20%" />
 								<column label="Descripción"
 									sort="auto(descripcion)" align="center" width="25%" />
-								<column label="Clasificador de Actividad"
+								<column
+									label="Clasificador de Actividad"
 									sort="auto(clasificadoActividad)" align="center" width="23%" />
 								<column label="Fecha Planificada"
 									align="center" width="12%">

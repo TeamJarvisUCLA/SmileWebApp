@@ -22,9 +22,9 @@
 							emptyMessage="No hay Trabajadores"
 							selectedItem="@bind(vm.trabajador)">
 							<listhead sizable="true">
-								<listheader width="20%"
+								<listheader width="40%"
 									label="Identificación" />
-								<listheader width="30%" label="Trabajador" />
+								<listheader width="60%" label="Trabajador" />
 							</listhead>
 							<template name="model">
 								<listitem>

@@ -19,9 +19,9 @@
 							emptyMessage="No hay Colaboradores a mostrar" height="150px"
 							selectedItem="@bind(vm.colaborador)">
 							<listhead sizable="true">
-								<listheader width="30%"
+								<listheader width="40%"
 									label="Identificación" />
-								<listheader width="50%"
+								<listheader width="60%"
 									label="Colaborador" />
 							</listhead>
 							<template name="model">

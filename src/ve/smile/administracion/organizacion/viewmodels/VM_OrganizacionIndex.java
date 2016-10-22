@@ -12,20 +12,25 @@ import karen.core.simple_list_principal.viewmodels.VM_WindowSimpleListPrincipal;
 import karen.core.util.payload.UtilPayload;
 import lights.core.payload.response.IPayloadResponse;
 
-public class VM_OrganizacionIndex extends VM_WindowSimpleListPrincipal<Organizacion>{
-	
+public class VM_OrganizacionIndex extends
+		VM_WindowSimpleListPrincipal<Organizacion> {
+
 	@Init(superclass = true)
 	public void childInit() {
-		PayloadOrganizacionResponse payloadOrganizacionResponse = S.OrganizacionService.consultarTodos();
-		System.out.println(selectedObject);
-		setSelectedObject(payloadOrganizacionResponse.getObjetos().get(0));
+		PayloadOrganizacionResponse payloadOrganizacionResponse = S.OrganizacionService
+				.consultarTodos();
+		if (UtilPayload.isOK(payloadOrganizacionResponse)) {
+			setSelectedObject(payloadOrganizacionResponse.getObjetos().get(0));
+		}
 		
 	}
 
 	@Override
-	public IPayloadResponse<Organizacion> getDataToTable(Integer cantidadRegistrosPagina, Integer pagina) {
-		PayloadOrganizacionResponse payloadOrganizacionResponse = S.OrganizacionService.consultarPaginacion(cantidadRegistrosPagina, pagina);
-		System.out.println(payloadOrganizacionResponse.getObjetos().get(0));
+	public IPayloadResponse<Organizacion> getDataToTable(
+			Integer cantidadRegistrosPagina, Integer pagina) {
+		PayloadOrganizacionResponse payloadOrganizacionResponse = S.OrganizacionService
+				.consultarPaginacion(cantidadRegistrosPagina, pagina);
+
 		return payloadOrganizacionResponse;
 	}
 
@@ -36,13 +41,13 @@ public class VM_OrganizacionIndex extends VM_WindowSimpleListPrincipal<Organizac
 
 	@Override
 	public void doDelete() {
-		PayloadOrganizacionResponse payloadOrganizacionResponse = S.OrganizacionService.eliminar(getSelectedObject().getIdOrganizacion());
+		PayloadOrganizacionResponse payloadOrganizacionResponse = S.OrganizacionService
+				.eliminar(getSelectedObject().getIdOrganizacion());
 		Alert.showMessage(payloadOrganizacionResponse);
-		if (UtilPayload.isOK(payloadOrganizacionResponse)){
+		if (UtilPayload.isOK(payloadOrganizacionResponse)) {
 			getControllerWindowSimpleListPrincipal().updateListBoxAndFooter();
 		}
 	}
-	
 
 	@Override
 	public void setSelectedObject(Organizacion selectedObject) {
@@ -55,5 +60,5 @@ public class VM_OrganizacionIndex extends VM_WindowSimpleListPrincipal<Organizac
 		// TODO Auto-generated method stub
 		return super.getSelectedObject();
 	}
-	
+
 }

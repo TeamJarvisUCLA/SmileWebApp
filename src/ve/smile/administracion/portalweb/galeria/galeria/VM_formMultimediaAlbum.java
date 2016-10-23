@@ -33,6 +33,9 @@ public class VM_formMultimediaAlbum extends VM_WindowDialog
 	public void childInit_VM_CatalogoIconSclass() {
 		// NOTHING OK!
 		this.multimedia = (Multimedia) this.getDialogData().get("multimedia");
+		System.out.println(this.multimedia);
+		System.out.println(this.multimedia.getIdMultimedia());
+		
 	}
 
 	public Multimedia getMultimedia() {

@@ -22,8 +22,8 @@
 	}
 	.delete {
 	    position: absolute;
-	    top: 40%;
-	    left: 45%;
+	    top: 33%;
+	    left: 40%;
 	    font-size: 50px;
 	    color: red;
 	    visibility: hidden;
@@ -52,7 +52,7 @@
 										<template name="children">
 											<div class="col s4 multimedia">
 												<image
-													src="@load(each.url)">
+													src="@load(each.fkMultimedia.url)">
 												</image>
 												<div class="delete fa fa-minus-circle" onClick="@command('deleteMultimedia',multimedia=each)"></div>
 											</div>

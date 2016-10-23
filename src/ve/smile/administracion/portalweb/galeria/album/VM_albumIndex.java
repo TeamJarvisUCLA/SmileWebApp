@@ -28,10 +28,12 @@ import ve.smile.consume.services.S;
 import ve.smile.dto.Album;
 import ve.smile.dto.EventoPlanificado;
 import ve.smile.dto.Multimedia;
+import ve.smile.dto.MultimediaAlbum;
 import ve.smile.enums.EstatusAlbumEnum;
 import ve.smile.enums.TipoMultimediaEnum;
 import ve.smile.payload.response.PayloadAlbumResponse;
 import ve.smile.payload.response.PayloadEventoPlanificadoResponse;
+import ve.smile.payload.response.PayloadMultimediaAlbumResponse;
 import ve.smile.payload.response.PayloadMultimediaResponse;
 import karen.core.crux.alert.Alert;
 import karen.core.util.payload.UtilPayload;
@@ -55,18 +57,15 @@ public class VM_albumIndex extends VM_WindowWizard
 	private byte[] bytes = null;
 	private String urlImage;
 	uploadfield uploadfield;
-	private List<Multimedia> multimediasAlbum;
+	private List<MultimediaAlbum> multimediasAlbum;
 
 	@Init(superclass = true)
 	public void childInit() {
 		album = new Album();
-		this.multimediasAlbum = new ArrayList<Multimedia>();
+		this.multimediasAlbum = new ArrayList<MultimediaAlbum>();
 	}
-	
-	public Album getAlbum() {
-		if(getEventoPlanSelected().getFkAlbum() != null)
-			this.album = getEventoPlanSelected().getFkAlbum();
 
+	public Album getAlbum() {
 		return album;
 	}
 
@@ -185,6 +184,15 @@ public class VM_albumIndex extends VM_WindowWizard
 			{
 				Alert.showMessage(payloadEventoPlanificadoResponse);
 			}
+			
+			if(this.multimediasAlbum.size() == 0){
+				PayloadMultimediaAlbumResponse payloadMultimediaAlbumResponse = S.MultimediaAlbumService
+						.consultarMultimediaAlbum(1000, this.album.getIdAlbum());
+				if (UtilPayload.isOK(payloadMultimediaAlbumResponse)) {
+					this.multimediasAlbum.addAll(payloadMultimediaAlbumResponse
+							.getObjetos());
+				}
+			}
 		}
 		goToNextStep();
 
@@ -217,6 +225,15 @@ public class VM_albumIndex extends VM_WindowWizard
 	// ATRAS
 	@Override
 	public String executeAtras(Integer currentStep) {
+		
+		if (currentStep == 2) {
+			
+			for(Iterator<MultimediaAlbum> i = this.multimediasAlbum.iterator(); i.hasNext(); ) {
+				MultimediaAlbum item = i.next();
+				vaciarMultiemdiaAlbum(item);
+			}
+			this.multimediasAlbum.clear();
+		}
 
 		goToPreviousStep();
 
@@ -226,8 +243,28 @@ public class VM_albumIndex extends VM_WindowWizard
 	// FINALIZAR
 	@Override
 	public String executeFinalizar(Integer currentStep){
-		if (currentStep == 2){
+		if (currentStep == 3){
+			
+			for(Iterator<MultimediaAlbum> i = this.multimediasAlbum.iterator(); i.hasNext(); ) {
+				MultimediaAlbum item = i.next();
+				
+				item.setFkAlbum(getAlbum());
+				
+				PayloadMultimediaAlbumResponse payloadMultimediaAlbumResponse = S.MultimediaAlbumService
+						.incluir(item);
+			}
+			
 			goToNextStep();
+		}
+		return "";
+	}
+	
+	@Override
+	public String isValidPreconditionsFinalizar(Integer currentStep) {
+		if (currentStep == 3) {
+			if (this.multimediasAlbum.size() == 0) {
+				return "E:Error Code 5-Debe agregar al menos una <b>Imagen</b> al album";
+			}
 		}
 		return "";
 	}
@@ -235,8 +272,9 @@ public class VM_albumIndex extends VM_WindowWizard
 	// ACEPTAR
 	@Override
 	public String executeCustom1(Integer currentStep) {
-		if (currentStep == 3)
+		if (currentStep == 4)
 		{
+			this.multimediasAlbum.clear();
 			restartWizard();
 		}
 		return "";
@@ -286,14 +324,19 @@ public class VM_albumIndex extends VM_WindowWizard
 	
 	@NotifyChange("multimediasAlbum")
 	@Command("deleteMultimedia")
-	public void deteleMultimedia(@BindingParam("multimedia") Multimedia multimedia){
+	public void deteleMultimedia(@BindingParam("multimedia") MultimediaAlbum multimedia){
+		
+		if(multimedia.getIdMultimediaAlbum() != null){
+			PayloadMultimediaAlbumResponse payloadMultimediaAlbumResponse = S.MultimediaAlbumService
+					.eliminar(multimedia.getIdMultimediaAlbum());
+		}
 
 		PayloadMultimediaResponse payloadMultimediaResponse = S.MultimediaService
-				.eliminar(multimedia.getIdMultimedia());
+				.eliminar(multimedia.getFkMultimedia().getIdMultimedia());
 		
-		for(Iterator<Multimedia> i = this.multimediasAlbum.iterator(); i.hasNext(); ) {
-			Multimedia item = i.next();
-		    if  (item.getIdMultimedia().equals(multimedia.getIdMultimedia())) {
+		for(Iterator<MultimediaAlbum> i = this.multimediasAlbum.iterator(); i.hasNext(); ) {
+			MultimediaAlbum item = i.next();
+		    if  (item.getFkMultimedia().equals(multimedia.getFkMultimedia())) {
 		    	i.remove();
 		    	break;
 		    }
@@ -311,9 +354,7 @@ public class VM_albumIndex extends VM_WindowWizard
         UploadEvent e = (UploadEvent)ctx.getTriggerEvent();			
 			
 		if (e.getMedias() != null)
-	            {
-			StringBuilder sb = new StringBuilder("tu carga: \n");
-			
+	            {			
 	              	for (Media m : e.getMedias())
 	                    {              			
 		            		if (m instanceof org.zkoss.image.Image) {
@@ -334,12 +375,7 @@ public class VM_albumIndex extends VM_WindowWizard
 	        		} else {
 	        			
 		              	for (Media m : e.getMedias())
-	                    {
-	          				sb.append(m.getName());
-	                      	sb.append(" (");
-	                        sb.append(m.getContentType());
-	                    	sb.append(")\n");
-	                    	
+	                    {	                    	
 	                    	String extensionImage = m.getName().substring(
 	                    			m.getName().lastIndexOf(".") + 1);
 	                    	byte[] bytes = m.getByteData();
@@ -366,11 +402,13 @@ public class VM_albumIndex extends VM_WindowWizard
 	                		payloadMultimediaResponse = S.MultimediaService
 	                				.modificar(multimedia);
 	                		
-	                		this.multimediasAlbum.add(multimedia);
+	                		MultimediaAlbum ma = new MultimediaAlbum();
+	                		ma.setFkAlbum(getAlbum());
+	                		ma.setFkMultimedia(multimedia);
+	                		this.multimediasAlbum.add(ma);
+
 	                    	
 	                    }
-		              	
-		    			Messagebox.show(sb.toString());
 	        		}
 	            }
 	      	else
@@ -378,14 +416,22 @@ public class VM_albumIndex extends VM_WindowWizard
 			Messagebox.show("You uploaded no files!");
 	            }
     }
-
-	public List<Multimedia> getMultimediasAlbum() {
+	
+	public List<MultimediaAlbum> getMultimediasAlbum() {
 		return multimediasAlbum;
 	}
 
-	public void setMultimediasAlbum(List<Multimedia> multimediasAlbum) {
+	public void setMultimediasAlbum(List<MultimediaAlbum> multimediasAlbum) {
 		this.multimediasAlbum = multimediasAlbum;
 	}
+	
+	public void vaciarMultiemdiaAlbum(MultimediaAlbum multimedia){
+
+		PayloadMultimediaResponse payloadMultimediaResponse = S.MultimediaService
+				.eliminar(multimedia.getFkMultimedia().getIdMultimedia());
+			
+		}
+
 	
 	@Override
 	public void onUploadImageSingle(UploadEvent event, String idUpload) {

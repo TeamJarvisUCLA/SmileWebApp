@@ -50,7 +50,7 @@
 					sclass="red waves-effect waves-light btn"
 					iconSclass="z-icon-times">
 				</button>
-				<div class="col s12" visible="@load(vm.multimedia eq null?'false':'true')">
+				<div class="col s12" visible="@load(vm.multimedia.idMultimedia eq null?'false':'true')">
 					<button id="btnDelete" label="Eliminar"
 						sclass="red waves-effect waves-light btn"
 						iconSclass="z-icon-times">

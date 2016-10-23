@@ -6,12 +6,12 @@
 		use="ve.smile.administracion.portalweb.galeria.galeria.C_formMultimedia"
 		apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('ve.smile.administracion.portalweb.galeria.galeria.VM_formMultimediaAlbum', dialogData=arg.get('dialogData'))">
-		<caption label="Foto Galeria" style="margin-left: 40%;" />
 		<separator height="20px"></separator>
-		<n:h6 style="margin-left: 5%;">
-			Ingrese los datos de la foto
-		</n:h6>
-		<separator height="20px"></separator>
+		<div class="row">
+			<div class="col s12" align="center" style="margin-bottom: 15px;">
+				<label value="Ingrese los datos del album" sclass="label-medium-500"></label>
+			</div>
+		</div>
 		<div class="row">
 			<div class="col s6">			
 				<div class="row">

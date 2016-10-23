@@ -23,6 +23,7 @@ import ve.smile.dto.Profesion;
 import ve.smile.dto.Trabajador;
 import ve.smile.enums.EstatusTrabajadorEnum;
 import ve.smile.payload.response.PayloadTrabajadorResponse;
+import ve.smile.reportes.Reporte;
 
 public class VM_ReporteTrabajadorIndex extends VM_WindowWizard {
 
@@ -268,9 +269,9 @@ public class VM_ReporteTrabajadorIndex extends VM_WindowWizard {
 	public List<String> getUrlPageToStep() {
 		List<String> urls = new ArrayList<String>();
 
-		urls.add("views/desktop/reporte/trabajador/selectOpcionesReporteTrabajador.zul");
-		urls.add("views/desktop/reporte/trabajador/selectCompletado.zul");
-		urls.add("views/desktop/reporte/trabajador/viewReportPdfTrabajador.zul");
+		urls.add("views/desktop/reportes/trabajador/selectOpcionesReporteTrabajador.zul");
+		urls.add("views/desktop/reportes/trabajador/selectCompletado.zul");
+		urls.add("views/desktop/reportes/trabajador/viewReportPdfTrabajador.zul");
 
 		return urls;
 	}
@@ -501,7 +502,7 @@ public class VM_ReporteTrabajadorIndex extends VM_WindowWizard {
 			this.getTrabajadores().addAll(listTrabajadores);
 
 			if (listTrabajadores.isEmpty()) {
-				return "E:Error Code 5-Los criterios seleccionados no aportan información para <b>Trabajadores</b>";
+				return "E:Error Code 5-Los criterios seleccionados no aportan informaciï¿½n para <b>Trabajadores</b>";
 			}
 			for(Trabajador trabajador : listTrabajadores){
 				System.out.println(trabajador.getEstatusTrabajador());
@@ -510,7 +511,29 @@ public class VM_ReporteTrabajadorIndex extends VM_WindowWizard {
 			jrDataSource = new JRBeanCollectionDataSource(listTrabajadores);
 		}
 		if (currentStep == 2) {
+			String direccion = Reporte.class
+					.getResource("Reporte.jasper")
+					.getPath()
+					.replace(
+							"WEB-INF/classes/ve/smile/reportes/Reporte.jasper",
+							"imagenes/logo_fanca.jpg");
+			direccion = direccion.replaceFirst("/", "");
+			direccion = direccion.replace("/", "\\");
+			parametros.put("timagen1", direccion);
+
+			direccion = Reporte.class
+					.getResource("Reporte.jasper")
+					.getPath()
+					.replace(
+							"WEB-INF/classes/ve/smile/reportes/Reporte.jasper",
+							"imagenes/smiles_webdesktop.png");
+			direccion = direccion.replaceFirst("/", "");
+			direccion = direccion.replace("/", "\\");
+			parametros.put("timagen2", direccion);
+
+			
 			type = "pdf";
+			
 			if (!estatusTrabajadores.equals("")) {
 				tStatus = "Estatus";
 			}

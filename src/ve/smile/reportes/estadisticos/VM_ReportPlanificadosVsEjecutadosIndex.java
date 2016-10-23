@@ -1,5 +1,6 @@
 package ve.smile.reportes.estadisticos;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,9 +17,14 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 import org.zkoss.bind.BindUtils;
 
+import freemarker.template.SimpleDate;
 import ve.smile.consume.services.S;
 import ve.smile.dto.EventoPlanificado;
 import ve.smile.dto.IndicadorEventoPlanificado;
+import ve.smile.dto.Organizacion;
+import ve.smile.enums.EstatusEventoPlanificadoEnum;
+import ve.smile.enums.EstatusTrabajoSocialPlanificadoEnum;
+import ve.smile.enums.TipoEventoEnum;
 import ve.smile.payload.response.PayloadEventoPlanificadoResponse;
 import ve.smile.payload.response.PayloadIndicadorEventoPlanificadoResponse;
 import ve.smile.reportes.Reporte;
@@ -26,14 +32,16 @@ import ve.smile.reportes.Reporte;
 public class VM_ReportPlanificadosVsEjecutadosIndex extends VM_WindowWizard {
 
 	private List<IndicadorEventoPlanificado> indicadorEventoPlanificado;
-	
+
 	private JRDataSource jrDataSource;
-	
+
 	private Map<String, Object> parametros = new HashMap<>();
-	
+
 	private String source;
-	
+
 	private String type;
+
+	EventoPlanificado eventoPlanificado = new EventoPlanificado();
 
 	@Override
 	public Map<Integer, List<OperacionWizard>> getButtonsToStep() {
@@ -170,8 +178,7 @@ public class VM_ReportPlanificadosVsEjecutadosIndex extends VM_WindowWizard {
 			if (currentStep == 1) {
 				this.indicadorEventoPlanificado = new ArrayList<IndicadorEventoPlanificado>();
 				Map<String, String> criterios = new HashMap<>();
-				EventoPlanificado eventoPlanificado = (EventoPlanificado) selectedObject;
-				System.out.println(eventoPlanificado.getIdEventoPlanificado());
+				eventoPlanificado = (EventoPlanificado) selectedObject;
 				criterios.put("fkEventoPlanificado.idEventoPlanificado",
 						eventoPlanificado.getIdEventoPlanificado() + "");
 				PayloadIndicadorEventoPlanificadoResponse payloadIndicadorEventoPlanificadoResponse = S.IndicadorEventoPlanificadoService
@@ -180,71 +187,98 @@ public class VM_ReportPlanificadosVsEjecutadosIndex extends VM_WindowWizard {
 						.size() > 0
 						& payloadIndicadorEventoPlanificadoResponse
 								.getObjetos() != null) {
-					for (IndicadorEventoPlanificado indicaEventPlanificado : payloadIndicadorEventoPlanificadoResponse
-							.getObjetos()) {
-						IndicadorEventoPlanificado indEventPla = new IndicadorEventoPlanificado();
-						indEventPla
-								.setFkEventoPlanificado(indicaEventPlanificado
-										.getFkEventoPlanificado());
-						indEventPla.setFkIndicador(indicaEventPlanificado
-								.getFkIndicador());
-						indEventPla
-								.setIdIndicadorEventoPlanificado(indicaEventPlanificado
-										.getIdIndicadorEventoPlanificado());
-						indEventPla.setValorEsperado(indicaEventPlanificado
-								.getValorEsperado());
-						indEventPla.setValorReal(indicaEventPlanificado
-								.getValorEsperado());
-						this.indicadorEventoPlanificado.add(indEventPla);
-					}
+					this.indicadorEventoPlanificado
+							.addAll(payloadIndicadorEventoPlanificadoResponse
+									.getObjetos());
 					BindUtils.postNotifyChange(null, null, this,
 							"indicadorEventoPlanificado");
 				}
 
 			}
-			if(!indicadorEventoPlanificado.isEmpty()){
-				jrDataSource = new JRBeanCollectionDataSource(indicadorEventoPlanificado);
+			if (!indicadorEventoPlanificado.isEmpty()) {
+				jrDataSource = new JRBeanCollectionDataSource(
+						indicadorEventoPlanificado);
 			}
 		}
 		if (currentStep == 2) {
-			parametros.put("titulo", "Reporte Estadistico de Eventos Planificados Vs Ejecutados");
-			
-			String direccion  =  Reporte.class.getResource("Reporte.jasper").getPath().replace("WEB-INF/classes/ve/smile/reportes/Reporte.jasper", "imagenes/logo_fanca.jpg");
+			parametros
+					.put("titulo",
+							"Reporte Estadistico de Eventos Planificados Vs Ejecutados");
+			String direccion = Reporte.class
+					.getResource("Reporte.jasper")
+					.getPath()
+					.replace(
+							"WEB-INF/classes/ve/smile/reportes/Reporte.jasper",
+							"imagenes/logo_fanca.jpg");
 			direccion = direccion.replaceFirst("/", "");
-			System.out.println(direccion);
 			direccion = direccion.replace("/", "\\");
-			System.out.println(direccion);
 			parametros.put("timagen1", direccion);
-			
-			direccion  =  Reporte.class.getResource("Reporte.jasper").getPath().replace("WEB-INF/classes/ve/smile/reportes/Reporte.jasper", "imagenes/smiles_webdesktop.png");
+			direccion = Reporte.class
+					.getResource("Reporte.jasper")
+					.getPath()
+					.replace(
+							"WEB-INF/classes/ve/smile/reportes/Reporte.jasper",
+							"imagenes/smiles_webdesktop.png");
 			direccion = direccion.replaceFirst("/", "");
-			System.out.println(direccion);
 			direccion = direccion.replace("/", "\\");
 			parametros.put("timagen2", direccion);
-			
-			parametros.put("pIndicador", "Indicador");
-			parametros.put("pUnidadDeMedida", "Unidad de Medida");
-			parametros.put("pValorEsperado", "Valor Esperado");
-			parametros.put("pValorReal", "Valor Real");
-			type = "pdf";
-			source = "reporte/estadisticoPlanificadosVsEjecutados.jasper";
-			
-		}
 
+			parametros.put("pIndicador", "Indicador");
+
+			parametros.put("pUnidadDeMedida", "Unidad de Medida");
+
+			parametros.put("pValorEsperado", "Valor Esperado");
+
+			parametros.put("pValorReal", "Valor Real");
+
+			parametros.put("pNombreEvento", eventoPlanificado.getFkEvento()
+					.getNombre());
+
+			String tipoEvento = eventoPlanificado.getFkEvento().getTipoEvento() == 0 ? "ANUAL"
+					: "EXTRAORDINARIO";
+
+			parametros.put("pTipoEvento", tipoEvento);
+
+			parametros.put("pFecha", eventoPlanificado.getFechaPlanificada());
+
+			parametros.put("pDescripcion", eventoPlanificado.getFkEvento()
+					.getDescripcion());
+
+			parametros.put("pLugar", eventoPlanificado.getFkDirectorio()
+					.getNombre());
+
+			parametros.put("pDireccion", eventoPlanificado.getFkDirectorio()
+					.getDireccion());
+			
+			parametros.put("pResponsable", eventoPlanificado.getFkPersona().getNombre() +" "+eventoPlanificado.getFkPersona().getApellido());
+
+			parametros.put("tDireccionOrganizacion",
+					S.OrganizacionService.consultarTodos()
+					.getObjetos().get(0).getDireccion());
+
+			type = "pdf";
+			
+			source = "reporte/estadisticoPlanificadosVsEjecutados.jasper";
+		}
 		return "";
 	}
 
 	@Override
 	public String isValidPreconditionsCustom2(Integer currentStep) {
-		System.out.println("algo paso por aqui pendiente");
+		
 		return "";
+		
 	}
 
 	@Override
 	public IPayloadResponse<EventoPlanificado> getDataToTable(
 			Integer cantidadRegistrosPagina, Integer pagina) {
+		Map<String, String> criterios = new HashMap<>();
+		criterios.put("estatusEvento", String
+				.valueOf(EstatusEventoPlanificadoEnum.PLANIFICADO.ordinal()));
 		PayloadEventoPlanificadoResponse payloadEventoPlanificadoResponse = S.EventoPlanificadoService
-				.consultarPaginacion(cantidadRegistrosPagina, pagina);
+				.consultarPaginacionCriterios(cantidadRegistrosPagina, pagina,
+						TypeQuery.EQUAL, criterios);
 		return payloadEventoPlanificadoResponse;
 	}
 
@@ -294,7 +328,5 @@ public class VM_ReportPlanificadosVsEjecutadosIndex extends VM_WindowWizard {
 	public void setType(String type) {
 		this.type = type;
 	}
-	
-	
-	
+
 }

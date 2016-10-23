@@ -32,6 +32,7 @@ import org.zkoss.zul.Filedownload;
 import ve.smile.consume.services.S;
 import ve.smile.dto.ClasificadorVoluntario;
 import ve.smile.dto.Fortaleza;
+import ve.smile.dto.Organizacion;
 import ve.smile.dto.Profesion;
 import ve.smile.dto.Voluntario;
 import ve.smile.enums.EstatusVoluntarioEnum;
@@ -507,9 +508,9 @@ public class VM_ReporteVoluntarioIndex extends VM_WindowWizard {
 				excelCell = excelRow.createCell(3);
 				excelCell.setCellValue("CORREO");
 				excelCell = excelRow.createCell(4);
-				excelCell.setCellValue("DIRECCIÃ“N");
+				excelCell.setCellValue("DIRECCIÓN");
 				excelCell = excelRow.createCell(5);
-				excelCell.setCellValue("TELÃ‰FONO");
+				excelCell.setCellValue("TELÉFONO");
 				excelCell = excelRow.createCell(6);
 				excelCell.setCellValue("ESTATUS");
 
@@ -832,7 +833,11 @@ public class VM_ReporteVoluntarioIndex extends VM_WindowWizard {
 			parametros.put("profesionesP", profesionesP);
 
 			parametros.put("voluntarioClasificadoP", voluntarioClasificadoP);
-
+			
+			Organizacion organizacion = S.OrganizacionService.consultarTodos().getObjetos().get(0);
+			
+			parametros.put("tDireccionOrganizacion", organizacion.getDireccion());
+			
 			source = "reporte/reportVoluntariosParametrizados.jasper";
 		}
 

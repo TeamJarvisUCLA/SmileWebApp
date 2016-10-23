@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="documento_asignacion" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" scriptletClass="net.sf.jasperreports.engine.JRDefaultScriptlet" uuid="2cc1dfe8-35f4-44cb-b41c-1c58e9d3b41e">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="96"/>
 	<parameter name="titulo" class="java.lang.String"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["C:\\Users\\Soaint\\Desktop\\"]]></defaultValueExpression>
@@ -22,7 +22,7 @@
 	<parameter name="tProfesiones" class="java.lang.String"/>
 	<parameter name="tFortalezas" class="java.lang.String"/>
 	<parameter name="tRedes" class="java.lang.String"/>
-	<parameter name="tDireccion" class="java.lang.String"/>
+	<parameter name="tDireccionOrganizacion" class="java.lang.String"/>
 	<parameter name="timagen2" class="java.lang.String"/>
 	<parameter name="timagen1" class="java.lang.String"/>
 	<queryString language="SQL">
@@ -305,7 +305,7 @@
 				<textElement textAlignment="Center">
 					<font fontName="Arial"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{tDireccion}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{tDireccionOrganizacion}]]></textFieldExpression>
 			</textField>
 			<line>
 				<reportElement x="0" y="1" width="555" height="2" forecolor="#F26B7A" uuid="604b348d-fc2c-4aaf-a3dc-90b13534ae90"/>

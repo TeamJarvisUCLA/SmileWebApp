@@ -18,19 +18,18 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.zkoss.bind.annotation.Init;
 
 import ve.smile.consume.services.S;
-import ve.smile.dto.ClasificadorVoluntario;
 import ve.smile.dto.Fortaleza;
 import ve.smile.dto.Profesion;
-import ve.smile.dto.Voluntario;
-import ve.smile.enums.EstatusVoluntarioEnum;
-import ve.smile.payload.response.PayloadVoluntarioResponse;
+import ve.smile.dto.Trabajador;
+import ve.smile.enums.EstatusTrabajadorEnum;
+import ve.smile.payload.response.PayloadTrabajadorResponse;
 
 public class VM_ReporteTrabajadorIndex extends VM_WindowWizard {
 
 
-	private boolean profesionVoluntario = false;
+	private boolean profesionTrabajador = false;
 
-	private boolean fortalezaVoluntario = false;
+	private boolean fortalezaTrabajador = false;
 
 	private boolean redesSociales = false;
 
@@ -70,10 +69,10 @@ public class VM_ReporteTrabajadorIndex extends VM_WindowWizard {
 
 	private Set<Profesion> profesionesSeleccionadas;
 
-	private List<Voluntario> voluntarios;
+	private List<Trabajador> trabajadores;
 
 
-	String estatusVoluntariosS = "";
+	String estatusTrabajadores = "";
 
 	String fortalezasP = "";
 
@@ -99,7 +98,7 @@ public class VM_ReporteTrabajadorIndex extends VM_WindowWizard {
 	@Init(superclass = true)
 	public void childInit() {
 
-		
+		parametros.clear();
 
 		listFortalezas = S.FortalezaService.consultarTodos().getObjetos();
 
@@ -110,20 +109,20 @@ public class VM_ReporteTrabajadorIndex extends VM_WindowWizard {
 
 
 
-	public boolean isProfesionVoluntario() {
-		return profesionVoluntario;
+	public boolean isProfesionTrabajador() {
+		return profesionTrabajador;
 	}
 
-	public void setProfesionVoluntario(boolean profesionVoluntario) {
-		this.profesionVoluntario = profesionVoluntario;
+	public void setProfesionTrabajador(boolean profesionTrabajador) {
+		this.profesionTrabajador = profesionTrabajador;
 	}
 
-	public boolean isFortalezaVoluntario() {
-		return fortalezaVoluntario;
+	public boolean isFortalezaTrabajador() {
+		return fortalezaTrabajador;
 	}
 
-	public void setFortalezaVoluntario(boolean fortalezaVoluntario) {
-		this.fortalezaVoluntario = fortalezaVoluntario;
+	public void setFortalezaTrabajador(boolean fortalezaTrabajador) {
+		this.fortalezaTrabajador = fortalezaTrabajador;
 	}
 
 	public boolean isRedesSociales() {
@@ -313,7 +312,9 @@ public class VM_ReporteTrabajadorIndex extends VM_WindowWizard {
 	@Override
 	public String executeFinalizar(Integer currentStep) {
 		if (currentStep == 3) {
+			parametros.clear();
 			restartWizard();
+			parametros.clear();
 		}
 
 		return "";
@@ -345,7 +346,7 @@ public class VM_ReporteTrabajadorIndex extends VM_WindowWizard {
 			String sql = "";
 
 			if (todos) {
-				sql = "SELECT DISTINCT v FROM Voluntario v  WHERE  v.idVoluntario = v.idVoluntario ";
+				sql = "SELECT DISTINCT v FROM Trabajador v  WHERE  v.idTrabajador = v.idTrabajador ";
 
 				if (fechaIngreso) {
 					System.out.println("entro");
@@ -378,7 +379,7 @@ public class VM_ReporteTrabajadorIndex extends VM_WindowWizard {
 			}
 
 			if (!todos) {
-				sql = "SELECT DISTINCT v FROM Voluntario v  WHERE  v.idVoluntario = v.idVoluntario ";
+				sql = "SELECT DISTINCT v FROM Trabajador v  WHERE  v.idTrabajador = v.idTrabajador ";
 
 				if (fechaIngreso) {
 					System.out.println("entro");
@@ -410,36 +411,36 @@ public class VM_ReporteTrabajadorIndex extends VM_WindowWizard {
 				}
 
 				if ( egresado || activo) {
-					String estatusVoluntarios = "";
+					String estatusTrabajadores = "";
 
 					
 
 					if (egresado) {
-						estatusVoluntarios += EstatusVoluntarioEnum.INACTIVO
+						estatusTrabajadores += EstatusTrabajadorEnum.INACTIVO
 								.ordinal() + ",";
-						estatusVoluntariosS += EstatusVoluntarioEnum.INACTIVO
-								.toString() + " ";
+						estatusTrabajadores += EstatusTrabajadorEnum.INACTIVO
+								.ordinal() + " ";
 					}
 
 					if (activo) {
-						estatusVoluntarios += EstatusVoluntarioEnum.ACTIVO
+						estatusTrabajadores += EstatusTrabajadorEnum.ACTIVO
 								.ordinal() + ",";
-						estatusVoluntariosS += EstatusVoluntarioEnum.ACTIVO
-								.toString() + " ";
+						estatusTrabajadores += EstatusTrabajadorEnum.ACTIVO
+								.ordinal() + " ";
 					}
 
-					int tamano = estatusVoluntarios.length();
+					int tamano = estatusTrabajadores.length();
 
-					char[] tmp = estatusVoluntarios.toCharArray();
+					char[] tmp = estatusTrabajadores.toCharArray();
 
 					tmp[tamano - 1] = ' ';
 
-					estatusVoluntarios = new String(tmp);
+					estatusTrabajadores = new String(tmp);
 
-					sql += "and v.estatusVoluntario in(" + estatusVoluntarios
+					sql += "and v.estatusTrabajador in(" + estatusTrabajadores
 							+ ")";
 				}
-				if (profesionVoluntario) {
+				if (profesionTrabajador) {
 
 					if (profesionesSeleccionadas != null) {
 						String profesiones = "";
@@ -456,13 +457,13 @@ public class VM_ReporteTrabajadorIndex extends VM_WindowWizard {
 
 						}
 						sql = sql.replace("WHERE",
-								", VoluntarioProfesion pv WHERE");
-						sql += " and pv.fkVoluntario.idVoluntario = v.idVoluntario and pv.fkProfesion.idProfesion in ("
+								", TrabajadorProfesion pv WHERE");
+						sql += " and pv.fkTrabajador.idTrabajador = v.idTrabajador and pv.fkProfesion.idProfesion in ("
 								+ profesiones + ")";
 					}
 				}
 			}
-			if (fortalezaVoluntario) {
+			if (fortalezaTrabajador) {
 
 				if (fortalezasSeleccionados != null) {
 					String fortalezas = "";
@@ -478,35 +479,39 @@ public class VM_ReporteTrabajadorIndex extends VM_WindowWizard {
 						}
 					}
 					sql = sql
-							.replace("WHERE", ", VoluntarioFortaleza vf WHERE");
-					sql += " and vf.fkVoluntario.idVoluntario = v.idVoluntario and vf.fkFortaleza.idFortaleza in ("
+							.replace("WHERE", ", TrabajadorFortaleza vf WHERE");
+					sql += " and vf.fkTrabajador.idTrabajador = v.idTrabajador and vf.fkFortaleza.idFortaleza in ("
 							+ fortalezas + ")";
 				}
 
 			}
 			
-			if (sql.equals("SELECT DISTINCT v FROM Voluntario v  WHERE  v.idVoluntario = v.idVoluntario ")
+			if (sql.equals("SELECT DISTINCT v FROM Trabajador v  WHERE  v.idTrabajador = v.idTrabajador ")
 					&& !todos) {
 				
-				return "E:Error Code 5-No se han seleccionados criterios para la consulta <b>Voluntarios</b>";
+				return "E:Error Code 5-No se han seleccionados criterios para la consulta <b>Trabajadores</b>";
 
 			}
-			PayloadVoluntarioResponse payloadVoluntarioResponse = S.VoluntarioService
-					.consultaVoluntariosParametrizado(sql);
-			List<Voluntario> listVoluntarios = payloadVoluntarioResponse
-					.getObjetos();
-			this.getVoluntarios().addAll(listVoluntarios);
 
 			System.out.println(sql);
-			if (listVoluntarios.isEmpty()) {
-				return "E:Error Code 5-Los criterios seleccionados no aportan información para <b>Voluntarios</b>";
+			PayloadTrabajadorResponse payloadTrabajadorResponse = S.TrabajadorService
+					.consultaTrabajadoresParametrizado(sql);
+			List<Trabajador> listTrabajadores = payloadTrabajadorResponse
+					.getObjetos();
+			this.getTrabajadores().addAll(listTrabajadores);
+
+			if (listTrabajadores.isEmpty()) {
+				return "E:Error Code 5-Los criterios seleccionados no aportan información para <b>Trabajadores</b>";
+			}
+			for(Trabajador trabajador : listTrabajadores){
+				System.out.println(trabajador.getEstatusTrabajador());
 			}
 
-			jrDataSource = new JRBeanCollectionDataSource(listVoluntarios);
+			jrDataSource = new JRBeanCollectionDataSource(listTrabajadores);
 		}
 		if (currentStep == 2) {
 			type = "pdf";
-			if (!estatusVoluntariosS.equals("")) {
+			if (!estatusTrabajadores.equals("")) {
 				tStatus = "Estatus";
 			}
 			if (!fortalezasP.equals("")) {
@@ -534,7 +539,7 @@ public class VM_ReporteTrabajadorIndex extends VM_WindowWizard {
 
 			parametros.put("fechaHasta", fechaHasta);
 
-			parametros.put("titulo", "VOLUNTARIOS");
+			parametros.put("titulo", "TRABAJADORES");
 
 			parametros.put("tEstatus", tStatus);
 
@@ -543,14 +548,14 @@ public class VM_ReporteTrabajadorIndex extends VM_WindowWizard {
 			parametros.put("tProfesiones", tProfesiones);
 
 
-			parametros.put("estatusVoluntariosS", estatusVoluntariosS);
+			parametros.put("estatusTrabajadores", estatusTrabajadores);
 
 			parametros.put("fortalezasP", fortalezasP);
 
 			parametros.put("profesionesP", profesionesP);
 
 
-			source = "reporte/reportVoluntariosParametrizados.jasper";
+			source = "reporte/reportTrabajadoresParametrizados.jasper";
 		}
 
 		return "";
@@ -586,15 +591,15 @@ public class VM_ReporteTrabajadorIndex extends VM_WindowWizard {
 		this.parametros = parametros;
 	}
 
-	public List<Voluntario> getVoluntarios() {
-		if (this.voluntarios == null) {
-			this.voluntarios = new ArrayList<>();
+	public List<Trabajador> getTrabajadores() {
+		if (this.trabajadores == null) {
+			this.trabajadores = new ArrayList<>();
 		}
-		return voluntarios;
+		return trabajadores;
 	}
 
-	public void setVoluntarios(List<Voluntario> voluntarios) {
-		this.voluntarios = voluntarios;
+	public void setTrabajadores(List<Trabajador> trabajadores) {
+		this.trabajadores = trabajadores;
 	}
 
 	public JRDataSource getJrDataSource() {
@@ -607,12 +612,12 @@ public class VM_ReporteTrabajadorIndex extends VM_WindowWizard {
 
 
 
-	public String getEstatusVoluntariosS() {
-		return estatusVoluntariosS;
+	public String getEstatusTrabajadores() {
+		return estatusTrabajadores;
 	}
 
-	public void setEstatusVoluntariosS(String estatusVoluntariosS) {
-		this.estatusVoluntariosS = estatusVoluntariosS;
+	public void setEstatusTrabajadores(String estatusTrabajadores) {
+		this.estatusTrabajadores = estatusTrabajadores;
 	}
 
 	public String getFortalezasP() {

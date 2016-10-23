@@ -4,7 +4,7 @@
 		use="karen.core.dialog.catalogue.list_pagination.controllers.C_ListPaginationCatalogueDialog"
 		apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('ve.smile.gestion.ayudas.solicitudes.VM_CatalogoAyuda', dialogData=arg.get('dialogData'))">
-		<caption label="BENEFICIARIO" style="margin-left: 40%;"/>
+		<caption label="AYUDA" style="margin-left: 40%;"/>
 		<separator height="20px"></separator>
 		<n:h6 style="margin-left: 5%;">Por favor seleccione una ayuda:</n:h6>
 		<separator height="20px"></separator>
@@ -14,14 +14,12 @@
 			<listhead sizable="true">
 				<listheader label="Nombre" />
 				<listheader label="Descripcion" />
-				<listheader label="Requisitos" />
 		
 			</listhead>
 			<template name="model">
 				<listitem>
 					<listcell label="@load(each.nombre)" />
 					<listcell label="@load(each.descripcion)" />
-					<listcell label="@load(each.requisitos)" />
 					
 			
 				</listitem>

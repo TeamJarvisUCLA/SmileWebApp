@@ -11,7 +11,7 @@
 					<div class="input-field col s12">
 						<n:label for="motivo"
 									class="active">
-									Motivo de Rechazo
+									Motivo de Egreso
 								</n:label>
 						<span
 							sclass="fa fa-question-circle fa-lg help-icon-special"
@@ -29,7 +29,7 @@
 				
 				<div class="row">
 					<div class="input-field col s12">
-						<n:label for="detalle">Detalle Rechazo</n:label>
+						<n:label for="detalle">Detalle de Egreso</n:label>
 						<span
 							sclass="fa fa-question-circle fa-lg help-icon-special"
 							tooltip="pop_direccion, position=after_end" />

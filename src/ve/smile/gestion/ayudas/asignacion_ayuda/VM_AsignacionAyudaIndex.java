@@ -38,6 +38,7 @@ import org.zkoss.zk.ui.event.UploadEvent;
 
 import ve.smile.consume.services.S;
 import ve.smile.dto.Directorio;
+import ve.smile.dto.EstudioSocioEconomico;
 import ve.smile.dto.Multimedia;
 import ve.smile.dto.SolicitudAyuda;
 import ve.smile.dto.SolicitudAyudaRecurso;
@@ -45,6 +46,8 @@ import ve.smile.dto.Recurso;
 import ve.smile.enums.EstatusPadrinoEnum;
 import ve.smile.enums.EstatusSolicitudEnum;
 import ve.smile.enums.TipoMultimediaEnum;
+import ve.smile.enums.UrgenciaEnum;
+import ve.smile.payload.response.PayloadEstudioSocioEconomicoResponse;
 import ve.smile.payload.response.PayloadMultimediaResponse;
 import ve.smile.payload.response.PayloadSolicitudAyudaResponse;
 import ve.smile.payload.response.PayloadSolicitudAyudaRecursoResponse;
@@ -57,6 +60,11 @@ public class VM_AsignacionAyudaIndex extends
 	private Recurso recurso = new Recurso();
 	private Date fechaAsignacion = new Date();
 
+	private List<EstatusSolicitudEnum> estatusSolicitudEnums;
+	private EstatusSolicitudEnum estatusSolicitudEnum;
+
+	private List<UrgenciaEnum> urgenciaEnums;
+	private UrgenciaEnum urgenciaEnum;
 
 	@Init(superclass = true)
 	public void childInit() {
@@ -64,6 +72,60 @@ public class VM_AsignacionAyudaIndex extends
 		solicitudAyudaRecurso = new SolicitudAyudaRecurso();
 		recurso = new Recurso();
 		fechaAsignacion = new Date();
+	}
+	
+	public EstatusSolicitudEnum getEstatusSolicitudEnum() {
+		return estatusSolicitudEnum;
+	}
+
+	public void setEstatusSolicitudEnum(
+			EstatusSolicitudEnum estatusSolicitudEnum) {
+		this.estatusSolicitudEnum = estatusSolicitudEnum;
+		this.selectedObject.setEstatusSolicitud(
+				estatusSolicitudEnum.ordinal());
+	}
+
+	public List<EstatusSolicitudEnum> getEstatusSolicitudEnums() {
+		if (this.estatusSolicitudEnums == null) {
+			this.estatusSolicitudEnums = new ArrayList<>();
+		}
+		if (this.estatusSolicitudEnums.isEmpty()) {
+			for (EstatusSolicitudEnum estatusSolicitudEnum : EstatusSolicitudEnum
+					.values()) {
+				this.estatusSolicitudEnums.add(estatusSolicitudEnum);
+			}
+		}
+		return estatusSolicitudEnums;
+	}
+
+	public void setEstatusSolicitudEnums(
+			List<EstatusSolicitudEnum> estatusSolicitudEnums) {
+		this.estatusSolicitudEnums = estatusSolicitudEnums;
+	}
+
+	public UrgenciaEnum getUrgenciaEnum() {
+		return urgenciaEnum;
+	}
+
+	public void setUrgenciaEnum(UrgenciaEnum urgenciaEnum) {
+		this.urgenciaEnum = urgenciaEnum;
+		this.selectedObject.setUrgencia(urgenciaEnum.ordinal());
+	}
+
+	public List<UrgenciaEnum> getUrgenciaEnums() {
+		if (this.urgenciaEnums == null) {
+			this.urgenciaEnums = new ArrayList<>();
+		}
+		if (this.urgenciaEnums.isEmpty()) {
+			for (UrgenciaEnum urgenciaEnum : UrgenciaEnum.values()) {
+				this.urgenciaEnums.add(urgenciaEnum);
+			}
+		}
+		return urgenciaEnums;
+	}
+
+	public void setUrgenciaEnums(List<UrgenciaEnum> urgenciaEnums) {
+		this.urgenciaEnums = urgenciaEnums;
 	}
 
 	public SolicitudAyudaRecurso getSolicitudAyudaRecurso() {
@@ -206,6 +268,8 @@ public class VM_AsignacionAyudaIndex extends
 		
 		Map<String, String> criterios = new HashMap<>();
 		EstatusPadrinoEnum.POSTULADO.ordinal();
+		
+		//usar nuevo enum recurso asignado 
 		criterios.put("estatusSolicitud",
 				String.valueOf(EstatusSolicitudEnum.APROBADA.ordinal()));
 		PayloadSolicitudAyudaResponse payloadSolicitudAyudaResponse = S.SolicitudAyudaService
@@ -234,14 +298,25 @@ public class VM_AsignacionAyudaIndex extends
 
 	@Override
 	public String isValidPreconditionsFinalizar(Integer currentStep) {
-		
+		/*Map<String, String> criterios = new HashMap<>();
+		EstatusPadrinoEnum.POSTULADO.ordinal();
+		criterios.put("fkSolicitudAyuda",
+				String.valueOf(selectedObject.getIdSolicitudAyuda()));
+		PayloadEstudioSocioEconomicoResponse payloadEstudioSocioEconomicoResponse = S.EstudioSocioEconomicoService
+				.consultarCriterios(
+						TypeQuery.EQUAL, criterios);
+		EstudioSocioEconomico economico =  payloadEstudioSocioEconomicoResponse.getObjetos().get(0);*/
 
 		if (currentStep == 2) {
 			try {
+				
+				
 				UtilValidate.validateDate(this.getFechaAsignacion().getTime(),
 						"Fecha Planificada", ValidateOperator.GREATER_THAN,
 						new SimpleDateFormat("yyyy-MM-dd").format(new Date()),
 						"dd/MM/yyyy");
+				UtilValidate.validateInteger(this.getSolicitudAyudaRecurso().getCantidad(),
+						"Cantidad", ValidateOperator.GREATER_THAN, 0);
 				UtilValidate.validateNull(this.getRecurso()
 						.getIdRecurso(), "Recurso");
 				//UtilValidate.validateInteger(getSolicitudAyudaRecurso().getCantidad(), "cantidad", null, null);

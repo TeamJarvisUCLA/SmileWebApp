@@ -6,33 +6,37 @@
 		apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('ve.smile.gestion.ayudas.solicitudes.VM_SolicitudesIndex')">
 
-		<div class="row">
+		<div style="overflow: auto;"  class="row">
 			<div class="col s12">
-				<div class="col s12">
-					<listbox id="listbox" model="@load(vm.objectsList)"
+				<div class="col s12" style="overflow: scroll;">
+					<listbox  id="listbox" model="@load(vm.objectsList)"
 						selectedItem="@bind(vm.selectedObject)">
 
 						<listhead sizable="true">
-							<listheader width="12%" label="Titulo de Solicitud" />
-							<listheader width="18%" label="Estatus de Solicitud" />
-							<listheader width="18%" label="Nombre Beneficiario" />
-							<listheader width="18%" label="Apellido Beneficiario" />
-							 <listheader width="18%" label="Nombre Familiar" />
-							<listheader width="18%" label="Apellido Familiar" /> 
-							<listheader width="12%" label="Urgencia" />
-							<listheader width="12%" label="Ayuda Aportada" />
-							<listheader width="12%" label="Fecha" />
-							<listheader width="12%" label="Observacion" />
+							<listheader width="200px" label="Titulo de Solicitud" />
+							<!-- <listheader width="200px" label="Estatus de Solicitud" /> -->
+							<listheader width="200px" label="Nombre Beneficiario" />
+							<listheader width="200px" label="Identificacion Beneficiario" />
+							 <listheader width="200px" label="Nombre Representante" />
+							<listheader width="200px" label="Identificacion Representante" />
+							<listheader width="150px" label="Urgencia" />
+							<listheader width="200px" label="Ayuda Solicitada" />
+							<listheader width="150px" label="Fecha" />
+							<listheader width="150px" label="Observacion" />
 							
 						</listhead>
 						<template name="model">
 							<listitem>
 								<listcell label="@load(each.titulo)" />
-								<listcell label="@load(each.estatusSolicitudEnum)" />
-								<listcell label="@load(each.fkBeneficiario.fkPersona.nombre)" />
-								<listcell label="@load(each.fkBeneficiario.fkPersona.apellido)" />
-								 <listcell label="@load(each.fkBeneficiario.fkFamiliar.fkPersona.nombre)" />
-								<listcell label="@load(each.fkBeneficiario.fkFamiliar.fkPersona.apellido)" /> 
+								<!-- <listcell label="@load(each.estatusSolicitudEnum)" /> -->
+								<listcell label="@load(each.fkBeneficiario.fkPersona.nombre.concat(' ').concat(each.fkBeneficiario.fkPersona.apellido))" />
+								
+								<listcell label="@load(each.fkBeneficiario.fkPersona.identificacion)" />
+								
+								
+								<listcell label="@load(each.fkBeneficiario.fkFamiliar.fkPersona.nombre.concat(' ').concat(each.fkBeneficiario.fkFamiliar.fkPersona.apellido))" />
+								<listcell label="@load(each.fkBeneficiario.fkFamiliar.fkPersona.identificacion)" />
+							
 								<listcell label="@load(each.urgenciaEnum)" />
 								<listcell label="@load(each.fkAyuda.nombre)" />
 								  <listcell label="${m:convertirLongATimestamp(each.fecha)}" />  
@@ -43,7 +47,7 @@
 							</listitem>
 						</template>
 						<listfoot>
-							<listfooter id="listFoot" span="9"
+							<listfooter id="listFoot" span="10"
 								use="karen.core.listfoot.ListFoot">
 							</listfooter>
 						</listfoot>

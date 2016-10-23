@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -96,14 +97,38 @@ public class VM_EgresoFamiliarIndex extends
 
 	private Familiar familiar;
 
+	private List<Motivo> motivos ;
 
 
+	private List<Beneficiario> beneficiarios;
 	@Init(superclass = true)
 	public void childInit() {
 		// NOTHING OK!
 		familiar = new Familiar();
 		
 		
+	}
+	
+	public void setMotivos(List<Motivo> motivos) {
+		this.motivos = motivos;
+	}
+	
+	public List<Motivo> getMotivos() {
+		if (this.motivos == null) {
+			this.motivos = new ArrayList<>();
+		}
+		if (this.motivos.isEmpty()) {
+			PayloadMotivoResponse payloadMotivoResponse = S.MotivoService
+					.consultarTodos();
+
+			if (!UtilPayload.isOK(payloadMotivoResponse)) {
+				Alert.showMessage(payloadMotivoResponse);
+			}
+
+			this.motivos.addAll(payloadMotivoResponse.getObjetos());
+		}
+
+		return motivos;
 	}
 	// ENUN SEXO
 		public SexoEnum getSexoEnum() {
@@ -286,29 +311,42 @@ public class VM_EgresoFamiliarIndex extends
 		List<OperacionWizard> listOperacionWizard2 = new ArrayList<OperacionWizard>();
 		listOperacionWizard2.add(OperacionWizardHelper
 				.getPorType(OperacionWizardEnum.ATRAS));
-		listOperacionWizard2.add(OperacionWizardHelper
-				.getPorType(OperacionWizardEnum.CANCELAR));
+		
 		listOperacionWizard2.add(OperacionWizardHelper
 				.getPorType(OperacionWizardEnum.SIGUIENTE));
+		listOperacionWizard2.add(OperacionWizardHelper
+				.getPorType(OperacionWizardEnum.CANCELAR));
 
 		botones.put(2, listOperacionWizard2);
-		
 		
 		List<OperacionWizard> listOperacionWizard3 = new ArrayList<OperacionWizard>();
 		listOperacionWizard3.add(OperacionWizardHelper
 				.getPorType(OperacionWizardEnum.ATRAS));
+		
+		listOperacionWizard3.add(OperacionWizardHelper
+				.getPorType(OperacionWizardEnum.SIGUIENTE));
 		listOperacionWizard3.add(OperacionWizardHelper
 				.getPorType(OperacionWizardEnum.CANCELAR));
-		listOperacionWizard3.add(OperacionWizardHelper
-				.getPorType(OperacionWizardEnum.FINALIZAR));
 
 		botones.put(3, listOperacionWizard3);
-
+		
+		
 		List<OperacionWizard> listOperacionWizard4 = new ArrayList<OperacionWizard>();
 		listOperacionWizard4.add(OperacionWizardHelper
-				.getPorType(OperacionWizardEnum.CUSTOM1));
+				.getPorType(OperacionWizardEnum.ATRAS));
+		
+		listOperacionWizard4.add(OperacionWizardHelper
+				.getPorType(OperacionWizardEnum.FINALIZAR));
+		listOperacionWizard4.add(OperacionWizardHelper
+				.getPorType(OperacionWizardEnum.CANCELAR));
 
 		botones.put(4, listOperacionWizard4);
+
+		List<OperacionWizard> listOperacionWizard5 = new ArrayList<OperacionWizard>();
+		listOperacionWizard5.add(OperacionWizardHelper
+				.getPorType(OperacionWizardEnum.CUSTOM1));
+
+		botones.put(5, listOperacionWizard5);
 
 		return botones;
 	}
@@ -327,6 +365,7 @@ public class VM_EgresoFamiliarIndex extends
 		iconos.add("fa fa-pencil-square-o");
 		iconos.add("fa fa-pencil-square-o");
 		iconos.add("fa fa-pencil-square-o");
+		iconos.add("fa fa-pencil-square-o");
 		// iconos.add("fa fa-check-square-o");
 
 		return iconos;
@@ -338,6 +377,7 @@ public class VM_EgresoFamiliarIndex extends
 
 		urls.add("views/desktop/gestion/ayudas/egresoFamiliar/selectFamiliar.zul");
 		urls.add("views/desktop/gestion/ayudas/egresoFamiliar/FamiliarFormBasic.zul");
+		urls.add("views/desktop/gestion/ayudas/egresoFamiliar/BeneficiarioDeFamiliarFormBasic.zul");
 		urls.add("views/desktop/gestion/ayudas/egresoFamiliar/MotivoFormBasic.zul");
 		
 		// urls.add("views/desktop/gestion/trabajoSocial/planificacion/registro/successRegistroFamiliarPlanificado.zul");
@@ -393,28 +433,26 @@ public class VM_EgresoFamiliarIndex extends
 		return "";
 	}
 
-	/*@Override
+	@Override
 	public String isValidPreconditionsFinalizar(Integer currentStep) {
 		
-		if (currentStep == 3) {
+		if(currentStep == 4){
 			try {
-				UtilValidate.validateDate(this.getFecha().getTime(),
-						"Fecha Planificada", ValidateOperator.GREATER_THAN,
-						new SimpleDateFormat("yyyy-MM-dd").format(new Date()),
-						"dd/MM/yyyy");
-				UtilValidate.validateString(this.getFamiliar().getResultado(), "Resutlado", 100);
+				UtilValidate.validateNull(this.getFamiliar().getFkMotivo(), "Motivo");
+				
+				UtilValidate.validateString(this.getFamiliar().getObservacion(),
+						"Detalle de Rechazo", 100);
 			} catch (Exception e) {
 				return e.getMessage();
 			}
-
 		}
 		
 		return "";
-	}*/
+	}
 
 	@Override
 	public String executeFinalizar(Integer currentStep) {
-		if (currentStep == 3) {
+		if (currentStep == 4) {
 			Familiar familiar = this.getFamiliar();
 			//familiar.s(EstatusFamiliarEnum.INACTIVO.ordinal());
 			
@@ -436,6 +474,8 @@ public class VM_EgresoFamiliarIndex extends
 				//PayloadPersonaResponse payloadPersonaResponse = S.PersonaService.modificar(personaBeneficiario);
 				Beneficiario beneficiario = elemento;
 				beneficiario.setEstatusBeneficiario(EstatusBeneficiarioEnum.INACTIVO.ordinal());
+				beneficiario.setFkMotivo(familiar.getFkMotivo());
+				beneficiario.setObservacion(familiar.getObservacion());
 				PayloadBeneficiarioResponse payloadBeneficiarioResponse2 = S.BeneficiarioService.modificar(beneficiario); 
 			}
 			//PayloadBeneficiarioFamiliarResponse payloadBeneficiarioFamiliarResponse = S.BeneficiarioFamiliarService.consultarCriterios(typeQuery, criterios);
@@ -455,7 +495,7 @@ public class VM_EgresoFamiliarIndex extends
 			
 			if (UtilPayload.isOK(payloadFamiliarResponse)) {
 				restartWizard();
-				return "Familiar Egresado con Exito";
+				return "Representante Egresado con Exito";
 			}
 
 		}
@@ -480,10 +520,24 @@ public class VM_EgresoFamiliarIndex extends
 			
 			this.setEstado(this.getFamiliar().getFkPersona()
 					.getFkCiudad().getFkEstado());
-			this.setSexoEnum(SexoEnum.values()[this.getFamiliar()
-					.getFkPersona().getSexo()]);
-			this.setTipoPersonaEnum(TipoPersonaEnum.values()[this
-					.getFamiliar().getFkPersona().getTipoPersona()]);
+			if(this.getFamiliar().getFkPersona().getSexo()!=null){
+				this.setSexoEnum(SexoEnum.values()[this.getFamiliar()
+				               					.getFkPersona().getSexo()]);
+			}
+			
+			this.setTipoPersonaEnum(this.getFamiliar().getFkPersona().getTipoPersonaEnum());
+			
+			
+			Calendar cal = Calendar.getInstance();
+			cal.setTimeInMillis(this.getFamiliar().getFechaIngreso());
+			this.setFechaIngreso(cal.getTime());
+			
+			if(this.getFamiliar().getFkPersona().getFechaNacimiento()!=null){
+				Calendar cal2 = Calendar.getInstance();
+				cal2.setTimeInMillis(this.getFamiliar().getFkPersona().getFechaNacimiento());
+				this.setFechaNacimiento(cal2.getTime());
+			}
+			
 			
 			Map<String, String> criterios = new HashMap<>();
 			criterios.put("fkEstado.idEstado",
@@ -565,6 +619,38 @@ public class VM_EgresoFamiliarIndex extends
 		} catch (Exception e) {
 			return null;
 		}
+	}
+	
+	public List<Beneficiario> getBeneficiarios() {
+		if (this.beneficiarios == null) {
+			this.beneficiarios = new ArrayList<>();
+		}
+		//System.out.println(this.getFamiliar().getIdFamiliar());
+		if (this.getFamiliar().getIdFamiliar()!=null ) {
+			
+			Map<String, String> criterios = new HashMap<>();
+
+			criterios
+					.put("fkFamiliar.idFamiliar", String.valueOf(this.getFamiliar().getIdFamiliar()));
+			criterios
+			.put("estatusBeneficiario", String.valueOf(EstatusBeneficiarioEnum.ACTIVO.ordinal()));
+			PayloadBeneficiarioResponse payloadBeneficiarioResponse = S.BeneficiarioService
+					.consultarCriterios(TypeQuery.EQUAL, criterios);
+			if (!UtilPayload.isOK(payloadBeneficiarioResponse)) {
+				Alert.showMessage(payloadBeneficiarioResponse);
+			}
+			this.beneficiarios.addAll(payloadBeneficiarioResponse.getObjetos());
+			
+			
+		}
+		
+		
+
+		return beneficiarios;
+	}
+
+	public void setBeneficiarios(List<Beneficiario> beneficiarios) {
+		this.beneficiarios = beneficiarios;
 	}
 	
 /*	@Override

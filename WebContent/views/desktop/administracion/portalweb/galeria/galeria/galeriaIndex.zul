@@ -1,0 +1,124 @@
+<zk xmlns:n="native" xmlns:w="client">
+	<style>
+		h4 {
+		    color: #a0958e;
+			margin: 0;
+			padding: 15px 0;
+			font-size: 1.5em;
+			font-weight: bold;
+			text-align: center;
+			text-transform: uppercase;	
+		}
+		.fotos .info {
+			background: rgba(138, 199, 222, 0.27);
+		}
+		.fotos {
+			padding: 20px 0;
+			text-align: center;
+		}
+
+		.subtitulo span{
+			font-size: 1em;
+			font-weight: bold;
+		}
+		
+		.fotos .row {
+			margin-bottom: 0;
+			margin-top: 15px;
+		}
+		
+		.fotos img {
+			height: 100%;
+			width: 100%;
+			margin-bottom: 20px;
+		}
+		   
+		.fotos button, .fotos .z-button:active {
+			background: #8bc34a !important;
+			position: absolute;
+			top: 31px;
+			right: 63px;
+			left: initial;
+		}
+		.subtitulo {
+			padding-top: 6px;
+			font-size: 1.3em;
+			font-weight: bold;
+			color: #ffffff;
+			background:#8ac7de;
+			height: 36px;
+		}
+		.fotos .s4:nth-child(3n+1) {
+		   	clear: left;
+		}
+		
+		.multimedia:hover img{
+			opacity: .1;
+		}
+		.multimedia:hover .edit{
+			visibility: visible;
+			cursor: pointer;
+		}
+		.multimedia {
+			position: relative;
+		}
+		.edit {
+		    position: absolute;
+		    top: 40%;
+		    left: 45%;
+		    font-size: 50px;
+		    color: #ca7642;
+		    visibility: hidden;
+		}
+	</style>
+	<div
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('ve.smile.administracion.portalweb.galeria.galeria.VM_galeriaIndex')">
+		<div class="row">
+
+			<div sclass="col s12">
+				<div class=" col s12">
+					<div class=" row line-evento"
+						style="margin:0px">
+					</div>
+				</div>
+				<div class=" col s12">
+					<div sclass="row"
+						style="margin:0px;background: #FFF">
+						<div sclass="col s12  fotos" align="center">
+							<n:h4>fotos</n:h4>
+							<button class="waves-effect waves-light btn" href=""
+								onClick="@command('formNewMultimedia')">
+								Agregar Imagen
+							</button>
+							<div class="row">
+								<div children="@load(vm.multimediaGaleria)">
+									<template name="children">			
+										<div class="col s4 multimedia">
+											<div class="subtitulo text-center">
+												<label value="@load(each.nombre)"></label>
+							       			</div>
+							       			<div class="info block-ellipsis">
+										        <label value="@load(each.descripcion)"></label>
+								          	</div>
+											<image src="@load(each.url)"></image>
+											<div class="edit fa fa-pencil-square-o" onClick="@command('formEditMultimedia',multimedia=each)"></div>
+										</div>
+									</template>
+								</div>
+							</div>		
+						</div>
+					</div>
+				</div>
+				<div class=" col s12">
+					<div class=" row line-evento"
+						style="margin:0px">
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+
+</zk>

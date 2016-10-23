@@ -1,0 +1,71 @@
+<?component name="uploadImageSingle" macroURI="/assets/theme/components/upload_image_single.zul"?>
+<zk xmlns:n="native" xmlns:w="client">
+<style>
+	.fotos .s4:nth-child(3n+1) {
+	   	clear: left;
+	}
+	.fotos .s4 {
+	   	margin-bottom: 20px;
+	}
+	.fotos img {
+		width: 100%;
+	}
+	.multimedia:hover img{
+		opacity: .1;
+	}
+	.multimedia:hover .delete{
+		visibility: visible;
+		cursor: pointer;
+	}
+	.multimedia {
+		position: relative;
+	}
+	.delete {
+	    position: absolute;
+	    top: 40%;
+	    left: 45%;
+	    font-size: 50px;
+	    color: red;
+	    visibility: hidden;
+	}
+	.fotos button, .fotos .z-button:active {
+		background: #8bc34a !important;
+	    margin-bottom: 35px;
+	}
+</style>
+<!-- 	<div sclass="animated fadeInLeft" apply="ve.smile.administracion.portalweb.galeria.album.uploadfield"> -->
+	<div sclass="animated fadeInLeft">
+		<div class="row">
+			<div class="col s12 fotos" align="center" style="margin-bottom: 15px;">
+				<div sclass="row">
+					<div class="input-field col s12">
+						<button id="btnUpload" class="waves-effect waves-light btn" 
+							upload="true,maxsize=10000,multiple=true" 
+							onUpload="@command('btnUpload')">
+							Agregar Imagen
+						</button>
+
+						<div class="col s12">
+							<div class="row">
+								<div class="col s12">
+									<div class="row" children="@load(vm.multimediasAlbum)">
+										<template name="children">
+											<div class="col s4 multimedia">
+												<image
+													src="@load(each.url)">
+												</image>
+												<div class="delete fa fa-minus-circle" onClick="@command('deleteMultimedia',multimedia=each)"></div>
+											</div>
+										</template>
+									</div>
+								</div>
+							</div>
+						</div>						
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</zk>
+

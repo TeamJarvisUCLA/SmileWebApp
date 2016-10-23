@@ -1,0 +1,89 @@
+<?xel-method prefix="m" name="convertirLongADate" class="lights.smile.util.UtilConverterDataList" 
+	signature="java.lang.String convertirLongADate(java.lang.Long)" ?>
+<zk xmlns:n="native" xmlns:w="client">
+	<div sclass="animated fadeInLeft">
+		<div class="row">
+			<div class="col s12">
+			
+				<div class="row">
+					<div class="col s12" align="center" style="margin-bottom: 15px;">
+						<label value="Ingrese los datos del album" sclass="label-medium-500"></label>
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="input-field col s12">
+						<n:label for="titulo"> Título </n:label>
+						<textbox id="titulo" type="text" sclass="materialize-textarea" multiline="true" value="@bind(vm.album.titulo)"> </textbox>
+						<span sclass="fa fa-question-circle fa-lg help-icon-special" tooltip="pop_titulo, position=after_end" />
+					</div>
+				</div>
+			
+				<div class="row">
+					<div class="input-field col s12">
+						<n:label for="descripcion"> Descripción </n:label>
+						<textbox id="descripcion" type="text" sclass="materialize-textarea" multiline="true" value="@bind(vm.album.descripcion)"> </textbox>
+						<span sclass="fa fa-question-circle fa-lg help-icon-special" tooltip="pop_descripcion, position=after_end" />
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="input-field col s12">
+						<n:label for="fecha_publicacion" class="active"> Fecha publicacion: </n:label>
+						<datebox id="fecha_publicacion" readonly="true" cols="20" format="dd/MM/yyyy" value="@bind(vm.fechaPublicacion)" />
+						<span sclass="fa fa-question-circle fa-lg help-icon-special" tooltip="pop_fechaP, position=after_end" />
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="input-field col s12">
+						<n:label for="fecha_expiracion" class="active"> Fecha expiracion: </n:label>
+						<datebox id="fecha_expiracion" readonly="true" cols="20" format="dd/MM/yyyy" value="@bind(vm.fechaExpiracion)" />
+						<span sclass="fa fa-question-circle fa-lg help-icon-special" tooltip="pop_fechaE, position=after_end" />
+					</div>
+				</div>
+				
+				<div class="col s12" align="center">
+					<n:h6>Publico en portal</n:h6>
+				</div>
+				<div class="row">
+					<div class="input-field col s6 offset-s3">
+						<n:div class="switch">
+							<n:label>
+								NO
+								<checkbox checked="@bind(vm.estatus)">
+								</checkbox>
+								SI
+							</n:label>
+						</n:div>
+					</div>
+				</div>
+				
+				<popup id="pop_titulo," width="200px">
+        			<html>
+        				<![CDATA[Por favor, ingrese el titulo del album que desea registrar.<br/>]]>
+        			</html>
+    			</popup>
+				
+				<popup id="pop_descripcion" width="200px">
+        			<html>
+        				<![CDATA[Por favor, ingrese la descripción del album que desea registrar.<br/>]]>
+        			</html>
+    			</popup>
+    			
+    			<popup id="pop_fechaP" width="200px">
+        			<html>
+        				<![CDATA[Por favor, seleccione la fecha publicacion del album que desea registrar.<br/>]]>
+        			</html>
+    			</popup>
+    			
+    			<popup id="pop_fechaE" width="200px">
+        			<html>
+        				<![CDATA[Por favor, seleccione la fecha expiracion del album que desea registrar.<br/>]]>
+        			</html>
+    			</popup>
+				
+			</div>
+		</div>
+	</div>
+</zk>

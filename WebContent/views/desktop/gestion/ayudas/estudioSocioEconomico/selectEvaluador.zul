@@ -13,6 +13,103 @@
 
 			<div style="overflow: auto;" class="row">
 			<div class="col s12">
+			
+			<div class="row">
+
+					<div class="input-field col s12">
+					
+					<n:label for="beneficiario3" class="active">
+						Titulo Solicitud Ayuda:
+					</n:label>
+					<label sclass="subtitulo-evento" value="@bind(vm.solicitudAyuda.titulo)"> </label>
+					
+					</div>
+
+				</div>
+				
+				<div class="row">
+
+					<div class="input-field col s12">
+						<n:label for="beneficiario_solicitud" class="active">
+						Nombre Beneficiario Solicitud Ayuda:
+					</n:label>
+					
+					<label sclass="subtitulo-evento" value="@bind(vm.solicitudAyuda.fkBeneficiario.fkPersona.nombre.concat(' ').concat(vm.solicitudAyuda.fkBeneficiario.fkPersona.apellido))"> </label>
+					
+					</div>
+
+				</div>
+				
+				
+				<div class="row">
+
+					<div class="input-field col s12">
+						<n:label for="beneficiario3_solicitud" class="active">
+						Documento de Identificacion Beneficiario Solicitud Ayuda:
+					</n:label>
+					
+					<label sclass="subtitulo-evento" value="@bind(vm.solicitudAyuda.fkBeneficiario.fkPersona.identificacion)"> </label>
+					
+					
+					</div>
+
+				</div>
+				
+				
+				<div class="row">
+
+					<div class="input-field col s12">
+						<n:label for="familiar_solicitud" class="active">
+						Nombre Familiar Solicitud Ayuda:
+					</n:label>
+					<label sclass="subtitulo-evento" value="@bind(vm.solicitudAyuda.fkBeneficiario.fkFamiliar.fkPersona.nombre.concat(' ').concat(vm.solicitudAyuda.fkBeneficiario.fkFamiliar.fkPersona.apellido))"> </label>
+					
+					
+					</div>
+
+				</div>
+				
+				
+				
+				<div class="row">
+
+					<div class="input-field col s12">
+						<n:label for="familiar3_solicitud" class="active">
+						Documento de Identificacion Familiar Solicitud Ayuda:
+					</n:label>
+					<label sclass="subtitulo-evento" value="@bind(vm.solicitudAyuda.fkBeneficiario.fkFamiliar.fkPersona.identificacion)"> </label>
+					
+					
+					</div>
+
+				</div>
+				
+				<div class="row">
+
+					<div class="input-field col s12">
+						<n:label for="ayuda_solicitud" class="active">
+						Ayuda Solicitada:
+					</n:label>
+					<label sclass="subtitulo-evento" value="@bind(vm.solicitudAyuda.fkAyuda.nombre)"> </label>
+					
+					
+					</div>
+
+				</div>
+				
+				<div class="row">
+
+					<div class="input-field col s12">
+						<n:label for="ayuda2_solicitud" class="active">
+						Urgencia Solicitud:
+					</n:label>
+					<label sclass="subtitulo-evento" value="@bind(vm.solicitudAyuda.urgenciaEnum)"> </label>
+					
+					</div>
+
+				</div>
+				
+			
 				<div class="col s12" style="overflow: scroll;">
 						<listbox id="listbox"
 							model="@load(vm.trabajadores)"
@@ -20,7 +117,6 @@
 
 							<listhead sizable="true">
 								<listheader width="200px" label="Nombre" />
-							<listheader width="200px" label="Apellido" />
 							<listheader width="200px" label="Identificacion" />
 							<listheader width="200px" label="Direccion" />
 							<listheader width="200px" label="Correo" />
@@ -29,7 +125,8 @@
 							<template name="model">
 								<listitem>
 									<listcell label="@load(each.fkPersona.nombre)" />
-									<listcell label="@load(each.fkPersona.apellido)" />
+									<listcell label="@load(each.fkPersona.nombre.concat(' ').concat(each.fkPersona.apellido))" />
+									
 									<listcell label="@load(each.fkPersona.identificacion)" />
 									<listcell label="@load(each.fkPersona.direccion)" />
 									<listcell label="@load(each.fkPersona.correo)" />

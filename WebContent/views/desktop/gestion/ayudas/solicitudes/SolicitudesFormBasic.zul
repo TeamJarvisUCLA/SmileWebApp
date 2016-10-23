@@ -19,37 +19,50 @@
 				</button>
 			</div>
 
-			<div
-				visible="@load(not empty vm.beneficiario.fkPersona.nombre )">
+			<div visible="@load(not empty vm.beneficiario.fkPersona.nombre )">
 				<div class="input-field offset-s2 col s8">
 					<n:label for="beneficiario1" class="active">
 						Nombre Beneficiario:
 					</n:label>
-					<textbox id="beneficiario1" type="text"
-						value="@bind(vm.beneficiario.fkPersona.nombre)" disabled="true">
-					</textbox>
+					<label sclass="subtitulo-evento"
+									value="@bind(vm.beneficiario.fkPersona.nombre.concat(' ').concat(vm.beneficiario.fkPersona.apellido))">
+								</label>
+					
 				</div>
 
-				<div class="input-field offset-s2 col s8">
-					<n:label for="beneficiario2" class="active">
-						Apellido Beneficiario:
-					</n:label>
-					<textbox id="beneficiario2" type="text"
-						value="@bind(vm.beneficiario.fkPersona.apellido)"
-						disabled="true">
-					</textbox>
-				</div>
 
 
 				<div class="input-field offset-s2 col s8">
 					<n:label for="beneficiario3" class="active">
 						Documento Identificacion Beneficiario:
 					</n:label>
-					<textbox id="beneficiario3" type="text"
-						value="@bind(vm.beneficiario.fkPersona.identificacion)"
-						disabled="true">
-					</textbox>
+					<label sclass="subtitulo-evento"
+									value="@bind(vm.beneficiario.fkPersona.identificacion)">
+								</label>
 				</div>
+				
+				<div class="input-field offset-s2 col s8">
+					<n:label for="beneficiario1" class="active">
+						Nombre Representante:
+					</n:label>
+					<label sclass="subtitulo-evento"
+									value="@bind(vm.beneficiario.fkFamiliar.fkPersona.nombre.concat(' ').concat(vm.beneficiario.fkFamiliar.fkPersona.apellido))">
+								</label>
+					
+				</div>
+
+
+
+				<div class="input-field offset-s2 col s8">
+					<n:label for="beneficiario3" class="active">
+						Documento Identificacion Representante:
+					</n:label>
+					<label sclass="subtitulo-evento"
+									value="@bind(vm.beneficiario.fkFamiliar.fkPersona.identificacion)">
+								</label>
+				</div>
+				
+				
 
 			</div>
 
@@ -65,19 +78,24 @@
 				</button>
 			</div>
 
+			
 			<div visible="@load(not empty vm.ayuda.nombre )">
 				<div class="input-field offset-s2 col s8">
-					<n:label for="ayuda1" class="active">Ayuda Solicitada:</n:label>
-					<textbox id="ayuda1" type="text"
-						value="@bind(vm.ayuda.nombre)" disabled="true">
-					</textbox>
+					<n:label for="beneficiario3" class="active">
+						Ayuda Solicitada:
+					</n:label>
+					<label sclass="subtitulo-evento"
+									value="@bind(vm.ayuda.nombre)">
+								</label>
 				</div>
-
+				
 				<div class="input-field offset-s2 col s8">
-					<n:label for="ayuda2" class="active">Descripcion de Ayuda:</n:label>
-					<textbox id="ayuda2" type="text"
-						value="@bind(vm.ayuda.descripcion)" disabled="true">
-					</textbox>
+					<n:label for="beneficiario3" class="active">
+						Descripcion de Ayuda:
+					</n:label>
+					<label sclass="subtitulo-evento"
+									value="@bind(vm.ayuda.descripcion)">
+								</label>
 				</div>
 
 
@@ -93,22 +111,7 @@
 			</div>
 
 
-			<div class="col s12">
-				<div class="input-field offset-s2 col s8">
-					<n:label for="estatus_solicitud" class="active">
-						EStatus De Solicitud
-					</n:label>
-
-					<combobox disabled="true" id="estatus_solicitud"
-						readonly="true" model="@bind(vm.estatusSolicitudEnums)"
-						selectedItem="@bind(vm.estatusSolicitudEnum)">
-						<template name="model">
-							<comboitem label="@load(each)" />
-						</template>
-					</combobox>
-
-				</div>
-			</div>
+		
 
 
 			<div class="col s12">

@@ -50,6 +50,7 @@ import ve.smile.dto.Persona;
 import ve.smile.dto.SolicitudAyuda;
 import ve.smile.dto.TsPlan;
 import ve.smile.dto.Voluntario;
+import ve.smile.enums.EstatusEstudioSocioEconomicoEnum;
 import ve.smile.enums.EstatusPadrinoEnum;
 import ve.smile.enums.EstatusSolicitudEnum;
 import ve.smile.enums.TipoMultimediaEnum;
@@ -351,16 +352,13 @@ public class VM_EvaluacionSolicitudIndex extends
 	public IPayloadResponse<EstudioSocioEconomico> getDataToTable(
 			Integer cantidadRegistrosPagina, Integer pagina) {
 		
-		/*Map<String, String> criterios = new HashMap<>();
+		Map<String, String> criterios = new HashMap<>();
 		EstatusPadrinoEnum.POSTULADO.ordinal();
-		criterios.put("fechaEjecutada",
-				"null");
+		criterios.put("estatusEstudio",
+				String.valueOf(EstatusEstudioSocioEconomicoEnum.NO_REALIZADO.ordinal()));
 		PayloadEstudioSocioEconomicoResponse payloadEstudioSocioEconomicoResponse = S.EstudioSocioEconomicoService
 				.consultarPaginacionCriterios(cantidadRegistrosPagina, pagina,
-						TypeQuery.EQUAL, criterios);*/
-		
-		PayloadEstudioSocioEconomicoResponse payloadEstudioSocioEconomicoResponse = S.EstudioSocioEconomicoService
-				.consultarPaginacion(cantidadRegistrosPagina, pagina);
+						TypeQuery.EQUAL, criterios);
 		
 		return payloadEstudioSocioEconomicoResponse;
 	}

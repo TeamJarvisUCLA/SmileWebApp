@@ -44,6 +44,7 @@ import ve.smile.dto.EstudioSocioEconomico;
 import ve.smile.dto.Trabajador;
 import ve.smile.dto.SolicitudAyuda;
 import ve.smile.dto.Voluntario;
+import ve.smile.enums.EstatusEstudioSocioEconomicoEnum;
 import ve.smile.enums.EstatusPadrinoEnum;
 import ve.smile.enums.EstatusSolicitudEnum;
 import ve.smile.enums.EstatusTrabajadorEnum;
@@ -338,6 +339,7 @@ public class VM_EstudioSocioEconomicoIndex extends
 					this.getFecha().getTime());
 			
 			this.getEstudioSocioEconomico().setFkSolicitudAyuda(selectedObject);
+			this.getEstudioSocioEconomico().setEstatusEstudio(EstatusEstudioSocioEconomicoEnum.NO_REALIZADO.ordinal());
 			this.getSolicitudAyuda().setEstatusSolicitud(EstatusSolicitudEnum.EN_PROCESO.ordinal());
 			
 			selectedObject.setEstatusSolicitud(EstatusSolicitudEnum.EN_PROCESO.ordinal());

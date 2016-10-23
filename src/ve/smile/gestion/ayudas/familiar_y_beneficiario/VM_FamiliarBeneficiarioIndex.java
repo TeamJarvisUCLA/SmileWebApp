@@ -1,7 +1,9 @@
-package ve.smile.gestion.ayudas.egreso_familiar;
+package ve.smile.gestion.ayudas.familiar_y_beneficiario;
 
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -20,7 +22,14 @@ import karen.core.crux.session.DataCenter;
 import karen.core.dialog.catalogue.generic.data.CatalogueDialogData;
 import karen.core.dialog.catalogue.generic.events.CatalogueDialogCloseEvent;
 import karen.core.dialog.catalogue.generic.events.listeners.CatalogueDialogCloseListener;
+import karen.core.dialog.form.data.WindowFormDialogData;
+import karen.core.dialog.form.events.WindowFormDialogCloseEvent;
+import karen.core.dialog.form.events.listeners.WindowFormDialogCloseListener;
+import karen.core.dialog.generic.data.DialogData;
 import karen.core.dialog.generic.enums.DialogActionEnum;
+import karen.core.dialog.generic.events.DialogCloseEvent;
+import karen.core.dialog.generic.events.listeners.DialogCloseListener;
+import karen.core.form.buttons.enums.OperacionFormEnum;
 import karen.core.simple_list.wizard.buttons.data.OperacionWizard;
 import karen.core.simple_list.wizard.buttons.enums.OperacionWizardEnum;
 import karen.core.simple_list.wizard.buttons.helpers.OperacionWizardHelper;
@@ -32,10 +41,12 @@ import karen.core.util.validate.UtilValidate.ValidateOperator;
 import lights.core.enums.TypeQuery;
 import lights.core.payload.response.IPayloadResponse;
 import lights.smile.util.UtilMultimedia;
+import lights.smile.util.Zki;
 
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
+import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.event.UploadEvent;
 
 import ve.smile.consume.services.S;
@@ -47,6 +58,7 @@ import ve.smile.dto.Directorio;
 import ve.smile.dto.Estado;
 import ve.smile.dto.Motivo;
 import ve.smile.dto.Multimedia;
+import ve.smile.dto.Familiar;
 import ve.smile.dto.Familiar;
 import ve.smile.dto.Persona;
 import ve.smile.dto.TsPlan;
@@ -65,11 +77,13 @@ import ve.smile.payload.response.PayloadMotivoResponse;
 import ve.smile.payload.response.PayloadMultimediaResponse;
 import ve.smile.payload.response.PayloadFamiliarResponse;
 import ve.smile.payload.response.PayloadFamiliarResponse;
+import ve.smile.payload.response.PayloadFamiliarResponse;
 import ve.smile.payload.response.PayloadPersonaResponse;
+import ve.smile.seguridad.enums.OperacionEnum;
 import ve.smile.seguridad.enums.SexoEnum;
 import app.UploadImageSingle;
 
-public class VM_EgresoFamiliarIndex extends
+public class VM_FamiliarBeneficiarioIndex extends
 		VM_WindowWizard<Familiar> implements
 		UploadImageSingle  {
 	
@@ -85,116 +99,67 @@ public class VM_EgresoFamiliarIndex extends
 	private Date fechaIngreso;
 	private Persona persona;
 
-	private byte[] bytes = null;
-	private String nameImage;
-	private String extensionImage;
-	private String urlImagen;
-
 	private Estado estado;
 
 	private List<Estado> estados;
+	private byte[] bytes = null;
+	private String nameImage;
+	private String extensionImage;
+	private String urlImage;
+
+	private String typeMedia;
 	
 
 	private Familiar familiar;
 
 	private List<Motivo> motivos ;
 
-
 	private List<Beneficiario> beneficiarios;
+
 	@Init(superclass = true)
 	public void childInit() {
 		// NOTHING OK!
 		familiar = new Familiar();
+		persona = new  Persona();
 		
 		
 	}
 	
-	public void setMotivos(List<Motivo> motivos) {
-		this.motivos = motivos;
+	public TipoPersonaEnum getTipoPersonaEnum() {
+		return tipoPersonaEnum;
 	}
-	
-	public List<Motivo> getMotivos() {
-		if (this.motivos == null) {
-			this.motivos = new ArrayList<>();
-		}
-		if (this.motivos.isEmpty()) {
-			PayloadMotivoResponse payloadMotivoResponse = S.MotivoService
-					.consultarTodos();
 
-			if (!UtilPayload.isOK(payloadMotivoResponse)) {
-				Alert.showMessage(payloadMotivoResponse);
-			}
-
-			this.motivos.addAll(payloadMotivoResponse.getObjetos());
-		}
-
-		return motivos;
+	public void setTipoPersonaEnum(TipoPersonaEnum tipoPersonaEnum) {
+		this.tipoPersonaEnum = tipoPersonaEnum;
+		this.getPersona().setTipoPersona(tipoPersonaEnum.ordinal());
 	}
-	// ENUN SEXO
-		public SexoEnum getSexoEnum() {
-			return sexoEnum;
-		}
 
-		public void setSexoEnum(SexoEnum sexoEnum) {
-			this.sexoEnum = sexoEnum;
-			this.getFamiliar().getFkPersona()
-					.setSexo(this.sexoEnum.ordinal());
+	public List<TipoPersonaEnum> getTipoPersonaEnums() {
+		if (this.tipoPersonaEnums == null) {
+			this.tipoPersonaEnums = new ArrayList<>();
 		}
-
-		public List<SexoEnum> getSexoEnums() {
-			if (this.sexoEnums == null) {
-				this.sexoEnums = new ArrayList<>();
+		if (this.tipoPersonaEnums.isEmpty()) {
+			for (TipoPersonaEnum tipoPersonaEnum : TipoPersonaEnum.values()) {
+				this.tipoPersonaEnums.add(tipoPersonaEnum);
 			}
-			if (this.sexoEnums.isEmpty()) {
-				for (SexoEnum sexoEnum : SexoEnum.values()) {
-					this.sexoEnums.add(sexoEnum);
-				}
-			}
-			return sexoEnums;
 		}
+		return tipoPersonaEnums;
+	}
 
-		public void setSexoEnums(List<SexoEnum> sexoEnums) {
-			this.sexoEnums = sexoEnums;
-		}
+	public void setTipoPersonaEnums(List<TipoPersonaEnum> tipoPersonaEnums) {
+		this.tipoPersonaEnums = tipoPersonaEnums;
+	}
 
-		// ENUM TIPO PERSONA
-		public TipoPersonaEnum getTipoPersonaEnum() {
-			return tipoPersonaEnum;
+	public List<Ciudad> getCiudades() {
+		if (this.ciudades == null) {
+			this.ciudades = new ArrayList<>();
 		}
+		return ciudades;
+	}
 
-		public void setTipoPersonaEnum(TipoPersonaEnum tipoPersonaEnum) {
-			this.tipoPersonaEnum = tipoPersonaEnum;
-			this.getFamiliar().getFkPersona()
-					.setTipoPersona(this.tipoPersonaEnum.ordinal());
-		}
-
-		public List<TipoPersonaEnum> getTipoPersonaEnums() {
-			if (this.tipoPersonaEnums == null) {
-				this.tipoPersonaEnums = new ArrayList<>();
-			}
-			if (this.tipoPersonaEnums.isEmpty()) {
-				for (TipoPersonaEnum tipoPersonaEnum : TipoPersonaEnum.values()) {
-					this.tipoPersonaEnums.add(tipoPersonaEnum);
-				}
-			}
-			return tipoPersonaEnums;
-		}
-
-		public void setTipoPersonaEnums(List<TipoPersonaEnum> tipoPersonaEnums) {
-			this.tipoPersonaEnums = tipoPersonaEnums;
-		}
-
-		// CIUDADES
-		public List<Ciudad> getCiudades() {
-			if (this.ciudades == null) {
-				this.ciudades = new ArrayList<>();
-			}
-			return ciudades;
-		}
-
-		public void setCiudades(List<Ciudad> ciudades) {
-			this.ciudades = ciudades;
-		}
+	public void setCiudades(List<Ciudad> ciudades) {
+		this.ciudades = ciudades;
+	}
 
 	public Estado getEstado() {
 		return estado;
@@ -234,7 +199,14 @@ public class VM_EgresoFamiliarIndex extends
 		this.persona = persona;
 	}
 
-	
+	public Date getFechaNacimiento() {
+		return fechaNacimiento;
+	}
+
+	public void setFechaNacimiento(Date fechaNacimiento) {
+		this.fechaNacimiento = fechaNacimiento;
+		this.getPersona().setFechaNacimiento(fechaNacimiento.getTime());
+	}
 
 	public Date getFechaIngreso() {
 		return fechaIngreso;
@@ -245,31 +217,71 @@ public class VM_EgresoFamiliarIndex extends
 		this.getFamiliar().setFechaIngreso(fechaIngreso.getTime());
 	}
 
-	public String getNameImage() {
-		return nameImage;
+	public List<SexoEnum> getSexoEnums() {
+		if (this.sexoEnums == null) {
+			this.sexoEnums = new ArrayList<>();
+		}
+		if (this.sexoEnums.isEmpty()) {
+			for (SexoEnum sexoEnum : SexoEnum.values()) {
+				this.sexoEnums.add(sexoEnum);
+			}
+		}
+		return sexoEnums;
 	}
 
-	public void setNameImage(String nameImage) {
-		this.nameImage = nameImage;
+	public void setSexoEnums(List<SexoEnum> sexoEnums) {
+		this.sexoEnums = sexoEnums;
 	}
 
-	public String getExtensionImage() {
-		return extensionImage;
+	public SexoEnum getSexoEnum() {
+		return sexoEnum;
 	}
 
-	public void setExtensionImage(String extensionImage) {
-		this.extensionImage = extensionImage;
+	public void setSexoEnum(SexoEnum sexoEnum) {
+		this.sexoEnum = sexoEnum;
+		this.getPersona().setSexo(sexoEnum.ordinal());
+	}
+
+	@Command("changeEstado")
+	@NotifyChange({ "ciudades", "persona" })
+	public void changeEstado() {
+		this.getCiudades().clear();
+		this.getPersona().setFkCiudad(null);
+		Map<String, String> criterios = new HashMap<>();
+
+		criterios
+				.put("fkEstado.idEstado", String.valueOf(estado.getIdEstado()));
+		PayloadCiudadResponse payloadCiudadResponse = S.CiudadService
+				.consultarCriterios(TypeQuery.EQUAL, criterios);
+		if (!UtilPayload.isOK(payloadCiudadResponse)) {
+			Alert.showMessage(payloadCiudadResponse);
+		}
+		this.getCiudades().addAll(payloadCiudadResponse.getObjetos());
 	}
 
 	
-
-	public String getUrlImagen() {
-		return urlImagen;
+	public void setMotivos(List<Motivo> motivos) {
+		this.motivos = motivos;
 	}
+	
+	public List<Motivo> getMotivos() {
+		if (this.motivos == null) {
+			this.motivos = new ArrayList<>();
+		}
+		if (this.motivos.isEmpty()) {
+			PayloadMotivoResponse payloadMotivoResponse = S.MotivoService
+					.consultarTodos();
 
-	public void setUrlImagen(String urlImagen) {
-		this.urlImagen = urlImagen;
+			if (!UtilPayload.isOK(payloadMotivoResponse)) {
+				Alert.showMessage(payloadMotivoResponse);
+			}
+
+			this.motivos.addAll(payloadMotivoResponse.getObjetos());
+		}
+
+		return motivos;
 	}
+	
 	
 	public Familiar getFamiliar() {
 		return familiar;
@@ -279,17 +291,7 @@ public class VM_EgresoFamiliarIndex extends
 		this.familiar = familiar;
 	}
 
-	// FECHAS
-		public Date getFechaNacimiento() {
-			return fechaNacimiento;
-		}
-
-		public void setFechaNacimiento(Date fechaNacimiento) {
-			this.fechaNacimiento = fechaNacimiento;
-			this.getFamiliar().getFkPersona()
-					.setFechaNacimiento(fechaNacimiento.getTime());
-		}
-
+	
 	
 
 	@Override
@@ -311,44 +313,66 @@ public class VM_EgresoFamiliarIndex extends
 		List<OperacionWizard> listOperacionWizard2 = new ArrayList<OperacionWizard>();
 		listOperacionWizard2.add(OperacionWizardHelper
 				.getPorType(OperacionWizardEnum.ATRAS));
-		
-		listOperacionWizard2.add(OperacionWizardHelper
-				.getPorType(OperacionWizardEnum.SIGUIENTE));
 		listOperacionWizard2.add(OperacionWizardHelper
 				.getPorType(OperacionWizardEnum.CANCELAR));
+		listOperacionWizard2.add(OperacionWizardHelper
+				.getPorType(OperacionWizardEnum.FINALIZAR));
 
 		botones.put(2, listOperacionWizard2);
 		
+		/*
 		List<OperacionWizard> listOperacionWizard3 = new ArrayList<OperacionWizard>();
 		listOperacionWizard3.add(OperacionWizardHelper
 				.getPorType(OperacionWizardEnum.ATRAS));
-		
-		listOperacionWizard3.add(OperacionWizardHelper
-				.getPorType(OperacionWizardEnum.SIGUIENTE));
 		listOperacionWizard3.add(OperacionWizardHelper
 				.getPorType(OperacionWizardEnum.CANCELAR));
+		listOperacionWizard3.add(OperacionWizardHelper
+				.getPorType(OperacionWizardEnum.FINALIZAR));
 
 		botones.put(3, listOperacionWizard3);
-		
-		
+
 		List<OperacionWizard> listOperacionWizard4 = new ArrayList<OperacionWizard>();
 		listOperacionWizard4.add(OperacionWizardHelper
-				.getPorType(OperacionWizardEnum.ATRAS));
-		
-		listOperacionWizard4.add(OperacionWizardHelper
-				.getPorType(OperacionWizardEnum.FINALIZAR));
-		listOperacionWizard4.add(OperacionWizardHelper
-				.getPorType(OperacionWizardEnum.CANCELAR));
-
-		botones.put(4, listOperacionWizard4);
-
-		List<OperacionWizard> listOperacionWizard5 = new ArrayList<OperacionWizard>();
-		listOperacionWizard5.add(OperacionWizardHelper
 				.getPorType(OperacionWizardEnum.CUSTOM1));
 
-		botones.put(5, listOperacionWizard5);
+		botones.put(4, listOperacionWizard4);*/
 
 		return botones;
+	}
+	
+	@Command("dialogoBeneficiario")
+	public void buscarBeneficiario() {
+WindowFormDialogData<Beneficiario> windowFormDialogData = new WindowFormDialogData<Beneficiario>();
+		
+		windowFormDialogData.addWindowFormDialogCloseListeners(new WindowFormDialogCloseListener<Beneficiario>() {
+
+			@Override
+			public void onClose(WindowFormDialogCloseEvent<Beneficiario> windowFormDialogCloseEvent) {
+				if (windowFormDialogCloseEvent.getOperacionFormEnum().equals(OperacionFormEnum.CANCELAR)) {
+					return;
+				}
+				
+				//incidenciasEventos.add(windowFormDialogCloseEvent.getEntity());
+				
+				//beneficiarios.add(windowFormDialogCloseEvent.getEntity());
+				getBeneficiarios().add(windowFormDialogCloseEvent.getEntity());
+				System.out.println(windowFormDialogCloseEvent.getEntity().getFkPersona().getNombre());
+				refreshBeneficiario();
+			}
+		} );
+		
+		windowFormDialogData.setOperacionEnum(OperacionEnum.INCLUIR);
+
+
+			UtilDialog.showDialog("views/desktop/gestion/ayudas/familiarYBeneficiario/dialogoBeneficiario.zul", windowFormDialogData);
+			
+		System.out.println("entro dialogo");
+	}
+	
+	public void refreshBeneficiario() {
+		
+		BindUtils.postNotifyChange(null, null, this, "beneficiarios");
+		BindUtils.postNotifyChange(null, null, this, "solicitudAyuda");
 	}
 
 	@Override
@@ -364,8 +388,7 @@ public class VM_EgresoFamiliarIndex extends
 
 		iconos.add("fa fa-pencil-square-o");
 		iconos.add("fa fa-pencil-square-o");
-		iconos.add("fa fa-pencil-square-o");
-		iconos.add("fa fa-pencil-square-o");
+		//iconos.add("fa fa-pencil-square-o");
 		// iconos.add("fa fa-check-square-o");
 
 		return iconos;
@@ -374,11 +397,11 @@ public class VM_EgresoFamiliarIndex extends
 	@Override
 	public List<String> getUrlPageToStep() {
 		List<String> urls = new ArrayList<String>();
-
-		urls.add("views/desktop/gestion/ayudas/egresoFamiliar/selectFamiliar.zul");
-		urls.add("views/desktop/gestion/ayudas/egresoFamiliar/FamiliarFormBasic.zul");
-		urls.add("views/desktop/gestion/ayudas/egresoFamiliar/BeneficiarioDeFamiliarFormBasic.zul");
-		urls.add("views/desktop/gestion/ayudas/egresoFamiliar/MotivoFormBasic.zul");
+		
+		urls.add("views/desktop/gestion/ayudas/familiarYBeneficiario/FamiliarFormBasic.zul");
+		urls.add("views/desktop/gestion/ayudas/familiarYBeneficiario/agregarBeneficiario.zul");
+		
+		//urls.add("views/desktop/gestion/ayudas/familiarYBeneficiario/MotivoFormBasic.zul");
 		
 		// urls.add("views/desktop/gestion/trabajoSocial/planificacion/registro/successRegistroFamiliarPlanificado.zul");
 
@@ -417,7 +440,7 @@ public class VM_EgresoFamiliarIndex extends
 		return payloadFamiliarResponse;
 	}
 
-	@Override
+	/*@Override
 	public String isValidPreconditionsSiguiente(Integer currentStep) {
 		
 		if (currentStep == 1) {
@@ -431,12 +454,12 @@ public class VM_EgresoFamiliarIndex extends
 		
 		
 		return "";
-	}
+	}*/
 
-	@Override
+	/*@Override
 	public String isValidPreconditionsFinalizar(Integer currentStep) {
 		
-		if(currentStep == 4){
+		if(currentStep == 3){
 			try {
 				UtilValidate.validateNull(this.getFamiliar().getFkMotivo(), "Motivo");
 				
@@ -448,11 +471,76 @@ public class VM_EgresoFamiliarIndex extends
 		}
 		
 		return "";
-	}
+	}*/
 
 	@Override
 	public String executeFinalizar(Integer currentStep) {
-		if (currentStep == 4) {
+		
+		if(currentStep==1){
+			
+
+			Familiar familiar = this.getFamiliar();
+			familiar.setFechaIngreso(this.getFechaIngreso().getTime());
+			familiar.setFechaSalida(new Date().getTime());
+
+			if (bytes != null) {
+				Multimedia multimedia = new Multimedia();
+				multimedia.setNombre(nameImage);
+				multimedia.setTipoMultimedia(TipoMultimediaEnum.IMAGEN
+						.ordinal());
+				multimedia.setUrl(this.getUrlImage());
+				multimedia.setExtension(UtilMultimedia.stringToExtensionEnum(
+						extensionImage).ordinal());
+				multimedia.setDescripcion(typeMedia);
+
+				PayloadMultimediaResponse payloadMultimediaResponse = S.MultimediaService
+						.incluir(multimedia);
+				if (!UtilPayload.isOK(payloadMultimediaResponse)) {
+					Alert.showMessage(payloadMultimediaResponse);
+					
+				}
+				multimedia.setIdMultimedia(((Double) payloadMultimediaResponse
+						.getInformacion("id")).intValue());
+				this.getPersona().setFkMultimedia(multimedia);
+			}
+			PayloadPersonaResponse payloadPersonaResponse = S.PersonaService
+					.incluir(this.getPersona());
+			if (!UtilPayload.isOK(payloadPersonaResponse)) {
+				Alert.showMessage(payloadPersonaResponse);
+				
+			}
+			this.getPersona().setIdPersona(
+					((Double) payloadPersonaResponse.getInformacion("id"))
+							.intValue());
+			familiar.setFkPersona(this.getPersona());
+			PayloadFamiliarResponse payloadFamiliarResponse = S.FamiliarService
+					.incluir(getFamiliar());
+			if (!UtilPayload.isOK(payloadFamiliarResponse)) {
+				
+			}
+			if (bytes != null) {
+				Zki.save(Zki.PERSONAS, getPersona().getIdPersona(),
+						extensionImage, bytes);
+				Multimedia multimedia = this.getPersona().getFkMultimedia();
+				multimedia.setNombre(Zki.PERSONAS
+						+ this.getPersona().getIdPersona() + "."
+						+ this.extensionImage);
+				multimedia.setUrl(Zki.PERSONAS + getPersona().getIdPersona()
+						+ "." + this.extensionImage);
+				PayloadMultimediaResponse payloadMultimediaResponse = S.MultimediaService
+						.modificar(multimedia);
+
+				if (!UtilPayload.isOK(payloadMultimediaResponse)) {
+					Alert.showMessage(payloadMultimediaResponse);
+					
+				}
+			}
+			Alert.showMessage(payloadFamiliarResponse);
+			
+			
+		}
+		
+		/*if (currentStep == 3) {
 			Familiar familiar = this.getFamiliar();
 			//familiar.s(EstatusFamiliarEnum.INACTIVO.ordinal());
 			
@@ -474,14 +562,12 @@ public class VM_EgresoFamiliarIndex extends
 				//PayloadPersonaResponse payloadPersonaResponse = S.PersonaService.modificar(personaBeneficiario);
 				Beneficiario beneficiario = elemento;
 				beneficiario.setEstatusBeneficiario(EstatusBeneficiarioEnum.INACTIVO.ordinal());
-				beneficiario.setFkMotivo(familiar.getFkMotivo());
-				beneficiario.setObservacion(familiar.getObservacion());
 				PayloadBeneficiarioResponse payloadBeneficiarioResponse2 = S.BeneficiarioService.modificar(beneficiario); 
 			}
 			//PayloadBeneficiarioFamiliarResponse payloadBeneficiarioFamiliarResponse = S.BeneficiarioFamiliarService.consultarCriterios(typeQuery, criterios);
-			/*PayloadPersonaResponse payloadPersonaResponse = S.PersonaService.modificar(persona);
+			PayloadPersonaResponse payloadPersonaResponse = S.PersonaService.modificar(persona);
 			Familiar familiar = this.getFamiliar();
-			familiar.getFkPersona().setEstatus('0');*/
+			familiar.getFkPersona().setEstatus('0');
 			
 			familiar.setEstatusFamiliar(EstatusFamiliarEnum.INACTIVO.ordinal());
 
@@ -495,10 +581,10 @@ public class VM_EgresoFamiliarIndex extends
 			
 			if (UtilPayload.isOK(payloadFamiliarResponse)) {
 				restartWizard();
-				return "Representante Egresado con Exito";
+				return "Familiar Egresado con Exito";
 			}
 
-		}
+		}*/
 
 		return "";
 	}
@@ -511,7 +597,7 @@ public class VM_EgresoFamiliarIndex extends
 		}
 		
 		
-		
+		/*
 		if (currentStep == 2) {
 			
 			this.setFamiliar(selectedObject);
@@ -520,11 +606,8 @@ public class VM_EgresoFamiliarIndex extends
 			
 			this.setEstado(this.getFamiliar().getFkPersona()
 					.getFkCiudad().getFkEstado());
-			if(this.getFamiliar().getFkPersona().getSexo()!=null){
-				this.setSexoEnum(SexoEnum.values()[this.getFamiliar()
-				               					.getFkPersona().getSexo()]);
-			}
-			
+			this.setSexoEnum(SexoEnum.values()[this.getFamiliar()
+					.getFkPersona().getSexo()]);
 			this.setTipoPersonaEnum(this.getFamiliar().getFkPersona().getTipoPersonaEnum());
 			
 			
@@ -532,12 +615,9 @@ public class VM_EgresoFamiliarIndex extends
 			cal.setTimeInMillis(this.getFamiliar().getFechaIngreso());
 			this.setFechaIngreso(cal.getTime());
 			
-			if(this.getFamiliar().getFkPersona().getFechaNacimiento()!=null){
-				Calendar cal2 = Calendar.getInstance();
-				cal2.setTimeInMillis(this.getFamiliar().getFkPersona().getFechaNacimiento());
-				this.setFechaNacimiento(cal2.getTime());
-			}
-			
+			Calendar cal2 = Calendar.getInstance();
+			cal2.setTimeInMillis(this.getFamiliar().getFkPersona().getFechaNacimiento());
+			this.setFechaNacimiento(cal2.getTime());
 			
 			Map<String, String> criterios = new HashMap<>();
 			criterios.put("fkEstado.idEstado",
@@ -553,105 +633,10 @@ public class VM_EgresoFamiliarIndex extends
 			BindUtils.postNotifyChange(null, null, this, "sexoEnum");
 			BindUtils.postNotifyChange(null, null, this, "selectedObject");
 		}
+		*/
 		
-		
-	}
-	@Override
-	public BufferedImage getImageContent() {
-		try {
-			return loadImage();
-		} catch (Exception e) {
-			return null;
-		}
-	}
-
-	@Override
-	public void onUploadImageSingle(UploadEvent event, String idUpload) {
-		org.zkoss.util.media.Media media = event.getMedia();
-		if (media instanceof org.zkoss.image.Image) {
-			bytes = media.getByteData();
-			this.nameImage = media.getName();
-			this.extensionImage = media.getFormat();
-			if (UtilMultimedia.validateFile(nameImage.substring(this.nameImage
-					.lastIndexOf(".") + 1))) {
-				Multimedia multimedia = new Multimedia();
-				multimedia.setNombre(nameImage);
-				multimedia.setTipoMultimedia(TipoMultimediaEnum.IMAGEN
-						.ordinal());
-				multimedia.setUrl(new StringBuilder()
-						.append("/Smile/Patrocinador/").append(nameImage)
-						.toString());
-				multimedia.setExtension(UtilMultimedia
-						.stringToExtensionEnum(
-								nameImage.substring(this.nameImage
-										.lastIndexOf(".") + 1)).ordinal());
-				multimedia.setDescripcion("Imgen del patrocinador.");
-				System.out.println(multimedia.getDescripcion());
-				System.out.println(multimedia.getExtension());
-				this.getPersona().setFkMultimedia(multimedia);
-			} else {
-				this.getPersona().setFkMultimedia(null);
-				Alert.showMessage("E: Error Code: 100-El formato de la <b>imagen</b> es inválido");
-
-			}
-
-		}
-	}
-
-	@Override
-	public void onRemoveImageSingle(String idUpload) {
-		bytes = null;
-	}
-
-	public byte[] getBytes() {
-		return bytes;
-	}
-
-	public void setBytes(byte[] bytes) {
-		this.bytes = bytes;
-	}
-
-	private BufferedImage loadImage() throws Exception {
-		try {
-			Path path = Paths.get(this.getUrlImagen());
-			bytes = Files.readAllBytes(path);
-			return ImageIO.read(new File(this.getUrlImagen()));
-		} catch (Exception e) {
-			return null;
-		}
 	}
 	
-	public List<Beneficiario> getBeneficiarios() {
-		if (this.beneficiarios == null) {
-			this.beneficiarios = new ArrayList<>();
-		}
-		//System.out.println(this.getFamiliar().getIdFamiliar());
-		if (this.getFamiliar().getIdFamiliar()!=null ) {
-			
-			Map<String, String> criterios = new HashMap<>();
-
-			criterios
-					.put("fkFamiliar.idFamiliar", String.valueOf(this.getFamiliar().getIdFamiliar()));
-			criterios
-			.put("estatusBeneficiario", String.valueOf(EstatusBeneficiarioEnum.ACTIVO.ordinal()));
-			PayloadBeneficiarioResponse payloadBeneficiarioResponse = S.BeneficiarioService
-					.consultarCriterios(TypeQuery.EQUAL, criterios);
-			if (!UtilPayload.isOK(payloadBeneficiarioResponse)) {
-				Alert.showMessage(payloadBeneficiarioResponse);
-			}
-			this.beneficiarios.addAll(payloadBeneficiarioResponse.getObjetos());
-			
-			
-		}
-		
-		
-
-		return beneficiarios;
-	}
-
-	public void setBeneficiarios(List<Beneficiario> beneficiarios) {
-		this.beneficiarios = beneficiarios;
-	}
 	
 /*	@Override
 	public String executeCustom1(Integer currentStep) {
@@ -683,7 +668,115 @@ public class VM_EgresoFamiliarIndex extends
 		return "";
 	}*/
 
+	// Propiedades de la Imagen
+			public String getNameImage() {
+				return nameImage;
+			}
 
+			public void setNameImage(String nameImage) {
+				this.nameImage = nameImage;
+			}
+
+			public String getExtensionImage() {
+				return extensionImage;
+			}
+
+			public void setExtensionImage(String extensionImage) {
+				this.extensionImage = extensionImage;
+			}
+
+			public String getUrlImage() {
+				return urlImage;
+			}
+
+			public void setUrlImage(String urlImage) {
+				this.urlImage = urlImage;
+			}
+
+			public String getTypeMedia() {
+				return typeMedia;
+			}
+
+			public void setTypeMedia(String typeMedia) {
+				this.typeMedia = typeMedia;
+			}
+
+			@Override
+			public BufferedImage getImageContent() {
+				if (bytes != null) {
+					try {
+						return ImageIO.read(new ByteArrayInputStream(bytes));
+					} catch (IOException e) {
+						return null;
+					}
+				}
+
+				if (urlImage != null) {
+					bytes = Zki.getBytes(urlImage);
+					return Zki.getBufferedImage(urlImage);
+				}
+
+				return null;
+			}
+
+			@Override
+			public void onUploadImageSingle(UploadEvent event, String idUpload) {
+				org.zkoss.util.media.Media media = event.getMedia();
+
+				if (media instanceof org.zkoss.image.Image) {
+
+					if (UtilMultimedia.validateImage(media.getName().substring(
+							media.getName().lastIndexOf(".") + 1))) {
+						this.bytes = media.getByteData();
+						this.extensionImage = media.getName().substring(
+								media.getName().lastIndexOf(".") + 1);
+						this.typeMedia = media.getContentType();
+
+						if (this.getPersona().getIdPersona() != null) {
+							this.nameImage = new StringBuilder().append(Zki.PERSONAS)
+									.append(this.getPersona().getIdPersona())
+									.append(".").append(extensionImage).toString();
+
+							this.urlImage = new StringBuilder().append(Zki.PERSONAS)
+									.append(this.getPersona().getIdPersona())
+									.append(".").append(extensionImage).toString();
+
+						}
+					} else {
+						this.getPersona().setFkMultimedia(null);
+						Alert.showMessage("E: Error Code: 100-El formato de la <b>imagen</b> es inválido");
+
+					}
+				} else {
+					this.getPersona().setFkMultimedia(null);
+					Alert.showMessage("E: Error Code: 100-El formato de la <b>imagen</b> es inválido");
+				}
+			}
+
+			@Override
+			public void onRemoveImageSingle(String idUpload) {
+				bytes = null;
+			}
+
+			public byte[] getBytes() {
+				return bytes;
+			}
+
+			public void setBytes(byte[] bytes) {
+				this.bytes = bytes;
+			}
+
+			public List<Beneficiario> getBeneficiarios() {
+				if (this.beneficiarios == null) {
+					this.beneficiarios = new ArrayList<>();
+				}
+				
+				return beneficiarios;
+			}
+
+			public void setBeneficiarios(List<Beneficiario> beneficiarios) {
+				this.beneficiarios = beneficiarios;
+			}
 
 
 }

@@ -23,14 +23,11 @@
 
 							<listhead sizable="true">
 							<listheader width="250px" label="Titulo de Solicitud" />
-							<listheader width="250px" label="Estatus de Solicitud" />
 							<listheader width="250px" label="Nombre de Beneficiario" />
 							<listheader width="250px" label="Apellido de Beneficiario" />
-							<listheader width="250px" label="Identificacion de Beneficiario" />
 							
 							 
 							<listheader width="250px" label="Nombre de Representante" />
-							<listheader width="250px" label="Apellido de Representante" />
 							<listheader width="250px" label="Identificacion de Representante" />
 							
 							<listheader width="250px" label="Ayuda Solicitada" />
@@ -41,14 +38,13 @@
 								<listitem>
 									<listcell
 										label="@load(each.fkSolicitudAyuda.titulo)" />
-										<listcell label="@load(each.fkSolicitudAyuda.estatusSolicitudEnum)" />
-								<listcell label="@load(each.fkSolicitudAyuda.fkBeneficiario.fkPersona.nombre)" />
-								<listcell label="@load(each.fkSolicitudAyuda.fkBeneficiario.fkPersona.apellido)" />
+										
+								<listcell label="@load(each.fkSolicitudAyuda.fkBeneficiario.fkPersona.nombre.concat(' ').concat(each.fkSolicitudAyuda.fkBeneficiario.fkPersona.apellido))" />
 								<listcell label="@load(each.fkSolicitudAyuda.fkBeneficiario.fkPersona.identificacion)" />
 								
 								
-								<listcell label="@load(each.fkSolicitudAyuda.fkBeneficiario.fkFamiliar.fkPersona.nombre)" />
-								<listcell label="@load(each.fkSolicitudAyuda.fkBeneficiario.fkFamiliar.fkPersona.apellido)" />
+								
+								<listcell label="@load(each.fkSolicitudAyuda.fkBeneficiario.fkFamiliar.fkPersona.nombre.concat(' ').concat(each.fkSolicitudAyuda.fkBeneficiario.fkFamiliar.fkPersona.apellido))" />
 								<listcell label="@load(each.fkSolicitudAyuda.fkBeneficiario.fkFamiliar.fkPersona.identificacion)" />
 								 
 								<listcell label="@load(each.fkSolicitudAyuda.fkAyuda.nombre)" />

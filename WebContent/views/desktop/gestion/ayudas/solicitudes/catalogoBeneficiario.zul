@@ -24,14 +24,12 @@
 						<listhead sizable="true">
 							<listheader width="200px"
 								label="Nombre de Beneficiario" />
-							<listheader width="200px"
-								label="Apellido de Beneficiario" />
+							
 							<listheader width="200px"
 								label="Identificacion Beneficiario" />
 							<listheader width="200px"
 								label="Nombre de Representante" />
-							<listheader width="200px"
-								label="Apellido de Representante" />
+							
 							<listheader width="250px"
 								label="Identificacion de Representante" />
 
@@ -42,16 +40,14 @@
 						</listhead>
 						<template name="model">
 							<listitem>
-								<listcell
-									label="@load(each.fkPersona.nombre)" />
-								<listcell
-									label="@load(each.fkPersona.apellido)" />
+								
+									
+									<listcell label="@load(each.fkPersona.nombre.concat(' ').concat(each.fkPersona.apellido))" />
 								<listcell
 									label="@load(each.fkPersona.identificacion)" />
-								<listcell
-									label="@load(each.fkFamiliar.fkPersona.nombre)" />
-								<listcell
-									label="@load(each.fkFamiliar.fkPersona.apellido)" />
+								
+								<listcell label="@load(each.fkFamiliar.fkPersona.nombre.concat(' ').concat(each.fkFamiliar.fkPersona.apellido))" />
+								
 								<listcell
 									label="@load(each.fkFamiliar.fkPersona.identificacion)" />
 

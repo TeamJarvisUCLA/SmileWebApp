@@ -14,12 +14,11 @@
 
 						<listhead sizable="true">
 							<listheader width="200px" label="Titulo de Solicitud" />
-							<listheader width="200px" label="Estatus de Solicitud" />
+							<!-- <listheader width="200px" label="Estatus de Solicitud" /> -->
 							<listheader width="200px" label="Nombre Beneficiario" />
-							<listheader width="200px" label="Apellido Beneficiario" />
 							<listheader width="200px" label="Identificacion Beneficiario" />
 							 <listheader width="200px" label="Nombre Representante" />
-							<listheader width="200px" label="Apellido Representante" /> 
+							<listheader width="200px" label="Identificacion Representante" />
 							<listheader width="150px" label="Urgencia" />
 							<listheader width="200px" label="Ayuda Solicitada" />
 							<listheader width="150px" label="Fecha" />
@@ -29,12 +28,15 @@
 						<template name="model">
 							<listitem>
 								<listcell label="@load(each.titulo)" />
-								<listcell label="@load(each.estatusSolicitudEnum)" />
-								<listcell label="@load(each.fkBeneficiario.fkPersona.nombre)" />
-								<listcell label="@load(each.fkBeneficiario.fkPersona.apellido)" />
+								<!-- <listcell label="@load(each.estatusSolicitudEnum)" /> -->
+								<listcell label="@load(each.fkBeneficiario.fkPersona.nombre.concat(' ').concat(each.fkBeneficiario.fkPersona.apellido))" />
+								
 								<listcell label="@load(each.fkBeneficiario.fkPersona.identificacion)" />
-								 <listcell label="@load(each.fkBeneficiario.fkFamiliar.fkPersona.nombre)" />
-								<listcell label="@load(each.fkBeneficiario.fkFamiliar.fkPersona.apellido)" /> 
+								
+								
+								<listcell label="@load(each.fkBeneficiario.fkFamiliar.fkPersona.nombre.concat(' ').concat(each.fkBeneficiario.fkFamiliar.fkPersona.apellido))" />
+								<listcell label="@load(each.fkBeneficiario.fkFamiliar.fkPersona.identificacion)" />
+							
 								<listcell label="@load(each.urgenciaEnum)" />
 								<listcell label="@load(each.fkAyuda.nombre)" />
 								  <listcell label="${m:convertirLongATimestamp(each.fecha)}" />  

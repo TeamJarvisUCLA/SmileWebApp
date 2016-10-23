@@ -9,12 +9,12 @@
 				<div class="row">
 
 					<div class="input-field col s12">
-						<n:label for="titulo_solicitud" class="active">
+					
+					<n:label for="beneficiario3" class="active">
 						Titulo Solicitud Ayuda:
 					</n:label>
-					<textbox id="titulo_solicitud" type="text"
-						value="@bind(vm.solicitudAyuda.titulo)" disabled="true">
-					</textbox>
+					<label sclass="subtitulo-evento" value="@bind(vm.solicitudAyuda.titulo)"> </label>
+					
 					</div>
 
 				</div>
@@ -25,25 +25,13 @@
 						<n:label for="beneficiario_solicitud" class="active">
 						Nombre Beneficiario Solicitud Ayuda:
 					</n:label>
-					<textbox id="beneficiario_solicitud" type="text"
-						value="@bind(vm.solicitudAyuda.fkBeneficiario.fkPersona.nombre)" disabled="true">
-					</textbox>
+					
+					<label sclass="subtitulo-evento" value="@bind(vm.solicitudAyuda.fkBeneficiario.fkPersona.nombre.concat(' ').concat(vm.solicitudAyuda.fkBeneficiario.fkPersona.apellido))"> </label>
+					
 					</div>
 
 				</div>
 				
-				<div class="row">
-
-					<div class="input-field col s12">
-						<n:label for="beneficiario2_solicitud" class="active">
-						Apellido Beneficiario Solicitud Ayuda:
-					</n:label>
-					<textbox id="beneficiario2_solicitud" type="text"
-						value="@bind(vm.solicitudAyuda.fkBeneficiario.fkPersona.apellido)" disabled="true">
-					</textbox>
-					</div>
-
-				</div>
 				
 				<div class="row">
 
@@ -51,9 +39,10 @@
 						<n:label for="beneficiario3_solicitud" class="active">
 						Documento de Identificacion Beneficiario Solicitud Ayuda:
 					</n:label>
-					<textbox id="beneficiario3_solicitud" type="text"
-						value="@bind(vm.solicitudAyuda.fkBeneficiario.fkPersona.identificacion)" disabled="true">
-					</textbox>
+					
+					<label sclass="subtitulo-evento" value="@bind(vm.solicitudAyuda.fkBeneficiario.fkPersona.identificacion)"> </label>
+					
+					
 					</div>
 
 				</div>
@@ -65,25 +54,14 @@
 						<n:label for="familiar_solicitud" class="active">
 						Nombre Familiar Solicitud Ayuda:
 					</n:label>
-					<textbox id="familiar_solicitud" type="text"
-						value="@bind(vm.solicitudAyuda.fkBeneficiario.fkFamiliar.fkPersona.nombre)" disabled="true">
-					</textbox>
+					<label sclass="subtitulo-evento" value="@bind(vm.solicitudAyuda.fkBeneficiario.fkFamiliar.fkPersona.nombre.concat(' ').concat(vm.solicitudAyuda.fkBeneficiario.fkFamiliar.fkPersona.apellido))"> </label>
+					
+					
 					</div>
 
 				</div>
 				
-				<div class="row">
-
-					<div class="input-field col s12">
-						<n:label for="familiar2_solicitud" class="active">
-						Apellido Familiar Solicitud Ayuda:
-					</n:label>
-					<textbox id="familiar2_solicitud" type="text"
-						value="@bind(vm.solicitudAyuda.fkBeneficiario.fkFamiliar.fkPersona.apellido)" disabled="true">
-					</textbox>
-					</div>
-
-				</div>
+				
 				
 				<div class="row">
 
@@ -91,9 +69,9 @@
 						<n:label for="familiar3_solicitud" class="active">
 						Documento de Identificacion Familiar Solicitud Ayuda:
 					</n:label>
-					<textbox id="familiar3_solicitud" type="text"
-						value="@bind(vm.solicitudAyuda.fkBeneficiario.fkFamiliar.fkPersona.identificacion)" disabled="true">
-					</textbox>
+					<label sclass="subtitulo-evento" value="@bind(vm.solicitudAyuda.fkBeneficiario.fkFamiliar.fkPersona.identificacion)"> </label>
+					
+					
 					</div>
 
 				</div>
@@ -104,9 +82,9 @@
 						<n:label for="ayuda_solicitud" class="active">
 						Ayuda Solicitada:
 					</n:label>
-					<textbox id="ayuda_solicitud" type="text"
-						value="@bind(vm.solicitudAyuda.fkAyuda.nombre)" disabled="true">
-					</textbox>
+					<label sclass="subtitulo-evento" value="@bind(vm.solicitudAyuda.fkAyuda.nombre)"> </label>
+					
+					
 					</div>
 
 				</div>
@@ -117,25 +95,13 @@
 						<n:label for="ayuda2_solicitud" class="active">
 						Urgencia Solicitud:
 					</n:label>
-					<textbox id="ayuda2_solicitud" type="text"
-						value="@bind(vm.solicitudAyuda.urgenciaEnum)" disabled="true">
-					</textbox>
+					<label sclass="subtitulo-evento" value="@bind(vm.solicitudAyuda.urgenciaEnum)"> </label>
+					
 					</div>
 
 				</div>
 				
-				<div class="row">
-
-					<div class="input-field col s12">
-						<n:label for="ayuda3_solicitud" class="active">
-						Estatus Solicitud:
-					</n:label>
-					<textbox id="ayuda3_solicitud" type="text"
-						value="@bind(vm.solicitudAyuda.estatusSolicitudEnum)" disabled="true">
-					</textbox>
-					</div>
-
-				</div>
+				
 				
 				<div class="row">
 
@@ -143,25 +109,14 @@
 						<n:label for="evaluador_solicitud" class="active">
 						Nombre de Evaluador:
 					</n:label>
-					<textbox id="evaluador_solicitud" type="text"
-						value="@bind(vm.trabajador.fkPersona.nombre)" disabled="true">
-					</textbox>
+					<label sclass="subtitulo-evento" value="@bind(vm.trabajador.fkPersona.nombre.concat(' ').concat(vm.trabajador.fkPersona.apellido))"> </label>
+					
+					
 					</div>
 
 				</div>
 				
-				<div class="row">
-
-					<div class="input-field col s12">
-						<n:label for="evaluador2_solicitud" class="active">
-						Apellido de Evaluador:
-					</n:label>
-					<textbox id="evaluador2_solicitud" type="text"
-						value="@bind(vm.trabajador.fkPersona.apellido)" disabled="true">
-					</textbox>
-					</div>
-
-				</div>
+				
 				
 				<div class="row">
 
@@ -169,9 +124,9 @@
 						<n:label for="evaluador3_solicitud" class="active">
 						Identificacion de Evaluador:
 					</n:label>
-					<textbox id="evaluador3_solicitud" type="text"
-						value="@bind(vm.trabajador.fkPersona.identificacion)" disabled="true">
-					</textbox>
+					<label sclass="subtitulo-evento" value="@bind(vm.trabajador.fkPersona.identificacion)"> </label>
+					
+					
 					</div>
 
 				</div>

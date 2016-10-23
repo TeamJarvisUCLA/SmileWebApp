@@ -1,121 +1,279 @@
+<?xel-method prefix="m" name="getUrlWeb" class="lights.smile.util.Zki" 
+	signature="java.lang.String getUrlWeb(java.lang.String)" ?>
+<?xel-method prefix="m" name="convertirLongADate" class="lights.smile.util.UtilConverterDataList" 
+	signature="java.lang.String convertirLongADate(java.lang.Long)" ?>
+
 <zk xmlns:n="native" xmlns:w="client">
+	<style>
+		.z-auxheader-content, .z-auxheader-content:hover { background:
+		#594e46 !important; border-right: none; height: 41px; color:
+		white; }
+
+		.switch .z-checkbox input[type="checkbox"]:checked + label {
+		background-color: #0086a4; }
+
+		.switch .z-checkbox input[type="checkbox"]:checked +
+		label::after { background-color: #0086a4; }
+
+
+		.z-listitem.z-listitem-selected>.z-listcell>.z-listcell-content
+		label, .z-treerow-selected>.z-treecell>.z-treecell-content
+		label{color: #ffffff !important; }
+
+		.z-listitem:hover>.z-listcell>.z-listcell-content label,
+		.z-treerow:hover>.z-treecell>.z-treecell-content label,
+		.z-treerow-selected:hover>.z-treecell>.z-treecell-content label,
+		.z-listitem.z-listitem-selected:hover>.z-listcell>.z-listcell-content
+		label {color: #594e46 !important;}
+
+		.z-button{ background-image: none;} .z-button[disabled] { color:
+		#594e46 !important; }
+	</style>
 	<div sclass="animated fadeInLeft">
 		<div class="row">
 			<div class="col s12" align="center"
 				style="margin-bottom: 15px;">
-				<label value="Ingrese los datos de la capacitación ejecutada" sclass="label-medium-500"> </label>
+				<label
+					value="Ingrese los datos de la capacitación ejecutada"
+					sclass="label-medium-500">
+				</label>
 			</div>
 		</div>
-		
+
 		<div class="row">
 			<div class="col s12">
 				<div class="input-field col s6">
-					<n:label for="fecha_planificada" class="active"> Fecha planificada </n:label>
-					<datebox id="fecha_planificada" readonly="true" disabled="true" cols="20" format="dd/MM/yyyy" value="@bind(vm.selectedObject.fechaPlanificada)" />
+					<n:label for="fecha_planificada" class="active">
+						Fecha planificada
+					</n:label>
+					<datebox id="fecha_planificada" readonly="true"
+						disabled="true" cols="20" format="dd/MM/yyyy"
+						value="@bind(vm.selectedObject.fechaPlanificada)" />
 				</div>
-				
+
 				<div class="input-field col s6">
-					<n:label for="lugar" class="active"> Lugar </n:label>
-					<textbox id="lugar" readonly="true" disabled="true" type="text" sclass="materialize-textarea" value="@bind(vm.selectedObject.fkDirectorio.nombre)"> </textbox>
+					<n:label for="lugar" class="active">Lugar</n:label>
+					<textbox id="lugar" readonly="true" disabled="true"
+						type="text" sclass="materialize-textarea"
+						value="@bind(vm.selectedObject.fkDirectorio.nombre)">
+					</textbox>
 				</div>
 			</div>
-				
-				<div class="row">
-					<div class="col s12" align="center">
-						<div class="col s12">
-							<n:h6>Capacitación ejecutada</n:h6>
-						</div>
-						<div class="col s12">
-							<div class="input-field col s6 offset-s3">
-								<n:div class="switch">
-									<n:label> NO <checkbox checked="@bind(vm.selectedObject.ejecucion)"></checkbox> SI </n:label>
-								</n:div>
-							</div>
-						</div>
-					</div>
-				</div>
-				
-				<div class="row" visible="@bind(!vm.selectedObject.ejecucion)">
-					
-					<div class="col s12">
-						<div class="input-field offset-s2 col s8">
-							<n:label class="active" for="fk_motivo">Motivo</n:label>
-							<combobox id="fk_motivo" readonly="true" model="@bind(vm.motivos)" selectedItem="@bind(vm.motivo)">
-								<template name="model">
-									<comboitem label="@load(each.nombre)" />
-								</template>
-							</combobox>
-							<span sclass="fa fa-question-circle fa-lg help-icon" tooltip="pop_motivo, position=after_end"/>
-						</div>
-					</div>
-					
-					<popup id="pop_motivo" width="200px">
-        				<html>
-        					<![CDATA[Por favor, seleccione el motivo de la capacitación que desea registrar.<br/>]]>
-        				</html>
-    				</popup>
-				
-					<div class="input-field col s12">
-						<div class="input-field offset-s2 col s8">
-							<n:label for="observacion"> Observaciones </n:label>
-							<textbox id="descripcion" type="text" sclass="materialize-textarea" multiline="true" value="@bind(vm.observacion)"> </textbox>
-							<span sclass="fa fa-question-circle fa-lg help-icon-special" tooltip="pop_observacion, position=after_end" />
-						</div>
-					</div>
-					
-					<popup id="pop_observacion" width="200px">
-        				<html>
-        					<![CDATA[Por favor, ingrese las observaciones de la capacitación que desea registrar.<br/>]]>
-        				</html>
-    				</popup>
-				
-				</div>
-				
-				<div class="row" visible="@bind(vm.selectedObject.ejecucion)">
-				
-					<div class="input-field col s12">
-						<div class="input-field offset-s2 col s8">
-							<n:label for="fecha_ejecutada" class="active"> Fecha ejecutada </n:label>
-							<datebox id="fecha_ejecutada" readonly="true" cols="20" format="dd/MM/yyyy" value="@bind(vm.fechaEjecutada)" />
-							<span sclass="fa fa-question-circle fa-lg help-icon-special" tooltip="pop_fecha, position=after_end" />
-						</div>
-					</div>
-					
-					<popup id="pop_fecha" width="200px">
-        				<html>
-        					<![CDATA[Por favor, seleccione la fecha de ejecución de la capacitación que desea registrar.<br/>]]>
-        				</html>
-    				</popup>
-    				
-    				<div class="row">
-						<div class="col s12" align="center" style="margin-bottom: 15px;">
-							<label value="Seleccione lo sucedido en la ejecución de la capacitación" sclass="label-medium-500"> </label>
-						</div>
-					</div>
 
-					<div class="row">
-						<div class="col s12">
-							<listbox height="300px" emptyMessage="No hay voluntarios registrados en la capacitación" model="@bind(vm.voluntariosInscritos)">
-								<listhead sizable="true">
-									<listheader align="center" label="Cédula"  />
-									<listheader align="center" label="Voluntario" />
-									<listheader align="center" label="Asistió"  />
-									<listheader align="center" label="Motivo"/>
-									<listheader align="center" label="Observación"/>
-								</listhead>
-								<template name="model">
-									<listitem>
-										<listcell label="@load(each.fkVoluntario.fkPersona.identificacion)"> </listcell>
-										<listcell label="@load(each.fkVoluntario.fkPersona.nombre.concat(' ').concat(each.fkVoluntario.fkPersona.apellido))" />
-										<listcell> <checkbox checked="@bind(each.asistencia)"> </checkbox> </listcell>
-										<listcell> <button sclass="teal lighten-1 waves-effect waves-light" onClick="@command('buscarMotivo')" iconSclass="fa fa-search" style="padding: 5px 15px; background-color: #2AA4EF !important"> </button> </listcell>
-										<listcell> <textbox style="height: 1em; border: 1px solid #999999; border-radius: 7px; font-size:0.8em;  text-align: left;" value="@bind(each.observacion)"> </textbox> </listcell>
-									</listitem>
-								</template>
-							</listbox>
+			<div class="row">
+				<div class="col s12" align="center">
+					<div class="col s12">
+						<n:h6>Capacitación ejecutada</n:h6>
+					</div>
+					<div class="col s12">
+						<div class="input-field col s6 offset-s3">
+							<n:div class="switch">
+								<n:label>
+									NO
+									<checkbox
+										checked="@bind(vm.selectedObject.ejecucion)">
+									</checkbox>
+									SI
+								</n:label>
+							</n:div>
 						</div>
 					</div>
-			</div>	
+				</div>
+			</div>
+
+			<div class="row"
+				visible="@bind(!vm.selectedObject.ejecucion)">
+
+				<div class="col s12">
+					<div class="input-field offset-s2 col s8">
+						<n:label class="active" for="fk_motivo">
+							Motivo
+						</n:label>
+						<combobox id="fk_motivo" readonly="true"
+							model="@bind(vm.motivos)" selectedItem="@bind(vm.motivo)">
+							<template name="model">
+								<comboitem label="@load(each.nombre)" />
+							</template>
+						</combobox>
+						<span
+							sclass="fa fa-question-circle fa-lg help-icon-special"
+							tooltip="pop_motivo, position=after_end" />
+					</div>
+				</div>
+
+				<popup id="pop_motivo" width="200px">
+					<html>
+						
+						<![CDATA[Por favor, seleccione el motivo de la
+						capacitación que desea registrar.<br/>]]>
+						
+        				</html>
+				</popup>
+
+				<div class="input-field col s12">
+					<div class="input-field offset-s2 col s8">
+						<n:label for="observacion">
+							Observaciones
+						</n:label>
+						<textbox id="descripcion" type="text"
+							sclass="materialize-textarea" multiline="true"
+							value="@bind(vm.observacion)">
+						</textbox>
+						<span
+							sclass="fa fa-question-circle fa-lg help-icon-special"
+							tooltip="pop_observacion, position=after_end" />
+					</div>
+				</div>
+
+				<popup id="pop_observacion" width="200px">
+					<html>
+
+						<![CDATA[Por favor, ingrese las observaciones de
+						la capacitación que desea registrar.<br/>]]>
+
+        				</html>
+				</popup>
+
+			</div>
+
+			<div class="row"
+				visible="@bind(vm.selectedObject.ejecucion)">
+
+				<div class="input-field col s12">
+					<div class="input-field offset-s2 col s8">
+						<n:label for="fecha_ejecutada" class="active">
+							Fecha ejecutada
+						</n:label>
+						<datebox id="fecha_ejecutada" readonly="true"
+							cols="20" format="dd/MM/yyyy" value="@bind(vm.fechaEjecutada)" />
+						<span
+							sclass="fa fa-question-circle fa-lg help-icon-special"
+							tooltip="pop_fecha, position=after_end" />
+					</div>
+				</div>
+
+				<popup id="pop_fecha" width="200px">
+					<html>
+
+
+
+
+
+
+
+
+						
+						<![CDATA[Por favor, seleccione la fecha de
+						ejecución de la capacitación que desea
+						registrar.<br/>]]>
+						
+						
+						
+						
+						
+						
+						
+						
+						
+        				</html>
+				</popup>
+
+				<div class="row">
+					<div class="col s12" align="center"
+						style="margin-bottom: 15px;">
+						<label
+							value="Seleccione lo sucedido en la ejecución de la capacitación"
+							sclass="label-medium-500">
+						</label>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col s12">
+						<listbox height="300px"
+							emptyMessage="No hay voluntarios registrados en la capacitación"
+							model="@bind(vm.voluntariosInscritos)">
+							<listhead>
+								<listheader label="" width="5%" />
+								<listheader label="Cédula/Rif"
+									width="10%" />
+								<listheader label="Voluntario"
+									align="center" width="15%" />
+								<listheader label="Correo"
+									align="center" width="15%" />
+								<listheader label="Teléfono"
+									align="center" width="10%" />
+								<listheader label="Ejecución"
+									width="15%" align="center">
+								</listheader>
+								<listheader align="center" width="15%"
+									label="Motivo" />
+								<listheader align="center" width="5%"
+									label="" />
+							</listhead>
+							<template name="model">
+								<listitem>
+
+
+									<listcell>
+										<div align="center">
+											<image
+												src="${m:getUrlWeb(each.fkVoluntario.fkPersona.fkMultimedia.url)}"
+												width="30px" height="30px" sclass="circle">
+											</image>
+										</div>
+									</listcell>
+
+									<listcell>
+										<label
+											value="@bind(each.fkVoluntario.fkPersona.identificacion)" />
+									</listcell>
+
+									<listcell>
+										<label
+											value="@bind(each.fkVoluntario.fkPersona.nombre.concat(' ').concat(each.fkVoluntario.fkPersona.apellido))" />
+									</listcell>
+									<listcell>
+										<label
+											value="@bind(each.fkVoluntario.fkPersona.correo)" />
+									</listcell>
+									<listcell>
+										<label
+											value="@bind(each.fkVoluntario.fkPersona.telefono1)" />
+									</listcell>
+									<listcell>
+										<n:div class="switch">
+											<n:label
+												style=" font-size: 16px;">
+												NO
+												<checkbox onClick="@command('changeCheck', index=forEachStatus.index,  check=self.isChecked())"
+													checked="@bind(each.asistencia)">
+												</checkbox>
+												SI
+											</n:label>
+										</n:div>
+									</listcell>
+									<listcell>
+
+										<label
+											value="@bind(each.fkMotivo.nombre)" />
+									</listcell>
+									<listcell>
+										<button
+											disabled="@bind(each.asistencia)"
+											sclass="teal lighten-1 waves-effect waves-light"
+											onClick="@command('buscarMotivo', index=forEachStatus.index)"
+											iconSclass="fa fa-search" tooltiptext="Buscar Motivo"
+											style="padding: 5px 6px; background-color: #2AA4EF !important; float: right">
+										</button>
+
+									</listcell>
+								</listitem>
+							</template>
+						</listbox>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </zk>

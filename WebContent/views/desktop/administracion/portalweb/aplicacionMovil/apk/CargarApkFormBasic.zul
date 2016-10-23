@@ -1,0 +1,82 @@
+<?page title="" contentType="text/html;charset=UTF-8"?>
+<zk xmlns:n="native" xmlns:w="client">
+	<script type="text/javascript"
+		content="zk.googleAPIkey='AIzaSyAh2kLWx3Rtsw1GjYI2pwGNnix4ZwTZTm4'" />
+	<div width="80%" class="container ${arg.animation_}"
+		use="karen.core.form.controllers.C_WindowForm"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('ve.smile.administracion.portalweb.aplicacionMovil.apk.viewmodels.VM_CargarApkFormBasic')">
+
+		<div class="row">
+
+			<div class="col s12">
+				<div class="input-field col s6">
+					<n:label for="Descripcion">Descripción</n:label>
+					<span
+						sclass="fa fa-question-circle fa-lg help-icon-special"
+						tooltip="pop_descripcion, position=after_end" />
+					<textbox id="descripcion" type="text"
+						maxlength="100" value="@bind(vm.multimedia.descripcion)">
+					</textbox>
+				</div>
+
+
+				<div class="input-field col s6">
+					<n:label for="tipo">Tipo</n:label>
+					<span
+						sclass="fa fa-question-circle fa-lg help-icon-special"
+						tooltip="pop_tipo, position=after_end" />
+					<textbox disabled="true" id="tipo" type="text"
+						maxlength="80" value="application/vnd.android.package-archive">
+					</textbox>
+				</div>
+
+			</div>
+
+
+
+			<div class="col s12">
+				<div class="input-field col s12">
+					<n:label for="responsable" class="active">
+						Apk:
+					</n:label>
+					<span style="float:right"
+						sclass="fa fa-question-circle fa-lg help-icon"
+						tooltip="pop_apk, position=after_end" />
+				</div>
+				<div class="row" align="center">
+					<div class="col s12">
+						<div class="input-field col s12">
+							<button class="input-field" label="Upload"
+								upload="true,maxsize=10000" onUpload="@command('onUploadFile',upEvent=event)">	
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+		<popup id="pop_descripcion" width="200px">
+			<html>
+				<![CDATA[ Por favor, indique la descripcion del archivo que
+				desea registrar.<br /><font color="#3b85a1">Ejemplo:
+				Este es un archivo de instalación de la aplicación movil.</font> ]]>
+        	</html>
+		</popup>
+
+
+
+		<popup id="pop_apk" width="200px">
+			<html>
+				<![CDATA[ Por favor, anexe un archivo apk (archivo instalador de una aplicacion Android, 
+				usando el botón de agregar
+				(en color verde).<br /><font color="#3b85a1">]]>	
+        	</html>
+		</popup>
+
+		<div id="divButtonsForm"
+			use="karen.core.form.buttons.containers.DivButtonsForm">
+		</div>
+	</div>
+</zk>

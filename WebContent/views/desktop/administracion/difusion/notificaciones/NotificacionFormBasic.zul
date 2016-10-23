@@ -6,48 +6,56 @@
 
 		<div class="row">
 			<div sclass="col s12 form">					
-					<div class="input-field col s6">
-						<n:label for="fecha" class="active">Fecha</n:label>
-						<datebox id="db" cols="20" format="dd/MM/yyyy" value="@bind(vm.fecha)"/>
-					</div>
+				<div class="input-field col s6">
+					<n:label for="fecha" class="active">Fecha</n:label>
+					<datebox id="db" cols="20" format="dd/MM/yyyy" value="@bind(vm.fecha)"/>
+				</div>
 				
-					<div class="input-field col s6">
-						<n:label for="tipo_referencia" class="active">Tipo de referencia</n:label>
-						<combobox id="tipo_referencia" readonly="true" model="@bind(vm.tipoReferenciaNotificacionEnums)" selectedItem="@bind(vm.tipoReferenciaNotificacionEnum)">
+				<div class="input-field col s6">
+					<n:label for="tipo_referencia" class="active">Tipo de referencia</n:label>
+					<combobox id="tipo_referencia" readonly="true" model="@bind(vm.tipoReferenciaNotificacionEnums)" selectedItem="@bind(vm.tipoReferenciaNotificacionEnum)">
+						<template name="model">
+							<comboitem label="@load(each)"/>
+						</template>
+					</combobox>
+				</div>
+					
+				<div class="input-field col s5">
+					<n:label for="lugar" class="active">Referencia</n:label>
+					<textbox id="lugar" type="text" disabled="true" value="@bind(vm.referencia)"></textbox>
+				</div>
+				
+				<div class="input-field col s1" style="font-size: 2em;">
+					<button sclass="teal lighten-1 waves-effect waves-light" onClick="@command('buscarReferencia')" iconSclass="fa fa-search" style="padding: 5px 15px; background-color: #2AA4EF !important"></button>
+				</div>
+				
+				<div class="input-field col s6">
+					<n:label for="contenido" class="active">Contenido</n:label>
+					<textbox id="contenido" type="text" multiline="true" value="@bind(vm.contenido)"> </textbox>
+				</div>
+						
+				<div class="row">
+					<div class="input-field col s11">
+						<n:label for="usuario" class="active">Usuarios a notificar</n:label>
+						<separator></separator>
+						<listbox id="tabla" height="300px" emptyMessage="No hay usuarios registrados en la notificacion" model="@bind(vm.usuarios)">
+							<listhead sizable="true">
+								<listheader align="center" label="Usuario"  />
+								<listheader align="center" label="Rol" />
+							</listhead>
 							<template name="model">
-								<comboitem label="@load(each)"/>
+								<listitem>
+									<listcell label="@load(each.correo)"> </listcell>
+									<listcell label="@load(each.fkRol.nombre)" />
+								</listitem>
 							</template>
-						</combobox>
+						</listbox>
 					</div>
-					
-					<div class="input-field col s12">
-						<n:label for="contenido" class="active">Contenido</n:label>
-						<textbox id="contenido" type="text" multiline="true" value="@bind(vm.contenido)"> </textbox>
-					</div>
-					
-					<div class="row">
-						<div class="input-field col s11">
-							<n:label for="usuario" class="active">Usuarios a notificar</n:label>
-							<separator></separator>
-							<listbox id="tabla" height="300px" emptyMessage="No hay usuarios registrados en la notificacion" model="@bind(vm.usuarios)">
-								<listhead sizable="true">
-									<listheader align="center" label="Usuario"  />
-									<listheader align="center" label="Rol" />
-								</listhead>
-								<template name="model">
-									<listitem>
-										<listcell label="@load(each.correo)"> </listcell>
-										<listcell label="@load(each.fkRol.nombre)" />
-									</listitem>
-								</template>
-							</listbox>
-						</div>
 				
-						<div class="input-field col s1" style="font-size: 2em;">
-							<button sclass="teal lighten-1 waves-effect waves-light" onClick="@command('buscarUsuarios')" iconSclass="fa fa-search" style="padding: 5px 15px; background-color: #2AA4EF !important"></button>
-						</div>
-					</div>					
-
+					<div class="input-field col s1" style="font-size: 2em;">
+						<button sclass="teal lighten-1 waves-effect waves-light" onClick="@command('buscarUsuarios')" iconSclass="fa fa-search" style="padding: 5px 15px; background-color: #2AA4EF !important"></button>
+					</div>
+				</div>
 			</div>
 		</div>
 		

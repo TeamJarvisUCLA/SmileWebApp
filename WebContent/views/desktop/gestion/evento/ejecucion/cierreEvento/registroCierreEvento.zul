@@ -1,5 +1,7 @@
+<?xel-method prefix="m" name="getUrlWeb" class="lights.smile.util.Zki" 
+	signature="java.lang.String getUrlWeb(java.lang.String)" ?>
 <zk xmlns:n="native" xmlns:w="client">
-	<style>
+	<!--  <style>
 		.line-evento{ width: 100%; background-color: #D9EB52; height:
 		20px; margin-top: 20px; }
 
@@ -23,26 +25,35 @@
 		.info-descripcion-evento{ color:#8d7a6f; font-size: 14px;}
 
 
+	</style>-->
+		<style>
+		.z-datebox input, .z-datebox input:disabled,
+		.z-datebox-input:focus, .z-datebox-input:active{ font-size:
+		1.2em !important; text-align: center; height: 1.5em !important;
+		border: 1px solid #999999; border-radius: 7px; font-size: 1em
+		!important; text-align: center; width: 93%; background: #f2fca5
+		!important;}
 	</style>
 	<div sclass="animated fadeInLeft">
 		<div sclass="row">
 			<div sclass="col s12">
 				<div class=" col s12">
-					<div class=" row line-evento" style="margin:0px"></div>
-				</div>
-				<div class=" col s12">
-					<div sclass="row"
-						style="margin:0px;background: #FFF">
-
+					<div sclass="row">
 						<div sclass="col s3">
 							<n:br></n:br>
 							<n:br></n:br>
-							<image class="img-responsive center-block"
-								src="/imagenes/portal/icon/icon-bingo.png" width="128px"
-								height="128px">
-							</image>
 							<n:br></n:br>
-						</div>
+								<n:br></n:br>
+								<div align="center"
+									visible="@load(not empty vm.selectedObject.fkMultimedia and not empty vm.selectedObject.fkMultimedia.url)">
+									<image
+										class="img-responsive circle center-block"
+										src="${m:getUrlWeb(vm.selectedObject.fkMultimedia.url)}"
+										width="128px" height="128px">
+									</image>
+								</div>
+								<n:br></n:br>
+							</div>
 						<div sclass="col s9" align="center">
 							<div sclass="col s12" align="center">
 								<label sclass="titulo-evento"
@@ -64,12 +75,26 @@
 										style="padding:0px">
 
 										<label
-											sclass="info-titulo-evento">
-											Fecha:
-										</label>
-										<label
-											sclass="info-descripcion-evento" value="">
-										</label>
+												sclass="info-titulo-evento">
+												Fecha Inicio:
+											</label>
+											<label
+												sclass="info-descripcion-evento"
+												value="${m:convertirLongADate(vm.selectedObject.fechaInicio)}">
+
+											</label>
+											<label
+												sclass="info-descripcion-evento" value="        ">
+											</label>
+											<label
+												sclass="info-titulo-evento">
+												Fecha Fin:
+											</label>
+											<label
+												sclass="info-descripcion-evento"
+												value="${m:convertirLongADate(vm.selectedObject.fechaFin)}">
+
+											</label>
 										<n:br></n:br>
 										<label
 											sclass="info-titulo-evento">
@@ -107,9 +132,6 @@
 							</div>
 						</div>
 					</div>
-				</div>
-				<div class=" col s12">
-					<div class=" row line-evento" style="margin:0px"></div>
 				</div>
 			</div>
 		</div>
@@ -163,15 +185,30 @@
 			<div class="row">
 				<div class="input-field offset-s1 col s4">
 					<n:label for="nombre" class="active">
-						Fecha de Planificada
+						Fecha de Inicio Planificada
 					</n:label>
-					<datebox format="dd/MM/yyyy" value="@bind(vm.fechaPlanificada)" disabled="true"></datebox>
+					<datebox format="dd/MM/yyyy" value="@bind(vm.fechaPlanificadaInicio)" disabled="true"></datebox>
 				</div>
 				<div class="input-field offset-s1 col s4">
 					<n:label for="nombre" class="active">
-						Fecha de Ejecución
+						Fecha de Fin Planificada
 					</n:label>
-					<datebox format="dd/MM/yyyy" value="@bind(vm.fechaEjecucion)"></datebox>
+					<datebox format="dd/MM/yyyy" value="@bind(vm.fechaPlanificadaFin)" disabled="true"></datebox>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="input-field offset-s1 col s4">
+					<n:label for="nombre" class="active">
+						Fecha de Incio de Ejecución
+					</n:label>
+					<datebox format="dd/MM/yyyy" value="@bind(vm.fechaEjecucionInicio)"></datebox>
+				</div>		
+				<div class="input-field offset-s1 col s4">
+					<n:label for="nombre" class="active">
+						Fecha de Fin de Ejecución
+					</n:label>
+					<datebox format="dd/MM/yyyy" value="@bind(vm.fechaEjecucionFin)"></datebox>
 				</div>
 			</div>
 
@@ -208,15 +245,18 @@
 							<listcell
 								label="@load(each.fkIndicador.fkUnidadMedida.nombre)">
 							</listcell>
-							<listcell 
-								label="@load(each.valorEsperado)" >
-							</listcell>							
 							<listcell>
-								<intbox
-									style="    height: 1em; border: 1px solid #999999; border-radius: 7px; font-size:1.2em;  text-align: center;"
-									value="@bind(each.valorReal)">
-								</intbox>
-							</listcell>
+									<doublebox format="0."
+										style="   background: #f2fca5 !important; height: 1em; border: 1px solid #999999; border-radius: 7px; font-size:1.2em;  text-align: center;"
+										value="@bind(each.valorEsperado)" disabled="true">
+									</doublebox>
+								</listcell>
+								<listcell>
+									<doublebox format="0."
+										style="   background: #f2fca5; height: 1em; border: 1px solid #999999; border-radius: 7px; font-size:1.2em;  text-align: center;"
+										value="@bind(each.valorReal)">
+									</doublebox>
+								</listcell>
 						</listitem>
 					</template>
 				</listbox>

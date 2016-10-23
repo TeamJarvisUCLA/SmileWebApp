@@ -1,86 +1,33 @@
-<div sclass="row section" style="background: #FFFFFF">
+<?xel-method prefix="m" name="getUrlWeb" class="lights.smile.util.Zki" 
+	signature="java.lang.String getUrlWeb(java.lang.String)" ?>
+<?xel-method prefix="m" name="convertirLongADate" class="lights.smile.util.UtilConverterDataList" 
+	signature="java.lang.String convertirLongADate(java.lang.Long)" ?>
+<zk xmlns:n="native" xmlns:w="client">
+
 <style>
-		.z-grid-emptybody td { font-family: Roboto; font-size: 13px;
-		font-weight: normal; font-style: normal; color: #aaa;
-		font-style: italic; text-align: center; height: 1px; padding:
-		6px !important; }
-
-		.z-grid .z-column-content { font-family: 'Roboto'; font-size:
-		13px; color: #ffffff; background: #8d7a6f; }
-
-		tr.row-vacaciones { border-bottom: 1px solid #CFCFCF;
-		background: #ffffff; }
-
-
-		.z-row .z-detail-outer { width: 40px; min-width: 40px;
-		border-top: 1px solid #cfcfcf; padding: 18px 6px; line-height:
-		normal; background: transparent !important; vertical-align: top;
-		}
-
-
-		.z-auxhead:hover .z-auxheader-content { background: #EEEEEE
-		!important; }
-
-
-		.z-auxheader-content { background: #EEEEEE !important;
-		border-right: 1px solid #E5F4FB; height: 41px; }
-
-		.z-detail { font-size: 14px; width: 16px; height: 16px; border:
-		none !important; padding: 0; line-height: 14px; background:
-		transparent !important; text-align: center; overflow: hidden;
-		white-space: nowrap; cursor: pointer; }
-
-		.z-columns th:first-child { border-left: none; border-right:
-		none !important; }
-
-		.z-row .z-detail-outer+td, .z-row .z-detail-inner :first-child {
-		border-left: none; }
-
-		tr.header-periodo-disfute { background-color: rgba(192, 192,
-		193, 0.27); }
-
-
-		.z-messagebox .z-label { font-family: 'Roboto'; font-size: 15px
-		!important; color: #363636; }
-
-		.z-cell .vacacion { background-color: #fff !important;
-		border-left: 1px solid #cfcfcf !important; }
-
-		.z-cell .periodo { background-color: #fff !important; }
-
-		.z-grid .vacacion { border: 1px solid rgba(128, 128, 128, 0.33)
-		!important; }
-
-		.z-grid-odd>.z-row-inner, .z-grid-odd>.z-cell { background:
-		#FFFFFF !important; }
-
-		.z-foot .vacacion { background-color: rgb(238, 238, 238)
-		!important; }
-
-		.z-grid.periodo>div.z-grid-body { overflow: auto; max-height:
-		500px !important; }
-
-
+		.z-auxheader-content, .z-auxheader-content:hover { background:
+		#594e46 !important; border-right: none; height: 41px; color:
+		white; }
 	</style>
-			<div sclass="col s12">
-			<div sclass="row">
+	<div sclass="row">
 			<div sclass="col s12">
 				<div class=" col s12">
-					<div class=" row line-evento" style="margin:0px"></div>
-				</div>
-				<div class=" col s12">
-					<div sclass="row"
-						style="margin:0px;background: #FFF">
-
+					<div sclass="row">
 						<div sclass="col s3">
 							<n:br></n:br>
 							<n:br></n:br>
-							<image class="img-responsive center-block"
-								src="/imagenes/portal/icon/icon-bingo.png" width="128px"
-								height="128px">
-							</image>
 							<n:br></n:br>
-						</div>
+								<n:br></n:br>
+								<div align="center"
+									visible="@load(not empty vm.selectedObject.fkMultimedia and not empty vm.selectedObject.fkMultimedia.url)">
+									<image
+										class="img-responsive circle center-block"
+										src="${m:getUrlWeb(vm.selectedObject.fkMultimedia.url)}"
+										width="128px" height="128px">
+									</image>
+								</div>
+								<n:br></n:br>
+							</div>
 						<div sclass="col s9" align="center">
 							<div sclass="col s12" align="center">
 								<label sclass="titulo-evento"
@@ -102,12 +49,26 @@
 										style="padding:0px">
 
 										<label
-											sclass="info-titulo-evento">
-											Fecha:
-										</label>
-										<label
-											sclass="info-descripcion-evento" value="">
-										</label>
+												sclass="info-titulo-evento">
+												Fecha Inicio:
+											</label>
+											<label
+												sclass="info-descripcion-evento"
+												value="${m:convertirLongADate(vm.selectedObject.fechaInicio)}">
+
+											</label>
+											<label
+												sclass="info-descripcion-evento" value="        ">
+											</label>
+											<label
+												sclass="info-titulo-evento">
+												Fecha Fin:
+											</label>
+											<label
+												sclass="info-descripcion-evento"
+												value="${m:convertirLongADate(vm.selectedObject.fechaFin)}">
+
+											</label>
 										<n:br></n:br>
 										<label
 											sclass="info-titulo-evento">
@@ -146,12 +107,10 @@
 						</div>
 					</div>
 				</div>
-				<div class=" col s12">
-					<div class=" row line-evento" style="margin:0px"></div>
-				</div>
 			</div>
 		</div>
 		<separator height="20px"></separator>
+		<div sclass="row section" style="background: #FFFFFF">
 				<grid id="Grid" sclass="periodo grid"
 					model="@bind(vm.listEventPlanTareas)">
 					<columns sclass="header-periodo-vacacional">
@@ -213,10 +172,10 @@
 													value="@bind(each.fkIndicador.fkUnidadMedida.nombre)" />
 											</cell>
 											<cell sclass="vacacion">
-												<intbox
-													style="height: 1em; border: 1px solid #999999; border-radius: 7px; font-size:1.2em;  text-align: center;"
-													value="@bind(each.valorEsperado)">
-												</intbox>
+												<doublebox format="0.00"
+												style="height: 1em; border: 1px solid #999999 !important; border-radius: 7px; font-size: 1.2em; text-align: center;"
+												value="@bind(each.valorEsperado)">
+											</doublebox>
 											</cell>
 											<cell sclass="vacacion"
 												style="    border-left: 2px solid #EEEEEE !important;">
@@ -248,7 +207,7 @@
 								<button
 									sclass="teal lighten-1 waves-effect waves-light"
 									onClick="@command('buscarIndicadores', index=statusEvento.index)"
-									iconSclass="fa fa-search" tooltiptext="Editar Lugar"
+									iconSclass="fa fa-plus" tooltiptext="Editar Lugar"
 									style="/padding: 5px 6px; background-color: #2AA4EF !important; float: center">
 								</button>
 							</cell>
@@ -256,5 +215,4 @@
 					</template>
 				</grid>
 			</div>
-
-		</div>
+		</zk>

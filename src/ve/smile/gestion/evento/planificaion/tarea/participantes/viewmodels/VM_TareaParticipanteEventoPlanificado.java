@@ -1,6 +1,7 @@
 package ve.smile.gestion.evento.planificaion.tarea.participantes.viewmodels;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,28 +16,43 @@ import karen.core.wizard.buttons.data.OperacionWizard;
 import karen.core.wizard.buttons.enums.OperacionWizardEnum;
 import karen.core.wizard.buttons.helpers.OperacionWizardHelper;
 import karen.core.wizard.viewmodels.VM_WindowWizard;
+
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
+
 import lights.core.enums.TypeQuery;
 import lights.core.payload.response.IPayloadResponse;
+import lights.smile.util.UtilConverterDataList;
 import ve.smile.consume.services.S;
 import ve.smile.dto.EventPlanTarea;
 import ve.smile.dto.EventPlanTareaTrabajador;
 import ve.smile.dto.EventPlanTareaVoluntario;
 import ve.smile.dto.EventoPlanificado;
+import ve.smile.dto.NotificacionUsuario;
 import ve.smile.dto.Trabajador;
+import ve.smile.dto.TsPlanActividad;
 import ve.smile.dto.TsPlanActividadTrabajador;
+import ve.smile.dto.TsPlanActividadVoluntario;
 import ve.smile.dto.Voluntario;
+import ve.smile.enums.EstatusNotificacionEnum;
+import ve.smile.enums.TipoReferenciaNotificacionEnum;
 import ve.smile.payload.response.PayloadEventPlanTareaResponse;
 import ve.smile.payload.response.PayloadEventPlanTareaTrabajadorResponse;
 import ve.smile.payload.response.PayloadEventPlanTareaVoluntarioResponse;
 import ve.smile.payload.response.PayloadEventoPlanificadoResponse;
+import ve.smile.payload.response.PayloadNotificacionUsuarioResponse;
+import ve.smile.payload.response.PayloadTsPlanActividadResponse;
+import ve.smile.payload.response.PayloadTsPlanActividadTrabajadorResponse;
+import ve.smile.payload.response.PayloadTsPlanActividadVoluntarioResponse;
 
 public class VM_TareaParticipanteEventoPlanificado extends VM_WindowWizard{
 
 	private List<EventPlanTarea> listEventPlanTarea;
+	private List<EventPlanTareaTrabajador> listEventPlanTareaTrabajadors = new ArrayList<EventPlanTareaTrabajador>();
+
+	private List<EventPlanTareaVoluntario> listevPlanTareaVoluntarios = new ArrayList<EventPlanTareaVoluntario>();
 	private int indexTarea;
 
 	public List<EventPlanTarea> getListEventPlanTarea() {
@@ -161,6 +177,7 @@ public class VM_TareaParticipanteEventoPlanificado extends VM_WindowWizard{
 	public void eliminarVoluntario(
 			@BindingParam("eventPlanTareaVoluntario") EventPlanTareaVoluntario planTareaVoluntario,
 			@BindingParam("index") int index) {
+		this.listevPlanTareaVoluntarios.add(planTareaVoluntario);
 		this.getListEventPlanTarea().get(index)
 				.getListPlanTareaVoluntarios()
 				.remove(planTareaVoluntario);
@@ -266,6 +283,7 @@ public class VM_TareaParticipanteEventoPlanificado extends VM_WindowWizard{
 	public void eliminarTrabajador(
 			@BindingParam("eventPlanTareaTrabajador") EventPlanTareaTrabajador eventPlanTareaTrabajador,
 			@BindingParam("index") int index) {
+		this.listEventPlanTareaTrabajadors.add(eventPlanTareaTrabajador);
 		this.getListEventPlanTarea().get(index)
 				.getListEventPlanTareaTrabajadors()
 				.remove(eventPlanTareaTrabajador);
@@ -393,6 +411,26 @@ public class VM_TareaParticipanteEventoPlanificado extends VM_WindowWizard{
 			if (selectedObject == null) {
 				return "E:Error Code 5-Debe seleccionar un <b>Trabajo Social Planificado</b>";
 			}
+			Map<String, String> parametro = new HashMap<String, String>();
+			parametro.put("fkEventoPlanificado.idEventoPlanificado",
+					String.valueOf(getEventoPlanificadoSelected().getIdEventoPlanificado()));
+
+			this.setListEventPlanTarea(new ArrayList<EventPlanTarea>());
+			PayloadEventPlanTareaResponse payloadEventPsResponse = S.EventPlanTareaService
+					.contarCriterios(TypeQuery.EQUAL, parametro);
+			if (!UtilPayload.isOK(payloadEventPsResponse)) {
+				return (String) payloadEventPsResponse
+						.getInformacion(IPayloadResponse.MENSAJE);
+			}
+
+			Integer countEventPsTarea = Double.valueOf(
+					String.valueOf(payloadEventPsResponse
+							.getInformacion(IPayloadResponse.COUNT)))
+					.intValue();
+			if (countEventPsTarea <= 0) {
+				return "E:Error 0:El evento planificado seleccionado <b>no tiene tarea asignadas</b>, debe asignarle al menos una.";
+			}
+		
 		}
 
 		return "";
@@ -401,33 +439,33 @@ public class VM_TareaParticipanteEventoPlanificado extends VM_WindowWizard{
 	@Override
 	public String executeFinalizar(Integer currentStep) {
 		
-			if (currentStep == 2) {
-					for(EventPlanTarea eventPlanTarea: this.listEventPlanTarea){
-						if(eventPlanTarea.getListPlanTareaVoluntarios().size()>0 & eventPlanTarea.getListPlanTareaVoluntarios() != null){
-							for(EventPlanTareaVoluntario eventPlanTareaVoluntario: eventPlanTarea.getListPlanTareaVoluntarios()){
-								EventPlanTareaVoluntario obj = new EventPlanTareaVoluntario();
-								obj.setFkEventPlanTarea(new EventPlanTarea(eventPlanTareaVoluntario.getFkEventPlanTarea().getIdEventPlanTarea()));
-								obj.setFkVoluntario(eventPlanTareaVoluntario.getFkVoluntario());
-								PayloadEventPlanTareaVoluntarioResponse eventPlanTareaVoluntarioResponse = S.EventPlanTareaVoluntarioService.incluir(obj);
-								if (!UtilPayload.isOK(eventPlanTareaVoluntarioResponse)) {
-									 return (String) eventPlanTareaVoluntarioResponse.getInformacion(IPayloadResponse.MENSAJE);
-								 }
-								
-							}
-						}
-					   if(eventPlanTarea.getListEventPlanTareaTrabajadors().size()>0 & eventPlanTarea.getListEventPlanTareaTrabajadors() != null){
-						 for(EventPlanTareaTrabajador eventPlanTareaTrabajador: eventPlanTarea.getListEventPlanTareaTrabajadors()){
-							 EventPlanTareaTrabajador objT = new EventPlanTareaTrabajador();
-							 objT.setFkEventPlanTarea(new EventPlanTarea(eventPlanTareaTrabajador.getFkEventPlanTarea().getIdEventPlanTarea()));
-							 objT.setFkTrabajador(eventPlanTareaTrabajador.getFkTrabajador());
-							 PayloadEventPlanTareaTrabajadorResponse eventPlanTareaTrabajadorResponse = S.EventPlanTareaTrabajadorService.incluir(objT);
-							 if (!UtilPayload.isOK(eventPlanTareaTrabajadorResponse)) {
-								 return (String) eventPlanTareaTrabajadorResponse.getInformacion(IPayloadResponse.MENSAJE);
-							 }
-						 }
-					   }
-					}
-				}
+//			if (currentStep == 2) {
+//					for(EventPlanTarea eventPlanTarea: this.listEventPlanTarea){
+//						if(eventPlanTarea.getListPlanTareaVoluntarios().size()>0 & eventPlanTarea.getListPlanTareaVoluntarios() != null){
+//							for(EventPlanTareaVoluntario eventPlanTareaVoluntario: eventPlanTarea.getListPlanTareaVoluntarios()){
+//								EventPlanTareaVoluntario obj = new EventPlanTareaVoluntario();
+//								obj.setFkEventPlanTarea(new EventPlanTarea(eventPlanTareaVoluntario.getFkEventPlanTarea().getIdEventPlanTarea()));
+//								obj.setFkVoluntario(eventPlanTareaVoluntario.getFkVoluntario());
+//								PayloadEventPlanTareaVoluntarioResponse eventPlanTareaVoluntarioResponse = S.EventPlanTareaVoluntarioService.incluir(obj);
+//								if (!UtilPayload.isOK(eventPlanTareaVoluntarioResponse)) {
+//									 return (String) eventPlanTareaVoluntarioResponse.getInformacion(IPayloadResponse.MENSAJE);
+//								 }
+//								
+//							}
+//						}
+//					   if(eventPlanTarea.getListEventPlanTareaTrabajadors().size()>0 & eventPlanTarea.getListEventPlanTareaTrabajadors() != null){
+//						 for(EventPlanTareaTrabajador eventPlanTareaTrabajador: eventPlanTarea.getListEventPlanTareaTrabajadors()){
+//							 EventPlanTareaTrabajador objT = new EventPlanTareaTrabajador();
+//							 objT.setFkEventPlanTarea(new EventPlanTarea(eventPlanTareaTrabajador.getFkEventPlanTarea().getIdEventPlanTarea()));
+//							 objT.setFkTrabajador(eventPlanTareaTrabajador.getFkTrabajador());
+//							 PayloadEventPlanTareaTrabajadorResponse eventPlanTareaTrabajadorResponse = S.EventPlanTareaTrabajadorService.incluir(objT);
+//							 if (!UtilPayload.isOK(eventPlanTareaTrabajadorResponse)) {
+//								 return (String) eventPlanTareaTrabajadorResponse.getInformacion(IPayloadResponse.MENSAJE);
+//							 }
+//						 }
+//					   }
+//					}
+//				}
 			
 
 		goToNextStep();
@@ -437,6 +475,148 @@ public class VM_TareaParticipanteEventoPlanificado extends VM_WindowWizard{
 	@Override
 	public String isValidSearchDataFinalizar(Integer currentStep) {
 		if (currentStep == 2) {
+			if (currentStep == 2) {
+				PayloadEventPlanTareaTrabajadorResponse payloadEventTsTareaTrabajadorResponse = new PayloadEventPlanTareaTrabajadorResponse();
+				PayloadEventPlanTareaVoluntarioResponse payloadEventTsTareaVoluntarioResponse = new PayloadEventPlanTareaVoluntarioResponse();
+				for (EventPlanTarea obj : this.listEventPlanTarea) {
+
+					for (EventPlanTareaTrabajador EventPlanTareaTrabajador : obj
+							.getListEventPlanTareaTrabajadors()) {
+						EventPlanTareaTrabajador eventoTareaPlanTrabajador2 = new EventPlanTareaTrabajador();
+						eventoTareaPlanTrabajador2
+								.setFkTrabajador(EventPlanTareaTrabajador
+										.getFkTrabajador());
+						eventoTareaPlanTrabajador2
+								.setFkEventPlanTarea(new EventPlanTarea(obj
+										.getIdEventPlanTarea()));
+
+						eventoTareaPlanTrabajador2
+								.setIdEventPlanTareaTrabajador(EventPlanTareaTrabajador
+										.getIdEventPlanTareaTrabajador());
+						if (eventoTareaPlanTrabajador2
+								.getIdEventPlanTareaTrabajador() == null) {
+
+							payloadEventTsTareaTrabajadorResponse = S.EventPlanTareaTrabajadorService
+									.incluir(eventoTareaPlanTrabajador2);
+						} else {
+							payloadEventTsTareaTrabajadorResponse = S.EventPlanTareaTrabajadorService
+									.modificar(eventoTareaPlanTrabajador2);
+						}
+
+						if (!UtilPayload
+								.isOK(payloadEventTsTareaTrabajadorResponse)) {
+							return (String) payloadEventTsTareaTrabajadorResponse
+									.getInformacion(IPayloadResponse.MENSAJE);
+						}
+						if (EventPlanTareaTrabajador.getFkTrabajador()
+								.getFkPersona().getFkUsuario() != null) {
+							String contenido = "Se le ha asignado la Tarea "
+									+ obj.getFkTarea().getNombre()
+									+ " del Evento "
+									+ obj.getFkEventoPlanificado().getFkEvento()
+											.getNombre()
+									+ " que debe realizar el "
+									+ UtilConverterDataList.convertirLongADate(obj
+											.getFechaPlanificada());
+							NotificacionUsuario notificacionUsuario = new NotificacionUsuario(
+									EventPlanTareaTrabajador.getFkTrabajador()
+											.getFkPersona().getFkUsuario(),
+									new Date().getTime(), obj.getFkEventoPlanificado()
+											.getIdEventoPlanificado(),
+									EstatusNotificacionEnum.PENDIENTE.ordinal(),
+									TipoReferenciaNotificacionEnum.ACTIVIDAD
+											.ordinal(), contenido);
+							PayloadNotificacionUsuarioResponse payloadNotificacionUsuarioResponse = S.NotificacionUsuarioService
+									.incluir(notificacionUsuario);
+							if (!UtilPayload
+									.isOK(payloadNotificacionUsuarioResponse)) {
+								return (String) payloadNotificacionUsuarioResponse
+										.getInformacion(IPayloadResponse.MENSAJE);
+							}
+						}
+
+					}
+
+					for (EventPlanTareaVoluntario eventPlanTareaVoluntario : obj
+							.getListPlanTareaVoluntarios()) {
+						EventPlanTareaVoluntario eventPlanVoluntario2 = new EventPlanTareaVoluntario();
+
+						eventPlanVoluntario2
+								.setFkEventPlanTarea(new EventPlanTarea(obj
+										.getIdEventPlanTarea()));
+
+						eventPlanVoluntario2
+								.setFkVoluntario(eventPlanTareaVoluntario
+										.getFkVoluntario());
+						eventPlanVoluntario2
+								.setIdEventPlanTareaVoluntario(eventPlanTareaVoluntario
+										.getIdEventPlanTareaVoluntario());
+						if (eventPlanVoluntario2
+								.getIdEventPlanTareaVoluntario() == null) {
+
+							payloadEventTsTareaVoluntarioResponse = S.EventPlanTareaVoluntarioService
+									.incluir(eventPlanVoluntario2);
+						} else {
+							payloadEventTsTareaVoluntarioResponse = S.EventPlanTareaVoluntarioService
+									.modificar(eventPlanVoluntario2);
+						}
+
+						if (!UtilPayload
+								.isOK(payloadEventTsTareaVoluntarioResponse)) {
+							return (String) payloadEventTsTareaVoluntarioResponse
+									.getInformacion(IPayloadResponse.MENSAJE);
+						}
+
+						if (eventPlanTareaVoluntario.getFkVoluntario()
+								.getFkPersona().getFkUsuario() != null) {
+							String contenido = "Se le ha asignado la Tarea "
+									+ obj.getFkTarea().getNombre()
+									+ " del Evento "
+									+ obj.getFkEventoPlanificado().getFkEvento()
+											.getNombre()
+									+ " que debe realizar el "
+									+ UtilConverterDataList.convertirLongADate(obj
+											.getFechaPlanificada());
+							NotificacionUsuario notificacionUsuario = new NotificacionUsuario(
+									eventPlanTareaVoluntario.getFkVoluntario()
+											.getFkPersona().getFkUsuario(),
+									new Date().getTime(), obj.getFkEventoPlanificado()
+											.getIdEventoPlanificado(),
+									EstatusNotificacionEnum.PENDIENTE.ordinal(),
+									TipoReferenciaNotificacionEnum.ACTIVIDAD
+											.ordinal(), contenido);
+							PayloadNotificacionUsuarioResponse payloadNotificacionUsuarioResponse = S.NotificacionUsuarioService
+									.incluir(notificacionUsuario);
+							if (!UtilPayload
+									.isOK(payloadNotificacionUsuarioResponse)) {
+								return (String) payloadNotificacionUsuarioResponse
+										.getInformacion(IPayloadResponse.MENSAJE);
+							}
+						}
+					}
+
+				}
+				for (EventPlanTareaTrabajador evePlanTareaTrabajador : this
+						.listEventPlanTareaTrabajadors) {
+					if (evePlanTareaTrabajador.getIdEventPlanTareaTrabajador() != null) {
+						payloadEventTsTareaTrabajadorResponse = S.EventPlanTareaTrabajadorService
+								.eliminar(evePlanTareaTrabajador
+										.getIdEventPlanTareaTrabajador());
+					}
+
+				}
+
+				for (EventPlanTareaVoluntario eventoPlanVoluntario : this
+						.listevPlanTareaVoluntarios) {
+					if (eventoPlanVoluntario.getIdEventPlanTareaVoluntario() != null) {
+						payloadEventTsTareaVoluntarioResponse = S.EventPlanTareaVoluntarioService
+								.eliminar(eventoPlanVoluntario
+										.getIdEventPlanTareaVoluntario());
+					}
+
+				}
+			}
+
 
 		}
 		return "";
@@ -444,6 +624,9 @@ public class VM_TareaParticipanteEventoPlanificado extends VM_WindowWizard{
 
 	@Override
 	public String executeCancelar(Integer currentStep) {
+		this.listEventPlanTarea.clear();
+		this.listEventPlanTareaTrabajadors.clear();
+		this.listevPlanTareaVoluntarios.clear();
 		restartWizard();
 		return super.executeCancelar(currentStep);
 	}
@@ -451,4 +634,29 @@ public class VM_TareaParticipanteEventoPlanificado extends VM_WindowWizard{
 	public EventoPlanificado getEventoPlanificadoSelected() {
 		return (EventoPlanificado) this.getSelectedObject();
 	}
+
+	public List<EventPlanTareaTrabajador> getListEventPlanTareaTrabajadors() {
+		return listEventPlanTareaTrabajadors;
+	}
+
+	public void setListEventPlanTareaTrabajadors(
+			List<EventPlanTareaTrabajador> listEventPlanTareaTrabajadors) {
+		this.listEventPlanTareaTrabajadors = listEventPlanTareaTrabajadors;
+	}
+
+	public List<EventPlanTareaVoluntario> getListevPlanTareaVoluntarios() {
+		return listevPlanTareaVoluntarios;
+	}
+
+	public void setListevPlanTareaVoluntarios(
+			List<EventPlanTareaVoluntario> listevPlanTareaVoluntarios) {
+		this.listevPlanTareaVoluntarios = listevPlanTareaVoluntarios;
+	}
+	@Override
+	public String executeCustom1(Integer currentStep) {
+		executeCancelar(currentStep);
+		return "";
+
+	}
+	
 }

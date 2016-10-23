@@ -4,12 +4,11 @@
 		action="show: slideIn;hide: slideOut"
 		use="karen.core.dialog.catalogue.list_pagination.controllers.C_ListPaginationCatalogueDialog"
 		apply="org.zkoss.bind.BindComposer"
-		viewModel="@id('vm') @init('ve.smile.gestion.evento.planificaion.tarea.asignacion.viewmodels.VM_CatalogoPlantillaTareas', dialogData=arg.get('dialogData'))">
-		<caption label="PLANTILLA TEREA"
-			style="margin-left: 40%;" />
+		viewModel="@id('vm') @init('ve.smile.gestion.evento.planificaion.indicadores.viewmodels.VM_CatalogoPlantillaIndicadores', dialogData=arg.get('dialogData'))">
+		<caption label="PLANTILLA INDICADORES" style="margin-left: 40%;" />
 		<separator height="20px"></separator>
 		<n:h6 style="margin-left: 5%;">
-			Por favor seleccione las tareas de su preferencia:
+			Por favor seleccione los indicadores de su preferencia:
 		</n:h6>
 		<separator height="20px"></separator>
 		<listbox id="listbox" model="@load(vm.objectList)"
@@ -19,17 +18,17 @@
 			style="width: 90%; margin-left: 5%;padding-bottom: 5%;">
 
 			<listhead sizable="true">
-				<listheader label="Tarea" />
+				<listheader label="Indicador" />
 				<listheader label="Descripción" />
-				<listheader label="Clasificador" />
+				<listheader label="Unidad de Medida" />
 			</listhead>
 			<template name="model">
 				<listitem>
-					<listcell label="@load(each.fkTarea.nombre)" />
+					<listcell label="@load(each.fkIndicador.nombre)" />
 					<listcell
-						label="@load(each.fkTarea.descripcion)" />
+						label="@load(each.fkIndicador.descripcion)" />
 					<listcell
-						label="@load(each.fkTarea.fkClasificadorTarea.nombre)" />
+						label="@load(each.fkIndicador.fkUnidadMedida.nombre)" />
 				</listitem>
 			</template>
 			<listfoot>

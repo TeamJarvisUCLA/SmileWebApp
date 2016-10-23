@@ -1,6 +1,8 @@
 package ve.smile.gestion.evento.ejecucion.cierreEvento.viewmodels;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -12,6 +14,8 @@ import karen.core.dialog.catalogue.generic.events.listeners.CatalogueDialogClose
 import karen.core.dialog.generic.enums.DialogActionEnum;
 import karen.core.util.UtilDialog;
 import karen.core.util.payload.UtilPayload;
+import karen.core.util.validate.UtilValidate;
+import karen.core.util.validate.UtilValidate.ValidateOperator;
 import karen.core.wizard.buttons.data.OperacionWizard;
 import karen.core.wizard.buttons.enums.OperacionWizardEnum;
 import karen.core.wizard.buttons.helpers.OperacionWizardHelper;
@@ -25,16 +29,23 @@ import org.zkoss.bind.annotation.Command;
 import ve.smile.consume.services.S;
 import ve.smile.dto.EventoPlanificado;
 import ve.smile.dto.IndicadorEventoPlanificado;
+import ve.smile.dto.IndicadorTsPlan;
 import ve.smile.dto.Motivo;
+import ve.smile.dto.TsPlan;
+import ve.smile.enums.EstatusTrabajoSocialPlanificadoEnum;
 import ve.smile.payload.response.PayloadEventoPlanificadoResponse;
 import ve.smile.payload.response.PayloadIndicadorEventoPlanificadoResponse;
+import ve.smile.payload.response.PayloadIndicadorTsPlanResponse;
+import ve.smile.payload.response.PayloadTsPlanResponse;
 
 public class VM_RegistroCierreEventoIndex extends VM_WindowWizard {
 
-	private boolean estatus = false;
+	private boolean estatus = true;
 	private List<IndicadorEventoPlanificado> indicadorEventoPlanificado = new ArrayList<>();
-	private Date fechaPlanificada;
-	private Date fechaEjecucion;
+	private Date fechaPlanificadaInicio;
+	private Date fechaEjecucionInicio;
+	private Date fechaPlanificadaFin;
+	private Date fechaEjecucionFin;
 	private Motivo motivo = new Motivo();
 
 	@Command("buscarMotivo")
@@ -82,6 +93,8 @@ public class VM_RegistroCierreEventoIndex extends VM_WindowWizard {
 				.getPorType(OperacionWizardEnum.ATRAS));
 		listOperacionWizard2.add(OperacionWizardHelper
 				.getPorType(OperacionWizardEnum.FINALIZAR));
+		listOperacionWizard2.add(OperacionWizardHelper
+				.getPorType(OperacionWizardEnum.CANCELAR));
 
 		botones.put(2, listOperacionWizard2);
 
@@ -106,6 +119,17 @@ public class VM_RegistroCierreEventoIndex extends VM_WindowWizard {
 		restartWizard();
 		return "";
 
+	}
+	
+	@Override
+	public String executeCancelar(Integer currentStep) {
+		this.setIndicadorEventoPlanificado(new ArrayList<IndicadorEventoPlanificado>());
+		this.setSelectedObject(new EventoPlanificado());
+
+		BindUtils.postNotifyChange(null, null, this, "indicadorEventoPlanificado");
+		BindUtils.postNotifyChange(null, null, this, "selectedObject");
+		restartWizard();
+		return super.executeCancelar(currentStep);
 	}
 
 	@Override
@@ -139,43 +163,118 @@ public class VM_RegistroCierreEventoIndex extends VM_WindowWizard {
 	@Override
 	public String isValidSearchDataSiguiente(Integer currentStep) {
 		if (currentStep == 1) {
-			this.estatus = false;
-			this.indicadorEventoPlanificado = new ArrayList<IndicadorEventoPlanificado>();
+			this.estatus = true;
+			this.setIndicadorEventoPlanificado(new ArrayList<IndicadorEventoPlanificado>());
 			Map<String, String> criterios = new HashMap<>();
 			EventoPlanificado eventoPlanificado = (EventoPlanificado) selectedObject;
 			criterios.put("fkEventoPlanificado.idEventoPlanificado",
 					eventoPlanificado.getIdEventoPlanificado() + "");
-			PayloadIndicadorEventoPlanificadoResponse payloadIndicadorEventoPlanificadoResponse = S.IndicadorEventoPlanificadoService
+			PayloadIndicadorEventoPlanificadoResponse payloadIndicadorEventPlanResponse = S.IndicadorEventoPlanificadoService
 					.consultarCriterios(TypeQuery.EQUAL, criterios);
-			if (payloadIndicadorEventoPlanificadoResponse.getObjetos().size() > 0
-					& payloadIndicadorEventoPlanificadoResponse.getObjetos() != null) {
-				 for(IndicadorEventoPlanificado indicaEventPlanificado:
-				 payloadIndicadorEventoPlanificadoResponse.getObjetos()){
-				 IndicadorEventoPlanificado indEventPla = new
-				 IndicadorEventoPlanificado();
-				 indEventPla.setFkEventoPlanificado(indicaEventPlanificado.getFkEventoPlanificado());
-				 indEventPla.setFkIndicador(indicaEventPlanificado.getFkIndicador());
-				 indEventPla.setIdIndicadorEventoPlanificado(indicaEventPlanificado.getIdIndicadorEventoPlanificado());
-				 indEventPla.setValorEsperado(indicaEventPlanificado.getValorEsperado());
-				 indEventPla.setValorReal(indicaEventPlanificado.getValorEsperado());
-				 this.indicadorEventoPlanificado.add(indEventPla);
-				 }
-				this.setFechaEjecucion(new Date(eventoPlanificado
-						.getFechaPlanificada()));
-				this.setFechaPlanificada(new Date(eventoPlanificado
-						.getFechaPlanificada()));
-				BindUtils.postNotifyChange(null, null, this,
-						"indicadorEventoPlanificado");
+			if (payloadIndicadorEventPlanResponse.getObjetos() != null
+					&& payloadIndicadorEventPlanResponse.getObjetos().size() > 0) {
+				for (IndicadorEventoPlanificado indicadorEventPlan : payloadIndicadorEventPlanResponse
+						.getObjetos()) {
+
+					if (indicadorEventPlan.getValorReal() == null) {
+						indicadorEventPlan.setValorReal(indicadorEventPlan
+								.getValorEsperado());
+					}
+					this.indicadorEventoPlanificado.add(indicadorEventPlan);
+				}
+
 			}
+			this.setFechaPlanificadaInicio(new Date(eventoPlanificado
+					.getFechaInicio()));
+			this.setFechaPlanificadaFin(new Date(eventoPlanificado
+					.getFechaFin()));
+			this.setFechaEjecucionInicio(new Date(eventoPlanificado
+					.getFechaInicio()));
+			this.setFechaEjecucionFin(new Date(eventoPlanificado
+					.getFechaFin()));
+			
+			
+//			this.estatus = false;
+//			this.indicadorEventoPlanificado = new ArrayList<IndicadorEventoPlanificado>();
+//			Map<String, String> criterios = new HashMap<>();
+//			EventoPlanificado eventoPlanificado = (EventoPlanificado) selectedObject;
+//			criterios.put("fkEventoPlanificado.idEventoPlanificado",
+//					eventoPlanificado.getIdEventoPlanificado() + "");
+//			PayloadIndicadorEventoPlanificadoResponse payloadIndicadorEventoPlanificadoResponse = S.IndicadorEventoPlanificadoService
+//					.consultarCriterios(TypeQuery.EQUAL, criterios);
+//			if (payloadIndicadorEventoPlanificadoResponse.getObjetos().size() > 0
+//					& payloadIndicadorEventoPlanificadoResponse.getObjetos() != null) {
+//				 for(IndicadorEventoPlanificado indicaEventPlanificado:
+//				 payloadIndicadorEventoPlanificadoResponse.getObjetos()){
+//				 IndicadorEventoPlanificado indEventPla = new
+//				 IndicadorEventoPlanificado();
+//				 indEventPla.setFkEventoPlanificado(indicaEventPlanificado.getFkEventoPlanificado());
+//				 indEventPla.setFkIndicador(indicaEventPlanificado.getFkIndicador());
+//				 indEventPla.setIdIndicadorEventoPlanificado(indicaEventPlanificado.getIdIndicadorEventoPlanificado());
+//				 indEventPla.setValorEsperado(indicaEventPlanificado.getValorEsperado());
+//				 indEventPla.setValorReal(indicaEventPlanificado.getValorEsperado());
+//				 this.indicadorEventoPlanificado.add(indEventPla);
+//				 }
+//				this.setFechaEjecucionInicio(new Date(eventoPlanificado
+//						.getFechaInicio()));
+//				this.setFechaPlanificada(new Date(eventoPlanificado
+//						.getFechaPlanificada()));
+//				BindUtils.postNotifyChange(null, null, this,
+//						"indicadorEventoPlanificado");
+//			}
 
 		}
 
 		return "";
 	}
+	
+	@Override
+	public String isValidPreconditionsFinalizar(Integer currentStep) {
+		if (currentStep == 2) {
+			StringBuilder stringBuilder = new StringBuilder();
+			try {
+				Calendar calendar = Calendar.getInstance();
+				calendar.add(Calendar.DAY_OF_YEAR, -2);
+				UtilValidate.validateDate(this.getFechaEjecucionInicio()
+						.getTime(), "Fecha Inicio de Ejecución",
+						ValidateOperator.GREATER_THAN, new SimpleDateFormat(
+								"yyyy-MM-dd").format(calendar.getTime()),
+						"dd/MM/yyyy");
+				if (this.getFechaEjecucionInicio().compareTo(
+						this.getFechaEjecucionFin()) != 0) {
+					UtilValidate.validateDate(this.getFechaEjecucionFin()
+							.getTime(), "Fecha Fin de Ejecución",
+							ValidateOperator.GREATER_THAN,
+							new SimpleDateFormat("yyyy-MM-dd").format(this
+									.getFechaEjecucionFin()), "dd/MM/yyyy");
+				}
+
+			} catch (Exception e) {
+				return e.getMessage();
+			}
+			for (IndicadorEventoPlanificado indicadorEventPlan : this.indicadorEventoPlanificado) {
+				if (indicadorEventPlan.getValorReal() == null
+						|| indicadorEventPlan.getValorReal() == 0) {
+					if (!stringBuilder.toString().trim().isEmpty()) {
+						stringBuilder.append(",  ");
+					}
+					stringBuilder.append(indicadorEventPlan.getFkIndicador()
+							.getNombre());
+				}
+			}
+			String indicadores = stringBuilder.toString();
+			if (!indicadores.trim().isEmpty()) {
+				return "E:Error Code 5-Debe verificar el valor real de los siguientes indicadores: <b>"
+						+ indicadores + "</b>";
+			}
+
+		}
+		return super.isValidPreconditionsFinalizar(currentStep);
+	}
 
 	@Override
 	public String executeFinalizar(Integer currentStep) {
-		if (currentStep == 2) {
+		if (currentStep == 2) {			
 			if(this.estatus){
 			for (IndicadorEventoPlanificado indicadorEventPlan : this.getIndicadorEventoPlanificado()) {
 				PayloadIndicadorEventoPlanificadoResponse payloadIndicadorEventoPlanificadoResponse = S.IndicadorEventoPlanificadoService
@@ -198,7 +297,7 @@ public class VM_RegistroCierreEventoIndex extends VM_WindowWizard {
 				}
 				
 				 EventoPlanificado eventoPlanificado = (EventoPlanificado)selectedObject;
-				 eventoPlanificado.setFechaEjecutada(this.fechaEjecucion.getTime());
+				 eventoPlanificado.setFechaEjecutada(this.fechaEjecucionInicio.getTime());
 				 eventoPlanificado.setFkMotivo(null);
 				 PayloadEventoPlanificadoResponse eventoPlanificadoResponse =
 				 S.EventoPlanificadoService
@@ -256,20 +355,38 @@ public class VM_RegistroCierreEventoIndex extends VM_WindowWizard {
 		this.indicadorEventoPlanificado = indicadorEventoPlanificado;
 	}
 
-	public Date getFechaPlanificada() {
-		return fechaPlanificada;
+	public Date getFechaPlanificadaInicio() {
+		return fechaPlanificadaInicio;
 	}
 
-	public void setFechaPlanificada(Date fechaPlanificada) {
-		this.fechaPlanificada = fechaPlanificada;
+	public void setFechaPlanificadaInicio(Date fechaPlanificadaInicio) {
+		this.fechaPlanificadaInicio = fechaPlanificadaInicio;
 	}
 
-	public Date getFechaEjecucion() {
-		return fechaEjecucion;
+	public Date getFechaEjecucionInicio() {
+		return fechaEjecucionInicio;
 	}
 
-	public void setFechaEjecucion(Date fechaEjecucion) {
-		this.fechaEjecucion = fechaEjecucion;
+	public void setFechaEjecucionInicio(Date fechaEjecucionInicio) {
+		this.fechaEjecucionInicio = fechaEjecucionInicio;
 	}
+
+	public Date getFechaPlanificadaFin() {
+		return fechaPlanificadaFin;
+	}
+
+	public void setFechaPlanificadaFin(Date fechaPlanificadaFin) {
+		this.fechaPlanificadaFin = fechaPlanificadaFin;
+	}
+
+	public Date getFechaEjecucionFin() {
+		return fechaEjecucionFin;
+	}
+
+	public void setFechaEjecucionFin(Date fechaEjecucionFin) {
+		this.fechaEjecucionFin = fechaEjecucionFin;
+	}
+
+
 
 }

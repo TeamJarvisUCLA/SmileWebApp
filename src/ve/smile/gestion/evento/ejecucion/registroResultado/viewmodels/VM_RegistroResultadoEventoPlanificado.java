@@ -19,11 +19,14 @@ import org.zkoss.bind.annotation.Init;
 import ve.smile.consume.services.S;
 import ve.smile.dto.EventPlanTarea;
 import ve.smile.dto.EventoPlanificado;
-import ve.smile.dto.Indicador;
 import ve.smile.dto.IndicadorEventoPlanTarea;
+import ve.smile.dto.IndicadorTsPlanActividad;
+import ve.smile.dto.TsPlanActividad;
 import ve.smile.payload.response.PayloadEventPlanTareaResponse;
 import ve.smile.payload.response.PayloadEventoPlanificadoResponse;
 import ve.smile.payload.response.PayloadIndicadorEventoPlanTareaResponse;
+import ve.smile.payload.response.PayloadIndicadorTsPlanActividadResponse;
+import ve.smile.payload.response.PayloadTsPlanActividadResponse;
 
 public class VM_RegistroResultadoEventoPlanificado extends VM_WindowWizard {
 
@@ -50,6 +53,8 @@ public class VM_RegistroResultadoEventoPlanificado extends VM_WindowWizard {
 				.getPorType(OperacionWizardEnum.ATRAS));
 		listOperacionWizard2.add(OperacionWizardHelper
 				.getPorType(OperacionWizardEnum.FINALIZAR));
+		listOperacionWizard2.add(OperacionWizardHelper
+				.getPorType(OperacionWizardEnum.CANCELAR));
 
 		botones.put(2, listOperacionWizard2);
 
@@ -68,18 +73,22 @@ public class VM_RegistroResultadoEventoPlanificado extends VM_WindowWizard {
 	public String executeFinalizar(Integer currentStep) {
 		if (currentStep == 2) {
 			for (EventPlanTarea obj : listEventPlanTareas) {
-				if (obj.getIndicadorEventoPlanTareas() != null & obj.getIndicadorEventoPlanTareas() .size()>0) {
-					for (IndicadorEventoPlanTarea indicadorEventoPlanTarea : obj.getIndicadorEventoPlanTareas()) {						
-						IndicadorEventoPlanTarea eventoPlanTarea = S.IndicadorEventoPlanTareaService.consultarUno(indicadorEventoPlanTarea.getIdIndicadorEventoPlanTarea()).getObjetos().get(0);
-						  eventoPlanTarea.setValorReal(indicadorEventoPlanTarea.getValorReal());						
-						 PayloadIndicadorEventoPlanTareaResponse indicadorEventoPlanTareaResponse = S.IndicadorEventoPlanTareaService
-								.modificar(eventoPlanTarea);
-						if (!UtilPayload.isOK(indicadorEventoPlanTareaResponse)) {
-							 return (String) indicadorEventoPlanTareaResponse.getInformacion(IPayloadResponse.MENSAJE);
-						 }
+				if (obj.getIndicadorEventoPlanTareas() != null
+						& obj.getIndicadorEventoPlanTareas().size() > 0) {
+					for (IndicadorEventoPlanTarea indicadorTareaPlanEvent : obj
+							.getIndicadorEventoPlanTareas()) {
+
+						PayloadIndicadorEventoPlanTareaResponse payloadIndicadorEventPlanResponse = S.IndicadorEventoPlanTareaService
+								.modificar(indicadorTareaPlanEvent);
+						if (!UtilPayload
+								.isOK(payloadIndicadorEventPlanResponse)) {
+							return (String) payloadIndicadorEventPlanResponse
+									.getInformacion(IPayloadResponse.MENSAJE);
+						}
 					}
 				}
 			}
+
 			goToNextStep();
 		}
 
@@ -118,54 +127,7 @@ public class VM_RegistroResultadoEventoPlanificado extends VM_WindowWizard {
 
 	@Override
 	public String executeSiguiente(Integer currentStep) {
-		if (currentStep == 1) {
-			Map<String, String> parametro = new HashMap<String, String>();
-			parametro.put(
-					"fkEventoPlanificado.idEventoPlanificado",
-					((EventoPlanificado) selectedObject)
-							.getIdEventoPlanificado() + "");
-			this.listEventPlanTareas = new ArrayList<>();
-			this.listEventPlanTareas = S.EventPlanTareaService
-					.consultarCriterios(TypeQuery.EQUAL, parametro)
-					.getObjetos();
-			if (this.listEventPlanTareas.size() > 0) {
-				for (int i = 0; i < this.listEventPlanTareas.size(); i++) {
-					Map<String, String> criterios = new HashMap<String, String>();
-					criterios.put("fkEventPlanTarea.idEventPlanTarea",
-							listEventPlanTareas.get(i).getIdEventPlanTarea()
-									+ "");
-					PayloadIndicadorEventoPlanTareaResponse indicadorEventoPlanTareaResponse = S.IndicadorEventoPlanTareaService
-							.consultarCriterios(TypeQuery.EQUAL, criterios);
-					if (indicadorEventoPlanTareaResponse.getObjetos().size() > 0) {
-						List<IndicadorEventoPlanTarea> listIndicadorEventoPlanTareas = new ArrayList<IndicadorEventoPlanTarea>();
-						for (IndicadorEventoPlanTarea indEvenPs : indicadorEventoPlanTareaResponse
-								.getObjetos()) {
-							IndicadorEventoPlanTarea indicadEventoPlanTarea = new IndicadorEventoPlanTarea();
-							indicadEventoPlanTarea
-									.setFkEventPlanTarea(indEvenPs
-											.getFkEventPlanTarea());
-							indicadEventoPlanTarea.setFkIndicador(indEvenPs
-									.getFkIndicador());
-							indicadEventoPlanTarea
-									.setIdIndicadorEventoPlanTarea(indEvenPs
-											.getIdIndicadorEventoPlanTarea());
-							indicadEventoPlanTarea.setValorEsperado(indEvenPs
-									.getValorEsperado());
-							indicadEventoPlanTarea.setValorReal(indEvenPs
-									.getValorEsperado());
-							listIndicadorEventoPlanTareas
-									.add(indicadEventoPlanTarea);
-						}
-
-						listEventPlanTareas.get(i)
-								.setIndicadorEventoPlanTareas(
-										listIndicadorEventoPlanTareas);
-					}
-
-				}
-			}
-
-		}
+		
 		goToNextStep();
 
 		return "";
@@ -177,13 +139,64 @@ public class VM_RegistroResultadoEventoPlanificado extends VM_WindowWizard {
 
 		return "";
 	}
+	
+	@Override
+	public String executeCancelar(Integer currentStep) {
+		this.setListEventPlanTareas(new ArrayList<EventPlanTarea>());
+		BindUtils.postNotifyChange(null, null, this, "*");
+
+		restartWizard();
+		return "";
+	}
 
 	@Override
 	public String isValidPreconditionsSiguiente(Integer currentStep) {
 		if (currentStep == 1) {
 			if (selectedObject == null) {
-				return "E:Error Code 5-Debe seleccionar un <b>Evento Planificado</b>";
+				return "E:Error Code 5-Debe seleccionar un <b>Trabajo Social Planificado</b>";
 			}
+			Map<String, String> parametro = new HashMap<String, String>();
+			parametro.put("fkEventoPlanificado.idEventoPlanificado",
+					String.valueOf(getEventoPlanificadoSelectedObject().getIdEventoPlanificado()));
+
+			this.setListEventPlanTareas(new ArrayList<EventPlanTarea>());
+			PayloadEventPlanTareaResponse payloadEventPlanTareaResponse = S.EventPlanTareaService
+					.contarCriterios(TypeQuery.EQUAL, parametro);
+			if (!UtilPayload.isOK(payloadEventPlanTareaResponse)) {
+				return (String) payloadEventPlanTareaResponse
+						.getInformacion(IPayloadResponse.MENSAJE);
+			}
+
+			Integer countEventPlanTarea = Double.valueOf(
+					String.valueOf(payloadEventPlanTareaResponse
+							.getInformacion(IPayloadResponse.COUNT)))
+					.intValue();
+			if (countEventPlanTarea <= 0) {
+				return "E:Error 0:El evento planificado seleccionado <b>no tiene tareas asignadas</b>, debe asignarle al menos una.";
+			}
+
+			parametro = new HashMap<String, String>();
+			parametro.put("fkEventPlanTarea.fkEventoPlanificado.idEventoPlanificado",
+					String.valueOf(getEventoPlanificadoSelectedObject().getIdEventoPlanificado()));
+
+			PayloadIndicadorEventoPlanTareaResponse payloadIndicadorEventPlanTareResponse = S.IndicadorEventoPlanTareaService
+					.contarCriterios(TypeQuery.EQUAL, parametro);
+			if (!UtilPayload.isOK(payloadIndicadorEventPlanTareResponse)) {
+				return (String) payloadIndicadorEventPlanTareResponse
+						.getInformacion(IPayloadResponse.MENSAJE);
+			}
+
+			Integer countPlIndicadores = Double.valueOf(
+					String.valueOf(payloadIndicadorEventPlanTareResponse
+							.getInformacion(IPayloadResponse.COUNT)))
+					.intValue();
+			System.err.println(countPlIndicadores);
+			if (countPlIndicadores <= 0) {
+				return "E:Error 0:Las Tarea del evento planificado seleccionado <b>no tiene indicadores asociados.</b>";
+			}
+			
+			
+
 		}
 
 		if (currentStep == 2) {
@@ -192,6 +205,58 @@ public class VM_RegistroResultadoEventoPlanificado extends VM_WindowWizard {
 
 		return "";
 	}
+	
+	@Override
+	public String isValidSearchDataSiguiente(Integer currentStep) {
+		if (currentStep == 1) {
+			Map<String, String> parametro = new HashMap<String, String>();
+			parametro.put("fkEventoPlanificado.idEventoPlanificado",
+					String.valueOf(getEventoPlanificadoSelectedObject().getIdEventoPlanificado()));
+
+			this.setListEventPlanTareas(new ArrayList<EventPlanTarea>());
+			PayloadEventPlanTareaResponse payloadEventPlanTareaResponse = S.EventPlanTareaService
+					.consultarCriterios(TypeQuery.EQUAL, parametro);
+			if (UtilPayload.isOK(payloadEventPlanTareaResponse)) {
+				this.listEventPlanTareas.addAll(
+						payloadEventPlanTareaResponse.getObjetos());
+			}
+
+			for (EventPlanTarea eventPlanTarea : this
+					.listEventPlanTareas) {
+
+				Map<String, String> criterios = new HashMap<String, String>();
+				criterios.put("fkEventPlanTarea.idEventPlanTarea",
+						String.valueOf(eventPlanTarea.getIdEventPlanTarea()));
+				PayloadIndicadorEventoPlanTareaResponse payloadIndicadorEventPlanTareaResponse = S.IndicadorEventoPlanTareaService
+						.consultarCriterios(TypeQuery.EQUAL, criterios);
+				if (UtilPayload.isOK(payloadEventPlanTareaResponse)) {
+					eventPlanTarea
+							.setIndicadorEventoPlanTareas(new ArrayList<IndicadorEventoPlanTarea>());
+					if (payloadIndicadorEventPlanTareaResponse.getObjetos() != null) {
+
+						for (IndicadorEventoPlanTarea indicadorEventPlanTarea : payloadIndicadorEventPlanTareaResponse
+								.getObjetos()) {
+							if (indicadorEventPlanTarea.getValorReal() == null) {
+								indicadorEventPlanTarea
+										.setValorReal(indicadorEventPlanTarea
+												.getValorEsperado());
+							}
+							eventPlanTarea.getIndicadorEventoPlanTareas().add(
+									indicadorEventPlanTarea);
+						}
+					}
+
+				}
+
+			}
+
+			BindUtils.postNotifyChange(null, null, this, "*");
+
+		}
+
+		return "";
+	}
+
 
 	@Override
 	public String executeCustom1(Integer currentStep) {
@@ -219,5 +284,13 @@ public class VM_RegistroResultadoEventoPlanificado extends VM_WindowWizard {
 	public void setIndexTarea(int indexTarea) {
 		this.indexTarea = indexTarea;
 	}
+
+
+	public EventoPlanificado getEventoPlanificadoSelectedObject() {
+		// TODO Auto-generated method stub
+		return (EventoPlanificado) getSelectedObject();
+	}
+	
+	
 
 }

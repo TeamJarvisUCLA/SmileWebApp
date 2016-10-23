@@ -1,3 +1,5 @@
+<?xel-method prefix="m" name="getUrlWeb" class="lights.smile.util.Zki" 
+	signature="java.lang.String getUrlWeb(java.lang.String)" ?>
 <zk xmlns:n="native" xmlns:w="client">
 
 	<window width="80%" sclass="window-dialog"
@@ -28,17 +30,33 @@
 			style="width: 90%; margin-left: 5%;padding-bottom: 5%;">
 
 			<listhead sizable="true">
-				<listheader label="Nombre" />
-				<listheader label="Apellido" />
+				<listheader width="10%" label="Imagen" />
+				<listheader width="15%" label="Cédula/RIF" />
+				<listheader width="15%" label="Nombre" />
+				<listheader width="20%" label="Apellido" />
+				<listheader width="20%" label="Correo" />
+				<listheader width="20%" label="Teléfono" />
 			</listhead>
 			<template name="model">
 				<listitem>
+					<listcell>
+						<div align="center"
+							visible="@load(not empty each.fkMultimedia and not empty each.fkMultimedia.url)">
+							<image
+								src="${m:getUrlWeb(each.fkMultimedia.url)}" width="30px"
+								height="30px" sclass="circle">
+							</image>
+						</div>
+					</listcell>
+					<listcell label="@load(each.identificacion)" />
 					<listcell label="@load(each.nombre)" />
 					<listcell label="@load(each.apellido)" />
+					<listcell label="@load(each.correo)" />
+					<listcell label="@load(each.telefono1)" />
 				</listitem>
 			</template>
 			<listfoot>
-				<listfooter id="listFoot" span="2"
+				<listfooter id="listFoot" span="6"
 					use="karen.core.listfoot.ListFoot">
 				</listfooter>
 			</listfoot>

@@ -1,4 +1,4 @@
-package ve.smile.reportes.trabajador.viewmodels;
+package ve.smile.reportes.ayuda.viewmodels;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -19,27 +19,32 @@ import org.zkoss.bind.annotation.Init;
 
 import ve.smile.consume.services.S;
 import ve.smile.dto.Fortaleza;
-import ve.smile.dto.Profesion;
-import ve.smile.dto.Trabajador;
-import ve.smile.enums.EstatusTrabajadorEnum;
-import ve.smile.payload.response.PayloadTrabajadorResponse;
+import ve.smile.dto.Recurso;
+import ve.smile.dto.Recurso;
+import ve.smile.dto.SolicitudAyuda;
+import ve.smile.enums.EstatusSolicitudEnum;
+import ve.smile.payload.response.PayloadSolicitudAyudaResponse;
 
-public class VM_ReporteTrabajadorIndex extends VM_WindowWizard {
+public class VM_ReporteAyudaIndex extends VM_WindowWizard {
 
 
-	private boolean profesionTrabajador = false;
+	private boolean recursoSolicitudAyuda = false;
 
-	private boolean fortalezaTrabajador = false;
+	private boolean fortalezaSolicitudAyuda = false;
 
 	private boolean redesSociales = false;
 
-	private boolean fechaIngreso = false;
+	private boolean fecha = false;
 
 
 
-	private boolean activo = false;
+	private boolean aprobadas = false;
 
-	private boolean egresado = false;
+	private boolean enProceso = false;
+	
+	private boolean rechazadas = false;
+	
+	private boolean pendientes = false;
 
 	private boolean todos = false;
 
@@ -65,18 +70,18 @@ public class VM_ReporteTrabajadorIndex extends VM_WindowWizard {
 
 	private Set<Fortaleza> fortalezasSeleccionados;
 
-	private List<Profesion> listProfesion = new ArrayList<>();
+	private List<Recurso> listRecurso = new ArrayList<>();
 
-	private Set<Profesion> profesionesSeleccionadas;
+	private Set<Recurso> recursosSeleccionadas;
 
-	private List<Trabajador> trabajadores;
+	private List<SolicitudAyuda> solicitudes;
 
 
-	String estatusTrabajadores = "";
+	String estatusSolicitudAyudas = "";
 
 	String fortalezasP = "";
 
-	String profesionesP = "";
+	String recursosP = "";
 
 	String tStatus = "";
 
@@ -87,7 +92,7 @@ public class VM_ReporteTrabajadorIndex extends VM_WindowWizard {
 
 	String tFortalezas = "";
 
-	String tProfesiones = "";
+	String tRecursos = "";
 
 
 	String fechaDesde = "";
@@ -102,27 +107,27 @@ public class VM_ReporteTrabajadorIndex extends VM_WindowWizard {
 
 		listFortalezas = S.FortalezaService.consultarTodos().getObjetos();
 
-		listProfesion = S.ProfesionService.consultarTodos().getObjetos();
+		listRecurso = S.RecursoService.consultarTodos().getObjetos();
 
 
 	}
 
 
 
-	public boolean isProfesionTrabajador() {
-		return profesionTrabajador;
+	public boolean isRecursoSolicitudAyuda() {
+		return recursoSolicitudAyuda;
 	}
 
-	public void setProfesionTrabajador(boolean profesionTrabajador) {
-		this.profesionTrabajador = profesionTrabajador;
+	public void setRecursoSolicitudAyuda(boolean recursoSolicitudAyuda) {
+		this.recursoSolicitudAyuda = recursoSolicitudAyuda;
 	}
 
-	public boolean isFortalezaTrabajador() {
-		return fortalezaTrabajador;
+	public boolean isFortalezaSolicitudAyuda() {
+		return fortalezaSolicitudAyuda;
 	}
 
-	public void setFortalezaTrabajador(boolean fortalezaTrabajador) {
-		this.fortalezaTrabajador = fortalezaTrabajador;
+	public void setFortalezaSolicitudAyuda(boolean fortalezaSolicitudAyuda) {
+		this.fortalezaSolicitudAyuda = fortalezaSolicitudAyuda;
 	}
 
 	public boolean isRedesSociales() {
@@ -133,12 +138,12 @@ public class VM_ReporteTrabajadorIndex extends VM_WindowWizard {
 		this.redesSociales = redesSociales;
 	}
 
-	public boolean isFechaIngreso() {
-		return fechaIngreso;
+	public boolean isFecha() {
+		return fecha;
 	}
 
-	public void setFechaIngreso(boolean fechaIngreso) {
-		this.fechaIngreso = fechaIngreso;
+	public void setFecha(boolean fecha) {
+		this.fecha = fecha;
 	}
 
 	
@@ -160,21 +165,21 @@ public class VM_ReporteTrabajadorIndex extends VM_WindowWizard {
 		this.fortalezasSeleccionados = fortalezasSeleccionados;
 	}
 
-	public List<Profesion> getListProfesion() {
-		return listProfesion;
+	public List<Recurso> getListRecurso() {
+		return listRecurso;
 	}
 
-	public void setListProfesion(List<Profesion> listProfesion) {
-		this.listProfesion = listProfesion;
+	public void setListRecurso(List<Recurso> listRecurso) {
+		this.listRecurso = listRecurso;
 	}
 
-	public Set<Profesion> getProfesionesSeleccionadas() {
-		return profesionesSeleccionadas;
+	public Set<Recurso> getRecursosSeleccionadas() {
+		return recursosSeleccionadas;
 	}
 
-	public void setProfesionesSeleccionadas(
-			Set<Profesion> profesionesSeleccionadas) {
-		this.profesionesSeleccionadas = profesionesSeleccionadas;
+	public void setRecursosSeleccionadas(
+			Set<Recurso> recursosSeleccionadas) {
+		this.recursosSeleccionadas = recursosSeleccionadas;
 	}
 
 	public List<String> getListRedesSociales() {
@@ -195,20 +200,36 @@ public class VM_ReporteTrabajadorIndex extends VM_WindowWizard {
 
 	
 
-	public boolean isActivo() {
-		return activo;
+	public boolean isAprobadas() {
+		return aprobadas;
 	}
 
-	public void setActivo(boolean activo) {
-		this.activo = activo;
+	public void setAprobadas(boolean aprobadas) {
+		this.aprobadas = aprobadas;
 	}
 
-	public boolean isEgresado() {
-		return egresado;
+	public boolean isEnProceso() {
+		return enProceso;
 	}
 
-	public void setEgresado(boolean egresado) {
-		this.egresado = egresado;
+	public void setEnProceso(boolean enProceso) {
+		this.enProceso = enProceso;
+	}
+	
+	public boolean isRechazadas() {
+		return rechazadas;
+	}
+
+	public void setRechazadas(boolean rechazadas) {
+		this.rechazadas = rechazadas;
+	}
+	
+	public boolean isPendientes() {
+		return pendientes;
+	}
+
+	public void setPendientes(boolean pendientes) {
+		this.pendientes = pendientes;
 	}
 
 	@Override
@@ -268,9 +289,9 @@ public class VM_ReporteTrabajadorIndex extends VM_WindowWizard {
 	public List<String> getUrlPageToStep() {
 		List<String> urls = new ArrayList<String>();
 
-		urls.add("views/desktop/reportes/trabajador/selectOpcionesReporteTrabajador.zul");
-		urls.add("views/desktop/reportes/trabajador/selectCompletado.zul");
-		urls.add("views/desktop/reportes/trabajador/viewReportPdfTrabajador.zul");
+		urls.add("views/desktop/reportes/ayudas/selectOpcionesReporteAyuda.zul");
+		urls.add("views/desktop/reportes/ayudas/selectCompletado.zul");
+		urls.add("views/desktop/reportes/ayudas/viewReportPdfAyuda.zul");
 
 		return urls;
 	}
@@ -346,9 +367,9 @@ public class VM_ReporteTrabajadorIndex extends VM_WindowWizard {
 			String sql = "";
 
 			if (todos) {
-				sql = "SELECT DISTINCT v FROM Trabajador v  WHERE  v.idTrabajador = v.idTrabajador ";
+				sql = "SELECT DISTINCT v FROM SolicitudAyuda v  WHERE  v.idSolicitudAyuda = v.idSolicitudAyuda ";
 
-				if (fechaIngreso) {
+				if (fecha) {
 					System.out.println("entro");
 					if (fechaDesdeDate == null && fechaHastaDate == null) {
 
@@ -368,9 +389,9 @@ public class VM_ReporteTrabajadorIndex extends VM_WindowWizard {
 						return "E:Error Code 5-No se puede ingresar una <b>Fecha Desde</b>  mayor a la <b>Fecha Hasta</b> ";
 
 					} else {
-						sql += " and v.fechaIngreso >= "
+						sql += " and v.fecha >= "
 								+ fechaDesdeDate.getTime()
-								+ " and v.fechaIngreso <= "
+								+ " and v.fecha <= "
 								+ fechaHastaDate.getTime() + " ";
 						System.out.println(sql);
 					}
@@ -379,9 +400,9 @@ public class VM_ReporteTrabajadorIndex extends VM_WindowWizard {
 			}
 
 			if (!todos) {
-				sql = "SELECT DISTINCT v FROM Trabajador v  WHERE  v.idTrabajador = v.idTrabajador ";
+				sql = "SELECT DISTINCT v FROM SolicitudAyuda v  WHERE  v.idSolicitudAyuda = v.idSolicitudAyuda ";
 
-				if (fechaIngreso) {
+				if (fecha) {
 					System.out.println("entro");
 					if (fechaDesdeDate == null && fechaHastaDate == null) {
 
@@ -402,68 +423,82 @@ public class VM_ReporteTrabajadorIndex extends VM_WindowWizard {
 
 					} else {
 						System.out.println("no llego al final");
-						sql += " and v.fechaIngreso >= "
+						sql += " and v.fecha >= "
 								+ fechaDesdeDate.getTime()
-								+ " and v.fechaIngreso <= "
+								+ " and v.fecha <= "
 								+ fechaHastaDate.getTime() + " ";
 						System.out.println(sql);
 					}
 				}
 
-				if ( egresado || activo) {
-					String estatusTrabajadores = "";
+				if ( aprobadas || enProceso || rechazadas || pendientes) {
+					String estatusSolicitudAyudas = "";
 
 					
 
-					if (egresado) {
-						estatusTrabajadores += EstatusTrabajadorEnum.INACTIVO
+					if (aprobadas) {
+						estatusSolicitudAyudas += EstatusSolicitudEnum.APROBADA
 								.ordinal() + ",";
-						estatusTrabajadores += EstatusTrabajadorEnum.INACTIVO
+						estatusSolicitudAyudas += EstatusSolicitudEnum.APROBADA
 								.ordinal() + " ";
 					}
 
-					if (activo) {
-						estatusTrabajadores += EstatusTrabajadorEnum.ACTIVO
+					if (enProceso) {
+						estatusSolicitudAyudas += EstatusSolicitudEnum.EN_PROCESO
 								.ordinal() + ",";
-						estatusTrabajadores += EstatusTrabajadorEnum.ACTIVO
+						estatusSolicitudAyudas += EstatusSolicitudEnum.EN_PROCESO
+								.ordinal() + " ";
+					}
+					
+					if (rechazadas) {
+						estatusSolicitudAyudas += EstatusSolicitudEnum.RECHAZADA
+								.ordinal() + ",";
+						estatusSolicitudAyudas += EstatusSolicitudEnum.RECHAZADA
 								.ordinal() + " ";
 					}
 
-					int tamano = estatusTrabajadores.length();
+					if (pendientes) {
+						estatusSolicitudAyudas += EstatusSolicitudEnum.PENDIENTE
+								.ordinal() + ",";
+						estatusSolicitudAyudas += EstatusSolicitudEnum.PENDIENTE
+								.ordinal() + " ";
+					}
 
-					char[] tmp = estatusTrabajadores.toCharArray();
+					int tamano = estatusSolicitudAyudas.length();
+
+					char[] tmp = estatusSolicitudAyudas.toCharArray();
 
 					tmp[tamano - 1] = ' ';
 
-					estatusTrabajadores = new String(tmp);
+					estatusSolicitudAyudas = new String(tmp);
 
-					sql += "and v.estatusTrabajador in(" + estatusTrabajadores
+					sql += "and v.estatusSolicitud in(" + estatusSolicitudAyudas
 							+ ")";
 				}
-				if (profesionTrabajador) {
+				if (recursoSolicitudAyuda) {
 
-					if (profesionesSeleccionadas != null) {
-						String profesiones = "";
+					if (recursosSeleccionadas != null) {
+						String recursos = "";
 						int i = 0;
 
-						for (Profesion profesion : profesionesSeleccionadas) {
+						for (Recurso recurso : recursosSeleccionadas) {
 							i++;
-							profesiones += profesion.getIdProfesion();
-							profesionesP += profesion.getNombre() + "," + " ";
+							recursos += recurso.getIdRecurso();
+							recursosP += recurso.getNombre() + "," + " ";
 
-							if (i != profesionesSeleccionadas.size()) {
-								profesiones += ",";
+							if (i != recursosSeleccionadas.size()) {
+								recursos += ",";
 							}
 
 						}
 						sql = sql.replace("WHERE",
-								", TrabajadorProfesion pv WHERE");
-						sql += " and pv.fkTrabajador.idTrabajador = v.idTrabajador and pv.fkProfesion.idProfesion in ("
-								+ profesiones + ")";
+								", SolicitudAyudaRecurso pv WHERE");
+						sql += " and pv.fkSolicitudAyuda.idSolicitudAyuda = v.idSolicitudAyuda and pv.fkRecurso.idRecurso in ("
+								+ recursos + ")";
 					}
 				}
 			}
-			if (fortalezaTrabajador) {
+			if (fortalezaSolicitudAyuda) {
 
 				if (fortalezasSeleccionados != null) {
 					String fortalezas = "";
@@ -479,46 +514,47 @@ public class VM_ReporteTrabajadorIndex extends VM_WindowWizard {
 						}
 					}
 					sql = sql
-							.replace("WHERE", ", TrabajadorFortaleza vf WHERE");
-					sql += " and vf.fkTrabajador.idTrabajador = v.idTrabajador and vf.fkFortaleza.idFortaleza in ("
+							.replace("WHERE", ", SolicitudAyudaFortaleza vf WHERE");
+					sql += " and vf.fkSolicitudAyuda.idSolicitudAyuda = v.idSolicitudAyuda and vf.fkFortaleza.idFortaleza in ("
 							+ fortalezas + ")";
 				}
 
 			}
 			
-			if (sql.equals("SELECT DISTINCT v FROM Trabajador v  WHERE  v.idTrabajador = v.idTrabajador ")
+			if (sql.equals("SELECT DISTINCT v FROM SolicitudAyuda v  WHERE  v.idSolicitudAyuda = v.idSolicitudAyuda ")
 					&& !todos) {
 				
-				return "E:Error Code 5-No se han seleccionados criterios para la consulta <b>Trabajadores</b>";
+				return "E:Error Code 5-No se han seleccionados criterios para la consulta <b>SolicitudAyudas</b>";
 
 			}
 
 			System.out.println(sql);
-			PayloadTrabajadorResponse payloadTrabajadorResponse = S.TrabajadorService
-					.consultaTrabajadoresParametrizado(sql);
-			List<Trabajador> listTrabajadores = payloadTrabajadorResponse
+			PayloadSolicitudAyudaResponse payloadSolicitudAyudaResponse = S.SolicitudAyudaService
+					.consultaSolicitudesParametrizado(sql);
+			List<SolicitudAyuda> listSolicitudAyudas = payloadSolicitudAyudaResponse
 					.getObjetos();
-			this.getTrabajadores().addAll(listTrabajadores);
+			System.out.println(listSolicitudAyudas);
+			this.getSolicitudAyudas().addAll(listSolicitudAyudas);
 
-			if (listTrabajadores.isEmpty()) {
-				return "E:Error Code 5-Los criterios seleccionados no aportan información para <b>Trabajadores</b>";
+			if (listSolicitudAyudas.isEmpty()) {
+				return "E:Error Code 5-Los criterios seleccionados no aportan información para <b>SolicitudAyudas</b>";
 			}
-			for(Trabajador trabajador : listTrabajadores){
-				System.out.println(trabajador.getEstatusTrabajador());
+			for(SolicitudAyuda solicitud : listSolicitudAyudas){
+				System.out.println(solicitud.getEstatusSolicitud());
 			}
 
-			jrDataSource = new JRBeanCollectionDataSource(listTrabajadores);
+			jrDataSource = new JRBeanCollectionDataSource(listSolicitudAyudas);
 		}
 		if (currentStep == 2) {
 			type = "pdf";
-			if (!estatusTrabajadores.equals("")) {
+			if (!estatusSolicitudAyudas.equals("")) {
 				tStatus = "Estatus";
 			}
 			if (!fortalezasP.equals("")) {
 				tFortalezas = "Fortalezas";
 			}
-			if (!profesionesP.equals("")) {
-				tProfesiones = "Profesiones";
+			if (!recursosP.equals("")) {
+				tRecursos = "Recursos";
 			}
 			
 			fechaDesde = fechaDesdeDate == null ? "" : UtilConverterDataList
@@ -539,23 +575,23 @@ public class VM_ReporteTrabajadorIndex extends VM_WindowWizard {
 
 			parametros.put("fechaHasta", fechaHasta);
 
-			parametros.put("titulo", "TRABAJADORES");
+			parametros.put("titulo", "Solicitud de Ayudas");
 
 			parametros.put("tEstatus", tStatus);
 
 			parametros.put("tFortalezas", tFortalezas);
 
-			parametros.put("tProfesiones", tProfesiones);
+			parametros.put("tRecursos", tRecursos);
 
 
-			parametros.put("estatusTrabajadores", estatusTrabajadores);
+			parametros.put("estatusSolicitudAyudas", estatusSolicitudAyudas);
 
 			parametros.put("fortalezasP", fortalezasP);
 
-			parametros.put("profesionesP", profesionesP);
+			parametros.put("recursosP", recursosP);
 
 
-			source = "reporte/reportTrabajadoresParametrizados.jasper";
+			source = "reporte/reportAyudasParametrizados.jasper";
 		}
 
 		return "";
@@ -591,15 +627,15 @@ public class VM_ReporteTrabajadorIndex extends VM_WindowWizard {
 		this.parametros = parametros;
 	}
 
-	public List<Trabajador> getTrabajadores() {
-		if (this.trabajadores == null) {
-			this.trabajadores = new ArrayList<>();
+	public List<SolicitudAyuda> getSolicitudAyudas() {
+		if (this.solicitudes == null) {
+			this.solicitudes = new ArrayList<>();
 		}
-		return trabajadores;
+		return solicitudes;
 	}
 
-	public void setTrabajadores(List<Trabajador> trabajadores) {
-		this.trabajadores = trabajadores;
+	public void setSolicitudAyudas(List<SolicitudAyuda> solicitudes) {
+		this.solicitudes = solicitudes;
 	}
 
 	public JRDataSource getJrDataSource() {
@@ -612,12 +648,12 @@ public class VM_ReporteTrabajadorIndex extends VM_WindowWizard {
 
 
 
-	public String getEstatusTrabajadores() {
-		return estatusTrabajadores;
+	public String getEstatusSolicitudAyudas() {
+		return estatusSolicitudAyudas;
 	}
 
-	public void setEstatusTrabajadores(String estatusTrabajadores) {
-		this.estatusTrabajadores = estatusTrabajadores;
+	public void setEstatusSolicitudAyudas(String estatusSolicitudAyudas) {
+		this.estatusSolicitudAyudas = estatusSolicitudAyudas;
 	}
 
 	public String getFortalezasP() {
@@ -628,12 +664,12 @@ public class VM_ReporteTrabajadorIndex extends VM_WindowWizard {
 		this.fortalezasP = fortalezasP;
 	}
 
-	public String getProfesionesP() {
-		return profesionesP;
+	public String getRecursosP() {
+		return recursosP;
 	}
 
-	public void setProfesionesP(String profesionesP) {
-		this.profesionesP = profesionesP;
+	public void setRecursosP(String recursosP) {
+		this.recursosP = recursosP;
 	}
 
 
@@ -672,12 +708,12 @@ public class VM_ReporteTrabajadorIndex extends VM_WindowWizard {
 		this.tFortalezas = tFortalezas;
 	}
 
-	public String gettProfesiones() {
-		return tProfesiones;
+	public String gettRecursos() {
+		return tRecursos;
 	}
 
-	public void settProfesiones(String tProfesiones) {
-		this.tProfesiones = tProfesiones;
+	public void settRecursos(String tRecursos) {
+		this.tRecursos = tRecursos;
 	}
 
 

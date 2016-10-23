@@ -5,169 +5,692 @@
 	<div width="80%" class="container ${arg.animation_}"
 		use="karen.core.form.controllers.C_WindowForm"
 		apply="org.zkoss.bind.BindComposer"
-		viewModel="@id('vm') @init('ve.smile.administracion.organizacion.viewmodels.VM_OrganizacionFormBasic')">
+		viewModel="@id('vm') @init('ve.smile.administracion.perfil.viewmodels.VM_PerfilFormBasic')">
 
 		<div class="row">
-			<div class="col s12">
+			<div sclass="col s12 form">
 
 				<tabbox id="tb" class="rtab ltab">
 					<tabs id="tabs">
-						<tab id="tabDatosOrganizacion"
-							label="Datos de la Organización" selected="true" />
-						<tab id="tabContacto" label="Datos de contacto" />
-						<tab id="tabUbicacion"
-							label="Datos de Ubicación" />
+						<tab id="tabDatosUsuario"
+							label="Datos del Usuario" />
+						<tab id="tabDatosPersonales"
+							label="Datos principales" selected="true" />
+						<tab id="tabDatosContacto"
+							label="Información de contacto" />
 					</tabs>
 
 					<tabpanels>
-						<tabpanel>
+						<tabpanel sclass="animated fadeIn">
+
+
+						</tabpanel>
+						<tabpanel sclass="animated fadeIn">
+							<div class="input-field col s6">
+								<n:label for="tipo_persona"
+									class="active">
+									Tipo de persona
+								</n:label>
+								<combobox id="tipo_persona"
+									model="@bind(vm.tipoPersonaEnums)" readonly="true"
+									disabled="true" selectedItem="@bind(vm.tipoPersonaEnum)">
+									<template name="model">
+										<comboitem label="@load(each )" />
+									</template>
+								</combobox>
+								<span
+									sclass="fa fa-question-circle fa-lg help-icon-special"
+									tooltip="pop_persona, position=after_end" />
+							</div>
+
+							<popup id="pop_persona" width="200px">
+								<html>
+
+
+
+
+
+
+									
+									<![CDATA[Por favor, seleccione el
+									tipo de persona que desea
+									registrar.<br/>]]>
+									
+									
+									
+									
+									
+									
+									
+        						</html>
+							</popup>
 
 							<div class="input-field col s6">
-								<n:label for="rif">Rif</n:label>
-								<textbox id="rif" type="text"
-									maxlength="100" value="@bind(vm.organizacion.rif)">
+								<n:label for="identificacion">
+									Cédula
+								</n:label>
+								<textbox id="identificacion" type="text"
+									value="@bind(vm.persona.identificacion)">
 								</textbox>
+								<span
+									sclass="fa fa-question-circle fa-lg help-icon-special"
+									tooltip="pop_identificacion, position=after_end" />
 							</div>
+
+							<popup id="pop_identificacion"
+								width="200px">
+								<html>
+
+
+
+
+
+
+									
+									<![CDATA[Por favor, ingrese el
+									número de cédula del voluntario que
+									desea registrar.<br/>]]>
+									
+									
+									
+									
+									
+									
+									
+        						</html>
+							</popup>
+
 							<div class="input-field col s6">
 								<n:label for="nombre">Nombre</n:label>
+								<span
+									sclass="fa fa-question-circle fa-lg help-icon-special"
+									tooltip="pop_nombre, position=after_end" />
 								<textbox id="nombre" type="text"
-									maxlength="100" value="@bind(vm.organizacion.nombre)">
+									value="@bind(vm.persona.nombre)">
 								</textbox>
 							</div>
 
-							<div class="input-field col s5">
+							<popup id="pop_nombre" width="200px">
+								<html>
+
+
+
+
+
+
+									
+									<![CDATA[Por favor, ingrese el
+									nombre del voluntario que desea
+									registrar.<br/>]]>
+									
+									
+									
+									
+									
+									
+									
+        						</html>
+							</popup>
+
+							<div class="input-field col s6">
+								<n:label for="apellido">
+									Apellido
+								</n:label>
+								<span
+									sclass="fa fa-question-circle fa-lg help-icon-special"
+									tooltip="pop_apellido, position=after_end" />
+								<textbox id="apellido" type="text"
+									value="@bind(vm.persona.apellido)">
+								</textbox>
+							</div>
+
+							<popup id="pop_apellido" width="200px">
+								<html>
+
+
+
+
+
+
+									
+									<![CDATA[Por favor, ingrese el
+									apellido del voluntario que desea
+									registrar.<br/>]]>
+									
+									
+									
+									
+									
+									
+									
+        						</html>
+							</popup>
+
+							<div class="input-field col s6">
+								<n:label for="sexo" class="active">
+									Sexo
+								</n:label>
+								<span
+									sclass="fa fa-question-circle fa-lg help-icon-special"
+									tooltip="pop_sexo, position=after_end" />
+								<combobox id="sexo" readonly="true"
+									model="@bind(vm.sexoEnums)"
+									selectedItem="@bind(vm.sexoEnum)">
+									<template name="model" var="sexo">
+										<comboitem label="@bind(sexo)" />
+									</template>
+								</combobox>
+							</div>
+
+							<popup id="pop_sexo" width="200px">
+								<html>
+
+
+
+
+
+
+									
+									<![CDATA[Por favor, seleccione el
+									sexo del voluntario que desea
+									registrar.<br/>]]>
+									
+									
+									
+									
+									
+									
+									
+        						</html>
+							</popup>
+
+							<div class="input-field col s6">
+								<n:label for="fecha_nacimiento"
+									class="active">
+									Fecha de nacimiento
+								</n:label>
+								<span
+									sclass="fa fa-question-circle fa-lg help-icon-special"
+									tooltip="pop_fechaNacimiento, position=after_end" />
+								<datebox id="db" cols="20"
+									readonly="true" format="dd/MM/yyyy"
+									value="@bind(vm.fechaNacimiento)" />
+							</div>
+
+							<popup id="pop_fechaNacimiento"
+								width="200px">
+								<html>
+
+
+
+
+
+
+									
+									<![CDATA[Por favor, seleccione la
+									fecha de nacimiento del voluntario
+									que desea registrar.<br/>]]>
+									
+									
+									
+									
+									
+									
+									
+        						</html>
+							</popup>
+
+							<div class="input-field col s6">
+								<n:label class="active"
+									for="fk_estado">
+									Estado
+								</n:label>
+								<span
+									sclass="fa fa-question-circle fa-lg help-icon-special"
+									tooltip="pop_estado, position=after_end" />
+								<combobox id="fk_estado" readonly="true"
+									placeholder="Seleccione un estado" instant="true"
+									onSelect="@command('changeEstado')" model="@bind(vm.estados)"
+									selectedItem="@bind(vm.estado)">
+									<template name="model">
+										<comboitem
+											label="@load(each.nombre)" />
+									</template>
+								</combobox>
+							</div>
+
+							<popup id="pop_estado" width="200px">
+								<html>
+
+
+
+
+
+
+									
+									<![CDATA[Por favor, seleccione el
+									estado del país donde reside el
+									voluntario que desea
+									registrar.<br/>]]>
+									
+									
+									
+									
+									
+									
+									
+        						</html>
+							</popup>
+
+							<div class="input-field col s6">
+								<n:label class="active"
+									for="fk_ciudad">
+									Ciudad
+								</n:label>
+								<span
+									sclass="fa fa-question-circle fa-lg help-icon-special"
+									tooltip="pop_ciudad, position=after_end" />
+								<combobox id="fk_ciudad" readonly="true"
+									placeholder="Seleccione una ciudad"
+									disabled="@load(empty vm.ciudades)" model="@bind(vm.ciudades)"
+									selectedItem="@bind(vm.persona.fkCiudad)">
+									<template name="model">
+										<comboitem
+											label="@load(each.nombre)" />
+									</template>
+								</combobox>
+							</div>
+
+							<popup id="pop_ciudad" width="200px">
+								<html>
+
+
+
+
+
+
+									
+									<![CDATA[Por favor, seleccione la
+									ciudad del país donde reside el
+									voluntario que desea
+									registrar.<br/>]]>
+									
+									
+									
+									
+									
+									
+									
+        						</html>
+							</popup>
+
+							<div class="input-field col s6">
+								<n:label for="direccion">
+									Dirección
+								</n:label>
+								<span
+									sclass="fa fa-question-circle fa-lg help-icon-special"
+									tooltip="pop_direccion, position=after_end" />
+								<textbox id="direccion" type="text"
+									sclass="materialize-textarea" multiline="true"
+									value="@bind(vm.persona.direccion)">
+								</textbox>
+							</div>
+
+							<popup id="pop_direccion" width="200px">
+								<html>
+									<![CDATA[Por favor, ingrese la
+									dirección del voluntario que desea
+									registrar.<br/>]]>
+
+        						</html>
+							</popup>
+
+							<div class="col s12" style="padding:0px;">
 								<div class="input-field col s12">
-									<label class="center-transform-x"
-										style="    color: #a6a6a6;font-size: 17px;">
-										Imagen del Trabajo Social
-									</label>
+									<span style="float:right"
+										sclass="fa fa-question-circle fa-lg help-icon"
+										tooltip="pop_imagen, position=after_end" />
 									<uploadImageSingle maxsize="9000"
-										size="200" idUpload="1" title="" />
+										size="200" idUpload="1" title="Imagen del voluntario" />
 								</div>
 							</div>
 
-							<div class="input-field col s12">
-								<n:label for="descripcion">
-									Descripción
-								</n:label>
-								<textbox id="descripcion" type="text"
-									multiline="true" class="materialize-textarea" maxlength="500"
-									value="@bind(vm.organizacion.descripcion)">
-								</textbox>
-							</div>
+							<popup id="pop_multimedia" width="200px">
+								<html>
 
-							<div class="input-field col s12">
-								<n:label for="mision">Misión</n:label>
-								<textbox id="mision" type="text"
-									multiline="true" class="materialize-textarea" maxlength="500"
-									value="@bind(vm.organizacion.mision)">
-								</textbox>
-							</div>
 
-							<div class="input-field col s12">
-								<n:label for="vision">Visión</n:label>
-								<textbox id="vision" type="text"
-									multiline="true" class="materialize-textarea" maxlength="500"
-									value="@bind(vm.organizacion.vision)">
-								</textbox>
-							</div>
 
-							<div class="input-field col s6">
-								<n:label for="slogan">Slogan</n:label>
-								<textbox id="slogan" type="text"
-									multiline="true" class="materialize-textarea" maxlength="500"
-									value="@bind(vm.organizacion.slogan)">
-								</textbox>
-							</div>
+
+
+
+									
+									<![CDATA[Por favor, seleccione el
+									archivo de imagen para el voluntario
+									que desea registrar.<br/>]]>
+									
+									
+									
+									
+									
+									
+									
+        						</html>
+							</popup>
 
 						</tabpanel>
 
-						<tabpanel>
+						<tabpanel sclass="animated fadeIn">
+
 							<div class="input-field col s6">
-								<n:label for="correo" class="active">
-									Correo
+								<n:label class="active"
+									for="telefono_1">
+									Teléfono 1
 								</n:label>
-								<textbox id="correo" type="text"
-									maxlength="100" value="@bind(vm.organizacion.correo)">
+								<span
+									sclass="fa fa-question-circle fa-lg help-icon-special"
+									tooltip="pop_telefono1, position=after_end" />
+								<textbox id="telefono_1" type="text"
+									value="@bind(vm.persona.telefono1)">
 								</textbox>
 							</div>
+
+							<popup id="pop_telefono1" width="200px">
+								<html>
+
+
+
+
+
+
+									
+									<![CDATA[Por favor, ingrese el
+									número telefónico del voluntario que
+									desea registrar.<br/>]]>
+									
+									
+									
+									
+									
+									
+									
+        						</html>
+							</popup>
+
 							<div class="input-field col s6">
-								<n:label for="telefono"
-									class="active">
-									Telefono
+								<n:label class="active"
+									for="telefono_2">
+									Teléfono 2
 								</n:label>
-								<textbox id="telefono" type="text"
-									maxlength="100" value="@bind(vm.organizacion.telefono)">
+								<span
+									sclass="fa fa-question-circle fa-lg help-icon-special"
+									tooltip="pop_telefono2, position=after_end" />
+								<textbox id="telefono_2" type="text"
+									value="@bind(vm.persona.telefono2)">
 								</textbox>
 							</div>
+
+							<popup id="pop_telefono2" width="200px">
+								<html>
+
+
+
+
+
+
+									
+									<![CDATA[Por favor, ingrese el
+									número telefónico del voluntario que
+									desea registrar.<br/>]]>
+									
+									
+									
+									
+									
+									
+									
+        						</html>
+							</popup>
+
 							<div class="input-field col s6">
-								<n:label for="telefono2"
-									class="active">
-									Telefono2
-								</n:label>
-								<textbox id="telefono2" type="text"
-									maxlength="100" value="@bind(vm.organizacion.telefono2)">
-								</textbox>
-							</div>
-							<div class="input-field col s6">
-								<n:label for="fax" class="active">
+								<n:label class="active" for="fax">
 									Fax
 								</n:label>
+								<span
+									sclass="fa fa-question-circle fa-lg help-icon-special"
+									tooltip="pop_fax, position=after_end" />
 								<textbox id="fax" type="text"
-									maxlength="100" value="@bind(vm.organizacion.fax)">
+									value="@bind(vm.persona.fax)">
 								</textbox>
 							</div>
 
-						</tabpanel>
+							<popup id="pop_fax" width="200px">
+								<html>
 
-						<tabpanel>
-							<div class="input-field col s12">
-								<n:label for="direccion"
-									class="active">
-									Dirección
-								</n:label>
-								<textbox id="direccion" type="text"
-									multiline="true" class="materialize-textarea" maxlength="500"
-									value="@bind(vm.organizacion.direccion)">
-								</textbox>
-							</div>
 
-							<div class="input-field col s12">
-								<n:label for="direccion2"
-									class="active">
-									Dirección2
-								</n:label>
-								<textbox id="direccion2" type="text"
-									multiline="true" class="materialize-textarea" maxlength="500"
-									value="@bind(vm.organizacion.direccion2)">
-								</textbox>
-							</div>
+
+
+
+
+									
+									<![CDATA[Por favor, ingrese el
+									número de fax del voluntario que
+									desea registrar.<br/>]]>
+									
+									
+									
+									
+									
+									
+									
+        						</html>
+							</popup>
 
 							<div class="input-field col s6">
-								<n:label for="latitud" class="active">
-									Latitud
+								<n:label class="active" for="correo">
+									Correo electrónico
 								</n:label>
-								<textbox id="latitud" type="text"
-									maxlength="100" value="@bind(vm.organizacion.latitud)">
+								<span
+									sclass="fa fa-question-circle fa-lg help-icon-special"
+									tooltip="pop_correo, position=after_end" />
+								<textbox id="correo" type="text"
+									value="@bind(vm.persona.correo)">
 								</textbox>
 							</div>
-							<div class="input-field col s6">
-								<n:label for="longitud"
-									class="active">
-									Longitud
-								</n:label>
-								<textbox id="longitud" type="text"
-									maxlength="100" value="@bind(vm.organizacion.longitud)">
-								</textbox>
-							</div>
-						</tabpanel>
 
+							<popup id="pop_correo" width="200px">
+								<html>
+
+
+
+
+
+
+									
+									<![CDATA[Por favor, ingrese la
+									dirección de correo electrónico del
+									voluntario que desea
+									registrar.<br/>]]>
+									
+									
+									
+									
+									
+									
+									
+        						</html>
+							</popup>
+
+							<div class="input-field col s6">
+								<n:label class="active" for="twitter">
+									Twitter
+								</n:label>
+								<span
+									sclass="fa fa-question-circle fa-lg help-icon-special"
+									tooltip="pop_twitter, position=after_end" />
+								<textbox id="twitter" type="text"
+									value="@bind(vm.persona.twitter)">
+								</textbox>
+							</div>
+
+							<popup id="pop_twitter" width="200px">
+								<html>
+
+
+
+
+
+
+									
+									<![CDATA[Por favor, ingrese el
+									usuario de Twitter del voluntario
+									que desea registrar.<br/>]]>
+									
+									
+									
+									
+									
+									
+									
+        						</html>
+							</popup>
+
+							<div class="input-field col s6">
+								<n:label class="active"
+									for="instagram">
+									Instagram
+								</n:label>
+								<span
+									sclass="fa fa-question-circle fa-lg help-icon-special"
+									tooltip="pop_instagram, position=after_end" />
+								<textbox id="instagram" type="text"
+									value="@bind(vm.persona.instagram)">
+								</textbox>
+							</div>
+
+							<popup id="pop_instagram" width="200px">
+								<html>
+
+
+
+
+
+
+									
+									<![CDATA[Por favor, ingrese el
+									usuario de Instagram del voluntario
+									que desea registrar.<br/>]]>
+									
+									
+									
+									
+									
+									
+									
+        						</html>
+							</popup>
+
+							<div class="input-field col s6">
+								<n:label class="active"
+									for="facebook">
+									Facebook
+								</n:label>
+								<span
+									sclass="fa fa-question-circle fa-lg help-icon-special"
+									tooltip="pop_facebook, position=after_end" />
+								<textbox id="facebook" type="text"
+									value="@bind(vm.persona.facebook)">
+								</textbox>
+							</div>
+
+							<popup id="pop_facebook" width="200px">
+								<html>
+
+
+
+
+
+
+									
+									<![CDATA[Por favor, ingrese el
+									usuario de Facebook del voluntario
+									que desea registrar.<br/>]]>
+									
+									
+									
+									
+									
+									
+									
+        						</html>
+							</popup>
+
+							<div class="input-field col s6">
+								<n:label class="active"
+									for="linkedin">
+									LinkedIn
+								</n:label>
+								<span
+									sclass="fa fa-question-circle fa-lg help-icon-special"
+									tooltip="pop_linkedin, position=after_end" />
+								<textbox id="linkedin" type="text"
+									value="@bind(vm.persona.linkedin)">
+								</textbox>
+							</div>
+
+							<popup id="pop_linkedin" width="200px">
+								<html>
+
+
+
+
+
+
+									
+									<![CDATA[Por favor, ingrese el
+									usuario de LinkedIn del voluntario
+									que desea registrar.<br/>]]>
+									
+									
+									
+									
+									
+									
+									
+        						</html>
+							</popup>
+
+							<div class="input-field col s6">
+								<n:label class="active"
+									for="sitioWeb">
+									Sitio web
+								</n:label>
+								<span
+									sclass="fa fa-question-circle fa-lg help-icon-special"
+									tooltip="pop_sitioWeb, position=after_end" />
+								<textbox id="sitioWeb" type="text"
+									value="@bind(vm.persona.sitioWeb)">
+								</textbox>
+							</div>
+
+							<popup id="pop_sitioWeb" width="200px">
+								<html>
+									
+									<![CDATA[Por favor, ingrese el sitio
+									web del voluntario que desea
+									registrar.<br/>]]>
+
+        						</html>
+							</popup>
+
+						</tabpanel>
 					</tabpanels>
 
 				</tabbox>
 
 			</div>
 		</div>
+
 		<div id="divButtonsForm"
 			use="karen.core.form.buttons.containers.DivButtonsForm">
 		</div>

@@ -1,166 +1,219 @@
-<div sclass="navbar" apply="karen.core.crux.navbar.NavbarTop"
-	style="background-image: url(imagenes/banner-principalx1300.png); height: 177px;  background-size: cover; background-repeat: no-repeat;">
-	<style>
-		.z-hlayout-inner{ vertical-align: bottom !important; }
-	</style>
-	<!-- Brand Logo
-		<a label="Promo 54" sclass="pull-left navbar-brand" iconSclass="fa fa-graduation-cap"/> -->
-	<!-- Navbar -->
-	<hlayout sclass="nav-user pull-right"
-		style="vertical-align: bottom !important;">
-		<!-- 		<a id="atask" iconSclass="z-icon-tasks" -->
-		<!-- 			popup="taskpp, position=after_end, type=toggle" -->
-		<!-- 			sclass="pink darken-3"> -->
-		<!-- 			<label value="4" sclass="badge_theme pink accent-2 badge" /> -->
-		<!-- 		</a> -->
-		<a id="anoti" iconSclass="z-icon-bell"
-			style="vertical-align: bottom; margin-bottom: 26px;"
-			popup="notipp, position=after_end, type=toggle">
-			<label value="8" sclass="badge_theme badge" />
-		</a>
-		<!-- 		<a id="amsg" iconSclass="z-icon-envelope" -->
-		<!-- 			popup="msgpp, position=after_end, type=toggle" -->
-		<!-- 			sclass="light-blue darken-4"> -->
-		<!-- 			<label value="5" -->
-		<!-- 				sclass="badge_theme light-blue darken-1 badge" /> -->
-		<!-- 		</a> -->
+<?xel-method prefix="m" name="convertirLongADate" class="lights.smile.util.UtilConverterDataList" signature="java.lang.String convertirLongADate(Long)"?>
 
-		<vlayout spacing="0" style="padding-bottom: 0px;">
+<zk xmlns:n="native" xmlns:w="client">
+	<div sclass="navbar" apply="karen.core.crux.navbar.NavbarTop"
+		style="background-image: url(imagenes/banner-principalx1300.png); height: 177px;  background-size: cover; background-repeat: no-repeat;">
+		<style>
+			.z-hlayout-inner{ vertical-align: bottom !important; }
+		</style>
+		<!-- Brand Logo
+			<a label="Promo 54" sclass="pull-left navbar-brand" iconSclass="fa fa-graduation-cap"/> -->
+		<!-- Navbar -->
+		<hlayout sclass="nav-user pull-right"
+			style="vertical-align: bottom !important;">
+			<!-- 		<a id="atask" iconSclass="z-icon-tasks" -->
+			<!-- 			popup="taskpp, position=after_end, type=toggle" -->
+			<!-- 			sclass="pink darken-3"> -->
+			<!-- 			<label value="4" sclass="badge_theme pink accent-2 badge" /> -->
+			<!-- 		</a> -->
+			<a id="anoti" iconSclass="z-icon-bell"
+				style="vertical-align: bottom; margin-bottom: 26px;"
+				popup="notipp, position=after_end, type=toggle">
+				<label value="@bind(vm.sizeNotificaciones)"
+					sclass="badge_theme badge" />
+			</a>
+			<!-- 		<a id="amsg" iconSclass="z-icon-envelope" -->
+			<!-- 			popup="msgpp, position=after_end, type=toggle" -->
+			<!-- 			sclass="light-blue darken-4"> -->
+			<!-- 			<label value="5" -->
+			<!-- 				sclass="badge_theme light-blue darken-1 badge" /> -->
+			<!-- 		</a> -->
 
-			<!-- User menu -->
-			<menubar sclass="user-menu valign-wrapper dropdown-toggle"
-				style="margin-top: 67px;">
-				<menu id="menuImagen" tooltiptext="Andrés Avatar"
-					label="Bienvenido, Andrés">
-					<menupopup>
-						<menuitem label="Configuraciones"
-							iconSclass="z-icon-cog" />
-						<menuitem id="lblProfile" label="Perfil"
-							iconSclass="z-icon-user" />
-						<menuseparator />
-						<menuitem id="lblLogout" label="Cerrar Sesión"
-							iconSclass="z-icon-off" />
-					</menupopup>
-				</menu>
-			</menubar>
-		</vlayout>
-	</hlayout>
-	<!-- Popups of navbar -->
-	<!--
-		<popup id="taskpp" sclass="menu" width="240px">
-		<a label="4 Tasks to complete" sclass="header" iconSclass="z-icon-check"/>
-		<vlayout spacing="0">
-		<a href="#">
-		<div>
-		<label class="pull-left" value="Software Update"/>
-		<label class="pull-right" value="65%"/>
-		</div>
-		<progressmeter value="65" width="100%"/>
-		</a>
-		<a href="#">
-		<div>
-		<label class="pull-left" value="Hardware Upgrade"/>
-		<label class="pull-right" value="35%"/>
-		</div>
-		<progressmeter value="35" width="100%" sclass="progressmeter-danger"/>
-		</a>
-		<a href="#">
-		<div>
-		<label class="pull-left" value="Unit Testing"/>
-		<label class="pull-right" value="15%"/>
-		</div>
-		<progressmeter value="15" width="100%" sclass="progressmeter-warning"/>
-		</a>
-		<a href="#">
-		<div>
-		<label class="pull-left" value="Bug Fixes"/>
-		<label class="pull-right" value="90%"/>
-		</div>
-		<progressmeter value="90" width="100%" sclass="progressmeter-success striped active"/>
-		</a>
-		<a label="See tasks with details" href="#"><span class="z-icon-arrow-right"/></a>
-		</vlayout>
+			<vlayout spacing="0" style="padding-bottom: 0px;">
+
+				<!-- User menu -->
+				<menubar
+					sclass="user-menu valign-wrapper dropdown-toggle"
+					style="margin-top: 67px;">
+					<menu id="menuImagen"
+						tooltiptext="@bind(vm.nombreUsuario)"
+						label="@bind(('Bienvenido, ').concat(vm.nombreUsuario))">
+						<menupopup>
+							<menuitem label="Configuraciones"
+								iconSclass="z-icon-cog" />
+							<menuitem id="lblProfile" label="Perfil"
+								iconSclass="z-icon-user" />
+							<menuseparator />
+							<menuitem id="lblLogout"
+								label="Cerrar Sesión" iconSclass="z-icon-off" />
+						</menupopup>
+					</menu>
+				</menubar>
+			</vlayout>
+		</hlayout>
+		<!-- Popups of navbar -->
+		<!--
+			<popup id="taskpp" sclass="menu" width="240px">
+			<a label="4 Tasks to complete" sclass="header" iconSclass="z-icon-check"/>
+			<vlayout spacing="0">
+			<a href="#">
+			<div>
+			<label class="pull-left" value="Software Update"/>
+			<label class="pull-right" value="65%"/>
+			</div>
+			<progressmeter value="65" width="100%"/>
+			</a>
+			<a href="#">
+			<div>
+			<label class="pull-left" value="Hardware Upgrade"/>
+			<label class="pull-right" value="35%"/>
+			</div>
+			<progressmeter value="35" width="100%" sclass="progressmeter-danger"/>
+			</a>
+			<a href="#">
+			<div>
+			<label class="pull-left" value="Unit Testing"/>
+			<label class="pull-right" value="15%"/>
+			</div>
+			<progressmeter value="15" width="100%" sclass="progressmeter-warning"/>
+			</a>
+			<a href="#">
+			<div>
+			<label class="pull-left" value="Bug Fixes"/>
+			<label class="pull-right" value="90%"/>
+			</div>
+			<progressmeter value="90" width="100%" sclass="progressmeter-success striped active"/>
+			</a>
+			<a label="See tasks with details" href="#"><span class="z-icon-arrow-right"/></a>
+			</vlayout>
+			</popup>
+		-->
+		<popup id="notipp" sclass="menu menu-pink before-reajust"
+			width="240px">
+			<a sclass="header"
+				iconSclass="z-icon-exclamation-triangle">
+				<label value="@bind(vm.sizeNotificaciones)"></label>
+				<label value="  Notificaciones Pendientes"></label>
+			</a>
+			<vlayout spacing="0">
+				<div id="listaNotificaciones" sclass="menu-pink"
+					children="@bind(vm.notificaciones)"
+					style="border:none; border-bottom: 1px solid #E4E6E9;  max-height: 116px;overflow-y: auto;">
+					<template name="children">
+						<a style="border-bottom: 1px solid #E4E6E9;">
+							<div sclass="menu-pink">
+								<span
+									style="background-color: #f26b7a!important;border-color: #f26b7a;"
+									visible="@bind(each.tipoReferenciaNotificacionEnum eq 'EVENTO')"
+									sclass="btn-noti no-hover  btn-grid fa-circle-o fa">
+								</span>
+								<span
+									style="background-color: #b42233!important;border-color: #b42233;"
+									visible="@bind(each.tipoReferenciaNotificacionEnum eq 'TRABAJO_SOCIAL')"
+									sclass="btn-noti no-hover  btn-grid fa-circle-o fa">
+								</span>
+								<span
+									style="background-color: #8ac7de !important; border-color:#8ac7de;"
+									visible="@bind(each.tipoReferenciaNotificacionEnum eq 'ACTIVIDAD')"
+									sclass="btn-noti no-hover  btn-grid fa-circle-o fa">
+								</span>
+								<span
+									style="background-color: #b385a1 !important; border-color:#b385a1;"
+									visible="@bind(each.tipoReferenciaNotificacionEnum eq 'TAREA')"
+									sclass="btn-noti no-hover  btn-grid fa-circle-o fa">
+								</span>
+								<span
+									style="background-color:  #c2d62d !important; border-color: #c2d62d;"
+									visible="@bind(each.tipoReferenciaNotificacionEnum eq 'DIFUSION')"
+									sclass="btn-noti no-hover  btn-grid fa-circle-o fa">
+								</span>
+								<span
+									style="background-color: #aaaf7c!important; border-color: #aaaf7c;"
+									visible="@bind(each.tipoReferenciaNotificacionEnum eq 'RECONOCIMIENTO')"
+									sclass="btn-noti no-hover  btn-grid fa-circle-o fa">
+								</span>
+								<span
+									style="background-color:  #594e46!important; border-color: #594e46"
+									visible="@bind(each.tipoReferenciaNotificacionEnum eq 'CAPACITACION')"
+									sclass="btn-noti no-hover  btn-grid fa-circle-o fa">
+								</span>
+								<label style="font-weight: 600;"
+									value="@bind(each.tipoReferenciaNotificacionEnum.toString())">
+								</label>
+								<n:br></n:br>
+								<n:br></n:br>
+								<label
+									value="@bind(each.contenido.concat(' '))">
+								</label>
+								<n:br></n:br>
+								<div style="text-align:right">
+									<label
+										style="font-weight: 600; text-align:right"
+										value="${m:convertirLongADate(each.fecha)}">
+									</label>
+								</div>
+							</div>
+						</a>
+					</template>
+				</div>
+
+				<a id="verTodasNotificaciones"
+					label="Ver todas las Notificaciones">
+					<span class="z-icon-arrow-right" />
+				</a>
+			</vlayout>
 		</popup>
-	-->
-	<popup id="notipp" sclass="menu menu-pink before-reajust"
-		width="240px">
-		<a label="8 Notifications" sclass="header"
-			iconSclass="z-icon-exclamation-triangle" />
-		<vlayout spacing="0">
-			<a iconSclass="btn btn-xs no-hover btn-pink z-icon-comment"
-				href="#">
-				<label>New Comments</label>
-				<label value="+12" class="badge badge-info pull-right" />
-			</a>
-			<a iconSclass="btn btn-xs no-hover btn-primary z-icon-user"
-				href="#">
-				<label>Bob just signed up as an editor ...</label>
-			</a>
-			<a
-				iconSclass="btn btn-xs no-hover btn-success z-icon-shopping-cart"
-				href="#">
-				<label>New Orders</label>
-				<label value="+8" class="badge badge-info pull-right" />
-			</a>
-			<a iconSclass="btn btn-xs no-hover btn-info z-icon-twitter"
-				href="#">
-				<label>Followers</label>
-				<label value="+11" class="badge badge-info pull-right" />
-			</a>
-			<a label="See all notifications" href="#">
-				<span class="z-icon-arrow-right" />
-			</a>
-		</vlayout>
-	</popup>
-	<popup id="msgpp" sclass="menu before-reajust" width="240px">
-		<a label="5 Messages" sclass="header"
-			iconSclass="z-icon-envelope-o" />
-		<vlayout spacing="0">
-			<a href="#">
-				<image tooltiptext="Alex's Avatar"
-					src="assets/avatars/avatar.png" sclass="msg-photo" />
-				<span sclass="msg-body">
-					<span sclass="msg-title">
-						<label value="Alex:" sclass="blue" />
-						Ciao sociis natoque penatibus et auctor ...
+		<popup id="msgpp" sclass="menu before-reajust" width="240px">
+			<a label="5 Messages" sclass="header"
+				iconSclass="z-icon-envelope-o" />
+			<vlayout spacing="0">
+				<a href="#">
+					<image tooltiptext="Alex's Avatar"
+						src="assets/avatars/avatar.png" sclass="msg-photo" />
+					<span sclass="msg-body">
+						<span sclass="msg-title">
+							<label value="Alex:" sclass="blue" />
+							Ciao sociis natoque penatibus et auctor ...
+						</span>
+						<span sclass="msg-time">
+							<span class="z-icon-clock-o" />
+							a moment ago
+						</span>
 					</span>
-					<span sclass="msg-time">
-						<span class="z-icon-clock-o" />
-						a moment ago
+				</a>
+				<a href="#">
+					<image tooltiptext="Susan's Avatar"
+						src="assets/avatars/avatar3.png" sclass="msg-photo" />
+					<span class="msg-body">
+						<span class="msg-title">
+							<label value="Susan:" sclass="blue" />
+							Vestibulum id ligula porta felis euismod ...
+						</span>
+						<span sclass="msg-time">
+							<span class="z-icon-clock-o" />
+							20 minutes ago
+						</span>
 					</span>
-				</span>
-			</a>
-			<a href="#">
-				<image tooltiptext="Susan's Avatar"
-					src="assets/avatars/avatar3.png" sclass="msg-photo" />
-				<span class="msg-body">
-					<span class="msg-title">
-						<label value="Susan:" sclass="blue" />
-						Vestibulum id ligula porta felis euismod ...
+				</a>
+				<a href="#">
+					<image tooltiptext="Bob's Avatar"
+						src="assets/avatars/avatar4.png" sclass="msg-photo" />
+					<span class="msg-body">
+						<span class="msg-title">
+							<label value="Bob:" sclass="blue" />
+							Nullam quis risus eget urna mollis ornare
+							...
+						</span>
+						<span sclass="msg-time">
+							<span class="z-icon-clock-o" />
+							3:15 pm
+						</span>
 					</span>
-					<span sclass="msg-time">
-						<span class="z-icon-clock-o" />
-						20 minutes ago
-					</span>
-				</span>
-			</a>
-			<a href="#">
-				<image tooltiptext="Bob's Avatar"
-					src="assets/avatars/avatar4.png" sclass="msg-photo" />
-				<span class="msg-body">
-					<span class="msg-title">
-						<label value="Bob:" sclass="blue" />
-						Nullam quis risus eget urna mollis ornare ...
-					</span>
-					<span sclass="msg-time">
-						<span class="z-icon-clock-o" />
-						3:15 pm
-					</span>
-				</span>
-			</a>
-			<a label="See all messages" href="#">
-				<span class="z-icon-arrow-right" />
-			</a>
-		</vlayout>
-	</popup>
-</div>
+				</a>
+				<a label="See all messages" href="#">
+					<span class="z-icon-arrow-right" />
+				</a>
+			</vlayout>
+		</popup>
+	</div>
+</zk>

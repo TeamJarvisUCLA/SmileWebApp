@@ -437,6 +437,12 @@ public class VM_EgresoPadrinoIndex extends VM_WindowWizard {
 		}
 		return "";
 	}
+	
+	@Override
+	public String executeCancelar(Integer currentStep) {
+		restartWizard();
+		return "";
+	}
 
 	public Padrino getPadrinoSelected() {
 		return (Padrino) this.selectedObject;

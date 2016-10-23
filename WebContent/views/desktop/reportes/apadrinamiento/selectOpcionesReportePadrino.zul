@@ -1,0 +1,99 @@
+<zk xmlns:n="native" xmlns:w="client">
+	<div width="100%" class=" ${arg.animation_} container_reporte">
+		<div sclass="row">
+			<div sclass="col s12">
+				<div sclass="col s3" style="padding: 0px">
+					<checkbox label="Todos" checked="@bind(vm.todos)" />
+				</div>
+				<div sclass="col s3" style="padding: 0px">
+					<checkbox label="Fecha Ingreso"
+						checked="@bind(vm.fechaIngreso)" />
+				</div>
+				<div sclass="col s3" visible="@bind(vm.fechaIngreso)">
+					<label value="Fecha Desde"></label>
+					<datebox format="dd/MM/yyyy"
+						value="@bind(vm.fechaDesdeDate)">
+					</datebox>
+				</div>
+				<div sclass="col s3" visible="@bind(vm.fechaIngreso)">
+					<label value="Fecha Hasta"></label>
+					<datebox format="dd/MM/yyyy"
+						value="@bind(vm.fechaHastaDate)">
+					</datebox>
+				</div>
+			</div>
+		</div>
+		<div sclass="row" visible="@bind(!vm.todos)">
+			<div sclass="col s12" style="padding:0px">
+				<div sclass="col s3">
+					<checkbox label="Postulados"
+						checked="@bind(vm.postulado)" />
+				</div>
+				<div sclass="col s3">
+					<checkbox label="Por Completar"
+						checked="@bind(vm.porCompletar)" />
+				</div>
+				<div sclass="col s3">
+					<checkbox label="Activos"
+						checked="@bind(vm.activo)" />
+				</div>
+				<div sclass="col s3">
+					<checkbox label="Egresados"
+						checked="@bind(vm.egresado)" />
+				</div>			
+			</div>
+		</div>
+		<div class = "row"  visible="@bind(!vm.todos)">
+			<div class="row"
+				visible="@bind( (!(vm.postulado or vm.porCompletar) and (!vm.postulado and !vm.porCompletar) ) or vm.activo or vm.egresado )">
+				<div sclass="col s12" style="padding:0px">
+					<div sclass="col s3" >
+						<checkbox label="Frecuencia Aporte"
+							checked="@bind(vm.frecuenciaAporte)" />
+						<listbox id="listbox" sclass="animated flipInX"
+							model="@load(vm.listFrecuenciaAporte)" checkmark="true"
+							multiple="true" height="150px"
+							selectedItems="@bind(vm.frecuenciaAporteSeleccionados)"
+							visible="@bind(vm.frecuenciaAporte)">
+							<listhead>
+								<listheader width="100%"
+									label="Frecuencia" />
+							</listhead>
+							<template name="model">
+								<listitem>
+									<listcell>
+										<label
+											value="@load(each.nombre)">
+										</label>
+									</listcell>
+								</listitem>
+							</template>
+						</listbox>
+					</div>
+					
+					<div sclass="col s3" style="padding: 0px">
+					<checkbox label="Monto de Aporte"
+						checked="@bind(vm.montoAporte)" />
+				</div>
+				<div sclass="col s3" visible="@bind(vm.montoAporte)">
+					<label value="Monto Desde"></label>
+					<doublespinner id="aporteDesde" format="0.00"
+							value="@bind(vm.aporteDesde)">
+						</doublespinner>
+
+				</div>
+				<div sclass="col s3" visible="@bind(vm.montoAporte)">
+					<label value="Monto Hasta"></label>
+					<doublespinner id="aporteHasta" format="0.00"
+							value="@bind(vm.aporteHasta)">
+						</doublespinner>
+
+				</div>
+
+				</div>
+			</div>
+		</div>
+
+	</div>
+</zk>
+

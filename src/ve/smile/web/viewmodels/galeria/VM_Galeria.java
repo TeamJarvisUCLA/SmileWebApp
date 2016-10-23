@@ -26,6 +26,7 @@ public class VM_Galeria {
 	private List<MultimediaAlbum> multimediaAlbum;
 	private List<Multimedia> multiemdiaGaleria;
 	private Integer cantMultGaleria = 6;
+	private Integer cantAlbum = 6;
 
 	public List<Album> getalbumes() {
 		if (this.albumes == null) {
@@ -34,7 +35,7 @@ public class VM_Galeria {
 		if (this.albumes.isEmpty()) {
 
 			PayloadAlbumResponse payloadAlbumResponse = S.AlbumService
-					.consultarAlbumCantidad(5, EstatusAlbumEnum.PUBLICADO.ordinal());
+					.consultarAlbumCantidad(cantAlbum, EstatusAlbumEnum.PUBLICADO.ordinal());
 
 			this.albumes.addAll(payloadAlbumResponse.getObjetos());
 		}
@@ -111,6 +112,23 @@ public class VM_Galeria {
 			this.multiemdiaGaleria.addAll(payloadMultimediaResponse.getObjetos());
 		}
 		Clients.evalJavaScript("f_zoom();");
+	}
+	
+	@Command
+	@NotifyChange({"multimediaAlbum"})
+	public void verMasAlbum() {
+		cantAlbum += 3;
+		if (this.multimediaAlbum == null) {
+			this.multimediaAlbum = new ArrayList<>();
+		}
+		this.multimediaAlbum.clear();
+		if (this.multimediaAlbum.isEmpty()) {
+
+			PayloadAlbumResponse payloadAlbumResponse = S.AlbumService
+					.consultarAlbumCantidad(cantAlbum, EstatusAlbumEnum.PUBLICADO.ordinal());
+
+			this.albumes.addAll(payloadAlbumResponse.getObjetos());
+		}
 	}
 
 }

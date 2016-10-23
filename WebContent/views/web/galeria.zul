@@ -83,7 +83,7 @@
 								</div>
 							</template>
 							</div>
-							<div class="col s4 icon">
+							<div class="col s12 icon">
 								<a onClick="@command('verMasAlbum')"><image src="/imagenes/portal/icon/icon-plus.png"></image></a>
 								<div class="col s12">
 									<a onClick="@command('verMasAlbum')">

@@ -1,3 +1,5 @@
+<?xel-method prefix="m" name="convertirLongADate" class="lights.smile.util.UtilConverterDataList" 
+	signature="java.lang.String convertirLongADate(java.lang.Long)" ?>
 <zk xmlns:n="native" xmlns:w="client">
 	<style>
 .timeline-Header-title {
@@ -51,7 +53,7 @@
 		</div>
 		<div class="container-fluid" children="@load(vm.organizacion)">
 			<template name="children">
-				<image class="responsive-img"
+				<image class="responsive-img" style="width: 100%;"
 					src="@load(each.fkMultimedia.url)">
 				</image>
 			</template>
@@ -116,7 +118,7 @@
 					</div>
 				</div>
 				<div class="col s2 text-center ">
-					<button class="waves-effect waves-light btn" href=""
+					<button class="waves-effect waves-light btn" href="" style="margin-top: 32%;"
 						onClick="@command('noticias')">
 						ver mas
 					</button>
@@ -190,70 +192,37 @@
 								<div class=" vcenter text-center">
 									<n:h4>Eventos</n:h4>
 								</div>
-								<div class="col s12 seccion">
+								<div class="col s12 seccion" children="@load(vm.eventoPlanificado)">
+								<template name="children">
 									<div class="col s4">
-										<image class="img-responsive center-block"
-											src="/imagenes/portal/icon/icon-carrera.png" width="128px"
-											height="128px">
+										<image class="img-responsive center-block img-circle"
+											src="@load(each.fkMultimedia.url)" width="128px"
+											height="128px" style="border: 6px solid #d9eb52;">
 										</image>
 										<n:br></n:br>
 										<div class="subtitulo text-center">
-											<span>Carrera</span>
+											<label
+												value="@load(each.fkEvento.nombre)">
+											</label>
 										</div>
 										<div class="info">
 											<n:b>Fecha:</n:b>
-											02/05/2016
+												<label
+													value="${m:convertirLongADate(each.fechaEjecutada)}">
+												</label>
 											<n:br></n:br>
 											<n:b>Lugar:</n:b>
-											Hotel Príncipe
+												<label
+													value="@load(each.fkDirectorio.nombre)">
+												</label>
 											<n:br></n:br>
 											<n:b>Descripción:</n:b>
-											Lorem ipsum dolor sit amet, consectetur
-											adipisicing elit, sed do eiusmod.
+											<label
+												value="@load(each.fkEvento.descripcion)">
+											</label>
 										</div>
 									</div>
-									<div class="col s4">
-										<image class="img-responsive center-block"
-											src="/imagenes/portal/icon/icon-vendimia.png" width="128px"
-											height="128px">
-										</image>
-										<n:br></n:br>
-										<div class="subtitulo text-center">
-											<span>Vendimia</span>
-										</div>
-										<div class="info">
-											<n:b>Fecha:</n:b>
-											02/05/2016
-											<n:br></n:br>
-											<n:b>Lugar:</n:b>
-											Hotel Príncipe
-											<n:br></n:br>
-											<n:b>Descripción:</n:b>
-											Lorem ipsum dolor sit amet, consectetur
-											adipisicing elit, sed do eiusmod.
-										</div>
-									</div>
-									<div class="col s4">
-										<image class="img-responsive center-block"
-											src="/imagenes/portal/icon/icon-bingo.png" width="128px"
-											height="128px">
-										</image>
-										<n:br></n:br>
-										<div class="subtitulo text-center">
-											<span>Bingo</span>
-										</div>
-										<div class="info">
-											<n:b>Fecha:</n:b>
-											02/05/2016
-											<n:br></n:br>
-											<n:b>Lugar:</n:b>
-											Hotel Príncipe
-											<n:br></n:br>
-											<n:b>Descripción:</n:b>
-											Lorem ipsum dolor sit amet, consectetur
-											adipisicing elit, sed do eiusmod.
-										</div>
-									</div>
+								</template>
 								</div>
 							</div>
 						</div>
@@ -269,7 +238,7 @@
 								<div class="col s12 seccion" children="@load(vm.participacion)">
 									<template name="children">
 										<div class="col s4">
-											<image class="img-responsive center-block" src="@load(each.fkMultimedia.url)" width="128px" height="128px"></image>
+											<image class="img-responsive center-block img-circle" src="@load(each.fkMultimedia.url)" width="128px" height="128px" style="border: 6px solid #f26b7a;"></image>
 											<n:br></n:br>
 											<div class="subtitulo text-center">
 												<label value="@load(each.nombre)"></label>
@@ -353,7 +322,7 @@
 		
 		setInterval(function(){
 		  $('.carousel').carousel('next');
-		}, 4000);
+		}, 5000);
 		
 		  $('.owlNoticias').owlCarousel({
 		 items:1,

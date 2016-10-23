@@ -1,6 +1,7 @@
 package ve.smile.web.viewmodels.main;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import karen.core.crux.session.DataCenter;
@@ -10,13 +11,16 @@ import org.zkoss.bind.annotation.Command;
 
 import ve.smile.consume.services.S;
 import ve.smile.dto.Cartelera;
+import ve.smile.dto.EventoPlanificado;
 import ve.smile.dto.Multimedia;
 import ve.smile.dto.Organizacion;
 import ve.smile.dto.Participacion;
 import ve.smile.dto.Patrocinador;
+import ve.smile.enums.EstatusEventoPlanificadoEnum;
 import ve.smile.enums.TipoCarteleraEnum;
 import ve.smile.enums.TipoMultimediaEnum;
 import ve.smile.payload.response.PayloadCarteleraResponse;
+import ve.smile.payload.response.PayloadEventoPlanificadoResponse;
 import ve.smile.payload.response.PayloadMultimediaResponse;
 import ve.smile.payload.response.PayloadOrganizacionResponse;
 import ve.smile.payload.response.PayloadParticipacionResponse;
@@ -29,6 +33,7 @@ public class VM_Main {
 	private List<Organizacion> organizacion;
 	private List<Multimedia> multiemdiaGaleria;
 	private List<Patrocinador> patrocinadores;
+	private List<EventoPlanificado> eventoPlanificado;
 		
 	public List<Patrocinador> getPatrocinadores() {
 		if (this.patrocinadores == null) {
@@ -98,6 +103,22 @@ public class VM_Main {
 		}
 
 		return multiemdiaGaleria;
+	}
+	
+	public List<EventoPlanificado> getEventoPlanificado() {
+		if (this.eventoPlanificado == null) {
+			this.eventoPlanificado = new ArrayList<>();
+		}
+		if (this.eventoPlanificado.isEmpty()) {
+		
+			PayloadEventoPlanificadoResponse payloadEventoPlanificadoResponse = S.EventoPlanificadoService.
+					consultaEventoPlanificadoPublicable(true, EstatusEventoPlanificadoEnum.PLANIFICADO.ordinal(), new Date().getTime(), 3);
+		
+			this.eventoPlanificado.addAll(payloadEventoPlanificadoResponse.getObjetos());
+
+		}
+
+		return eventoPlanificado;
 	}
 	
 	@Command

@@ -414,9 +414,9 @@ public class VM_ReporteApadrinamientoIndex extends VM_WindowWizard {
 				excelCell = excelRow.createCell(3);
 				excelCell.setCellValue("CORREO");
 				excelCell = excelRow.createCell(4);
-				excelCell.setCellValue("DIRECCIÓN");
+				excelCell.setCellValue("DIRECCIï¿½N");
 				excelCell = excelRow.createCell(5);
-				excelCell.setCellValue("TELÉFONO");
+				excelCell.setCellValue("TELï¿½FONO");
 				excelCell = excelRow.createCell(6);
 				excelCell.setCellValue("FRECUENCIA APORTE");
 				excelCell = excelRow.createCell(7);
@@ -627,7 +627,7 @@ public class VM_ReporteApadrinamientoIndex extends VM_WindowWizard {
 			if (montoAporte){
 				
 				if (aporteDesde == 0 && aporteHasta == 0) {
-					return "E:Error Code 5-No se han ingresado montos para la búsqueda";
+					return "E:Error Code 5-No se han ingresado montos para la bï¿½squeda";
 				} else if (aporteDesde == 0) {
 					return "E:Error Code 5-No se ha ingresado un <b>Monto Desde</b> como Parametro ";
 				} else if (aporteHasta == 0) {
@@ -652,7 +652,7 @@ public class VM_ReporteApadrinamientoIndex extends VM_WindowWizard {
 			}
 			System.out.println(sql);
 			PayloadPadrinoResponse payloadPadrinoResponse = S.PadrinoService
-					.consultaPadrinosParametrizado(sql);
+					.consultaPadrinoParametrizado(sql);
 			List<Padrino> listPadrinos = payloadPadrinoResponse
 					.getObjetos();
 			

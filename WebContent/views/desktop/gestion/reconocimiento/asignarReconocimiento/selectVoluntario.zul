@@ -20,9 +20,9 @@
 							emptyMessage="No hay Voluntarios"
 							selectedItem="@bind(vm.voluntario)">
 							<listhead sizable="true">
-								<listheader width="20%"
+								<listheader width="40%"
 									label="Identificación" />
-								<listheader width="30%" label="Voluntario" />
+								<listheader width="60%" label="Voluntario" />
 							</listhead>
 							<template name="model">
 								<listitem>

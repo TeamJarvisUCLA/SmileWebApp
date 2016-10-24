@@ -21,7 +21,7 @@
 									Tipo de persona
 								</n:label>
 
-								<combobox id="tipo_persona"
+								<combobox disabled="true"  id="tipo_persona"
 									readonly="true" model="@bind(vm.tipoPersonaEnums)"
 									selectedItem="@bind(vm.tipoPersonaEnum)">
 									<template name="model">
@@ -36,11 +36,11 @@
 							<div
 								visible="@load(empty vm.tipoPersonaEnum || vm.tipoPersonaEnum eq 'NATURAL' )">
 								<div class="input-field col s6">
-									<n:label for="identificacion">
+									<n:label class="active" for="identificacion">
 										Cédula
 									</n:label>
 
-									<textbox id="identificacion"
+									<textbox disabled="true" id="identificacion"
 										type="text" value="@bind(vm.persona.identificacion)">
 									</textbox>
 									<span
@@ -48,24 +48,24 @@
 										tooltip="pop_identificacion, position=after_end" />
 								</div>
 								<div class="input-field col s6">
-									<n:label for="nombre">
+									<n:label class="active" for="nombre">
 										Nombre
 									</n:label>
 									<span
 										sclass="fa fa-question-circle fa-lg help-icon-special"
 										tooltip="pop_nombre, position=after_end" />
-									<textbox id="nombre" type="text"
+									<textbox disabled="true" id="nombre" type="text"
 										value="@bind(vm.persona.nombre)">
 									</textbox>
 								</div>
 								<div class="input-field col s6">
-									<n:label for="apellido">
+									<n:label class="active" for="apellido">
 										Apellido
 									</n:label>
 									<span
 										sclass="fa fa-question-circle fa-lg help-icon-special"
 										tooltip="pop_apellido, position=after_end" />
-									<textbox id="apellido" type="text"
+									<textbox disabled="true" id="apellido" type="text"
 										value="@bind(vm.persona.apellido)">
 									</textbox>
 								</div>
@@ -77,7 +77,7 @@
 									<span
 										sclass="fa fa-question-circle fa-lg help-icon-special"
 										tooltip="pop_sexo, position=after_end" />
-									<combobox id="sexo" readonly="true"
+									<combobox disabled="true" id="sexo" readonly="true"
 										model="@bind(vm.sexoEnums)"
 										selectedItem="@bind(vm.sexoEnum)">
 										<template name="model"
@@ -96,7 +96,7 @@
 									<span
 										sclass="fa fa-question-circle fa-lg help-icon-special"
 										tooltip="pop_fecha_nacimiento, position=after_end" />
-									<datebox id="db" cols="20"
+									<datebox disabled="true" id="db" cols="20"
 										readonly="true" format="dd/MM/yyyy"
 										value="@bind(vm.fechaNacimiento)" />
 								</div>
@@ -105,10 +105,10 @@
 							<div
 								visible="@load(not empty (vm.tipoPersonaEnum) and vm.tipoPersonaEnum eq 'JURIDICA')">
 								<div class="input-field col s6">
-									<n:label for="identificacionRif">
+									<n:label class="active" for="identificacionRif">
 										RIF
 									</n:label>
-									<textbox id="identificacionRif"
+									<textbox disabled="true" id="identificacionRif"
 										type="text" value="@bind(vm.persona.identificacion)">
 									</textbox>
 									<span
@@ -116,11 +116,11 @@
 										tooltip="pop_identificacion_rif, position=after_end" />
 								</div>
 								<div class="input-field col s12">
-									<n:label for="nombreJuridico">
+									<n:label class="active" for="nombreJuridico">
 										Nombre
 									</n:label>
 
-									<textbox id="nombreJuridico"
+									<textbox disabled="true" id="nombreJuridico"
 										type="text" value="@bind(vm.persona.nombre)">
 
 									</textbox>
@@ -138,7 +138,7 @@
 								<span
 									sclass="fa fa-question-circle fa-lg help-icon-special"
 									tooltip="pop_estado, position=after_end" />
-								<combobox id="fk_estado" readonly="true"
+								<combobox disabled="true" id="fk_estado" readonly="true"
 									placeholder="Seleccione un Estado" instant="true"
 									onSelect="@command('changeEstado')" model="@bind(vm.estados)"
 									selectedItem="@bind(vm.estado)">
@@ -157,9 +157,9 @@
 								<span
 									sclass="fa fa-question-circle fa-lg help-icon-special"
 									tooltip="pop_ciudad, position=after_end" />
-								<combobox id="fk_ciudad" readonly="true"
+								<combobox  id="fk_ciudad" readonly="true"
 									placeholder="Seleccione una ciudad"
-									disabled="@load(empty vm.ciudades)" model="@bind(vm.ciudades)"
+									disabled="@load(not empty vm.ciudades)" model="@bind(vm.ciudades)"
 									selectedItem="@bind(vm.persona
 									.fkCiudad)">
 									<template name="model">
@@ -179,19 +179,19 @@
 									<span
 										sclass="fa fa-question-circle fa-lg help-icon-special"
 										tooltip="pop_fecha_ingreso, position=after_end" />
-									<datebox id="fecha_ingreso"
+									<datebox disabled="true" id="fecha_ingreso"
 										cols="20" format="dd/MM/yyyy" readonly="true"
 										value="@bind(vm.fechaIngreso)" />
 								</div>
 
 								<div class="input-field col s12">
-									<n:label for="direccion">
+									<n:label class="active" for="direccion">
 										Dirección
 									</n:label>
 									<span
 										sclass="fa fa-question-circle fa-lg help-icon-special"
 										tooltip="pop_direccion, position=after_end" />
-									<textbox id="direccion" type="text"
+									<textbox disabled="true" id="direccion" type="text"
 										sclass="materialize-textarea" multiline="true"
 										value="@bind(vm.persona.direccion)">
 									</textbox>
@@ -202,7 +202,7 @@
 									<span style="float:right"
 										sclass="fa fa-question-circle fa-lg help-icon"
 										tooltip="pop_imagen, position=after_end" />
-									<uploadImageSingle maxsize="9000"
+									<uploadImageSingle disabled="true" maxsize="9000"
 										size="200" idUpload="1" title="Imagen del Beneficiario" />
 								</div>
 							</div>
@@ -212,105 +212,105 @@
 						<tabpanel>
 
 							<div class="input-field col s6">
-								<n:label for="telefono_1">
+								<n:label class="active" for="telefono_1">
 									Teléfono 1
 								</n:label>
 								<span
 									sclass="fa fa-question-circle fa-lg help-icon-special"
 									tooltip="pop_telefono1, position=after_end" />
-								<textbox id="telefono_1" type="text"
+								<textbox disabled="true" id="telefono_1" type="text"
 									value="@bind(vm.persona.telefono1)">
 								</textbox>
 							</div>
 
 							<div class="input-field col s6">
-								<n:label for="telefono_2">
+								<n:label class="active" for="telefono_2">
 									Teléfono 2
 								</n:label>
 								<span
 									sclass="fa fa-question-circle fa-lg help-icon-special"
 									tooltip="pop_telefono2, position=after_end" />
-								<textbox id="telefono_2" type="text"
+								<textbox disabled="true" id="telefono_2" type="text"
 									value="@bind(vm.persona.telefono2)">
 								</textbox>
 							</div>
 
 							<div class="input-field col s6">
-								<n:label for="fax">Fax</n:label>
+								<n:label class="active" for="fax">Fax</n:label>
 								<span
 									sclass="fa fa-question-circle fa-lg help-icon-special"
 									tooltip="pop_fax, position=after_end" />
-								<textbox id="fax" type="text"
+								<textbox disabled="true" id="fax" type="text"
 									value="@bind(vm.persona.fax)">
 								</textbox>
 							</div>
 
 							<div class="input-field col s6">
-								<n:label for="correo">
+								<n:label class="active" for="correo">
 									Correo electrónico
 								</n:label>
 								<span
 									sclass="fa fa-question-circle fa-lg help-icon-special"
 									tooltip="pop_correo, position=after_end" />
-								<textbox id="correo" type="text"
+								<textbox disabled="true"  id="correo" type="text"
 									value="@bind(vm.persona.correo)">
 								</textbox>
 							</div>
 
 							<div class="input-field col s6">
-								<n:label for="twitter">Twitter</n:label>
+								<n:label class="active" for="twitter">Twitter</n:label>
 								<span
 									sclass="fa fa-question-circle fa-lg help-icon-special"
 									tooltip="pop_twitter, position=after_end" />
-								<textbox id="twitter" type="text"
+								<textbox disabled="true" id="twitter" type="text"
 									value="@bind(vm.persona.twitter)">
 								</textbox>
 							</div>
 
 							<div class="input-field col s6">
-								<n:label for="instagram">
+								<n:label class="active" for="instagram">
 									Instagram
 								</n:label>
 								<span
 									sclass="fa fa-question-circle fa-lg help-icon-special"
 									tooltip="pop_instagram, position=after_end" />
-								<textbox id="instagram" type="text"
+								<textbox disabled="true" id="instagram" type="text"
 									value="@bind(vm.persona.instagram)">
 								</textbox>
 							</div>
 
 							<div class="input-field col s6">
-								<n:label for="facebook">
+								<n:label class="active" for="facebook">
 									Facebook
 								</n:label>
 								<span
 									sclass="fa fa-question-circle fa-lg help-icon-special"
 									tooltip="pop_facebook, position=after_end" />
-								<textbox id="facebook" type="text"
+								<textbox disabled="true" id="facebook" type="text"
 									value="@bind(vm.persona.facebook)">
 								</textbox>
 							</div>
 
 							<div class="input-field col s6">
-								<n:label for="linkedin">
+								<n:label class="active" for="linkedin">
 									LinkedIn
 								</n:label>
 								<span
 									sclass="fa fa-question-circle fa-lg help-icon-special"
 									tooltip="pop_linkedin, position=after_end" />
-								<textbox id="linkedin" type="text"
+								<textbox disabled="true" id="linkedin" type="text"
 									value="@bind(vm.persona.linkedin)">
 								</textbox>
 							</div>
 
 							<div class="input-field col s6">
-								<n:label for="sitioWeb">
+								<n:label class="active" for="sitioWeb">
 									Sitio web
 								</n:label>
 								<span
 									sclass="fa fa-question-circle fa-lg help-icon-special"
 									tooltip="pop_web, position=after_end" />
-								<textbox id="sitioWeb" type="text"
+								<textbox disabled="true" id="sitioWeb" type="text"
 									value="@bind(vm.persona.sitioWeb)">
 								</textbox>
 							</div>

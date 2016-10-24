@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="documento_asignacion" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" scriptletClass="net.sf.jasperreports.engine.JRDefaultScriptlet" uuid="2cc1dfe8-35f4-44cb-b41c-1c58e9d3b41e">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="96"/>
+	<property name="ireport.y" value="29"/>
 	<parameter name="titulo" class="java.lang.String"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["C:\\Users\\Soaint\\Desktop\\"]]></defaultValueExpression>
@@ -23,6 +23,8 @@
 	<parameter name="tFortalezas" class="java.lang.String"/>
 	<parameter name="tRedes" class="java.lang.String"/>
 	<parameter name="tDireccionOrganizacion" class="java.lang.String"/>
+	<parameter name="tTelefonoOrganizacion" class="java.lang.String"/>
+	<parameter name="tCorreoOrganizacion" class="java.lang.String"/>
 	<parameter name="timagen2" class="java.lang.String"/>
 	<parameter name="timagen1" class="java.lang.String"/>
 	<queryString language="SQL">
@@ -186,7 +188,7 @@
 				<textFieldExpression><![CDATA[$P{tFortalezas}==""?null : $P{tFortalezas}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement key="staticText" mode="Opaque" x="0" y="226" width="88" height="19" forecolor="#FFFFFF" backcolor="#3B85A1" uuid="fab501d4-9034-413d-9798-995e8e92d43e"/>
+				<reportElement key="staticText" mode="Opaque" x="2" y="226" width="88" height="19" forecolor="#FFFFFF" backcolor="#3B85A1" uuid="fab501d4-9034-413d-9798-995e8e92d43e"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -269,9 +271,9 @@
 		</band>
 	</detail>
 	<pageFooter>
-		<band height="62" splitType="Stretch">
+		<band height="65" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="4" width="555" height="33" forecolor="#F26B7A" uuid="b4477ccd-fa33-4e75-9ca2-22b5bf4c22ea"/>
+				<reportElement x="0" y="4" width="555" height="35" forecolor="#F26B7A" uuid="b4477ccd-fa33-4e75-9ca2-22b5bf4c22ea"/>
 				<textElement textAlignment="Center">
 					<font fontName="Arial" isBold="true"/>
 				</textElement>
@@ -280,32 +282,25 @@
 ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="147" y="38" width="262" height="20" forecolor="#C2D62D" uuid="29aa1aeb-6b76-4434-8842-ec94cdc4df21"/>
+				<reportElement x="147" y="50" width="262" height="13" forecolor="#C2D62D" uuid="29aa1aeb-6b76-4434-8842-ec94cdc4df21"/>
 				<textElement textAlignment="Center">
 					<font fontName="Arial" size="11" isBold="false" isItalic="true"/>
 				</textElement>
 				<text><![CDATA["Alimenta tu fe y tus miedos se morirán de hambre"]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="440" y="38" width="73" height="20" uuid="66e28e4b-b2fb-44cd-bb32-b1fec106879f"/>
+				<reportElement x="440" y="50" width="73" height="13" uuid="66e28e4b-b2fb-44cd-bb32-b1fec106879f"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Pagina "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" evaluationTime="Report">
-				<reportElement x="513" y="38" width="42" height="20" uuid="50c0aeb7-6a67-4678-b493-4169e1c293d7"/>
+				<reportElement x="513" y="50" width="42" height="13" uuid="50c0aeb7-6a67-4678-b493-4169e1c293d7"/>
 				<textElement>
 					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="7" y="8" width="541" height="20" forecolor="#F26B7A" uuid="e2de774e-8861-4b40-95ca-ef09f9082fdc"/>
-				<textElement textAlignment="Center">
-					<font fontName="Arial"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{tDireccionOrganizacion}]]></textFieldExpression>
 			</textField>
 			<line>
 				<reportElement x="0" y="1" width="555" height="2" forecolor="#F26B7A" uuid="604b348d-fc2c-4aaf-a3dc-90b13534ae90"/>
@@ -313,6 +308,27 @@
 					<pen lineWidth="2.0" lineStyle="Solid"/>
 				</graphicElement>
 			</line>
+			<textField>
+				<reportElement x="7" y="8" width="541" height="15" forecolor="#F26B7A" uuid="e2de774e-8861-4b40-95ca-ef09f9082fdc"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{tDireccionOrganizacion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="7" y="23" width="307" height="16" forecolor="#F26B7A" uuid="20dd1e04-7036-4afe-9a7b-690aa1da67b8"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{tTelefonoOrganizacion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="331" y="23" width="217" height="16" forecolor="#F26B7A" uuid="a5bd2713-31c3-448d-b896-abef976625e4"/>
+				<textElement textAlignment="Left">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{tCorreoOrganizacion}]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageFooter>
 </jasperReport>

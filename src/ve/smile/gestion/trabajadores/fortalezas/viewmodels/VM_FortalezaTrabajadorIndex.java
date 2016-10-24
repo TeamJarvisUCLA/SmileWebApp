@@ -55,7 +55,7 @@ public class VM_FortalezaTrabajadorIndex extends VM_WindowWizard<Trabajador>
 		}
 	}
 
-	// MÉTODOS DE LAS LISTAS
+	// Mï¿½TODOS DE LAS LISTAS
 	public boolean disabledFortaleza(Fortaleza fortaleza)
 	{
 		return this.getTrabajadorFortalezas().contains(fortaleza);

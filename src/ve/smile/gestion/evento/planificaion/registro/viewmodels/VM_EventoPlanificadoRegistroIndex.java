@@ -5,6 +5,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -41,7 +42,6 @@ import ve.smile.dto.EventoPlanificado;
 import ve.smile.dto.Multimedia;
 import ve.smile.dto.NotificacionUsuario;
 import ve.smile.dto.Persona;
-import ve.smile.dto.Voluntario;
 import ve.smile.enums.EstatusEventoPlanificadoEnum;
 import ve.smile.enums.EstatusNotificacionEnum;
 import ve.smile.enums.TipoMultimediaEnum;
@@ -245,15 +245,16 @@ public class VM_EventoPlanificadoRegistroIndex extends VM_WindowWizard
 	public String isValidPreconditionsFinalizar(Integer currentStep) {
 		if (currentStep == 2) {
 			try {
-				UtilValidate.validateDate(new Date().getTime(),
+				Calendar calendar = Calendar.getInstance();
+				calendar.add(Calendar.DAY_OF_YEAR, -1);
+				UtilValidate.validateDate(this.getFechaInicio().getTime(),
 						"Fecha Inicio", ValidateOperator.GREATER_THAN,
-						new SimpleDateFormat("yyyy-MM-dd").format(this
-								.getFechaFin()),
+						new SimpleDateFormat("yyyy-MM-dd").format(calendar.getTime()),
 						"dd/MM/yyyy");
 				UtilValidate.validateDate(this.getFechaFin().getTime(),
 						"Fecha Fin", ValidateOperator.GREATER_THAN,
-						new SimpleDateFormat("yyyy-MM-dd").format(this
-								.getFechaFin()), "dd/MM/yyyy");
+						new SimpleDateFormat("yyyy-MM-dd").format(calendar.getTime()),
+						"dd/MM/yyyy");
 				UtilValidate.validateNull(this.getEventoPlanificado().getFkPersona()
 						, "Responsable");
 				UtilValidate.validateNull(this.getEventoPlanificado().getFkDirectorio()

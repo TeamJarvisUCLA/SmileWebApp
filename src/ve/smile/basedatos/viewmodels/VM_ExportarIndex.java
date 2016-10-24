@@ -9,6 +9,7 @@ import java.util.List;
 
 import karen.core.crux.alert.Alert;
 import karen.core.util.validate.UtilValidate;
+import lights.smile.util.Zki;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -139,13 +140,12 @@ public class VM_ExportarIndex {
 		}
 		if (upEvent != null) {
 			Media media = upEvent.getMedia();
-			// longitud = media.getByteData().length;
-			// archivo = new byte[longitud];
 			try {
 				System.out.println(media.getName());
-				Files.copy(new File("C:\\Smile\\" + media.getName()),
+				Files.copy(new File(Zki.getPath() + media.getName()),
 						media.getStreamData());
-				ImportExcel(media);
+				String url = media.getName();
+				// ImportExcel(media);
 
 			} catch (Exception e) {
 				// TODO Auto-generated catch block

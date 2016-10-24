@@ -29,14 +29,10 @@ import org.zkoss.bind.annotation.Command;
 import ve.smile.consume.services.S;
 import ve.smile.dto.EventoPlanificado;
 import ve.smile.dto.IndicadorEventoPlanificado;
-import ve.smile.dto.IndicadorTsPlan;
 import ve.smile.dto.Motivo;
-import ve.smile.dto.TsPlan;
-import ve.smile.enums.EstatusTrabajoSocialPlanificadoEnum;
+
 import ve.smile.payload.response.PayloadEventoPlanificadoResponse;
 import ve.smile.payload.response.PayloadIndicadorEventoPlanificadoResponse;
-import ve.smile.payload.response.PayloadIndicadorTsPlanResponse;
-import ve.smile.payload.response.PayloadTsPlanResponse;
 
 public class VM_RegistroCierreEventoIndex extends VM_WindowWizard {
 

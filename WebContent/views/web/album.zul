@@ -1,3 +1,5 @@
+<?xel-method prefix="m" name="getUrlWeb" class="lights.smile.util.Zki" 
+	signature="java.lang.String getUrlWeb(java.lang.String)" ?>
 <zk xmlns:n="native" xmlns:w="client">
 	<n:link href="assets/css/web/album.css" rel="stylesheet"
 		type="text/css">
@@ -52,7 +54,7 @@
 								<template name="children">
 									<div class="col s4">
 										<image
-											src="@load(each.fkMultimedia.url)"
+											src="${m:getUrlWeb(each.fkMultimedia.url)}"
 											sclass="materialboxed">
 										</image>
 									</div>

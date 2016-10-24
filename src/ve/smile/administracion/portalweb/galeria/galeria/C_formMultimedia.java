@@ -45,9 +45,9 @@ public class C_formMultimedia extends C_WindowDialog {
 				.getInformacion("id")).intValue());
 
 		
-		Zki.save(Zki.EVENTO, multimedia.getIdMultimedia(), vmMutimedia.getExtensionImage(), vmMutimedia.getBytes());
+		Zki.save(Zki.GALERIA, multimedia.getIdMultimedia(), vmMutimedia.getExtensionImage(), vmMutimedia.getBytes());
 
-		multimedia.setUrl(Zki.EVENTO
+		multimedia.setUrl(Zki.GALERIA
 				+ multimedia.getIdMultimedia() + "."
 				+ vmMutimedia.getExtensionImage());
 		payloadMultimediaResponse = S.MultimediaService

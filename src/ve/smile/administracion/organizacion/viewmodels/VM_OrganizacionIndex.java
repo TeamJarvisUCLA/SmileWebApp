@@ -19,8 +19,10 @@ public class VM_OrganizacionIndex extends
 	public void childInit() {
 		PayloadOrganizacionResponse payloadOrganizacionResponse = S.OrganizacionService
 				.consultarTodos();
+		setSelectedObject(payloadOrganizacionResponse.getObjetos().get(0));
+		System.out.println(this.getSelectedObject().getIdOrganizacion());
 		if (UtilPayload.isOK(payloadOrganizacionResponse)) {
-			setSelectedObject(payloadOrganizacionResponse.getObjetos().get(0));
+			
 		}
 		
 	}

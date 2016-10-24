@@ -457,9 +457,9 @@ public class VM_VoluntarioFormBasic extends VM_WindowForm implements
 			}
 
 			// PROFESIONES
-			// this.getVoluntario().getProfesiones().addAll(new
-			// ArrayList<Profesion>());
-			// this.getVoluntario().getProfesiones().addAll(this.getVoluntarioProfesiones());
+			this.getVoluntario().setProfesiones(new ArrayList<Profesion>());
+			this.getVoluntario().getProfesiones()
+					.addAll(this.getVoluntarioProfesiones());
 
 			// VOLUNTARIO
 			PayloadVoluntarioResponse payloadVoluntarioResponse = S.VoluntarioService
@@ -500,7 +500,7 @@ public class VM_VoluntarioFormBasic extends VM_WindowForm implements
 					ValidateOperator.LESS_THAN, 2);
 			if (this.getTipoPersonaEnum().equals(TipoPersonaEnum.NATURAL)) {
 				UtilValidate.validateString(this.getVoluntario().getFkPersona()
-						.getIdentificacion(), "C�dula", 35);
+						.getIdentificacion(), "Cédula", 35);
 				UtilValidate.validateString(this.getVoluntario().getFkPersona()
 						.getNombre(), "Nombre", 150);
 				UtilValidate.validateString(this.getVoluntario().getFkPersona()
@@ -528,9 +528,9 @@ public class VM_VoluntarioFormBasic extends VM_WindowForm implements
 					new SimpleDateFormat("yyyy-MM-dd").format(calendar
 							.getTime()), "dd/MM/yyyy");
 			UtilValidate.validateString(this.getVoluntario().getFkPersona()
-					.getDireccion(), "Direcci�n", 250);
+					.getDireccion(), "Dirección", 250);
 			UtilValidate.validateString(this.getVoluntario().getFkPersona()
-					.getTelefono1(), "Tel�fono 1", 25);
+					.getTelefono1(), "Telfono 1", 25);
 			UtilValidate.validateString(this.getVoluntario().getFkPersona()
 					.getCorreo(), "Correo", 100);
 		} catch (Exception e) {
@@ -614,11 +614,11 @@ public class VM_VoluntarioFormBasic extends VM_WindowForm implements
 
 			} else {
 				this.getVoluntario().getFkPersona().setFkMultimedia(null);
-				Alert.showMessage("E: Error Code: 100-El formato de la <b>imagen</b> es inv�lido");
+				Alert.showMessage("E: Error Code: 100-El formato de la <b>imagen</b> es inválido");
 			}
 		} else {
 			this.getVoluntario().getFkPersona().setFkMultimedia(null);
-			Alert.showMessage("E: Error Code: 100-El formato de la <b>imagen</b> es inv�lido");
+			Alert.showMessage("E: Error Code: 100-El formato de la <b>imagen</b> es inválido");
 		}
 	}
 

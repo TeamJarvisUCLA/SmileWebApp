@@ -36,13 +36,13 @@ import karen.core.wizard.viewmodels.VM_WindowWizard;
 
 public class VM_ReporteApadrinamientoIndex extends VM_WindowWizard {
 
-	private boolean frecuenciaAporte =false;
-	
+	private boolean frecuenciaAporte = false;
+
 	private boolean montoAporte = false;
-	
+
 	private double aporteDesdeMonto;
 	private double aporteHastaMonto;
-	
+
 	private boolean fechaIngreso = false;
 
 	private boolean postulado = false;
@@ -58,7 +58,7 @@ public class VM_ReporteApadrinamientoIndex extends VM_WindowWizard {
 	private Date fechaDesdeDate;
 
 	private Date fechaHastaDate;
-	
+
 	private String type;
 
 	private String source;
@@ -66,36 +66,35 @@ public class VM_ReporteApadrinamientoIndex extends VM_WindowWizard {
 	private JRDataSource jrDataSource;
 
 	private Map<String, Object> parametros = new HashMap<>();
-	
+
 	private List<FrecuenciaAporte> listFrecuenciaAporte = new ArrayList<>();
-	
+
 	private Set<FrecuenciaAporte> frecuenciaAporteSeleccionados;
-	
+
 	private List<Padrino> padrinos;
-	
+
 	String aporteSeleccionadoP;
-	
-	String estatusPadrinosS ="";
-	
-	String tStatus="";
-	String tAporteSeleccionado= "";
-	
+
+	String estatusPadrinosS = "";
+
+	String tStatus = "";
+	String tAporteSeleccionado = "";
+
 	String tAporteDesde = "";
 
 	String tAporteHasta = "";
-	
+
 	String tFrecuenciaAportes;
-	
+
 	Double aporteDesde = 0.00;
 
 	Double aporteHasta = 0.00;
-	
+
 	@Init(superclass = true)
-	public void childInit(){
+	public void childInit() {
 		parametros.clear();
 	}
-	
-		
+
 	public boolean isFechaIngreso() {
 		return fechaIngreso;
 	}
@@ -152,35 +151,33 @@ public class VM_ReporteApadrinamientoIndex extends VM_WindowWizard {
 		this.todos = todos;
 	}
 
-	
 	public boolean isMontoAporte() {
 		return montoAporte;
 	}
-
 
 	public void setMontoAporte(boolean montoAporte) {
 		this.montoAporte = montoAporte;
 	}
 
-
 	public List<FrecuenciaAporte> getListFrecuenciaAporte() {
-		if (listFrecuenciaAporte == null){
+		if (listFrecuenciaAporte == null) {
 			listFrecuenciaAporte = new ArrayList<>();
 		}
 		if (listFrecuenciaAporte.isEmpty()) {
-			PayloadFrecuenciaAporteResponse payloadFrecuenciaAporteResponse = S.FrecuenciaAporteService.consultarTodos();
+			PayloadFrecuenciaAporteResponse payloadFrecuenciaAporteResponse = S.FrecuenciaAporteService
+					.consultarTodos();
 			if (UtilPayload.isOK(payloadFrecuenciaAporteResponse)) {
-				listFrecuenciaAporte = payloadFrecuenciaAporteResponse.getObjetos();
+				listFrecuenciaAporte = payloadFrecuenciaAporteResponse
+						.getObjetos();
 			}
 		}
 		return listFrecuenciaAporte;
 	}
 
-
-	public void setListFrecuenciaAporte(List<FrecuenciaAporte> listFrecuenciaAporte) {
+	public void setListFrecuenciaAporte(
+			List<FrecuenciaAporte> listFrecuenciaAporte) {
 		this.listFrecuenciaAporte = listFrecuenciaAporte;
 	}
-
 
 	@Override
 	public Map<Integer, List<OperacionWizard>> getButtonsToStep() {
@@ -282,29 +279,28 @@ public class VM_ReporteApadrinamientoIndex extends VM_WindowWizard {
 		return "";
 	}
 
-
 	public void clearElements() {
-		frecuenciaAporte =false;
+		frecuenciaAporte = false;
 		montoAporte = false;
-		aporteDesdeMonto= 0.00;
+		aporteDesdeMonto = 0.00;
 		aporteHastaMonto = 0.00;
 		fechaIngreso = false;
 		postulado = false;
 		porCompletar = false;
 		activo = false;
-		egresado = false;		
+		egresado = false;
 		todos = false;
 		fechaDesdeDate = null;
-		fechaHastaDate= null;		
+		fechaHastaDate = null;
 		type = new String();
 		source = new String();
 		frecuenciaAporteSeleccionados = new HashSet<>();
 		listFrecuenciaAporte = new ArrayList<>();
 		padrinos = new ArrayList<>();
-		tStatus="";
+		tStatus = "";
 		tAporteDesde = "";
-	    tAporteHasta = "";
-		tFrecuenciaAportes= "";
+		tAporteHasta = "";
+		tFrecuenciaAportes = "";
 		aporteDesde = 0.00;
 		aporteHasta = 0.00;
 	}
@@ -332,7 +328,7 @@ public class VM_ReporteApadrinamientoIndex extends VM_WindowWizard {
 
 		return "";
 	}
-	
+
 	@Override
 	public String executeCustom2(Integer currentStep) {
 		if (currentStep == 2) {
@@ -347,62 +343,62 @@ public class VM_ReporteApadrinamientoIndex extends VM_WindowWizard {
 				excelCell = excelRow.createCell(4);
 				excelCell.setCellValue("PADRINOS");
 				excelRow = workSheet.createRow(rowNumber++);
-//				if (fechaDesdeDate != null) {
-//					excelRow = workSheet.createRow(rowNumber++);
-//
-//					excelCell = excelRow.createCell(1);
-//					excelCell.setCellValue("Fecha desde");
-//					excelCell = excelRow.createCell(2);
-//					excelCell.setCellValue(UtilConverterDataList
-//							.convertirLongADate(fechaDesdeDate.getTime()));
-//					excelRow = workSheet.createRow(rowNumber++);
-//				}
-//				if (fechaHastaDate != null) {
-//					excelRow = workSheet.createRow(rowNumber++);
-//
-//					excelCell = excelRow.createCell(1);
-//					excelCell.setCellValue("Fecha Hasta");
-//					excelCell = excelRow.createCell(2);
-//					excelCell.setCellValue(UtilConverterDataList
-//							.convertirLongADate(fechaDesdeDate.getTime()));
-//					excelRow = workSheet.createRow(rowNumber++);
-//				}
-//				if (!fortalezasP.trim().isEmpty()) {
-//					excelRow = workSheet.createRow(rowNumber++);
-//
-//					excelCell = excelRow.createCell(1);
-//					excelCell.setCellValue("Fortalezas");
-//					excelCell = excelRow.createCell(2);
-//					excelCell.setCellValue(fortalezasP);
-//					excelRow = workSheet.createRow(rowNumber++);
-//				}
-//				if (!profesionesP.trim().isEmpty()) {
-//					excelRow = workSheet.createRow(rowNumber++);
-//
-//					excelCell = excelRow.createCell(1);
-//					excelCell.setCellValue("PROFESIONES");
-//					excelCell = excelRow.createCell(2);
-//					excelCell.setCellValue(profesionesP);
-//					excelRow = workSheet.createRow(rowNumber++);
-//				}
-//				if (!estatusVoluntariosS.trim().isEmpty()) {
-//					excelRow = workSheet.createRow(rowNumber++);
-//
-//					excelCell = excelRow.createCell(1);
-//					excelCell.setCellValue("Estatus");
-//					excelCell = excelRow.createCell(2);
-//					excelCell.setCellValue(estatusVoluntariosS);
-//					excelRow = workSheet.createRow(rowNumber++);
-//				}
-//				if (!voluntarioClasificadoP.trim().isEmpty()) {
-//					excelRow = workSheet.createRow(rowNumber++);
-//
-//					excelCell = excelRow.createCell(1);
-//					excelCell.setCellValue("Clasificadores de Voluntario");
-//					excelCell = excelRow.createCell(2);
-//					excelCell.setCellValue(voluntarioClasificadoP);
-//					excelRow = workSheet.createRow(rowNumber++);
-//				}
+				// if (fechaDesdeDate != null) {
+				// excelRow = workSheet.createRow(rowNumber++);
+				//
+				// excelCell = excelRow.createCell(1);
+				// excelCell.setCellValue("Fecha desde");
+				// excelCell = excelRow.createCell(2);
+				// excelCell.setCellValue(UtilConverterDataList
+				// .convertirLongADate(fechaDesdeDate.getTime()));
+				// excelRow = workSheet.createRow(rowNumber++);
+				// }
+				// if (fechaHastaDate != null) {
+				// excelRow = workSheet.createRow(rowNumber++);
+				//
+				// excelCell = excelRow.createCell(1);
+				// excelCell.setCellValue("Fecha Hasta");
+				// excelCell = excelRow.createCell(2);
+				// excelCell.setCellValue(UtilConverterDataList
+				// .convertirLongADate(fechaDesdeDate.getTime()));
+				// excelRow = workSheet.createRow(rowNumber++);
+				// }
+				// if (!fortalezasP.trim().isEmpty()) {
+				// excelRow = workSheet.createRow(rowNumber++);
+				//
+				// excelCell = excelRow.createCell(1);
+				// excelCell.setCellValue("Fortalezas");
+				// excelCell = excelRow.createCell(2);
+				// excelCell.setCellValue(fortalezasP);
+				// excelRow = workSheet.createRow(rowNumber++);
+				// }
+				// if (!profesionesP.trim().isEmpty()) {
+				// excelRow = workSheet.createRow(rowNumber++);
+				//
+				// excelCell = excelRow.createCell(1);
+				// excelCell.setCellValue("PROFESIONES");
+				// excelCell = excelRow.createCell(2);
+				// excelCell.setCellValue(profesionesP);
+				// excelRow = workSheet.createRow(rowNumber++);
+				// }
+				// if (!estatusVoluntariosS.trim().isEmpty()) {
+				// excelRow = workSheet.createRow(rowNumber++);
+				//
+				// excelCell = excelRow.createCell(1);
+				// excelCell.setCellValue("Estatus");
+				// excelCell = excelRow.createCell(2);
+				// excelCell.setCellValue(estatusVoluntariosS);
+				// excelRow = workSheet.createRow(rowNumber++);
+				// }
+				// if (!voluntarioClasificadoP.trim().isEmpty()) {
+				// excelRow = workSheet.createRow(rowNumber++);
+				//
+				// excelCell = excelRow.createCell(1);
+				// excelCell.setCellValue("Clasificadores de Voluntario");
+				// excelCell = excelRow.createCell(2);
+				// excelCell.setCellValue(voluntarioClasificadoP);
+				// excelRow = workSheet.createRow(rowNumber++);
+				// }
 
 				excelRow = workSheet.createRow(rowNumber++);
 				excelCell = excelRow.createCell(0);
@@ -414,9 +410,9 @@ public class VM_ReporteApadrinamientoIndex extends VM_WindowWizard {
 				excelCell = excelRow.createCell(3);
 				excelCell.setCellValue("CORREO");
 				excelCell = excelRow.createCell(4);
-				excelCell.setCellValue("DIRECCI�N");
+				excelCell.setCellValue("DIRECCIÓN");
 				excelCell = excelRow.createCell(5);
-				excelCell.setCellValue("TEL�FONO");
+				excelCell.setCellValue("TELÉFONO");
 				excelCell = excelRow.createCell(6);
 				excelCell.setCellValue("FRECUENCIA APORTE");
 				excelCell = excelRow.createCell(7);
@@ -432,16 +428,14 @@ public class VM_ReporteApadrinamientoIndex extends VM_WindowWizard {
 							.getIdentificacion());
 
 					excelCell = excelRow.createCell(1);
-					excelCell.setCellValue(padrino.getFkPersona()
-							.getNombre());
+					excelCell.setCellValue(padrino.getFkPersona().getNombre());
 
 					excelCell = excelRow.createCell(2);
-					excelCell.setCellValue(padrino.getFkPersona()
-							.getApellido());
+					excelCell
+							.setCellValue(padrino.getFkPersona().getApellido());
 
 					excelCell = excelRow.createCell(3);
-					excelCell.setCellValue(padrino.getFkPersona()
-							.getCorreo());
+					excelCell.setCellValue(padrino.getFkPersona().getCorreo());
 
 					excelCell = excelRow.createCell(4);
 					excelCell.setCellValue(padrino.getFkPersona()
@@ -450,25 +444,23 @@ public class VM_ReporteApadrinamientoIndex extends VM_WindowWizard {
 					excelCell = excelRow.createCell(5);
 					excelCell.setCellValue(padrino.getFkPersona()
 							.getTelefono1());
-					
+
 					excelCell = excelRow.createCell(6);
 					excelCell.setCellValue(padrino.getFkFrecuenciaAporte()
 							.getNombre());
-					
+
 					excelCell = excelRow.createCell(7);
 					excelCell.setCellValue(padrino.getMonto());
 
-
 					if (padrino.getEstatusPadrino() != null) {
 						excelCell = excelRow.createCell(8);
-						excelCell
-								.setCellValue(padrino
-										.getEstatusPadrinoEnum().toString());
+						excelCell.setCellValue(padrino.getEstatusPadrinoEnum()
+								.toString());
 					}
-					
+
 				}
 				File tempFile = new File("C:\\Smile\\Padrinos.xls");
-						
+
 				FileOutputStream outputStream = new FileOutputStream(tempFile);
 				workBook.write(outputStream);
 
@@ -481,8 +473,7 @@ public class VM_ReporteApadrinamientoIndex extends VM_WindowWizard {
 		}
 		return "";
 	}
-	
-	
+
 	@Override
 	public String isValidPreconditionsCustom1(Integer currentStep) {
 
@@ -516,7 +507,7 @@ public class VM_ReporteApadrinamientoIndex extends VM_WindowWizard {
 								+ fechaDesdeDate.getTime()
 								+ " and v.fechaIngreso <= "
 								+ fechaHastaDate.getTime() + " ";
-						
+
 					}
 				}
 				System.out.println(sql);
@@ -578,12 +569,11 @@ public class VM_ReporteApadrinamientoIndex extends VM_WindowWizard {
 					}
 
 					if (activo) {
-						estatusPadrinos += EstatusPadrinoEnum.ACTIVO
-								.ordinal() + ",";
+						estatusPadrinos += EstatusPadrinoEnum.ACTIVO.ordinal()
+								+ ",";
 						estatusPadrinosS += EstatusPadrinoEnum.ACTIVO
 								.toString() + " ";
 					}
-					
 
 					int tamano = estatusPadrinos.length();
 
@@ -593,12 +583,11 @@ public class VM_ReporteApadrinamientoIndex extends VM_WindowWizard {
 
 					estatusPadrinos = new String(tmp);
 
-					sql += "and v.estatusPadrino in(" + estatusPadrinos
-							+ ")";
+					sql += "and v.estatusPadrino in(" + estatusPadrinos + ")";
 				}
 
 			}
-			
+
 			if (frecuenciaAporte) {
 
 				if (frecuenciaAporteSeleccionados != null) {
@@ -607,8 +596,8 @@ public class VM_ReporteApadrinamientoIndex extends VM_WindowWizard {
 
 					for (FrecuenciaAporte frecuenciaAporte : frecuenciaAporteSeleccionados) {
 						i++;
-						aporteSeleccionadoP += frecuenciaAporte
-								.getNombre() + "," + " ";
+						aporteSeleccionadoP += frecuenciaAporte.getNombre()
+								+ "," + " ";
 						aporteSeleccionado += frecuenciaAporte
 								.getIdFrecuenciaAporte();
 
@@ -616,33 +605,29 @@ public class VM_ReporteApadrinamientoIndex extends VM_WindowWizard {
 							aporteSeleccionado += ",";
 						}
 					}
-					sql = sql.replace("WHERE",
-							", FrecuenciaAporte vc WHERE");
+					sql = sql.replace("WHERE", ", FrecuenciaAporte vc WHERE");
 					sql += " and vc.idFrecuenciaAporte = v.fkFrecuenciaAporte and vc.idFrecuenciaAporte in ("
 							+ aporteSeleccionado + ")";
 				}
 
 			}
-			
-			if (montoAporte){
-				
+
+			if (montoAporte) {
+
 				if (aporteDesde == 0 && aporteHasta == 0) {
-					return "E:Error Code 5-No se han ingresado montos para la b�squeda";
+					return "E:Error Code 5-No se han ingresado montos para la búsqueda";
 				} else if (aporteDesde == 0) {
 					return "E:Error Code 5-No se ha ingresado un <b>Monto Desde</b> como Parametro ";
 				} else if (aporteHasta == 0) {
 					return "E:Error Code 5-No se ha ingresado un <b>Monto Hasta</b> como Parametro ";
-				} else if (aporteDesde >= aporteHasta){
+				} else if (aporteDesde >= aporteHasta) {
 					return "E:Error Code 5-No se puede ingresar un <b>Monto en Desde</b>  mayor al <b>Monto en Hasta</b> ";
-				}else {
-					sql += " and v.monto >= "
-							+ aporteDesde
-							+ " and v.monto <= "
-							+ aporteHasta + " ";
+				} else {
+					sql += " and v.monto >= " + aporteDesde
+							+ " and v.monto <= " + aporteHasta + " ";
 					System.out.println(sql);
 				}
-				
-				
+
 			}
 			if (sql.equals("SELECT DISTINCT v FROM Padrino v  WHERE  v.idPadrino = v.idPadrino ")
 					&& !todos) {
@@ -653,16 +638,12 @@ public class VM_ReporteApadrinamientoIndex extends VM_WindowWizard {
 			System.out.println(sql);
 			PayloadPadrinoResponse payloadPadrinoResponse = S.PadrinoService
 					.consultaPadrinoParametrizado(sql);
-			List<Padrino> listPadrinos = payloadPadrinoResponse
-					.getObjetos();
-			
-			this.getPadrinos().addAll(listPadrinos);
+			List<Padrino> listPadrinos = payloadPadrinoResponse.getObjetos();
 
-			
 			if (listPadrinos.isEmpty()) {
-				return "E:Error Code 5-Los criterios seleccionados no aportan informaci�n para <b>Padrinos</b>";
+				return "E:Error Code 5-Los criterios seleccionados no aportan información para <b>Padrinos</b>";
 			}
-
+			this.setPadrinos(listPadrinos);
 			jrDataSource = new JRBeanCollectionDataSource(listPadrinos);
 		}
 		if (currentStep == 2) {
@@ -692,28 +673,23 @@ public class VM_ReporteApadrinamientoIndex extends VM_WindowWizard {
 				tStatus = "Estatus";
 			}
 			/*
-			if (!fortalezasP.equals("")) {
-				tFortalezas = "Fortalezas";
-			}
-			if (!profesionesP.equals("")) {
-				tProfesiones = "Profesiones";
-			}
-			*/
-			
+			 * if (!fortalezasP.equals("")) { tFortalezas = "Fortalezas"; } if
+			 * (!profesionesP.equals("")) { tProfesiones = "Profesiones"; }
+			 */
+
 			/*
-			if (!aporteSeleccionadoP.equals("")) {
-				tVoluntarioClasificado = "Clasificacion de Voluntarios";
-			}
-			fechaDesde = fechaDesdeDate == null ? "" : UtilConverterDataList
-					.convertirLongADate(fechaDesdeDate.getTime());
-
-			fechaHasta = fechaHastaDate == null ? "" : UtilConverterDataList
-					.convertirLongADate(fechaHastaDate.getTime());
-
-			tFechaDesde = fechaDesde.equals("") ? "" : "Fecha Desde";
-
-			tFechaHasta = fechaHasta.equals("") ? "" : "Fecha Hasta";
-*/
+			 * if (!aporteSeleccionadoP.equals("")) { tVoluntarioClasificado =
+			 * "Clasificacion de Voluntarios"; } fechaDesde = fechaDesdeDate ==
+			 * null ? "" : UtilConverterDataList
+			 * .convertirLongADate(fechaDesdeDate.getTime());
+			 * 
+			 * fechaHasta = fechaHastaDate == null ? "" : UtilConverterDataList
+			 * .convertirLongADate(fechaHastaDate.getTime());
+			 * 
+			 * tFechaDesde = fechaDesde.equals("") ? "" : "Fecha Desde";
+			 * 
+			 * tFechaHasta = fechaHasta.equals("") ? "" : "Fecha Hasta";
+			 */
 			parametros.put("tAporteDesde", tAporteDesde);
 
 			parametros.put("tAporteHasta", tAporteHasta);
@@ -726,219 +702,181 @@ public class VM_ReporteApadrinamientoIndex extends VM_WindowWizard {
 
 			parametros.put("tEstatus", tStatus);
 
-	//		parametros.put("tFortalezas", tFortalezas);
+			// parametros.put("tFortalezas", tFortalezas);
 
-	//		parametros.put("tProfesiones", tProfesiones);
+			// parametros.put("tProfesiones", tProfesiones);
 
 			parametros.put("tAporteSeleccionado", tAporteSeleccionado);
 
 			parametros.put("estatusPadrinosS", estatusPadrinosS);
 
-		//	parametros.put("fortalezasP", fortalezasP);
+			// parametros.put("fortalezasP", fortalezasP);
 
-		//	parametros.put("profesionesP", profesionesP);
+			// parametros.put("profesionesP", profesionesP);
 
 			parametros.put("aporteSeleccionadoP", aporteSeleccionadoP);
 
 			source = "reporte/reportPadrinosParametrizados.jasper";
-			
-		
+
 		}
 
 		return "";
 	}
-	
+
 	public double getAporteDesdeMonto() {
 		return aporteDesdeMonto;
 	}
-
 
 	public void setAporteDesdeMonto(double aporteDesdeMonto) {
 		this.aporteDesdeMonto = aporteDesdeMonto;
 	}
 
-
 	public double getAporteHastaMonto() {
 		return aporteHastaMonto;
 	}
-
 
 	public void setAporteHastaMonto(double aporteHastaMonto) {
 		this.aporteHastaMonto = aporteHastaMonto;
 	}
 
-
 	public Date getFechaDesdeDate() {
 		return fechaDesdeDate;
 	}
-
 
 	public void setFechaDesdeDate(Date fechaDesdeDate) {
 		this.fechaDesdeDate = fechaDesdeDate;
 	}
 
-
 	public Date getFechaHastaDate() {
 		return fechaHastaDate;
 	}
-
 
 	public void setFechaHastaDate(Date fechaHastaDate) {
 		this.fechaHastaDate = fechaHastaDate;
 	}
 
-
 	public String getType() {
 		return type;
 	}
-
 
 	public void setType(String type) {
 		this.type = type;
 	}
 
-
 	public String getSource() {
 		return source;
 	}
-
 
 	public void setSource(String source) {
 		this.source = source;
 	}
 
-
 	public JRDataSource getJrDataSource() {
 		return jrDataSource;
 	}
-
 
 	public void setJrDataSource(JRDataSource jrDataSource) {
 		this.jrDataSource = jrDataSource;
 	}
 
-
 	public Map<String, Object> getParametros() {
 		return parametros;
 	}
-
 
 	public void setParametros(Map<String, Object> parametros) {
 		this.parametros = parametros;
 	}
 
-
 	public Set<FrecuenciaAporte> getFrecuenciaAporteSeleccionados() {
 		return frecuenciaAporteSeleccionados;
 	}
-
 
 	public void setFrecuenciaAporteSeleccionados(
 			Set<FrecuenciaAporte> frecuenciaAporteSeleccionados) {
 		this.frecuenciaAporteSeleccionados = frecuenciaAporteSeleccionados;
 	}
 
-
 	public List<Padrino> getPadrinos() {
-		if(this.padrinos == null) {
+		if (this.padrinos == null) {
 			this.padrinos = new ArrayList<>();
 		}
 		return padrinos;
 	}
 
-
 	public void setPadrinos(List<Padrino> padrinos) {
 		this.padrinos = padrinos;
 	}
-
 
 	public String gettStatus() {
 		return tStatus;
 	}
 
-
 	public void settStatus(String tStatus) {
 		this.tStatus = tStatus;
 	}
-
 
 	public String gettAporteDesde() {
 		return tAporteDesde;
 	}
 
-
 	public void settAporteDesde(String tAporteDesde) {
 		this.tAporteDesde = tAporteDesde;
 	}
-
 
 	public String gettAporteHasta() {
 		return tAporteHasta;
 	}
 
-
 	public void settAporteHasta(String tAporteHasta) {
 		this.tAporteHasta = tAporteHasta;
 	}
-
 
 	public String gettFrecuenciaAportes() {
 		return tFrecuenciaAportes;
 	}
 
-
 	public void settFrecuenciaAportes(String tFrecuenciaAportes) {
 		this.tFrecuenciaAportes = tFrecuenciaAportes;
 	}
-
 
 	public Double getAporteDesde() {
 		return aporteDesde;
 	}
 
-
 	public void setAporteDesde(Double aporteDesde) {
 		this.aporteDesde = aporteDesde;
 	}
-
 
 	public Double getAporteHasta() {
 		return aporteHasta;
 	}
 
-
 	public void setAporteHasta(Double aporteHasta) {
 		this.aporteHasta = aporteHasta;
 	}
-
 
 	public String getEstatusPadrinosS() {
 		return estatusPadrinosS;
 	}
 
-
 	public void setEstatusPadrinosS(String estatusPadrinosS) {
 		this.estatusPadrinosS = estatusPadrinosS;
 	}
-
 
 	public String getAporteSeleccionadoP() {
 		return aporteSeleccionadoP;
 	}
 
-
 	public void setAporteSeleccionadoP(String aporteSeleccionadoP) {
 		this.aporteSeleccionadoP = aporteSeleccionadoP;
 	}
-
 
 	public String gettAporteSeleccionado() {
 		return tAporteSeleccionado;
 	}
 
-
 	public void settAporteSeleccionado(String tAporteSeleccionado) {
 		this.tAporteSeleccionado = tAporteSeleccionado;
-	}	
+	}
 
 }

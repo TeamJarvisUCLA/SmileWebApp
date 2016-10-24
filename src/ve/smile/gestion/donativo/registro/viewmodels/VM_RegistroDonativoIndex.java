@@ -649,14 +649,11 @@ public class VM_RegistroDonativoIndex extends VM_WindowWizard {
 						.consultarCriterios(TypeQuery.EQUAL, criterios);
 				fechaAporte = null;
 				if (UtilPayload.isOK(payloadDonativoRecursoResponse)) {
-					System.out.println("ok");
 					if (payloadDonativoRecursoResponse.getObjetos() != null
 							&& !payloadDonativoRecursoResponse.getObjetos()
 									.isEmpty()) {
-						System.out.println("if");
 						for (DonativoRecurso donativoRecurso : payloadDonativoRecursoResponse
 								.getObjetos()) {
-							System.out.println("for");
 							if (donativoRecurso.getAporte()) {
 								fechaAporte = new Date(
 										donativoRecurso

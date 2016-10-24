@@ -3,6 +3,7 @@ package ve.smile.administracion.perfil.viewmodels;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -19,6 +20,7 @@ import karen.core.form.buttons.helpers.OperacionFormHelper;
 import karen.core.form.viewmodels.VM_WindowForm;
 import karen.core.util.payload.UtilPayload;
 import karen.core.util.validate.UtilValidate;
+import karen.core.util.validate.UtilValidate.ValidateOperator;
 import lights.core.enums.TypeQuery;
 import lights.smile.util.UtilMultimedia;
 import lights.smile.util.Zki;
@@ -40,7 +42,7 @@ import ve.smile.enums.TipoPersonaEnum;
 import ve.smile.payload.response.PayloadCiudadResponse;
 import ve.smile.payload.response.PayloadEstadoResponse;
 import ve.smile.payload.response.PayloadMultimediaResponse;
-import ve.smile.payload.response.PayloadOrganizacionResponse;
+import ve.smile.payload.response.PayloadPersonaResponse;
 import ve.smile.seguridad.dto.Usuario;
 import ve.smile.seguridad.enums.OperacionEnum;
 import app.UploadImageSingle;
@@ -69,6 +71,7 @@ public class VM_PerfilFormBasic extends VM_WindowForm implements
 
 	@Init(superclass = true)
 	public void childInit() {
+		this.setPersona(this.getUsuario().getPersona());
 		if (this.getPersona().getSexo() != null) {
 			this.setSexoEnum(SexoEnum.values()[this.getPersona().getSexo()]);
 		}
@@ -251,28 +254,28 @@ public class VM_PerfilFormBasic extends VM_WindowForm implements
 	}
 
 	@Override
+	public boolean actionSalir(OperacionEnum operacionEnum) {
+		DataCenter.reloadCurrentNodoMenu();
+		return true;
+	}
+
+	@Override
 	public boolean actionGuardar(OperacionEnum operacionEnum) {
 		if (!isFormValidated()) {
 			return true;
 		}
 		if (operacionEnum.equals(OperacionEnum.INCLUIR)) {
-			PayloadOrganizacionResponse payloadOrganizacionResponse = S.OrganizacionService
-					.incluir(getOrganizacion());
-			if (!UtilPayload.isOK(payloadOrganizacionResponse)) {
-				Alert.showMessage(payloadOrganizacionResponse);
-				return true;
-			}
+
 			DataCenter.reloadCurrentNodoMenu();
 			return true;
 		}
 
 		if (operacionEnum.equals(OperacionEnum.MODIFICAR)) {
-			if (this.getBytes() != null) {
 
-				if (this.getOrganizacion().getFkMultimedia() == null
-						|| this.getOrganizacion().getFkMultimedia()
+			if (bytes != null) {
+				if (this.getPersona().getFkMultimedia() == null
+						|| this.getPersona().getFkMultimedia()
 								.getIdMultimedia() == null) {
-
 					Multimedia multimedia = new Multimedia();
 					multimedia.setNombre(nameImage);
 					multimedia.setTipoMultimedia(TipoMultimediaEnum.IMAGEN
@@ -286,14 +289,11 @@ public class VM_PerfilFormBasic extends VM_WindowForm implements
 					multimedia
 							.setIdMultimedia(((Double) payloadMultimediaResponse
 									.getInformacion("id")).intValue());
-					Zki.save(Zki.ORGANIZACION, this.getOrganizacion()
-							.getIdOrganizacion(), extensionImage, bytes);
-
-					this.getOrganizacion().setFkMultimedia(multimedia);
-
+					Zki.save(Zki.PERSONAS, this.getPersona().getIdPersona(),
+							extensionImage, bytes);
+					this.getPersona().setFkMultimedia(multimedia);
 				} else {
-					Multimedia multimedia = this.getOrganizacion()
-							.getFkMultimedia();
+					Multimedia multimedia = this.getPersona().getFkMultimedia();
 					multimedia.setNombre(nameImage);
 					multimedia.setDescripcion(typeMedia);
 					multimedia.setUrl(this.getUrlImage());
@@ -301,18 +301,39 @@ public class VM_PerfilFormBasic extends VM_WindowForm implements
 							.stringToExtensionEnum(extensionImage).ordinal());
 					PayloadMultimediaResponse payloadMultimediaResponse = S.MultimediaService
 							.modificar(multimedia);
-					Zki.save(Zki.ORGANIZACION, this.getOrganizacion()
-							.getIdOrganizacion(), extensionImage, bytes);
+					if (!UtilPayload.isOK(payloadMultimediaResponse)) {
+						Alert.showMessage(payloadMultimediaResponse);
+						return true;
+					}
+					Zki.save(Zki.PERSONAS, this.getPersona().getIdPersona(),
+							extensionImage, bytes);
 				}
-
 			}
 
-			PayloadOrganizacionResponse payloadOrganizacionResponse = S.OrganizacionService
-					.modificar(getOrganizacion());
-			if (!UtilPayload.isOK(payloadOrganizacionResponse)) {
-				Alert.showMessage(payloadOrganizacionResponse);
+			Multimedia multimedia = this.getPersona().getFkMultimedia();
+
+			if (bytes == null && this.getPersona().getFkMultimedia() != null) {
+				Zki.remove(this.getPersona().getFkMultimedia().getUrl());
+				this.getPersona().setFkMultimedia(null);
+			}
+
+			if (bytes == null && multimedia != null
+					&& multimedia.getIdMultimedia() != null) {
+				PayloadMultimediaResponse payloadMultimediaResponse = S.MultimediaService
+						.eliminar(multimedia.getIdMultimedia());
+				if (!UtilPayload.isOK(payloadMultimediaResponse)) {
+					Alert.showMessage(payloadMultimediaResponse);
+				}
+			}
+
+			// PERSONA
+			PayloadPersonaResponse payloadPersonaResponse = S.PersonaService
+					.modificar(this.getPersona());
+			if (!UtilPayload.isOK(payloadPersonaResponse)) {
+				Alert.showMessage(payloadPersonaResponse);
 				return true;
 			}
+
 			DataCenter.reloadCurrentNodoMenu();
 			return true;
 		}
@@ -325,18 +346,39 @@ public class VM_PerfilFormBasic extends VM_WindowForm implements
 
 	private boolean isFormValidated() {
 		try {
-			UtilValidate.validateString(getOrganizacion().getRif(), "Rif", 30);
-			UtilValidate.validateString(getOrganizacion().getNombre(),
-					"Nombre", 500);
-			UtilValidate.validateString(getOrganizacion().getDireccion(),
-					"Dirección", 500);
-			UtilValidate.validateString(getOrganizacion().getTelefono(),
-					"Teléfono", 25);
-			UtilValidate.validateString(getOrganizacion().getMision(),
-					"Misión", 500);
-			UtilValidate.validateString(getOrganizacion().getVision(),
-					"Visión", 500);
-			UtilValidate.validateNull(this.getBytes(), "Imagen");
+
+			UtilValidate.validateNull(this.getPersona().getTipoPersona(),
+					"Tipo de persona");
+			UtilValidate.validateInteger(this.getPersona().getTipoPersona(),
+					"Tipo de persona", ValidateOperator.LESS_THAN, 2);
+			if (this.getTipoPersonaEnum().equals(TipoPersonaEnum.NATURAL)) {
+				UtilValidate.validateString(this.getPersona()
+						.getIdentificacion(), "Cédula", 35);
+				UtilValidate.validateString(this.getPersona().getNombre(),
+						"Nombre", 150);
+				UtilValidate.validateString(this.getPersona().getApellido(),
+						"Apellido", 150);
+				UtilValidate.validateInteger(this.getPersona().getSexo(),
+						"Sexo", ValidateOperator.LESS_THAN, 2);
+				UtilValidate.validateDate(this.getPersona()
+						.getFechaNacimiento(), "Fecha de nacimiento",
+						ValidateOperator.LESS_THAN, new SimpleDateFormat(
+								"yyyy-MM-dd").format(new Date()), "dd/MM/yyyy");
+			} else {
+				UtilValidate.validateString(this.getPersona()
+						.getIdentificacion(), "RIF", 35);
+				UtilValidate.validateString(this.getPersona().getNombre(),
+						"Nombre", 150);
+			}
+			UtilValidate
+					.validateNull(this.getPersona().getFkCiudad(), "Ciudad");
+			UtilValidate.validateString(this.getPersona().getDireccion(),
+					"Dirección", 250);
+			UtilValidate.validateString(this.getPersona().getTelefono1(),
+					"Telfono 1", 25);
+			UtilValidate.validateString(this.getPersona().getCorreo(),
+					"Correo", 100);
+
 			return true;
 		} catch (Exception e) {
 			Alert.showMessage(e.getMessage());

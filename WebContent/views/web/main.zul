@@ -194,7 +194,7 @@
 								<template name="children">
 									<div class="col s4">
 										<image class="img-responsive center-block img-circle"
-											src="@load(each.fkMultimedia.url)" width="128px"
+											src="${m:getUrlWeb(each.fkMultimedia.url)}" width="128px"
 											height="128px" style="border: 6px solid #d9eb52;">
 										</image>
 										<n:br></n:br>
@@ -236,7 +236,7 @@
 								<div class="col s12 seccion" children="@load(vm.participacion)">
 									<template name="children">
 										<div class="col s4">
-											<image class="img-responsive center-block img-circle" src="@load(each.fkMultimedia.url)" width="128px" height="128px" style="border: 6px solid #f26b7a;"></image>
+											<image class="img-responsive center-block img-circle" src="${m:getUrlWeb(each.fkMultimedia.url)}" width="128px" height="128px" style="border: 6px solid #f26b7a;"></image>
 											<n:br></n:br>
 											<div class="subtitulo text-center">
 												<label value="@load(each.nombre)"></label>
@@ -285,7 +285,7 @@
 									<div class="owlPatrocinadores owl-carousel owl-theme" children="@load(vm.patrocinadores)">
 										<template name="children">
 											<div style="padding-bottom: 10px;">
-												<image src="@load(each.fkPersona.fkMultimedia.url)" height="100px" width="100px" sclass="responsive-img">
+												<image src="${m:getUrlWeb(each.fkPersona.fkMultimedia.url)}" height="100px" width="100px" sclass="responsive-img">
 												</image>
 											</div>
 										</template>								
@@ -301,7 +301,7 @@
 						<div class="carousel" children="@load(vm.multiemdiaGaleria)">
 							<template name="children">
 								<div class="carousel-item">
-									<image class="img-responsive" src="@load(each.url)"></image>
+									<image class="img-responsive" src="${m:getUrlWeb(each.url)}"></image>
 								</div>
 								<span  onClick="@command('galeria')">ver mas</span>
 							</template>

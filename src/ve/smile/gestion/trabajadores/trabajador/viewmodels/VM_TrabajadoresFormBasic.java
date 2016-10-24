@@ -1,10 +1,8 @@
 package ve.smile.gestion.trabajadores.trabajador.viewmodels;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -26,8 +24,8 @@ import karen.core.util.payload.UtilPayload;
 import karen.core.util.validate.UtilValidate;
 import karen.core.util.validate.UtilValidate.ValidateOperator;
 import lights.core.enums.TypeQuery;
-import lights.core.payload.response.IPayloadResponse;
 import lights.smile.util.UtilMultimedia;
+import lights.smile.util.Zki;
 
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
@@ -45,21 +43,19 @@ import ve.smile.dto.Trabajador;
 import ve.smile.dto.Persona;
 import ve.smile.enums.EstatusTrabajadorEnum;
 import ve.smile.enums.TipoMultimediaEnum;
+import ve.smile.enums.TipoPersonaEnum;
 import ve.smile.payload.response.PayloadCargoResponse;
 import ve.smile.payload.response.PayloadCiudadResponse;
 import ve.smile.payload.response.PayloadEstadoResponse;
-import ve.smile.payload.response.PayloadEstudioSocioEconomicoResponse;
 import ve.smile.payload.response.PayloadMultimediaResponse;
 import ve.smile.payload.response.PayloadProfesionResponse;
-import ve.smile.payload.response.PayloadTareaResponse;
 import ve.smile.payload.response.PayloadTrabajadorResponse;
 import ve.smile.payload.response.PayloadPersonaResponse;
 import ve.smile.seguridad.enums.OperacionEnum;
 import ve.smile.seguridad.enums.SexoEnum;
 import app.UploadImageSingle;
 
-public class VM_TrabajadoresFormBasic extends VM_WindowForm implements
-		UploadImageSingle {
+public class VM_TrabajadoresFormBasic extends VM_WindowForm implements UploadImageSingle {
 
 	private List<Ciudad> ciudades;
 
@@ -74,7 +70,8 @@ public class VM_TrabajadoresFormBasic extends VM_WindowForm implements
 	private byte[] bytes = null;
 	private String nameImage;
 	private String extensionImage;
-	private String urlImagen;
+	private String urlImage;
+	private String typeMedia;
 
 	private Estado estado;
 	private Cargo cargo;
@@ -125,7 +122,19 @@ public class VM_TrabajadoresFormBasic extends VM_WindowForm implements
 		}
 		
 		this.setPersona(this.getTrabajador().getFkPersona());
-		
+	
+		if (this.getTrabajador().getFkPersona() != null
+				&& this.getTrabajador().getFkPersona().getFkMultimedia() != null) {
+			this.setUrlImage(this.getPersona().getFkMultimedia().getUrl());
+			this.nameImage = this.getPersona().getFkMultimedia().getNombre();
+			this.extensionImage = nameImage.substring(nameImage
+					.lastIndexOf(".") + 1);
+			this.typeMedia = this.getPersona().getFkMultimedia()
+					.getDescripcion();
+		} else {
+			this.getPersona().setFkMultimedia(new Multimedia());
+		}
+
 		if (this.persona.getSexo() != null) {
 			this.setSexoEnum(SexoEnum.values()[this.persona.getSexo()]);
 			
@@ -149,24 +158,9 @@ public class VM_TrabajadoresFormBasic extends VM_WindowForm implements
 				Alert.showMessage(payloadCiudadResponse);
 			}
 			this.getCiudades().addAll(payloadCiudadResponse.getObjetos());
-		}
-		if (this.getTrabajador().getFkPersona() != null
-				&& this.getTrabajador().getFkPersona().getFkMultimedia() != null) {
-			this.setUrlImagen(this.getTrabajador().getFkPersona()
-					.getFkMultimedia().getUrl());
-		} else {
-			this.getPersona().setFkMultimedia(new Multimedia());
-		}
-				
+		}		
 }
 	
-	public boolean disabledProfesion(Profesion profesion)
-	{
-		return this.getTrabajadorProfesiones().contains(profesion);
-	}
-		
-		//TODO: Sets and gets de profesiones
-					
 	public List<Ciudad> getCiudades() {
 		if (this.ciudades == null) {
 			this.ciudades = new ArrayList<>();
@@ -223,6 +217,11 @@ public class VM_TrabajadoresFormBasic extends VM_WindowForm implements
 		}
 		return cargos;
 	}
+	
+	public boolean disabledProfesion(Profesion profesion)
+	{
+		return this.getTrabajadorProfesiones().contains(profesion);
+	}
 
 	public void setEstados(List<Estado> estados) {
 		this.estados = estados;
@@ -270,7 +269,7 @@ public class VM_TrabajadoresFormBasic extends VM_WindowForm implements
 	}
 
 	public void setExtensionImage(String extensionImage) {
-		this.extensionImage = extensionImage;
+		this.extensionImage = extensionImage; 
 	}
 
 	public List<SexoEnum> getSexoEnums() {
@@ -298,12 +297,20 @@ public class VM_TrabajadoresFormBasic extends VM_WindowForm implements
 		this.getPersona().setSexo(sexoEnum.ordinal());
 	}
 
-	public String getUrlImagen() {
-		return urlImagen;
+	public String getUrlImage() {
+		return urlImage;
 	}
 
-	public void setUrlImagen(String urlImagen) {
-		this.urlImagen = urlImagen;
+	public void setUrlImage(String urlImage) {
+		this.urlImage = urlImage;
+	}
+	
+	public String getTypeMedia() {
+		return typeMedia;
+	}
+
+	public void setTypeMedia(String typeMedia) {
+		this.typeMedia = typeMedia;
 	}
 
 	@Command("changeEstado")
@@ -325,44 +332,53 @@ public class VM_TrabajadoresFormBasic extends VM_WindowForm implements
 
 	@Override
 	public BufferedImage getImageContent() {
-		try {
-			return loadImage();
-		} catch (Exception e) {
-			return null;
+		if (bytes != null) {
+			try {
+				return ImageIO.read(new ByteArrayInputStream(bytes));
+			} catch (IOException e) {
+				return null;
+			}
 		}
-	}
 
+		if (urlImage != null) { 
+			bytes = Zki.getBytes(urlImage);
+			return Zki.getBufferedImage(urlImage);
+		}
+
+		return null; 
+	}
 
 	@Override
 	public void onUploadImageSingle(UploadEvent event, String idUpload) {
 		org.zkoss.util.media.Media media = event.getMedia();
+
 		if (media instanceof org.zkoss.image.Image) {
-			bytes = media.getByteData();
-			this.nameImage = media.getName();
-			this.extensionImage = media.getFormat();
-			if (UtilMultimedia.validateFile(nameImage.substring(this.nameImage
-					.lastIndexOf(".") + 1))) {
-				Multimedia multimedia = new Multimedia();
-				multimedia.setNombre(nameImage);
-				multimedia.setTipoMultimedia(TipoMultimediaEnum.IMAGEN
-						.ordinal());
-				multimedia.setUrl(new StringBuilder()
-						.append("/Smile/Trabajador/").append(nameImage)
-						.toString());
-				multimedia.setExtension(UtilMultimedia
-						.stringToExtensionEnum(
-								nameImage.substring(this.nameImage
-										.lastIndexOf(".") + 1)).ordinal());
-				multimedia.setDescripcion("Imagen del trabajador.");
-				System.out.println(multimedia.getDescripcion());
-				System.out.println(multimedia.getExtension());
-				this.getPersona().setFkMultimedia(multimedia);
+
+			if (UtilMultimedia.validateImage(media.getName().substring(
+					media.getName().lastIndexOf(".") + 1))) {
+				this.bytes = media.getByteData();
+				this.extensionImage = media.getName().substring(
+						media.getName().lastIndexOf(".") + 1);
+				this.typeMedia = media.getContentType();
+
+				if (this.getPersona().getIdPersona() != null) {
+					this.nameImage = new StringBuilder().append(Zki.PERSONAS)
+							.append(this.getPersona().getIdPersona())
+							.append(".").append(extensionImage).toString();
+
+					this.urlImage = new StringBuilder().append(Zki.PERSONAS)
+							.append(this.getPersona().getIdPersona())
+							.append(".").append(extensionImage).toString();
+
+				}
 			} else {
 				this.getPersona().setFkMultimedia(null);
 				Alert.showMessage("E: Error Code: 100-El formato de la <b>imagen</b> es inv√°lido");
 
 			}
-
+		} else {
+			this.getPersona().setFkMultimedia(null);
+			Alert.showMessage("E: Error Code: 100-El formato de la <b>imagen</b> es inv√°lido");
 		}
 	}
 
@@ -377,16 +393,6 @@ public class VM_TrabajadoresFormBasic extends VM_WindowForm implements
 
 	public void setBytes(byte[] bytes) {
 		this.bytes = bytes;
-	}
-
-	private BufferedImage loadImage() throws Exception {
-		try {
-			Path path = Paths.get(this.getUrlImagen());
-			bytes = Files.readAllBytes(path);
-			return ImageIO.read(new File(this.getUrlImagen()));
-		} catch (Exception e) {
-			return null;
-		}
 	}
 
 	@Override
@@ -418,61 +424,149 @@ public class VM_TrabajadoresFormBasic extends VM_WindowForm implements
 
 		if (operacionEnum.equals(OperacionEnum.INCLUIR)) {
 			
-			Trabajador trabajador = this.getTrabajador();
-			
-			Multimedia multimedia = this.getPersona().getFkMultimedia();
-			
-			PayloadMultimediaResponse payloadMultimediaResponse = S.MultimediaService
-					.incluir(multimedia);
+			if(extensionImage != null){
+				Trabajador trabajador = this.getTrabajador();
+				this.getPersona().setTipoPersona(TipoPersonaEnum.NATURAL.ordinal());
+				trabajador.setFkPersona(this.getPersona());
+				
+				trabajador.setFechaIngreso(this.getFechaIngreso().getTime());
+				trabajador.setEstatusTrabajador(EstatusTrabajadorEnum.ACTIVO.ordinal());
+				trabajador.setProfesiones(this.getTrabajadorProfesiones());
+				
+				if (bytes != null) {
+					Multimedia multimedia = new Multimedia();
+					multimedia.setNombre(nameImage);
+					multimedia.setTipoMultimedia(TipoMultimediaEnum.IMAGEN
+							.ordinal());
+					multimedia.setUrl(this.getUrlImage());
+					multimedia.setExtension(UtilMultimedia.stringToExtensionEnum(
+							extensionImage).ordinal());
+					multimedia.setDescripcion(typeMedia);
 
-			if (!UtilPayload.isOK(payloadMultimediaResponse)) {
-				Alert.showMessage(payloadMultimediaResponse);
-				return true;
-			}
+					PayloadMultimediaResponse payloadMultimediaResponse = S.MultimediaService
+							.incluir(multimedia);
+					if (!UtilPayload.isOK(payloadMultimediaResponse)) {
+						Alert.showMessage(payloadMultimediaResponse);
+						return true;
+					}
+					multimedia.setIdMultimedia(((Double) payloadMultimediaResponse
+							.getInformacion("id")).intValue());
+					this.getPersona().setFkMultimedia(multimedia);
+				}
+				PayloadPersonaResponse payloadPersonaResponse = S.PersonaService
+						.incluir(this.getPersona());
+				if (!UtilPayload.isOK(payloadPersonaResponse)) {
+					Alert.showMessage(payloadPersonaResponse);
+					return true;
+				}
+				this.getPersona().setIdPersona(
+						((Double) payloadPersonaResponse.getInformacion("id"))
+								.intValue());
+				trabajador.setFkPersona(this.getPersona());
+				PayloadTrabajadorResponse payloadTrabajadorResponse = S.TrabajadorService
+						.incluir(trabajador);
+				if (!UtilPayload.isOK(payloadTrabajadorResponse)) {
+					return true;
+				}
+				if (bytes != null) {
+					Zki.save(Zki.PERSONAS, getPersona().getIdPersona(),
+							extensionImage, bytes);
+					Multimedia multimedia = this.getPersona().getFkMultimedia();
+					multimedia.setNombre(Zki.PERSONAS
+							+ this.getPersona().getIdPersona() + "."
+							+ this.extensionImage);
+					multimedia.setUrl(Zki.PERSONAS + getPersona().getIdPersona()
+							+ "." + this.extensionImage);
+					PayloadMultimediaResponse payloadMultimediaResponse = S.MultimediaService
+							.modificar(multimedia);
 
-			multimedia.setIdMultimedia(((Double) payloadMultimediaResponse
-					.getInformacion("id")).intValue());
-			this.getPersona().setFkMultimedia(multimedia);
-			PayloadPersonaResponse payloadPersonaResponse = S.PersonaService
-					.incluir(this.getPersona());
-			if (!UtilPayload.isOK(payloadPersonaResponse)) {
-				Alert.showMessage(payloadPersonaResponse);
-				return true;
-			}
-			this.getPersona().setIdPersona(
-					((Double) payloadPersonaResponse.getInformacion("id"))
-							.intValue());
-			trabajador.setFkPersona(this.getPersona());
-			
-			trabajador.setFechaIngreso(this.getFechaIngreso().getTime());
-			trabajador.setEstatusTrabajador(EstatusTrabajadorEnum.ACTIVO.ordinal());
-			trabajador.setProfesiones(this.getTrabajadorProfesiones());
-			
-			PayloadTrabajadorResponse payloadTrabajadorResponse = S.TrabajadorService
-					.incluir(trabajador);
-			if (!UtilPayload.isOK(payloadTrabajadorResponse)) {
+					if (!UtilPayload.isOK(payloadMultimediaResponse)) {
+						Alert.showMessage(payloadMultimediaResponse);
+						return true;
+					}
+				}
 				Alert.showMessage(payloadTrabajadorResponse);
+				DataCenter.reloadCurrentNodoMenu();
+				return true;			
+				
+			}else{
+				Alert.showMessage("Error Code: 099-Debe cargar una Imagen del trabajador");
 				return true;
-			}
-			DataCenter.reloadCurrentNodoMenu();
-			return true;
+				}						
 		}
-
 		if (operacionEnum.equals(OperacionEnum.MODIFICAR)) {
 			this.getTrabajador().getProfesiones().clear();
 			this.getTrabajador().getProfesiones().addAll(this.getTrabajadorProfesiones());
 			
-			PayloadTrabajadorResponse payloadTrabajadorResponse = S.TrabajadorService
-					.modificar(getTrabajador());
+			if (bytes != null) {
+				if (this.getPersona().getFkMultimedia() == null
+						|| this.getPersona().getFkMultimedia()
+								.getIdMultimedia() == null) {
+					Multimedia multimedia = new Multimedia();
+					multimedia.setNombre(nameImage);
+					multimedia.setTipoMultimedia(TipoMultimediaEnum.IMAGEN
+							.ordinal());
+					multimedia.setUrl(this.getUrlImage());
+					multimedia.setExtension(UtilMultimedia
+							.stringToExtensionEnum(extensionImage).ordinal());
+					multimedia.setDescripcion(typeMedia);
+					PayloadMultimediaResponse payloadMultimediaResponse = S.MultimediaService
+							.incluir(multimedia);
+					multimedia
+							.setIdMultimedia(((Double) payloadMultimediaResponse
+									.getInformacion("id")).intValue());
+					Zki.save(Zki.PERSONAS, this.getPersona().getIdPersona(),
+							extensionImage, bytes);
+					this.getPersona().setFkMultimedia(multimedia);
+				} else {
+					Multimedia multimedia = this.getPersona().getFkMultimedia();
+					multimedia.setNombre(nameImage);
+					multimedia.setDescripcion(typeMedia);
+					multimedia.setUrl(this.getUrlImage());
+					multimedia.setExtension(UtilMultimedia
+							.stringToExtensionEnum(extensionImage).ordinal());
+					PayloadMultimediaResponse payloadMultimediaResponse = S.MultimediaService
+							.modificar(multimedia);
+					if (!UtilPayload.isOK(payloadMultimediaResponse)) {
+						Alert.showMessage(payloadMultimediaResponse);
+						return true;
+					}
+					Zki.save(Zki.PERSONAS, this.getPersona().getIdPersona(),
+							extensionImage, bytes);
+				}
+
+			}
+
+			Multimedia multimedia = this.getPersona().getFkMultimedia();
+
+			if (bytes == null && this.getPersona().getFkMultimedia() != null) {
+				Zki.remove(this.getPersona().getFkMultimedia().getUrl());
+				this.getPersona().setFkMultimedia(null);
+			}
+
 			PayloadPersonaResponse payloadPersonaResponse = S.PersonaService
 					.modificar(getPersona());
 			
 		if (!UtilPayload.isOK(payloadPersonaResponse)) {
-			if (!UtilPayload.isOK(payloadTrabajadorResponse)) {
-				Alert.showMessage(payloadTrabajadorResponse);
+				Alert.showMessage(payloadPersonaResponse);
 				return true;
 			}
-		}
+			if (bytes == null && multimedia != null && multimedia.getIdMultimedia() != null) {
+				PayloadMultimediaResponse payloadMultimediaResponse = S.MultimediaService
+						.eliminar(multimedia.getIdMultimedia());
+				if (!UtilPayload.isOK(payloadMultimediaResponse)) {
+					Alert.showMessage(payloadMultimediaResponse);
+					return true;
+				}
+			}
+			this.getTrabajador().setFkPersona(this.getPersona());
+			PayloadTrabajadorResponse payloadTrabajadorResponse = S.TrabajadorService
+					.modificar(this.getTrabajador());
+			Alert.showMessage(payloadTrabajadorResponse);
+			if (!UtilPayload.isOK(payloadTrabajadorResponse)) {
+				return true;
+			}
+
 			DataCenter.reloadCurrentNodoMenu();
 			return true;
 		}
@@ -496,9 +590,11 @@ public class VM_TrabajadoresFormBasic extends VM_WindowForm implements
 
 	public boolean isFormValidated() {
 		try {
+			UtilValidate.validateNull(this.getPersona().getFkMultimedia(),
+					"Imagen");
 			UtilValidate.validateNull(this.getTrabajador().getFkCargo(), "Cargo");
 			UtilValidate.validateString(this.getPersona().getIdentificacion(),
-					"CÈdula/RIF", 35);
+					"C√©dula", 35);
 			UtilValidate.validateString(this.getPersona().getNombre(),
 					"Nombre", 150);
 			UtilValidate.validateString(this.getPersona().getApellido(),
@@ -516,11 +612,9 @@ public class VM_TrabajadoresFormBasic extends VM_WindowForm implements
 					new SimpleDateFormat("yyyy-MM-dd").format(new Date()),
 					"DD/MM/YYYY");
 			UtilValidate.validateString(this.getPersona().getDireccion(),
-					"DirecciÛn", 250);
-			UtilValidate.validateNull(this.getPersona().getFkMultimedia(),
-					"Imagen");
+					"Direcci√≥n", 250);
 			UtilValidate.validateString(this.getPersona().getTelefono1(),
-					"TelÈfono 1", 25);
+					"Tel√©fono 1", 25);
 			UtilValidate.validateString(this.getPersona().getCorreo(),
 					"Correo", 100);
 
@@ -599,5 +693,5 @@ public class VM_TrabajadoresFormBasic extends VM_WindowForm implements
 				this.getProfesionesSeleccionadas().clear();
 				this.getTrabajadorProfesionesSeleccionadas().clear();
 			}
-		}
+		}		
 }

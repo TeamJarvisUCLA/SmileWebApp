@@ -357,12 +357,10 @@ public class VM_EgresoTrabajadorIndex extends VM_WindowWizard<Trabajador>
 	@Override
 	public IPayloadResponse<Trabajador> getDataToTable(Integer cantidadRegistrosPagina, Integer pagina)
 	{
-		//TODO:
 		Map<String, String> criterios = new HashMap<>();
 		criterios.put("estatusTrabajador", String.valueOf(EstatusTrabajadorEnum.ACTIVO.ordinal()));
 		PayloadTrabajadorResponse payloadTrabajadorResponse = S.TrabajadorService.consultarPaginacionCriterios(cantidadRegistrosPagina, pagina,	TypeQuery.EQUAL, criterios);
 		return payloadTrabajadorResponse;
-		
 	}
 	
 	// ATRAS

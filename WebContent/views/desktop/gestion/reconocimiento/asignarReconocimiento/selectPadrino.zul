@@ -20,9 +20,9 @@
 							selectedItem="@bind(vm.padrino)">
 
 							<listhead sizable="true">
-								<listheader width="20%"
+								<listheader width="40%"
 									label="Identificación" />
-								<listheader width="30%" label="Padrino" />
+								<listheader width="60%" label="Padrino" />
 							</listhead>
 							<template name="model">
 								<listitem>

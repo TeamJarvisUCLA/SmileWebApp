@@ -21,7 +21,6 @@
 
 					<tabpanels>
 						<tabpanel>
-
 							<div class="input-field col s6">
 								<n:label for="fk_cargo" class="active">
 									Cargo
@@ -40,7 +39,7 @@
 									
 							<div class="input-field col s6">
 								<n:label for="identificacion">
-									Cédula/RIF
+									Cédula
 								</n:label>
 								<span sclass="fa fa-question-circle fa-lg help-icon-special" tooltip="pop_identificacion, position=after_end" />
 								<textbox id="identificacion" type="text"

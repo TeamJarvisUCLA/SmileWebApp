@@ -1,3 +1,5 @@
+<?xel-method prefix="m" name="convertirLongADate" class="lights.smile.util.UtilConverterDataList" signature="java.lang.String convertirLongADate(Long)"?>
+
 <zk xmlns:n="native" xmlns:w="client">
 	<div width="100%" class='opacity-0'
 		use="karen.core.simple_list_principal.controllers.C_WindowSimpleListPrincipal"
@@ -12,21 +14,17 @@
 						selectedItem="@bind(vm.selectedObject)">
 
 						<listhead sizable="true">
-							<listheader width="16%" label="Multimedia" />
 							<listheader width="16%" label="Titulo" />
 							<listheader width="16%" label="Descripcion" />
 							<listheader width="16%" label="Fecha Inicio" />
 							<listheader width="16%" label="Fecha Finalizacion" />
-							<listheader width="16%" label="Tipo Cartelera" />
 						</listhead>
 						<template name="model">
 							<listitem>
-								<listcell label="@load(each.fkMultimedia)" />
 								<listcell label="@load(each.titulo)" />
 								<listcell label="@load(each.descripcion)" />
-								<listcell label="@load(each.fechaInicio)" />
-								<listcell label="@load(each.fechaFinalizacion)" />
-								<listcell label="@load(each.tipoCartelera)" />
+								<listcell label="${m:convertirLongADate(each.fechaInicio)}"  />
+								<listcell label="${m:convertirLongADate(each.fechaFinalizacion)}"  />
 							</listitem>
 						</template>
 						<listfoot>

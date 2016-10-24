@@ -394,9 +394,9 @@ public class VM_albumIndex extends VM_WindowWizard
 	                		multimedia.setIdMultimedia(((Double) payloadMultimediaResponse
 	                				.getInformacion("id")).intValue());
 	                		
-	                		Zki.save(Zki.EVENTO, multimedia.getIdMultimedia(), extensionImage, bytes);
+	                		Zki.save(Zki.ALBUM, multimedia.getIdMultimedia(), extensionImage, bytes);
 
-	                		multimedia.setUrl(Zki.EVENTO
+	                		multimedia.setUrl(Zki.ALBUM
 	                				+ multimedia.getIdMultimedia() + "."
 	                				+ extensionImage);
 	                		payloadMultimediaResponse = S.MultimediaService

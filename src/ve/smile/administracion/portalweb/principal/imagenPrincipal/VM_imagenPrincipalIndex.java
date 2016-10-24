@@ -1,10 +1,7 @@
-package ve.smile.administracion.portalweb.galeria.galeria;
+package ve.smile.administracion.portalweb.principal.imagenPrincipal;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import karen.core.dialog.generic.data.DialogData;
 import karen.core.util.UtilDialog;
@@ -16,33 +13,32 @@ import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 
 import ve.smile.consume.services.S;
-import ve.smile.dto.Album;
 import ve.smile.dto.Multimedia;
 import ve.smile.enums.TipoMultimediaEnum;
 import ve.smile.payload.response.PayloadMultimediaResponse;
 
-public class VM_galeriaIndex{
+public class VM_imagenPrincipalIndex{
 	
-	private List<Multimedia> multimediaGaleria;
+	private List<Multimedia> imagenPrincipal;
 	
-	public List<Multimedia> getMultimediaGaleria() {
-		if (this.multimediaGaleria == null) {
-			this.multimediaGaleria = new ArrayList<>();
+	public List<Multimedia> getImagenPrincipal() {
+		if (this.imagenPrincipal == null) {
+			this.imagenPrincipal = new ArrayList<>();
 		}
-		this.multimediaGaleria.clear();
-		if (this.multimediaGaleria.isEmpty()) {
+		this.imagenPrincipal.clear();
+		if (this.imagenPrincipal.isEmpty()) {
 
 			PayloadMultimediaResponse payloadMultimediaResponse = S.MultimediaService
-					.consultarMultimediaTipo(100, TipoMultimediaEnum.GALERIA.ordinal());
+					.consultarMultimediaTipo(1, TipoMultimediaEnum.BANNER.ordinal());
 
-			this.multimediaGaleria.addAll(payloadMultimediaResponse.getObjetos());
+			this.imagenPrincipal.addAll(payloadMultimediaResponse.getObjetos());
 		}
 
-		return multimediaGaleria;
+		return imagenPrincipal;
 	}
 
-	public void setMultimediaGaleria(List<Multimedia> multiemdiaGaleria) {
-		this.multimediaGaleria = multiemdiaGaleria;
+	public void setImagenPrincipal(List<Multimedia> imagenPrincipal) {
+		this.imagenPrincipal = imagenPrincipal;
 	}
 
 	@Init(superclass = true)
@@ -54,17 +50,17 @@ public class VM_galeriaIndex{
 			DialogData dialogData = new DialogData();
 			Multimedia multimedia = new Multimedia();
 			dialogData.put("multimedia", multimedia);
-			UtilDialog.showDialog("/views/desktop/administracion/portalweb/galeria/galeria/formMultimedia.zul", dialogData);
+			UtilDialog.showDialog("/views/desktop/administracion/portalweb/principal/imagenPrincipal/formImagenPrincipal.zul", dialogData);
 	}
 	
 	@Command
 	public void formEditMultimedia(@BindingParam("multimedia") Multimedia multimedia) {
 			DialogData dialogData = new DialogData();
 			dialogData.put("multimedia", multimedia);
-			UtilDialog.showDialog("/views/desktop/administracion/portalweb/galeria/galeria/formMultimedia.zul", dialogData);
+			UtilDialog.showDialog("/views/desktop/administracion/portalweb/principal/imagenPrincipal/formImagenPrincipal.zul", dialogData);
 	}
 
 	@GlobalCommand
-	@NotifyChange("multimediaGaleria")
+	@NotifyChange("imagenPrincipal")
 	public void refreshMultimedias(){}
 }

@@ -106,8 +106,9 @@
 											<div sclass="col s6">
 												<n:br></n:br>
 												<image
-													class="img-responsive center-block" width="128px"
-													height="128px" src="${m:getUrlWeb(vm.eventoPlan.fkMultimedia.url)}" >
+													class="img-responsive center-block img-circle" width="128px"
+													height="128px" src="${m:getUrlWeb(vm.eventoPlan.fkMultimedia.url)}" 
+													style="border: 6px solid #d9eb52;">
 												</image>
 												<n:br></n:br>
 											</div>

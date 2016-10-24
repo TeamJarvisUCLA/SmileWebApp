@@ -1,4 +1,4 @@
-package ve.smile.administracion.portalweb.galeria.galeria;
+package ve.smile.administracion.portalweb.principal.imagenPrincipal;
 
 import karen.core.crux.alert.Alert;
 import karen.core.dialog.generic.controllers.C_WindowDialog;
@@ -16,7 +16,7 @@ import ve.smile.dto.Multimedia;
 import ve.smile.enums.TipoMultimediaEnum;
 import ve.smile.payload.response.PayloadMultimediaResponse;
 
-public class C_formMultimedia extends C_WindowDialog {
+public class C_formImagenPrincipal extends C_WindowDialog {
 	private static final long serialVersionUID = 1L;
 
 	Multimedia multimedia;
@@ -30,11 +30,11 @@ public class C_formMultimedia extends C_WindowDialog {
 	public void onAccept(Event event) {
 		DialogCloseEvent dialogCloseEvent = new DialogCloseEvent(event,
 				DialogActionEnum.ACEPTAR);
-		VM_formMultimediaAlbum vmMutimedia = (VM_formMultimediaAlbum) vm();
+		VM_formImagenPrincipal vmMutimedia = (VM_formImagenPrincipal) vm();
 		
 		Multimedia multimedia = vmMutimedia.getMultimedia();
 		
-		multimedia.setTipoMultimedia(TipoMultimediaEnum.GALERIA.ordinal());
+		multimedia.setTipoMultimedia(TipoMultimediaEnum.BANNER.ordinal());
 		multimedia.setExtension(UtilMultimedia.stringToExtensionEnum(
 				vmMutimedia.getExtensionImage()).ordinal());
 
@@ -45,9 +45,9 @@ public class C_formMultimedia extends C_WindowDialog {
 				.getInformacion("id")).intValue());
 
 		
-		Zki.save(Zki.GALERIA, multimedia.getIdMultimedia(), vmMutimedia.getExtensionImage(), vmMutimedia.getBytes());
+		Zki.save(Zki.EVENTO, multimedia.getIdMultimedia(), vmMutimedia.getExtensionImage(), vmMutimedia.getBytes());
 
-		multimedia.setUrl(Zki.GALERIA
+		multimedia.setUrl(Zki.EVENTO
 				+ multimedia.getIdMultimedia() + "."
 				+ vmMutimedia.getExtensionImage());
 		payloadMultimediaResponse = S.MultimediaService
@@ -61,7 +61,7 @@ public class C_formMultimedia extends C_WindowDialog {
 	
 	public void onClick$btnDelete(Event event) {
 		
-		VM_formMultimediaAlbum vmMutimedia = (VM_formMultimediaAlbum) vm();
+		VM_formImagenPrincipal vmMutimedia = (VM_formImagenPrincipal) vm();
 		this.multimedia = vmMutimedia.getMultimedia();
 		vmMutimedia.limpiar();
 		onCancel(event);

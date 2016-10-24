@@ -508,9 +508,9 @@ public class VM_ReporteVoluntarioIndex extends VM_WindowWizard {
 				excelCell = excelRow.createCell(3);
 				excelCell.setCellValue("CORREO");
 				excelCell = excelRow.createCell(4);
-				excelCell.setCellValue("DIRECCIÓN");
+				excelCell.setCellValue("DIRECCIï¿½N");
 				excelCell = excelRow.createCell(5);
-				excelCell.setCellValue("TELÉFONO");
+				excelCell.setCellValue("TELï¿½FONO");
 				excelCell = excelRow.createCell(6);
 				excelCell.setCellValue("ESTATUS");
 
@@ -837,6 +837,10 @@ public class VM_ReporteVoluntarioIndex extends VM_WindowWizard {
 			Organizacion organizacion = S.OrganizacionService.consultarTodos().getObjetos().get(0);
 			
 			parametros.put("tDireccionOrganizacion", organizacion.getDireccion());
+			
+			parametros.put("tTelefonoOrganizacion", organizacion.getTelefono() + " " + "/" + " " + organizacion.getTelefono2());
+			
+			parametros.put("tCorreoOrganizacion", organizacion.getCorreo());
 			
 			source = "reporte/reportVoluntariosParametrizados.jasper";
 		}

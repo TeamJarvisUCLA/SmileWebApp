@@ -19,6 +19,7 @@ import org.zkoss.bind.annotation.Init;
 
 import ve.smile.consume.services.S;
 import ve.smile.dto.Fortaleza;
+import ve.smile.dto.Organizacion;
 import ve.smile.dto.Profesion;
 import ve.smile.dto.Trabajador;
 import ve.smile.enums.EstatusTrabajadorEnum;
@@ -576,6 +577,15 @@ public class VM_ReporteTrabajadorIndex extends VM_WindowWizard {
 			parametros.put("fortalezasP", fortalezasP);
 
 			parametros.put("profesionesP", profesionesP);
+			
+			
+			Organizacion organizacion = S.OrganizacionService.consultarTodos().getObjetos().get(0);
+			
+			parametros.put("tDireccionOrganizacion", organizacion.getDireccion());
+			
+			parametros.put("tTelefonoOrganizacion", organizacion.getTelefono() + " " + "/" + " " + organizacion.getTelefono2());
+			
+			parametros.put("tCorreoOrganizacion", organizacion.getCorreo());
 
 
 			source = "reporte/reportTrabajadoresParametrizados.jasper";

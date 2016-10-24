@@ -19,11 +19,12 @@ import org.zkoss.bind.annotation.Init;
 
 import ve.smile.consume.services.S;
 import ve.smile.dto.Fortaleza;
-import ve.smile.dto.Recurso;
+import ve.smile.dto.Organizacion;
 import ve.smile.dto.Recurso;
 import ve.smile.dto.SolicitudAyuda;
 import ve.smile.enums.EstatusSolicitudEnum;
 import ve.smile.payload.response.PayloadSolicitudAyudaResponse;
+import ve.smile.reportes.Reporte;
 
 public class VM_ReporteAyudaIndex extends VM_WindowWizard {
 
@@ -537,7 +538,7 @@ public class VM_ReporteAyudaIndex extends VM_WindowWizard {
 			this.getSolicitudAyudas().addAll(listSolicitudAyudas);
 
 			if (listSolicitudAyudas.isEmpty()) {
-				return "E:Error Code 5-Los criterios seleccionados no aportan información para <b>SolicitudAyudas</b>";
+				return "E:Error Code 5-Los criterios seleccionados no aportan informaciï¿½n para <b>SolicitudAyudas</b>";
 			}
 			for(SolicitudAyuda solicitud : listSolicitudAyudas){
 				System.out.println(solicitud.getEstatusSolicitud());
@@ -546,6 +547,27 @@ public class VM_ReporteAyudaIndex extends VM_WindowWizard {
 			jrDataSource = new JRBeanCollectionDataSource(listSolicitudAyudas);
 		}
 		if (currentStep == 2) {
+			
+			String direccion = Reporte.class
+					.getResource("Reporte.jasper")
+					.getPath()
+					.replace(
+							"WEB-INF/classes/ve/smile/reportes/Reporte.jasper",
+							"imagenes/logo_fanca.jpg");
+			direccion = direccion.replaceFirst("/", "");
+			direccion = direccion.replace("/", "\\");
+			parametros.put("timagen1", direccion);
+
+			direccion = Reporte.class
+					.getResource("Reporte.jasper")
+					.getPath()
+					.replace(
+							"WEB-INF/classes/ve/smile/reportes/Reporte.jasper",
+							"imagenes/smiles_webdesktop.png");
+			direccion = direccion.replaceFirst("/", "");
+			direccion = direccion.replace("/", "\\");
+			parametros.put("timagen2", direccion);
+			
 			type = "pdf";
 			if (!estatusSolicitudAyudas.equals("")) {
 				tStatus = "Estatus";
@@ -589,6 +611,14 @@ public class VM_ReporteAyudaIndex extends VM_WindowWizard {
 			parametros.put("fortalezasP", fortalezasP);
 
 			parametros.put("recursosP", recursosP);
+			
+			Organizacion organizacion = S.OrganizacionService.consultarTodos().getObjetos().get(0);
+			
+			parametros.put("tDireccionOrganizacion", organizacion.getDireccion());
+			
+			parametros.put("tTelefonoOrganizacion", organizacion.getTelefono() + " " + "/" + " " + organizacion.getTelefono2());
+			
+			parametros.put("tCorreoOrganizacion", organizacion.getCorreo());
 
 
 			source = "reporte/reportAyudasParametrizados.jasper";

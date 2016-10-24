@@ -217,6 +217,7 @@ To move navigation buttons outside use these settings:
 }
 
 #eventos .seccion {
+	padding: 0px 1.5rem;
 	padding-top: 20px;
 }
 
@@ -345,15 +346,16 @@ To move navigation buttons outside use these settings:
 }
 
 #galeria span {
-	position: absolute;
-	top: 50%;
-	left: 38%;
-	color: yellow;
-	text-transform: uppercase;
-	width: 67px;
-	font-weight: bold;
-	background-color: rgba(0, 0, 0, 0.5);
-	padding: 0 5px;
+    font-size: 18px;
+    position: absolute;
+    top: 50%;
+    left: 34%;
+    color: #ffffff;
+    text-transform: uppercase;
+    width: 88px;
+    font-weight: bold;
+    background-color: rgb(241, 106, 122);
+    padding: 0 5px;
 }
 
 #galeria .carousel span:hover {
@@ -369,8 +371,10 @@ To move navigation buttons outside use these settings:
 }
 
 #galeria .carousel .carousel-item {
-	width: 64%;
-	margin-left: -15%;
+	width: 346px;
+    left: -83px;
+/* 	width: 64%; */
+/* 	margin-left: -15%; */
 }
 
 /* estilos para seccion patrocinadores */

@@ -36,7 +36,6 @@ public class VM_galeriaIndex{
 					.consultarMultimediaTipo(100, TipoMultimediaEnum.GALERIA.ordinal());
 
 			this.multimediaGaleria.addAll(payloadMultimediaResponse.getObjetos());
-			Collections.reverse(this.multimediaGaleria);
 		}
 
 		return multimediaGaleria;

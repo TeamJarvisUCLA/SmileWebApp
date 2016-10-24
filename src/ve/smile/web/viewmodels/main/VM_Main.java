@@ -29,6 +29,23 @@ public class VM_Main {
 	private List<Organizacion> organizacion;
 	private List<Multimedia> multiemdiaGaleria;
 	private List<Patrocinador> patrocinadores;
+	private List<Multimedia> imagenPrincipal;
+	
+	public List<Multimedia> getImagenPrincipal() {
+		if (this.imagenPrincipal == null) {
+			this.imagenPrincipal = new ArrayList<>();
+		}
+		this.imagenPrincipal.clear();
+		if (this.imagenPrincipal.isEmpty()) {
+
+			PayloadMultimediaResponse payloadMultimediaResponse = S.MultimediaService
+					.consultarMultimediaTipo(1, TipoMultimediaEnum.BANNER.ordinal());
+
+			this.imagenPrincipal.addAll(payloadMultimediaResponse.getObjetos());
+		}
+
+		return imagenPrincipal;
+	}
 		
 	public List<Patrocinador> getPatrocinadores() {
 		if (this.patrocinadores == null) {

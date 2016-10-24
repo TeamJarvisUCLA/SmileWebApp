@@ -1,3 +1,5 @@
+<?xel-method prefix="m" name="getUrlWeb" class="lights.smile.util.Zki" 
+	signature="java.lang.String getUrlWeb(java.lang.String)" ?>
 <zk xmlns:n="native" xmlns:w="client">
 	<style>
 .timeline-Header-title {
@@ -49,10 +51,10 @@
 				</div>
 			</div>
 		</div>
-		<div class="container-fluid" children="@load(vm.organizacion)">
+		<div class="container-fluid" children="@load(vm.imagenPrincipal)">
 			<template name="children">
 				<image class="responsive-img"
-					src="@load(each.fkMultimedia.url)">
+					src="${m:getUrlWeb(each.url)}">
 				</image>
 			</template>
 		</div>

@@ -1,0 +1,93 @@
+<?xel-method prefix="m" name="getUrlWeb" class="lights.smile.util.Zki" 
+	signature="java.lang.String getUrlWeb(java.lang.String)" ?>
+<zk xmlns:n="native" xmlns:w="client">
+<style>
+		h4 {
+		    color: #a0958e;
+			margin: 0;
+			padding: 15px 0;
+			font-size: 1.5em;
+			font-weight: bold;
+			text-align: center;
+			text-transform: uppercase;	
+		}
+		.banner button, .banner .z-button:active {
+			background: #8bc34a !important;
+			position: absolute;
+			top: 31px;
+			right: 63px;
+			left: initial;
+		}
+		.multimedia:hover img{
+			opacity: .1;
+		}
+		.multimedia:hover .edit{
+			visibility: visible;
+			cursor: pointer;
+		}
+		.multimedia {
+			position: relative;
+		}
+		.edit {
+		    position: absolute;
+		    top: 40%;
+		    left: 45%;
+		    font-size: 50px;
+		    color: #ca7642;
+		    visibility: hidden;
+		}
+</style>
+	<div
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('ve.smile.administracion.portalweb.principal.imagenPrincipal.VM_imagenPrincipalIndex')">
+		<div class="row ">
+
+			<div sclass="col s12 banner">
+				<div class=" col s12">
+					<div class="row line-evento"
+						style="margin:0px">
+					</div>
+				</div>
+				<div class=" col s12">
+					<div sclass="row"
+						style="margin:0px;background: #FFF">
+						<div sclass="col s12">
+							<n:h4  align="center">Banner Principal</n:h4>
+							<button class="waves-effect waves-light btn" href=""
+								visible="@load(empty vm.imagenPrincipal)"
+								onClick="@command('formNewMultimedia')">
+								Agregar Imagen
+							</button>
+							<div class="row">
+								<div children="@load(vm.imagenPrincipal)">
+									<template name="children">			
+										<div class="col s12 multimedia">
+											<div>
+												<label value="Nombre:"></label>
+												<label value="@load(each.nombre)"></label>
+							       			</div>
+							       			<div>
+							       				<label value="Descripcion:"></label>
+										        <label value="@load(each.descripcion)"></label>
+								          	</div>
+											<image sclass="responsive-img" src="${m:getUrlWeb(each.url)}"></image>
+											<div class="edit fa fa-pencil-square-o" onClick="@command('formEditMultimedia',multimedia=each)"></div>
+										</div>
+									</template>
+								</div>
+							</div>		
+						</div>
+					</div>
+				</div>
+				<div class=" col s12">
+					<div class="row"
+						style="margin:0px">
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+
+</zk>

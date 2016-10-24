@@ -186,6 +186,7 @@ public class VM_TareaRecursosEventoPlanificado extends
 		if (currentStep == 2) {
 			PayloadEventPlanTareaRecursoResponse payloadEventPlanRecursoResponse = new PayloadEventPlanTareaRecursoResponse();
 			for (EventPlanTarea obj : this.listEventPlanTareas) {
+				if(obj.getListEventPlanTareaRecursos()!=null){
 				for (EventPlanTareaRecurso eventPlanTareaRecurso : obj
 						.getListEventPlanTareaRecursos()) {
 					EventPlanTareaRecurso eventPlanTareaRecurso2 = new EventPlanTareaRecurso();
@@ -216,6 +217,7 @@ public class VM_TareaRecursosEventoPlanificado extends
 								.getInformacion(IPayloadResponse.MENSAJE);
 					}
 				}
+			}
 
 			}
 			if(this.listEventPlanTareasRecursoDelete.size()>0 & this.listEventPlanTareasRecursoDelete != null){
@@ -325,9 +327,8 @@ public class VM_TareaRecursosEventoPlanificado extends
 			Calendar calendar = Calendar.getInstance();
 			calendar.setTime(new Date());
 			calendar.add(Calendar.DAY_OF_YEAR, -1);
-			for (EventPlanTarea eventPlanTarea : this
-					.listEventPlanTareas) {
-
+			for (EventPlanTarea eventPlanTarea : this.listEventPlanTareas) {
+				if(eventPlanTarea.getListEventPlanTareaRecursos() != null){
 				for (EventPlanTareaRecurso eventPlanTareaRecur : eventPlanTarea
 						.getListEventPlanTareaRecursos()) {
 					if (eventPlanTareaRecur.getFechaAsignacion() == null) {
@@ -346,6 +347,7 @@ public class VM_TareaRecursosEventoPlanificado extends
 						stringBuilder2.append(eventPlanTareaRecur
 								.getFkRecurso().getNombre());
 					}
+				}
 				}
 			}
 			actividades = stringBuilder.toString();

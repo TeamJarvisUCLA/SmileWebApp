@@ -1,3 +1,5 @@
+<?xel-method prefix="m" name="getUrlWeb" class="lights.smile.util.Zki" 
+	signature="java.lang.String getUrlWeb(java.lang.String)" ?>
 <?component name="uploadImageSingle" macroURI="/assets/theme/components/upload_image_single.zul"?>
 <zk xmlns:n="native" xmlns:w="client">
 <style>
@@ -74,7 +76,7 @@
 										<template name="children">
 											<div class="col s4 multimedia">
 												<image
-													src="@load(each.fkMultimedia.url)">
+													src="${m:getUrlWeb(each.fkMultimedia.url)}">
 												</image>
 												<div class="delete fa fa-minus-circle" onClick="@command('deleteMultimedia',multimedia=each)"></div>
 											</div>

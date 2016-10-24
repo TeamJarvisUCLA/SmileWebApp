@@ -3,12 +3,9 @@ package ve.smile.administracion.portalweb.noticias.viewmodels;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.imageio.ImageIO;
 
@@ -23,27 +20,17 @@ import karen.core.form.buttons.helpers.OperacionFormHelper;
 import karen.core.form.viewmodels.VM_WindowForm;
 import karen.core.util.payload.UtilPayload;
 import karen.core.util.validate.UtilValidate;
-import karen.core.util.validate.UtilValidate.ValidateOperator;
-import lights.core.enums.TypeQuery;
-import lights.core.payload.response.IPayloadResponse;
 import lights.smile.util.UtilMultimedia;
 import lights.smile.util.Zki;
 import ve.smile.consume.services.S;
 import ve.smile.seguridad.enums.OperacionEnum;
 import ve.smile.payload.response.PayloadCarteleraResponse;
-import ve.smile.payload.response.PayloadCiudadResponse;
 import ve.smile.payload.response.PayloadMultimediaResponse;
-import ve.smile.payload.response.PayloadPatrocinadorResponse;
-import ve.smile.payload.response.PayloadPersonaResponse;
 import ve.smile.dto.Cartelera;
 import ve.smile.dto.Multimedia;
-import ve.smile.dto.Persona;
 import ve.smile.enums.EstatusCarteleraEnum;
-import ve.smile.enums.EstatusEventoPlanificadoEnum;
-import ve.smile.enums.EstatusVoluntarioEnum;
 import ve.smile.enums.TipoCarteleraEnum;
 import ve.smile.enums.TipoMultimediaEnum;
-import ve.smile.enums.TipoPersonaEnum;
 
 public class VM_CarteleraFormBasic extends VM_WindowForm {
 	
@@ -68,6 +55,12 @@ public class VM_CarteleraFormBasic extends VM_WindowForm {
 	public void childInit_VM_CarteleraFormBasic() {		
 		//NOTHING OK!
 
+		if (this.getCartelera().getFechaInicio() != null) {
+			this.setFechaInicio(new Date(this.getCartelera().getFechaInicio()));
+		} else {
+			this.setFechaInicio(new Date());
+		}
+		
 		if (this.getCartelera() != null
 				&& this.getCartelera().getFkMultimedia() != null) {
 
@@ -81,16 +74,14 @@ public class VM_CarteleraFormBasic extends VM_WindowForm {
 		} else {
 			this.getCartelera().setFkMultimedia(new Multimedia());
 		}
-		if (this.getCartelera().getFechaInicio() != null) {
-			this.setFechaInicio(new Date(this.getCartelera().getFechaInicio()));
-		} else {
-			this.setFechaInicio(new Date());
-		}
+		
 		if (this.getCartelera().getFechaFinalizacion() != null) {
 			this.setFechaFinalizacion(new Date(this.getCartelera().getFechaFinalizacion()));
 		} else {
 			this.setFechaFinalizacion(new Date());
 		}
+		
+		
 	
 	}
 
@@ -146,10 +137,8 @@ public class VM_CarteleraFormBasic extends VM_WindowForm {
 
 				PayloadMultimediaResponse payloadMultimediaResponse = S.MultimediaService
 						.incluir(multimedia);
-				if (!UtilPayload.isOK(payloadMultimediaResponse)) {
-					Alert.showMessage(payloadMultimediaResponse);
-					return true;
-				}
+			
+				
 				multimedia.setIdMultimedia(((Double) payloadMultimediaResponse
 						.getInformacion("id")).intValue());
 				this.getCartelera().setFkMultimedia(multimedia);
@@ -157,12 +146,11 @@ public class VM_CarteleraFormBasic extends VM_WindowForm {
 			
 			PayloadCarteleraResponse payloadCarteleraResponse =
 					S.CarteleraService.incluir(getCartelera());
+			this.getCartelera().setIdCartelera(
+					((Double) payloadCarteleraResponse.getInformacion("id"))
+							.intValue());
 
-			if(!UtilPayload.isOK(payloadCarteleraResponse)) {
-				
-				Alert.showMessage(payloadCarteleraResponse);
-				return true;
-			}
+			
 			
 			if (bytes != null) {
 				Zki.save(Zki.NOTICIAS, getCartelera().getIdCartelera(),
@@ -181,18 +169,27 @@ public class VM_CarteleraFormBasic extends VM_WindowForm {
 					return true;
 				}
 			}
-
+			Alert.showMessage(payloadCarteleraResponse);
+			if (!UtilPayload.isOK(payloadCarteleraResponse)) {
+				return true;
+			}
 			DataCenter.reloadCurrentNodoMenu();
 
 			return true;
 		}
 
 		if (operacionEnum.equals(OperacionEnum.MODIFICAR))  {
+			
 
-			if (this.getBytes() != null) {
+			if (this.getBytes() != null ) {
+				
+				System.out.println("entre ");
 				if (this.getCartelera().getFkMultimedia() == null
 						|| this.getCartelera().getFkMultimedia()
 								.getIdMultimedia() == null) {
+					
+					System.out.println("entre 2");
+
 					Multimedia multimedia = new Multimedia();
 					multimedia.setNombre(nameImage);
 					multimedia.setTipoMultimedia(TipoMultimediaEnum.IMAGEN
@@ -210,6 +207,8 @@ public class VM_CarteleraFormBasic extends VM_WindowForm {
 							extensionImage, bytes);
 					this.getCartelera().setFkMultimedia(multimedia);
 				} else {
+					System.out.println("entre 3");
+
 					Multimedia multimedia = this.getCartelera().getFkMultimedia();
 					multimedia.setNombre(nameImage);
 					multimedia.setDescripcion(typeMedia);
@@ -225,10 +224,14 @@ public class VM_CarteleraFormBasic extends VM_WindowForm {
 
 			}
 
+			this.getCartelera().setTipoCartelera(TipoCarteleraEnum.NOTICIAS.ordinal());
+			this.getCartelera().setEstatusCartelera(EstatusCarteleraEnum.PUBLICADO.ordinal());
+
 			Multimedia multimedia = this.getCartelera().getFkMultimedia();
+			
 			if (bytes == null && this.getCartelera().getFkMultimedia() != null) {
 				Zki.remove(this.getCartelera().getFkMultimedia().getUrl());
-				this.getCartelera().setFkMultimedia(null);
+				getCartelera().setFkMultimedia(null);
 			}
 
 			PayloadCarteleraResponse payloadCarteleraResponse = S.CarteleraService
@@ -243,11 +246,11 @@ public class VM_CarteleraFormBasic extends VM_WindowForm {
 					return true;
 				}
 			}
+			
 			if (!UtilPayload.isOK(payloadCarteleraResponse)) {
 				Alert.showMessage(payloadCarteleraResponse);
 				return true;
 			}
-			
 			DataCenter.reloadCurrentNodoMenu();
 			return true;
 		}
@@ -422,8 +425,7 @@ public class VM_CarteleraFormBasic extends VM_WindowForm {
 			
 			UtilValidate.validateString(this.getCartelera().getDescripcion(),
 					"Descripcion", 200);
-			UtilValidate.validateNull(this.getCartelera().getFkMultimedia(),
-					"Imagen");
+			
 			UtilValidate.validateString(this.getCartelera().getTitulo(),
 					"Titulo", 100);
 

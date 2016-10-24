@@ -32,9 +32,6 @@ import ve.smile.dto.EventPlanTareaVoluntario;
 import ve.smile.dto.EventoPlanificado;
 import ve.smile.dto.NotificacionUsuario;
 import ve.smile.dto.Trabajador;
-import ve.smile.dto.TsPlanActividad;
-import ve.smile.dto.TsPlanActividadTrabajador;
-import ve.smile.dto.TsPlanActividadVoluntario;
 import ve.smile.dto.Voluntario;
 import ve.smile.enums.EstatusNotificacionEnum;
 import ve.smile.enums.TipoReferenciaNotificacionEnum;
@@ -43,9 +40,6 @@ import ve.smile.payload.response.PayloadEventPlanTareaTrabajadorResponse;
 import ve.smile.payload.response.PayloadEventPlanTareaVoluntarioResponse;
 import ve.smile.payload.response.PayloadEventoPlanificadoResponse;
 import ve.smile.payload.response.PayloadNotificacionUsuarioResponse;
-import ve.smile.payload.response.PayloadTsPlanActividadResponse;
-import ve.smile.payload.response.PayloadTsPlanActividadTrabajadorResponse;
-import ve.smile.payload.response.PayloadTsPlanActividadVoluntarioResponse;
 
 public class VM_TareaParticipanteEventoPlanificado extends VM_WindowWizard{
 
@@ -409,7 +403,7 @@ public class VM_TareaParticipanteEventoPlanificado extends VM_WindowWizard{
 	public String isValidPreconditionsSiguiente(Integer currentStep) {
 		if (currentStep == 1) {
 			if (selectedObject == null) {
-				return "E:Error Code 5-Debe seleccionar un <b>Trabajo Social Planificado</b>";
+				return "E:Error Code 5-Debe seleccionar un <b>Evento Planificado</b>";
 			}
 			Map<String, String> parametro = new HashMap<String, String>();
 			parametro.put("fkEventoPlanificado.idEventoPlanificado",

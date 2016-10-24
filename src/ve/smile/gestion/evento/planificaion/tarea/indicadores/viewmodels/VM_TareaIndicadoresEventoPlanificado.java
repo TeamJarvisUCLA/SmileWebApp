@@ -179,7 +179,7 @@ public class VM_TareaIndicadoresEventoPlanificado extends
 		if (currentStep == 2) {
 			PayloadIndicadorEventoPlanTareaResponse payloadIndicadorEventPsResponse = new PayloadIndicadorEventoPlanTareaResponse();
 			for (EventPlanTarea obj : this.listEventPlanTareas) {
-
+				if(obj.getIndicadorEventoPlanTareas()!=null){
 				for (IndicadorEventoPlanTarea indicadorEventPla : obj
 						.getIndicadorEventoPlanTareas()) {
 					IndicadorEventoPlanTarea indicadorEventPs2 = new IndicadorEventoPlanTarea();
@@ -204,6 +204,7 @@ public class VM_TareaIndicadoresEventoPlanificado extends
 								.getInformacion(IPayloadResponse.MENSAJE);
 					}
 				}
+			}
 
 			}
 			if(this.listIndicadorEventoPlanTareasDelete.size()>0){

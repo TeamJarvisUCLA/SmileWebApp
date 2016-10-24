@@ -213,25 +213,31 @@ public class VM_EvaluarTareaIndex extends VM_WindowWizard{
 			StringBuilder stringBuilder = new StringBuilder();
 			for (EventPlanTarea eventPlanTarea : this
 					.eventoPlanificadotareas) {
-				Calendar calendar = Calendar.getInstance();
-				calendar.setTime(new Date());
-				calendar.add(Calendar.DAY_OF_YEAR, -1);
-
-				if (eventPlanTarea.getFechaEjecutada() == null
-						|| !eventPlanTarea.getFechaEjecutadaDate().before(
-								calendar.getTime())) {
-					if (!stringBuilder.toString().trim().isEmpty()) {
-						stringBuilder.append(",  ");
-					}
-					stringBuilder.append(eventPlanTarea.getFkTarea()
-							.getNombre());
+				
+				if(eventPlanTarea.getFechaEjecutada() == null){
+					return "E:Error code 5- Debe suministrar la fecha de ejecuci�n de la tarea";
 				}
+				
+				
+//				Calendar calendar = Calendar.getInstance();
+//				calendar.setTime(new Date());
+//				calendar.add(Calendar.DAY_OF_YEAR, -1);
+//
+//				if (eventPlanTarea.getFechaEjecutada() == null
+//						|| !eventPlanTarea.getFechaEjecutadaDate().before(
+//								calendar.getTime())) {
+//					if (!stringBuilder.toString().trim().isEmpty()) {
+//						stringBuilder.append(",  ");
+//					}
+//					stringBuilder.append(eventPlanTarea.getFkTarea()
+//							.getNombre());
+//				}
 			}
-			tareas = stringBuilder.toString();
-			if (!tareas.trim().isEmpty()) {
-				return "E:Error Code 5-Debe verificar la  <b> Fecha de Ejecución </b> de los siguientes tareas: <b>"
-						+ tareas + "</b>";
-			}
+//			tareas = stringBuilder.toString();
+//			if (!tareas.trim().isEmpty()) {
+//				return "E:Error Code 5-Debe verificar la  <b> Fecha de Ejecución </b> de los siguientes tareas: <b>"
+//						+ tareas + "</b>";
+//			}
 
 		return "";
 	}

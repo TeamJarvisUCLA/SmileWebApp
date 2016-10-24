@@ -289,10 +289,20 @@ public class VM_TareaEventoPlanificado extends VM_WindowWizard{
 						catalogueDialogData);
 	}
 	
+	@Override
+	public String isValidPreconditionsSiguiente(Integer currentStep) {
+		if (currentStep == 1) {
+			if (selectedObject == null) {
+				return "E:Error Code 5-Debe seleccionar un <b>Evento Planificado</b>";
+			}
+		}
+		return "";
+	}
+	
 	@Command("removerDirectorio")
 	public void removerDirectorio(@BindingParam("index") int index) {
 		this.getEventoPlanificadotareas().get(indexTarea)
-				.setFkDirectorio(new Directorio());
+				.setFkDirectorio(null);
 		BindUtils.postNotifyChange(null, null, this, "eventoPlanificadotareas");
 	}
 
@@ -475,6 +485,21 @@ public class VM_TareaEventoPlanificado extends VM_WindowWizard{
 		return "";
 	}
 
+	@Override
+	public String executeCancelar(Integer currentStep) {
+		this.setEventoPlanificadotareas(new ArrayList<EventPlanTarea>());
+		this.setEventoTareas(new ArrayList<Tarea>());
+		this.setSelectedObject(new EventoPlanificado());
+
+		BindUtils.postNotifyChange(null, null, this, "eventoPlanificadotareas");
+		BindUtils
+				.postNotifyChange(null, null, this, "eventoTareas");
+		BindUtils.postNotifyChange(null, null, this, "selectedObject");
+		
+
+		restartWizard();
+		return "";
+	}
 
 	@Override
 	public String executeSiguiente(Integer currentStep) {

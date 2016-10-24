@@ -1,3 +1,5 @@
+<?xel-method prefix="m" name="getUrlWeb" class="lights.smile.util.Zki" 
+	signature="java.lang.String getUrlWeb(java.lang.String)" ?>
 <zk xmlns:n="native" xmlns:w="client">
 	<n:link href="assets/css/web/detalleNoticia.css" rel="stylesheet"
 		type="text/css">
@@ -25,11 +27,13 @@
 				</a>
 			</div>
 			<div class="col s12 text-center fecha">
-				<label value="@load(vm.noticia.fechaInicio)"></label>
+				<label value="@load(vm.fecha)"></label>
 			</div>
 			<div class="col s4 text-center">
 				<div sclass="col s12">
-					<image src="@load(vm.noticia.fkMultimedia.url)" sclass="img-responsive"></image>
+				<image src="${m:getUrlWeb(vm.noticia.fkMultimedia.url)}"
+										sclass="img-responsive">
+									</image>
 				</div>
 				<div sclass="col s12 text-center citas">
 					<div sclass="divTag">

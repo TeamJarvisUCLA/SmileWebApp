@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportEventosParametrizadosParcial" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c607fd6c-d212-4980-84dc-cd5658481add">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="180"/>
+	<property name="ireport.y" value="34"/>
 	<subDataset name="dataset1" uuid="d127635a-cdff-457b-b9cc-d2c9a5a2ec30">
 		<field name="fkTarea.nombre" class="java.lang.String"/>
 		<field name="fkTarea.descripcion" class="java.lang.String"/>
@@ -33,7 +33,6 @@
 	<parameter name="tFecha" class="java.lang.String"/>
 	<parameter name="tDescripcion" class="java.lang.String"/>
 	<parameter name="tLugar" class="java.lang.String"/>
-	<parameter name="tDireccionOrganizacion" class="java.lang.String"/>
 	<parameter name="pResponsable" class="java.lang.String"/>
 	<parameter name="eventoTareas" class="java.util.List">
 		<defaultValueExpression><![CDATA[null]]></defaultValueExpression>
@@ -48,6 +47,9 @@
 	<parameter name="tIndicadores" class="java.lang.String"/>
 	<parameter name="tMensajeTarea" class="java.lang.String"/>
 	<parameter name="tMensajeIndicador" class="java.lang.String"/>
+	<parameter name="tDireccionOrganizacion" class="java.lang.String"/>
+	<parameter name="tCorreoOrganizacion" class="java.lang.String"/>
+	<parameter name="tTelefonoOrganizacion" class="java.lang.String"/>
 	<variable name="fkIndicador.nombre_1" class="java.lang.Integer" resetType="Page" calculation="Count">
 		<variableExpression><![CDATA[]]></variableExpression>
 	</variable>
@@ -55,68 +57,68 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="50"/>
+		<band height="67"/>
 	</title>
 	<pageHeader>
-		<band height="360" splitType="Stretch">
+		<band height="373" splitType="Stretch">
 			<line>
-				<reportElement x="1" y="1" width="555" height="2" forecolor="#F26B7A" uuid="69c07e36-abf9-4190-947e-a9bf597c0022"/>
+				<reportElement x="1" y="-6" width="555" height="2" forecolor="#F26B7A" uuid="69c07e36-abf9-4190-947e-a9bf597c0022"/>
 				<graphicElement>
 					<pen lineWidth="2.0" lineStyle="Solid"/>
 				</graphicElement>
 			</line>
 			<image>
-				<reportElement x="2" y="-60" width="116" height="55" uuid="ab7eb014-d7d5-4383-9dc5-2d6f30b188e0"/>
+				<reportElement x="2" y="-64" width="116" height="55" uuid="ab7eb014-d7d5-4383-9dc5-2d6f30b188e0"/>
 				<imageExpression><![CDATA[$P{timagen1}== ""?"C:\\Users\\Alejandra\\Downloads\\reportes\\logo_fanca.jpg":$P{timagen1}]]></imageExpression>
 			</image>
 			<image>
-				<reportElement x="463" y="-55" width="125" height="55" uuid="98b70c5b-7494-4e1a-8210-69bbef4bca0a"/>
+				<reportElement x="463" y="-58" width="125" height="55" uuid="98b70c5b-7494-4e1a-8210-69bbef4bca0a"/>
 				<imageExpression><![CDATA[$P{timagen2}== ""?"C:\\Users\\Alejandra\\Downloads\\reportes\\smiles_webdesktop.jpg":$P{timagen2}]]></imageExpression>
 			</image>
 			<textField isStretchWithOverflow="true">
 				<reportElement x="5" y="41" width="546" height="23" uuid="c38bc29e-3c88-41c2-913d-f71cb3dcdde0"/>
 				<textElement textAlignment="Center" markup="html">
-					<font fontName="Arial Black" size="14" isBold="true"/>
+					<font fontName="Arial" size="14" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["<b>" + $P{titulo}.toUpperCase() + "</b>"]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="EEEEE dd MMMMM yyyy">
 				<reportElement x="357" y="9" width="193" height="20" uuid="8ba953e4-fc18-4958-ad86-2fcf95101a7f"/>
 				<textElement textAlignment="Right">
-					<font fontName="Arial Black" size="12"/>
+					<font fontName="Arial" size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="138" y="108" width="406" height="20" forecolor="#87796F" uuid="2b972f42-d859-4b4d-9075-79d6c8c9a8b1"/>
+				<reportElement x="147" y="109" width="372" height="19" forecolor="#000000" uuid="2b972f42-d859-4b4d-9075-79d6c8c9a8b1"/>
 				<textElement>
 					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{pTipoEvento}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="138" y="160" width="406" height="20" forecolor="#87796F" uuid="80383281-cc05-464e-bf62-0abe5b1a46e3"/>
+				<reportElement x="147" y="163" width="372" height="17" forecolor="#000000" uuid="80383281-cc05-464e-bf62-0abe5b1a46e3"/>
 				<textElement>
 					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{pDescripcion}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="138" y="188" width="406" height="20" forecolor="#87796F" uuid="439cff84-5098-4118-8991-aeae09c8826d"/>
+				<reportElement x="147" y="190" width="372" height="18" forecolor="#000000" uuid="439cff84-5098-4118-8991-aeae09c8826d"/>
 				<textElement>
 					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{pLugar}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="138" y="216" width="406" height="20" forecolor="#87796F" uuid="1675ca11-c09e-4fbc-8782-aeadc8165844"/>
+				<reportElement x="147" y="218" width="372" height="18" forecolor="#000000" uuid="1675ca11-c09e-4fbc-8782-aeadc8165844"/>
 				<textElement>
 					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{pDireccion}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="139" y="135" width="405" height="20" forecolor="#87796F" uuid="4d2f5188-da6e-4b6e-bb4c-c5cd2356b5c6"/>
+				<reportElement x="148" y="136" width="371" height="19" forecolor="#000000" uuid="4d2f5188-da6e-4b6e-bb4c-c5cd2356b5c6"/>
 				<textElement>
 					<font fontName="Arial"/>
 				</textElement>
@@ -135,185 +137,226 @@
 				</graphicElement>
 			</line>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement mode="Opaque" x="7" y="109" width="100" height="15" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" forecolor="#FFFFFF" backcolor="#3B85A1" uuid="3df395f3-77f3-4c10-a9fb-de5c09224297"/>
-				<textElement textAlignment="Left">
-					<font fontName="Arial" size="10" isBold="false"/>
+				<reportElement mode="Opaque" x="36" y="109" width="99" height="19" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" forecolor="#FFFFFF" backcolor="#3B85A1" uuid="3df395f3-77f3-4c10-a9fb-de5c09224297"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Tipo"]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement mode="Opaque" x="6" y="163" width="100" height="15" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" forecolor="#FFFFFF" backcolor="#3B85A1" uuid="72f5a1ce-179b-4849-b183-cbdf1064b9a3"/>
-				<textElement textAlignment="Left">
-					<font fontName="Arial" size="10" isBold="false"/>
+				<reportElement mode="Opaque" x="35" y="163" width="100" height="17" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" forecolor="#FFFFFF" backcolor="#3B85A1" uuid="72f5a1ce-179b-4849-b183-cbdf1064b9a3"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Descripción"]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement mode="Opaque" x="7" y="82" width="100" height="15" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" forecolor="#FFFFFF" backcolor="#3B85A1" uuid="34a829a8-17c1-49cc-be40-41a25b104fa4"/>
-				<textElement textAlignment="Left">
-					<font fontName="Arial" size="10" isBold="false"/>
+				<reportElement mode="Opaque" x="36" y="82" width="99" height="20" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" forecolor="#FFFFFF" backcolor="#3B85A1" uuid="34a829a8-17c1-49cc-be40-41a25b104fa4"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Nombre"]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement mode="Opaque" x="7" y="136" width="100" height="15" isRemoveLineWhenBlank="true" forecolor="#FFFFFF" backcolor="#3B85A1" uuid="b14a1a70-16b7-4493-b1e9-da18ecda5191"/>
-				<textElement textAlignment="Left">
-					<font fontName="Arial" size="10" isBold="false"/>
+				<reportElement mode="Opaque" x="36" y="136" width="99" height="19" isRemoveLineWhenBlank="true" forecolor="#FFFFFF" backcolor="#3B85A1" uuid="b14a1a70-16b7-4493-b1e9-da18ecda5191"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Fecha"]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement mode="Opaque" x="7" y="190" width="100" height="15" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" forecolor="#FFFFFF" backcolor="#3B85A1" uuid="95ace01a-78ff-498a-ace1-5f904a2a260c"/>
-				<textElement textAlignment="Left">
-					<font fontName="Arial" size="10" isBold="false"/>
+				<reportElement mode="Opaque" x="36" y="190" width="99" height="18" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" forecolor="#FFFFFF" backcolor="#3B85A1" uuid="95ace01a-78ff-498a-ace1-5f904a2a260c"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Lugar"]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement mode="Opaque" x="8" y="218" width="100" height="15" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" forecolor="#FFFFFF" backcolor="#3B85A1" uuid="95714cfc-881b-4563-a9ac-5e485e8a540c"/>
-				<textElement textAlignment="Left">
-					<font fontName="Arial" size="10" isBold="false"/>
+				<reportElement mode="Opaque" x="37" y="218" width="98" height="18" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" forecolor="#FFFFFF" backcolor="#3B85A1" uuid="95714cfc-881b-4563-a9ac-5e485e8a540c"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Dirección"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="138" y="82" width="406" height="20" uuid="fa8be1bc-2e14-494a-8abd-afffad99f886"/>
+				<reportElement x="147" y="82" width="372" height="20" forecolor="#000000" uuid="fa8be1bc-2e14-494a-8abd-afffad99f886"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$P{pNombreEvento}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement mode="Opaque" x="8" y="245" width="100" height="15" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" forecolor="#FFFFFF" backcolor="#3B85A1" uuid="bc510d81-5906-4ad2-af3f-34f4bd7d427f"/>
-				<textElement textAlignment="Left">
-					<font fontName="Arial" size="10" isBold="false"/>
+				<reportElement mode="Opaque" x="37" y="245" width="98" height="18" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" forecolor="#FFFFFF" backcolor="#3B85A1" uuid="bc510d81-5906-4ad2-af3f-34f4bd7d427f"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Responsable"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="137" y="245" width="100" height="20" uuid="2819d024-4b04-4099-9c60-4948f94c40ba"/>
+				<reportElement x="146" y="245" width="373" height="18" forecolor="#000000" uuid="2819d024-4b04-4099-9c60-4948f94c40ba"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$P{pResponsable}]]></textFieldExpression>
 			</textField>
 			<componentElement>
-				<reportElement isPrintRepeatedValues="false" x="5" y="321" width="221" height="25" isRemoveLineWhenBlank="true" uuid="a8731334-e847-49e1-bee8-91d8c716a965"/>
+				<reportElement isPrintRepeatedValues="false" x="5" y="336" width="227" height="25" isRemoveLineWhenBlank="true" uuid="a8731334-e847-49e1-bee8-91d8c716a965"/>
 				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
 					<datasetRun subDataset="dataset1" uuid="249d1ebf-4768-4b74-8224-b4a7c79fb0cb">
 						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{eventoTareas})]]></dataSourceExpression>
 					</datasetRun>
-					<jr:listContents height="25" width="221">
+					<jr:listContents height="25" width="227">
 						<textField isBlankWhenNull="true">
 							<reportElement isPrintRepeatedValues="false" x="5" y="2" width="100" height="20" isRemoveLineWhenBlank="true" uuid="99208586-e172-4b4d-9cdf-440d2d9b796a"/>
-							<textElement markup="styled"/>
+							<textElement markup="styled">
+								<font fontName="Arial" size="10"/>
+							</textElement>
 							<textFieldExpression><![CDATA[$F{fkTarea.nombre}]]></textFieldExpression>
 						</textField>
 						<textField isBlankWhenNull="true">
-							<reportElement isPrintRepeatedValues="false" x="97" y="2" width="100" height="20" isRemoveLineWhenBlank="true" uuid="e5cd7e15-7ef8-4663-92d3-a89a4888b809"/>
-							<textElement markup="styled"/>
+							<reportElement isPrintRepeatedValues="false" x="113" y="2" width="114" height="20" isRemoveLineWhenBlank="true" uuid="e5cd7e15-7ef8-4663-92d3-a89a4888b809"/>
+							<textElement markup="styled">
+								<font fontName="Arial" size="10"/>
+							</textElement>
 							<textFieldExpression><![CDATA[$F{fkTarea.descripcion}]]></textFieldExpression>
 						</textField>
 					</jr:listContents>
 				</jr:list>
 			</componentElement>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement mode="Opaque" x="73" y="273" width="45" height="15" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" forecolor="#FFFFFF" backcolor="#3B85A1" uuid="35af1bec-b4c0-4cd6-a6eb-b879a487b101"/>
+				<reportElement mode="Opaque" x="2" y="283" width="98" height="20" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" forecolor="#FFFFFF" backcolor="#3B85A1" uuid="35af1bec-b4c0-4cd6-a6eb-b879a487b101"/>
 				<textElement textAlignment="Left">
-					<font fontName="Arial" size="10" isBold="false"/>
+					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Tareas"]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement mode="Opaque" x="358" y="273" width="65" height="15" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" forecolor="#FFFFFF" backcolor="#3B85A1" uuid="32537d5b-5363-4544-aa42-8b7d7f08e571"/>
+				<reportElement mode="Opaque" x="349" y="283" width="98" height="20" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" forecolor="#FFFFFF" backcolor="#3B85A1" uuid="32537d5b-5363-4544-aa42-8b7d7f08e571"/>
 				<textElement textAlignment="Left">
-					<font fontName="Arial" size="10" isBold="false"/>
+					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Indicadores"]]></textFieldExpression>
 			</textField>
 			<componentElement>
-				<reportElement isPrintRepeatedValues="false" x="237" y="321" width="313" height="25" isRemoveLineWhenBlank="true" uuid="6d218a5c-1ec6-4d3f-8b87-5d820d4dd469"/>
+				<reportElement isPrintRepeatedValues="false" x="256" y="336" width="299" height="25" isRemoveLineWhenBlank="true" uuid="6d218a5c-1ec6-4d3f-8b87-5d820d4dd469"/>
 				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
 					<datasetRun subDataset="dataset2" uuid="32211327-80a4-411f-8e33-34dac84771c3">
 						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{eventoIndicadores})]]></dataSourceExpression>
 					</datasetRun>
-					<jr:listContents height="25" width="313">
+					<jr:listContents height="25" width="299">
 						<textField isBlankWhenNull="true">
-							<reportElement isPrintRepeatedValues="false" x="4" y="1" width="54" height="20" isRemoveLineWhenBlank="true" uuid="a28112f8-1301-47d6-bd13-92153b9d2f29"/>
-							<textElement markup="styled"/>
+							<reportElement isPrintRepeatedValues="false" x="0" y="5" width="54" height="20" isRemoveLineWhenBlank="true" uuid="a28112f8-1301-47d6-bd13-92153b9d2f29"/>
+							<textElement markup="styled">
+								<font fontName="Arial" size="10"/>
+							</textElement>
 							<textFieldExpression><![CDATA[$F{fkIndicador.nombre}]]></textFieldExpression>
 						</textField>
 						<textField isBlankWhenNull="true">
-							<reportElement isPrintRepeatedValues="false" x="67" y="2" width="97" height="20" isRemoveLineWhenBlank="true" uuid="eb85ee65-63a1-4b56-8b51-08e100e4fca7"/>
-							<textElement markup="styled"/>
+							<reportElement isPrintRepeatedValues="false" x="60" y="4" width="97" height="20" isRemoveLineWhenBlank="true" uuid="eb85ee65-63a1-4b56-8b51-08e100e4fca7"/>
+							<textElement markup="styled">
+								<font fontName="Arial" size="10"/>
+							</textElement>
 							<textFieldExpression><![CDATA[$F{fkIndicador.fkUnidadMedida.nombre}]]></textFieldExpression>
 						</textField>
 						<textField isBlankWhenNull="true">
-							<reportElement isPrintRepeatedValues="false" x="171" y="2" width="54" height="20" isRemoveLineWhenBlank="true" uuid="9f6cd879-a1f8-4c2e-905f-638e0980789d"/>
-							<textElement markup="styled"/>
+							<reportElement isPrintRepeatedValues="false" x="163" y="4" width="62" height="20" isRemoveLineWhenBlank="true" uuid="9f6cd879-a1f8-4c2e-905f-638e0980789d"/>
+							<textElement markup="styled">
+								<font fontName="Arial" size="10"/>
+							</textElement>
 							<textFieldExpression><![CDATA[$F{valorReal}]]></textFieldExpression>
 						</textField>
 						<textField isBlankWhenNull="true">
-							<reportElement isPrintRepeatedValues="false" x="235" y="3" width="51" height="20" isRemoveLineWhenBlank="true" uuid="1bbd605f-ac89-4e35-8de4-8a7de992f4db"/>
-							<textElement markup="styled"/>
+							<reportElement isPrintRepeatedValues="false" x="231" y="5" width="67" height="20" isRemoveLineWhenBlank="true" uuid="1bbd605f-ac89-4e35-8de4-8a7de992f4db"/>
+							<textElement markup="styled">
+								<font fontName="Arial" size="10"/>
+							</textElement>
 							<textFieldExpression><![CDATA[$F{valorEsperado}]]></textFieldExpression>
 						</textField>
 					</jr:listContents>
 				</jr:list>
 			</componentElement>
 			<textField isBlankWhenNull="true">
-				<reportElement x="10" y="299" width="100" height="20" isRemoveLineWhenBlank="true" uuid="487f0fa2-9cf2-4499-b322-b2ebd3125bfa"/>
+				<reportElement x="10" y="314" width="100" height="20" isRemoveLineWhenBlank="true" uuid="487f0fa2-9cf2-4499-b322-b2ebd3125bfa"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$P{tNombre}==""?null : $P{tNombre}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="102" y="299" width="100" height="20" isRemoveLineWhenBlank="true" uuid="3d14048f-3e33-4014-b704-bbf40d8e8abc"/>
+				<reportElement x="118" y="314" width="114" height="20" isRemoveLineWhenBlank="true" uuid="3d14048f-3e33-4014-b704-bbf40d8e8abc"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$P{tDescripcion}==""? null :$P{tDescripcion}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="241" y="299" width="54" height="20" isRemoveLineWhenBlank="true" uuid="2143a98e-0519-49d6-8d55-8dd7ae4150a7"/>
+				<reportElement x="256" y="315" width="54" height="19" isRemoveLineWhenBlank="true" uuid="2143a98e-0519-49d6-8d55-8dd7ae4150a7"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$P{tNombre}==""?null : $P{tNombre}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="304" y="300" width="100" height="20" isRemoveLineWhenBlank="true" uuid="d8e246ff-6440-4fac-8925-aa081d7dd387"/>
+				<reportElement x="316" y="315" width="97" height="20" isRemoveLineWhenBlank="true" uuid="d8e246ff-6440-4fac-8925-aa081d7dd387"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$P{tUnidadMedida}==""?null:$P{tUnidadMedida}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="408" y="299" width="62" height="20" isRemoveLineWhenBlank="true" uuid="d6af9598-3624-42cb-80c9-c4eba5ac38b6"/>
+				<reportElement x="419" y="314" width="62" height="20" isRemoveLineWhenBlank="true" uuid="d6af9598-3624-42cb-80c9-c4eba5ac38b6"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$P{tValorReal}==""? null : $P{tValorReal}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="472" y="299" width="100" height="20" isRemoveLineWhenBlank="true" uuid="02d3ae02-a61d-415b-9102-c042622cc5c8"/>
+				<reportElement x="487" y="314" width="69" height="20" isRemoveLineWhenBlank="true" uuid="02d3ae02-a61d-415b-9102-c042622cc5c8"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$P{tValorEsperado}==""?null : $P{tValorEsperado}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="137" y="274" width="100" height="20" isRemoveLineWhenBlank="true" uuid="adf99f8e-6102-43b6-b3c7-a22982dc3376"/>
-				<textElement markup="styled"/>
+				<reportElement x="108" y="283" width="100" height="20" isRemoveLineWhenBlank="true" uuid="adf99f8e-6102-43b6-b3c7-a22982dc3376"/>
+				<textElement markup="styled">
+					<font fontName="Arial" size="10"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$P{tMensajeTarea}==""?null:$P{tMensajeTarea}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="430" y="274" width="100" height="20" isRemoveLineWhenBlank="true" uuid="fb78815f-6fbc-4e33-a0b9-159c35a26bd4"/>
+				<reportElement x="455" y="283" width="100" height="20" isRemoveLineWhenBlank="true" uuid="fb78815f-6fbc-4e33-a0b9-159c35a26bd4"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$P{tMensajeIndicador}==""?null:$P{tMensajeIndicador}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
 	<pageFooter>
-		<band height="68" splitType="Stretch">
+		<band height="75" splitType="Stretch">
 			<textField isStretchWithOverflow="true" evaluationTime="Report">
-				<reportElement x="510" y="42" width="42" height="20" uuid="f1d5e097-0f41-4aa2-af0e-18314d126bb4"/>
+				<reportElement x="510" y="53" width="42" height="20" uuid="f1d5e097-0f41-4aa2-af0e-18314d126bb4"/>
 				<textElement>
 					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="439" y="42" width="67" height="20" uuid="64737f26-7f1c-4d37-9956-8d06edc8b98e"/>
+				<reportElement x="439" y="53" width="67" height="20" uuid="64737f26-7f1c-4d37-9956-8d06edc8b98e"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Pagina "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="113" y="42" width="322" height="20" forecolor="#C2D62D" uuid="af6405db-9065-40f0-9125-b48ab95b7f5d"/>
+				<reportElement x="113" y="53" width="322" height="20" forecolor="#C2D62D" uuid="af6405db-9065-40f0-9125-b48ab95b7f5d"/>
 				<textElement textAlignment="Center">
 					<font fontName="Arial" size="11" isBold="false" isItalic="true"/>
 				</textElement>
 				<text><![CDATA["El deseo de sanarse siempre ha sido la mitad de la sanación"]]></text>
 			</staticText>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="2" y="12" width="552" height="20" forecolor="#F26B7A" uuid="0446bbc5-7327-413b-b071-0e9668a0da48"/>
 				<textElement textAlignment="Center">
 					<font fontName="Arial"/>
@@ -326,6 +369,20 @@
 					<pen lineWidth="2.0" lineStyle="Solid"/>
 				</graphicElement>
 			</line>
+			<textField isBlankWhenNull="true">
+				<reportElement x="2" y="32" width="315" height="16" forecolor="#F26B7A" uuid="921b0d8f-984c-4d8c-877c-2e39af624729"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{tTelefonoOrganizacion}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="327" y="32" width="227" height="16" forecolor="#F26B7A" uuid="d1642196-727d-40e1-ba3e-f6b979a89b2a"/>
+				<textElement textAlignment="Left">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{tCorreoOrganizacion}]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageFooter>
 </jasperReport>

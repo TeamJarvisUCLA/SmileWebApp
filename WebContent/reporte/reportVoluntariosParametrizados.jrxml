@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="documento_asignacion" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" scriptletClass="net.sf.jasperreports.engine.JRDefaultScriptlet" uuid="2cc1dfe8-35f4-44cb-b41c-1c58e9d3b41e">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="65"/>
 	<parameter name="titulo" class="java.lang.String"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["C:\\Users\\Soaint\\Desktop\\"]]></defaultValueExpression>
@@ -273,15 +273,6 @@
 	<pageFooter>
 		<band height="65" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="4" width="555" height="35" forecolor="#F26B7A" uuid="b4477ccd-fa33-4e75-9ca2-22b5bf4c22ea"/>
-				<textElement textAlignment="Center">
-					<font fontName="Arial" isBold="true"/>
-				</textElement>
-				<text><![CDATA[
-
-]]></text>
-			</staticText>
-			<staticText>
 				<reportElement x="147" y="50" width="262" height="13" forecolor="#C2D62D" uuid="29aa1aeb-6b76-4434-8842-ec94cdc4df21"/>
 				<textElement textAlignment="Center">
 					<font fontName="Arial" size="11" isBold="false" isItalic="true"/>
@@ -308,21 +299,21 @@
 					<pen lineWidth="2.0" lineStyle="Solid"/>
 				</graphicElement>
 			</line>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="7" y="8" width="541" height="15" forecolor="#F26B7A" uuid="e2de774e-8861-4b40-95ca-ef09f9082fdc"/>
 				<textElement textAlignment="Center">
 					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{tDireccionOrganizacion}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="7" y="23" width="307" height="16" forecolor="#F26B7A" uuid="20dd1e04-7036-4afe-9a7b-690aa1da67b8"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{tTelefonoOrganizacion}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="331" y="23" width="217" height="16" forecolor="#F26B7A" uuid="a5bd2713-31c3-448d-b896-abef976625e4"/>
 				<textElement textAlignment="Left">
 					<font fontName="Arial"/>

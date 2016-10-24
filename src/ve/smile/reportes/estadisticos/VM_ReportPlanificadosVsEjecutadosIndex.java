@@ -252,9 +252,14 @@ public class VM_ReportPlanificadosVsEjecutadosIndex extends VM_WindowWizard {
 			
 			parametros.put("pResponsable", eventoPlanificado.getFkPersona().getNombre() +" "+eventoPlanificado.getFkPersona().getApellido());
 
-			parametros.put("tDireccionOrganizacion",
-					S.OrganizacionService.consultarTodos()
-					.getObjetos().get(0).getDireccion());
+			
+			Organizacion organizacion = S.OrganizacionService.consultarTodos().getObjetos().get(0);
+			
+			parametros.put("tDireccionOrganizacion", organizacion.getDireccion());
+			
+			parametros.put("tTelefonoOrganizacion", organizacion.getTelefono() + " " + "/" + " " + organizacion.getTelefono2());
+			
+			parametros.put("tCorreoOrganizacion", organizacion.getCorreo());
 
 			type = "pdf";
 			

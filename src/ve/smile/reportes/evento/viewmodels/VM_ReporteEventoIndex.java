@@ -444,7 +444,7 @@ public class VM_ReporteEventoIndex extends VM_WindowWizard {
 					.getObjetos();
 
 			if (listEventosPlanificados.isEmpty()) {
-				return "E:Error Code 5-Los criterios seleccionados no aportan información para <b>Eventos</b>";
+				return "E:Error Code 5-Los criterios seleccionados no aportan informaciï¿½n para <b>Eventos</b>";
 			}
 
 			this.listEventosPlanificados.addAll(listEventosPlanificados);
@@ -882,6 +882,10 @@ public class VM_ReporteEventoIndex extends VM_WindowWizard {
 		parametros.put("eventosClasificadosP", eventosClasificadosP);
 
 		parametros.put("tDireccionOrganizacion", organizacion.getDireccion());
+		
+		parametros.put("tTelefonoOrganizacion", organizacion.getTelefono() + " " + "/" + " " + organizacion.getTelefono2());
+		
+		parametros.put("tCorreoOrganizacion", organizacion.getCorreo());
 
 		source = "reporte/reportEventosPlanificadosParametrizados.jasper";
 	}
@@ -962,7 +966,7 @@ public class VM_ReporteEventoIndex extends VM_WindowWizard {
 		if (!eventoTareas.isEmpty()) {
 			parametros.put("eventoTareas", eventoTareas);
 			parametros.put("tNombre", "Nombre");
-			parametros.put("tDescripcion", "Descripción");
+			parametros.put("tDescripcion", "Descripciï¿½n");
 
 		}
 		else{

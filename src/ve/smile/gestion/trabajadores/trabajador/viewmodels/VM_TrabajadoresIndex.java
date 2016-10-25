@@ -2,6 +2,7 @@ package ve.smile.gestion.trabajadores.trabajador.viewmodels;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import karen.core.crux.alert.Alert;
@@ -12,8 +13,6 @@ import lights.core.payload.response.IPayloadResponse;
 
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
-
-import java.util.List;
 
 import ve.smile.consume.services.S;
 import ve.smile.dto.Cargo;
@@ -263,7 +262,7 @@ public class VM_TrabajadoresIndex extends VM_WindowSimpleListPrincipal<Trabajado
 		
 		return "";
 	}
-	
+
 	@Command
 	public void changeFilter() {
 		super.getControllerWindowSimpleListPrincipal().updateListBoxAndFooter();

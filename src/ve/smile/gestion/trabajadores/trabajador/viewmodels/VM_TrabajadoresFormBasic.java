@@ -32,15 +32,14 @@ import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.event.UploadEvent;
 
-import app.UploadImageSingle;
 import ve.smile.consume.services.S;
 import ve.smile.dto.Cargo;
 import ve.smile.dto.Ciudad;
 import ve.smile.dto.Estado;
 import ve.smile.dto.Multimedia;
+import ve.smile.dto.Persona;
 import ve.smile.dto.Profesion;
 import ve.smile.dto.Trabajador;
-import ve.smile.dto.Persona;
 import ve.smile.enums.EstatusTrabajadorEnum;
 import ve.smile.enums.TipoMultimediaEnum;
 import ve.smile.enums.TipoPersonaEnum;
@@ -48,14 +47,15 @@ import ve.smile.payload.response.PayloadCargoResponse;
 import ve.smile.payload.response.PayloadCiudadResponse;
 import ve.smile.payload.response.PayloadEstadoResponse;
 import ve.smile.payload.response.PayloadMultimediaResponse;
+import ve.smile.payload.response.PayloadPersonaResponse;
 import ve.smile.payload.response.PayloadProfesionResponse;
 import ve.smile.payload.response.PayloadTrabajadorResponse;
-import ve.smile.payload.response.PayloadPersonaResponse;
 import ve.smile.seguridad.enums.OperacionEnum;
 import ve.smile.seguridad.enums.SexoEnum;
 import app.UploadImageSingle;
 
-public class VM_TrabajadoresFormBasic extends VM_WindowForm implements UploadImageSingle {
+public class VM_TrabajadoresFormBasic extends VM_WindowForm implements
+		UploadImageSingle {
 
 	private List<Ciudad> ciudades;
 
@@ -64,7 +64,7 @@ public class VM_TrabajadoresFormBasic extends VM_WindowForm implements UploadIma
 
 	private Date fechaNacimiento;
 	private Date fechaIngreso;
-	
+
 	private Persona persona;
 
 	private byte[] bytes = null;
@@ -78,18 +78,18 @@ public class VM_TrabajadoresFormBasic extends VM_WindowForm implements UploadIma
 
 	private List<Estado> estados;
 	private List<Cargo> cargos;
-	
+
 	private List<Profesion> profesiones;
-	private Set <Profesion> profesionesSeleccionadas;
+	private Set<Profesion> profesionesSeleccionadas;
 	private List<Profesion> trabajadorProfesiones;
-	private Set <Profesion> trabajadorProfesionesSeleccionadas;
-	
+	private Set<Profesion> trabajadorProfesionesSeleccionadas;
+
 	@Init(superclass = true)
-	public void childInit() {		
-		
+	public void childInit() {
+
 		this.getCargos();
-		
-		if(this.getTrabajador().getIdTrabajador() != null ){
+
+		if (this.getTrabajador().getIdTrabajador() != null) {
 			if (getTrabajador().getFortalezas() == null
 					|| getTrabajador().getFortalezas().size() == 0) {
 
@@ -100,29 +100,27 @@ public class VM_TrabajadoresFormBasic extends VM_WindowForm implements UploadIma
 				if (!UtilPayload.isOK(payloadProfesionResponse)) {
 					Alert.showMessage(payloadProfesionResponse);
 				}
-				
-				getTrabajador().setProfesiones(payloadProfesionResponse.getObjetos());
+
+				getTrabajador().setProfesiones(
+						payloadProfesionResponse.getObjetos());
 			}
-			
-			
-			this.getTrabajadorProfesiones().addAll(getTrabajador().getProfesiones());			
-		}		
-		
-		
-		if (this.getProfesiones().isEmpty()){
-			PayloadProfesionResponse payloadProfesionResponse = S.ProfesionService.consultarTodos();
-			if (!UtilPayload.isOK(payloadProfesionResponse))
-			{
-				Alert.showMessage(payloadProfesionResponse);
-			}
-			else
-			{
-				profesiones.addAll(payloadProfesionResponse.getObjetos());
-			}		
+
+			this.getTrabajadorProfesiones().addAll(
+					getTrabajador().getProfesiones());
 		}
-		
+
+		if (this.getProfesiones().isEmpty()) {
+			PayloadProfesionResponse payloadProfesionResponse = S.ProfesionService
+					.consultarTodos();
+			if (!UtilPayload.isOK(payloadProfesionResponse)) {
+				Alert.showMessage(payloadProfesionResponse);
+			} else {
+				profesiones.addAll(payloadProfesionResponse.getObjetos());
+			}
+		}
+
 		this.setPersona(this.getTrabajador().getFkPersona());
-	
+
 		if (this.getTrabajador().getFkPersona() != null
 				&& this.getTrabajador().getFkPersona().getFkMultimedia() != null) {
 			this.setUrlImage(this.getPersona().getFkMultimedia().getUrl());
@@ -137,14 +135,14 @@ public class VM_TrabajadoresFormBasic extends VM_WindowForm implements UploadIma
 
 		if (this.persona.getSexo() != null) {
 			this.setSexoEnum(SexoEnum.values()[this.persona.getSexo()]);
-			
-			//De long a date
+
+			// De long a date
 			Date fechaIng = new Date(this.getTrabajador().getFechaIngreso());
 			Date fechaNac = new Date(this.getPersona().getFechaNacimiento());
-			
+
 			this.setFechaIngreso(fechaIng);
 			this.setFechaNacimiento(fechaNac);
-			this.getCiudades().add(this.getPersona().getFkCiudad());		
+			this.getCiudades().add(this.getPersona().getFkCiudad());
 		}
 		if (this.getPersona().getFkCiudad() != null) {
 			this.setEstado(this.getPersona().getFkCiudad().getFkEstado());
@@ -158,9 +156,9 @@ public class VM_TrabajadoresFormBasic extends VM_WindowForm implements UploadIma
 				Alert.showMessage(payloadCiudadResponse);
 			}
 			this.getCiudades().addAll(payloadCiudadResponse.getObjetos());
-		}		
-}
-	
+		}
+	}
+
 	public List<Ciudad> getCiudades() {
 		if (this.ciudades == null) {
 			this.ciudades = new ArrayList<>();
@@ -194,7 +192,7 @@ public class VM_TrabajadoresFormBasic extends VM_WindowForm implements UploadIma
 		}
 		return estados;
 	}
-	
+
 	public Cargo getCargo() {
 		return cargo;
 	}
@@ -217,9 +215,8 @@ public class VM_TrabajadoresFormBasic extends VM_WindowForm implements UploadIma
 		}
 		return cargos;
 	}
-	
-	public boolean disabledProfesion(Profesion profesion)
-	{
+
+	public boolean disabledProfesion(Profesion profesion) {
 		return this.getTrabajadorProfesiones().contains(profesion);
 	}
 
@@ -269,7 +266,7 @@ public class VM_TrabajadoresFormBasic extends VM_WindowForm implements UploadIma
 	}
 
 	public void setExtensionImage(String extensionImage) {
-		this.extensionImage = extensionImage; 
+		this.extensionImage = extensionImage;
 	}
 
 	public List<SexoEnum> getSexoEnums() {
@@ -304,7 +301,7 @@ public class VM_TrabajadoresFormBasic extends VM_WindowForm implements UploadIma
 	public void setUrlImage(String urlImage) {
 		this.urlImage = urlImage;
 	}
-	
+
 	public String getTypeMedia() {
 		return typeMedia;
 	}
@@ -340,12 +337,12 @@ public class VM_TrabajadoresFormBasic extends VM_WindowForm implements UploadIma
 			}
 		}
 
-		if (urlImage != null) { 
+		if (urlImage != null) {
 			bytes = Zki.getBytes(urlImage);
 			return Zki.getBufferedImage(urlImage);
 		}
 
-		return null; 
+		return null;
 	}
 
 	@Override
@@ -423,24 +420,26 @@ public class VM_TrabajadoresFormBasic extends VM_WindowForm implements UploadIma
 		}
 
 		if (operacionEnum.equals(OperacionEnum.INCLUIR)) {
-			
-			if(extensionImage != null){
+
+			if (extensionImage != null) {
 				Trabajador trabajador = this.getTrabajador();
-				this.getPersona().setTipoPersona(TipoPersonaEnum.NATURAL.ordinal());
+				this.getPersona().setTipoPersona(
+						TipoPersonaEnum.NATURAL.ordinal());
 				trabajador.setFkPersona(this.getPersona());
-				
+
 				trabajador.setFechaIngreso(this.getFechaIngreso().getTime());
-				trabajador.setEstatusTrabajador(EstatusTrabajadorEnum.ACTIVO.ordinal());
+				trabajador.setEstatusTrabajador(EstatusTrabajadorEnum.ACTIVO
+						.ordinal());
 				trabajador.setProfesiones(this.getTrabajadorProfesiones());
-				
+
 				if (bytes != null) {
 					Multimedia multimedia = new Multimedia();
 					multimedia.setNombre(nameImage);
 					multimedia.setTipoMultimedia(TipoMultimediaEnum.IMAGEN
 							.ordinal());
 					multimedia.setUrl(this.getUrlImage());
-					multimedia.setExtension(UtilMultimedia.stringToExtensionEnum(
-							extensionImage).ordinal());
+					multimedia.setExtension(UtilMultimedia
+							.stringToExtensionEnum(extensionImage).ordinal());
 					multimedia.setDescripcion(typeMedia);
 
 					PayloadMultimediaResponse payloadMultimediaResponse = S.MultimediaService
@@ -449,8 +448,9 @@ public class VM_TrabajadoresFormBasic extends VM_WindowForm implements UploadIma
 						Alert.showMessage(payloadMultimediaResponse);
 						return true;
 					}
-					multimedia.setIdMultimedia(((Double) payloadMultimediaResponse
-							.getInformacion("id")).intValue());
+					multimedia
+							.setIdMultimedia(((Double) payloadMultimediaResponse
+									.getInformacion("id")).intValue());
 					this.getPersona().setFkMultimedia(multimedia);
 				}
 				PayloadPersonaResponse payloadPersonaResponse = S.PersonaService
@@ -475,8 +475,9 @@ public class VM_TrabajadoresFormBasic extends VM_WindowForm implements UploadIma
 					multimedia.setNombre(Zki.PERSONAS
 							+ this.getPersona().getIdPersona() + "."
 							+ this.extensionImage);
-					multimedia.setUrl(Zki.PERSONAS + getPersona().getIdPersona()
-							+ "." + this.extensionImage);
+					multimedia.setUrl(Zki.PERSONAS
+							+ getPersona().getIdPersona() + "."
+							+ this.extensionImage);
 					PayloadMultimediaResponse payloadMultimediaResponse = S.MultimediaService
 							.modificar(multimedia);
 
@@ -487,17 +488,18 @@ public class VM_TrabajadoresFormBasic extends VM_WindowForm implements UploadIma
 				}
 				Alert.showMessage(payloadTrabajadorResponse);
 				DataCenter.reloadCurrentNodoMenu();
-				return true;			
-				
-			}else{
+				return true;
+
+			} else {
 				Alert.showMessage("Error Code: 099-Debe cargar una Imagen del trabajador");
 				return true;
-				}						
+			}
 		}
 		if (operacionEnum.equals(OperacionEnum.MODIFICAR)) {
 			this.getTrabajador().getProfesiones().clear();
-			this.getTrabajador().getProfesiones().addAll(this.getTrabajadorProfesiones());
-			
+			this.getTrabajador().getProfesiones()
+					.addAll(this.getTrabajadorProfesiones());
+
 			if (bytes != null) {
 				if (this.getPersona().getFkMultimedia() == null
 						|| this.getPersona().getFkMultimedia()
@@ -546,12 +548,13 @@ public class VM_TrabajadoresFormBasic extends VM_WindowForm implements UploadIma
 
 			PayloadPersonaResponse payloadPersonaResponse = S.PersonaService
 					.modificar(getPersona());
-			
-		if (!UtilPayload.isOK(payloadPersonaResponse)) {
+
+			if (!UtilPayload.isOK(payloadPersonaResponse)) {
 				Alert.showMessage(payloadPersonaResponse);
 				return true;
 			}
-			if (bytes == null && multimedia != null && multimedia.getIdMultimedia() != null) {
+			if (bytes == null && multimedia != null
+					&& multimedia.getIdMultimedia() != null) {
 				PayloadMultimediaResponse payloadMultimediaResponse = S.MultimediaService
 						.eliminar(multimedia.getIdMultimedia());
 				if (!UtilPayload.isOK(payloadMultimediaResponse)) {
@@ -592,7 +595,8 @@ public class VM_TrabajadoresFormBasic extends VM_WindowForm implements UploadIma
 		try {
 			UtilValidate.validateNull(this.getPersona().getFkMultimedia(),
 					"Imagen");
-			UtilValidate.validateNull(this.getTrabajador().getFkCargo(), "Cargo");
+			UtilValidate.validateNull(this.getTrabajador().getFkCargo(),
+					"Cargo");
 			UtilValidate.validateString(this.getPersona().getIdentificacion(),
 					"Cédula", 35);
 			UtilValidate.validateString(this.getPersona().getNombre(),
@@ -606,7 +610,8 @@ public class VM_TrabajadoresFormBasic extends VM_WindowForm implements UploadIma
 					new SimpleDateFormat("yyyy-MM-dd").format(new Date()),
 					"DD/MM/YYYY");
 
-			UtilValidate.validateNull(this.getPersona().getFkCiudad(), "Ciudad");
+			UtilValidate
+					.validateNull(this.getPersona().getFkCiudad(), "Ciudad");
 			UtilValidate.validateDate(this.getTrabajador().getFechaIngreso(),
 					"Fecha de ingreso", ValidateOperator.LESS_THAN,
 					new SimpleDateFormat("yyyy-MM-dd").format(new Date()),
@@ -624,74 +629,75 @@ public class VM_TrabajadoresFormBasic extends VM_WindowForm implements UploadIma
 			return false;
 		}
 	}
-	
-		public List<Profesion> getProfesiones() {
-			if(this.profesiones == null){
-				this.profesiones = new ArrayList<>();
-			}
-			return profesiones;
-		}
 
-		public void setProfesiones(List<Profesion> profesiones) {
-			this.profesiones = profesiones;
+	public List<Profesion> getProfesiones() {
+		if (this.profesiones == null) {
+			this.profesiones = new ArrayList<>();
 		}
+		return profesiones;
+	}
 
-		public Set<Profesion> getProfesionesSeleccionadas() {
-			if(this.profesionesSeleccionadas == null){
-				this.profesionesSeleccionadas = new HashSet<>();
-			}
-			return profesionesSeleccionadas;
-		}
+	public void setProfesiones(List<Profesion> profesiones) {
+		this.profesiones = profesiones;
+	}
 
-		public void setProfesionesSeleccionadas(Set<Profesion> profesionesSeleccionadas) {
-			this.profesionesSeleccionadas = profesionesSeleccionadas;
+	public Set<Profesion> getProfesionesSeleccionadas() {
+		if (this.profesionesSeleccionadas == null) {
+			this.profesionesSeleccionadas = new HashSet<>();
 		}
+		return profesionesSeleccionadas;
+	}
 
-		public List<Profesion> getTrabajadorProfesiones() {
-			if(this.trabajadorProfesiones == null){
-				this.trabajadorProfesiones = new ArrayList<>();
-			}			
-			return trabajadorProfesiones;
-		}
+	public void setProfesionesSeleccionadas(
+			Set<Profesion> profesionesSeleccionadas) {
+		this.profesionesSeleccionadas = profesionesSeleccionadas;
+	}
 
-		public void setTrabajadorProfesiones(List<Profesion> trabajadorProfesiones) {
-			this.trabajadorProfesiones = trabajadorProfesiones;
+	public List<Profesion> getTrabajadorProfesiones() {
+		if (this.trabajadorProfesiones == null) {
+			this.trabajadorProfesiones = new ArrayList<>();
 		}
+		return trabajadorProfesiones;
+	}
 
-		public Set<Profesion> getTrabajadorProfesionesSeleccionadas() {
-			if(this.trabajadorProfesionesSeleccionadas == null){
-				this.trabajadorProfesionesSeleccionadas = new HashSet<>();
-			}			
-			return trabajadorProfesionesSeleccionadas;
-		}
+	public void setTrabajadorProfesiones(List<Profesion> trabajadorProfesiones) {
+		this.trabajadorProfesiones = trabajadorProfesiones;
+	}
 
-		public void setTrabajadorProfesionesSeleccionadas(
-				Set<Profesion> trabajadorProfesionesSeleccionadas) {
-			this.trabajadorProfesionesSeleccionadas = trabajadorProfesionesSeleccionadas;
+	public Set<Profesion> getTrabajadorProfesionesSeleccionadas() {
+		if (this.trabajadorProfesionesSeleccionadas == null) {
+			this.trabajadorProfesionesSeleccionadas = new HashSet<>();
 		}
-		
-		
-		@Command("agregarProfesiones")
-		@NotifyChange({"profesiones", "trabajadorProfesiones", "profesionesSeleccionadas", "trabajadorProfesionesSeleccionadas" })
-		public void agregarProfesiones()
-		{
-			if (this.getProfesionesSeleccionadas() != null && this.getProfesionesSeleccionadas().size() > 0)
-			{
-				this.getTrabajadorProfesiones().addAll(profesionesSeleccionadas);
-				this.getProfesionesSeleccionadas().clear();
-				this.getTrabajadorProfesionesSeleccionadas().clear();
-			}
-		}
+		return trabajadorProfesionesSeleccionadas;
+	}
 
-		@Command("removerProfesiones")
-		@NotifyChange({"profesiones", "trabajadorProfesiones", "profesionesSeleccionadas", "trabajadorProfesionesSeleccionadas" })
-		public void removerProfesiones()
-		{
-			if (this.getTrabajadorProfesionesSeleccionadas() != null && this.getTrabajadorProfesionesSeleccionadas().size() > 0)
-			{
-				this.getTrabajadorProfesiones().removeAll(trabajadorProfesionesSeleccionadas);
-				this.getProfesionesSeleccionadas().clear();
-				this.getTrabajadorProfesionesSeleccionadas().clear();
-			}
-		}		
+	public void setTrabajadorProfesionesSeleccionadas(
+			Set<Profesion> trabajadorProfesionesSeleccionadas) {
+		this.trabajadorProfesionesSeleccionadas = trabajadorProfesionesSeleccionadas;
+	}
+
+	@Command("agregarProfesiones")
+	@NotifyChange({ "profesiones", "trabajadorProfesiones",
+			"profesionesSeleccionadas", "trabajadorProfesionesSeleccionadas" })
+	public void agregarProfesiones() {
+		if (this.getProfesionesSeleccionadas() != null
+				&& this.getProfesionesSeleccionadas().size() > 0) {
+			this.getTrabajadorProfesiones().addAll(profesionesSeleccionadas);
+			this.getProfesionesSeleccionadas().clear();
+			this.getTrabajadorProfesionesSeleccionadas().clear();
+		}
+	}
+
+	@Command("removerProfesiones")
+	@NotifyChange({ "profesiones", "trabajadorProfesiones",
+			"profesionesSeleccionadas", "trabajadorProfesionesSeleccionadas" })
+	public void removerProfesiones() {
+		if (this.getTrabajadorProfesionesSeleccionadas() != null
+				&& this.getTrabajadorProfesionesSeleccionadas().size() > 0) {
+			this.getTrabajadorProfesiones().removeAll(
+					trabajadorProfesionesSeleccionadas);
+			this.getProfesionesSeleccionadas().clear();
+			this.getTrabajadorProfesionesSeleccionadas().clear();
+		}
+	}
 }

@@ -31,16 +31,15 @@
 				<div class="col s12">
 					<listbox id="listbox" model="@load(vm.objectsList)"
 						selectedItem="@bind(vm.selectedObject)"
-						emptyMessage="No hay trabajadores para mostrar">				
-					<auxhead>
+						emptyMessage="No hay trabajadores para mostrar">
+						<auxhead>
 							<auxheader>
 								<div>
 									<span style="margin-right: 3px;"
 										class="prefix filter fa fa-filter">
 									</span>
-									<textbox id="Cedula"
-										instant="true" placeholder="Cédula"
-										value="@bind(vm.identificacion)"
+									<textbox id="Cedula" instant="true"
+										placeholder="Cédula" value="@bind(vm.identificacion)"
 										onChange="@command('changeFilter')"
 										style="height: 30px;font-size: 14px;margin-top: 1px;">
 									</textbox>
@@ -60,47 +59,42 @@
 							</auxheader>
 							<auxheader>
 								<div sclass="col s6">
-									<span class="prefix filter fa fa-filter"> </span>
-									<combobox id="Cargo" placeholder="Cargos"
-										inplace="true" tooltip="Cargo" model="@bind(vm.cargos)"
-										onChange="@command('changeFilter')"
+									<span
+										class="prefix filter fa fa-filter">
+									</span>
+									<combobox id="Cargo"
+										placeholder="Cargos" inplace="true" tooltip="Cargo"
+										model="@bind(vm.cargos)" onChange="@command('changeFilter')"
 										style="background: rgb(89, 78, 70); margin: 0px; margin-left: 6px; margin-top: 0px; display: inline;  width: 75%;"
 										selectedItem="@bind(vm.cargo)">
 										<template name="model">
-											<comboitem label="@load(each.nombre)" />
+											<comboitem
+												label="@load(each.nombre)" />
 										</template>
 									</combobox>
 								</div>
-							</auxheader>							
-							<auxheader>
-								<div sclass="col s6">
-									<span class="prefix filter fa fa-filter"> </span>
-									<combobox id="Estatus"
-										inplace="true" tooltip="Estatus" model="@bind(vm.estatusTrabajadorEnums)"
-										onChange="@command('changeFilter')"
-										style="background: rgb(89, 78, 70); margin: 0px; margin-left: 6px; margin-top: 0px; display: inline;  width: 75%;"
-										selectedItem="@bind(vm.estatusTrabajadorEnum)">
-										<template name="model">
-											<comboitem label="@load(each.toString())" />
-										</template>
-									</combobox>
-								</div>
-							</auxheader>							
+							</auxheader>
+							<auxheader></auxheader>
+							<auxheader></auxheader>
 						</auxhead>
-					
-					
+
+
 						<listhead>
 							<listheader width="30%" label="Cédula" />
 							<listheader width="30%" label="Trabajador" />
-							<listheader width="30%" label="Cargo" />
-							<listheader width="20%" />
+							<listheader width="20%" label="Cargo" />
+							<listheader width="20%" label="Correo" />
 						</listhead>
 						<template name="model">
 							<listitem>
-								<listcell label="@load(each.fkPersona.identificacion)" />
-								<listcell label="@load(each.fkPersona.nombre.concat(' ').concat(each.fkPersona.apellido))" />
-								<listcell label="@load(each.fkCargo.nombre)" />
-								<listcell />
+								<listcell
+									label="@load(each.fkPersona.identificacion)" />
+								<listcell
+									label="@load(each.fkPersona.nombre.concat(' ').concat(each.fkPersona.apellido))" />
+								<listcell
+									label="@load(each.fkCargo.nombre)" />
+								<listcell
+									label="@load(each.fkPersona.correo)" />
 							</listitem>
 						</template>
 						<listfoot>
@@ -113,6 +107,8 @@
 			</div>
 		</div>
 
-		<toolbar id="toolbar" align="center" use="karen.core.toolbar.Toolbar"> </toolbar>
+		<toolbar id="toolbar" align="center"
+			use="karen.core.toolbar.Toolbar">
+		</toolbar>
 	</div>
 </zk>

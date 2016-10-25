@@ -15,6 +15,7 @@
 			</listhead>
 			<template name="model">
 				<listitem>
+					<listcell style="width: 10%"/>
 					<listcell label="@load(each.correo)" />
 					<listcell label="@load(each.fkRol.nombre)" />
 				</listitem>

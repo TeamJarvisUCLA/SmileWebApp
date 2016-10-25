@@ -5,6 +5,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -41,7 +42,6 @@ import ve.smile.dto.EventoPlanificado;
 import ve.smile.dto.Multimedia;
 import ve.smile.dto.NotificacionUsuario;
 import ve.smile.dto.Persona;
-import ve.smile.dto.Voluntario;
 import ve.smile.enums.EstatusEventoPlanificadoEnum;
 import ve.smile.enums.EstatusNotificacionEnum;
 import ve.smile.enums.TipoMultimediaEnum;
@@ -55,10 +55,9 @@ import app.UploadImageSingle;
 public class VM_EventoPlanificadoRegistroIndex extends VM_WindowWizard
 		implements UploadImageSingle {
 
-	private EventoPlanificado eventoPlanificado;
-	private Voluntario voluntario = new Voluntario();
-	private Directorio directorio = new Directorio();
-	private Date fechaPlanificada = new Date();
+	private EventoPlanificado eventoPlanificado;	
+	private Date fechaInicio = new Date();
+	private Date fechaFin = new Date();
 	private Persona persona = new Persona();
 
 	private byte[] bytes = null;
@@ -71,10 +70,8 @@ public class VM_EventoPlanificadoRegistroIndex extends VM_WindowWizard
 	@Init(superclass = true)
 	public void childInit() {
 		// NOTHING OK!
-		eventoPlanificado = new EventoPlanificado();
-		voluntario = new Voluntario();
-		directorio = new Directorio();
-		fechaPlanificada = new Date();
+		eventoPlanificado = new EventoPlanificado();		
+		
 	}
 
 	@Command("buscarVoluntario")
@@ -94,7 +91,7 @@ public class VM_EventoPlanificadoRegistroIndex extends VM_WindowWizard
 						
 						eventoPlanificado.setFkPersona(catalogueDialogCloseEvent.getEntity());
 
-						refreshVoluntario();
+						refreshEventoPlanificado();
 					}
 				});
 
@@ -117,8 +114,8 @@ public class VM_EventoPlanificadoRegistroIndex extends VM_WindowWizard
 								DialogActionEnum.CANCELAR)) {
 							return;
 						}
-						directorio = catalogueDialogCloseEvent.getEntity();
-						refreshDirectorio();
+						eventoPlanificado.setFkDirectorio(catalogueDialogCloseEvent.getEntity());
+						refreshEventoPlanificado();
 
 					}
 				});
@@ -129,7 +126,7 @@ public class VM_EventoPlanificadoRegistroIndex extends VM_WindowWizard
 						catalogueDialogData);
 	}
 
-	public void refreshVoluntario() {
+	public void refreshEventoPlanificado() {
 		BindUtils.postNotifyChange(null, null, this, "eventoPlanificado");
 	}
 
@@ -160,6 +157,9 @@ public class VM_EventoPlanificadoRegistroIndex extends VM_WindowWizard
 				.getPorType(OperacionWizardEnum.ATRAS));
 		listOperacionWizard2.add(OperacionWizardHelper
 				.getPorType(OperacionWizardEnum.FINALIZAR));
+		listOperacionWizard2.add(OperacionWizardHelper
+				.getPorType(OperacionWizardEnum.CANCELAR));
+
 
 		botones.put(2, listOperacionWizard2);
 
@@ -206,6 +206,12 @@ public class VM_EventoPlanificadoRegistroIndex extends VM_WindowWizard
 
 		return iconos;
 	}
+	
+	@Override
+	public String executeCancelar(Integer currentStep) {
+		restartWizard();
+		return super.executeCancelar(currentStep);
+	}
 
 	@Override
 	public List<String> getUrlPageToStep() {
@@ -239,14 +245,20 @@ public class VM_EventoPlanificadoRegistroIndex extends VM_WindowWizard
 	public String isValidPreconditionsFinalizar(Integer currentStep) {
 		if (currentStep == 2) {
 			try {
-				UtilValidate.validateDate(this.getFechaPlanificada().getTime(),
-						"Fecha Planificada", ValidateOperator.GREATER_THAN,
-						new SimpleDateFormat("yyyy-MM-dd").format(new Date()),
+				Calendar calendar = Calendar.getInstance();
+				calendar.add(Calendar.DAY_OF_YEAR, -1);
+				UtilValidate.validateDate(this.getFechaInicio().getTime(),
+						"Fecha Inicio", ValidateOperator.GREATER_THAN,
+						new SimpleDateFormat("yyyy-MM-dd").format(calendar.getTime()),
 						"dd/MM/yyyy");
-				UtilValidate.validateNull(this.getVoluntario()
-						.getIdVoluntario(), "Responsable");
-				UtilValidate.validateNull(this.getDirectorio()
-						.getIdDirectorio(), "Directorio");
+				UtilValidate.validateDate(this.getFechaFin().getTime(),
+						"Fecha Fin", ValidateOperator.GREATER_THAN,
+						new SimpleDateFormat("yyyy-MM-dd").format(calendar.getTime()),
+						"dd/MM/yyyy");
+				UtilValidate.validateNull(this.getEventoPlanificado().getFkPersona()
+						, "Responsable");
+				UtilValidate.validateNull(this.getEventoPlanificado().getFkDirectorio()
+						, "Directorio");
 				UtilValidate.validateNull(this.getBytes(), "Imagen");
 			} catch (Exception e) {
 				return e.getMessage();
@@ -260,12 +272,11 @@ public class VM_EventoPlanificadoRegistroIndex extends VM_WindowWizard
 	public String executeFinalizar(Integer currentStep) {
 		if (currentStep == 2) {
 			this.getEventoPlanificado().setFechaPlanificada(
-					this.getFechaPlanificada().getTime());
-			this.getEventoPlanificado().setFkDirectorio(this.getDirectorio());
-			this.getEventoPlanificado().setFkPersona(
-					this.getVoluntario().getFkPersona());
-			this.getEventoPlanificado().setPublicoPortal(true);
-			this.getEventoPlanificado().setEstatusEvento(
+					new Date().getTime());
+			this.eventoPlanificado.setFechaFin(this.fechaFin.getTime());
+			this.eventoPlanificado.setFechaInicio(this.fechaInicio.getTime());
+			this.eventoPlanificado.setPublicoPortal(true);
+			this.eventoPlanificado.setEstatusEvento(
 					EstatusEventoPlanificadoEnum.PLANIFICADO.ordinal());
 			this.getEventoPlanificado().setFkEvento((Evento) selectedObject);
 
@@ -294,9 +305,43 @@ public class VM_EventoPlanificadoRegistroIndex extends VM_WindowWizard
 
 			PayloadEventoPlanificadoResponse payloadEventoPlanificadoResponse = S.EventoPlanificadoService
 					.incluir(this.getEventoPlanificado());
+											
+			this.getEventoPlanificado().setIdEventoPlanificado(
+					((Double) payloadEventoPlanificadoResponse
+							.getInformacion("id")).intValue());
+			
+			if (bytes != null) {
+				Zki.save(Zki.EVENTO, this.getEventoPlanificado()
+						.getIdEventoPlanificado(), extensionImage, bytes);
+				Multimedia multimedia = this.getEventoPlanificado()
+						.getFkMultimedia();
+				multimedia.setNombre(Zki.EVENTO
+						+ this.getEventoPlanificado()
+								.getIdEventoPlanificado() + "."
+						+ this.extensionImage);
+				multimedia.setUrl(Zki.EVENTO
+						+ this.getEventoPlanificado()
+								.getIdEventoPlanificado() + "."
+						+ this.extensionImage);
+				PayloadMultimediaResponse payloadMultimediaResponse = S.MultimediaService
+						.modificar(multimedia);
+
+				if (!UtilPayload.isOK(payloadMultimediaResponse)) {
+					return (String) payloadMultimediaResponse
+							.getInformacion(IPayloadResponse.MENSAJE);
+
+				}
+			}
+			if (UtilPayload.isOK(payloadEventoPlanificadoResponse)) {
+				
+			}
+			
+			if (this.getEventoPlanificado().getFkPersona().getFkUsuario() != null
+					&& this.getEventoPlanificado().getFkPersona().getFkUsuario()
+							.getIdUsuario() != null) {
 			String contenido = "Ha sido asignado responsable del Evento "
 					+ this.getEventoPlanificado().getFkEvento().getNombre()
-					+ " a realizar el " + this.getFechaPlanificada();
+					+ " a realizar el " + this.getFechaInicio();
 			NotificacionUsuario notificacionUsuario = new NotificacionUsuario(
 					this.getEventoPlanificado().getFkPersona().getFkUsuario(),
 					new Date().getTime(),
@@ -304,58 +349,25 @@ public class VM_EventoPlanificadoRegistroIndex extends VM_WindowWizard
 							.getInformacion("id")).intValue(),
 					EstatusNotificacionEnum.PENDIENTE.ordinal(),
 					TipoReferenciaNotificacionEnum.EVENTO.ordinal(), contenido);
-			if (UtilPayload.isOK(payloadEventoPlanificadoResponse)) {
-				this.getEventoPlanificado().setIdEventoPlanificado(
-						((Double) payloadEventoPlanificadoResponse
-								.getInformacion("id")).intValue());
-				if (bytes != null) {
-					Zki.save(Zki.EVENTO, this.getEventoPlanificado()
-							.getIdEventoPlanificado(), extensionImage, bytes);
-					Multimedia multimedia = this.getEventoPlanificado()
-							.getFkMultimedia();
-					multimedia.setNombre(Zki.EVENTO
-							+ this.getEventoPlanificado()
-									.getIdEventoPlanificado() + "."
-							+ this.extensionImage);
-					multimedia.setUrl(Zki.EVENTO
-							+ this.getEventoPlanificado()
-									.getIdEventoPlanificado() + "."
-							+ this.extensionImage);
-					PayloadMultimediaResponse payloadMultimediaResponse = S.MultimediaService
-							.modificar(multimedia);
-
-					if (!UtilPayload.isOK(payloadMultimediaResponse)) {
-						return (String) payloadMultimediaResponse
-								.getInformacion(IPayloadResponse.MENSAJE);
-
-					}
-				}
-
 				PayloadNotificacionUsuarioResponse payloadNotificacionUsuarioResponse = S.NotificacionUsuarioService
 						.incluir(notificacionUsuario);
 				if (!UtilPayload.isOK(payloadNotificacionUsuarioResponse)) {
 					return (String) payloadNotificacionUsuarioResponse
 							.getInformacion(IPayloadResponse.MENSAJE);
 				}
-
-				this.setEventoPlanificado(new EventoPlanificado());
-				this.setDirectorio(new Directorio());
-				this.setFechaPlanificada(new Date());
-				this.setSelectedObject(new Evento());
-				this.setVoluntario(new Voluntario());
-				BindUtils.postNotifyChange(null, null, this, "directorio");
+			}
+				this.setEventoPlanificado(new EventoPlanificado());			
+				this.setFechaInicio(new Date());
+				this.setFechaFin(new Date());
+				this.setSelectedObject(new Evento());								
 				BindUtils.postNotifyChange(null, null, this,
 						"eventoPlanificado");
 				BindUtils
 						.postNotifyChange(null, null, this, "fechaPlanificada");
-				BindUtils.postNotifyChange(null, null, this, "selectedObject");
-				BindUtils.postNotifyChange(null, null, this, "voluntario");
+				BindUtils.postNotifyChange(null, null, this, "selectedObject");				
 
-			}
-			goToNextStep();
-			return (String) payloadEventoPlanificadoResponse
-					.getInformacion(IPayloadResponse.MENSAJE);
-
+			
+			goToNextStep();			
 		}
 
 		return "";
@@ -369,28 +381,20 @@ public class VM_EventoPlanificadoRegistroIndex extends VM_WindowWizard
 		this.eventoPlanificado = eventoPlanificado;
 	}
 
-	public Voluntario getVoluntario() {
-		return voluntario;
+	public Date getFechaInicio() {
+		return fechaInicio;
 	}
 
-	public void setVoluntario(Voluntario voluntario) {
-		this.voluntario = voluntario;
+	public void setFechaInicio(Date fechaInicio) {
+		this.fechaInicio = fechaInicio;
 	}
 
-	public Directorio getDirectorio() {
-		return directorio;
+	public Date getFechaFin() {
+		return fechaFin;
 	}
 
-	public void setDirectorio(Directorio directorio) {
-		this.directorio = directorio;
-	}
-
-	public Date getFechaPlanificada() {
-		return fechaPlanificada;
-	}
-
-	public void setFechaPlanificada(Date fechaPlanificada) {
-		this.fechaPlanificada = fechaPlanificada;
+	public void setFechaFin(Date fechaFin) {
+		this.fechaFin = fechaFin;
 	}
 
 	public String getNameImage() {

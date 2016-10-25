@@ -4,21 +4,25 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import karen.core.dialog.catalogue.generic.data.CatalogueDialogData;
 import karen.core.dialog.catalogue.generic.events.CatalogueDialogCloseEvent;
 import karen.core.dialog.catalogue.generic.events.listeners.CatalogueDialogCloseListener;
 import karen.core.dialog.generic.enums.DialogActionEnum;
 import karen.core.util.UtilDialog;
+import karen.core.util.payload.UtilPayload;
 import karen.core.wizard.buttons.data.OperacionWizard;
 import karen.core.wizard.buttons.enums.OperacionWizardEnum;
 import karen.core.wizard.buttons.helpers.OperacionWizardHelper;
 import karen.core.wizard.viewmodels.VM_WindowWizard;
 import lights.core.enums.TypeQuery;
 import lights.core.payload.response.IPayloadResponse;
+
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
+
 import ve.smile.consume.services.S;
 import ve.smile.dto.EventPlanTarea;
 import ve.smile.dto.EventoPlanificado;
@@ -33,6 +37,7 @@ public class VM_TareaIndicadoresEventoPlanificado extends
 
 	private List<Indicador> auxlistIndicadors = new ArrayList<>();
 	private List<EventPlanTarea> listEventPlanTareas = new ArrayList<>();
+	private List<IndicadorEventoPlanTarea> listIndicadorEventoPlanTareasDelete = new ArrayList<IndicadorEventoPlanTarea>();
 	private int indexTarea;
 
 	@Init(superclass = true)
@@ -132,6 +137,7 @@ public class VM_TareaIndicadoresEventoPlanificado extends
 	public void eliminarIndicador(
 			@BindingParam("indicadorEventoPs") IndicadorEventoPlanTarea indicadorEventoPlanTarea,
 			@BindingParam("index") int index) {
+		this.listIndicadorEventoPlanTareasDelete.add(indicadorEventoPlanTarea);
 		this.getListEventPlanTareas().get(index)
 				.getIndicadorEventoPlanTareas()
 				.remove(indicadorEventoPlanTarea);
@@ -153,7 +159,8 @@ public class VM_TareaIndicadoresEventoPlanificado extends
 				.getPorType(OperacionWizardEnum.ATRAS));
 		listOperacionWizard2.add(OperacionWizardHelper
 				.getPorType(OperacionWizardEnum.FINALIZAR));
-
+		listOperacionWizard2.add(OperacionWizardHelper
+				.getPorType(OperacionWizardEnum.CANCELAR));
 		botones.put(2, listOperacionWizard2);
 
 		List<OperacionWizard> listOperacionWizard3 = new ArrayList<OperacionWizard>();
@@ -170,47 +177,48 @@ public class VM_TareaIndicadoresEventoPlanificado extends
 	@Override
 	public String executeFinalizar(Integer currentStep) {
 		if (currentStep == 2) {
-			PayloadIndicadorEventoPlanTareaResponse indicadorEventoPlanTareaResponse = null;
-			PayloadEventPlanTareaResponse payloadEventPlanTareaResponse = new PayloadEventPlanTareaResponse();
-			for (EventPlanTarea obj : listEventPlanTareas) {
-				/*Map<String, String> criterios = new HashMap<String, String>();
-				criterios.put("fkEventPlanTarea.idEventPlanTarea",
-						obj.getIdEventPlanTarea() + "");
-
-				indicadorEventoPlanTareaResponse = S.IndicadorEventoPlanTareaService
-						.consultarCriterios(TypeQuery.EQUAL, criterios);
-				if (indicadorEventoPlanTareaResponse.getObjetos().size() > 0) {
-					for (IndicadorEventoPlanTarea indicEvenTarea : indicadorEventoPlanTareaResponse
-							.getObjetos()) {
-						S.IndicadorEventoPlanTareaService
-								.eliminar(indicEvenTarea
-										.getIdIndicadorEventoPlanTarea());
+			PayloadIndicadorEventoPlanTareaResponse payloadIndicadorEventPsResponse = new PayloadIndicadorEventoPlanTareaResponse();
+			for (EventPlanTarea obj : this.listEventPlanTareas) {
+				if(obj.getIndicadorEventoPlanTareas()!=null){
+				for (IndicadorEventoPlanTarea indicadorEventPla : obj
+						.getIndicadorEventoPlanTareas()) {
+					IndicadorEventoPlanTarea indicadorEventPs2 = new IndicadorEventoPlanTarea();
+					indicadorEventPs2.setFkEventPlanTarea(new EventPlanTarea(obj.getIdEventPlanTarea()));
+					indicadorEventPs2.setFkIndicador(indicadorEventPla.getFkIndicador());
+					indicadorEventPs2.setValorEsperado(indicadorEventPla.getValorEsperado());
+					indicadorEventPs2
+							.setIdIndicadorEventoPlanTarea(indicadorEventPla
+									.getIdIndicadorEventoPlanTarea());
+					if (indicadorEventPla
+							.getIdIndicadorEventoPlanTarea() == null) {
+						payloadIndicadorEventPsResponse = S.IndicadorEventoPlanTareaService
+								.incluir(indicadorEventPs2);
+					} else {
+						payloadIndicadorEventPsResponse = S.IndicadorEventoPlanTareaService
+								.modificar(indicadorEventPs2);
 					}
 
-				}*/
-				if (obj.getIndicadorEventoPlanTareas() != null) {
-					for (IndicadorEventoPlanTarea indicadorEventoPlanTarea : obj
-							.getIndicadorEventoPlanTareas()) {
-						IndicadorEventoPlanTarea eventoPlanTarea = new IndicadorEventoPlanTarea();
-						EventPlanTarea eventPlanTarea = new EventPlanTarea();
-						eventPlanTarea
-								.setIdEventPlanTarea(indicadorEventoPlanTarea
-										.getFkEventPlanTarea()
-										.getIdEventPlanTarea());
-						eventoPlanTarea.setFkEventPlanTarea(eventPlanTarea);
-						eventoPlanTarea.setFkIndicador(indicadorEventoPlanTarea
-								.getFkIndicador());
-						eventoPlanTarea
-								.setValorEsperado(indicadorEventoPlanTarea
-										.getValorEsperado());
-						indicadorEventoPlanTareaResponse = S.IndicadorEventoPlanTareaService
-								.incluir(eventoPlanTarea);
+					if (!UtilPayload
+							.isOK(payloadIndicadorEventPsResponse)) {
+						return (String) payloadIndicadorEventPsResponse
+								.getInformacion(IPayloadResponse.MENSAJE);
 					}
 				}
 			}
+
+			}
+			if(this.listIndicadorEventoPlanTareasDelete.size()>0){
+			for (IndicadorEventoPlanTarea indicadorEvenPs : this
+					.listIndicadorEventoPlanTareasDelete) {
+				if (indicadorEvenPs.getIdIndicadorEventoPlanTarea() != null) {
+					payloadIndicadorEventPsResponse = S.IndicadorEventoPlanTareaService
+							.eliminar(indicadorEvenPs
+									.getIdIndicadorEventoPlanTarea());
+				}
+
+			}
+			}
 			goToNextStep();
-			return (String) payloadEventPlanTareaResponse
-					.getInformacion(IPayloadResponse.MENSAJE);
 		}
 
 		return "";
@@ -294,10 +302,26 @@ public class VM_TareaIndicadoresEventoPlanificado extends
 			if (selectedObject == null) {
 				return "E:Error Code 5-Debe seleccionar un <b>Evento Planificado</b>";
 			}
-		}
+			
+			Map<String, String> parametro = new HashMap<String, String>();
+			parametro.put("fkEventoPlanificado.idEventoPlanificado",
+					String.valueOf(getEventoPlanificadoPlanSelected().getIdEventoPlanificado()));
 
-		if (currentStep == 2) {
-			return "E:Error Code 5-No hay otro paso";
+			this.setListEventPlanTareas(new ArrayList<EventPlanTarea>());
+			PayloadEventPlanTareaResponse payloadEventoPsResponse = S.EventPlanTareaService
+					.contarCriterios(TypeQuery.EQUAL, parametro);
+			if (!UtilPayload.isOK(payloadEventoPsResponse)) {
+				return (String) payloadEventoPsResponse
+						.getInformacion(IPayloadResponse.MENSAJE);
+			}
+
+			Integer countTsEvento = Double.valueOf(
+					String.valueOf(payloadEventoPsResponse
+							.getInformacion(IPayloadResponse.COUNT)))
+					.intValue();
+			if (countTsEvento<= 0) {
+				return "E:Error 0:El evento planificado seleccionado <b>no tiene tareas asignadas.</b>";
+			}
 		}
 
 		return "";
@@ -314,6 +338,18 @@ public class VM_TareaIndicadoresEventoPlanificado extends
 		return "";
 	}
 
+	@Override
+	public String executeCancelar(Integer currentStep) {
+
+		this.setListEventPlanTareas(new ArrayList<EventPlanTarea>());
+
+		this.setListIndicadorEventoPlanTareasDelete(new ArrayList<IndicadorEventoPlanTarea>());
+
+		BindUtils.postNotifyChange(null, null, this, "*");
+
+		restartWizard();
+		return "";
+	}
 
 	public List<EventPlanTarea> getListEventPlanTareas() {
 		return listEventPlanTareas;
@@ -338,5 +374,21 @@ public class VM_TareaIndicadoresEventoPlanificado extends
 	public void setAuxlistIndicadors(List<Indicador> auxlistIndicadors) {
 		this.auxlistIndicadors = auxlistIndicadors;
 	}
+	
+	public EventoPlanificado getEventoPlanificadoPlanSelected() {
+		return (EventoPlanificado) this.getSelectedObject();
+	}
 
+	public List<IndicadorEventoPlanTarea> getListIndicadorEventoPlanTareasDelete() {
+		return listIndicadorEventoPlanTareasDelete;
+	}
+
+	public void setListIndicadorEventoPlanTareasDelete(
+			List<IndicadorEventoPlanTarea> listIndicadorEventoPlanTareasDelete) {
+		this.listIndicadorEventoPlanTareasDelete = listIndicadorEventoPlanTareasDelete;
+	}
+
+	
+
+	
 }

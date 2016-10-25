@@ -9,7 +9,7 @@
 		<div class="row">
 
 			<div class="input-field col s6">
-				<n:label for="tipo_reconocimiento">Banco</n:label>
+				<n:label for="tipo_reconocimiento" class="active">Banco</n:label>
 				<combobox id="fk_banco" readonly="true"
 					model="@load(vm.bancos)"
 					selectedItem="@bind(vm.cuentaBancaria.fkBanco)">
@@ -34,7 +34,7 @@
 			</div>
 
 			<div class="input-field col s6">
-				<n:label for="idtitular">Cédula/RIF</n:label>
+				<n:label for="idtitular" class="active">Cédula/RIF</n:label>
 				<textbox id="idtitular" type="text" maxlength="35"
 					placeholder="V-1234567 J-123245-2 "
 					value="@bind(vm.cuentaBancaria.identificacionTitular)">
@@ -57,12 +57,23 @@
 				</textbox>
 			</div>
 
-			  <!-- <div class="input-field col s6">
-				<n:label for="propietario">Tipo de cuenta</n:label>
-				<textbox id="propietario" type="text" maxlength="100"
-					disabled="true" value="@bind(vm.propietarioEnum)">
-				</textbox>
-			</div> -->
+			<div class="input-field col s6">
+
+				<n:label for="tipo_reconocimiento" class="active">
+					TIPO DE PROPIETARIO
+				</n:label>
+				
+				<combobox id="fk_estado" disabled="true"
+					model="@bind(vm.propietarioEnums)"
+					selectedItem="@bind(vm.propietarioEnum)">
+					<template name="model">
+						<comboitem label="@load(each)" />
+					</template>
+				</combobox>
+				<span 
+					sclass="fa fa-question-circle fa-lg help-icon-special"
+					tooltip="pop_propietario, position=after_end" />
+			</div>
 		</div>
 
 		<div id="divButtonsForm" 

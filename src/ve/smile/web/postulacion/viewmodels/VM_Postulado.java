@@ -5,18 +5,23 @@ import java.util.Date;
 import java.util.List;
 
 import karen.core.dialog.generic.viewmodels.VM_WindowDialog;
+import karen.core.util.payload.UtilPayload;
 
 import org.zkoss.bind.annotation.Command;
+import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 
 import ve.smile.consume.services.S;
 import ve.smile.dto.Ciudad;
+import ve.smile.dto.Configuracion;
 import ve.smile.dto.Estado;
 import ve.smile.dto.FrecuenciaAporte;
 import ve.smile.dto.Padrino;
 import ve.smile.dto.Persona;
+import ve.smile.enums.PropiedadEnum;
 import ve.smile.enums.TipoPersonaEnum;
 import ve.smile.payload.response.PayloadCiudadResponse;
+import ve.smile.payload.response.PayloadConfiguracionResponse;
 import ve.smile.payload.response.PayloadEstadoResponse;
 import ve.smile.payload.response.PayloadFrecuenciaAporteResponse;
 import ve.smile.seguridad.enums.SexoEnum;
@@ -35,6 +40,40 @@ public class VM_Postulado extends VM_WindowDialog {
 	private List<Ciudad> ciudades;
 	private List<FrecuenciaAporte> frecuenciaAporte;
 	private FrecuenciaAporte faporte;
+	private Configuracion confPostulacionPadrino =  new Configuracion();
+	boolean emailPostulacionPadrino = false;
+	private Configuracion confPostulacionVoluntario =  new Configuracion();
+	boolean emailPostulacionVoluntario = false;
+
+
+	@Init(superclass = true)
+	public void childInit() {
+		// NOTHING OK!
+		PayloadConfiguracionResponse payloadConfiguracionResponseP = S.ConfiguracionService
+				.consultarConfiguracionPropiedad(PropiedadEnum.EMAIL_POSTULACION_PADRINO
+						.ordinal());
+		if (UtilPayload.isOK(payloadConfiguracionResponseP)) {
+			if (!payloadConfiguracionResponseP.getObjetos().isEmpty()) {
+				this.confPostulacionPadrino.setValor(payloadConfiguracionResponseP
+						.getObjetos().get(0).getValor());
+			}else{
+				this.confPostulacionPadrino.setValor("false");
+			}
+			
+		}
+		PayloadConfiguracionResponse payloadConfiguracionResponseV = S.ConfiguracionService
+				.consultarConfiguracionPropiedad(PropiedadEnum.EMAIL_POSTULACION_VOLUNTARIO
+						.ordinal());
+		if (UtilPayload.isOK(payloadConfiguracionResponseV)) {
+			if (!payloadConfiguracionResponseV.getObjetos().isEmpty()) {
+				this.confPostulacionVoluntario.setValor(payloadConfiguracionResponseV
+						.getObjetos().get(0).getValor());
+			}else{
+				this.confPostulacionVoluntario.setValor("false");
+			}
+			
+		}
+	}
 
 	public FrecuenciaAporte getFaporte() {
 
@@ -206,4 +245,17 @@ public class VM_Postulado extends VM_WindowDialog {
 
 	}
 
+	public boolean isEmailPostulacionPadrino() {
+		if(confPostulacionPadrino.getValor().equals("true")){
+			this.emailPostulacionPadrino = true;
+		}
+		return emailPostulacionPadrino;
+	}
+	
+	public boolean isEmailPostulacionVoluntario() {
+		if(confPostulacionVoluntario.getValor().equals("true")){
+			this.emailPostulacionVoluntario = true;
+		}
+		return emailPostulacionVoluntario;
+	}
 }

@@ -1,18 +1,28 @@
 package ve.smile.web.viewmodels.albumes;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
+
 import karen.core.dialog.generic.controllers.C_WindowDialog;
 import karen.core.dialog.generic.enums.DialogActionEnum;
 import karen.core.dialog.generic.events.DialogCloseEvent;
 import karen.core.dialog.message_box.events.MessageBoxDialogCloseEvent;
+import karen.core.util.payload.UtilPayload;
+import lights.smile.util.UtillMail;
 
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.zk.ui.event.Event;
 
 import ve.smile.consume.services.S;
+import ve.smile.dao.ConfiguracionDAO;
 import ve.smile.dto.ComentarioAlbum;
 import ve.smile.dto.Comunidad;
+import ve.smile.dto.Configuracion;
+import ve.smile.enums.EstatusComentarioAlbumEnum;
+import ve.smile.enums.PropiedadEnum;
 import ve.smile.payload.response.PayloadComentarioAlbumResponse;
+import ve.smile.payload.response.PayloadConfiguracionResponse;
 
 public class C_ComentarioAlbum extends C_WindowDialog {
 	private static final long serialVersionUID = 1L;
@@ -35,6 +45,8 @@ public class C_ComentarioAlbum extends C_WindowDialog {
 		Comunidad comunidad = new Comunidad();
 		comunidad.setFechaCreacion(vmComentarioAlbum.getMyFecha());
 		comentarioAlbum.setFkAlbum(vmComentarioAlbum.getalbum());
+		comentarioAlbum.setEstatusComentarioAlbumEnum(EstatusComentarioAlbumEnum
+				.PENDIENTE);
 
 		comentarioAlbum.setFkComunidad(comunidad);
 		comunidad.setApellido(vmComentarioAlbum.getComunidad()
@@ -46,6 +58,11 @@ public class C_ComentarioAlbum extends C_WindowDialog {
 
 		PayloadComentarioAlbumResponse payloadComentarioAlbumResponse = S.ComentarioAlbumService
 				.incluirComentarioCartelera(comentarioAlbum);
+		if(vmComentarioAlbum.isEmailComentarAlbum()){
+			CreatesendEmail(comunidad.getCorreo(),
+					comunidad.getNombre(),
+					comunidad.getApellido());
+		}
 
 		vmComentarioAlbum.limpiar();
 		BindUtils.postGlobalCommand(null,null,"refreshComentarios",null);
@@ -61,6 +78,20 @@ public class C_ComentarioAlbum extends C_WindowDialog {
 	@Override
 	public void doOnCreate() {
 		// TODO Auto-generated method stub
+	}
+	
+	public void CreatesendEmail(String correo, String nombre, String apellido){
+		String asunto = "Recibimos tu Comentario";
+		String contenido = "Recibe un cordial saludo " + nombre + " " + apellido + ", Gracias por tu comentario" ;
+		try {
+			new UtillMail().generateAndSendEmail(correo,asunto,contenido);
+		} catch (AddressException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (MessagingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

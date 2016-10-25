@@ -1,28 +1,41 @@
 package ve.smile.reportes.evento.viewmodels;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
 import karen.core.wizard.buttons.data.OperacionWizard;
 import karen.core.wizard.buttons.enums.OperacionWizardEnum;
 import karen.core.wizard.buttons.helpers.OperacionWizardHelper;
 import karen.core.wizard.viewmodels.VM_WindowWizard;
+import lights.core.enums.TypeQuery;
 import lights.smile.util.UtilConverterDataList;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+
 import org.zkoss.bind.annotation.Init;
+
 import ve.smile.consume.services.S;
 import ve.smile.dto.ClasificadorEvento;
+import ve.smile.dto.EventPlanTarea;
 import ve.smile.dto.EventoPlanificado;
 import ve.smile.dto.Indicador;
+import ve.smile.dto.IndicadorEventoPlanificado;
+import ve.smile.dto.Organizacion;
 import ve.smile.dto.Tarea;
 import ve.smile.enums.EstatusEventoPlanificadoEnum;
 import ve.smile.enums.TipoEventoEnum;
+import ve.smile.payload.response.PayloadEventPlanTareaResponse;
 import ve.smile.payload.response.PayloadEventoPlanificadoResponse;
+import ve.smile.payload.response.PayloadIndicadorEventoPlanificadoResponse;
+import ve.smile.reportes.Reporte;
 
 public class VM_ReporteEventoIndex extends VM_WindowWizard {
+
+	private EventoPlanificado eventoPlanificado = new EventoPlanificado();
 
 	private boolean clasificadorEvento = false;
 
@@ -37,12 +50,14 @@ public class VM_ReporteEventoIndex extends VM_WindowWizard {
 	private boolean ejecutado = false;
 
 	private boolean cancelado = false;
-	
+
 	private boolean rechazado = false;
 
 	private boolean todos = false;
 
 	private boolean planificado = false;
+
+	private boolean parcial = false;
 
 	private Date fechaDesdeDate;
 
@@ -57,6 +72,8 @@ public class VM_ReporteEventoIndex extends VM_WindowWizard {
 	private Map<String, Object> parametros = new HashMap<>();
 
 	private List<ClasificadorEvento> listClasificadorEvento = new ArrayList<>();
+
+	private List<EventoPlanificado> listEventosPlanificados = new ArrayList<>();
 
 	private Set<ClasificadorEvento> clasificadorEventoSeleccionados;
 
@@ -240,7 +257,7 @@ public class VM_ReporteEventoIndex extends VM_WindowWizard {
 	public String isValidPreconditionsCustom1(Integer currentStep) {
 
 		if (currentStep == 1) {
-
+			listEventosPlanificados = new ArrayList<>();
 			String sql = "";
 
 			if (todos) {
@@ -279,7 +296,7 @@ public class VM_ReporteEventoIndex extends VM_WindowWizard {
 				sql = "SELECT DISTINCT ep FROM EventoPlanificado ep  WHERE  ep.idEventoPlanificado = ep.idEventoPlanificado ";
 
 				if (fechaPlanificada) {
-		
+
 					if (fechaDesdeDate == null && fechaHastaDate == null) {
 
 						return "E:Error Code 5-No se han ingresado parametros de fechas ";
@@ -298,7 +315,7 @@ public class VM_ReporteEventoIndex extends VM_WindowWizard {
 						return "E:Error Code 5-No se puede ingresar una <b>Fecha Desde</b>  mayor a la <b>Fecha Hasta</b> ";
 
 					} else {
-				
+
 						sql += " and ep.fechaPlanificada >= "
 								+ fechaDesdeDate.getTime()
 								+ " and ep.fechaPlanificada <= "
@@ -331,7 +348,7 @@ public class VM_ReporteEventoIndex extends VM_WindowWizard {
 						estatusEventosP += EstatusEventoPlanificadoEnum.PLANIFICADO
 								.toString() + " ";
 					}
-					
+
 					if (rechazado) {
 
 						estatusEventos += EstatusEventoPlanificadoEnum.RECHAZADO
@@ -423,65 +440,33 @@ public class VM_ReporteEventoIndex extends VM_WindowWizard {
 			System.out.println(sql);
 			PayloadEventoPlanificadoResponse payloadEventoPlanificadoResponse = S.EventoPlanificadoService
 					.consultaEventosPlanificadosParametrizado(sql);
-			 List<EventoPlanificado> listEventosPlanificados = payloadEventoPlanificadoResponse.getObjetos();
-			 if (listEventosPlanificados.isEmpty()) {
-			 return
-			 "E:Error Code 5-Los criterios seleccionados no aportan información para <b>Voluntarios</b>";
+			List<EventoPlanificado> listEventosPlanificados = payloadEventoPlanificadoResponse
+					.getObjetos();
+
+			if (listEventosPlanificados.isEmpty()) {
+				return "E:Error Code 5-Los criterios seleccionados no aportan informaciï¿½n para <b>Eventos</b>";
 			}
-			System.out.println("Tamano de la lista "+ listEventosPlanificados.size());
-			 jrDataSource = new JRBeanCollectionDataSource(listEventosPlanificados);
+
+			this.listEventosPlanificados.addAll(listEventosPlanificados);
+
+			jrDataSource = new JRBeanCollectionDataSource(
+					listEventosPlanificados);
 		}
+
 		if (currentStep == 2) {
-			type = "pdf";
-			if (!estatusEventosP.equals("")) {
-				tStatus = "Estatus";
+			if (parcial) {
+				if (eventoPlanificado == null
+						|| eventoPlanificado.getIdEventoPlanificado() == null) {
+
+					return "E:Error Code 5-Debe Seleccionar un <b>Evento</b>";
+
+				} else {
+					// llego la hora de la verdad candela
+					reportParametrizadoParcial();
+					return "";
+				}
 			}
-			if (!indicadoresP.equals("")) {
-				tIndicadores = "Indicadores";
-			}
-			if (!tareasP.equals("")) {
-				tTareas = "Tareas";
-			}
-			if (!eventosClasificadosP.equals("")) {
-				tEventosClasificados = "Clasificacion de Eventos";
-			}
-			fechaDesde = fechaDesdeDate == null ? "" : UtilConverterDataList
-					.convertirLongADate(fechaDesdeDate.getTime());
-
-			fechaHasta = fechaHastaDate == null ? "" : UtilConverterDataList
-					.convertirLongADate(fechaHastaDate.getTime());
-
-			tFechaDesde = fechaDesde.equals("") ? "" : "Fecha Desde";
-
-			tFechaHasta = fechaHasta.equals("") ? "" : "Fecha Hasta";
-
-			parametros.put("tFechaDesde", tFechaDesde);
-
-			parametros.put("tfechaHasta", tFechaHasta);
-
-			parametros.put("fechaDesde", fechaDesde);
-
-			parametros.put("fechaHasta", fechaHasta);
-
-			parametros.put("titulo", "VOLUNTARIOS");
-
-			parametros.put("tStatus", tStatus);
-
-			parametros.put("tIndicadores", tIndicadores);
-
-			parametros.put("tTareas", tTareas);
-
-			parametros.put("tEventosClasificados", tEventosClasificados);
-
-			parametros.put("estatusEventosP", estatusEventosP);
-
-			parametros.put("indicadoresP", indicadoresP);
-
-			parametros.put("tareasP", indicadoresP);
-
-			parametros.put("eventosClasificadosP", eventosClasificadosP);
-
-			source = "reporte/reportVoluntariosParametrizados.jasper";
+			reportEventosPlanificadosParametrizados();
 		}
 
 		return "";
@@ -489,7 +474,6 @@ public class VM_ReporteEventoIndex extends VM_WindowWizard {
 
 	@Override
 	public String isValidPreconditionsCustom2(Integer currentStep) {
-		System.out.println("algo paso por aqui pendiente");
 		return "";
 	}
 
@@ -799,6 +783,208 @@ public class VM_ReporteEventoIndex extends VM_WindowWizard {
 	public void setRechazado(boolean rechazado) {
 		this.rechazado = rechazado;
 	}
-	
-	
+
+	public List<EventoPlanificado> getListEventosPlanificados() {
+		return listEventosPlanificados;
+	}
+
+	public void setListEventosPlanificados(
+			List<EventoPlanificado> listEventosPlanificados) {
+		this.listEventosPlanificados = listEventosPlanificados;
+	}
+
+	public boolean isParcial() {
+		return parcial;
+	}
+
+	public void setParcial(boolean parcial) {
+		this.parcial = parcial;
+	}
+
+	public EventoPlanificado getEventoPlanificado() {
+		return eventoPlanificado;
+	}
+
+	public void setEventoPlanificado(EventoPlanificado eventoPlanificado) {
+		this.eventoPlanificado = eventoPlanificado;
+	}
+
+	public void reportEventosPlanificadosParametrizados() {
+		String direccion = Reporte.class
+				.getResource("Reporte.jasper")
+				.getPath()
+				.replace("WEB-INF/classes/ve/smile/reportes/Reporte.jasper",
+						"imagenes/logo_fanca.jpg");
+		direccion = direccion.replaceFirst("/", "");
+		direccion = direccion.replace("/", "\\");
+		parametros.put("timagen1", direccion);
+
+		direccion = Reporte.class
+				.getResource("Reporte.jasper")
+				.getPath()
+				.replace("WEB-INF/classes/ve/smile/reportes/Reporte.jasper",
+						"imagenes/smiles_webdesktop.png");
+		direccion = direccion.replaceFirst("/", "");
+		direccion = direccion.replace("/", "\\");
+		parametros.put("timagen2", direccion);
+
+		type = "pdf";
+
+		Organizacion organizacion = S.OrganizacionService.consultarTodos()
+				.getObjetos().get(0);
+
+		if (!estatusEventosP.equals("")) {
+			tStatus = "Estatus";
+		}
+		if (!indicadoresP.equals("")) {
+			tIndicadores = "Indicadores";
+		}
+		if (!tareasP.equals("")) {
+			tTareas = "Tareas";
+		}
+		if (!eventosClasificadosP.equals("")) {
+			tEventosClasificados = "Clasificacion de Eventos";
+		}
+		fechaDesde = fechaDesdeDate == null ? "" : UtilConverterDataList
+				.convertirLongADate(fechaDesdeDate.getTime());
+
+		fechaHasta = fechaHastaDate == null ? "" : UtilConverterDataList
+				.convertirLongADate(fechaHastaDate.getTime());
+
+		tFechaDesde = fechaDesde.equals("") ? "" : "Fecha Desde";
+
+		tFechaHasta = fechaHasta.equals("") ? "" : "Fecha Hasta";
+
+		parametros.put("tFechaDesde", tFechaDesde);
+
+		parametros.put("tfechaHasta", tFechaHasta);
+
+		parametros.put("fechaDesde", fechaDesde);
+
+		parametros.put("fechaHasta", fechaHasta);
+
+		parametros.put("titulo", "EVENTOS");
+
+		parametros.put("tStatus", tStatus);
+
+		parametros.put("tIndicadores", tIndicadores);
+
+		parametros.put("tTareas", tTareas);
+
+		parametros.put("tEventosClasificados", tEventosClasificados);
+
+		parametros.put("estatusEventosP", estatusEventosP);
+
+		parametros.put("indicadoresP", indicadoresP);
+
+		parametros.put("tareasP", indicadoresP);
+
+		parametros.put("eventosClasificadosP", eventosClasificadosP);
+
+		parametros.put("tDireccionOrganizacion", organizacion.getDireccion());
+		
+		parametros.put("tTelefonoOrganizacion", organizacion.getTelefono() + " " + "/" + " " + organizacion.getTelefono2());
+		
+		parametros.put("tCorreoOrganizacion", organizacion.getCorreo());
+
+		source = "reporte/reportEventosPlanificadosParametrizados.jasper";
+	}
+
+	private void reportParametrizadoParcial() {
+
+		parametros.put("titulo",
+				"Reporte Estadistico de Eventos Planificados Vs Ejecutados");
+		String direccion = Reporte.class
+				.getResource("Reporte.jasper")
+				.getPath()
+				.replace("WEB-INF/classes/ve/smile/reportes/Reporte.jasper",
+						"imagenes/logo_fanca.jpg");
+		direccion = direccion.replaceFirst("/", "");
+		direccion = direccion.replace("/", "\\");
+		parametros.put("timagen1", direccion);
+		direccion = Reporte.class
+				.getResource("Reporte.jasper")
+				.getPath()
+				.replace("WEB-INF/classes/ve/smile/reportes/Reporte.jasper",
+						"imagenes/smiles_webdesktop.png");
+		direccion = direccion.replaceFirst("/", "");
+		direccion = direccion.replace("/", "\\");
+		parametros.put("timagen2", direccion);
+
+		parametros.put("pNombreEvento", eventoPlanificado.getFkEvento()
+				.getNombre());
+
+		String tipoEvento = eventoPlanificado.getFkEvento().getTipoEvento() == 0 ? "ANUAL"
+				: "EXTRAORDINARIO";
+
+		parametros.put("pTipoEvento", tipoEvento);
+
+		parametros.put("pFecha", eventoPlanificado.getFechaPlanificada());
+
+		parametros.put("pDescripcion", eventoPlanificado.getFkEvento()
+				.getDescripcion());
+
+		parametros.put("pLugar", eventoPlanificado.getFkDirectorio()
+				.getNombre());
+
+		parametros.put("pDireccion", eventoPlanificado.getFkDirectorio()
+				.getDireccion());
+
+		parametros.put("pResponsable", eventoPlanificado.getFkPersona()
+				.getNombre()
+				+ " "
+				+ eventoPlanificado.getFkPersona().getApellido());
+
+		parametros.put("tDireccionOrganizacion", S.OrganizacionService
+				.consultarTodos().getObjetos().get(0).getDireccion());
+
+		type = "pdf";
+
+		List<IndicadorEventoPlanificado> eventoIndicadores = new ArrayList<>();
+		Map<String, String> criterios = new HashMap<>();
+
+		criterios.put("fkEventoPlanificado.idEventoPlanificado",
+				eventoPlanificado.getIdEventoPlanificado() + "");
+		PayloadIndicadorEventoPlanificadoResponse indicadorEventoPlanificadoResponse = S.IndicadorEventoPlanificadoService
+				.consultarCriterios(TypeQuery.EQUAL, criterios);
+
+		if (indicadorEventoPlanificadoResponse.getObjetos() != null) {
+			eventoIndicadores.addAll(indicadorEventoPlanificadoResponse
+					.getObjetos());
+		}
+
+		List<EventPlanTarea> eventoTareas = new ArrayList<>();
+		criterios = new HashMap<>();
+		criterios.put("fkEventoPlanificado.idEventoPlanificado",
+				eventoPlanificado.getIdEventoPlanificado() + "");
+		PayloadEventPlanTareaResponse payloadTsPlanActividadResponse = S.EventPlanTareaService
+				.consultarCriterios(TypeQuery.EQUAL, criterios);
+
+		if (payloadTsPlanActividadResponse.getObjetos() != null) {
+			eventoTareas.addAll(payloadTsPlanActividadResponse.getObjetos());
+		}
+		if (!eventoTareas.isEmpty()) {
+			parametros.put("eventoTareas", eventoTareas);
+			parametros.put("tNombre", "Nombre");
+			parametros.put("tDescripcion", "Descripciï¿½n");
+
+		}
+		else{
+			System.out.println("Mensaje Tarea");
+			parametros.put("tMensajeTarea", "No hay tareas Asignadas a este evento");
+			
+		}
+		if (!eventoIndicadores.isEmpty()) {
+			parametros.put("tUnidadMedida", "Unidad de Medida");
+			parametros.put("tValorReal", "Valor Real");
+			parametros.put("tValorEsperado", "Valor esperado");
+			parametros.put("eventoIndicadores", eventoIndicadores);
+		}
+		else{
+			parametros.put("tMensajeIndicador", "No hay indicadores asignandos a este evento");
+		}
+
+		source = "reporte/reportEventosParametrizadosParcial.jasper";
+	}
+
 }

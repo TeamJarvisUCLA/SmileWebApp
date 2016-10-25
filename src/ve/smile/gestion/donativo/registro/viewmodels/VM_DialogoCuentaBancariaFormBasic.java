@@ -1,7 +1,9 @@
 package ve.smile.gestion.donativo.registro.viewmodels;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.zkoss.bind.annotation.Init;
 
@@ -11,7 +13,9 @@ import karen.core.dialog.form.viewmodels.VM_WindowFormDialog;
 import karen.core.form.buttons.data.OperacionForm;
 import karen.core.form.buttons.enums.OperacionFormEnum;
 import karen.core.form.buttons.helpers.OperacionFormHelper;
+import karen.core.util.UtilDialog;
 import karen.core.util.payload.UtilPayload;
+import karen.core.util.validate.UtilValidate;
 import ve.smile.consume.services.S;
 import ve.smile.dto.Banco;
 import ve.smile.dto.CuentaBancaria;
@@ -25,10 +29,15 @@ public class VM_DialogoCuentaBancariaFormBasic extends
 
 	private CuentaBancaria cuentaBancaria = new CuentaBancaria();
 	private List<Banco> bancos;
+	private List<PropietarioEnum> propietarioEnums;
+	private PropietarioEnum propietarioEnum;
+	private Map<String, Object> data = new HashMap<String, Object>();
 	
 	@Init(superclass = true)
 	public void childInit() {
-
+		data = this.getWindowFormDialogData().getData();
+		this.propietarioEnum = (PropietarioEnum) data.get("propietario");
+		System.out.println(propietarioEnum);
 	}
 
 	@Override
@@ -69,10 +78,14 @@ public class VM_DialogoCuentaBancariaFormBasic extends
 
 		if (operacionEnum.equals(OperacionEnum.INCLUIR) ||
 				operacionEnum.equals(OperacionEnum.MODIFICAR)) {
-			 cuentaBancaria.setPropietario(PropietarioEnum.ORGANIZACION.ordinal());
+			if(!isFormValidated()){
+				return new ToCloseWindowFormDialog<CuentaBancaria>(false, operacionEnum);
+			}
+			 cuentaBancaria.setPropietario(propietarioEnum.ordinal());
 			PayloadCuentaBancariaResponse cuentaBancariaResponse = S.CuentaBancariaService.incluir(cuentaBancaria);
 
 			return new ToCloseWindowFormDialog<CuentaBancaria>(true, cuentaBancaria, operacionEnum);
+		
 		}
 
 		return new ToCloseWindowFormDialog<CuentaBancaria>(false, operacionEnum);
@@ -115,6 +128,46 @@ public class VM_DialogoCuentaBancariaFormBasic extends
 		this.bancos = bancos;
 	}
 
+	public List<PropietarioEnum> getPropietarioEnums() {
+		if (this.propietarioEnums == null) {
+			this.propietarioEnums = new ArrayList<>();
+		}
+		if (this.propietarioEnums.isEmpty()) {
+			for (PropietarioEnum recepcionEnum : PropietarioEnum.values()) {
+				this.propietarioEnums.add(recepcionEnum);
+			}
+		}
+		return propietarioEnums;
+	}
+
+	public void setPropietarioEnums(List<PropietarioEnum> propietarioEnums) {
+		this.propietarioEnums = propietarioEnums;
+	}
+
+	public PropietarioEnum getPropietarioEnum() {	
+		return propietarioEnum;
+	}
+
+	public void setPropietarioEnum(PropietarioEnum propietarioEnum) {
+		this.propietarioEnum = propietarioEnum;
+	}
+
+	public boolean isFormValidated(){
+		try {
+			UtilValidate.validateNullOrEmpty(cuentaBancaria.getCuentaBancaria(), "cuenta bancaria");
+			UtilValidate.validateNullOrEmpty(cuentaBancaria.getFkBanco(), "banco");
+			UtilValidate.validateNullOrEmpty(cuentaBancaria.getTipoCuenta(), "tipo de cuenta");
+			UtilValidate.validateNullOrEmpty(cuentaBancaria.getTitular(), "titular de la cuenta");
+			UtilValidate.validateNullOrEmpty(cuentaBancaria.getIdentificacionTitular(), "cedula/rif");
+			UtilValidate.validateNullOrEmpty(cuentaBancaria.getCorreoTitular(), "correo");
+			return true;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			UtilDialog.showMessage(e.getMessage());
+		}
+		
+		return false;
+	}
 
 	
 	

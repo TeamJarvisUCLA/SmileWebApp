@@ -1,23 +1,28 @@
+<?xel-method prefix="m" name="getUrlWeb" class="lights.smile.util.Zki" 
+	signature="java.lang.String getUrlWeb(java.lang.String)" ?>
+<?xel-method prefix="m" name="convertirLongADate" class="lights.smile.util.UtilConverterDataList" 
+	signature="java.lang.String convertirLongADate(java.lang.Long)" ?>
 <zk xmlns:n="native" xmlns:w="client">
 	<div sclass="animated fadeInLeft">
-	<div sclass="row">
+<div sclass="row">
 			<div sclass="col s12">
 				<div class=" col s12">
-					<div class=" row line-evento" style="margin:0px"></div>
-				</div>
-				<div class=" col s12">
-					<div sclass="row"
-						style="margin:0px;background: #FFF">
-
+					<div sclass="row">
 						<div sclass="col s3">
 							<n:br></n:br>
 							<n:br></n:br>
-							<image class="img-responsive center-block"
-								src="/imagenes/portal/icon/icon-bingo.png" width="128px"
-								height="128px">
-							</image>
 							<n:br></n:br>
-						</div>
+								<n:br></n:br>
+								<div align="center"
+									visible="@load(not empty vm.selectedObject.fkMultimedia and not empty vm.selectedObject.fkMultimedia.url)">
+									<image
+										class="img-responsive circle center-block"
+										src="${m:getUrlWeb(vm.selectedObject.fkMultimedia.url)}"
+										width="128px" height="128px">
+									</image>
+								</div>
+								<n:br></n:br>
+							</div>
 						<div sclass="col s9" align="center">
 							<div sclass="col s12" align="center">
 								<label sclass="titulo-evento"
@@ -39,12 +44,26 @@
 										style="padding:0px">
 
 										<label
-											sclass="info-titulo-evento">
-											Fecha:
-										</label>
-										<label
-											sclass="info-descripcion-evento" value="">
-										</label>
+												sclass="info-titulo-evento">
+												Fecha Inicio:
+											</label>
+											<label
+												sclass="info-descripcion-evento"
+												value="${m:convertirLongADate(vm.selectedObject.fechaInicio)}">
+
+											</label>
+											<label
+												sclass="info-descripcion-evento" value="        ">
+											</label>
+											<label
+												sclass="info-titulo-evento">
+												Fecha Fin:
+											</label>
+											<label
+												sclass="info-descripcion-evento"
+												value="${m:convertirLongADate(vm.selectedObject.fechaFin)}">
+
+											</label>
 										<n:br></n:br>
 										<label
 											sclass="info-titulo-evento">
@@ -83,9 +102,6 @@
 						</div>
 					</div>
 				</div>
-				<div class=" col s12">
-					<div class=" row line-evento" style="margin:0px"></div>
-				</div>
 			</div>
 		</div>
 		<separator height="20px"></separator>
@@ -123,7 +139,7 @@
 
 							<listcell>
 								<intbox
-									style="    height: 1em; border: 1px solid #999999; border-radius: 7px; font-size:1.2em;  text-align: center;"
+									style="background: #f2fca5; height: 1em; border: 1px solid #999999; border-radius: 7px; font-size:1.2em;  text-align: center;"
 									value="@bind(each.valorEsperado)">
 								</intbox>
 							</listcell>

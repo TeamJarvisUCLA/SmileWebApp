@@ -1,5 +1,8 @@
 package ve.smile.gestion.reconocimiento.asignarReconocimiento.viewmodels;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -7,7 +10,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.imageio.ImageIO;
+
 import karen.core.crux.alert.Alert;
+import karen.core.crux.session.DataCenter;
 import karen.core.simple_list.wizard.buttons.data.OperacionWizard;
 import karen.core.simple_list.wizard.buttons.enums.OperacionWizardEnum;
 import karen.core.simple_list.wizard.buttons.helpers.OperacionWizardHelper;
@@ -15,17 +21,23 @@ import karen.core.simple_list.wizard.viewmodels.VM_WindowWizard;
 import karen.core.util.payload.UtilPayload;
 import lights.core.enums.TypeQuery;
 import lights.core.payload.response.IPayloadResponse;
+import lights.smile.util.UtilMultimedia;
+import lights.smile.util.Zki;
 
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
+import org.zkoss.zk.ui.event.UploadEvent;
 
+import app.UploadImageSingle;
 import ve.smile.consume.services.S;
 import ve.smile.dto.ClasificadorReconocimiento;
 import ve.smile.dto.Colaborador;
+import ve.smile.dto.Multimedia;
 import ve.smile.dto.Padrino;
 import ve.smile.dto.Patrocinador;
+import ve.smile.dto.Persona;
 import ve.smile.dto.ReconocimientoPersona;
 import ve.smile.dto.Trabajador;
 import ve.smile.dto.Voluntario;
@@ -33,19 +45,22 @@ import ve.smile.enums.EstatusColaboradorEnum;
 import ve.smile.enums.EstatusPadrinoEnum;
 import ve.smile.enums.EstatusTrabajadorEnum;
 import ve.smile.enums.EstatusVoluntarioEnum;
+import ve.smile.enums.TipoMultimediaEnum;
 import ve.smile.enums.TipoReconocimientoEnum; 
 import ve.smile.payload.response.PayloadClasificadorReconocimientoResponse;
 import ve.smile.payload.response.PayloadColaboradorResponse;
+import ve.smile.payload.response.PayloadMultimediaResponse;
 import ve.smile.payload.response.PayloadPadrinoResponse;
 import ve.smile.payload.response.PayloadPatrocinadorResponse;
 import ve.smile.payload.response.PayloadReconocimientoPersonaResponse;
 import ve.smile.payload.response.PayloadTrabajadorResponse;
 import ve.smile.payload.response.PayloadVoluntarioResponse;
 
-public class VM_AsignarReconocimientoIndex extends VM_WindowWizard{
+public class VM_AsignarReconocimientoIndex extends VM_WindowWizard implements UploadImageSingle{
 	
 	private List<TipoReconocimientoEnum> tipoReconocimientoEnums;
 	private List<ClasificadorReconocimiento> clasificadorReconocimientos;
+	private List<ClasificadorReconocimiento> clasificadorPorTipoReconocimientos;
 	TipoReconocimientoEnum tipoReconocimientoEnum;
 	private ReconocimientoPersona reconocimientoPersona;
 	
@@ -54,6 +69,13 @@ public class VM_AsignarReconocimientoIndex extends VM_WindowWizard{
 	private Colaborador colaborador;
 	private Patrocinador patrocinador;
 	private Trabajador trabajador;
+	private Persona persona;
+
+	private byte[] bytes = null;
+	private String nameImage;
+	private String extensionImage;
+	private String urlImage;
+	private String typeMedia;
 	
 	private List<Padrino> padrinos;
 	private List<Voluntario> voluntarios;
@@ -101,6 +123,14 @@ public class VM_AsignarReconocimientoIndex extends VM_WindowWizard{
 		this.tipoReconocimientoEnums = tipoReconocimientoEnums;
 	}
 
+	public Persona getPersona() {
+		return persona;
+	}
+
+
+	public void setPersona(Persona persona) {
+		this.persona = persona;
+	}
 
 
 	public Padrino getPadrino() {
@@ -113,7 +143,37 @@ public class VM_AsignarReconocimientoIndex extends VM_WindowWizard{
 		this.padrino = padrino;
 	}
 
+	public String getNameImage() {
+		return nameImage;
+	}
 
+	public void setNameImage(String nameImage) {
+		this.nameImage = nameImage;
+	}
+
+	public String getExtensionImage() {
+		return extensionImage;
+	}
+
+	public void setExtensionImage(String extensionImage) {
+		this.extensionImage = extensionImage;
+	}
+
+	public String getUrlImage() {
+		return urlImage;
+	}
+
+	public void setUrlImage(String urlImage) {
+		this.urlImage = urlImage;
+	}
+
+	public String getTypeMedia() {
+		return typeMedia;
+	}
+
+	public void setTypeMedia(String typeMedia) {
+		this.typeMedia = typeMedia;
+	}
 
 	public Voluntario getVoluntario() {
 		return voluntario;
@@ -155,13 +215,75 @@ public class VM_AsignarReconocimientoIndex extends VM_WindowWizard{
 		return trabajador;
 	}
 
+	@Override
+	public BufferedImage getImageContent() {
+		if (bytes != null) {
+			try {
+				return ImageIO.read(new ByteArrayInputStream(bytes));
+			} catch (IOException e) {
+				return null;
+			}
+		}
+
+		if (urlImage != null) {
+			bytes = Zki.getBytes(urlImage);
+			return Zki.getBufferedImage(urlImage);
+		}
+
+		return null;
+	}
 
 
 	public void setTrabajador(Trabajador trabajador) {
 		this.trabajador = trabajador;
 	}
 
+	@Override
+	public void onUploadImageSingle(UploadEvent event, String idUpload) {
+		org.zkoss.util.media.Media media = event.getMedia();
 
+		if (media instanceof org.zkoss.image.Image) {
+
+			if (UtilMultimedia.validateImage(media.getName().substring(
+					media.getName().lastIndexOf(".") + 1))) {
+				this.bytes = media.getByteData();
+				this.extensionImage = media.getName().substring(
+						media.getName().lastIndexOf(".") + 1);
+				this.typeMedia = media.getContentType();
+
+				if (this.getPersona().getIdPersona() != null) {
+					this.nameImage = new StringBuilder().append(Zki.PERSONAS)
+							.append(this.getPersona().getIdPersona())
+							.append(".").append(extensionImage).toString();
+
+					this.urlImage = new StringBuilder().append(Zki.PERSONAS)
+							.append(this.getPersona().getIdPersona())
+							.append(".").append(extensionImage).toString();
+
+				}
+			} else {
+				this.getPersona().setFkMultimedia(null);
+				Alert.showMessage("E: Error Code: 100-El formato de la <b>imagen</b> es inválido");
+
+			}
+		} else {
+			this.getPersona().setFkMultimedia(null);
+			Alert.showMessage("E: Error Code: 100-El formato de la <b>imagen</b> es inválido");
+		}
+	}
+
+	@Override
+	public void onRemoveImageSingle(String idUpload) {
+		bytes = null;
+	}
+
+	public byte[] getBytes() {
+		return bytes;
+	}
+
+	public void setBytes(byte[] bytes) {
+		this.bytes = bytes;
+	}
 
 	@Override
 	public Map<Integer, List<OperacionWizard>> getButtonsToStep() {
@@ -241,32 +363,68 @@ public class VM_AsignarReconocimientoIndex extends VM_WindowWizard{
 			}
 			BindUtils.postNotifyChange(null, null, this, "*");
 		}
-		
+		if (currentStep == 2) {
+			Map<String, String> criterios = new HashMap<>();
+			criterios.put("tipoReconocimiento", String.valueOf(tipoReconocimientoEnum.ordinal()));
+			PayloadClasificadorReconocimientoResponse payloadClasificadorReconocimientoResponse = S.ClasificadorReconocimientoService.consultarCriterios(TypeQuery.EQUAL, criterios);
+			clasificadorPorTipoReconocimientos =  payloadClasificadorReconocimientoResponse.getObjetos();
+		}
 		if (currentStep == 3) {
 			
-			if (tipoReconocimientoEnum.equals(tipoReconocimientoEnum.PADRINO)) {
-				this.getReconocimientoPersona().setFkPersona(this.getPadrino().getFkPersona());
-			}
-			if (tipoReconocimientoEnum.equals(tipoReconocimientoEnum.VOLUNTARIO)) {
-				this.getReconocimientoPersona().setFkPersona(this.getVoluntario().getFkPersona());
-			}
-			if (tipoReconocimientoEnum.equals(tipoReconocimientoEnum.COLABORADOR)) {
-				this.getReconocimientoPersona().setFkPersona(this.getColaborador().getFkPersona());
-			}
-			if (tipoReconocimientoEnum.equals(tipoReconocimientoEnum.PATROCINADOR)) {
-				this.getReconocimientoPersona().setFkPersona(this.getPatrocinador().getFkPersona());
-			}
-			if (tipoReconocimientoEnum.equals(tipoReconocimientoEnum.TRABAJADOR)) {
-				this.getReconocimientoPersona().setFkPersona(this.getTrabajador().getFkPersona());
-			}
+			this.getReconocimientoPersona().setFkPersona(this.persona);
 			
-			PayloadReconocimientoPersonaResponse payloadReconocimientoPersonaResponse = S.ReconocimientoPersonaService
-					.incluir(getReconocimientoPersona());
-			if (!UtilPayload.isOK(payloadReconocimientoPersonaResponse)) {
-				Alert.showMessage(payloadReconocimientoPersonaResponse);
-			}			
+			//TODO: Para imagen
+			if(extensionImage != null){
+				
+				if (bytes != null) {
+					Multimedia multimedia = new Multimedia();
+					multimedia.setNombre(nameImage);
+					multimedia.setTipoMultimedia(TipoMultimediaEnum.IMAGEN
+							.ordinal());
+					multimedia.setUrl(this.getUrlImage());
+					multimedia.setExtension(UtilMultimedia.stringToExtensionEnum(
+							extensionImage).ordinal());
+					multimedia.setDescripcion(typeMedia);
+
+					PayloadMultimediaResponse payloadMultimediaResponse = S.MultimediaService
+							.incluir(multimedia);
+					if (!UtilPayload.isOK(payloadMultimediaResponse)) {
+						Alert.showMessage(payloadMultimediaResponse);
+					}
+					multimedia.setIdMultimedia(((Double) payloadMultimediaResponse
+							.getInformacion("id")).intValue());
+					this.getReconocimientoPersona().setFkMultimedia(multimedia);
+				}
+				
+				//TODO: Incluir Reconocimiento
+				PayloadReconocimientoPersonaResponse payloadReconocimientoPersonaResponse = S.ReconocimientoPersonaService
+						.incluir(getReconocimientoPersona());
+				if (!UtilPayload.isOK(payloadReconocimientoPersonaResponse)) {
+					Alert.showMessage(payloadReconocimientoPersonaResponse);
+				}	
+				
+				if (bytes != null) {
+					Zki.save(Zki.PERSONAS, getPersona().getIdPersona(),
+							extensionImage, bytes);
+					Multimedia multimedia = this.getPersona().getFkMultimedia();
+					multimedia.setNombre(Zki.PERSONAS
+							+ this.getPersona().getIdPersona() + "."
+							+ this.extensionImage);
+					multimedia.setUrl(Zki.PERSONAS + getPersona().getIdPersona()
+							+ "." + this.extensionImage);
+					PayloadMultimediaResponse payloadMultimediaResponse = S.MultimediaService
+							.modificar(multimedia);
+
+					if (!UtilPayload.isOK(payloadMultimediaResponse)) {
+						Alert.showMessage(payloadMultimediaResponse);
+					}
+				}
+				
+			}else{
+				Alert.showMessage("Error Code: 099-Debe cargar una Imagen del trabajador");
+				}						
 		}
-		
+				
 		goToNextStep();
 
 		return "";
@@ -292,7 +450,7 @@ public class VM_AsignarReconocimientoIndex extends VM_WindowWizard{
 	public String isValidPreconditionsSiguiente(Integer currentStep) {
 		if (currentStep == 1) {
 			if (tipoReconocimientoEnum == null) {
-				return "E:Error Code 5-Debe seleccionar un <b> Rol</b>";
+				return "E:Error Code 5-Debe seleccionar un <b> Tipo de Reconocimiento</b>";
 			}
 		}
 
@@ -300,30 +458,43 @@ public class VM_AsignarReconocimientoIndex extends VM_WindowWizard{
 			if (tipoReconocimientoEnum.equals(tipoReconocimientoEnum.PADRINO)
 					&& padrino.getIdPadrino() == null) {
 				return "E:Error Code 5-Debe seleccionar un <b>Padrino</b>";
-			}
+				}else if(tipoReconocimientoEnum.equals(tipoReconocimientoEnum.PADRINO)){
+					persona = this.getPadrino().getFkPersona();
+				}
 			if (tipoReconocimientoEnum.equals(tipoReconocimientoEnum.VOLUNTARIO)
 					&& voluntario.getIdVoluntario() == null) {
-				return "E:Error Code 5-Debe seleccionar un <b>Voluntario</b>";
-			}
+					return "E:Error Code 5-Debe seleccionar un <b>Voluntario</b>";
+					}else if(tipoReconocimientoEnum.equals(tipoReconocimientoEnum.VOLUNTARIO)){
+						persona = this.getVoluntario().getFkPersona();
+					}
 			if (tipoReconocimientoEnum.equals(tipoReconocimientoEnum.COLABORADOR)
 					&& colaborador.getIdColaborador() == null) {
 				return "E:Error Code 5-Debe seleccionar un <b>Colaborador</b>";
-			}
+				}else if(tipoReconocimientoEnum.equals(tipoReconocimientoEnum.COLABORADOR)){
+					persona = this.getColaborador().getFkPersona();
+				}
 			if (tipoReconocimientoEnum.equals(tipoReconocimientoEnum.PATROCINADOR)
 					&& patrocinador.getIdPatrocinador() == null) {
 				return "E:Error Code 5-Debe seleccionar un <b>Patrocinador</b>";
-			}
+				}else if(tipoReconocimientoEnum.equals(tipoReconocimientoEnum.PATROCINADOR)){
+					persona = this.getPatrocinador().getFkPersona();
+				}			
 			if (tipoReconocimientoEnum.equals(tipoReconocimientoEnum.TRABAJADOR)
 					&& trabajador.getIdTrabajador() == null) {
 				return "E:Error Code 5-Debe seleccionar un <b>Trabajador</b>";
-			}
+				}else if(tipoReconocimientoEnum.equals(tipoReconocimientoEnum.TRABAJADOR)){
+					persona = this.getTrabajador().getFkPersona();
+				}
 		}
 
 		if (currentStep == 3) {
 			if (getReconocimientoPersona().getFkClasificadorReconocimiento() == null || getReconocimientoPersona().getContenido() == null){
 				return "E:Error Code 5-Debe llenar todos los campos";
 			}
-		}
+			if(extensionImage == null){
+				return "Error Code 099-Debe cargar una Imagen para el reconocimiento";
+			}
+	}
 
 		return "";
 	}
@@ -331,6 +502,11 @@ public class VM_AsignarReconocimientoIndex extends VM_WindowWizard{
 	@Override
 	public String executeFinalizar(Integer currentStep) {
 		reconocimientoPersona = new ReconocimientoPersona();
+		bytes = null;
+		nameImage = null;
+		extensionImage = null;
+		urlImage = null;
+		typeMedia = null;
 		restartWizard();
 		return "";
 	}
@@ -343,13 +519,26 @@ public class VM_AsignarReconocimientoIndex extends VM_WindowWizard{
 		this.srcList = srcList;
 	}
 	
+	
+	
+	public List<ClasificadorReconocimiento> getClasificadorPorTipoReconocimientos() {
+		return clasificadorPorTipoReconocimientos;
+	}
+
+
+	public void setClasificadorPorTipoReconocimientos(
+			List<ClasificadorReconocimiento> clasificadorPorTipoReconocimientos) {
+		this.clasificadorPorTipoReconocimientos = clasificadorPorTipoReconocimientos;
+	}
+
+
 	public List<Patrocinador> getPatrocinadores() {
 		if (this.patrocinadores == null) {
 			this.patrocinadores = new ArrayList<>();
 		}
 		if (this.patrocinadores.isEmpty()) {
 			
-			//TODO: Todo patrocinador que est� en tabla es ACTIVO, por tanto no se valida por estatus.
+			//Todo patrocinador que está en tabla es ACTIVO, por tanto no se valida por estatus.
 			PayloadPatrocinadorResponse payloadPatrocinadorResponse = S.PatrocinadorService
 					.consultarTodos();
 			if (UtilPayload.isOK(payloadPatrocinadorResponse)) {

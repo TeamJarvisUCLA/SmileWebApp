@@ -1,5 +1,6 @@
 package ve.smile.gestion.ayudas.solicitudes;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -17,6 +18,7 @@ import karen.core.form.viewmodels.VM_WindowForm;
 import karen.core.util.UtilDialog;
 import karen.core.util.payload.UtilPayload;
 import karen.core.util.validate.UtilValidate;
+import karen.core.util.validate.UtilValidate.ValidateOperator;
 
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.Command;
@@ -244,7 +246,7 @@ public class VM_SolicitudesFormBasic extends VM_WindowForm {
 
 			SolicitudAyuda solicitudAyuda = this.getSolicitudAyuda();
 			solicitudAyuda.setFkBeneficiario(this.getBeneficiario());
-			solicitudAyuda.setFecha(new Date().getTime());
+			solicitudAyuda.setFecha(this.getFecha().getTime());
 
 			PayloadSolicitudAyudaResponse payloadSolicitudAyudaResponse = S.SolicitudAyudaService
 					.incluir(getSolicitudAyuda());
@@ -263,7 +265,7 @@ public class VM_SolicitudesFormBasic extends VM_WindowForm {
 
 			SolicitudAyuda solicitudAyuda = this.getSolicitudAyuda();
 			solicitudAyuda.setFkBeneficiario(this.getBeneficiario());
-			solicitudAyuda.setFecha(new Date().getTime());
+			solicitudAyuda.setFecha(this.getFecha().getTime());
 
 			PayloadSolicitudAyudaResponse payloadSolicitudAyudaResponse = S.SolicitudAyudaService
 					.modificar(solicitudAyuda);
@@ -299,12 +301,25 @@ public class VM_SolicitudesFormBasic extends VM_WindowForm {
 
 	public boolean isFormValidated() {
 		try {
-			UtilValidate.validateString(getSolicitudAyuda().getObservacion(),
-					"Observación", 100);
-			UtilValidate.validateString(getSolicitudAyuda().getObservacion(),
-					"Observación", 100);
+			UtilValidate.validateString(this.getSolicitudAyuda().getObservacion(),
+					"Observación", 200);
+			
+			UtilValidate.validateString(this.getSolicitudAyuda().getTitulo(),
+					"Titulo", 100);
+			
+			UtilValidate
+			.validateNull(this.getSolicitudAyuda().getFkAyuda(), "Ayuda");
+			
+			UtilValidate
+			.validateNull(this.getSolicitudAyuda().getFkBeneficiario(), "Beneficiario");
+			
 
-			UtilValidate.validateNull(getAyuda(), "Ayuda");
+			UtilValidate.validateNull(this.getSolicitudAyuda().getUrgencia(), "Urgencia");
+			
+			UtilValidate.validateDate(this.getSolicitudAyuda().getFecha(),
+					"Fecha de Soliitud", ValidateOperator.GREATER_THAN,
+					new SimpleDateFormat("yyyy-MM-dd").format(new Date()),
+					"dd/MM/yyyy");
 			return true;
 		} catch (Exception e) {
 			Alert.showMessage(e.getMessage());

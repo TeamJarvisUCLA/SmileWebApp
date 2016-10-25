@@ -6,16 +6,16 @@
 					<checkbox label="Todos" checked="@bind(vm.todos)" />
 				</div>
 				<div sclass="col s3" style="padding: 0px">
-					<checkbox label="Fecha Ingreso"
-						checked="@bind(vm.fechaIngreso)" />
+					<checkbox label="Fecha Solicitud"
+						checked="@bind(vm.fecha)" />
 				</div>
-				<div sclass="col s3" visible="@bind(vm.fechaIngreso)">
+				<div sclass="col s3" visible="@bind(vm.fecha)">
 					<label value="Fecha Desde"></label>
 					<datebox format="dd/MM/yyyy"
 						value="@bind(vm.fechaDesdeDate)">
 					</datebox>
 				</div>
-				<div sclass="col s3" visible="@bind(vm.fechaIngreso)">
+				<div sclass="col s3" visible="@bind(vm.fecha)">
 					<label value="Fecha Hasta"></label>
 					<datebox format="dd/MM/yyyy"
 						value="@bind(vm.fechaHastaDate)">
@@ -27,13 +27,23 @@
 			<div sclass="col s12" style="padding:0px">
 				
 				<div sclass="col s3">
-					<checkbox label="Activos"
-						checked="@bind(vm.activo)" />
+					<checkbox label="Aprobadas"
+						checked="@bind(vm.aprobadas)" />
 				</div>
 
 				<div sclass="col s3">
-					<checkbox label="Egresados"
-						checked="@bind(vm.egresado)" />
+					<checkbox label="En Proceso"
+						checked="@bind(vm.enProceso)" />
+				</div>
+				
+				<div sclass="col s3">
+					<checkbox label="Rechazadas"
+						checked="@bind(vm.rechazadas)" />
+				</div>
+
+				<div sclass="col s3">
+					<checkbox label="Pendientes"
+						checked="@bind(vm.pendientes)" />
 				</div>
 			</div>
 		</div>
@@ -42,37 +52,15 @@
 				<div sclass="col s12" style="padding:0px">
 					
 					<div sclass="col s3">
-						<checkbox label="Fortalezas"
-							checked="@bind(vm.fortalezaVoluntario)" />
-						<listbox id="listbox1" sclass="animated flipInX"
-							model="@load(vm.listFortalezas)" checkmark="true" multiple="true"
-							height="150px" selectedItems="@bind(vm.fortalezasSeleccionados)"
-							visible="@bind(vm.fortalezaVoluntario)">
-							<listhead>
-								<listheader width="100%"
-									label="Fortalezas" />
-							</listhead>
-							<template name="model">
-								<listitem>
-									<listcell>
-										<label
-											value="@load(each.nombre)">
-										</label>
-									</listcell>
-								</listitem>
-							</template>
-						</listbox>
-					</div>
-					<div sclass="col s3">
-						<checkbox label="Profesiones"
-							checked="@bind(vm.profesionVoluntario)" />
+						<checkbox label="Ayudas"
+							checked="@bind(vm.recursoSolicitudAyuda)" />
 						<listbox id="listbox3" sclass="animated flipInX"
-							model="@load(vm.listProfesion)" checkmark="true" multiple="true"
-							height="150px" selectedItems="@bind(vm.profesionesSeleccionadas)"
-							visible="@bind(vm.profesionVoluntario)">
+							model="@load(vm.listRecurso)" checkmark="true" multiple="true"
+							height="150px" selectedItems="@bind(vm.recursosSeleccionadas)"
+							visible="@bind(vm.recursoSolicitudAyuda)">
 							<listhead>
 								<listheader width="100%"
-									label="Profesion" />
+									label="Recurso" />
 							</listhead>
 							<template name="model">
 								<listitem>
@@ -85,6 +73,7 @@
 							</template>
 						</listbox>
 					</div>
+					
 				</div>
 			</div>
 		</div>

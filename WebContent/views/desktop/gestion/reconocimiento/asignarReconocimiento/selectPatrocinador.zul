@@ -18,9 +18,9 @@
 							emptyMessage="No hay Patrocinadores"
 							selectedItem="@bind(vm.patrocinador)">
 							<listhead sizable="true">
-								<listheader width="20%"
+								<listheader width="40%"
 									label="Identificación" />
-								<listheader width="30%" label="Patronicador" />
+								<listheader width="60%" label="Patronicador" />
 							</listhead>
 							<template name="model">
 								<listitem>

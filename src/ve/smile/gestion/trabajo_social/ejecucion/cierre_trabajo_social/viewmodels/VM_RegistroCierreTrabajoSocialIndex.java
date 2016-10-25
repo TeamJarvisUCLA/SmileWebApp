@@ -1,8 +1,6 @@
 package ve.smile.gestion.trabajo_social.ejecucion.cierre_trabajo_social.viewmodels;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -14,8 +12,6 @@ import karen.core.dialog.catalogue.generic.events.listeners.CatalogueDialogClose
 import karen.core.dialog.generic.enums.DialogActionEnum;
 import karen.core.util.UtilDialog;
 import karen.core.util.payload.UtilPayload;
-import karen.core.util.validate.UtilValidate;
-import karen.core.util.validate.UtilValidate.ValidateOperator;
 import karen.core.wizard.buttons.data.OperacionWizard;
 import karen.core.wizard.buttons.enums.OperacionWizardEnum;
 import karen.core.wizard.buttons.helpers.OperacionWizardHelper;
@@ -283,26 +279,6 @@ public class VM_RegistroCierreTrabajoSocialIndex extends VM_WindowWizard {
 	public String isValidPreconditionsFinalizar(Integer currentStep) {
 		if (currentStep == 2) {
 			StringBuilder stringBuilder = new StringBuilder();
-			try {
-				Calendar calendar = Calendar.getInstance();
-				calendar.add(Calendar.DAY_OF_YEAR, -2);
-				UtilValidate.validateDate(this.getFechaEjecucionInicio()
-						.getTime(), "Fecha Inicio de Ejecución",
-						ValidateOperator.GREATER_THAN, new SimpleDateFormat(
-								"yyyy-MM-dd").format(calendar.getTime()),
-						"dd/MM/yyyy");
-				if (this.getFechaEjecucionInicio().compareTo(
-						this.getFechaEjecucionFin()) != 0) {
-					UtilValidate.validateDate(this.getFechaEjecucionFin()
-							.getTime(), "Fecha Fin de Ejecución",
-							ValidateOperator.GREATER_THAN,
-							new SimpleDateFormat("yyyy-MM-dd").format(this
-									.getFechaEjecucionFin()), "dd/MM/yyyy");
-				}
-
-			} catch (Exception e) {
-				return e.getMessage();
-			}
 			for (IndicadorTsPlan indicadorTsPlan : this.getIndicadorTsPlans()) {
 				if (indicadorTsPlan.getValorReal() == null
 						|| indicadorTsPlan.getValorReal() == 0) {

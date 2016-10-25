@@ -1,0 +1,182 @@
+
+<zk xmlns:n="native" xmlns:w="client">
+	<div sclass="animated fadeInLeft">
+		<div class="row">
+			<div class="col s12">
+				
+				<div class="row">
+
+					<div class="input-field col s12">
+					
+					<n:label for="beneficiario3" class="active">
+						Titulo Solicitud Ayuda:
+					</n:label>
+					<label sclass="subtitulo-evento" value="@bind(vm.selectedObject.titulo)"> </label>
+					
+					</div>
+
+				</div>
+				
+				<div class="row">
+
+					<div class="input-field col s12">
+						<n:label for="beneficiario_solicitud" class="active">
+						Nombre Beneficiario Solicitud Ayuda:
+					</n:label>
+					
+					<label sclass="subtitulo-evento" value="@bind(vm.selectedObject.fkBeneficiario.fkPersona.nombre.concat(' ').concat(vm.selectedObject.fkBeneficiario.fkPersona.apellido))"> </label>
+					
+					</div>
+
+				</div>
+				
+				
+				<div class="row">
+
+					<div class="input-field col s12">
+						<n:label for="beneficiario3_solicitud" class="active">
+						Documento de Identificacion Beneficiario Solicitud Ayuda:
+					</n:label>
+					
+					<label sclass="subtitulo-evento" value="@bind(vm.selectedObject.fkBeneficiario.fkPersona.identificacion)"> </label>
+					
+					
+					</div>
+
+				</div>
+				
+				
+				<div class="row">
+
+					<div class="input-field col s12">
+						<n:label for="familiar_solicitud" class="active">
+						Nombre Representante Solicitud Ayuda:
+					</n:label>
+					<label sclass="subtitulo-evento" value="@bind(vm.selectedObject.fkBeneficiario.fkFamiliar.fkPersona.nombre.concat(' ').concat(vm.selectedObject.fkBeneficiario.fkFamiliar.fkPersona.apellido))"> </label>
+					
+					
+					</div>
+
+				</div>
+				
+				
+				
+				<div class="row">
+
+					<div class="input-field col s12">
+						<n:label for="familiar3_solicitud" class="active">
+						Documento de Identificacion Representante Solicitud Ayuda:
+					</n:label>
+					<label sclass="subtitulo-evento" value="@bind(vm.selectedObject.fkBeneficiario.fkFamiliar.fkPersona.identificacion)"> </label>
+					
+					
+					</div>
+
+				</div>
+				
+				<div class="row">
+
+					<div class="input-field col s12">
+						<n:label for="ayuda_solicitud" class="active">
+						Ayuda Solicitada:
+					</n:label>
+					<label sclass="subtitulo-evento" value="@bind(vm.selectedObject.fkAyuda.nombre)"> </label>
+					
+					
+					</div>
+
+				</div>
+				
+				<div class="row">
+
+					<div class="input-field col s12">
+						<n:label for="ayuda2_solicitud" class="active">
+						Urgencia Solicitud:
+					</n:label>
+					<label sclass="subtitulo-evento" value="@bind(vm.selectedObject.urgenciaEnum)"> </label>
+					
+					</div>
+
+				</div>
+				
+				<div class="row">
+
+					<div class="input-field col s12">
+						<n:label for="ayuda2_solicitud" class="active">
+						Observacion Solicitud:
+					</n:label>
+					<label sclass="subtitulo-evento" value="@bind(vm.selectedObject.observacion)"> </label>
+					
+					</div>
+
+				</div>
+				
+				
+				
+				<div class="row">
+			<div class="col s12">
+
+				<listbox height="200px"
+					emptyMessage="No hay Recursos Seleccionados."
+					model="@bind(vm.solicitudAyudaRecursos)">
+					<listhead sizable="true">
+						<listheader width="50%" label="Nombre de Recurso" />
+						<listheader width="50%" label="Descripcion de Recurso" />
+						<listheader width="50%" label="Cantidad a Asignar" />
+					</listhead>
+					<template name="model">
+						<listitem>
+							<listcell
+								label="@load(each.fkRecurso.nombre)">
+							</listcell>
+							
+							<listcell
+								label="@load(each.fkRecurso.descripcion)">
+							</listcell>
+							
+							<listcell>
+							<intbox
+									style="background: #f2fca5; height: 1em; border: 1px solid #999999; border-radius: 7px; font-size:1.2em;  text-align: center;"
+									value="@bind(each.cantidad)">
+								</intbox>
+							
+							</listcell>
+							
+
+						
+							
+							
+						</listitem>
+					</template>
+				</listbox>
+			</div>
+		</div>
+				
+				
+				
+				
+				<div class="row">
+
+					<div class="input-field col s12">
+						<n:label for="fecha"
+							class="active">
+							Fecha de Asignación:
+						</n:label>
+						<datebox id="fecha"
+							readonly="true" cols="20" format="dd/MM/yyyy"
+							value="@bind(vm.fechaAsignacion)" />
+					</div>
+
+				</div>
+				 
+				
+				
+
+
+				
+			</div>
+			
+
+		</div>
+	</div>
+</zk>

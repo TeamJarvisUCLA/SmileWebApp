@@ -31,7 +31,8 @@
 			<template name="model">
 				<listitem>
 					<listcell>
-						<div align="center">
+						<div align="center"
+							visible="@load(not empty each.fkPersona.fkMultimedia and not empty each.fkPersona.fkMultimedia.url)">
 							<image
 								src="${m:getUrlWeb(each.fkPersona.fkMultimedia.url)}"
 								width="30px" height="30px" sclass="circle">

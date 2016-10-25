@@ -3,30 +3,43 @@
 <zk xmlns:n="native" xmlns:w="client">
 	<div sclass="animated fadeInLeft">
 		<div class="row">
-			<div class="col s12" align="center"	style="margin-bottom: 15px;">
-				<label value="Seleccione la capacitación planificada" sclass="label-medium-500"> </label>
+			<div class="col s12" align="center"
+				style="margin-bottom: 15px;">
+				<label value="Seleccione la capacitación planificada"
+					sclass="label-medium-500">
+				</label>
 			</div>
 		</div>
-		
+
 		<div width="100%">
 			<div class="row">
 				<div class="col s12">
 					<div class="col s12">
-						<listbox id="listbox" model="@load(vm.objectsList)" selectedItem="@bind(vm.selectedObject)">
+						<listbox id="listbox"
+							model="@load(vm.objectsList)"
+							selectedItem="@bind(vm.selectedObject)">
 							<listhead sizable="true">
-								<listheader width="33%" label="Fecha" />
-								<listheader width="33%" label="Capacitación" />
+
+								<listheader width="33%"
+									label="Capacitación" />
 								<listheader width="33%" label="Lugar" />
+								<listheader width="33%" label="Fecha" />
 							</listhead>
 							<template name="model">
 								<listitem>
-									<listcell label="${m:convertirLongADate(each.fechaPlanificada)}" />
-									<listcell label="@load(each.fkCapacitacion.nombre)" />
-									<listcell label="@load(each.fkDirectorio.nombre)" />
+
+									<listcell
+										label="@load(each.fkCapacitacion.nombre)" />
+									<listcell
+										label="@load(each.fkDirectorio.nombre)" />
+									<listcell
+										label="${m:convertirLongADate(each.fechaPlanificada)}" />
 								</listitem>
 							</template>
 							<listfoot>
-								<listfooter id="listFoot" span="3" use="karen.core.listfoot.ListFoot"> </listfooter>
+								<listfooter id="listFoot" span="3"
+									use="karen.core.listfoot.ListFoot">
+								</listfooter>
 							</listfoot>
 						</listbox>
 					</div>

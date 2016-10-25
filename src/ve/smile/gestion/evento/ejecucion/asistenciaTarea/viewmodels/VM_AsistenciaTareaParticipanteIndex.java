@@ -15,8 +15,8 @@ import ve.smile.dto.EventPlanTarea;
 import ve.smile.dto.EventPlanTareaTrabajador;
 import ve.smile.dto.EventPlanTareaVoluntario;
 import ve.smile.dto.EventoPlanificado;
-import ve.smile.dto.IndicadorEventoPlanificado;
 import ve.smile.dto.Trabajador;
+import ve.smile.dto.TsPlanActividad;
 import ve.smile.dto.TsPlanActividadTrabajador;
 import ve.smile.dto.TsPlanActividadVoluntario;
 import ve.smile.dto.Voluntario;
@@ -24,6 +24,9 @@ import ve.smile.payload.response.PayloadEventPlanTareaResponse;
 import ve.smile.payload.response.PayloadEventPlanTareaTrabajadorResponse;
 import ve.smile.payload.response.PayloadEventPlanTareaVoluntarioResponse;
 import ve.smile.payload.response.PayloadEventoPlanificadoResponse;
+import ve.smile.payload.response.PayloadTsPlanActividadResponse;
+import ve.smile.payload.response.PayloadTsPlanActividadTrabajadorResponse;
+import ve.smile.payload.response.PayloadTsPlanActividadVoluntarioResponse;
 import karen.core.dialog.catalogue.generic.data.CatalogueDialogData;
 import karen.core.dialog.catalogue.generic.events.CatalogueDialogCloseEvent;
 import karen.core.dialog.catalogue.generic.events.listeners.CatalogueDialogCloseListener;
@@ -65,214 +68,7 @@ public class VM_AsistenciaTareaParticipanteIndex extends VM_WindowWizard{
 	public void childInit() {
 
 	}
-
-	@Command("buscarVoluntarios")
-	public void buscarVoluntarios(@BindingParam("index") int index) {
-		this.setIndexTarea(index);
-		CatalogueDialogData<Voluntario> catalogueDialogData = new CatalogueDialogData<Voluntario>();
-
-		catalogueDialogData
-				.addCatalogueDialogCloseListeners(new CatalogueDialogCloseListener<Voluntario>() {
-
-					@Override
-					public void onClose(
-							CatalogueDialogCloseEvent<Voluntario> catalogueDialogCloseEvent) {
-						if (catalogueDialogCloseEvent.getDialogAction().equals(
-								DialogActionEnum.CANCELAR)) {
-							return;
-						}
-						List<Voluntario> listVoluntarios = new ArrayList<Voluntario>();
-						listVoluntarios = catalogueDialogCloseEvent
-								.getEntities();
-
-						refreshVoluntarios(listVoluntarios);
-					}
-				});
-
-		UtilDialog
-				.showDialog(
-						"views/desktop/gestion/trabajoSocial/planificacion/actividades/participantes/catalogoVoluntarios.zul",
-						catalogueDialogData);
-	}
-
-	public void refreshVoluntarios(List<Voluntario> listVoluntarios) {
-
-		boolean validar = true;
-		List<EventPlanTareaVoluntario> listAux2 = new ArrayList<>();
-		EventPlanTareaVoluntario evenPlTareV = new EventPlanTareaVoluntario();
-
-		if (listEventPlanTarea.get(indexTarea)
-				.getListPlanTareaVoluntarios() != null) {
-			for (EventPlanTareaVoluntario eventPlanTarVol : listEventPlanTarea
-					.get(indexTarea).getListPlanTareaVoluntarios()) {
-				evenPlTareV = new EventPlanTareaVoluntario();
-				evenPlTareV
-						.setFkEventPlanTarea(listEventPlanTarea
-								.get(indexTarea));
-				evenPlTareV.setFkVoluntario(eventPlanTarVol
-						.getFkVoluntario());
-				listAux2.add(evenPlTareV);
-			}
-		}
-
-		for (Voluntario voluntario : listVoluntarios) {
-			if (listEventPlanTarea.get(indexTarea)
-					.getListPlanTareaVoluntarios() != null) {
-
-				for (EventPlanTareaVoluntario iet : listEventPlanTarea.get(
-						indexTarea).getListPlanTareaVoluntarios()) {
-					if (iet.getFkVoluntario().getIdVoluntario()
-							.equals(voluntario.getIdVoluntario())) {
-
-						validar = false;
-
-					}
-				}
-
-				if (validar) {
-					evenPlTareV = new EventPlanTareaVoluntario();
-					evenPlTareV
-							.setFkEventPlanTarea(listEventPlanTarea
-									.get(indexTarea));
-
-					evenPlTareV.setFkVoluntario(voluntario);
-					listAux2.add(evenPlTareV);
-
-				}
-
-			} else {
-				evenPlTareV = new EventPlanTareaVoluntario();
-				evenPlTareV
-						.setFkEventPlanTarea(listEventPlanTarea
-								.get(indexTarea));
-
-				evenPlTareV.setFkVoluntario(voluntario);
-				listAux2.add(evenPlTareV);
-
-			}
-
-		}
-
-		this.listEventPlanTarea.get(indexTarea)
-				.setListPlanTareaVoluntarios(listAux2);
-
-		BindUtils.postNotifyChange(null, null, this, "listEventPlanTarea");
-	}
-
-	@Command("eliminarVoluntario")
-	public void eliminarVoluntario(
-			@BindingParam("tsPlanActividadVoluntario") TsPlanActividadVoluntario tsPlanActividadVoluntario,
-			@BindingParam("index") int index) {
-		this.getListEventPlanTarea().get(index)
-				.getListPlanTareaVoluntarios()
-				.remove(tsPlanActividadVoluntario);
-		BindUtils.postNotifyChange(null, null, this, "listTsPlanActividads");
-	}
-
-	// Trabajadores
-	@Command("buscarTrabajadores")
-	public void buscarTrabajadores(@BindingParam("index") int index) {
-		this.setIndexTarea(index);
-		CatalogueDialogData<Trabajador> catalogueDialogData = new CatalogueDialogData<Trabajador>();
-
-		catalogueDialogData
-				.addCatalogueDialogCloseListeners(new CatalogueDialogCloseListener<Trabajador>() {
-
-					@Override
-					public void onClose(
-							CatalogueDialogCloseEvent<Trabajador> catalogueDialogCloseEvent) {
-						if (catalogueDialogCloseEvent.getDialogAction().equals(
-								DialogActionEnum.CANCELAR)) {
-							return;
-						}
-						List<Trabajador> listTrabajadors = new ArrayList<>();
-						listTrabajadors = catalogueDialogCloseEvent
-								.getEntities();
-
-						refreshTrabajadores(listTrabajadors);
-					}
-				});
-
-		UtilDialog
-				.showDialog(
-						"views/desktop/gestion/trabajoSocial/planificacion/actividades/participantes/catalogoTrabajadores.zul",
-						catalogueDialogData);
-	}
-
-	public void refreshTrabajadores(List<Trabajador> lisTrabajadors) {
-
-		boolean validar = true;
-		List<EventPlanTareaTrabajador> listAux2 = new ArrayList<>();
-		EventPlanTareaTrabajador evntPlaTareaTrab = new EventPlanTareaTrabajador();
-
-		if (listEventPlanTarea.get(indexTarea)
-				.getListEventPlanTareaTrabajadors() != null) {
-			for (EventPlanTareaTrabajador evetPsTaTra : listEventPlanTarea
-					.get(indexTarea).getListEventPlanTareaTrabajadors()) {
-				evntPlaTareaTrab = new EventPlanTareaTrabajador();
-				evntPlaTareaTrab
-						.setFkEventPlanTarea(listEventPlanTarea
-								.get(indexTarea));
-				evntPlaTareaTrab
-						.setFkTrabajador(evetPsTaTra
-								.getFkTrabajador());
-				listAux2.add(evntPlaTareaTrab);
-			}
-		}
-
-		for (Trabajador trabajador : lisTrabajadors) {
-			if (listEventPlanTarea.get(indexTarea)
-					.getListEventPlanTareaTrabajadors() != null) {
-
-				for (EventPlanTareaTrabajador iet : listEventPlanTarea.get(
-						indexTarea).getListEventPlanTareaTrabajadors()) {
-					if (iet.getFkTrabajador().getIdTrabajador()
-							.equals(trabajador.getIdTrabajador())) {
-
-						validar = false;
-
-					}
-				}
-
-				if (validar) {
-					evntPlaTareaTrab = new EventPlanTareaTrabajador();
-					evntPlaTareaTrab
-							.setFkEventPlanTarea(listEventPlanTarea
-									.get(indexTarea));
-
-					evntPlaTareaTrab.setFkTrabajador(trabajador);
-					listAux2.add(evntPlaTareaTrab);
-
-				}
-
-			} else {
-				evntPlaTareaTrab = new EventPlanTareaTrabajador();
-				evntPlaTareaTrab
-						.setFkEventPlanTarea(listEventPlanTarea
-								.get(indexTarea));
-
-				evntPlaTareaTrab.setFkTrabajador(trabajador);
-				listAux2.add(evntPlaTareaTrab);
-
-			}
-
-		}
-
-		this.listEventPlanTarea.get(indexTarea)
-				.setListEventPlanTareaTrabajadors(listAux2);
-
-		BindUtils.postNotifyChange(null, null, this, "listEventPlanTarea");
-	}
-
-	@Command("eliminarTrabajador")
-	public void eliminarTrabajador(
-			@BindingParam("tsPlanActividadTrabajador") TsPlanActividadTrabajador tsPlanActividadTrabajador,
-			@BindingParam("index") int index) {
-		this.getListEventPlanTarea().get(index)
-				.getListEventPlanTareaTrabajadors()
-				.remove(tsPlanActividadTrabajador);
-		BindUtils.postNotifyChange(null, null, this, "listTsPlanActividads");
-	}
+	
 
 	@Override
 	public Map<Integer, List<OperacionWizard>> getButtonsToStep() {
@@ -337,45 +133,45 @@ public class VM_AsistenciaTareaParticipanteIndex extends VM_WindowWizard{
 
 	@Override
 	public String executeSiguiente(Integer currentStep) {
-		if (currentStep == 1) {
-			Map<String, String> parametro = new HashMap<String, String>();
-			parametro.put("fkEventoPlanificado.idEventoPlanificado",
-					String.valueOf(getEventoPlanificadoSelected().getIdEventoPlanificado()));
-
-			this.setListEventPlanTarea(null);
-			PayloadEventPlanTareaResponse payloadEventPlanTareaResponse = S.EventPlanTareaService
-					.consultarCriterios(TypeQuery.EQUAL, parametro);
-			if (UtilPayload.isOK(payloadEventPlanTareaResponse)) {
-				this.getListEventPlanTarea().addAll(
-						payloadEventPlanTareaResponse.getObjetos());
-			}
-
-			for (EventPlanTarea evePsT : this
-					.getListEventPlanTarea()) {
-
-				Map<String, String> criterios = new HashMap<String, String>();
-				criterios.put("fkEventPlanTarea.idEventPlanTarea",
-						String.valueOf(evePsT.getIdEventPlanTarea()));
-				PayloadEventPlanTareaVoluntarioResponse payloadEventPlanTareaVoluntarioResponse = S.EventPlanTareaVoluntarioService
-						.consultarCriterios(TypeQuery.EQUAL, criterios);
-				if (UtilPayload.isOK(payloadEventPlanTareaVoluntarioResponse)) {
-					evePsT
-							.setListPlanTareaVoluntarios(payloadEventPlanTareaVoluntarioResponse
-									.getObjetos());
-				}
-
-				PayloadEventPlanTareaTrabajadorResponse payloadEventPlanTareaTrabajadorResponse = S.EventPlanTareaTrabajadorService
-						.consultarCriterios(TypeQuery.EQUAL, criterios);
-				if (UtilPayload.isOK(payloadEventPlanTareaTrabajadorResponse)) {
-
-					evePsT
-							.setListEventPlanTareaTrabajadors(payloadEventPlanTareaTrabajadorResponse
-									.getObjetos());
-				}
-
-			}
-
-		}
+//		if (currentStep == 1) {
+//			Map<String, String> parametro = new HashMap<String, String>();
+//			parametro.put("fkEventoPlanificado.idEventoPlanificado",
+//					String.valueOf(getEventoPlanificadoSelected().getIdEventoPlanificado()));
+//
+//			this.setListEventPlanTarea(null);
+//			PayloadEventPlanTareaResponse payloadEventPlanTareaResponse = S.EventPlanTareaService
+//					.consultarCriterios(TypeQuery.EQUAL, parametro);
+//			if (UtilPayload.isOK(payloadEventPlanTareaResponse)) {
+//				this.getListEventPlanTarea().addAll(
+//						payloadEventPlanTareaResponse.getObjetos());
+//			}
+//
+//			for (EventPlanTarea evePsT : this
+//					.getListEventPlanTarea()) {
+//
+//				Map<String, String> criterios = new HashMap<String, String>();
+//				criterios.put("fkEventPlanTarea.idEventPlanTarea",
+//						String.valueOf(evePsT.getIdEventPlanTarea()));
+//				PayloadEventPlanTareaVoluntarioResponse payloadEventPlanTareaVoluntarioResponse = S.EventPlanTareaVoluntarioService
+//						.consultarCriterios(TypeQuery.EQUAL, criterios);
+//				if (UtilPayload.isOK(payloadEventPlanTareaVoluntarioResponse)) {
+//					evePsT
+//							.setListPlanTareaVoluntarios(payloadEventPlanTareaVoluntarioResponse
+//									.getObjetos());
+//				}
+//
+//				PayloadEventPlanTareaTrabajadorResponse payloadEventPlanTareaTrabajadorResponse = S.EventPlanTareaTrabajadorService
+//						.consultarCriterios(TypeQuery.EQUAL, criterios);
+//				if (UtilPayload.isOK(payloadEventPlanTareaTrabajadorResponse)) {
+//
+//					evePsT
+//							.setListEventPlanTareaTrabajadors(payloadEventPlanTareaTrabajadorResponse
+//									.getObjetos());
+//				}
+//
+//			}
+//
+//		}
 		goToNextStep();
 
 		return "";
@@ -392,38 +188,179 @@ public class VM_AsistenciaTareaParticipanteIndex extends VM_WindowWizard{
 	public String isValidPreconditionsSiguiente(Integer currentStep) {
 		if (currentStep == 1) {
 			if (selectedObject == null) {
-				return "E:Error Code 5-Debe seleccionar un <b>Trabajo Social Planificado</b>";
+				return "E:Error Code 5-Debe seleccionar un <b>Evento Planificado</b>";
 			}
-		}
+				Map<String, String> parametro = new HashMap<String, String>();
+				parametro.put("fkEventoPlanificado.idEventoPlanificado",
+						String.valueOf(getEventoPlanificadoSelected().getIdEventoPlanificado()));
+
+				this.setListEventPlanTarea(new ArrayList<EventPlanTarea>());
+				PayloadEventPlanTareaResponse payloadEventPanTareaResponse = S.EventPlanTareaService
+						.contarCriterios(TypeQuery.EQUAL, parametro);
+				if (!UtilPayload.isOK(payloadEventPanTareaResponse)) {
+					return (String) payloadEventPanTareaResponse
+							.getInformacion(IPayloadResponse.MENSAJE);
+				}
+
+				Integer countTsPlanActividades = Double.valueOf(
+						String.valueOf(payloadEventPanTareaResponse
+								.getInformacion(IPayloadResponse.COUNT)))
+						.intValue();
+				if (countTsPlanActividades <= 0) {
+					return "E:Error 0:El evento planificado seleccionado <b>no tiene tareas asignadas</b>, debe asignarle al menos una.";
+				}
+				Map<String, String> criterios = new HashMap<String, String>();
+
+				criterios.put("fkEventPlanTarea.fkEventoPlanificado.idEventoPlanificado",
+						String.valueOf(this.getEventoPlanificadoSelected().getIdEventoPlanificado()));
+
+				// Table Relation TsPlanActividadTrabajador
+				PayloadEventPlanTareaTrabajadorResponse payloadEventPlanTareaTrabajadorResponse = S.EventPlanTareaTrabajadorService
+						.contarCriterios(TypeQuery.EQUAL, criterios);
+
+				if (!UtilPayload.isOK(payloadEventPlanTareaTrabajadorResponse)) {
+					return String.valueOf(payloadEventPlanTareaTrabajadorResponse
+							.getInformacion(IPayloadResponse.MENSAJE));
+				}
+				Integer countTsPlanActividadTrabajadores = Double.valueOf(
+						String.valueOf(payloadEventPlanTareaTrabajadorResponse
+								.getInformacion(IPayloadResponse.COUNT)))
+						.intValue();
+
+				// Table Relation TsPlanActividadVoluntario
+				PayloadEventPlanTareaVoluntarioResponse payloadEventPlanTareaVoluntarioResponse = S.EventPlanTareaVoluntarioService
+						.contarCriterios(TypeQuery.EQUAL, criterios);
+
+				if (!UtilPayload.isOK(payloadEventPlanTareaVoluntarioResponse)) {
+					return String.valueOf(payloadEventPlanTareaVoluntarioResponse
+							.getInformacion(IPayloadResponse.MENSAJE));
+				}
+
+				Integer countTsPlanActividadVoluntarios = Double.valueOf(
+						String.valueOf(payloadEventPlanTareaVoluntarioResponse
+								.getInformacion(IPayloadResponse.COUNT)))
+						.intValue();
+
+				if (countTsPlanActividadTrabajadores <= 0
+						&& countTsPlanActividadVoluntarios <= 0) {
+					return "E:Error 0:El evento planificado seleccionado <b>no tiene tarea con trabajadores y voluntarios asignados</b>.";
+				}
+			}		
 
 		return "";
 	}
+	
+	@Override
+	public String isValidSearchDataSiguiente(Integer currentStep) {
+		if (currentStep == 1) {
+			Map<String, String> parametro = new HashMap<String, String>();
+			parametro.put("fkEventoPlanificado.idEventoPlanificado",
+					String.valueOf(getEventoPlanificadoSelected().getIdEventoPlanificado()));
+			this.setListEventPlanTarea(new ArrayList<EventPlanTarea>());
+			int cant = 0;
+			List<EventPlanTarea> auxList = new ArrayList<>();
+			PayloadEventPlanTareaResponse payloadEvePlanTareaResponse = S.EventPlanTareaService
+					.consultarCriterios(TypeQuery.EQUAL, parametro);
+			if (UtilPayload.isOK(payloadEvePlanTareaResponse)) {
+				for (EventPlanTarea eventPlanTarea : payloadEvePlanTareaResponse
+						.getObjetos()) {
+					if (eventPlanTarea.isEjecucion()) {
+						this.listEventPlanTarea.add(eventPlanTarea);
+					}
+				}
+			}
+			if (this.listEventPlanTarea.size() <= 0) {
+				return "E:Error 0:El evento planificado seleccionado <b>no tiene tarea ejecutadas</b>.";
+			}
+			for (EventPlanTarea eventPlanEvento : this
+					.listEventPlanTarea) {
+				Map<String, String> criterios = new HashMap<String, String>();
+				criterios.put("fkEventPlanTarea.idEventPlanTarea",
+						String.valueOf(eventPlanEvento.getIdEventPlanTarea()));
+				PayloadEventPlanTareaVoluntarioResponse payloadEvenPlanTareaVoluntarioResponse = S.EventPlanTareaVoluntarioService
+						.consultarCriterios(TypeQuery.EQUAL, criterios);
+				if (UtilPayload.isOK(payloadEvenPlanTareaVoluntarioResponse)) {
+					eventPlanEvento
+							.setListPlanTareaVoluntarios(payloadEvenPlanTareaVoluntarioResponse
+									.getObjetos());
+					if (eventPlanEvento.getListPlanTareaVoluntarios() == null) {
+						eventPlanEvento
+								.setListPlanTareaVoluntarios(new ArrayList<EventPlanTareaVoluntario>());
+					}
+					for (EventPlanTareaVoluntario eventPlanTareVoluntario : eventPlanEvento
+							.getListPlanTareaVoluntarios()) {
+						if (String.valueOf(eventPlanTareVoluntario
+								.getEjecucion()) == null) {
+							eventPlanTareVoluntario.setEjecucion(true);
+						}
+					}
+				}
+
+				PayloadEventPlanTareaTrabajadorResponse payloadEventPlanTareaTrabajadorResponse = S.EventPlanTareaTrabajadorService
+						.consultarCriterios(TypeQuery.EQUAL, criterios);
+				if (UtilPayload.isOK(payloadEventPlanTareaTrabajadorResponse)) {
+
+					eventPlanEvento
+							.setListEventPlanTareaTrabajadors(payloadEventPlanTareaTrabajadorResponse
+									.getObjetos());
+					if (eventPlanEvento.getListEventPlanTareaTrabajadors() == null) {
+						eventPlanEvento
+								.setListEventPlanTareaTrabajadors(new ArrayList<EventPlanTareaTrabajador>());
+					}
+					for (EventPlanTareaTrabajador eventPlanTareaTrabajador : eventPlanEvento
+							.getListEventPlanTareaTrabajadors()) {
+						if (String.valueOf(eventPlanTareaTrabajador
+								.getEjecucion()) == null) {
+							eventPlanTareaTrabajador.setEjecucion(true);
+						}
+					}
+				}
+				cant += eventPlanEvento.getListEventPlanTareaTrabajadors().size();
+				cant += eventPlanEvento.getListPlanTareaVoluntarios().size();
+				if (eventPlanEvento.getListEventPlanTareaTrabajadors().size() <= 0
+						&& eventPlanEvento.getListPlanTareaVoluntarios()
+								.size() <= 0) {
+					auxList.add(eventPlanEvento);
+				}
+			}
+
+			this.getListEventPlanTarea().removeAll(auxList);
+
+			if (cant <= 0) {
+				return "E:Error 0:Las tareas ejecutadas del evento seleccionado <b>no tiene participantes asociados</b>.";
+			}
+
+		}
+		return "";
+	}
+	
+	
 
 	@Override
 	public String executeFinalizar(Integer currentStep) {
 		
-		for(EventPlanTarea tarea: this.listEventPlanTarea){
-			if(tarea.getListPlanTareaVoluntarios()!= null & tarea.getListPlanTareaVoluntarios().size()>0){
-				for(EventPlanTareaVoluntario evePsTaVol: tarea.getListPlanTareaVoluntarios()){
-					EventPlanTareaVoluntario eventPlanTareaVoluntario = S.EventPlanTareaVoluntarioService.consultarUno(evePsTaVol.getIdEventPlanTareaVoluntario()).getObjetos().get(0);
-					eventPlanTareaVoluntario.setEjecucion(evePsTaVol.getEjecucion());
-					PayloadEventPlanTareaVoluntarioResponse eventPlanTareaVoluntarioResponse = S.EventPlanTareaVoluntarioService.modificar(eventPlanTareaVoluntario);
-					if (!UtilPayload.isOK(eventPlanTareaVoluntarioResponse)) {
-						 return (String) eventPlanTareaVoluntarioResponse.getInformacion(IPayloadResponse.MENSAJE);
-					 }
-				}
-			}
-			if(tarea.getListEventPlanTareaTrabajadors() != null & tarea.getListEventPlanTareaTrabajadors().size() > 0){
-				for(EventPlanTareaTrabajador evePsTareaTra: tarea.getListEventPlanTareaTrabajadors()){
-					EventPlanTareaTrabajador eventPlanTareaTrabajador = S.EventPlanTareaTrabajadorService.consultarUno(evePsTareaTra.getIdEventPlanTareaTrabajador()).getObjetos().get(0);
-					eventPlanTareaTrabajador.setEjecucion(evePsTareaTra.getEjecucion());
-					PayloadEventPlanTareaTrabajadorResponse eventPlanTareaTrabajadorResponse = S.EventPlanTareaTrabajadorService.modificar(eventPlanTareaTrabajador);
-					if (!UtilPayload.isOK(eventPlanTareaTrabajadorResponse)) {
-						 return (String) eventPlanTareaTrabajadorResponse.getInformacion(IPayloadResponse.MENSAJE);
-					 }
-				}
-			}
-		}
+//		for(EventPlanTarea tarea: this.listEventPlanTarea){
+//			if(tarea.getListPlanTareaVoluntarios()!= null & tarea.getListPlanTareaVoluntarios().size()>0){
+//				for(EventPlanTareaVoluntario evePsTaVol: tarea.getListPlanTareaVoluntarios()){
+//					EventPlanTareaVoluntario eventPlanTareaVoluntario = S.EventPlanTareaVoluntarioService.consultarUno(evePsTaVol.getIdEventPlanTareaVoluntario()).getObjetos().get(0);
+//					eventPlanTareaVoluntario.setEjecucion(evePsTaVol.getEjecucion());
+//					PayloadEventPlanTareaVoluntarioResponse eventPlanTareaVoluntarioResponse = S.EventPlanTareaVoluntarioService.modificar(eventPlanTareaVoluntario);
+//					if (!UtilPayload.isOK(eventPlanTareaVoluntarioResponse)) {
+//						 return (String) eventPlanTareaVoluntarioResponse.getInformacion(IPayloadResponse.MENSAJE);
+//					 }
+//				}
+//			}
+//			if(tarea.getListEventPlanTareaTrabajadors() != null & tarea.getListEventPlanTareaTrabajadors().size() > 0){
+//				for(EventPlanTareaTrabajador evePsTareaTra: tarea.getListEventPlanTareaTrabajadors()){
+//					EventPlanTareaTrabajador eventPlanTareaTrabajador = S.EventPlanTareaTrabajadorService.consultarUno(evePsTareaTra.getIdEventPlanTareaTrabajador()).getObjetos().get(0);
+//					eventPlanTareaTrabajador.setEjecucion(evePsTareaTra.getEjecucion());
+//					PayloadEventPlanTareaTrabajadorResponse eventPlanTareaTrabajadorResponse = S.EventPlanTareaTrabajadorService.modificar(eventPlanTareaTrabajador);
+//					if (!UtilPayload.isOK(eventPlanTareaTrabajadorResponse)) {
+//						 return (String) eventPlanTareaTrabajadorResponse.getInformacion(IPayloadResponse.MENSAJE);
+//					 }
+//				}
+//			}
+//		}
 		goToNextStep();
 		return "";
 	}
@@ -431,7 +368,43 @@ public class VM_AsistenciaTareaParticipanteIndex extends VM_WindowWizard{
 	@Override
 	public String isValidSearchDataFinalizar(Integer currentStep) {
 		if (currentStep == 2) {
+			PayloadEventPlanTareaTrabajadorResponse payloadEventPlanTareaTrabajadorResponse = new PayloadEventPlanTareaTrabajadorResponse();
+			PayloadEventPlanTareaVoluntarioResponse payloadEventPlanTareaVoluntarioResponse = new PayloadEventPlanTareaVoluntarioResponse();
+			for (EventPlanTarea obj : this.getListEventPlanTarea()) {
 
+				for (EventPlanTareaTrabajador evntPlanTareaTrabajador : obj
+						.getListEventPlanTareaTrabajadors()) {
+					if (evntPlanTareaTrabajador.getEjecucion()) {
+						evntPlanTareaTrabajador.setFkMotivo(null);
+					}
+					payloadEventPlanTareaTrabajadorResponse = S.EventPlanTareaTrabajadorService
+							.modificar(evntPlanTareaTrabajador);
+
+					if (!UtilPayload
+							.isOK(payloadEventPlanTareaTrabajadorResponse)) {
+						return (String) payloadEventPlanTareaTrabajadorResponse
+								.getInformacion(IPayloadResponse.MENSAJE);
+					}
+
+				}
+
+				for (EventPlanTareaVoluntario tsPlanActividadVoluntario : obj
+						.getListPlanTareaVoluntarios()) {
+					if (tsPlanActividadVoluntario.getEjecucion()) {
+						tsPlanActividadVoluntario.setFkMotivo(null);
+					}
+					payloadEventPlanTareaVoluntarioResponse = S.EventPlanTareaVoluntarioService
+							.modificar(tsPlanActividadVoluntario);
+
+					if (!UtilPayload
+							.isOK(payloadEventPlanTareaVoluntarioResponse)) {
+						return (String) payloadEventPlanTareaVoluntarioResponse
+								.getInformacion(IPayloadResponse.MENSAJE);
+					}
+
+				}
+
+			}
 		}
 		return "";
 	}
@@ -455,4 +428,9 @@ public class VM_AsistenciaTareaParticipanteIndex extends VM_WindowWizard{
 	public EventoPlanificado getEventoPlanificadoSelected() {
 		return (EventoPlanificado) this.getSelectedObject();
 	}
+
+
+
+	
+	
 }

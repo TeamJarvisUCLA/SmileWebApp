@@ -21,13 +21,15 @@
 							selectedItem="@bind(vm.selectedObject)">
 
 							<listhead sizable="true">
-								<listheader width="20%" label="Nombre" />
+								<listheader width="15%" label="Nombre" />
 								<listheader width="20%"
 									label="Descripción" />
-								<listheader width="20%"
-									label="Fecha Planificada" />
+								<listheader width="15%"
+									label="Fecha Inicion" />
+									<listheader width="15%"
+									label="Fecha Fin" />
 								<listheader width="20%" label="Lugar" />
-								<listheader width="20%"
+								<listheader width="15%"
 									label="Coordinador" />
 							</listhead>
 							<template name="model">
@@ -37,11 +39,13 @@
 									<listcell
 										label="@load(each.fkEvento.descripcion)" />
 									<listcell
-										label="${m:convertirLongADate(each.fechaPlanificada)}"/>
+										label="${m:convertirLongADate(each.fechaInicio)}" />
+										<listcell
+										label="${m:convertirLongADate(each.fechaFin)}" />
 									<listcell
 										label="@load(each.fkDirectorio.nombre)" />
 									<listcell
-										label="@load(each.fkPersona.nombre)" />
+										label="@load(each.fkPersona.nombre.concat(' ').concat(each.fkPersona.apellido))" />							
 								</listitem>
 							</template>
 							<listfoot>

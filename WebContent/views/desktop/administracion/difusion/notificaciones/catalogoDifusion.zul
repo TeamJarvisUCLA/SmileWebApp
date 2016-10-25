@@ -1,0 +1,37 @@
+<?xel-method prefix="m" name="convertirLongADate" class="lights.smile.util.UtilConverterDataList" signature="java.lang.String convertirLongADate(Long)"?>
+
+<zk xmlns:n="native" xmlns:w="client">
+	<window width="80%" sclass="window-dialog"
+		action="show: slideIn;hide: slideOut"
+		use="karen.core.dialog.catalogue.list_pagination.controllers.C_ListPaginationCatalogueDialog"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('ve.smile.administracion.difusion.notificaciones.viewmodels.VM_CatalogoDifusion', dialogData=arg.get('dialogData'))">
+		<caption label="DIFUSIÓN" style="margin-left: 40%;" />
+		<separator height="20px"></separator>
+		<n:h6 style="margin-left: 5%;"> Por favor seleccione la difusión</n:h6>
+		<separator height="20px"></separator>
+		<listbox id="listbox" model="@load(vm.objectList)" selectedItem="@bind(vm.selectedObject)" style="width: 90%; margin-left: 5%;padding-bottom: 5%;" checkmark="true">
+			<listhead sizable="true">
+				<listheader label="Descripción" />
+				<listheader label="Fecha planificada" />
+			</listhead>
+			<template name="model">
+				<listitem>
+					<listcell style="width: 10%"/>
+					<listcell label="@load(each.descripcion)" />
+					<listcell label="${m:convertirLongADate(each.fechaPlanificada)}" />
+				</listitem>
+			</template>
+			<listfoot>
+				<listfooter id="listFoot" span="4" use="karen.core.listfoot.ListFoot"> </listfooter>
+			</listfoot>
+		</listbox>
+
+		<div sclass="div-buttons-dialog" style="padding-bottom: 2%;">
+			<div>
+				<button id="btnAccept" label="Seleccionar" sclass="indigo waves-effect waves-light btn" iconSclass="fa fa-check"> </button>
+				<button id="btnCancel" label="Cancelar" sclass="red waves-effect waves-light btn" iconSclass="z-icon-times"> </button>
+			</div>
+		</div>
+	</window>
+</zk>

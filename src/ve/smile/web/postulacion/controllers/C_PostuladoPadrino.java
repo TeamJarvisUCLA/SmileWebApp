@@ -1,5 +1,8 @@
 package ve.smile.web.postulacion.controllers;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
+
 import karen.core.crux.session.DataCenter;
 import karen.core.dialog.generic.controllers.C_WindowDialog;
 import karen.core.dialog.generic.enums.DialogActionEnum;
@@ -7,6 +10,7 @@ import karen.core.dialog.generic.events.DialogCloseEvent;
 import karen.core.dialog.message_box.events.MessageBoxDialogCloseEvent;
 import karen.core.util.UtilDialog;
 import karen.core.util.validate.UtilValidate;
+import lights.smile.util.UtillMail;
 
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.zk.ui.event.Event;
@@ -15,6 +19,7 @@ import ve.smile.consume.services.S;
 import ve.smile.dto.FrecuenciaAporte;
 import ve.smile.dto.Padrino;
 import ve.smile.dto.Persona;
+import ve.smile.enums.EstatusPadrinoEnum;
 import ve.smile.payload.response.PayloadPadrinoResponse;
 import ve.smile.web.postulacion.viewmodels.VM_Postulado;
 
@@ -42,11 +47,18 @@ public class C_PostuladoPadrino extends C_WindowDialog {
 		FrecuenciaAporte faporte = postuladoPadrino.getFaporte();
 		padrino.setFkFrecuenciaAporte(faporte);
 		padrino.setFkPersona(persona);
+		padrino.setEstatusPadrinoEnum(
+				EstatusPadrinoEnum.POSTULADO);
 		persona.setFechaNacimiento(postuladoPadrino.getMyFecha().getTime());
 		persona.setFacebook("face.com");
 		persona.setEstatus('P');
 		PayloadPadrinoResponse payloadPadrinoResponse = S.PadrinoService
 				.incluirPostuladoPadrino(padrino);
+		if(postuladoPadrino.isEmailPostulacionPadrino()){
+			CreatesendEmail(persona.getCorreo(),
+					persona.getNombre(),
+					persona.getApellido());
+		}
 		close(dialogCloseEvent);
 		UtilDialog
 				.showMessageBoxSuccess("Gracias por preferirnos. Su información será procesada y nos contactaremos con usted.");
@@ -88,5 +100,24 @@ public class C_PostuladoPadrino extends C_WindowDialog {
 	public void doOnCreate() {
 		// TODO Auto-generated method stub
 	}
+	
+	public void CreatesendEmail(String correo, String nombre, String apellido){
+		String asunto = "Recibida tu Postulacion";
+		String contenido;
+		if(apellido == null){
+			contenido = "Recibe un cordial saludo " + nombre + " " + ", Gracias por postularte" ;
+		}else{
+			contenido = "Recibe un cordial saludo " + nombre + " " + apellido + ", Gracias por tu postulacion" ;
+		}
+		try {
+			new UtillMail().generateAndSendEmail(correo,asunto,contenido);
+		} catch (AddressException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (MessagingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}	
 
 }

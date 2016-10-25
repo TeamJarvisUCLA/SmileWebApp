@@ -1,3 +1,5 @@
+<?xel-method prefix="m" name="getUrlWeb" class="lights.smile.util.Zki" 
+	signature="java.lang.String getUrlWeb(java.lang.String)" ?>
 <zk xmlns:n="native" xmlns:w="client">
 <n:link href="assets/css/web/galeria.css" rel="stylesheet" type="text/css"></n:link>
 
@@ -37,7 +39,7 @@
 						       			<div class="info block-ellipsis">
 									        <label value="@load(each.descripcion)"></label>
 							          	</div>
-										<image src="@load(each.url)" sclass="materialboxed"></image>						
+										<image src="${m:getUrlWeb(each.url)}" sclass="materialboxed"></image>						
 									</div>
 								</template>
 							</div>
@@ -65,10 +67,10 @@
 										<label value="@load(each.titulo)"></label>
 					       			</div>
 					       			<div sclass="box-img-album">
-										<image class="img-responsive">
-											<zscript>
-												self.src = (vm.primerImgAlbum(each.idAlbum));
-											</zscript>
+										<image class="img-responsive" src="${m:getUrlWeb(vm.primerImgAlbum(each.idAlbum))}">
+<!-- 											<zscript> -->
+<!-- 												self.src = (vm.primerImgAlbum(each.idAlbum)); -->
+<!-- 											</zscript> -->
 										</image>
 									</div>
 									<label value="@load(each.descripcion)"></label>
@@ -83,10 +85,12 @@
 								</div>
 							</template>
 							</div>
-							<div class="col s4 icon">
-								<a><image src="/imagenes/portal/icon/icon-plus.png"></image></a>
+							<div class="col s12 icon">
+								<a onClick="@command('verMasAlbum')"><image src="/imagenes/portal/icon/icon-plus.png"></image></a>
 								<div class="col s12">
-									<a>Ver más</a>
+									<a onClick="@command('verMasAlbum')">
+										Ver más
+									</a>
 								</div>
 							</div>
 						</div>

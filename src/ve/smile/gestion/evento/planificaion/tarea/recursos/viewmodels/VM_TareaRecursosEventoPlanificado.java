@@ -1,6 +1,7 @@
 package ve.smile.gestion.evento.planificaion.tarea.recursos.viewmodels;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -27,19 +28,19 @@ import org.zkoss.bind.annotation.Init;
 import ve.smile.consume.services.S;
 import ve.smile.dto.EventPlanTarea;
 import ve.smile.dto.EventPlanTareaRecurso;
-import ve.smile.dto.EventPlanTareaTrabajador;
 import ve.smile.dto.EventoPlanificado;
 import ve.smile.dto.Indicador;
 import ve.smile.dto.Recurso;
 import ve.smile.payload.response.PayloadEventPlanTareaRecursoResponse;
+import ve.smile.payload.response.PayloadEventPlanTareaResponse;
 import ve.smile.payload.response.PayloadEventoPlanificadoResponse;
-import ve.smile.payload.response.PayloadIndicadorEventoPlanTareaResponse;
 
 public class VM_TareaRecursosEventoPlanificado extends
 		VM_WindowWizard {
 
 	private List<Indicador> auxlistIndicadors = new ArrayList<>();
 	private List<EventPlanTarea> listEventPlanTareas = new ArrayList<>();
+	private List<EventPlanTareaRecurso> listEventPlanTareasRecursoDelete = new ArrayList<EventPlanTareaRecurso>();
 	private int indexTarea;
 
 	@Init(superclass = true)
@@ -141,11 +142,13 @@ public class VM_TareaRecursosEventoPlanificado extends
 	public void eliminarRecurso(
 			@BindingParam("indicadorEventoPsTarea") EventPlanTareaRecurso eventPlanTareaRecurso,
 			@BindingParam("index") int index) {
+		this.listEventPlanTareasRecursoDelete.add(eventPlanTareaRecurso);
 		this.getListEventPlanTareas().get(index)
 				.getListEventPlanTareaRecursos()
 				.remove(eventPlanTareaRecurso);
 		BindUtils.postNotifyChange(null, null, this, "listEventPlanTareas");
 	}
+	
 	
 	@Override
 	public Map<Integer, List<OperacionWizard>> getButtonsToStep() {
@@ -162,6 +165,8 @@ public class VM_TareaRecursosEventoPlanificado extends
 				.getPorType(OperacionWizardEnum.ATRAS));
 		listOperacionWizard2.add(OperacionWizardHelper
 				.getPorType(OperacionWizardEnum.FINALIZAR));
+		listOperacionWizard2.add(OperacionWizardHelper
+				.getPorType(OperacionWizardEnum.CANCELAR));
 
 		botones.put(2, listOperacionWizard2);
 
@@ -179,46 +184,57 @@ public class VM_TareaRecursosEventoPlanificado extends
 	@Override
 	public String executeFinalizar(Integer currentStep) {
 		if (currentStep == 2) {
-			PayloadIndicadorEventoPlanTareaResponse indicadorEventoPlanTareaResponse = null;
-			PayloadEventPlanTareaRecursoResponse payloadEventPlanTareaResponse = new PayloadEventPlanTareaRecursoResponse();
-			for (EventPlanTarea obj : listEventPlanTareas) {
-				/*Map<String, String> criterios = new HashMap<String, String>();
-				criterios.put("fkEventPlanTarea.idEventPlanTarea",
-						obj.getIdEventPlanTarea() + "");
-
-				indicadorEventoPlanTareaResponse = S.IndicadorEventoPlanTareaService
-						.consultarCriterios(TypeQuery.EQUAL, criterios);
-				if (indicadorEventoPlanTareaResponse.getObjetos().size() > 0) {
-					for (IndicadorEventoPlanTarea indicEvenTarea : indicadorEventoPlanTareaResponse
-							.getObjetos()) {
-						S.IndicadorEventoPlanTareaService
-								.eliminar(indicEvenTarea
-										.getIdIndicadorEventoPlanTarea());
+			PayloadEventPlanTareaRecursoResponse payloadEventPlanRecursoResponse = new PayloadEventPlanTareaRecursoResponse();
+			for (EventPlanTarea obj : this.listEventPlanTareas) {
+				if(obj.getListEventPlanTareaRecursos()!=null){
+				for (EventPlanTareaRecurso eventPlanTareaRecurso : obj
+						.getListEventPlanTareaRecursos()) {
+					EventPlanTareaRecurso eventPlanTareaRecurso2 = new EventPlanTareaRecurso();
+					eventPlanTareaRecurso2
+							.setFkEventPlanTarea(new EventPlanTarea(obj
+									.getIdEventPlanTarea()));
+					eventPlanTareaRecurso2.setFkRecurso(eventPlanTareaRecurso
+							.getFkRecurso());
+					eventPlanTareaRecurso2.setCantidad(eventPlanTareaRecurso
+							.getCantidad());
+					eventPlanTareaRecurso2
+							.setFechaAsignacion(eventPlanTareaRecurso
+									.getFechaAsignacion());
+					eventPlanTareaRecurso2
+							.setIdEventPlanTareaRecurso(eventPlanTareaRecurso
+									.getIdEventPlanTareaRecurso());
+					if (eventPlanTareaRecurso2.getIdEventPlanTareaRecurso() == null) {
+						payloadEventPlanRecursoResponse = S.EventPlanTareaRecursoService.incluir(eventPlanTareaRecurso2);
+					} else {
+						payloadEventPlanRecursoResponse = S.EventPlanTareaRecursoService
+								.modificar(eventPlanTareaRecurso2);
 					}
 
-				}*/
-				if (obj.getListEventPlanTareaRecursos() != null) {
-					for (EventPlanTareaRecurso eventPlanTareaRecurso : obj
-							.getListEventPlanTareaRecursos()) {
-						EventPlanTareaRecurso eventoPlanTarea = new EventPlanTareaRecurso();
-						EventPlanTarea eventPlanTarea = new EventPlanTarea();
-						eventPlanTarea
-								.setIdEventPlanTarea(eventPlanTareaRecurso
-										.getFkEventPlanTarea()
-										.getIdEventPlanTarea());
-						eventoPlanTarea.setFkEventPlanTarea(eventPlanTarea);
-						eventoPlanTarea.setFkRecurso(eventPlanTareaRecurso.getFkRecurso());
-						eventoPlanTarea.setCantidad(eventPlanTareaRecurso.getCantidad());
-						eventoPlanTarea.setFechaAsignacion(eventPlanTareaRecurso.getFechaAsignacion());
-						payloadEventPlanTareaResponse = S.EventPlanTareaRecursoService
-								.incluir(eventoPlanTarea);
+					if (!UtilPayload
+							.isOK(payloadEventPlanRecursoResponse)) {
+						
+						return (String) payloadEventPlanRecursoResponse
+								.getInformacion(IPayloadResponse.MENSAJE);
 					}
 				}
 			}
 
-			if (!UtilPayload.isOK(payloadEventPlanTareaResponse)) {
-				return (String) payloadEventPlanTareaResponse
-						.getInformacion(IPayloadResponse.MENSAJE);
+			}
+			if(this.listEventPlanTareasRecursoDelete.size()>0 & this.listEventPlanTareasRecursoDelete != null){
+			for (EventPlanTareaRecurso eventTareaRecurso : this
+					.listEventPlanTareasRecursoDelete) {
+				if (eventTareaRecurso.getIdEventPlanTareaRecurso() != null) {
+					payloadEventPlanRecursoResponse = S.EventPlanTareaRecursoService
+							.eliminar(eventTareaRecurso
+									.getIdEventPlanTareaRecurso());
+					if (!UtilPayload
+							.isOK(payloadEventPlanRecursoResponse)) {
+						return (String) payloadEventPlanRecursoResponse
+								.getInformacion(IPayloadResponse.MENSAJE);
+					}
+				}
+
+			}
 			}
 			goToNextStep();
 		}
@@ -259,6 +275,7 @@ public class VM_TareaRecursosEventoPlanificado extends
 	@Override
 	public String executeSiguiente(Integer currentStep) {
 		if (currentStep == 1) {
+			
 			Map<String, String> parametro = new HashMap<String, String>();
 			parametro.put("fkEventoPlanificado.idEventoPlanificado",
 					((EventoPlanificado) selectedObject).getIdEventoPlanificado() + "");
@@ -288,6 +305,65 @@ public class VM_TareaRecursosEventoPlanificado extends
 
 		return "";
 	}
+	
+	@Override
+	public String executeCancelar(Integer currentStep) {
+		this.setListEventPlanTareas(new ArrayList<EventPlanTarea>());
+		this.setSelectedObject(new EventoPlanificado());
+
+		BindUtils.postNotifyChange(null, null, this, "listEventPlanTareas");
+		BindUtils.postNotifyChange(null, null, this, "selectedObject");
+		restartWizard();
+		return "";
+	}
+
+	@Override
+	public String isValidPreconditionsFinalizar(Integer currentStep) {
+
+		if (currentStep == 2) {
+			String actividades = new String();
+			StringBuilder stringBuilder = new StringBuilder();
+			StringBuilder stringBuilder2 = new StringBuilder();
+			Calendar calendar = Calendar.getInstance();
+			calendar.setTime(new Date());
+			calendar.add(Calendar.DAY_OF_YEAR, -1);
+			for (EventPlanTarea eventPlanTarea : this.listEventPlanTareas) {
+				if(eventPlanTarea.getListEventPlanTareaRecursos() != null){
+				for (EventPlanTareaRecurso eventPlanTareaRecur : eventPlanTarea
+						.getListEventPlanTareaRecursos()) {
+					if (eventPlanTareaRecur.getFechaAsignacion() == null) {
+						if (!stringBuilder.toString().trim().isEmpty()) {
+							stringBuilder.append(",  ");
+						}
+						stringBuilder.append(eventPlanTareaRecur
+								.getFkRecurso().getNombre());
+					}
+
+					if (eventPlanTareaRecur.getCantidad() == null
+							|| eventPlanTareaRecur.getCantidad() <= 0) {
+						if (!stringBuilder2.toString().trim().isEmpty()) {
+							stringBuilder2.append(",  ");
+						}
+						stringBuilder2.append(eventPlanTareaRecur
+								.getFkRecurso().getNombre());
+					}
+				}
+				}
+			}
+			actividades = stringBuilder.toString();
+			if (!actividades.trim().isEmpty()) {
+				return "E:Error Code 5-Debe verificar la  <b> Fecha de Asignación </b> de los siguientes recursos: <b>"
+						+ actividades + "</b>";
+			}
+
+			if (!stringBuilder2.toString().trim().isEmpty()) {
+				return "E:Error Code 5-Debe verificar la  <b> Cantidad </b> de los siguientes recursos: <b>"
+						+ stringBuilder2.toString() + "</b>";
+			}
+
+		}
+		return "";
+	}
 
 
 	@Override
@@ -303,10 +379,27 @@ public class VM_TareaRecursosEventoPlanificado extends
 			if (selectedObject == null) {
 				return "E:Error Code 5-Debe seleccionar un <b>Evento Planificado</b>";
 			}
-		}
+			
+			Map<String, String> parametro = new HashMap<String, String>();
+			parametro.put("fkEventoPlanificado.idEventoPlanificado",
+					String.valueOf(getEventoPlanificadoPlanSelected().getIdEventoPlanificado()));
 
-		if (currentStep == 2) {
-			return "E:Error Code 5-No hay otro paso";
+			this.setListEventPlanTareas(new ArrayList<EventPlanTarea>());
+			PayloadEventPlanTareaResponse payloadEventPlanTareaResponse = S.EventPlanTareaService
+					.contarCriterios(TypeQuery.EQUAL, parametro);
+			if (!UtilPayload.isOK(payloadEventPlanTareaResponse)) {
+				return (String) payloadEventPlanTareaResponse
+						.getInformacion(IPayloadResponse.MENSAJE);
+			}
+
+			Integer countEvenPlanEvento = Double.valueOf(
+					String.valueOf(payloadEventPlanTareaResponse
+							.getInformacion(IPayloadResponse.COUNT)))
+					.intValue();
+			if (countEvenPlanEvento <= 0) {
+				return "E:Error 0:El evento planificado seleccionado <b>no tiene tarea asignadas</b>, debe asignarle al menos una.";
+			}
+
 		}
 
 		return "";
@@ -346,5 +439,20 @@ public class VM_TareaRecursosEventoPlanificado extends
 	public void setAuxlistIndicadors(List<Indicador> auxlistIndicadors) {
 		this.auxlistIndicadors = auxlistIndicadors;
 	}
+
+	public List<EventPlanTareaRecurso> getListEventPlanTareasRecursoDelete() {
+		return listEventPlanTareasRecursoDelete;
+	}
+
+	public void setListEventPlanTareasRecursoDelete(
+			List<EventPlanTareaRecurso> listEventPlanTareasRecursoDelete) {
+		this.listEventPlanTareasRecursoDelete = listEventPlanTareasRecursoDelete;
+	}
+	
+	public EventoPlanificado getEventoPlanificadoPlanSelected() {
+		return (EventoPlanificado) this.getSelectedObject();
+	}
+
+	
 
 }

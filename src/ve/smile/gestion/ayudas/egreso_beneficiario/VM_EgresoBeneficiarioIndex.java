@@ -405,24 +405,22 @@ public class VM_EgresoBeneficiarioIndex extends
 		return "";
 	}
 
-	/*@Override
+	@Override
 	public String isValidPreconditionsFinalizar(Integer currentStep) {
 		
-		if (currentStep == 3) {
+		if(currentStep == 3){
 			try {
-				UtilValidate.validateDate(this.getFecha().getTime(),
-						"Fecha Planificada", ValidateOperator.GREATER_THAN,
-						new SimpleDateFormat("yyyy-MM-dd").format(new Date()),
-						"dd/MM/yyyy");
-				UtilValidate.validateString(this.getBeneficiario().getResultado(), "Resutlado", 100);
+				UtilValidate.validateNull(this.getBeneficiario().getFkMotivo(), "Motivo");
+				
+				UtilValidate.validateString(this.getBeneficiario().getObservacion(),
+						"Detalle de Rechazo", 100);
 			} catch (Exception e) {
 				return e.getMessage();
 			}
-
 		}
 		
 		return "";
-	}*/
+	}
 
 	@Override
 	public String executeFinalizar(Integer currentStep) {

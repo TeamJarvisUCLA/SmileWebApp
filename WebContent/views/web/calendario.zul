@@ -16,7 +16,7 @@
 	<div sclass="container-fluid">
 		<div class="cinta"></div>
 	</div>
-	<div class="container-fluid" style="Background-color: #F0F2DC;" 
+	<div class="container-fluid calendario" style="Background-color: #F0F2DC;" 
 		apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('ve.smile.web.viewmodels.calendario.VM_Calendario')">
 		<div class="row" style="margin-bottom: 0;">
@@ -106,8 +106,9 @@
 											<div sclass="col s6">
 												<n:br></n:br>
 												<image
-													class="img-responsive center-block" width="128px"
-													height="128px" src="${m:getUrlWeb(vm.eventoPlan.fkMultimedia.url)}" >
+													class="img-responsive center-block img-circle" width="128px"
+													height="128px" src="${m:getUrlWeb(vm.eventoPlan.fkMultimedia.url)}" 
+													style="border: 6px solid #d9eb52;">
 												</image>
 												<n:br></n:br>
 											</div>

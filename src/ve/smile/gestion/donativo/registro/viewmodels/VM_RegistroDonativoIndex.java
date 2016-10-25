@@ -54,6 +54,11 @@ import ve.smile.payload.response.PayloadTsPlanResponse;
 
 public class VM_RegistroDonativoIndex extends VM_WindowWizard {
 
+	private boolean visibleP = false;
+	private boolean visibleC = false;
+	private boolean visiblePA = false;
+	private boolean visibleE = false;
+	private boolean visibleT = false;
 	private DonativoRecurso donativoRecurso;
 	private DonativoCuentaBancaria donativoCuentaBancaria;
 
@@ -356,23 +361,59 @@ public class VM_RegistroDonativoIndex extends VM_WindowWizard {
 	public String executeSiguiente(Integer currentStep) {
 		if (currentStep == 1) {
 			if (procedenciaEnums.equals(ProcedenciaEnum.COLABORADOR)) {
+				this.visibleC=true;
+				this.visibleE=false;
+				this.visibleP=false;
+				this.visiblePA=false;
+				this.visibleT=false;
 				this.setSrcList("views/desktop/gestion/donativo/registro/selectColaborador.zul");
+				
 			}
 			if (procedenciaEnums.equals(ProcedenciaEnum.EVENTO)) {
+				this.visibleC=false;
+				this.visibleE=true;
+				this.visibleP=false;
+				this.visiblePA=false;
+				this.visibleT=false;
 				this.setSrcList("views/desktop/gestion/donativo/registro/selectEventoPlanificado.zul");
+			
 			}
 			if (procedenciaEnums.equals(ProcedenciaEnum.PADRINO)) {
+				this.visibleC=false;
+				this.visibleE=false;
+				this.visibleP=true;
+				this.visiblePA=false;
+				this.visibleT=false;
 				this.setSrcList("views/desktop/gestion/donativo/registro/selectPadrino.zul");
+			
 			}
 			if (procedenciaEnums.equals(ProcedenciaEnum.PATROCINADOR)) {
+				this.visibleC=false;
+				this.visibleE=false;
+				this.visibleP=false;
+				this.visiblePA=true;
+				this.visibleT=false;
 				this.setSrcList("views/desktop/gestion/donativo/registro/selectPatrocinador.zul");
+			
 			}
 			if (procedenciaEnums.equals(ProcedenciaEnum.TRABAJO_SOCIAL)) {
+				this.visibleC=false;
+				this.visibleE=false;
+				this.visibleP=false;
+				this.visiblePA=false;
+				this.visibleT=true;
 				this.setSrcList("views/desktop/gestion/donativo/registro/selectTrabajoSocialPlanificado.zul");
+			
 			}
 			if (procedenciaEnums.equals(ProcedenciaEnum.ANONIMO)) {
+				this.visibleC=false;
+				this.visibleE=false;
+				this.visibleP=false;
+				this.visiblePA=false;
+				this.visibleT=false;
+				
 				goToNextStep();
-			}
+			}		
 			BindUtils.postNotifyChange(null, null, this, "*");
 		}
 		goToNextStep();
@@ -465,6 +506,7 @@ public class VM_RegistroDonativoIndex extends VM_WindowWizard {
 							"Cuenta Bancaria Remitente");
 					UtilValidate.validateNull(cuentaBancariaDestinataria,
 							"Cuenta Bancaria Destinataria");
+					UtilValidate.validateNull(nroReferencia, "numero de referencia");
 				}
 
 			} catch (Exception e) {
@@ -607,14 +649,11 @@ public class VM_RegistroDonativoIndex extends VM_WindowWizard {
 						.consultarCriterios(TypeQuery.EQUAL, criterios);
 				fechaAporte = null;
 				if (UtilPayload.isOK(payloadDonativoRecursoResponse)) {
-					System.out.println("ok");
 					if (payloadDonativoRecursoResponse.getObjetos() != null
 							&& !payloadDonativoRecursoResponse.getObjetos()
 									.isEmpty()) {
-						System.out.println("if");
 						for (DonativoRecurso donativoRecurso : payloadDonativoRecursoResponse
 								.getObjetos()) {
-							System.out.println("for");
 							if (donativoRecurso.getAporte()) {
 								fechaAporte = new Date(
 										donativoRecurso
@@ -879,4 +918,47 @@ public class VM_RegistroDonativoIndex extends VM_WindowWizard {
 		this.nroReferencia = nroReferencia;
 	}
 
+	public boolean getVisibleP() {
+		return visibleP;
+	}
+
+	public void setVisibleP(boolean visibleP) {
+		this.visibleP = visibleP;
+	}
+
+	public boolean getVisibleC() {
+		return visibleC;
+	}
+
+	public void setVisibleC(boolean visibleC) {
+		this.visibleC = visibleC;
+	}
+
+	public boolean getVisiblePA() {
+		return visiblePA;
+	}
+
+	public void setVisiblePA(boolean visiblePA) {
+		this.visiblePA = visiblePA;
+	}
+
+	public boolean getVisibleE() {
+		return visibleE;
+	}
+
+	public void setVisibleE(boolean visibleE) {
+		this.visibleE = visibleE;
+	}
+
+	public boolean getVisibleT() {
+		return visibleT;
+	}
+
+	public void setVisibleT(boolean visibleT) {
+		this.visibleT = visibleT;
+	}
+
+
+
+	
 }

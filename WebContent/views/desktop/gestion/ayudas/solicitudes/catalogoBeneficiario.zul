@@ -1,52 +1,85 @@
+<?xel-method prefix="m" name="convertirLongATimestamp" class="lights.smile.util.UtilConverterDataList" 
+	signature="java.lang.String convertirLongATimestamp(java.lang.Long)" ?>
 <zk xmlns:n="native" xmlns:w="client">
 
-	<window width="80%" sclass="window-dialog" action="show: slideIn;hide: slideOut"
+	<window width="80%" sclass="window-dialog"
+		action="show: slideIn;hide: slideOut"
 		use="karen.core.dialog.catalogue.list_pagination.controllers.C_ListPaginationCatalogueDialog"
 		apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('ve.smile.gestion.ayudas.solicitudes.VM_CatalogoBeneficiario', dialogData=arg.get('dialogData'))">
-		<caption label="BENEFICIARIO" style="margin-left: 40%;"/>
+		<caption label="BENEFICIARIO" style="margin-left: 40%;" />
 		<separator height="20px"></separator>
-		<n:h6 style="margin-left: 5%;">Por favor seleccione un beneficiario:</n:h6>
+		<n:h6 style="margin-left: 5%;">
+			Por favor seleccione un beneficiario:
+		</n:h6>
 		<separator height="20px"></separator>
-		<listbox id="listbox" model="@load(vm.objectList)"
-			selectedItem="@bind(vm.selectedObject)" style="width: 90%; margin-left: 5%;padding-bottom: 5%;">
 
-			<listhead sizable="true">
-				<listheader label="Nombre de Representante" />
-				<listheader label="Apellido de Representante" />
-				<listheader label="Nombre de Beneficiario" />
-				<listheader label="Apellido de Beneficiario" />
-				<listheader label="Direccion" />
-				<listheader label="Fecha de Nacimiento Beneficiario" />
-				<listheader label="Identificacion Beneficiario" />
-			</listhead>
-			<template name="model">
-				<listitem>
-					<listcell label="@load(each.fkFamiliar.fkPersona.nombre)" />
-					<listcell label="@load(each.fkFamiliar.fkPersona.apellido)" />
-					<listcell label="@load(each.fkPersona.nombre)" />
-					<listcell label="@load(each.fkPersona.apellido)" />
-					<listcell label="@load(each.fkPersona.direccion)" />
-					<listcell label="@load(each.fkPersona.fechaNacimiento)" />
-					<listcell label="@load(each.fkPersona.identificacion)" />
-			
-				</listitem>
-			</template>
-			<listfoot>
-				<listfooter id="listFoot" span="7"
-					use="karen.core.listfoot.ListFoot">
-				</listfooter>
-			</listfoot>
-		</listbox>
+		<div style="overflow: auto;" class="row">
+			<div class="col s12">
+				<div class="col s12" style="overflow: scroll;">
+					<listbox id="listbox" model="@load(vm.objectList)"
+						selectedItem="@bind(vm.selectedObject)"
+						style="width: 90%; margin-left: 5%;padding-bottom: 5%;">
 
-		<div sclass="div-buttons-dialog" style="padding-bottom: 2%;">
-			<div>
-				<button id="btnAccept" label="Seleccionar"
-					sclass="indigo waves-effect waves-light btn" iconSclass="fa fa-check">
-				</button>
-				<button id="btnCancel" label="Cancelar"
-					sclass="red waves-effect waves-light btn" iconSclass="z-icon-times">
-				</button>
+						<listhead sizable="true">
+							<listheader width="200px"
+								label="Nombre de Beneficiario" />
+							
+							<listheader width="200px"
+								label="Identificacion Beneficiario" />
+							<listheader width="200px"
+								label="Nombre de Representante" />
+							
+							<listheader width="250px"
+								label="Identificacion de Representante" />
+
+							<listheader width="200px" label="Direccion" />
+							<listheader width="250px"
+								label="Fecha de Nacimiento Beneficiario" />
+
+						</listhead>
+						<template name="model">
+							<listitem>
+								
+									
+									<listcell label="@load(each.fkPersona.nombre.concat(' ').concat(each.fkPersona.apellido))" />
+								<listcell
+									label="@load(each.fkPersona.identificacion)" />
+								
+								<listcell label="@load(each.fkFamiliar.fkPersona.nombre.concat(' ').concat(each.fkFamiliar.fkPersona.apellido))" />
+								
+								<listcell
+									label="@load(each.fkFamiliar.fkPersona.identificacion)" />
+
+								<listcell
+									label="@load(each.fkPersona.direccion)" />
+								<listcell
+									label="${m:convertirLongATimestamp(each.fkPersona.fechaNacimiento)}" />
+
+
+							</listitem>
+						</template>
+						<listfoot>
+							<listfooter id="listFoot" span="7"
+								use="karen.core.listfoot.ListFoot">
+							</listfooter>
+						</listfoot>
+					</listbox>
+
+					<div sclass="div-buttons-dialog"
+						style="padding-bottom: 2%;">
+						<div>
+							<button id="btnAccept" label="Seleccionar"
+								sclass="indigo waves-effect waves-light btn"
+								iconSclass="fa fa-check">
+							</button>
+							<button id="btnCancel" label="Cancelar"
+								sclass="red waves-effect waves-light btn"
+								iconSclass="z-icon-times">
+							</button>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</window>

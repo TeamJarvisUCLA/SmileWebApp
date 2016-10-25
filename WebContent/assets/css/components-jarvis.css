@@ -979,3 +979,23 @@ tr.header-periodo-disfute {
 	color: #8d7a6f;
 	font-size: 16px;
 }
+
+.btn-noti {
+	padding: 4px 6px;
+	border-radius: 4px;
+	color: #FFF !important;
+}
+
+.nav-user>div .badge {
+	padding-left: 3px;
+	display: unset;
+	position: absolute;
+	height: 23px;
+	width: 22px;
+	min-width: unset;
+	top: 2px;
+	left: 29px;
+	line-height: 23px;
+	color: white;
+	font-size: 13px;
+}

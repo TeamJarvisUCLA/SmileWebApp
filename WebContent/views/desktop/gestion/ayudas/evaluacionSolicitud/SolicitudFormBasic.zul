@@ -5,93 +5,187 @@
 		
 		
 			<div class="col s12">
-				<div class="input-field offset-s2 col s8">
 				
-				<n:label for="titulo" class="active">Titulo:</n:label>
-					<textbox disabled="true" id="titulo" type="text" maxlength="100"
-						value="@bind(vm.solicitudAyuda.titulo)">
-					</textbox>
-				</div>
-			</div>
-			
-			
-			
-			<div class="input-field offset-s2 col s8">
-					<n:label for="beneficiario" class="active">Nombre de Beneficiario:</n:label>
-					<textbox id="beneficiario" type="text" value="@bind(vm.beneficiario.fkPersona.nombre)" disabled="true"></textbox>
-				</div>
-			
-				
-				<div class="input-field offset-s2 col s8">
-					<textbox id="ayuda" type="text" value="@bind(vm.ayuda.nombre)" disabled="true"></textbox>
-				</div>
-				
-			
-			
+				<div class="row">
 
-			
-		
-			
-			<div class="col s12">
-				<div class="input-field offset-s2 col s8">
-				
-				<n:label for="estatus_solicitud" class="active">Estatus de Solicitud:</n:label>
-				
+					<div class="input-field col s12">
+					
+					<n:label for="beneficiario3" class="active">
+						Titulo Solicitud Ayuda:
+					</n:label>
+					<label sclass="subtitulo-evento" value="@bind(vm.estudioSocioEconomico.fkSolicitudAyuda.titulo)"> </label>
+					
+					</div>
 
-								<combobox  disabled="true" id="estatus_solicitud"
-									readonly="true" model="@bind(vm.estatusSolicitudEnums)"
-									selectedItem="@bind(vm.estatusSolicitudEnum)">
-									<template name="model">
-										<comboitem label="@load(each)" />
-									</template>
-								</combobox>
-					
 				</div>
-			</div>
-			
-			<div class="col s12">
-				<div class="input-field offset-s2 col s8">
 				
-				<n:label for="urgencia" class="active">Urgencia:</n:label>
-					
+				<div class="row">
 
-								<combobox disabled="true" id="urgencia"
-									readonly="true" model="@bind(vm.urgenciaEnums)"
-									selectedItem="@bind(vm.urgenciaEnum)">
-									<template name="model">
-										<comboitem label="@load(each)" />
-									</template>
-								</combobox>
+					<div class="input-field col s12">
+						<n:label for="beneficiario_solicitud" class="active">
+						Nombre Beneficiario Solicitud Ayuda:
+					</n:label>
 					
+					<label sclass="subtitulo-evento" value="@bind(vm.estudioSocioEconomico.fkSolicitudAyuda.fkBeneficiario.fkPersona.nombre.concat(' ').concat(vm.estudioSocioEconomico.fkSolicitudAyuda.fkBeneficiario.fkPersona.apellido))"> </label>
+					
+					</div>
+
 				</div>
+				
+				
+				<div class="row">
+
+					<div class="input-field col s12">
+						<n:label for="beneficiario3_solicitud" class="active">
+						Documento de Identificacion Beneficiario Solicitud Ayuda:
+					</n:label>
+					
+					<label sclass="subtitulo-evento" value="@bind(vm.estudioSocioEconomico.fkSolicitudAyuda.fkBeneficiario.fkPersona.identificacion)"> </label>
+					
+					
+					</div>
+
+				</div>
+				
+				
+				<div class="row">
+
+					<div class="input-field col s12">
+						<n:label for="familiar_solicitud" class="active">
+						Nombre Representante Solicitud Ayuda:
+					</n:label>
+					<label sclass="subtitulo-evento" value="@bind(vm.estudioSocioEconomico.fkSolicitudAyuda.fkBeneficiario.fkFamiliar.fkPersona.nombre.concat(' ').concat(vm.estudioSocioEconomico.fkSolicitudAyuda.fkBeneficiario.fkFamiliar.fkPersona.apellido))"> </label>
+					
+					
+					</div>
+
+				</div>
+				
+				
+				
+				<div class="row">
+
+					<div class="input-field col s12">
+						<n:label for="familiar3_solicitud" class="active">
+						Documento de Identificacion Representante Solicitud Ayuda:
+					</n:label>
+					<label sclass="subtitulo-evento" value="@bind(vm.estudioSocioEconomico.fkSolicitudAyuda.fkBeneficiario.fkFamiliar.fkPersona.identificacion)"> </label>
+					
+					
+					</div>
+
+				</div>
+				
+				<div class="row">
+
+					<div class="input-field col s12">
+						<n:label for="ayuda_solicitud" class="active">
+						Ayuda Solicitada:
+					</n:label>
+					<label sclass="subtitulo-evento" value="@bind(vm.estudioSocioEconomico.fkSolicitudAyuda.fkAyuda.nombre)"> </label>
+					
+					
+					</div>
+
+				</div>
+				
+				<div class="row">
+
+					<div class="input-field col s12">
+						<n:label for="ayuda2_solicitud" class="active">
+						Urgencia Solicitud:
+					</n:label>
+					<label sclass="subtitulo-evento" value="@bind(vm.estudioSocioEconomico.fkSolicitudAyuda.urgenciaEnum)"> </label>
+					
+					</div>
+
+				</div>
+				
+				<div class="row">
+
+					<div class="input-field col s12">
+						<n:label for="ayuda2_solicitud" class="active">
+						Observacion Solicitud:
+					</n:label>
+					<label sclass="subtitulo-evento" value="@bind(vm.estudioSocioEconomico.fkSolicitudAyuda.observacion)"> </label>
+					
+					</div>
+
+				</div>
+				
+				<div class="row">
+
+					<div class="input-field col s12">
+					
+					<n:label for="beneficiario1" class="active">
+						Nombre Evaluador de Estudio Socio Economico:
+					</n:label>
+					<label sclass="subtitulo-evento"
+						
+						value="@bind(vm.estudioSocioEconomico.fkTrabajador.fkPersona.nombre.concat(' ').concat(vm.estudioSocioEconomico.fkTrabajador.fkPersona.apellido))">
+					
+					</label>
+					
+					</div>
+
+				</div>
+				<div class="row">
+
+					<div class="input-field col s12">
+					
+					<n:label for="beneficiario1" class="active">
+						Identificacion Evaluador de Estudio Socio Economico:
+					</n:label>
+					<label sclass="subtitulo-evento"
+						
+						value="@bind(vm.estudioSocioEconomico.fkTrabajador.fkPersona.identificacion)">
+					
+					</label>
+					
+					</div>
+
+				</div>
+				
+				
+				<div class="row">
+
+					<div class="input-field col s12">
+					
+					<n:label for="beneficiario1" class="active">
+						Resultado de Estudio Socio Economico:
+					</n:label>
+					<label sclass="subtitulo-evento"
+						
+						value="@bind(vm.estudioSocioEconomico.resultado)">
+					
+					</label>
+					
+					</div>
+
+				</div>
+				
+				<div class="row">
+
+					<div class="input-field col s12">
+					
+					<n:label for="beneficiario1" class="active">
+						Fecha de Ejecucion de Estudio Socio Economico:
+					</n:label>
+					<label sclass="subtitulo-evento"
+						
+						value="@bind(vm.fechaEjecutada)">
+					
+					</label>
+					
+					</div>
+
+				</div>
+				
 			</div>
 			
 			
 			
 			
-			
-			<div class="col s12">
-				<div class="input-field offset-s2 col s8">
-					
-					<n:label for="fecha_solicitud" class="active">Urgencia:</n:label>
-									<datebox disabled="true" id="fecha_solicitud"
-										cols="20" format="dd/MM/yyyy" readonly="true"
-										value="@bind(vm.fecha)" />
-					
-				</div>
-			</div>
-			
-								
-			
-			<div class="col s12">
-				<div class="input-field offset-s2 col s8">
-				<n:label for="observacion" class="active">Observacion:</n:label>
-					<textbox disabled="true" type="text"
-							sclass="materialize-textarea" multiline="true"
-						value="@bind(vm.solicitudAyuda.observacion)">
-					</textbox>
-				</div>
-			</div>
 			
 			
 					

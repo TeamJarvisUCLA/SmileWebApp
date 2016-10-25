@@ -7,16 +7,19 @@ import java.util.List;
 import java.util.Map;
 
 import karen.core.crux.alert.Alert;
+import karen.core.crux.session.DataCenter;
 import karen.core.listfoot.enums.HowToSeeEnum;
 import karen.core.simple_list_principal.viewmodels.VM_WindowSimpleListPrincipal;
 import karen.core.util.payload.UtilPayload;
 import lights.core.enums.TypeQuery;
 import lights.core.payload.response.IPayloadResponse;
 
+
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
 
 import ve.smile.consume.services.S;
+import ve.smile.seguridad.dto.Usuario;
 import ve.smile.dto.NotificacionUsuario;
 import ve.smile.enums.EstatusNotificacionEnum;
 import ve.smile.enums.TipoReferenciaNotificacionEnum;
@@ -25,6 +28,8 @@ import ve.smile.seguridad.enums.OperacionEnum;
 
 public class VM_NotificacionIndex extends VM_WindowSimpleListPrincipal<NotificacionUsuario>
 {
+	private Usuario usuario = new Usuario();
+	
 	private EstatusNotificacionEnum estatusNotificacionEnum;
 	private TipoReferenciaNotificacionEnum tipoReferenciaNotificacionEnum;
 	
@@ -41,6 +46,7 @@ public class VM_NotificacionIndex extends VM_WindowSimpleListPrincipal<Notificac
 	@Override
 	public IPayloadResponse<NotificacionUsuario> getDataToTable(Integer cantidadRegistrosPagina, Integer pagina)
 	{
+		String correo = DataCenter.getUserSecurityData().getUsuario().getCorreo();
 		Map<String, String> criterios = new HashMap<String, String>();
 		if (this.getEstatusNotificacionEnum() != null)
 		{
@@ -50,6 +56,7 @@ public class VM_NotificacionIndex extends VM_WindowSimpleListPrincipal<Notificac
 		{
 			criterios.put("tipoReferenciaNotificacion", String.valueOf(this.tipoReferenciaNotificacionEnum.ordinal()));
 		}
+		criterios.put("fkUsuario.correo", correo);
 		PayloadNotificacionUsuarioResponse payloadNotificacionUsuarioResponse = S.NotificacionUsuarioService.consultarPaginacionCriterios(cantidadRegistrosPagina, pagina, TypeQuery.ILIKE, criterios);
 		return payloadNotificacionUsuarioResponse;
 	}

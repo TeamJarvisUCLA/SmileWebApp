@@ -3,6 +3,217 @@
 <zk xmlns:n="native" xmlns:w="client">
 
 	<div sclass="animated fadeInLeft">
+		<div class="row" visible="@bind(vm.visibleC)">
+			<div class="col s12">
+				<div class="row">
+					<div class="input-field col s6">
+						<n:label for="fecha_trabajo_social"
+							class="active">
+							Identificación:
+						</n:label>
+						<textbox id="cedulaC" type="text" disabled="true"
+							value="@bind(vm.colaborador.fkPersona.identificacion)" />
+					</div>
+
+					<div class="input-field col s6">
+						<n:label for="fecha_trabajo_social"
+							class="active">
+							Nombre/Apellido:
+						</n:label>
+						<textbox id="nombreC" type="text" disabled="true"
+							value="@bind(vm.colaborador.fkPersona.nombre.concat(' ').concat(vm.colaborador.fkPersona.apellido))" />
+					</div>
+				</div>
+				<div class="row">
+					<div class="input-field col s12">
+						<n:label for="fecha_trabajo_social"
+							class="active">
+							Dirección:
+						</n:label>
+						<textbox id="direccioneC" type="text" disabled="true"
+							value="@bind(vm.colaborador.fkPersona.fkCiudad.fkEstado.nombre.concat('-').concat(vm.colaborador.fkPersona.fkCiudad.nombre.concat('  ')).concat(vm.colaborador.fkPersona.direccion))" />
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		
+		
+		
+		
+		
+		
+			<div class="row" visible="@bind(vm.visibleP)">
+			<div class="col s12">
+				<div class="row">
+					<div class="input-field col s6">
+						<n:label for="fecha_trabajo_social"
+							class="active">
+							Identificación:
+						</n:label>
+						<textbox id="cedula" type="text" disabled="true"
+							value="@bind(vm.padrino.fkPersona.identificacion)" />
+					</div>
+
+					<div class="input-field col s6">
+						<n:label for="fecha_trabajo_social"
+							class="active">
+							Nombre/Apellido:
+						</n:label>
+						<textbox id="nombre" type="text" disabled="true"
+							value="@bind(vm.padrino.fkPersona.nombre.concat(' ').concat(vm.padrino.fkPersona.apellido))" />
+					</div>
+				</div>
+				<div class="row">
+					<div class="input-field col s12">
+						<n:label for="fecha_trabajo_social"
+							class="active">
+							Dirección:
+						</n:label>
+						<textbox id="direccione" type="text" disabled="true"
+							value="@bind(vm.padrino.fkPersona.fkCiudad.fkEstado.nombre.concat('-').concat(vm.padrino.fkPersona.fkCiudad.nombre.concat('  ')).concat(vm.padrino.fkPersona.direccion))" />
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		
+		<div class="row" visible="@bind(vm.visiblePA)">
+			<div class="col s12">
+				<div class="row">
+					<div class="input-field col s6">
+						<n:label for="fecha_trabajo_social"
+							class="active">
+							Identificación:
+						</n:label>
+						<textbox id="cedulaP" type="text" disabled="true"
+							value="@bind(vm.patrocinador.fkPersona.identificacion)" />
+					</div>
+
+					<div class="input-field col s6">
+						<n:label for="fecha_trabajo_social"
+							class="active">
+							Nombre/Apellido:
+						</n:label>
+						<textbox id="nombreP" type="text" disabled="true"
+							value="@bind(vm.patrocinador.fkPersona.nombre.concat(' ').concat(vm.patrocinador.fkPersona.apellido))" />
+					</div>
+				</div>
+				<div class="row">
+					<div class="input-field col s12">
+						<n:label for="fecha_trabajo_social"
+							class="active">
+							Dirección:
+						</n:label>
+						<textbox id="direccioneP" type="text" disabled="true"
+							value="@bind(vm.patrocinador.fkPersona.fkCiudad.fkEstado.nombre.concat('-').concat(vm.patrocinador.fkPersona.fkCiudad.nombre.concat(' ')).concat(vm.padrino.fkPersona.direccion))" />
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="row" visible="@bind(vm.visibleE)">
+			<div class="col s12">
+				<div class="row">
+					<div class="input-field col s6">
+						<n:label for="fecha_trabajo_social"
+							class="active">
+							Nombre del Evento:
+						</n:label>
+						<textbox id="nombreE" type="text" disabled="true"
+							value="@bind(vm.eventoPlanificado.fkEvento.nombre)" />
+					</div>
+
+					<div class="input-field col s6">
+						<n:label for="fecha_trabajo_social"
+							class="active">
+							Responsable:
+						</n:label>
+						<textbox id="responsable" type="text" disabled="true"
+							value="@bind(vm.eventoPlanificado.fkPersona.nombre.concat(' ').concat(vm.eventoPlanificado.fkPersona.apellido))" />
+					</div>
+					<div class="input-field col s12">
+						<n:label for="fecha_trabajo_social"
+							class="active">
+							Descripcion:
+						</n:label>
+						<textbox id="descripcionE" type="text" disabled="true"
+							value="@bind(vm.eventoPlanificado.fkEvento.descripcion)" />
+					</div>
+				</div>
+				<div class="row">
+					<div class="input-field col s12">
+						<n:label for="fecha_trabajo_social"
+							class="active">
+							Lugar:
+						</n:label>
+						<textbox id="lugarE" type="text" disabled="true"
+							value="@bind(vm.eventoPlanificado.fkDirectorio.nombre)" />
+					</div>
+					<div class="input-field col s12">
+						<n:label for="fecha_trabajo_social"
+							class="active">
+							Dirección:
+						</n:label>
+						<textbox id="direccionE" type="text" disabled="true"
+							value="@bind(vm.eventoPlanificado.fkDirectorio.fkCiudad.fkEstado.nombre.concat('-').concat(vm.eventoPlanificado.fkDirectorio.fkCiudad.nombre.concat(' ')).concat(vm.eventoPlanificado.fkDirectorio.direccion))" />
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="row" visible="@bind(vm.visibleT)">
+			<div class="col s12">
+				<div class="row">
+					<div class="input-field col s6">
+						<n:label for="fecha_trabajo_social"
+							class="active">
+							Nombre del Trabajo Social:
+						</n:label>
+						<textbox id="nombreT" type="text" disabled="true"
+							value="@bind(vm.tsPlan.fkTrabajoSocial.nombre)" />
+					</div>
+
+					<div class="input-field col s6">
+						<n:label for="fecha_trabajo_social"
+							class="active">
+							Responsable:
+						</n:label>
+						<textbox id="responsableT" type="text" disabled="true"
+							value="@bind(vm.tsPlan.fkPersona.nombre.concat(' ').concat(vm.tsPlan.fkPersona.apellido))" />
+					</div>
+					<div class="input-field col s12">
+						<n:label for="fecha_trabajo_social"
+							class="active">
+							Descripcion:
+						</n:label>
+						<textbox id="descripcionT" type="text" disabled="true"
+							value="@bind(vm.tsPlan.fkTrabajoSocial.descripcion)" />
+					</div>
+				</div>
+				<div class="row">
+					<div class="input-field col s12">
+						<n:label for="fecha_trabajo_social"
+							class="active">
+							Lugar:
+						</n:label>
+						<textbox id="lugarT" type="text" disabled="true"
+							value="@bind(vm.tsPlan.fkDirectorio.nombre)" />
+					</div>
+					<div class="input-field col s12">
+						<n:label for="fecha_trabajo_social"
+							class="active">
+							Dirección:
+						</n:label>
+						<textbox id="direccionT" type="text" disabled="true"
+							value="@bind(vm.tsPlan.fkDirectorio.fkCiudad.fkEstado.nombre.concat('-').concat(vm.tsPlan.fkDirectorio.fkCiudad.nombre.concat(' ')).concat(vm.eventoPlanificado.fkDirectorio.direccion))" />
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		
+		
 		<div class="row">
 			<div class="col s12">
 				<div class="row">

@@ -51,10 +51,10 @@ public class VM_CatalogoCuentaBancaria extends
 			criterios.put("titular", titular);
 		}
 		if (banco != null && !banco.equalsIgnoreCase("")) {
-			criterios.put("banco", banco);
+			criterios.put("fkBanco.nombre", banco);
 		}
 		if (cuenta != null && !cuenta.equalsIgnoreCase("")) {
-			criterios.put("cuenta", cuenta);
+			criterios.put("cuentaBancaria", cuenta);
 		}
 		if (tipoCuenta != null && !tipoCuenta.equalsIgnoreCase("")) {
 			criterios.put("tipoCuenta", tipoCuenta);
@@ -86,7 +86,9 @@ public class VM_CatalogoCuentaBancaria extends
 				
 			}
 		} );
-		
+		Map<String, Object> data = new HashMap<String, Object>();
+		data.put("propietario", this.propietarioEnum);
+		windowFormDialogData.setData(data);
 		windowFormDialogData.setOperacionEnum(OperacionEnum.INCLUIR);
 		UtilDialog.showDialog("views/desktop/gestion/donativo/registro/dialogoCuentaBancariaFormBasic.zul", windowFormDialogData);
 	}

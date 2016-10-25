@@ -142,16 +142,15 @@
 								</listcell>
 
 								<listcell>
-									<intbox
-										style="    height: 1em; border: 1px solid #999999; border-radius: 7px; font-size:1.2em;  text-align: center;"
-										value="@bind(each.valorEsperado)" disabled="true">
-									</intbox>
+									<label
+										value="@bind(each.valorEsperado)" >
+									</label>
 								</listcell>
 								<listcell>
-									<intbox
-										style="    height: 1em; border: 1px solid #999999; border-radius: 7px; font-size:1.2em;  text-align: center;"
+									<label
+										
 										value="@bind(each.valorReal)">
-									</intbox>
+									</label>
 								</listcell>
 							</listitem>
 						</template>

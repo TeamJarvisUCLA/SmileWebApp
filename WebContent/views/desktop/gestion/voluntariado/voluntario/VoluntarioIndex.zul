@@ -30,45 +30,76 @@
 		<div class="row">
 			<div class="col s12">
 				<div class="col s12">
-					<listbox id="listbox" model="@load(vm.objectsList)"  selectedItem="@bind(vm.selectedObject)" emptyMessage="No hay voluntarios para mostrar">
-						
+					<listbox id="listbox" model="@load(vm.objectsList)"
+						selectedItem="@bind(vm.selectedObject)"
+						emptyMessage="No hay voluntarios para mostrar">
+
 						<auxhead>
 							<auxheader>
 								<div>
-									<span style="margin-right: 3px;" class="prefix filter fa fa-filter"> </span>
-									<textbox id="CedulaRif" instant="true" placeholder="Cédula/RIF" value="@bind(vm.identificacion)" onChange="@command('changeFilter')" style="height: 30px;font-size: 14px;margin-top: 1px;"> </textbox>
+									<span style="margin-right: 3px;"
+										class="prefix filter fa fa-filter">
+									</span>
+									<textbox id="CedulaRif"
+										instant="true" placeholder="Cédula/RIF"
+										value="@bind(vm.identificacion)"
+										onChange="@command('changeFilter')"
+										style="height: 30px;font-size: 14px;margin-top: 1px;">
+									</textbox>
 								</div>
 							</auxheader>
-							
+
 							<auxheader>
 								<div>
-									<span class="prefix filter fa fa-filter"> </span>
-									<textbox id="nombre" instant="true" placeholder="Voluntario" value="@bind(vm.nombre)" onChange="@command('changeFilter')" style="height: 30px;font-size: 14px;margin-top: 1px;"></textbox>
+									<span
+										class="prefix filter fa fa-filter">
+									</span>
+									<textbox id="nombre" instant="true"
+										placeholder="Voluntario" value="@bind(vm.nombre)"
+										onChange="@command('changeFilter')"
+										style="height: 30px;font-size: 14px;margin-top: 1px;">
+									</textbox>
 								</div>
 							</auxheader>
-							
+							<auxheader></auxheader>
 							<auxheader>
 								<div sclass="col s12">
-									<span class="prefix filter fa fa-filter"> </span>
-									<combobox id="Estatus" inplace="true" tooltip="Estatus" model="@bind(vm.estatusVoluntarioEnums)" onChange="@command('changeFilter')" style="background: rgb(89, 78, 70); margin: 0px; margin-left: 6px; margin-top: 0px; display: inline;  width: 75%;" selectedItem="@bind(vm.estatusVoluntarioEnum)">
+									<span
+										class="prefix filter fa fa-filter">
+									</span>
+									<combobox id="Estatus"
+										inplace="true" tooltip="Estatus"
+										model="@bind(vm.estatusVoluntarioEnums)"
+										onChange="@command('changeFilter')"
+										style="background: rgb(89, 78, 70); margin: 0px; margin-left: 6px; margin-top: 0px; display: inline;  width: 75%;"
+										selectedItem="@bind(vm.estatusVoluntarioEnum)">
 										<template name="model">
-											<comboitem label="@load(each.toString())" />
+											<comboitem
+												label="@load(each.toString())" />
 										</template>
 									</combobox>
 								</div>
 							</auxheader>
 						</auxhead>
-						
+
 						<listhead sizable="true">
-							<listheader width="25%" label="Cédula" />
+							<listheader width="20%" label="Cédula" />
 							<listheader width="50%" label="Voluntario" />
-							<listheader width="25%" label="Fecha de ingreso" />
+							<listheader width="15%" align="center"
+								label="Fecha de ingreso" />
+							<listheader width="15%" label="Estatus"
+								align="center" />
 						</listhead>
 						<template name="model">
 							<listitem>
-								<listcell label="@load(each.fkPersona.identificacion)" />
-								<listcell label="@load(each.fkPersona.nombre.concat(' ').concat(each.fkPersona.apellido))" />
-								<listcell label="${m:convertirLongADate(each.fechaIngreso)}" />
+								<listcell
+									label="@load(each.fkPersona.identificacion)" />
+								<listcell
+									label="@load(each.fkPersona.nombre.concat(' ').concat(each.fkPersona.apellido))" />
+								<listcell
+									label="${m:convertirLongADate(each.fechaIngreso)}" />
+								<listcell
+									label="@load(each.estatusVoluntarioEnum.toString())" />
 							</listitem>
 						</template>
 						<listfoot>

@@ -1,8 +1,10 @@
+<?xel-method prefix="m" name="getUrlWeb" class="lights.smile.util.Zki" 
+	signature="java.lang.String getUrlWeb(java.lang.String)" ?>
 <zk xmlns:n="native" xmlns:w="client">
 	<n:link href="assets/css/web/noticias.css" rel="stylesheet"
 		type="text/css">
 	</n:link>
-	<div style="background-color:	 #c2d62d; height: 10px;"></div>
+	<div style="background-color:#c2d62d; height: 10px;"></div>
 	<div class="bodyNoticias">
 		<div sclass="container bodyNoticias" apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('ve.smile.web.viewmodels.noticias.VM_Noticias')">
@@ -20,15 +22,10 @@
 									<label value="@load(each.titulo)"
 										sclass="tituloNoticia">
 									</label>
-									<image src="@load(each.fkMultimedia.url)"
+									<image src="${m:getUrlWeb(each.fkMultimedia.url)}"
 										sclass="imgNoticia img-responsive">
 									</image>
 									<div class="col s12 info">
-										<div class="col s12 fechaNoticia">
-											<label
-												value="@load(each.fechaInicio)">
-											</label>
-										</div>
 										<div class="col s12 block-ellipsis">
 											<label sclass="text-justify"
 												value="@load(each.descripcion)">

@@ -5,6 +5,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -306,9 +307,11 @@ public class VM_TrabajoSocialPlanificadoRegistroIndex extends VM_WindowWizard
 	public String isValidPreconditionsFinalizar(Integer currentStep) {
 		if (currentStep == 2) {
 			try {
+				Calendar calendar = Calendar.getInstance();
+				calendar.add(Calendar.DAY_OF_YEAR, -2);
 				UtilValidate.validateDate(this.getFechaInicio().getTime(),
 						"Fecha Inicio", ValidateOperator.GREATER_THAN,
-						new SimpleDateFormat("yyyy-MM-dd").format(new Date()),
+						new SimpleDateFormat("yyyy-MM-dd").format(calendar.getTime()),
 						"dd/MM/yyyy");
 				if (this.getFechaInicio().compareTo(this.getFechaFin()) != 0) {
 					UtilValidate.validateDate(this.getFechaFin().getTime(),

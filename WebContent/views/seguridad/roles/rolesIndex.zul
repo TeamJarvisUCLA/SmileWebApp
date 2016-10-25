@@ -1,13 +1,15 @@
 <zk xmlns:n="native" xmlns:w="client">
 	<div width="100%" class="${arg.animation_}"
 		use="karen.core.simple_list_principal.controllers.C_WindowSimpleListPrincipal"
-		apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('ve.seguridad.roles.viewmodels.VM_RolesIndex')">
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('ve.seguridad.roles.viewmodels.VM_RolesIndex')">
 
 		<div class="row">
 			<div class="col s12">
 				<div class="col s6">
 					<listbox id="listbox" model="@load(vm.objectsList)"
-						selectedItem="@bind(vm.selectedObject)" onSelect="@command('onSelectRol')">
+						selectedItem="@bind(vm.selectedObject)"
+						onSelect="@command('onSelectRol')">
 
 						<listhead sizable="true">
 							<listheader width="49%" label="Nombre" />
@@ -25,7 +27,8 @@
 					</listbox>
 				</div>
 				<div class="col s6">
-					<listbox model="@load(vm.selectedObject.usuarios)">
+					<listbox model="@load(vm.selectedObject.usuarios)"
+						height="500px">
 						<listhead sizable="true">
 							<listheader label="Usuarios" />
 						</listhead>
@@ -39,7 +42,8 @@
 			</div>
 		</div>
 
-		<toolbar id="toolbar" align="center" use="karen.core.toolbar.Toolbar">
+		<toolbar id="toolbar" align="center"
+			use="karen.core.toolbar.Toolbar">
 		</toolbar>
 	</div>
 </zk>

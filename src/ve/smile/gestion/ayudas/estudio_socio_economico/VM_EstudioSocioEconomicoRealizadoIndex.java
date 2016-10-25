@@ -44,6 +44,7 @@ import ve.smile.dto.EstudioSocioEconomico;
 import ve.smile.dto.Trabajador;
 import ve.smile.dto.EstudioSocioEconomico;
 import ve.smile.dto.Voluntario;
+import ve.smile.enums.EstatusEstudioSocioEconomicoEnum;
 import ve.smile.enums.EstatusPadrinoEnum;
 import ve.smile.enums.EstatusSolicitudEnum;
 import ve.smile.enums.EstatusTrabajadorEnum;
@@ -167,16 +168,16 @@ public class VM_EstudioSocioEconomicoRealizadoIndex extends
 	public IPayloadResponse<EstudioSocioEconomico> getDataToTable(
 			Integer cantidadRegistrosPagina, Integer pagina) {
 		
-		/*Map<String, String> criterios = new HashMap<>();
+		Map<String, String> criterios = new HashMap<>();
 		EstatusPadrinoEnum.POSTULADO.ordinal();
-		criterios.put("fechaEjecutada",
-				"null");
+		criterios.put("estatusEstudio",
+				String.valueOf(EstatusEstudioSocioEconomicoEnum.NO_REALIZADO.ordinal()));
 		PayloadEstudioSocioEconomicoResponse payloadEstudioSocioEconomicoResponse = S.EstudioSocioEconomicoService
 				.consultarPaginacionCriterios(cantidadRegistrosPagina, pagina,
-						TypeQuery.EQUAL, criterios);*/
+						TypeQuery.EQUAL, criterios);
 
-		PayloadEstudioSocioEconomicoResponse payloadEstudioSocioEconomicoResponse = S.EstudioSocioEconomicoService
-				.consultarPaginacion(cantidadRegistrosPagina, pagina);
+	/*	PayloadEstudioSocioEconomicoResponse payloadEstudioSocioEconomicoResponse = S.EstudioSocioEconomicoService
+				.consultarPaginacion(cantidadRegistrosPagina, pagina)*/;
 		return payloadEstudioSocioEconomicoResponse;
 	}
 
@@ -225,7 +226,7 @@ public class VM_EstudioSocioEconomicoRealizadoIndex extends
 					this.getFechaEjecutada().getTime());
 			
 		
-			
+			this.getEstudioSocioEconomico().setEstatusEstudio(EstatusEstudioSocioEconomicoEnum.REALIZADO.ordinal());
 			PayloadEstudioSocioEconomicoResponse payloadEstudioSocioEconomicoResponse = S.EstudioSocioEconomicoService.modificar(selectedObject);
 			if (UtilPayload.isOK(payloadEstudioSocioEconomicoResponse)) {
 				restartWizard();

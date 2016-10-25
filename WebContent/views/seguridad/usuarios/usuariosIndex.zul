@@ -14,7 +14,7 @@
 						selectedItem="@bind(vm.selectedObject)">
 
 						<listhead sizable="true">
-							<listheader label="Correo" />
+							<listheader label="Usuario" />
 							<listheader label="Rol" />
 							<listheader label="Estatus" />
 						</listhead>

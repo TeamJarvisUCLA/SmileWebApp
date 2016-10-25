@@ -1,4 +1,4 @@
-.z-button {
+.z-valign-middle .z-button {
 	color: #000 !important;
 }
 td, th {
@@ -39,7 +39,7 @@ td, th {
     background: #F5F5F5;
 }
 
-.z-button:active, .z-button:hover, .z-button:focus {
+.z-valign-middle .z-button:active, .z-valign-middle.z-button:hover, .z-valign-middle .z-button:focus {
     background: #cccccc;
 }
 

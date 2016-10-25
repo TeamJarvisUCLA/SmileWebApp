@@ -206,7 +206,7 @@
 										<div class="info">
 											<n:b>Fecha:</n:b>
 												<label
-													value="${m:convertirLongADate(each.fechaEjecutada)}">
+													value="${m:convertirLongADate(each.fechaInicio)}">
 												</label>
 											<n:br></n:br>
 											<n:b>Lugar:</n:b>

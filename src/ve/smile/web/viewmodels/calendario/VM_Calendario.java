@@ -29,7 +29,7 @@ public class VM_Calendario {
 	}
 	
 	public Date getFechaPlan() {
-		this.fechaPlan = new Date(getEventoPlan().getFechaPlanificada());		
+		this.fechaPlan = new Date(getEventoPlan().getFechaInicio());		
 		return fechaPlan;
 	}
 	

@@ -3,11 +3,15 @@ package ve.smile.web.viewmodels.faq;
 
 	
 
-	import karen.core.crux.alert.Alert;
+	import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
+
+import karen.core.crux.alert.Alert;
 import karen.core.dialog.generic.controllers.C_WindowDialog;
 import karen.core.dialog.generic.enums.DialogActionEnum;
 import karen.core.dialog.generic.events.DialogCloseEvent;
 import karen.core.dialog.message_box.events.MessageBoxDialogCloseEvent;
+import lights.smile.util.UtillMail;
 
 	import org.zkoss.bind.annotation.Init;
 import org.zkoss.zk.ui.event.Event;
@@ -20,6 +24,7 @@ import ve.smile.dto.Comunidad;
 import ve.smile.dto.ContactoPortal;
 import ve.smile.dto.FrecuenciaAporte;
 import ve.smile.dto.Persona;
+import ve.smile.enums.EstatusContactoEnum;
 import ve.smile.enums.ProcedenciaEnum;
 import ve.smile.enums.TipoContactoPortalEnum;
 import ve.smile.payload.response.PayloadComunidadResponse;
@@ -52,6 +57,7 @@ import ve.smile.web.viewmodels.faq.VM_Pregunta;
 				contactoPortal.setTipoContactoPortal(TipoContactoPortalEnum.PREGUNTA.ordinal());
 
 				contactoPortal.setFkComunidad(comunidad);
+				contactoPortal.setEstatusContactoEnum(EstatusContactoEnum.PENDIENTE);
 				
 			
 				comunidad.setApellido(incluirPreguntaContacto.getComunidad().getApellido());
@@ -61,6 +67,13 @@ import ve.smile.web.viewmodels.faq.VM_Pregunta;
 				
 
 				PayloadContactoPortalResponse payloadContactoPortalResponse =  S.ContactoPortalService.incluirContactoPortal(contactoPortal);
+				
+				if(incluirPreguntaContacto.isEmailComentarAlbum()){
+					CreatesendEmail(comunidad.getCorreo(),
+							comunidad.getNombre(),
+							comunidad.getApellido());
+				}
+				
 				close(dialogCloseEvent);		
 
 			}
@@ -77,6 +90,19 @@ import ve.smile.web.viewmodels.faq.VM_Pregunta;
 			// TODO Auto-generated method stub		
 		}
 		
+		public void CreatesendEmail(String correo, String nombre, String apellido){
+			String asunto = "Recibimos tu Pregunta";
+			String contenido = "Recibe un cordial saludo " + nombre + " " + apellido + ", Gracias por tu Pregunta" ;
+			try {
+				new UtillMail().generateAndSendEmail(correo,asunto,contenido);
+			} catch (AddressException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (MessagingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}	
 		
 
 

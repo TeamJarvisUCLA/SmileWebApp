@@ -40,7 +40,7 @@ public class VM_BuzonMovilIndex extends VM_WindowSimpleListPrincipal<ContactoPor
 	public IPayloadResponse<ContactoPortal> getDataToTable(
 			Integer cantidadRegistrosPagina, Integer pagina) {
 		Map<String, String> criterios = new HashMap<String, String>();
-		criterios.put("tipoContactoPortal", String.valueOf(TipoContactoPortalEnum.SUGERENCIA.ordinal()));
+	//	criterios.put("tipoContactoPortal", String.valueOf(TipoContactoPortalEnum.SUGERENCIA.ordinal()));
 		criterios.put("estatusContacto", String.valueOf(EstatusContactoEnum.PENDIENTE.ordinal()));
 		criterios.put("procedencia", String.valueOf(ProcedenciaMensajeEnum.MOVIL.ordinal()));
 		PayloadContactoPortalResponse payloadContactoPortalResponse = S.ContactoPortalService.consultarPaginacionCriterios(cantidadRegistrosPagina, pagina,TypeQuery.EQUAL,criterios);

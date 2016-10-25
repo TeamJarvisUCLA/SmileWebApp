@@ -1,5 +1,8 @@
 package ve.smile.web.postulacion.controllers;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
+
 import karen.core.crux.alert.Alert;
 import karen.core.crux.session.DataCenter;
 import karen.core.dialog.generic.controllers.C_WindowDialog;
@@ -8,6 +11,7 @@ import karen.core.dialog.generic.events.DialogCloseEvent;
 import karen.core.dialog.message_box.events.MessageBoxDialogCloseEvent;
 import karen.core.util.UtilDialog;
 import karen.core.util.validate.UtilValidate;
+import lights.smile.util.UtillMail;
 
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.zk.ui.event.Event;
@@ -45,6 +49,11 @@ public class C_PostuladoVoluntario extends C_WindowDialog {
 		persona.setEstatus('P');
 		PayloadPersonaResponse payloadPersonaResponse = S.PersonaService
 				.savePostuladoVoluntario(persona);
+		if(postuladoPadrino.isEmailPostulacionVoluntario()){
+			CreatesendEmail(persona.getCorreo(),
+					persona.getNombre(),
+					persona.getApellido());
+		}
 		close(dialogCloseEvent);
 		UtilDialog
 				.showMessageBoxSuccess("Gracias por preferirnos. Su información será procesada y nos contactaremos con usted.");
@@ -76,6 +85,21 @@ public class C_PostuladoVoluntario extends C_WindowDialog {
 			return false;
 		}
 	}
+	
+	public void CreatesendEmail(String correo, String nombre, String apellido){
+		String asunto = "Recibida tu Postulacion";
+		String contenido = "Recibe un cordial saludo " + nombre + " " + apellido + ", Gracias por tu postulacion" ;
+
+		try {
+			new UtillMail().generateAndSendEmail(correo,asunto,contenido);
+		} catch (AddressException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (MessagingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}	
 
 	@Override
 	public void onCancel(Event event) {

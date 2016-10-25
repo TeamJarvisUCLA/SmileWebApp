@@ -25,7 +25,7 @@
 					</listbox>
 				</div>
 				<div class="col s5">
-					<tree id="tree" height="100%"
+					<tree id="tree" height="500px"
 						use="ve.seguridad.permisos.controllers.C_MenuTreeFull">
 						<treecols>
 							<treecol label="Menú Disponible" />

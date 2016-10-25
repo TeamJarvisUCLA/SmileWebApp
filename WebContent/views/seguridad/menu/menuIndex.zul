@@ -1,6 +1,8 @@
 <zk xmlns:n="native" xmlns:w="client">
-	<div width="100%" class="${arg.animation_}" use="ve.seguridad.menu.controllers.C_MenuIndex"
-		apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('ve.seguridad.menu.viewmodels.VM_MenuIndex')">
+	<div width="100%" class="${arg.animation_}"
+		use="ve.seguridad.menu.controllers.C_MenuIndex"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('ve.seguridad.menu.viewmodels.VM_MenuIndex')">
 
 		<div class="row">
 			<div class="col s3">
@@ -19,31 +21,40 @@
 					</tabs>
 					<tabpanels>
 						<tabpanel>
-							<div class="col s12" style="float: unset; margin-top: 20px;">
+							<div class="col s12"
+								style="float: unset; margin-top: 20px;">
 								<div class="row">
 									<div class="col s6">
-										<listbox model="@load(vm.selectedObject.roles)"
-											selectedItem="@bind(vm.rolSelected)" onSelect="@command('onSelectRol')">
+										<listbox
+											model="@load(vm.selectedObject.roles)"
+											selectedItem="@bind(vm.rolSelected)"
+											onSelect="@command('onSelectRol')">
 
 											<listhead sizable="true">
-												<listheader label="Roles" />
+												<listheader
+													label="Roles" />
 											</listhead>
 											<template name="model">
 												<listitem>
-													<listcell label="@load(each.nombre)" />
+													<listcell
+														label="@load(each.nombre)" />
 												</listitem>
 											</template>
 										</listbox>
 									</div>
 									<div class="col s6">
-										<listbox model="@load(vm.operaciones)" selectedItem="@bind(vm.operacionSelected)">
+										<listbox height="500px"
+											model="@load(vm.operaciones)"
+											selectedItem="@bind(vm.operacionSelected)">
 
 											<listhead sizable="true">
-												<listheader label="Operaciones" />
+												<listheader
+													label="Operaciones" />
 											</listhead>
 											<template name="model">
 												<listitem>
-													<listcell label="@load(each.nombre)" />
+													<listcell
+														label="@load(each.nombre)" />
 												</listitem>
 											</template>
 										</listbox>
@@ -52,10 +63,13 @@
 							</div>
 						</tabpanel>
 						<tabpanel>
-							<div class="col s12" style="float: unset; margin-top: 20px;">
+							<div class="col s12"
+								style="float: unset; margin-top: 20px;">
 								<div class="row">
-									<div class="input-field col s8 offset-s2">
-										<n:label for="nombre" class="active">
+									<div
+										class="input-field col s8 offset-s2">
+										<n:label for="nombre"
+											class="active">
 											Nombre
 										</n:label>
 										<textbox id="nombre" type="text"
@@ -64,18 +78,24 @@
 									</div>
 								</div>
 								<div class="row">
-									<div class="input-field col s8 offset-s2">
-										<n:label for="tipoNodo" class="active">
+									<div
+										class="input-field col s8 offset-s2">
+										<n:label for="tipoNodo"
+											class="active">
 											Tipo de Menu
 										</n:label>
-										<textbox id="tipoNodo" type="text"
-											value="@load(vm.selectedObject.tipoNodoMenuEnum)" disabled="true">
+										<textbox id="tipoNodo"
+											type="text" value="@load(vm.selectedObject.tipoNodoMenuEnum)"
+											disabled="true">
 										</textbox>
 									</div>
 								</div>
-								<div class="row" visible="@load(vm.isTransaccion)">
-									<div class="input-field col s8 offset-s2">
-										<n:label for="vista" class="active">
+								<div class="row"
+									visible="@load(vm.isTransaccion)">
+									<div
+										class="input-field col s8 offset-s2">
+										<n:label for="vista"
+											class="active">
 											Ventana
 										</n:label>
 										<textbox id="vista" type="text"
@@ -90,7 +110,8 @@
 			</div>
 		</div>
 
-		<toolbar id="toolbar" align="center" use="karen.core.toolbar.Toolbar">
+		<toolbar id="toolbar" align="center"
+			use="karen.core.toolbar.Toolbar">
 		</toolbar>
 	</div>
 </zk>

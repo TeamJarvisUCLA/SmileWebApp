@@ -1,5 +1,5 @@
-<?xel-method prefix="m" name="convertirLongATimestamp" class="lights.smile.util.UtilConverterDataList" 
-	signature="java.lang.String convertirLongATimestamp(java.lang.Long)" ?>
+<?xel-method prefix="m" name="convertirLongADate" class="lights.smile.util.UtilConverterDataList" 
+	signature="java.lang.String convertirLongADate(java.lang.Long)" ?>
 <zk xmlns:n="native" xmlns:w="client">
 
 	<window width="80%" sclass="window-dialog"
@@ -14,53 +14,34 @@
 		</n:h6>
 		<separator height="20px"></separator>
 
-		<div style="overflow: auto;" class="row">
+		<div class="row">
 			<div class="col s12">
-				<div class="col s12" style="overflow: scroll;">
+				<div class="col s12">
 					<listbox id="listbox" model="@load(vm.objectList)"
-						selectedItem="@bind(vm.selectedObject)"
-						style="width: 90%; margin-left: 5%;padding-bottom: 5%;">
-
+						selectedItem="@bind(vm.selectedObject)">
 						<listhead sizable="true">
-							<listheader width="200px"
-								label="Nombre de Beneficiario" />
-							
-							<listheader width="200px"
-								label="Identificacion Beneficiario" />
-							<listheader width="200px"
-								label="Nombre de Representante" />
-							
-							<listheader width="250px"
-								label="Identificacion de Representante" />
-
-							<listheader width="200px" label="Direccion" />
-							<listheader width="250px"
+							<listheader width="30%"
+								label="Beneficiario" />
+							<listheader width="25%"
+								label="Representante" />
+							<listheader width="20%" label="Dirección" />
+							<listheader width="25%"
 								label="Fecha de Nacimiento Beneficiario" />
-
 						</listhead>
 						<template name="model">
 							<listitem>
-								
-									
-									<listcell label="@load(each.fkPersona.nombre.concat(' ').concat(each.fkPersona.apellido))" />
 								<listcell
-									label="@load(each.fkPersona.identificacion)" />
-								
-								<listcell label="@load(each.fkFamiliar.fkPersona.nombre.concat(' ').concat(each.fkFamiliar.fkPersona.apellido))" />
-								
+									label="@load(each.fkPersona.identificacion.concat(' - ').concat(each.fkPersona.nombre).concat(' ').concat(each.fkPersona.apellido))" />
 								<listcell
-									label="@load(each.fkFamiliar.fkPersona.identificacion)" />
-
+									label="@load(each.fkFamiliar.fkPersona.identificacion.concat(' - ').concat(each.fkFamiliar.fkPersona.nombre).concat(' ').concat(each.fkFamiliar.fkPersona.apellido))" />
 								<listcell
 									label="@load(each.fkPersona.direccion)" />
 								<listcell
-									label="${m:convertirLongATimestamp(each.fkPersona.fechaNacimiento)}" />
-
-
+									label="${m:convertirLongADate(each.fkPersona.fechaNacimiento)}" />
 							</listitem>
 						</template>
 						<listfoot>
-							<listfooter id="listFoot" span="7"
+							<listfooter id="listFoot" span="4"
 								use="karen.core.listfoot.ListFoot">
 							</listfooter>
 						</listfoot>

@@ -14,13 +14,9 @@ import javax.imageio.ImageIO;
 
 import karen.core.crux.alert.Alert;
 import karen.core.crux.session.DataCenter;
-import karen.core.dialog.catalogue.generic.data.CatalogueDialogData;
-import karen.core.dialog.catalogue.generic.events.CatalogueDialogCloseEvent;
-import karen.core.dialog.catalogue.generic.events.listeners.CatalogueDialogCloseListener;
 import karen.core.dialog.form.data.WindowFormDialogData;
 import karen.core.dialog.form.events.WindowFormDialogCloseEvent;
 import karen.core.dialog.form.events.listeners.WindowFormDialogCloseListener;
-import karen.core.dialog.generic.enums.DialogActionEnum;
 import karen.core.form.buttons.data.OperacionForm;
 import karen.core.form.buttons.enums.OperacionFormEnum;
 import karen.core.form.buttons.helpers.OperacionFormHelper;
@@ -30,6 +26,7 @@ import karen.core.util.payload.UtilPayload;
 import karen.core.util.validate.UtilValidate;
 import karen.core.util.validate.UtilValidate.ValidateOperator;
 import lights.core.enums.TypeQuery;
+import lights.core.payload.response.IPayloadResponse;
 import lights.smile.util.UtilMultimedia;
 import lights.smile.util.Zki;
 
@@ -40,10 +37,7 @@ import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.event.UploadEvent;
 
-import app.UploadImageSingle;
 import ve.smile.consume.services.S;
-import ve.smile.dto.Ayuda;
-import ve.smile.dto.Beneficiario;
 import ve.smile.dto.Beneficiario;
 import ve.smile.dto.Ciudad;
 import ve.smile.dto.Estado;
@@ -51,28 +45,21 @@ import ve.smile.dto.Familiar;
 import ve.smile.dto.Motivo;
 import ve.smile.dto.Multimedia;
 import ve.smile.dto.Persona;
-import ve.smile.dto.SolicitudAyuda;
 import ve.smile.enums.EstatusBeneficiarioEnum;
 import ve.smile.enums.EstatusFamiliarEnum;
-import ve.smile.enums.EstatusPadrinoEnum;
-import ve.smile.enums.EstatusSolicitudEnum;
-import ve.smile.enums.EstatusTrabajadorEnum;
-import ve.smile.enums.PropietarioEnum;
 import ve.smile.enums.TipoMultimediaEnum;
 import ve.smile.enums.TipoPersonaEnum;
-import ve.smile.enums.UrgenciaEnum;
 import ve.smile.payload.response.PayloadBeneficiarioResponse;
 import ve.smile.payload.response.PayloadCiudadResponse;
 import ve.smile.payload.response.PayloadEstadoResponse;
 import ve.smile.payload.response.PayloadFamiliarResponse;
 import ve.smile.payload.response.PayloadMotivoResponse;
 import ve.smile.payload.response.PayloadMultimediaResponse;
-import ve.smile.payload.response.PayloadPatrocinadorResponse;
 import ve.smile.payload.response.PayloadPersonaResponse;
 import ve.smile.payload.response.PayloadSolicitudAyudaResponse;
-import ve.smile.payload.response.PayloadTrabajadorResponse;
 import ve.smile.seguridad.enums.OperacionEnum;
 import ve.smile.seguridad.enums.SexoEnum;
+import app.UploadImageSingle;
 
 public class VM_FamiliarYBeneficiarioFormBasic extends VM_WindowForm implements
 		UploadImageSingle {
@@ -104,26 +91,26 @@ public class VM_FamiliarYBeneficiarioFormBasic extends VM_WindowForm implements
 	private List<Motivo> motivos;
 
 	private List<Beneficiario> beneficiarios;
-	
+
 	private List<Beneficiario> beneficiariosPorRegistrar;
-	
+
 	private Beneficiario beneficiario;
-	
+
 	private boolean cargado = false;
 
 	@Init(superclass = true)
 	public void childInit() {
 		// NOTHING OK!
-		
-		
+
 		this.setPersona(this.getFamiliar().getFkPersona());
 		if (this.getPersona().getSexo() != null) {
 			this.setSexoEnum(SexoEnum.values()[this.getPersona().getSexo()]);
 		}
-		
-		if(this.getPersona().getTipoPersona() != null){
-			this.setTipoPersonaEnum(TipoPersonaEnum.values()[this.getPersona().getTipoPersona()]);
-		}else{
+
+		if (this.getPersona().getTipoPersona() != null) {
+			this.setTipoPersonaEnum(TipoPersonaEnum.values()[this.getPersona()
+					.getTipoPersona()]);
+		} else {
 			this.setTipoPersonaEnum(TipoPersonaEnum.NATURAL);
 		}
 
@@ -144,8 +131,7 @@ public class VM_FamiliarYBeneficiarioFormBasic extends VM_WindowForm implements
 
 		}
 		if (this.getFamiliar().getFechaIngreso() != null) {
-			this.setFechaIngreso(new Date(this.getFamiliar()
-					.getFechaIngreso()));
+			this.setFechaIngreso(new Date(this.getFamiliar().getFechaIngreso()));
 		} else {
 			this.setFechaIngreso(new Date());
 		}
@@ -325,15 +311,14 @@ public class VM_FamiliarYBeneficiarioFormBasic extends VM_WindowForm implements
 	public Familiar getFamiliar() {
 		return (Familiar) DataCenter.getEntity();
 	}
-	
-
 
 	public void setFamiliar(Familiar familiar) {
 		this.familiar = familiar;
 	}
-	
+
 	@Command("dialogoBeneficiarioRegistrar")
-	public void buscarBeneficiarioRegistrar(@BindingParam("index") final Integer index) {
+	public void buscarBeneficiarioRegistrar(
+			@BindingParam("index") final Integer index) {
 		WindowFormDialogData<Beneficiario> windowFormDialogData = new WindowFormDialogData<Beneficiario>();
 
 		windowFormDialogData
@@ -352,39 +337,35 @@ public class VM_FamiliarYBeneficiarioFormBasic extends VM_WindowForm implements
 						// beneficiarios.add(windowFormDialogCloseEvent.getEntity());
 						getBeneficiariosPorRegistrar().add(
 								windowFormDialogCloseEvent.getEntity());
-						System.out.println(windowFormDialogCloseEvent
-								.getEntity().getFkPersona().getNombre());
-						
-						//operacion diferente de 0 modificar, igual a 0 es registrar
-						if(index!=0){
-							System.out.println("parametro funciona");
+
+						// operacion diferente de 0 modificar, igual a 0 es
+						// registrar
+						if (index != 0) {
 							getBeneficiarios().addAll(
 									getBeneficiariosPorRegistrar());
 							refreshBeneficiarioModificar();
-						}else{
+						} else {
 							refreshBeneficiarioRegistrar();
 						}
-						
+
 					}
 				});
 
 		windowFormDialogData.setOperacionEnum(OperacionEnum.INCLUIR);
-		
-		//windowFormDialogData.put("beneficiario", this.getBeneficiario());
-		
+
+		// windowFormDialogData.put("beneficiario", this.getBeneficiario());
+
 		UtilDialog
 				.showDialog(
 						"views/desktop/gestion/ayudas/familiarYBeneficiario/dialogoBeneficiarioRegistrar.zul",
 						windowFormDialogData);
-
-		System.out.println("entro dialogo");
 	}
 
 	@Command("dialogoBeneficiarioModificar")
 	public void buscarBeneficiarioModificar() {
-		
+
 		try {
-			
+
 			WindowFormDialogData<Beneficiario> windowFormDialogData = new WindowFormDialogData<Beneficiario>();
 
 			windowFormDialogData
@@ -393,8 +374,9 @@ public class VM_FamiliarYBeneficiarioFormBasic extends VM_WindowForm implements
 						@Override
 						public void onClose(
 								WindowFormDialogCloseEvent<Beneficiario> windowFormDialogCloseEvent) {
-							if (windowFormDialogCloseEvent.getOperacionFormEnum()
-									.equals(OperacionFormEnum.CANCELAR)) {
+							if (windowFormDialogCloseEvent
+									.getOperacionFormEnum().equals(
+											OperacionFormEnum.CANCELAR)) {
 								return;
 							}
 
@@ -403,40 +385,68 @@ public class VM_FamiliarYBeneficiarioFormBasic extends VM_WindowForm implements
 							// beneficiarios.add(windowFormDialogCloseEvent.getEntity());
 							getBeneficiarios().add(
 									windowFormDialogCloseEvent.getEntity());
-							System.out.println(windowFormDialogCloseEvent
-									.getEntity().getFkPersona().getNombre());
-							
+
 						}
 					});
 
 			windowFormDialogData.setOperacionEnum(OperacionEnum.INCLUIR);
-			
+
 			windowFormDialogData.put("beneficiario", this.getBeneficiario());
-			
+
 			UtilDialog
 					.showDialog(
 							"views/desktop/gestion/ayudas/familiarYBeneficiario/dialogoBeneficiarioModificar.zul",
 							windowFormDialogData);
 
-			System.out.println("entro dialogo");
-			
 		} catch (Exception e) {
 			// TODO: handle exception
 			Alert.showMessage("Por Favor Seleccione Un Beneficiario a Editar");
 		}
-		
+
 	}
 
 	public void refreshBeneficiarioRegistrar() {
 
-		BindUtils.postNotifyChange(null, null, this, "beneficiariosPorRegistrar");
-		
+		BindUtils.postNotifyChange(null, null, this,
+				"beneficiariosPorRegistrar");
+
 	}
-	
+
 	public void refreshBeneficiarioModificar() {
 
 		BindUtils.postNotifyChange(null, null, this, "beneficiarios");
-		
+
+	}
+
+	@Command("eliminarBeneficiario")
+	public void eliminarBeneficiario(
+			@BindingParam("beneficiario") Beneficiario beneficiario) {
+		Map<String, String> criterios = new HashMap<String, String>();
+
+		criterios.put("fkBeneficiario.idBeneficiario",
+				String.valueOf(beneficiario.getIdBeneficiario()));
+		// Table Relation TsPlanActividadVoluntario
+		PayloadSolicitudAyudaResponse payloadSolicitudAyudaRecursoResponse = S.SolicitudAyudaService
+				.contarCriterios(TypeQuery.EQUAL, criterios);
+
+		if (!UtilPayload.isOK(payloadSolicitudAyudaRecursoResponse)) {
+			Alert.showMessage(payloadSolicitudAyudaRecursoResponse);
+
+		}
+
+		Integer countSolicitudAyudas = Double.valueOf(
+				String.valueOf(payloadSolicitudAyudaRecursoResponse
+						.getInformacion(IPayloadResponse.COUNT))).intValue();
+
+		if (countSolicitudAyudas > 0) {
+			Alert.showMessage("E:Error 0:No se puede eliminar el <b>Beneficiario</b> seleccionado ya que está siendo utilizado en "
+					+ countSolicitudAyudas + " Solicitudes de Ayuda");
+			return;
+		}
+
+		PayloadBeneficiarioResponse payloadBeneficiarioResponse = S.BeneficiarioService
+				.eliminar(beneficiario.getIdBeneficiario());
+		Alert.showMessage(payloadBeneficiarioResponse);
 	}
 
 	@Override
@@ -472,7 +482,7 @@ public class VM_FamiliarYBeneficiarioFormBasic extends VM_WindowForm implements
 		}
 
 		if (operacionEnum.equals(OperacionEnum.INCLUIR)) {
-			
+
 			Familiar familiar = this.getFamiliar();
 			familiar.setFechaIngreso(this.getFechaIngreso().getTime());
 			familiar.setFechaSalida(new Date().getTime());
@@ -492,7 +502,7 @@ public class VM_FamiliarYBeneficiarioFormBasic extends VM_WindowForm implements
 						.incluir(multimedia);
 				if (!UtilPayload.isOK(payloadMultimediaResponse)) {
 					Alert.showMessage(payloadMultimediaResponse);
-					
+
 				}
 				multimedia.setIdMultimedia(((Double) payloadMultimediaResponse
 						.getInformacion("id")).intValue());
@@ -502,7 +512,7 @@ public class VM_FamiliarYBeneficiarioFormBasic extends VM_WindowForm implements
 					.incluir(this.getPersona());
 			if (!UtilPayload.isOK(payloadPersonaResponse)) {
 				Alert.showMessage(payloadPersonaResponse);
-				
+
 			}
 			this.getPersona().setIdPersona(
 					((Double) payloadPersonaResponse.getInformacion("id"))
@@ -510,11 +520,12 @@ public class VM_FamiliarYBeneficiarioFormBasic extends VM_WindowForm implements
 			familiar.setFkPersona(this.getPersona());
 			PayloadFamiliarResponse payloadFamiliarResponse = S.FamiliarService
 					.incluir(getFamiliar());
-			
-			this.getFamiliar().setIdFamiliar(((Double) payloadFamiliarResponse
-					.getInformacion("id")).intValue());
+
+			this.getFamiliar().setIdFamiliar(
+					((Double) payloadFamiliarResponse.getInformacion("id"))
+							.intValue());
 			if (!UtilPayload.isOK(payloadFamiliarResponse)) {
-				
+
 			}
 			if (bytes != null) {
 				Zki.save(Zki.PERSONAS, getPersona().getIdPersona(),
@@ -530,35 +541,38 @@ public class VM_FamiliarYBeneficiarioFormBasic extends VM_WindowForm implements
 
 				if (!UtilPayload.isOK(payloadMultimediaResponse)) {
 					Alert.showMessage(payloadMultimediaResponse);
-					
+
 				}
 			}
 			Alert.showMessage(payloadFamiliarResponse);
-			
+
 			beneficiariosPorRegistrar = this.getBeneficiariosPorRegistrar();
-			
-			for(Beneficiario elemento:beneficiariosPorRegistrar){
-				//System.out.println(elemento.getFkBeneficiario().getFkPersona().getNombre() + elemento.getFkBeneficiario().getFkPersona().getApellido() );
-				//Persona personaBeneficiario = elemento;
-				//personaBeneficiario.setEstatus('0');
-				//PayloadPersonaResponse payloadPersonaResponse = S.PersonaService.modificar(personaBeneficiario);
-				//Beneficiario beneficiario = elemento;
-				//beneficiario.setEstatusBeneficiario(EstatusBeneficiarioEnum.INACTIVO.ordinal());
-				//PayloadBeneficiarioResponse payloadBeneficiarioResponse2 = S.BeneficiarioService.modificar(beneficiario); 
-				
-				/*PayloadBeneficiarioResponse payloadBeneficiarioResponse = S.BeneficiarioService
-						.incluir(elemento);*/
-				System.out.println(elemento.getFkPersona().getIdPersona());
-				System.out.println(elemento.getFkPersona().getNombre());
-				System.out.println(elemento.getFkPersona().getApellido());
+
+			for (Beneficiario elemento : beneficiariosPorRegistrar) {
+				// System.out.println(elemento.getFkBeneficiario().getFkPersona().getNombre()
+				// + elemento.getFkBeneficiario().getFkPersona().getApellido()
+				// );
+				// Persona personaBeneficiario = elemento;
+				// personaBeneficiario.setEstatus('0');
+				// PayloadPersonaResponse payloadPersonaResponse =
+				// S.PersonaService.modificar(personaBeneficiario);
+				// Beneficiario beneficiario = elemento;
+				// beneficiario.setEstatusBeneficiario(EstatusBeneficiarioEnum.INACTIVO.ordinal());
+				// PayloadBeneficiarioResponse payloadBeneficiarioResponse2 =
+				// S.BeneficiarioService.modificar(beneficiario);
+
+				/*
+				 * PayloadBeneficiarioResponse payloadBeneficiarioResponse =
+				 * S.BeneficiarioService .incluir(elemento);
+				 */
 				elemento.setFkFamiliar(this.getFamiliar());
 				PayloadBeneficiarioResponse payloadBeneficiarioResponse = S.BeneficiarioService
 						.incluir(elemento);
-				
+
 				if (!UtilPayload.isOK(payloadBeneficiarioResponse)) {
-					
+					Alert.showMessage(payloadBeneficiarioResponse);
+					return true;
 				}
-				System.out.println(elemento.getIdBeneficiario());
 			}
 
 			/*
@@ -632,7 +646,8 @@ public class VM_FamiliarYBeneficiarioFormBasic extends VM_WindowForm implements
 				Alert.showMessage(payloadPersonaResponse);
 				return true;
 			}
-			if (bytes == null && multimedia != null && multimedia.getIdMultimedia() != null) {
+			if (bytes == null && multimedia != null
+					&& multimedia.getIdMultimedia() != null) {
 				PayloadMultimediaResponse payloadMultimediaResponse = S.MultimediaService
 						.eliminar(multimedia.getIdMultimedia());
 				if (!UtilPayload.isOK(payloadMultimediaResponse)) {
@@ -647,31 +662,34 @@ public class VM_FamiliarYBeneficiarioFormBasic extends VM_WindowForm implements
 			if (!UtilPayload.isOK(payloadFamiliarResponse)) {
 				return true;
 			}
-			
-beneficiariosPorRegistrar = this.getBeneficiariosPorRegistrar();
-			
-			for(Beneficiario elemento:beneficiariosPorRegistrar){
-				//System.out.println(elemento.getFkBeneficiario().getFkPersona().getNombre() + elemento.getFkBeneficiario().getFkPersona().getApellido() );
-				//Persona personaBeneficiario = elemento;
-				//personaBeneficiario.setEstatus('0');
-				//PayloadPersonaResponse payloadPersonaResponse = S.PersonaService.modificar(personaBeneficiario);
-				//Beneficiario beneficiario = elemento;
-				//beneficiario.setEstatusBeneficiario(EstatusBeneficiarioEnum.INACTIVO.ordinal());
-				//PayloadBeneficiarioResponse payloadBeneficiarioResponse2 = S.BeneficiarioService.modificar(beneficiario); 
-				
-				/*PayloadBeneficiarioResponse payloadBeneficiarioResponse = S.BeneficiarioService
-						.incluir(elemento);*/
-				System.out.println(elemento.getFkPersona().getIdPersona());
-				System.out.println(elemento.getFkPersona().getNombre());
-				System.out.println(elemento.getFkPersona().getApellido());
+
+			beneficiariosPorRegistrar = this.getBeneficiariosPorRegistrar();
+
+			for (Beneficiario elemento : beneficiariosPorRegistrar) {
+				// System.out.println(elemento.getFkBeneficiario().getFkPersona().getNombre()
+				// + elemento.getFkBeneficiario().getFkPersona().getApellido()
+				// );
+				// Persona personaBeneficiario = elemento;
+				// personaBeneficiario.setEstatus('0');
+				// PayloadPersonaResponse payloadPersonaResponse =
+				// S.PersonaService.modificar(personaBeneficiario);
+				// Beneficiario beneficiario = elemento;
+				// beneficiario.setEstatusBeneficiario(EstatusBeneficiarioEnum.INACTIVO.ordinal());
+				// PayloadBeneficiarioResponse payloadBeneficiarioResponse2 =
+				// S.BeneficiarioService.modificar(beneficiario);
+
+				/*
+				 * PayloadBeneficiarioResponse payloadBeneficiarioResponse =
+				 * S.BeneficiarioService .incluir(elemento);
+				 */
 				elemento.setFkFamiliar(this.getFamiliar());
 				PayloadBeneficiarioResponse payloadBeneficiarioResponse = S.BeneficiarioService
 						.incluir(elemento);
-				
+
 				if (!UtilPayload.isOK(payloadBeneficiarioResponse)) {
-					
+					Alert.showMessage(payloadBeneficiarioResponse);
+					return true;
 				}
-				System.out.println(elemento.getIdBeneficiario());
 			}
 
 			DataCenter.reloadCurrentNodoMenu();
@@ -690,34 +708,38 @@ beneficiariosPorRegistrar = this.getBeneficiariosPorRegistrar();
 
 	@Override
 	public boolean actionCancelar(OperacionEnum operacionEnum) {
-		System.out.println("cancelo");
+
 		beneficiariosPorRegistrar = this.getBeneficiariosPorRegistrar();
-		if(!beneficiariosPorRegistrar.isEmpty()){
-			for(Beneficiario elemento:beneficiariosPorRegistrar){
-				//System.out.println(elemento.getFkBeneficiario().getFkPersona().getNombre() + elemento.getFkBeneficiario().getFkPersona().getApellido() );
-				//Persona personaBeneficiario = elemento;
-				//personaBeneficiario.setEstatus('0');
-				//PayloadPersonaResponse payloadPersonaResponse = S.PersonaService.modificar(personaBeneficiario);
-				//Beneficiario beneficiario = elemento;
-				//beneficiario.setEstatusBeneficiario(EstatusBeneficiarioEnum.INACTIVO.ordinal());
-				//PayloadBeneficiarioResponse payloadBeneficiarioResponse2 = S.BeneficiarioService.modificar(beneficiario); 
-				
-				/*PayloadBeneficiarioResponse payloadBeneficiarioResponse = S.BeneficiarioService
-						.incluir(elemento);*/
-				PayloadPersonaResponse payloadPersonaResponse = S.PersonaService.eliminar(elemento.getFkPersona().getIdPersona());
+		if (!beneficiariosPorRegistrar.isEmpty()) {
+			for (Beneficiario elemento : beneficiariosPorRegistrar) {
+				// System.out.println(elemento.getFkBeneficiario().getFkPersona().getNombre()
+				// + elemento.getFkBeneficiario().getFkPersona().getApellido()
+				// );
+				// Persona personaBeneficiario = elemento;
+				// personaBeneficiario.setEstatus('0');
+				// PayloadPersonaResponse payloadPersonaResponse =
+				// S.PersonaService.modificar(personaBeneficiario);
+				// Beneficiario beneficiario = elemento;
+				// beneficiario.setEstatusBeneficiario(EstatusBeneficiarioEnum.INACTIVO.ordinal());
+				// PayloadBeneficiarioResponse payloadBeneficiarioResponse2 =
+				// S.BeneficiarioService.modificar(beneficiario);
+
+				/*
+				 * PayloadBeneficiarioResponse payloadBeneficiarioResponse =
+				 * S.BeneficiarioService .incluir(elemento);
+				 */
+				PayloadPersonaResponse payloadPersonaResponse = S.PersonaService
+						.eliminar(elemento.getFkPersona().getIdPersona());
 			}
 		}
-		
+
 		return actionSalir(operacionEnum);
 	}
 
-
-
 	public boolean isFormValidated() {
 		try {
-			
-			UtilValidate.validateNull(this.getImageContent(),
-					"Imagen");
+
+			UtilValidate.validateNull(this.getImageContent(), "Imagen");
 			UtilValidate.validateInteger(this.getPersona().getTipoPersona(),
 					"Tipo de persona", ValidateOperator.LESS_THAN, 2);
 
@@ -867,26 +889,24 @@ beneficiariosPorRegistrar = this.getBeneficiariosPorRegistrar();
 		if (this.beneficiarios == null) {
 			this.beneficiarios = new ArrayList<>();
 		}
-		//System.out.println(this.getFamiliar().getIdFamiliar());
-		if (this.getFamiliar().getIdFamiliar()!=null && (!this.isCargado())) {
-			
+		// System.out.println(this.getFamiliar().getIdFamiliar());
+		if (this.getFamiliar().getIdFamiliar() != null && (!this.isCargado())) {
+
 			Map<String, String> criterios = new HashMap<>();
 
-			criterios
-					.put("fkFamiliar.idFamiliar", String.valueOf(this.getFamiliar().getIdFamiliar()));
-			criterios
-			.put("estatusBeneficiario", String.valueOf(EstatusBeneficiarioEnum.ACTIVO.ordinal()));
+			criterios.put("fkFamiliar.idFamiliar",
+					String.valueOf(this.getFamiliar().getIdFamiliar()));
+			criterios.put("estatusBeneficiario",
+					String.valueOf(EstatusBeneficiarioEnum.ACTIVO.ordinal()));
 			PayloadBeneficiarioResponse payloadBeneficiarioResponse = S.BeneficiarioService
 					.consultarCriterios(TypeQuery.EQUAL, criterios);
 			if (!UtilPayload.isOK(payloadBeneficiarioResponse)) {
 				Alert.showMessage(payloadBeneficiarioResponse);
 			}
 			this.beneficiarios.addAll(payloadBeneficiarioResponse.getObjetos());
-			
+
 			this.setCargado(true);
 		}
-		
-		
 
 		return beneficiarios;
 	}
@@ -894,19 +914,17 @@ beneficiariosPorRegistrar = this.getBeneficiariosPorRegistrar();
 	public void setBeneficiarios(List<Beneficiario> beneficiarios) {
 		this.beneficiarios = beneficiarios;
 	}
-	
+
 	public List<Beneficiario> getBeneficiariosPorRegistrar() {
 		if (this.beneficiariosPorRegistrar == null) {
 			this.beneficiariosPorRegistrar = new ArrayList<>();
 		}
-	
-		
-		
 
 		return beneficiariosPorRegistrar;
 	}
 
-	public void setBeneficiariosPorRegistrar(List<Beneficiario> beneficiariosPorRegistrar) {
+	public void setBeneficiariosPorRegistrar(
+			List<Beneficiario> beneficiariosPorRegistrar) {
 		this.beneficiariosPorRegistrar = beneficiariosPorRegistrar;
 	}
 

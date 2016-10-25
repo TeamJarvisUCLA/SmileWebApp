@@ -5,163 +5,126 @@
 		viewModel="@id('vm') @init('ve.smile.gestion.ayudas.solicitudes.VM_SolicitudesFormBasic')">
 
 		<div class="row">
+			<div sclass="row">
+				<div sclass="col s6">
+					<div class="input-field col s11">
+						<n:label for="beneficiario1" class="active">
+							Beneficiario:
+						</n:label>
+						<textbox disabled="true"
+							value="@bind(vm.beneficiario.fkPersona.identificacion.concat(' - ').concat(vm.beneficiario.fkPersona.nombre).concat(' ').concat(vm.beneficiario.fkPersona.apellido))">
+						</textbox>
 
-			<div class="input-field offset-s2 col s8">
-				<n:label for="beneficiario">Beneficiario:</n:label>
-				<div id="beneficiario"></div>
-
-			</div>
-
-			<div class="input-field col s1" style="font-size: 2em;">
-				<button sclass="teal lighten-1 waves-effect waves-light"
-					onClick="@command('buscarBeneficiario')" iconSclass="fa fa-search"
-					style="padding: 5px 15px; background-color: #2AA4EF !important">
-				</button>
-			</div>
-
-			<div visible="@load(not empty vm.beneficiario.fkPersona.nombre )">
-				<div class="input-field offset-s2 col s8">
-					<n:label for="beneficiario1" class="active">
-						Nombre Beneficiario:
-					</n:label>
-					<label sclass="subtitulo-evento"
-									value="@bind(vm.beneficiario.fkPersona.nombre.concat(' ').concat(vm.beneficiario.fkPersona.apellido))">
-								</label>
-					
+					</div>
+					<div class="input-field col s1"
+						style="font-size: 2em;">
+						<button
+							sclass="teal lighten-1 waves-effect waves-light"
+							onClick="@command('buscarBeneficiario')"
+							iconSclass="fa fa-search"
+							style=" background-color: #2AA4EF !important">
+						</button>
+					</div>
 				</div>
-
-
-
-				<div class="input-field offset-s2 col s8">
-					<n:label for="beneficiario3" class="active">
-						Documento Identificacion Beneficiario:
-					</n:label>
-					<label sclass="subtitulo-evento"
-									value="@bind(vm.beneficiario.fkPersona.identificacion)">
-								</label>
-				</div>
-				
-				<div class="input-field offset-s2 col s8">
-					<n:label for="beneficiario1" class="active">
-						Nombre Representante:
-					</n:label>
-					<label sclass="subtitulo-evento"
-									value="@bind(vm.beneficiario.fkFamiliar.fkPersona.nombre.concat(' ').concat(vm.beneficiario.fkFamiliar.fkPersona.apellido))">
-								</label>
-					
-				</div>
-
-
-
-				<div class="input-field offset-s2 col s8">
-					<n:label for="beneficiario3" class="active">
-						Documento Identificacion Representante:
-					</n:label>
-					<label sclass="subtitulo-evento"
-									value="@bind(vm.beneficiario.fkFamiliar.fkPersona.identificacion)">
-								</label>
-				</div>
-				
-				
-
-			</div>
-
-
-			<div class="input-field offset-s2 col s8">
-				<n:label for="ayuda">Ayuda:</n:label>
-				<div id="ayuda"></div>
-			</div>
-			<div class="input-field col s1" style="font-size: 2em;">
-				<button sclass="teal lighten-1 waves-effect waves-light"
-					onClick="@command('buscarAyuda')" iconSclass="fa fa-search"
-					style="padding: 5px 15px; background-color: #2AA4EF !important">
-				</button>
-			</div>
-
-			
-			<div visible="@load(not empty vm.ayuda.nombre )">
-				<div class="input-field offset-s2 col s8">
-					<n:label for="beneficiario3" class="active">
-						Ayuda Solicitada:
-					</n:label>
-					<label sclass="subtitulo-evento"
-									value="@bind(vm.ayuda.nombre)">
-								</label>
-				</div>
-				
-				<div class="input-field offset-s2 col s8">
-					<n:label for="beneficiario3" class="active">
-						Descripcion de Ayuda:
-					</n:label>
-					<label sclass="subtitulo-evento"
-									value="@bind(vm.ayuda.descripcion)">
-								</label>
-				</div>
-
-
-			</div>
-
-			<div class="col s12">
-				<div class="input-field offset-s2 col s8">
-					<n:label for="titulo">Titulo de Solicitud</n:label>
-					<textbox id="titulo" type="text" maxlength="100"
-						value="@bind(vm.solicitudAyuda.titulo)">
-					</textbox>
-				</div>
-			</div>
-
-
-		
-
-
-			<div class="col s12">
-				<div class="input-field offset-s2 col s8">
-					<n:label for="urgencia" class="active">
-						Urgencia
-					</n:label>
-
-					<combobox id="urgencia" readonly="true"
-						model="@bind(vm.urgenciaEnums)"
-						selectedItem="@bind(vm.urgenciaEnum)">
-						<template name="model">
-							<comboitem label="@load(each)" />
-						</template>
-					</combobox>
+				<div sclass="col s6"
+					visible="@load(not empty vm.beneficiario.fkPersona.nombre )">
+					<div class="input-fieldcol s12">
+						<n:label for="beneficiario1" class="active">
+							Representante del Beneficiario:
+						</n:label>
+						<textbox disabled="true" id="beneficiario1"
+							value="@bind(vm.beneficiario.fkFamiliar.fkPersona.identificacion.concat(' - ').concat(vm.beneficiario.fkFamiliar.fkPersona.nombre).concat(' ').concat(vm.beneficiario.fkFamiliar.fkPersona.apellido))">
+						</textbox>
+					</div>
 
 				</div>
 			</div>
-
-
-
-
-
-			<div class="col s12">
-				<div class="input-field offset-s2 col s8">
-					<n:label for="fecha_solicitud" class="active">
-						Fecha de Solicitud
-					</n:label>
-
-					<datebox id="fecha_solicitud" cols="20"
-						format="dd/MM/yyyy" readonly="true" value="@bind(vm.fecha)" />
-
+			<div sclass="row">
+				<div class="col s6">
+					<div class="input-field  col s11">
+						<n:label for="beneficiario3" class="active">
+							Ayuda
+						</n:label>
+						<textbox disabled="true" id="beneficiario3"
+							value="@bind(vm.ayuda.nombre)">
+						</textbox>
+					</div>
+					<div class="input-field col s1"
+						style="font-size: 2em;">
+						<button
+							sclass="teal lighten-1 waves-effect waves-light"
+							onClick="@command('buscarAyuda')" iconSclass="fa fa-search"
+							style=" background-color: #2AA4EF !important">
+						</button>
+					</div>
+				</div>
+				<div sclass="col s6"
+					visible="@load(not empty vm.ayuda.nombre )">
+					<div class="input-field col s12">
+						<n:label for="beneficiario3" class="active">
+							Descripción de Ayuda:
+						</n:label>
+						<textbox sclass="materialize-textarea"
+							disabled="true" multiline="true"
+							value="@bind(vm.ayuda.descripcion)">
+						</textbox>
+					</div>
 				</div>
 			</div>
 
+			<div class="row">
+				<div class="col s6">
+					<div class="input-field  col s12">
+						<n:label for="titulo">
+							Titulo de Solicitud
+						</n:label>
+						<textbox id="titulo" type="text" maxlength="100"
+							value="@bind(vm.solicitudAyuda.titulo)">
+						</textbox>
+					</div>
+				</div>
+				<div class="col s6">
+					<div class="input-field  col s12">
+						<n:label for="urgencia" class="active">
+							Urgencia
+						</n:label>
 
-
-			<div class="col s12">
-				<div class="input-field offset-s2 col s8">
-					<n:label for="observacion">Observacion</n:label>
-					<textbox type="text" sclass="materialize-textarea"
-						multiline="true" value="@bind(vm.solicitudAyuda.observacion)">
-					</textbox>
+						<combobox id="urgencia" readonly="true"
+							model="@bind(vm.urgenciaEnums)"
+							selectedItem="@bind(vm.urgenciaEnum)">
+							<template name="model">
+								<comboitem label="@load(each)" />
+							</template>
+						</combobox>
+					</div>
 				</div>
 			</div>
 
+			<div class="row">
+				<div class="col s6">
+					<div class="input-field col s12">
+						<n:label for="fecha_solicitud" class="active">
+							Fecha de Solicitud
+						</n:label>
 
+						<datebox id="fecha_solicitud" cols="20"
+							format="dd/MM/yyyy" readonly="true" value="@bind(vm.fecha)" />
+					</div>
+				</div>
 
+			</div>
+			<div sclass="row">
+				<div class="col s12">
+					<div class="input-field  col s12">
+						<n:label for="observacion">Observación</n:label>
+						<textbox type="text"
+							sclass="materialize-textarea" multiline="true"
+							value="@bind(vm.solicitudAyuda.observacion)">
+						</textbox>
+					</div>
+				</div>
+			</div>
 		</div>
-
 		<div id="divButtonsForm"
 			use="karen.core.form.buttons.containers.DivButtonsForm">
 		</div>

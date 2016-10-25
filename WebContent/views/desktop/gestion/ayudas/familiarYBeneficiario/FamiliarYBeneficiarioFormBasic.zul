@@ -17,11 +17,11 @@
 							<tab id="tabContacto"
 								label="Información de contacto" />
 							<tab id="tabBeneficiarios"
-								label="Agregar Beneficiarios" />
+								label="Beneficiarios" />
 						</tabs>
 
 						<tabpanels>
-							<tabpanel>
+							<tabpanel sclass="fadeIn animated">
 
 								<div class="input-field col s6">
 									<n:label for="tipo_persona"
@@ -29,8 +29,8 @@
 										Tipo de persona
 									</n:label>
 
-									<combobox readonly="true" id="tipo_persona"
-										model="@bind(vm.tipoPersonaEnums)"
+									<combobox readonly="true"
+										id="tipo_persona" model="@bind(vm.tipoPersonaEnums)"
 										selectedItem="@bind(vm.tipoPersonaEnum)">
 										<template name="model">
 											<comboitem
@@ -45,7 +45,8 @@
 								<div
 									visible="@load(empty vm.tipoPersonaEnum || vm.tipoPersonaEnum eq 'NATURAL' )">
 									<div class="input-field col s6">
-										<n:label for="identificacion">
+										<n:label class="active"
+											for="identificacion">
 											Cédula
 										</n:label>
 
@@ -57,7 +58,8 @@
 											tooltip="pop_identificacion, position=after_end" />
 									</div>
 									<div class="input-field col s6">
-										<n:label for="nombre">
+										<n:label class="active"
+											for="nombre">
 											Nombre
 										</n:label>
 										<span
@@ -68,7 +70,8 @@
 										</textbox>
 									</div>
 									<div class="input-field col s6">
-										<n:label for="apellido">
+										<n:label class="active"
+											for="apellido">
 											Apellido
 										</n:label>
 										<span
@@ -86,8 +89,8 @@
 										<span
 											sclass="fa fa-question-circle fa-lg help-icon-special"
 											tooltip="pop_sexo, position=after_end" />
-										<combobox readonly="true" id="sexo"
-											model="@bind(vm.sexoEnums)"
+										<combobox readonly="true"
+											id="sexo" model="@bind(vm.sexoEnums)"
 											selectedItem="@bind(vm.sexoEnum)">
 											<template name="model"
 												var="sexo">
@@ -114,7 +117,7 @@
 								<div
 									visible="@load(not empty (vm.tipoPersonaEnum) and vm.tipoPersonaEnum eq 'JURIDICA')">
 									<div class="input-field col s6">
-										<n:label
+										<n:label class="active"
 											for="identificacionRif">
 											RIF
 										</n:label>
@@ -126,7 +129,8 @@
 											tooltip="pop_identificacion_rif, position=after_end" />
 									</div>
 									<div class="input-field col s12">
-										<n:label for="nombreJuridico">
+										<n:label class="active"
+											for="nombreJuridico">
 											Nombre
 										</n:label>
 
@@ -148,10 +152,10 @@
 									<span
 										sclass="fa fa-question-circle fa-lg help-icon-special"
 										tooltip="pop_estado, position=after_end" />
-									<combobox readonly="true" id="fk_estado"
-										placeholder="Seleccione un Estado" instant="true"
-										onSelect="@command('changeEstado')" model="@bind(vm.estados)"
-										selectedItem="@bind(vm.estado)">
+									<combobox readonly="true"
+										id="fk_estado" placeholder="Seleccione un Estado"
+										instant="true" onSelect="@command('changeEstado')"
+										model="@bind(vm.estados)" selectedItem="@bind(vm.estado)">
 										<template name="model">
 											<comboitem
 												label="@load(each.nombre)" />
@@ -167,8 +171,8 @@
 									<span
 										sclass="fa fa-question-circle fa-lg help-icon-special"
 										tooltip="pop_ciudad, position=after_end" />
-									<combobox readonly="true" id="fk_ciudad"
-										placeholder="Seleccione una ciudad"
+									<combobox readonly="true"
+										id="fk_ciudad" placeholder="Seleccione una ciudad"
 										disabled="@load(empty vm.ciudades)" model="@bind(vm.ciudades)"
 										selectedItem="@bind(vm.persona
 									.fkCiudad)">
@@ -195,7 +199,8 @@
 									</div>
 
 									<div class="input-field col s12">
-										<n:label for="direccion">
+										<n:label class="active"
+											for="direccion">
 											Dirección
 										</n:label>
 										<span
@@ -221,10 +226,11 @@
 
 							</tabpanel>
 
-							<tabpanel>
+							<tabpanel sclass="fadeIn animated">
 
 								<div class="input-field col s6">
-									<n:label for="telefono_1">
+									<n:label class="active"
+										for="telefono_1">
 										Teléfono 1
 									</n:label>
 									<span
@@ -236,7 +242,8 @@
 								</div>
 
 								<div class="input-field col s6">
-									<n:label for="telefono_2">
+									<n:label class="active"
+										for="telefono_2">
 										Teléfono 2
 									</n:label>
 									<span
@@ -248,7 +255,9 @@
 								</div>
 
 								<div class="input-field col s6">
-									<n:label for="fax">Fax</n:label>
+									<n:label class="active" for="fax">
+										Fax
+									</n:label>
 									<span
 										sclass="fa fa-question-circle fa-lg help-icon-special"
 										tooltip="pop_fax, position=after_end" />
@@ -258,7 +267,8 @@
 								</div>
 
 								<div class="input-field col s6">
-									<n:label for="correo">
+									<n:label class="active"
+										for="correo">
 										Correo electrónico
 									</n:label>
 									<span
@@ -271,7 +281,8 @@
 								</div>
 
 								<div class="input-field col s6">
-									<n:label for="twitter">
+									<n:label class="active"
+										for="twitter">
 										Twitter
 									</n:label>
 									<span
@@ -283,7 +294,8 @@
 								</div>
 
 								<div class="input-field col s6">
-									<n:label for="instagram">
+									<n:label class="active"
+										for="instagram">
 										Instagram
 									</n:label>
 									<span
@@ -295,7 +307,8 @@
 								</div>
 
 								<div class="input-field col s6">
-									<n:label for="facebook">
+									<n:label class="active"
+										for="facebook">
 										Facebook
 									</n:label>
 									<span
@@ -307,7 +320,8 @@
 								</div>
 
 								<div class="input-field col s6">
-									<n:label for="linkedin">
+									<n:label class="active"
+										for="linkedin">
 										LinkedIn
 									</n:label>
 									<span
@@ -319,7 +333,8 @@
 								</div>
 
 								<div class="input-field col s6">
-									<n:label for="sitioWeb">
+									<n:label class="active"
+										for="sitioWeb">
 										Sitio web
 									</n:label>
 									<span
@@ -332,51 +347,53 @@
 
 							</tabpanel>
 
-							<tabpanel>
+							<tabpanel sclass="fadeIn animated">
+								<div>
 
-
-								<div width="100%">
-
-									<div
+									<div sclass="col s12"
 										visible="@load(vm.isIncluir eq true)">
-							
-										
-
-										
-
-										<div style="overflow: auto;"
-											class="row">
+										<div class="row">
+											<div class="col s12"
+												align="right" style="    padding-bottom: 20px;">
+												<button
+													sclass="teal lighten-1 waves-effect waves-light"
+													onClick="@command('dialogoBeneficiarioRegistrar', index=0)"
+													iconSclass="fa fa-plus" label="Agregar"
+													style="padding: 5px 15px; background-color: #8AC7DE !important;     font-weight: 300;"
+													id="agregar1">
+												</button>
+												<separator
+													orient="vertical" height="20px">
+												</separator>
+											</div>
 											<div class="col s12">
-												<div class="col s12"
-													style="overflow: scroll;">
+												<div class="col s12">
 													<listbox
 														id="listbox1" model="@load(vm.beneficiariosPorRegistrar)"
 														selectedItem="@bind(vm.beneficiario)">
-
-
-														<listhead
-															sizable="true">
-
+														<listhead>
 															<listheader
-																width="100%" label="Nombre de Beneficiario" />
-															
+																width="20%" label="Identificación" />
 															<listheader
-																width="100%" label="Identificacion" />
-															
-
-
+																width="75%" label="Beneficiario" />
+															<listheader
+																width="10%" label="">
+															</listheader>
 														</listhead>
 														<template
 															name="model">
 															<listitem>
-
-																<listcell
-																	label="@load(each.fkPersona.nombre.concat(' ').concat(each.fkPersona.apellido))" />
-																
 																<listcell
 																	label="@load(each.fkPersona.identificacion)" />
-																
-
+																<listcell
+																	label="@load(each.fkPersona.nombre.concat(' ').concat(each.fkPersona.apellido))" />
+																<listcell>
+																	<button
+																		onClick="@command('eliminar', beneficiario=each)"
+																		sclass="btn-sm-grid btn-pink " tooltiptext="Eliminar"
+																		iconSclass="fa fa-trash">
+																	</button>
+																</listcell>
 															</listitem>
 														</template>
 														<listfoot>
@@ -389,61 +406,65 @@
 												</div>
 											</div>
 										</div>
-										
-										<div style="text-align: center;">
-								<n:label for="agregar1"
-											class="active">
-											Agregar Beneficiario
-										</n:label>
-										<button
-											sclass="teal lighten-1 waves-effect waves-light"
-											onClick="@command('dialogoBeneficiarioRegistrar', index=0)"
-											iconSclass="fa fa-plus"
-											style="padding: 5px 15px; background-color: #2AA4EF !important"
-											id="agregar1">
-										</button>
- 
-							</div>
-
 									</div>
 
-
 									<div
-										visible="@load(vm.isModificar eq true)">
-									
-									
-									
-										<div style="overflow: auto;"
-											class="row">
+										visible="@load(vm.isModificar eq true)"
+										style="    padding-bottom: 20px;">
+
+										<div sclass="col s10"
+											align="right">
+											<button
+												sclass="teal lighten-1 waves-effect waves-light"
+												onClick="@command('dialogoBeneficiarioRegistrar' , index=1)"
+												iconSclass="fa fa-plus" label="AGREGAR"
+												style="padding: 5px 15px; background-color: #8AC7DE !important"
+												id="agregar2">
+											</button>
+
+										</div>
+										<div sclass="col s2"
+											align="right">
+											<button
+												sclass="teal lighten-1 waves-effect waves-light"
+												onClick="@command('dialogoBeneficiarioModificar')"
+												iconSclass="fa fa-pencil" label="MODIFICAR"
+												style="padding: 5px 15px; background-color: #0086A4 !important; font-weight: 300;"
+												id="modificar2">
+											</button>
+										</div>
+										<separator orient="vertical"
+											height="20px">
+										</separator>
+
+										<div class="row">
 											<div class="col s12">
-												<div class="col s12"
-													style="overflow: scroll;">
+												<div class="col s12">
 													<listbox
 														id="listbox2" model="@load(vm.beneficiarios)"
 														selectedItem="@bind(vm.beneficiario)">
-
-
-														<listhead
-															sizable="true">
-
+														<listhead>
 															<listheader
-																width="100%" label="Nombre de Beneficiario" />
-															
+																width="20%" label="Identificación" />
 															<listheader
-																width="100%" label="Identificacion" />
-
-
+																width="70%" label="Beneficiario" />
+															<listheader
+																width="10%" label="" />
 														</listhead>
 														<template
 															name="model">
 															<listitem>
-
-																<listcell
-																	label="@load(each.fkPersona.nombre.concat(' ').concat(each.fkPersona.apellido))" />
-																
 																<listcell
 																	label="@load(each.fkPersona.identificacion)" />
-
+																<listcell
+																	label="@load(each.fkPersona.nombre.concat(' ').concat(each.fkPersona.apellido))" />
+																<listcell>
+																	<button
+																		onClick="@command('eliminar', beneficiario=each)"
+																		sclass="btn-sm-grid btn-pink " tooltiptext="Eliminar"
+																		iconSclass="fa fa-trash">
+																	</button>
+																</listcell>
 															</listitem>
 														</template>
 														<listfoot>
@@ -456,79 +477,36 @@
 												</div>
 											</div>
 										</div>
-										
-										<div style="text-align: center;">
-										<n:label for="agregar2"
-											class="active">
-											Agregar Beneficiario
-										</n:label>
-										<button
-											sclass="teal lighten-1 waves-effect waves-light"
-											onClick="@command('dialogoBeneficiarioRegistrar' , index=1)"
-											iconSclass="fa fa-plus"
-											style="padding: 5px 15px; background-color: #2AA4EF !important"
-											id="agregar2">
-										</button>
 
-										<n:label for="modificar2"
-											class="active">
-											Modificar Beneficiario
-										</n:label>
-										<button
-											sclass="teal lighten-1 waves-effect waves-light"
-											onClick="@command('dialogoBeneficiarioModificar')"
-											iconSclass="fa fa-pencil"
-											style="padding: 5px 15px; background-color: #2AA4EF !important"
-											id="modificar2">
-										</button>
+
 									</div>
-
-				
-									</div>
-
-
-
-								<div
+									<div
 										visible="@load(vm.isConsultar eq true)">
 
-										
-
-										<div style="overflow: auto;"
-											class="row">
+										<div class="row">
 											<div class="col s12">
-												<div class="col s12"
-													style="overflow: scroll;">
+												<div class="col s12">
 													<listbox
 														id="listbox3" model="@load(vm.beneficiarios)"
 														selectedItem="@bind(vm.beneficiario)">
-
-
-														<listhead
-															sizable="true">
-
+														<listhead>
 															<listheader
-																width="100%" label="Nombre de Beneficiario" />
-															
+																width="20%" label="Identificación" />
 															<listheader
-																width="100%" label="Identificacion" />
-
-
+																width="80%" label="Beneficiario" />
 														</listhead>
 														<template
 															name="model">
 															<listitem>
-
-																<listcell
-																	label="@load(each.fkPersona.nombre.concat(' ').concat(each.fkPersona.apellido))" />
-																
 																<listcell
 																	label="@load(each.fkPersona.identificacion)" />
-
+																<listcell
+																	label="@load(each.fkPersona.nombre.concat(' ').concat(each.fkPersona.apellido))" />
 															</listitem>
 														</template>
 														<listfoot>
 															<listfooter
-																id="listFoot3" span="5"
+																id="listFoot3" span="2"
 																use="karen.core.listfoot.ListFoot">
 															</listfooter>
 														</listfoot>

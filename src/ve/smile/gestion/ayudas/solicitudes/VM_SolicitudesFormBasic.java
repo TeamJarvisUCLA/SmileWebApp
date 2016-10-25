@@ -27,7 +27,6 @@ import org.zkoss.bind.annotation.Init;
 import ve.smile.consume.services.S;
 import ve.smile.dto.Ayuda;
 import ve.smile.dto.Beneficiario;
-import ve.smile.dto.Beneficiario;
 import ve.smile.dto.SolicitudAyuda;
 import ve.smile.enums.EstatusSolicitudEnum;
 import ve.smile.enums.UrgenciaEnum;
@@ -43,11 +42,10 @@ public class VM_SolicitudesFormBasic extends VM_WindowForm {
 	private UrgenciaEnum urgenciaEnum;
 
 	private SolicitudAyuda solicitudAyuda;
-	
+
 	private Beneficiario beneficiario = new Beneficiario();
 
 	private Date fecha;
-
 
 	private Ayuda ayuda = new Ayuda();
 
@@ -301,21 +299,21 @@ public class VM_SolicitudesFormBasic extends VM_WindowForm {
 
 	public boolean isFormValidated() {
 		try {
-			UtilValidate.validateString(this.getSolicitudAyuda().getObservacion(),
-					"Observación", 200);
-			
+			UtilValidate.validateString(this.getSolicitudAyuda()
+					.getObservacion(), "Observaciï¿½n", 200);
+
 			UtilValidate.validateString(this.getSolicitudAyuda().getTitulo(),
 					"Titulo", 100);
-			
-			UtilValidate
-			.validateNull(this.getSolicitudAyuda().getFkAyuda(), "Ayuda");
-			
-			UtilValidate
-			.validateNull(this.getSolicitudAyuda().getFkBeneficiario(), "Beneficiario");
-			
 
-			UtilValidate.validateNull(this.getSolicitudAyuda().getUrgencia(), "Urgencia");
-			
+			UtilValidate.validateNull(this.getSolicitudAyuda().getFkAyuda(),
+					"Ayuda");
+
+			UtilValidate.validateNull(this.getSolicitudAyuda()
+					.getFkBeneficiario(), "Beneficiario");
+
+			UtilValidate.validateNull(this.getSolicitudAyuda().getUrgencia(),
+					"Urgencia");
+
 			UtilValidate.validateDate(this.getSolicitudAyuda().getFecha(),
 					"Fecha de Soliitud", ValidateOperator.GREATER_THAN,
 					new SimpleDateFormat("yyyy-MM-dd").format(new Date()),
@@ -343,7 +341,5 @@ public class VM_SolicitudesFormBasic extends VM_WindowForm {
 	public void setAyuda(Ayuda ayuda) {
 		this.ayuda = ayuda;
 	}
-
-	
 
 }

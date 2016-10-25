@@ -5,199 +5,175 @@
 		use="karen.core.dialog.form.controllers.C_WindowFormDialog"
 		apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('ve.smile.gestion.ayudas.familiar_y_beneficiario.VM_DialogoBeneficiarioRegistrar', dialogData=arg.get('dialogData'))">
-			
+
 		<caption label="Agregar Beneficiario" style="margin-left: 40%;" />
-		
+
 		<separator height="20px"></separator>
-		
+
 		<separator height="20px"></separator>
-		
-		<div sclass="animated fadeInLeft">
+
+		<div>
 			<div class="row">
-			<div sclass="col s12 form">
+				<div sclass="col s12 form">
 
-				
+					<div class="input-field col s6">
+						<n:label for="tipo_persona" class="active">
+							Tipo de persona
+						</n:label>
 
-					
+						<combobox disabled="true" id="tipo_persona"
+							model="@bind(vm.tipoPersonaEnums)"
+							selectedItem="@bind(vm.tipoPersonaEnum)">
+							<template name="model">
+								<comboitem label="@load(each)" />
+							</template>
+						</combobox>
+						<span
+							sclass="fa fa-question-circle fa-lg help-icon-special"
+							tooltip="pop_persona, position=after_end" />
+					</div>
 
-							<div class="input-field col s6">
-								<n:label for="tipo_persona"
-									class="active">
-									Tipo de persona
-								</n:label>
+					<div
+						visible="@load(empty vm.tipoPersonaEnum || vm.tipoPersonaEnum eq 'NATURAL' )">
+						<div class="input-field col s6">
+							<n:label for="identificacion">
+								Cédula
+							</n:label>
 
-								<combobox disabled="true" id="tipo_persona"
-									model="@bind(vm.tipoPersonaEnums)"
-									selectedItem="@bind(vm.tipoPersonaEnum)">
-									<template name="model">
-										<comboitem label="@load(each)" />
-									</template>
-								</combobox>
-								<span
-									sclass="fa fa-question-circle fa-lg help-icon-special"
-									tooltip="pop_persona, position=after_end" />
-							</div>
+							<textbox id="identificacion" type="text"
+								value="@bind(vm.persona.identificacion)">
+							</textbox>
+							<span
+								sclass="fa fa-question-circle fa-lg help-icon-special"
+								tooltip="pop_identificacion, position=after_end" />
+						</div>
+						<div class="input-field col s6">
+							<n:label for="nombre">Nombre</n:label>
+							<span
+								sclass="fa fa-question-circle fa-lg help-icon-special"
+								tooltip="pop_nombre, position=after_end" />
+							<textbox id="nombre" type="text"
+								value="@bind(vm.persona.nombre)">
+							</textbox>
+						</div>
+						<div class="input-field col s6">
+							<n:label for="apellido">Apellido</n:label>
+							<span
+								sclass="fa fa-question-circle fa-lg help-icon-special"
+								tooltip="pop_apellido, position=after_end" />
+							<textbox id="apellido" type="text"
+								value="@bind(vm.persona.apellido)">
+							</textbox>
+						</div>
+						<div class="input-field col s6">
+							<n:label for="sexo" class="active">
+								Sexo
+							</n:label>
+							<span
+								sclass="fa fa-question-circle fa-lg help-icon-special"
+								tooltip="pop_sexo, position=after_end" />
+							<combobox readonly="true" id="sexo"
+								model="@bind(vm.sexoEnums)" selectedItem="@bind(vm.sexoEnum)">
+								<template name="model" var="sexo">
+									<comboitem label="@bind(sexo)" />
+								</template>
+							</combobox>
+						</div>
 
-							<div
-								visible="@load(empty vm.tipoPersonaEnum || vm.tipoPersonaEnum eq 'NATURAL' )">
-								<div class="input-field col s6">
-									<n:label for="identificacion">
-										Cédula
-									</n:label>
+						<div class="input-field col s6">
+							<n:label for="fecha_nacimiento"
+								class="active">
+								Fecha de nacimiento
+							</n:label>
+							<span
+								sclass="fa fa-question-circle fa-lg help-icon-special"
+								tooltip="pop_fecha_nacimiento, position=after_end" />
+							<datebox id="db" cols="20"
+								constraint="no empty, no future" format="dd/MM/yyyy"
+								value="@bind(vm.fechaNacimiento)" />
+						</div>
+					</div>
 
-									<textbox id="identificacion"
-										type="text" value="@bind(vm.persona.identificacion)">
-									</textbox>
-									<span
-										sclass="fa fa-question-circle fa-lg help-icon-special"
-										tooltip="pop_identificacion, position=after_end" />
-								</div>
-								<div class="input-field col s6">
-									<n:label for="nombre">
-										Nombre
-									</n:label>
-									<span
-										sclass="fa fa-question-circle fa-lg help-icon-special"
-										tooltip="pop_nombre, position=after_end" />
-									<textbox id="nombre" type="text"
-										value="@bind(vm.persona.nombre)">
-									</textbox>
-								</div>
-								<div class="input-field col s6">
-									<n:label for="apellido">
-										Apellido
-									</n:label>
-									<span
-										sclass="fa fa-question-circle fa-lg help-icon-special"
-										tooltip="pop_apellido, position=after_end" />
-									<textbox id="apellido" type="text"
-										value="@bind(vm.persona.apellido)">
-									</textbox>
-								</div>
-								<div class="input-field col s6">
-									<n:label for="sexo"
-										class="active">
-										Sexo
-									</n:label>
-									<span
-										sclass="fa fa-question-circle fa-lg help-icon-special"
-										tooltip="pop_sexo, position=after_end" />
-									<combobox readonly="true" id="sexo"
-										model="@bind(vm.sexoEnums)"
-										selectedItem="@bind(vm.sexoEnum)">
-										<template name="model"
-											var="sexo">
-											<comboitem
-												label="@bind(sexo)" />
-										</template>
-									</combobox>
-								</div>
 
-								<div class="input-field col s6">
-									<n:label for="fecha_nacimiento"
-										class="active">
-										Fecha de nacimiento
-									</n:label>
-									<span
-										sclass="fa fa-question-circle fa-lg help-icon-special"
-										tooltip="pop_fecha_nacimiento, position=after_end" />
-									<datebox id="db" cols="20" constraint="no empty, no future"
-										format="dd/MM/yyyy" value="@bind(vm.fechaNacimiento)" />
-								</div>
-							</div>
 
-							
+					<div class="input-field col s6">
+						<n:label class="active" for="fk_estado">
+							Estado
+						</n:label>
+						<span
+							sclass="fa fa-question-circle fa-lg help-icon-special"
+							tooltip="pop_estado, position=after_end" />
+						<combobox readonly="true" id="fk_estado"
+							placeholder="Seleccione un Estado" instant="true"
+							onSelect="@command('changeEstado')" model="@bind(vm.estados)"
+							selectedItem="@bind(vm.estado)">
+							<template name="model">
+								<comboitem label="@load(each.nombre)" />
+							</template>
+						</combobox>
+					</div>
 
-							<div class="input-field col s6">
-								<n:label class="active"
-									for="fk_estado">
-									Estado
-								</n:label>
-								<span
-									sclass="fa fa-question-circle fa-lg help-icon-special"
-									tooltip="pop_estado, position=after_end" />
-								<combobox readonly="true" id="fk_estado"
-									placeholder="Seleccione un Estado" instant="true"
-									onSelect="@command('changeEstado')" model="@bind(vm.estados)"
-									selectedItem="@bind(vm.estado)">
-									<template name="model">
-										<comboitem
-											label="@load(each.nombre)" />
-									</template>
-								</combobox>
-							</div>
-
-							<div class="input-field col s6">
-								<n:label class="active"
-									for="fk_ciudad">
-									Ciudad
-								</n:label>
-								<span
-									sclass="fa fa-question-circle fa-lg help-icon-special"
-									tooltip="pop_ciudad, position=after_end" />
-								<combobox readonly="true" id="fk_ciudad"
-									placeholder="Seleccione una ciudad"
-									disabled="@load(empty vm.ciudades)" model="@bind(vm.ciudades)"
-									selectedItem="@bind(vm.persona
+					<div class="input-field col s6">
+						<n:label class="active" for="fk_ciudad">
+							Ciudad
+						</n:label>
+						<span
+							sclass="fa fa-question-circle fa-lg help-icon-special"
+							tooltip="pop_ciudad, position=after_end" />
+						<combobox readonly="true" id="fk_ciudad"
+							placeholder="Seleccione una ciudad"
+							disabled="@load(empty vm.ciudades)" model="@bind(vm.ciudades)"
+							selectedItem="@bind(vm.persona
 									.fkCiudad)">
-									<template name="model">
-										<comboitem
-											label="@load(each.nombre)" />
-									</template>
-								</combobox>
-							</div>
+							<template name="model">
+								<comboitem label="@load(each.nombre)" />
+							</template>
+						</combobox>
+					</div>
 
 
-							<div class="col s6" style="padding:0px">
-								<div class="input-field col s12">
-									<n:label for="fecha_ingreso"
-										class="active">
-										Fecha de ingreso
-									</n:label>
-									<span
-										sclass="fa fa-question-circle fa-lg help-icon-special"
-										tooltip="pop_fecha_ingreso, position=after_end" />
-									<datebox id="fecha_ingreso"
-										cols="20" format="dd/MM/yyyy" value="@bind(vm.fechaIngreso)" />
-								</div>
+					<div class="col s6" style="padding:0px">
+						<div class="input-field col s12">
+							<n:label for="fecha_ingreso"
+								class="active">
+								Fecha de ingreso
+							</n:label>
+							<span
+								sclass="fa fa-question-circle fa-lg help-icon-special"
+								tooltip="pop_fecha_ingreso, position=after_end" />
+							<datebox id="fecha_ingreso" cols="20"
+								format="dd/MM/yyyy" value="@bind(vm.fechaIngreso)" />
+						</div>
 
-								<div class="input-field col s12">
-									<n:label for="direccion">
-										Dirección
-									</n:label>
-									<span
-										sclass="fa fa-question-circle fa-lg help-icon-special"
-										tooltip="pop_direccion, position=after_end" />
-									<textbox id="direccion" type="text"
-										sclass="materialize-textarea" multiline="true"
-										value="@bind(vm.persona.direccion)">
-									</textbox>
-								</div>
-							</div>
-							
-							
-							<div class="col s6" style="padding:0px;">
-								<div class="input-field col s12">
-									<span style="float:right"
-										sclass="fa fa-question-circle fa-lg help-icon"
-										tooltip="pop_imagen, position=after_end" />
-									<uploadImageSingle maxsize="9000"
-										size="200" idUpload="1" title="Imagen del patrocinador" />
-								</div>
-							</div>
-
-						
-
-				
+						<div class="input-field col s12">
+							<n:label for="direccion">Dirección</n:label>
+							<span
+								sclass="fa fa-question-circle fa-lg help-icon-special"
+								tooltip="pop_direccion, position=after_end" />
+							<textbox id="direccion" type="text"
+								sclass="materialize-textarea" multiline="true"
+								value="@bind(vm.persona.direccion)">
+							</textbox>
+						</div>
+					</div>
 
 
+					<div class="col s6" style="padding:0px;">
+						<div class="input-field col s12">
+							<span style="float:right"
+								sclass="fa fa-question-circle fa-lg help-icon"
+								tooltip="pop_imagen, position=after_end" />
+							<uploadImageSingle maxsize="9000" size="200"
+								idUpload="1" title="Imagen del Beneficiario" />
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
-	</div>
-	
-	<div id="divButtonsForm" 
-			use="karen.core.form.buttons.containers.DivButtonsForm" >
+
+		<div id="divButtonsForm"
+			use="karen.core.form.buttons.containers.DivButtonsForm">
 		</div>
-		
-		</window>
-		</zk>
+
+	</window>
+</zk>

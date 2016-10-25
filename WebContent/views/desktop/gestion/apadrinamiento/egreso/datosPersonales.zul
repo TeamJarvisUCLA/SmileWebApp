@@ -174,7 +174,7 @@
 							</doublebox>
 						</div>
 					</div>
-					<div class="input-field col s6">
+					<div class="input-field col s12">
 						<n:label for="direccion" class="active">
 							Dirección
 						</n:label>
@@ -182,13 +182,6 @@
 							disabled="true" sclass="materialize-textarea" multiline="true"
 							value="@bind(vm.selectedObject.fkPersona.direccion)">
 						</textbox>
-						<div sclass="text-center">
-							<image
-								content="${m:getBufferedImage(vm.selectedObject.fkPersona.fkMultimedia.url)}"
-								width="100px" height="100px" sclass="circle ">
-							</image>
-						</div>
-
 					</div>
 
 					<div sclass="col s12">

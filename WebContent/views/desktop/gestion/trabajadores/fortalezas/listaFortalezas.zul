@@ -32,7 +32,7 @@
 
 					<div sclass="col s5" style="padding:0px">
 						<listbox model="@load(vm.fortalezas)" 
-							height="400px" emptyMessage="No hay fortalezas registradas"
+							height="200px" emptyMessage="No hay fortalezas registradas"
 							selectedItems="@bind(vm.fortalezasSeleccionadas)"
 							multiple="true">
 							<listhead>
@@ -63,7 +63,7 @@
 
 					<div sclass="col s5" style="padding:0px">
 						<listbox model="@load(vm.trabajadorFortalezas)"
-							height="400px"
+							height="200px"
 							emptyMessage="No hay fortalezas asociadas al trabajador"
 							selectedItems="@bind(vm.trabajadorFortalezasSeleccionadas)"
 							multiple="true">

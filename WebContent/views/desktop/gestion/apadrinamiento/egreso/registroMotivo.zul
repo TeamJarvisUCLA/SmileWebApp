@@ -12,6 +12,91 @@
 		<div width="100%">
 			<div class="row">
 				<div class="col s12">
+					<div class="input-field offset-s2 col s8">
+						<n:label for="tipo_persona" class="active">
+							Tipo de persona
+						</n:label>
+						<combobox id="tipo_persona" readonly="true"
+							disabled="true" model="@bind(vm.tipoPersonaEnums)"
+							selectedItem="@bind(vm.selectedObject.fkPersona.tipoPersonaEnum)">
+							<template name="model">
+								<comboitem label="@load(each)" />
+							</template>
+						</combobox>
+					</div>
+
+
+					<div
+						visible="@load(vm.selectedObject.fkPersona.tipoPersonaEnum eq 'JURIDICA' )">
+						<div class="input-field offset-s2 col s8" >
+							<n:label for="identificacionRif"
+								class="active">
+								RIF
+							</n:label>
+							<textbox id="identificacionRif"
+								disabled="true" placeholder="J-1234567-8" type="text"
+								value="@bind(vm.selectedObject.fkPersona.identificacion)">
+							</textbox>
+						</div>
+						<div class="input-field col s12">
+							<n:label for="nombreJuridico"
+								class="active">
+								Nombre
+							</n:label>
+							<textbox id="nombreJuridico" type="text"
+								disabled="true"
+								value="@bind(vm.selectedObject.fkPersona.nombre)">
+							</textbox>
+						</div>
+					</div>
+					<div
+						visible="@load(vm.selectedObject.fkPersona.tipoPersonaEnum eq 'NATURAL' )">
+						<div class="input-field offset-s2 col s8">
+							<n:label for="identificacion"
+								class="active">
+								Cédula
+							</n:label>
+							<textbox id="identificacion" type="text"
+								disabled="true"
+								value="@bind(vm.selectedObject.fkPersona.identificacion)">
+							</textbox>
+						</div>
+
+						<div class="input-field offset-s2 col s8">
+							<n:label for="nombre" class="active">
+								Nombre
+							</n:label>
+							<textbox id="nombre" type="text"
+								disabled="true"
+								value="@bind(vm.selectedObject.fkPersona.nombre)">
+							</textbox>
+						</div>
+
+						<div class="input-field offset-s2 col s8">
+							<n:label for="apellido" class="active">
+								Apellido
+							</n:label>
+							<textbox id="apellido" type="text"
+								disabled="true"
+								value="@bind(vm.selectedObject.fkPersona.apellido)">
+							</textbox>
+						</div>
+
+						<div class="input-field offset-s2 col s8">
+							<n:label for="fecha_nacimiento"
+								class="active">
+								Fecha de nacimiento
+							</n:label>
+							<datebox id="db" cols="20"
+								format="dd/MM/yyyy" disabled="true"
+								value="@bind(vm.selectedObject.fkPersona.fechaNacimiento)" />
+						</div>
+						
+					</div>
+				</div>
+
+				<div class="col s12">
+
 					<div class="col s12">
 						<div class="input-field offset-s2 col s8">
 							<n:label for="fecha_ingreso"
@@ -50,7 +135,6 @@
 							</textbox>
 						</div>
 					</div>
-
 				</div>
 			</div>
 		</div>

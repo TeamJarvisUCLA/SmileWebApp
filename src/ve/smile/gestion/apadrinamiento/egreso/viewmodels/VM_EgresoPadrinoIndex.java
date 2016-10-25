@@ -379,10 +379,6 @@ public class VM_EgresoPadrinoIndex extends VM_WindowWizard {
 
 	@Override
 	public String executeSiguiente(Integer currentStep) {
-		if (currentStep == 2) {
-			// NOTHING
-		}
-
 		goToNextStep();
 		return "";
 	}

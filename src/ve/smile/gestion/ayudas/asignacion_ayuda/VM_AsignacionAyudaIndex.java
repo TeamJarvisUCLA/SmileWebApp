@@ -37,16 +37,19 @@ import org.zkoss.bind.annotation.Init;
 import org.zkoss.zk.ui.event.UploadEvent;
 
 import ve.smile.consume.services.S;
+import ve.smile.dto.Beneficiario;
 import ve.smile.dto.Directorio;
 import ve.smile.dto.EstudioSocioEconomico;
 import ve.smile.dto.Multimedia;
 import ve.smile.dto.SolicitudAyuda;
 import ve.smile.dto.SolicitudAyudaRecurso;
 import ve.smile.dto.Recurso;
+import ve.smile.enums.EstatusBeneficiarioEnum;
 import ve.smile.enums.EstatusPadrinoEnum;
 import ve.smile.enums.EstatusSolicitudEnum;
 import ve.smile.enums.TipoMultimediaEnum;
 import ve.smile.enums.UrgenciaEnum;
+import ve.smile.payload.response.PayloadBeneficiarioResponse;
 import ve.smile.payload.response.PayloadEstudioSocioEconomicoResponse;
 import ve.smile.payload.response.PayloadMultimediaResponse;
 import ve.smile.payload.response.PayloadSolicitudAyudaResponse;
@@ -66,6 +69,11 @@ public class VM_AsignacionAyudaIndex extends
 	private List<UrgenciaEnum> urgenciaEnums;
 	private UrgenciaEnum urgenciaEnum;
 
+	//contains de java para evitar duplicados
+	private List<Recurso> recursos;
+	private List<SolicitudAyudaRecurso> solicitudAyudaRecursos;
+	
+	
 	@Init(superclass = true)
 	public void childInit() {
 		// NOTHING OK!
@@ -153,6 +161,44 @@ public class VM_AsignacionAyudaIndex extends
 	public void setFechaAsignacion(Date fechaAsignacion) {
 		this.fechaAsignacion = fechaAsignacion;
 	}
+	
+	public List<Recurso> getRecursos() {
+		if (this.recursos == null) {
+			this.recursos = new ArrayList<>();
+		}
+	
+		return recursos;
+	}
+
+	public void setRecursos(List<Recurso> recursos) {
+		this.recursos = recursos;
+	}
+	
+	public List<SolicitudAyudaRecurso> getSolicitudAyudaRecursos() {
+		
+		if (this.solicitudAyudaRecursos == null) {
+			
+			/*Map<String, String> criterios = new HashMap<>();
+
+			criterios
+					.put("fkSolicitudAyuda.idFSolicitudAyuda", String.valueOf(selectedObject.getIdSolicitudAyuda()));
+			
+			PayloadSolicitudAyudaRecursoResponse payloadSolicitudAyudaRecursoResponse = S.SolicitudAyudaRecursoService
+					.consultarCriterios(TypeQuery.EQUAL, criterios);
+			if (!UtilPayload.isOK(payloadSolicitudAyudaRecursoResponse)) {
+				Alert.showMessage(payloadSolicitudAyudaRecursoResponse);
+			}
+			this.solicitudAyudaRecursos.addAll(payloadSolicitudAyudaRecursoResponse.getObjetos());*/
+			
+				this.solicitudAyudaRecursos =  new ArrayList<>();
+		}
+		
+		return solicitudAyudaRecursos;
+	}
+
+	public void setSolicitudAyudaRecursos(List<SolicitudAyudaRecurso> solicitudAyudaRecursos) {
+		this.solicitudAyudaRecursos = solicitudAyudaRecursos;
+	}
 
 	@Command("buscarRecurso")
 	public void buscarRecurso() {
@@ -169,9 +215,11 @@ public class VM_AsignacionAyudaIndex extends
 							return;
 						}
 
-						recurso = catalogueDialogCloseEvent.getEntity();
+						if(!recursos.contains(catalogueDialogCloseEvent.getEntity()) ){
+							recursos.add(catalogueDialogCloseEvent.getEntity());
+						}
 
-						refreshRecurso();
+						refreshRecursos();
 					}
 				});
 
@@ -183,8 +231,8 @@ public class VM_AsignacionAyudaIndex extends
 
 
 
-	public void refreshRecurso() {
-		BindUtils.postNotifyChange(null, null, this, "recurso");
+	public void refreshRecursos() {
+		BindUtils.postNotifyChange(null, null, this, "recursos");
 	}
 
 
@@ -204,17 +252,28 @@ public class VM_AsignacionAyudaIndex extends
 				.getPorType(OperacionWizardEnum.ATRAS));
 		
 		listOperacionWizard2.add(OperacionWizardHelper
-				.getPorType(OperacionWizardEnum.FINALIZAR));
+				.getPorType(OperacionWizardEnum.SIGUIENTE));
 		listOperacionWizard2.add(OperacionWizardHelper
 				.getPorType(OperacionWizardEnum.CANCELAR));
 
 		botones.put(2, listOperacionWizard2);
-
+		
 		List<OperacionWizard> listOperacionWizard3 = new ArrayList<OperacionWizard>();
 		listOperacionWizard3.add(OperacionWizardHelper
-				.getPorType(OperacionWizardEnum.CUSTOM1));
+				.getPorType(OperacionWizardEnum.ATRAS));
+		
+		listOperacionWizard3.add(OperacionWizardHelper
+				.getPorType(OperacionWizardEnum.FINALIZAR));
+		listOperacionWizard3.add(OperacionWizardHelper
+				.getPorType(OperacionWizardEnum.CANCELAR));
 
 		botones.put(3, listOperacionWizard3);
+
+		List<OperacionWizard> listOperacionWizard4 = new ArrayList<OperacionWizard>();
+		listOperacionWizard4.add(OperacionWizardHelper
+				.getPorType(OperacionWizardEnum.CUSTOM1));
+
+		botones.put(4, listOperacionWizard4);
 
 		return botones;
 	}
@@ -232,6 +291,7 @@ public class VM_AsignacionAyudaIndex extends
 
 		iconos.add("fa fa-pencil-square-o");
 		iconos.add("fa fa-pencil-square-o");
+		iconos.add("fa fa-pencil-square-o");
 		// iconos.add("fa fa-check-square-o");
 
 		return iconos;
@@ -243,6 +303,7 @@ public class VM_AsignacionAyudaIndex extends
 
 		urls.add("views/desktop/gestion/ayudas/asignacionAyuda/selectSolicitudAyuda.zul");
 		urls.add("views/desktop/gestion/ayudas/asignacionAyuda/AsignacionAyudaFormBasic.zul");
+		urls.add("views/desktop/gestion/ayudas/asignacionAyuda/AsignacionAyudaFinalizarFormBasic.zul");
 		// urls.add("views/desktop/gestion/trabajoSocial/planificacion/registro/successRegistroSolicitudAyudaPlanificado.zul");
 
 		return urls;
@@ -250,6 +311,25 @@ public class VM_AsignacionAyudaIndex extends
 
 	@Override
 	public String executeSiguiente(Integer currentStep) {
+		if(currentStep==2){
+			
+			for(Recurso elemento:this.getRecursos()){
+				
+				SolicitudAyudaRecurso ayudaRecurso = new SolicitudAyudaRecurso();
+				ayudaRecurso.setFkRecurso(elemento);
+				ayudaRecurso.setFkSolicitudAyuda(selectedObject);
+				this.getSolicitudAyudaRecursos().add(ayudaRecurso);
+				/*PayloadSolicitudAyudaRecursoResponse payloadSolicitudAyudaRecursoResponse = S.SolicitudAyudaRecursoService
+						.incluir(ayudaRecurso);
+				
+				if (!UtilPayload.isOK(payloadSolicitudAyudaRecursoResponse)) {
+					
+				}*/
+			}
+			
+			
+		}
+		
 		goToNextStep();
 
 		return "";
@@ -257,6 +337,9 @@ public class VM_AsignacionAyudaIndex extends
 
 	@Override
 	public String executeAtras(Integer currentStep) {
+		if(currentStep==3){
+			this.getSolicitudAyudaRecursos().removeAll(solicitudAyudaRecursos);
+		}
 		goToPreviousStep();
 
 		return "";
@@ -290,7 +373,10 @@ public class VM_AsignacionAyudaIndex extends
 		}
 
 		if (currentStep == 2) {
-			return "E:Error Code 5-No hay otro paso";
+			if(this.getRecursos().isEmpty()){
+				return "E:Error Code 5-Seleccione Un Recurso";
+			}
+			
 		}
 
 		return "";
@@ -307,7 +393,7 @@ public class VM_AsignacionAyudaIndex extends
 						TypeQuery.EQUAL, criterios);
 		EstudioSocioEconomico economico =  payloadEstudioSocioEconomicoResponse.getObjetos().get(0);*/
 
-		if (currentStep == 2) {
+		if (currentStep == 3) {
 			try {
 				
 				
@@ -315,10 +401,7 @@ public class VM_AsignacionAyudaIndex extends
 						"Fecha Planificada", ValidateOperator.GREATER_THAN,
 						new SimpleDateFormat("yyyy-MM-dd").format(new Date()),
 						"dd/MM/yyyy");
-				UtilValidate.validateInteger(this.getSolicitudAyudaRecurso().getCantidad(),
-						"Cantidad", ValidateOperator.GREATER_THAN, 0);
-				UtilValidate.validateNull(this.getRecurso()
-						.getIdRecurso(), "Recurso");
+				
 				//UtilValidate.validateInteger(getSolicitudAyudaRecurso().getCantidad(), "cantidad", null, null);
 				
 			} catch (Exception e) {
@@ -331,34 +414,32 @@ public class VM_AsignacionAyudaIndex extends
 
 	@Override
 	public String executeFinalizar(Integer currentStep) {
-		if (currentStep == 2) {
-			this.getSolicitudAyudaRecurso().setFechaAsignacion(
-					this.getFechaAsignacion().getTime());
-			this.getSolicitudAyudaRecurso().setFkSolicitudAyuda(selectedObject);
-			this.getSolicitudAyudaRecurso().setFkRecurso(this.getRecurso());
+		if (currentStep == 3) {
+			
+			for(SolicitudAyudaRecurso elemento:this.getSolicitudAyudaRecursos()){
+				
+				elemento.setFechaAsignacion(this.getFechaAsignacion().getTime());
+				
+				PayloadSolicitudAyudaRecursoResponse payloadSolicitudAyudaRecursoResponse = S.SolicitudAyudaRecursoService
+						.incluir(elemento);
+				
+				if (!UtilPayload.isOK(payloadSolicitudAyudaRecursoResponse)) {
+					
+				}
+				
 
-	
-			PayloadSolicitudAyudaRecursoResponse payloadSolicitudAyudaRecursoResponse = S.SolicitudAyudaRecursoService
-					.incluir(this.solicitudAyudaRecurso);
-			if (UtilPayload.isOK(payloadSolicitudAyudaRecursoResponse)) {
-				restartWizard();
-				this.setSolicitudAyudaRecurso(new SolicitudAyudaRecurso());
-				this.setFechaAsignacion(new Date());
-				this.setSelectedObject(new SolicitudAyuda());
-				this.setRecurso(new Recurso());
-				BindUtils.postNotifyChange(null, null, this, "directorio");
-				BindUtils.postNotifyChange(null, null, this, "solicitudAyudaRecurso");
-				BindUtils
-						.postNotifyChange(null, null, this, "fechaAsignacion");
-				BindUtils.postNotifyChange(null, null, this, "selectedObject");
-				BindUtils.postNotifyChange(null, null, this, "recurso");
+				
 			}
-			return (String) payloadSolicitudAyudaRecursoResponse
-					.getInformacion(IPayloadResponse.MENSAJE);
+			selectedObject.setEstatusSolicitud(EstatusSolicitudEnum.PROCESADA.ordinal());
+			PayloadSolicitudAyudaResponse payloadSolicitudAyudaResponse = S.SolicitudAyudaService.modificar(selectedObject);
+			
+			restartWizard();
 
 		}
 
-		return "";
+		return "Ayudas Asignadas con Exito";
+		
+		
 	}
 
 	@Override
@@ -368,6 +449,8 @@ public class VM_AsignacionAyudaIndex extends
 			BindUtils.postNotifyChange(null, null, this, "objectsList");
 		}
 	}
+
+	
 
 	
 }

@@ -422,7 +422,7 @@ public class VM_EvaluacionSolicitudIndex extends
 			this.getEstudioSocioEconomico().setFechaEjecutada(
 					this.getFechaEjecutada().getTime());
 			
-		
+		this.getEstudioSocioEconomico().setEstatusEstudio(EstatusEstudioSocioEconomicoEnum.REALIZADO.ordinal());
 			
 			PayloadEstudioSocioEconomicoResponse payloadEstudioSocioEconomicoResponse = S.EstudioSocioEconomicoService.modificar(this.getEstudioSocioEconomico());
 
@@ -508,7 +508,7 @@ public class VM_EvaluacionSolicitudIndex extends
 		this.getEstudioSocioEconomico().setFechaEjecutada(
 				this.getFechaEjecutada().getTime());
 		
-	
+		this.getEstudioSocioEconomico().setEstatusEstudio(EstatusEstudioSocioEconomicoEnum.REALIZADO.ordinal());
 		
 		PayloadEstudioSocioEconomicoResponse payloadEstudioSocioEconomicoResponse = S.EstudioSocioEconomicoService.modificar(this.getEstudioSocioEconomico());
 		

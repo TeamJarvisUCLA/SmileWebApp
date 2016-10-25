@@ -207,6 +207,9 @@ UploadImageSingle {
 
 		if (operacionEnum.equals(OperacionEnum.INCLUIR) ||
 				operacionEnum.equals(OperacionEnum.MODIFICAR)) {
+			if(!isFormValidated()){
+				return new ToCloseWindowFormDialog<Beneficiario>(false, operacionEnum);
+			}
 			
 			Beneficiario beneficiario = this.getBeneficiario();
 			
@@ -298,7 +301,28 @@ UploadImageSingle {
 	}
 
 	
-
+	public boolean isFormValidated(){
+		try {
+			UtilValidate.validateNullOrEmpty(this.getImageContent(),"Imagen");
+			UtilValidate.validateNullOrEmpty(this.getPersona().getTipoPersona(),"Tipo de persona");
+			UtilValidate.validateNullOrEmpty(this.getPersona().getIdentificacion(), "Cédula");
+			UtilValidate.validateNullOrEmpty(this.getPersona().getNombre(),"Nombre");
+			UtilValidate.validateNullOrEmpty(this.getPersona().getApellido(),"Apellido");
+			UtilValidate.validateNullOrEmpty(this.getPersona().getSexo(),"Sexo");
+			UtilValidate.validateNullOrEmpty(this.getPersona().getFechaNacimiento(), "Fecha de nacimiento");
+			UtilValidate.validateNullOrEmpty(this.getPersona().getFkCiudad(), "Ciudad");
+			UtilValidate.validateNullOrEmpty(this.getBeneficiario().getFechaIngreso(),"Fecha de ingreso");
+			UtilValidate.validateNullOrEmpty(this.getPersona().getDireccion(),"Dirección");
+			UtilValidate.validateNullOrEmpty(this.getPersona().getFkMultimedia(),"Imagen");
+			
+			return true;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			UtilDialog.showMessage(e.getMessage());
+		}
+		
+		return false;
+	}
 
 	public TipoPersonaEnum getTipoPersonaEnum() {
 		return tipoPersonaEnum;

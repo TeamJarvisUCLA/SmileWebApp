@@ -1,29 +1,28 @@
-package ve.smile.administracion.portalweb.mensajes.buzon.viewmodels;
+package ve.smile.administracion.aplicacionmovil.buzon.viewmodels;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import org.zkoss.bind.annotation.Init;
 
-import ve.smile.consume.services.S;
-import ve.smile.dto.ContactoPortal;
-import ve.smile.enums.EstatusContactoEnum;
-import ve.smile.enums.ProcedenciaEnum;
-import ve.smile.enums.ProcedenciaMensajeEnum;
-import ve.smile.enums.TipoContactoPortalEnum;
-import ve.smile.payload.response.PayloadContactoPortalResponse;
-import ve.smile.seguridad.dto.Operacion;
-import ve.smile.seguridad.enums.OperacionEnum;
-import ve.smile.seguridad.enums.helper.OperacionHelper;
 import karen.core.crux.alert.Alert;
 import karen.core.crux.session.DataCenter;
 import karen.core.simple_list_principal.viewmodels.VM_WindowSimpleListPrincipal;
 import karen.core.util.payload.UtilPayload;
 import lights.core.enums.TypeQuery;
 import lights.core.payload.response.IPayloadResponse;
+import ve.smile.consume.services.S;
+import ve.smile.dto.ContactoPortal;
+import ve.smile.enums.EstatusContactoEnum;
+import ve.smile.enums.ProcedenciaMensajeEnum;
+import ve.smile.enums.TipoContactoPortalEnum;
+import ve.smile.payload.response.PayloadContactoPortalResponse;
+import ve.smile.seguridad.dto.Operacion;
+import ve.smile.seguridad.enums.OperacionEnum;
+import ve.smile.seguridad.enums.helper.OperacionHelper;
 
-public class VM_BuzonIndex extends VM_WindowSimpleListPrincipal<ContactoPortal>{
-	
+public class VM_BuzonMovilIndex extends VM_WindowSimpleListPrincipal<ContactoPortal>{
+
 	@Init(superclass = true)
 	public void childInit() {
 		
@@ -32,7 +31,7 @@ public class VM_BuzonIndex extends VM_WindowSimpleListPrincipal<ContactoPortal>{
 	@Override
 	public String getSrcFileZulForm(OperacionEnum operacionEnum) {	
 		if (operacionEnum.equals(OperacionEnum.CUSTOM1)) {
-			return "views/desktop/administracion/portalweb/mensajes/buzon/BuzonFormBasic.zul";
+			return "views/desktop/administracion/aplicacionmovil/buzon/BuzonMovilFormBasic.zul";
 			}
 			return "";
 	}
@@ -43,7 +42,7 @@ public class VM_BuzonIndex extends VM_WindowSimpleListPrincipal<ContactoPortal>{
 		Map<String, String> criterios = new HashMap<String, String>();
 		criterios.put("tipoContactoPortal", String.valueOf(TipoContactoPortalEnum.SUGERENCIA.ordinal()));
 		criterios.put("estatusContacto", String.valueOf(EstatusContactoEnum.PENDIENTE.ordinal()));
-		criterios.put("procedencia", String.valueOf(ProcedenciaMensajeEnum.PORTAL.ordinal()));
+		criterios.put("procedencia", String.valueOf(ProcedenciaMensajeEnum.MOVIL.ordinal()));
 		PayloadContactoPortalResponse payloadContactoPortalResponse = S.ContactoPortalService.consultarPaginacionCriterios(cantidadRegistrosPagina, pagina,TypeQuery.EQUAL,criterios);
 		return payloadContactoPortalResponse;
 	}

@@ -1,0 +1,46 @@
+<zk xmlns:n="native" xmlns:w="client">
+	<div width="100%" class='${arg.animation_}'
+		use="karen.core.simple_list_principal.controllers.C_WindowSimpleListPrincipal"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('ve.smile.administracion.aplicacionmovil.buzon.viewmodels.VM_BuzonMovilIndex')">
+
+		<div class="row">
+			<div class="col s12">
+				<div class="col s12">
+					<listbox id="listbox" model="@load(vm.objectsList)"
+						selectedItem="@bind(vm.selectedObject)">
+						<listhead sizable="true">
+							<listheader width="25%" label="Nombre" />
+							<listheader width="25%" label="Apellido" />
+							<listheader width="35%" label="Correo" />
+							<listheader width="25%" label="Clasificador" />
+							<listheader width="25%" label="Contenido" />
+							<listheader width="25%" label="Fecha de Creación" />
+							
+						</listhead>
+						<template name="model">
+							<listitem>
+								<listcell label="@load(each.fkComunidad.nombre)" />
+								<listcell label="@load(each.fkComunidad.apellido)" />
+								<listcell label="@load(each.fkComunidad.correo)" />
+								<listcell label="@load(each.fkClasificadorSugerencia.nombre)" />
+								<listcell label="@load(each.contenido)" />
+								<listcell label="@load(each.fecha)" />
+								
+							</listitem>
+						</template>
+						<listfoot>
+							<listfooter id="listFoot" span="6"
+								use="karen.core.listfoot.ListFoot">
+							</listfooter>
+						</listfoot>
+					</listbox>
+				</div>
+			</div>
+		</div>
+
+		<toolbar id="toolbar" align="center"
+			use="karen.core.toolbar.Toolbar">
+		</toolbar>
+	</div>
+</zk>

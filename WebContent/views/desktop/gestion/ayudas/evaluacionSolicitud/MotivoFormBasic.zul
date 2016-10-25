@@ -1,52 +1,124 @@
-
 <zk xmlns:n="native" xmlns:w="client">
 	<div sclass="animated fadeInLeft">
 		<div class="row">
-			<div class="col s12">
-				
-				
-				
-				
-				<div class="row">
+			<n:label class="active">DATOS DE LA SOLICITUD:</n:label>
+			<div sclass="row">
+				<div sclass="col s6">
 					<div class="input-field col s12">
-						<n:label for="motivo"
-									class="active">
-									Motivo de Rechazo
-								</n:label>
-						<span
-							sclass="fa fa-question-circle fa-lg help-icon-special"
-							tooltip="pop_direccion, position=after_end" />
-						<combobox id="motivo"
-									readonly="true" model="@bind(vm.motivos)"
-									selectedItem="@bind(vm.solicitudAyuda.fkMotivo)">
-									<template name="model">
-										<comboitem label="@load(each.nombre)" />
-									</template>
-								</combobox>
+						<n:label for="beneficiario1" class="active">
+							Beneficiario:
+						</n:label>
+						<textbox disabled="true"
+							value="@bind(vm.estudioSocioEconomico.fkSolicitudAyuda.fkBeneficiario.fkPersona.identificacion.concat(' - ').concat(vm.estudioSocioEconomico.fkSolicitudAyuda.fkBeneficiario.fkPersona.nombre).concat(' ').concat(vm.estudioSocioEconomico.fkSolicitudAyuda.fkBeneficiario.fkPersona.apellido))">
+						</textbox>
+
+					</div>
+
+				</div>
+				<div sclass="col s6"
+					visible="@load(not empty vm.estudioSocioEconomico.fkSolicitudAyuda.fkBeneficiario.fkPersona.nombre )">
+					<div class="input-fieldcol s12">
+						<n:label for="beneficiario1" class="active">
+							Representante del Beneficiario:
+						</n:label>
+						<textbox disabled="true" id="beneficiario1"
+							value="@bind(vm.estudioSocioEconomico.fkSolicitudAyuda.fkBeneficiario.fkFamiliar.fkPersona.identificacion.concat(' - ').concat(vm.estudioSocioEconomico.fkSolicitudAyuda.fkBeneficiario.fkFamiliar.fkPersona.nombre).concat(' ').concat(vm.estudioSocioEconomico.fkSolicitudAyuda.fkBeneficiario.fkFamiliar.fkPersona.apellido))">
+						</textbox>
+					</div>
+
+				</div>
+			</div>
+			<div sclass="row">
+				<div class="col s6">
+					<div class="input-field  col s12">
+						<n:label for="beneficiario3" class="active">
+							Ayuda
+						</n:label>
+						<textbox disabled="true" id="beneficiario3"
+							value="@bind(vm.estudioSocioEconomico.fkSolicitudAyuda.fkAyuda.nombre)">
+						</textbox>
 					</div>
 				</div>
-			
-				
-				<div class="row">
+				<div sclass="col s6"
+					visible="@load(not empty vm.estudioSocioEconomico.fkSolicitudAyuda.fkAyuda.nombre )">
 					<div class="input-field col s12">
+						<n:label for="beneficiario3" class="active">
+							Descripción de Ayuda:
+						</n:label>
+						<textbox sclass="materialize-textarea"
+							disabled="true" multiline="true"
+							value="@bind(vm.estudioSocioEconomico.fkSolicitudAyuda.fkAyuda.descripcion)">
+						</textbox>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col s6">
+					<div class="input-field  col s12">
+						<n:label for="titulo" class="active">
+							Titulo de Solicitud
+						</n:label>
+						<textbox id="titulo" type="text" disabled="true"
+							maxlength="100"
+							value="@bind(vm.estudioSocioEconomico.fkSolicitudAyuda.titulo)">
+						</textbox>
+					</div>
+				</div>
+				<div class="col s6">
+					<div class="input-field  col s12">
+						<n:label for="urgencia" class="active">
+							Urgencia
+						</n:label>
+						<textbox id="urgencia" type="text"
+							disabled="true" maxlength="100"
+							value="@bind(vm.estudioSocioEconomico.fkSolicitudAyuda.urgenciaEnum)">
+						</textbox>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col s6">
+					<div class="input-field col s12">
+						<n:label for="fecha_solicitud" class="active">
+							Fecha de Solicitud
+						</n:label>
+
+						<datebox id="fecha_solicitud" cols="20"
+							disabled="true" format="dd/MM/yyyy" readonly="true"
+							value="@bind(vm.estudioSocioEconomico.fkSolicitudAyuda.fecha)" />
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col s12">
+				<div class="row">
+					<div class="input-field col s6">
+						<n:label for="motivo" class="active">
+							Motivo de Rechazo
+						</n:label>
+						<combobox id="motivo" readonly="true"
+							model="@bind(vm.motivos)"
+							selectedItem="@bind(vm.solicitudAyuda.fkMotivo)">
+							<template name="model">
+								<comboitem label="@load(each.nombre)" />
+							</template>
+						</combobox>
+					</div>
+					<div class="input-field col s6">
 						<n:label for="detalle">Detalle Rechazo</n:label>
-						<span
-							sclass="fa fa-question-circle fa-lg help-icon-special"
-							tooltip="pop_direccion, position=after_end" />
 						<textbox id="detalle" type="text"
 							sclass="materialize-textarea" multiline="true"
 							value="@bind(vm.solicitudAyuda.detalleRechazo)">
 						</textbox>
 					</div>
 				</div>
-				 
-				
-				
-
-
-				
 			</div>
-			
+
 
 		</div>
 	</div>

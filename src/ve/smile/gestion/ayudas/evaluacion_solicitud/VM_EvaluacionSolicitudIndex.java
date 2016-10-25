@@ -1,74 +1,43 @@
 package ve.smile.gestion.ayudas.evaluacion_solicitud;
 
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.imageio.ImageIO;
-
 import karen.core.crux.alert.Alert;
-import karen.core.crux.session.DataCenter;
-import karen.core.dialog.catalogue.generic.data.CatalogueDialogData;
-import karen.core.dialog.catalogue.generic.events.CatalogueDialogCloseEvent;
-import karen.core.dialog.catalogue.generic.events.listeners.CatalogueDialogCloseListener;
-import karen.core.dialog.generic.enums.DialogActionEnum;
-import karen.core.simple_list.wizard.buttons.data.OperacionWizard;
-import karen.core.simple_list.wizard.buttons.enums.OperacionWizardEnum;
-import karen.core.simple_list.wizard.buttons.helpers.OperacionWizardHelper;
-import karen.core.simple_list.wizard.viewmodels.VM_WindowWizard;
-import karen.core.util.UtilDialog;
 import karen.core.util.payload.UtilPayload;
 import karen.core.util.validate.UtilValidate;
-import karen.core.util.validate.UtilValidate.ValidateOperator;
+import karen.core.wizard.buttons.data.OperacionWizard;
+import karen.core.wizard.buttons.enums.OperacionWizardEnum;
+import karen.core.wizard.buttons.helpers.OperacionWizardHelper;
+import karen.core.wizard.viewmodels.VM_WindowWizard;
 import lights.core.enums.TypeQuery;
 import lights.core.payload.response.IPayloadResponse;
-import lights.smile.util.UtilMultimedia;
 
-import org.zkoss.bind.BindUtils;
-import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
-import org.zkoss.zk.ui.event.UploadEvent;
 
 import ve.smile.consume.services.S;
 import ve.smile.dto.Ayuda;
 import ve.smile.dto.Beneficiario;
-import ve.smile.dto.Directorio;
 import ve.smile.dto.EstudioSocioEconomico;
 import ve.smile.dto.Motivo;
-import ve.smile.dto.Multimedia;
-import ve.smile.dto.SolicitudAyuda;
-import ve.smile.dto.SolicitudAyuda;
 import ve.smile.dto.Persona;
 import ve.smile.dto.SolicitudAyuda;
-import ve.smile.dto.TsPlan;
-import ve.smile.dto.Voluntario;
 import ve.smile.enums.EstatusEstudioSocioEconomicoEnum;
 import ve.smile.enums.EstatusPadrinoEnum;
 import ve.smile.enums.EstatusSolicitudEnum;
-import ve.smile.enums.TipoMultimediaEnum;
 import ve.smile.enums.UrgenciaEnum;
 import ve.smile.payload.response.PayloadEstudioSocioEconomicoResponse;
 import ve.smile.payload.response.PayloadMotivoResponse;
-import ve.smile.payload.response.PayloadMultimediaResponse;
-import ve.smile.payload.response.PayloadSolicitudAyudaResponse;
-import ve.smile.payload.response.PayloadSolicitudAyudaResponse;
 import ve.smile.payload.response.PayloadPersonaResponse;
 import ve.smile.payload.response.PayloadSolicitudAyudaResponse;
-import app.UploadImageSingle;
 
-public class VM_EvaluacionSolicitudIndex extends
-		VM_WindowWizard<EstudioSocioEconomico>  {
-	
+public class VM_EvaluacionSolicitudIndex extends VM_WindowWizard {
+
 	private Date fechaEjecutada = new Date();
-	
+
 	private List<EstatusSolicitudEnum> estatusSolicitudEnums;
 	private EstatusSolicitudEnum estatusSolicitudEnum;
 
@@ -82,11 +51,11 @@ public class VM_EvaluacionSolicitudIndex extends
 	private Beneficiario beneficiario = new Beneficiario();
 
 	private Ayuda ayuda = new Ayuda();
-	
-	private List<Persona> personas ;
-	
-	private List<Motivo> motivos ;
-	
+
+	private List<Persona> personas;
+
+	private List<Motivo> motivos;
+
 	private EstudioSocioEconomico estudioSocioEconomico;
 
 	@Init(superclass = true)
@@ -95,10 +64,9 @@ public class VM_EvaluacionSolicitudIndex extends
 		solicitudAyuda = new SolicitudAyuda();
 		fecha = new Date();
 		fechaEjecutada = new Date();
-		
-		
+
 	}
-	
+
 	public Date getFechaEjecutada() {
 		return fechaEjecutada;
 	}
@@ -106,6 +74,7 @@ public class VM_EvaluacionSolicitudIndex extends
 	public void setFechaEjecutada(Date fechaEjecutada) {
 		this.fechaEjecutada = fechaEjecutada;
 	}
+
 	public Beneficiario getBeneficiario() {
 		return beneficiario;
 	}
@@ -121,7 +90,7 @@ public class VM_EvaluacionSolicitudIndex extends
 	public void setAyuda(Ayuda ayuda) {
 		this.ayuda = ayuda;
 	}
-	
+
 	public EstatusSolicitudEnum getEstatusSolicitudEnum() {
 		return estatusSolicitudEnum;
 	}
@@ -182,10 +151,12 @@ public class VM_EvaluacionSolicitudIndex extends
 
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
-		this.getSolicitudAyuda().setFecha(fecha.getTime());
+		if (this.fecha != null) {
+			this.getSolicitudAyuda().setFecha(fecha.getTime());
+		}
+
 	}
 
-	
 	public List<Persona> getPersonas() {
 		if (this.personas == null) {
 			this.personas = new ArrayList<>();
@@ -207,7 +178,7 @@ public class VM_EvaluacionSolicitudIndex extends
 	public void setMotivos(List<Motivo> motivos) {
 		this.motivos = motivos;
 	}
-	
+
 	public List<Motivo> getMotivos() {
 		if (this.motivos == null) {
 			this.motivos = new ArrayList<>();
@@ -229,7 +200,7 @@ public class VM_EvaluacionSolicitudIndex extends
 	public void setPersonas(List<Persona> personas) {
 		this.personas = personas;
 	}
-	
+
 	public SolicitudAyuda getSolicitudAyuda() {
 		return solicitudAyuda;
 	}
@@ -238,63 +209,60 @@ public class VM_EvaluacionSolicitudIndex extends
 		this.solicitudAyuda = solicitudAyuda;
 	}
 
-
-
-	
-
 	@Override
 	public Map<Integer, List<OperacionWizard>> getButtonsToStep() {
 		Map<Integer, List<OperacionWizard>> botones = new HashMap<Integer, List<OperacionWizard>>();
-		
+
 		OperacionWizard operacionWizardCustom1 = new OperacionWizard(
-				OperacionWizardEnum.CUSTOM1.ordinal(), "APROBAR", "Custom1", "fa fa-check-square-o", "green", "APROBAR");
+				OperacionWizardEnum.CUSTOM1.ordinal(), "APROBAR", "Custom1",
+				"fa fa-check-square-o", "green", "APROBAR");
 		OperacionWizard operacionWizardCustom2 = new OperacionWizard(
-				OperacionWizardEnum.CUSTOM2.ordinal(), "RECHAZAR", "Custom2", "z-icon-times", "deep-orange", "RECHAZAR");
+				OperacionWizardEnum.CUSTOM2.ordinal(), "RECHAZAR", "Custom2",
+				"z-icon-times", "deep-orange", "RECHAZAR");
 
 		List<OperacionWizard> listOperacionWizard1 = new ArrayList<OperacionWizard>();
 		listOperacionWizard1.add(OperacionWizardHelper
 				.getPorType(OperacionWizardEnum.SIGUIENTE));
 
 		botones.put(1, listOperacionWizard1);
-		
+
 		List<OperacionWizard> listOperacionWizard2 = new ArrayList<OperacionWizard>();
-		
+
 		listOperacionWizard2.add(OperacionWizardHelper
 				.getPorType(OperacionWizardEnum.ATRAS));
 		listOperacionWizard2.add(OperacionWizardHelper
 				.getPorType(OperacionWizardEnum.SIGUIENTE));
 		listOperacionWizard2.add(OperacionWizardHelper
 				.getPorType(OperacionWizardEnum.CANCELAR));
-		
 
 		botones.put(2, listOperacionWizard2);
-		
+
 		List<OperacionWizard> listOperacionWizard3 = new ArrayList<OperacionWizard>();
+
+		listOperacionWizard3.add(OperacionWizardHelper
+				.getPorType(OperacionWizardEnum.ATRAS));
 		listOperacionWizard3.add(operacionWizardCustom1);
 		listOperacionWizard3.add(operacionWizardCustom2);
 		listOperacionWizard3.add(OperacionWizardHelper
-				.getPorType(OperacionWizardEnum.ATRAS));
-		listOperacionWizard3.add(OperacionWizardHelper
 				.getPorType(OperacionWizardEnum.CANCELAR));
-		
 
 		botones.put(3, listOperacionWizard3);
-		
-		
 
 		List<OperacionWizard> listOperacionWizard4 = new ArrayList<OperacionWizard>();
 		listOperacionWizard4.add(OperacionWizardHelper
 				.getPorType(OperacionWizardEnum.ATRAS));
 		listOperacionWizard4.add(OperacionWizardHelper
-				.getPorType(OperacionWizardEnum.CANCELAR));
-		listOperacionWizard4.add(OperacionWizardHelper
 				.getPorType(OperacionWizardEnum.FINALIZAR));
+		listOperacionWizard4.add(OperacionWizardHelper
+				.getPorType(OperacionWizardEnum.CANCELAR));
 
 		botones.put(4, listOperacionWizard4);
 
 		List<OperacionWizard> listOperacionWizard5 = new ArrayList<OperacionWizard>();
-		listOperacionWizard5.add(OperacionWizardHelper
-				.getPorType(OperacionWizardEnum.CUSTOM1));
+		OperacionWizard operacionWizardCustom = new OperacionWizard(
+				OperacionWizardEnum.CUSTOM1.ordinal(), "Aceptar", "Custom1",
+				"fa fa-check", "indigo", "Aceptar");
+		listOperacionWizard5.add(operacionWizardCustom);
 
 		botones.put(5, listOperacionWizard5);
 
@@ -316,7 +284,7 @@ public class VM_EvaluacionSolicitudIndex extends
 		iconos.add("fa fa-pencil-square-o");
 		iconos.add("fa fa-pencil-square-o");
 		iconos.add("fa fa-pencil-square-o");
-		// iconos.add("fa fa-check-square-o");
+		iconos.add("fa fa-check-square-o");
 
 		return iconos;
 	}
@@ -329,7 +297,7 @@ public class VM_EvaluacionSolicitudIndex extends
 		urls.add("views/desktop/gestion/ayudas/evaluacionSolicitud/estudioRealizadoFormBasic.zul");
 		urls.add("views/desktop/gestion/ayudas/evaluacionSolicitud/SolicitudFormBasic.zul");
 		urls.add("views/desktop/gestion/ayudas/evaluacionSolicitud/MotivoFormBasic.zul");
-		// urls.add("views/desktop/gestion/trabajoSocial/planificacion/registro/successRegistroSolicitudAyudaPlanificado.zul");
+		urls.add("views/desktop/gestion/ayudas/evaluacionSolicitud/registroCompletado.zul");
 
 		return urls;
 	}
@@ -351,65 +319,59 @@ public class VM_EvaluacionSolicitudIndex extends
 	@Override
 	public IPayloadResponse<EstudioSocioEconomico> getDataToTable(
 			Integer cantidadRegistrosPagina, Integer pagina) {
-		
+
 		Map<String, String> criterios = new HashMap<>();
 		EstatusPadrinoEnum.POSTULADO.ordinal();
-		criterios.put("estatusEstudio",
-				String.valueOf(EstatusEstudioSocioEconomicoEnum.NO_REALIZADO.ordinal()));
+		criterios.put("estatusEstudio", String
+				.valueOf(EstatusEstudioSocioEconomicoEnum.NO_REALIZADO
+						.ordinal()));
 		PayloadEstudioSocioEconomicoResponse payloadEstudioSocioEconomicoResponse = S.EstudioSocioEconomicoService
 				.consultarPaginacionCriterios(cantidadRegistrosPagina, pagina,
 						TypeQuery.EQUAL, criterios);
-		
+
 		return payloadEstudioSocioEconomicoResponse;
 	}
 
 	@Override
 	public String isValidPreconditionsSiguiente(Integer currentStep) {
-		
+
 		if (currentStep == 1) {
 			if (selectedObject == null) {
 				return "E:Error Code 5-Debe seleccionar una <b>Solicitud de Ayuda</b>";
 			}
+			this.fechaEjecutada = new Date(this
+					.getEstudioSocioEconomicoSelected().getFecha());
 		}
-		
+
 		if (currentStep == 2) {
 			try {
-				UtilValidate.validateDate(this.getFechaEjecutada().getTime(),
-						"Fecha Planificada", ValidateOperator.GREATER_THAN,
-						new SimpleDateFormat("yyyy-MM-dd").format(this.getEstudioSocioEconomico().getFecha()),
-						"dd/MM/yyyy");
-				
-				UtilValidate.validateString(this.getEstudioSocioEconomico().getResultado(),
-						"Resultado", 100);
+				UtilValidate.validateString(this.getEstudioSocioEconomico()
+						.getResultado(), "Resultado", 200);
+				UtilValidate.validateNull(this.getFecha(), "Fecha Ejecutada");
 			} catch (Exception e) {
 				return e.getMessage();
 			}
-			
-			
-		}
-		
-		
-		
 
-		
-		
+		}
+
 		return "";
 	}
 
 	@Override
 	public String isValidPreconditionsFinalizar(Integer currentStep) {
-		
-		if(currentStep == 4){
+
+		if (currentStep == 4) {
 			try {
-				UtilValidate.validateNull(this.getSolicitudAyuda().getFkMotivo(), "Motivo");
-				
-				UtilValidate.validateString(this.getSolicitudAyuda().getDetalleRechazo(),
-						"Detalle de Rechazo", 100);
+				UtilValidate.validateNull(this.getSolicitudAyuda()
+						.getFkMotivo(), "Motivo");
+
+				UtilValidate.validateString(this.getSolicitudAyuda()
+						.getDetalleRechazo(), "Detalle de Rechazo", 100);
 			} catch (Exception e) {
 				return e.getMessage();
 			}
 		}
-		
+
 		return "";
 	}
 
@@ -417,28 +379,32 @@ public class VM_EvaluacionSolicitudIndex extends
 	public String executeFinalizar(Integer currentStep) {
 		if (currentStep == 4) {
 			SolicitudAyuda solicitudAyuda = this.getSolicitudAyuda();
-			solicitudAyuda.setEstatusSolicitud(EstatusSolicitudEnum.RECHAZADA.ordinal());
-			
+			solicitudAyuda.setEstatusSolicitud(EstatusSolicitudEnum.RECHAZADA
+					.ordinal());
+
 			this.getEstudioSocioEconomico().setFechaEjecutada(
 					this.getFechaEjecutada().getTime());
-			
-		this.getEstudioSocioEconomico().setEstatusEstudio(EstatusEstudioSocioEconomicoEnum.REALIZADO.ordinal());
-			
-			PayloadEstudioSocioEconomicoResponse payloadEstudioSocioEconomicoResponse = S.EstudioSocioEconomicoService.modificar(this.getEstudioSocioEconomico());
 
+			this.getEstudioSocioEconomico().setEstatusEstudio(
+					EstatusEstudioSocioEconomicoEnum.REALIZADO.ordinal());
+
+			PayloadEstudioSocioEconomicoResponse payloadEstudioSocioEconomicoResponse = S.EstudioSocioEconomicoService
+					.modificar(this.getEstudioSocioEconomico());
+			if (!UtilPayload.isOK(payloadEstudioSocioEconomicoResponse)) {
+				Alert.showMessage(payloadEstudioSocioEconomicoResponse);
+
+			}
 			PayloadSolicitudAyudaResponse payloadSolicitudAyudaResponse = S.SolicitudAyudaService
 					.modificar(solicitudAyuda);
-			
+
 			if (!UtilPayload.isOK(payloadSolicitudAyudaResponse)) {
 				Alert.showMessage(payloadSolicitudAyudaResponse);
-				
-			}
-			
-			if (UtilPayload.isOK(payloadSolicitudAyudaResponse)) {
-				restartWizard();
-				return "Solicitud Rechazada Con Exito";
+
 			}
 
+			if (UtilPayload.isOK(payloadSolicitudAyudaResponse)) {
+				goToNextStep();
+			}
 		}
 
 		return "";
@@ -446,31 +412,30 @@ public class VM_EvaluacionSolicitudIndex extends
 
 	@Override
 	public void comeIn(Integer currentStep) {
-		if (currentStep == 1) {
-			this.getControllerWindowWizard().updateListBoxAndFooter();
-			BindUtils.postNotifyChange(null, null, this, "objectsList");
+		if (currentStep == 2) {
+			this.setEstudioSocioEconomico(this
+					.getEstudioSocioEconomicoSelected());
 		}
-		
-		if(currentStep==2){
-			this.setEstudioSocioEconomico(selectedObject);
-		}
-		
-		if(currentStep==3){
-			
-			this.setSolicitudAyuda(selectedObject.getFkSolicitudAyuda());
-			
+
+		if (currentStep == 3) {
+
+			this.setSolicitudAyuda(this.getEstudioSocioEconomicoSelected()
+					.getFkSolicitudAyuda());
+
 			if (this.getSolicitudAyuda().getEstatusSolicitud() != null) {
 				this.setEstatusSolicitudEnum(estatusSolicitudEnum.values()[this
 						.getSolicitudAyuda().getEstatusSolicitud()]);
 			} else {
-				this.getSolicitudAyuda().setEstatus('A');// TODO borrar cuando will
+				this.getSolicitudAyuda().setEstatus('A');// TODO borrar cuando
+															// will
 															// arregle BD
 				this.getSolicitudAyuda().setEstatusSolicitud(
 						EstatusSolicitudEnum.PENDIENTE.ordinal());
 				this.setEstatusSolicitudEnum(EstatusSolicitudEnum.PENDIENTE);
 			}
 			if (this.getSolicitudAyuda().getFkBeneficiario() != null) {
-				this.setBeneficiario(this.getSolicitudAyuda().getFkBeneficiario());
+				this.setBeneficiario(this.getSolicitudAyuda()
+						.getFkBeneficiario());
 			}
 
 			if (this.getSolicitudAyuda().getFkAyuda() != null) {
@@ -478,8 +443,8 @@ public class VM_EvaluacionSolicitudIndex extends
 			}
 
 			if (this.getSolicitudAyuda().getUrgencia() != null) {
-				this.setUrgenciaEnum(urgenciaEnum.values()[this.getSolicitudAyuda()
-						.getUrgencia()]);
+				this.setUrgenciaEnum(urgenciaEnum.values()[this
+						.getSolicitudAyuda().getUrgencia()]);
 			}
 
 			if (this.getSolicitudAyuda().getFecha() != null) {
@@ -487,45 +452,51 @@ public class VM_EvaluacionSolicitudIndex extends
 			} else {
 				this.setFecha(new Date());
 			}
-			
-			
+
 		}
-		
-		
+
 	}
-	
+
 	@Override
 	public String executeCustom1(Integer currentStep) {
-		
-		
-		SolicitudAyuda solicitudAyuda = this.getSolicitudAyuda();
-		solicitudAyuda.setEstatusSolicitud(EstatusSolicitudEnum.APROBADA.ordinal());
+		if (currentStep == 3) {
 
-		PayloadSolicitudAyudaResponse payloadSolicitudAyudaResponse = S.SolicitudAyudaService
-				.modificar(solicitudAyuda);
-		
-		
-		this.getEstudioSocioEconomico().setFechaEjecutada(
-				this.getFechaEjecutada().getTime());
-		
-		this.getEstudioSocioEconomico().setEstatusEstudio(EstatusEstudioSocioEconomicoEnum.REALIZADO.ordinal());
-		
-		PayloadEstudioSocioEconomicoResponse payloadEstudioSocioEconomicoResponse = S.EstudioSocioEconomicoService.modificar(this.getEstudioSocioEconomico());
-		
-		if (!UtilPayload.isOK(payloadSolicitudAyudaResponse)) {
-			Alert.showMessage(payloadSolicitudAyudaResponse);
-			
+			SolicitudAyuda solicitudAyuda = this.getSolicitudAyuda();
+			solicitudAyuda.setEstatusSolicitud(EstatusSolicitudEnum.APROBADA
+					.ordinal());
+
+			PayloadSolicitudAyudaResponse payloadSolicitudAyudaResponse = S.SolicitudAyudaService
+					.modificar(solicitudAyuda);
+
+			if (!UtilPayload.isOK(payloadSolicitudAyudaResponse)) {
+				Alert.showMessage(payloadSolicitudAyudaResponse);
+
+			}
+
+			this.getEstudioSocioEconomico().setFechaEjecutada(
+					this.getFechaEjecutada().getTime());
+
+			this.getEstudioSocioEconomico().setEstatusEstudio(
+					EstatusEstudioSocioEconomicoEnum.REALIZADO.ordinal());
+
+			PayloadEstudioSocioEconomicoResponse payloadEstudioSocioEconomicoResponse = S.EstudioSocioEconomicoService
+					.modificar(this.getEstudioSocioEconomico());
+
+			if (!UtilPayload.isOK(payloadEstudioSocioEconomicoResponse)) {
+				Alert.showMessage(payloadEstudioSocioEconomicoResponse);
+
+			}
+			if (UtilPayload.isOK(payloadSolicitudAyudaResponse)) {
+				goToNextStep();
+				goToNextStep();
+			}
 		}
-		
-		if (UtilPayload.isOK(payloadSolicitudAyudaResponse)) {
+		if (currentStep == 5) {
 			restartWizard();
-			return "Solicitud Aprobada Con Exito";
 		}
-		
-
 		return "";
 	}
-	
+
 	@Override
 	public String executeCustom2(Integer currentStep) {
 		goToNextStep();
@@ -537,11 +508,13 @@ public class VM_EvaluacionSolicitudIndex extends
 		return estudioSocioEconomico;
 	}
 
-	public void setEstudioSocioEconomico(EstudioSocioEconomico estudioSocioEconomico) {
+	public void setEstudioSocioEconomico(
+			EstudioSocioEconomico estudioSocioEconomico) {
 		this.estudioSocioEconomico = estudioSocioEconomico;
 	}
 
-
-
+	public EstudioSocioEconomico getEstudioSocioEconomicoSelected() {
+		return (EstudioSocioEconomico) selectedObject;
+	}
 
 }

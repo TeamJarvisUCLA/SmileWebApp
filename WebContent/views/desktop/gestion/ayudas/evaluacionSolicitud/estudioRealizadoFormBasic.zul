@@ -1,190 +1,148 @@
-
 <zk xmlns:n="native" xmlns:w="client">
 	<div sclass="animated fadeInLeft">
+
 		<div class="row">
-			<div class="col s12">
-				
-				
-				
-				
-				<div class="row">
-
+			<n:label class="active">DATOS DE LA SOLICITUD:</n:label>
+			<div sclass="row">
+				<div sclass="col s6">
 					<div class="input-field col s12">
-					
-					<n:label for="beneficiario3" class="active">
-						Titulo Solicitud Ayuda:
-					</n:label>
-					<label sclass="subtitulo-evento" value="@bind(vm.estudioSocioEconomico.fkSolicitudAyuda.titulo)"> </label>
-					
-					</div>
-
-				</div>
-				
-				<div class="row">
-
-					<div class="input-field col s12">
-						<n:label for="beneficiario_solicitud" class="active">
-						Nombre Beneficiario Solicitud Ayuda:
-					</n:label>
-					
-					<label sclass="subtitulo-evento" value="@bind(vm.estudioSocioEconomico.fkSolicitudAyuda.fkBeneficiario.fkPersona.nombre.concat(' ').concat(vm.estudioSocioEconomico.fkSolicitudAyuda.fkBeneficiario.fkPersona.apellido))"> </label>
-					
-					</div>
-
-				</div>
-				
-				
-				<div class="row">
-
-					<div class="input-field col s12">
-						<n:label for="beneficiario3_solicitud" class="active">
-						Documento de Identificacion Beneficiario Solicitud Ayuda:
-					</n:label>
-					
-					<label sclass="subtitulo-evento" value="@bind(vm.estudioSocioEconomico.fkSolicitudAyuda.fkBeneficiario.fkPersona.identificacion)"> </label>
-					
-					
-					</div>
-
-				</div>
-				
-				
-				<div class="row">
-
-					<div class="input-field col s12">
-						<n:label for="familiar_solicitud" class="active">
-						Nombre Familiar Solicitud Ayuda:
-					</n:label>
-					<label sclass="subtitulo-evento" value="@bind(vm.estudioSocioEconomico.fkSolicitudAyuda.fkBeneficiario.fkFamiliar.fkPersona.nombre.concat(' ').concat(vm.estudioSocioEconomico.fkSolicitudAyuda.fkBeneficiario.fkFamiliar.fkPersona.apellido))"> </label>
-					
-					
-					</div>
-
-				</div>
-				
-				
-				
-				<div class="row">
-
-					<div class="input-field col s12">
-						<n:label for="familiar3_solicitud" class="active">
-						Documento de Identificacion Familiar Solicitud Ayuda:
-					</n:label>
-					<label sclass="subtitulo-evento" value="@bind(vm.estudioSocioEconomico.fkSolicitudAyuda.fkBeneficiario.fkFamiliar.fkPersona.identificacion)"> </label>
-					
-					
-					</div>
-
-				</div>
-				
-				<div class="row">
-
-					<div class="input-field col s12">
-						<n:label for="ayuda_solicitud" class="active">
-						Ayuda Solicitada:
-					</n:label>
-					<label sclass="subtitulo-evento" value="@bind(vm.estudioSocioEconomico.fkSolicitudAyuda.fkAyuda.nombre)"> </label>
-					
-					
-					</div>
-
-				</div>
-				
-				<div class="row">
-
-					<div class="input-field col s12">
-						<n:label for="ayuda2_solicitud" class="active">
-						Urgencia Solicitud:
-					</n:label>
-					<label sclass="subtitulo-evento" value="@bind(vm.estudioSocioEconomico.fkSolicitudAyuda.urgenciaEnum)"> </label>
-					
-					</div>
-
-				</div>
-				
-				<div class="row">
-
-					<div class="input-field col s12">
-						<n:label for="ayuda2_solicitud" class="active">
-						Observacion Solicitud:
-					</n:label>
-					<label sclass="subtitulo-evento" value="@bind(vm.estudioSocioEconomico.fkSolicitudAyuda.observacion)"> </label>
-					
-					</div>
-
-				</div>
-				
-				<div class="row">
-
-					<div class="input-field col s12">
-					
-					<n:label for="beneficiario1" class="active">
-						Nombre Evaluador de Estudio Socio Economico:
-					</n:label>
-					<label sclass="subtitulo-evento"
-						
-						value="@bind(vm.estudioSocioEconomico.fkTrabajador.fkPersona.nombre.concat(' ').concat(vm.estudioSocioEconomico.fkTrabajador.fkPersona.apellido))">
-					
-					</label>
-					
-					</div>
-
-				</div>
-				<div class="row">
-
-					<div class="input-field col s12">
-					
-					<n:label for="beneficiario1" class="active">
-						Identificacion Evaluador de Estudio Socio Economico:
-					</n:label>
-					<label sclass="subtitulo-evento"
-						
-						value="@bind(vm.estudioSocioEconomico.fkTrabajador.fkPersona.identificacion)">
-					
-					</label>
-					
-					</div>
-
-				</div>
-				
-				<!-- atributos propios  -->
-				
-				<div class="row">
-
-					<div class="input-field col s12">
-						<n:label for="fecha"
-							class="active">
-							Fecha de Estudio Realizado:
+						<n:label for="beneficiario1" class="active">
+							Beneficiario:
 						</n:label>
-						<datebox id="fecha"
-							readonly="true" cols="20" format="dd/MM/yyyy"
-							value="@bind(vm.fechaEjecutada)" />
+						<textbox disabled="true"
+							value="@bind(vm.estudioSocioEconomico.fkSolicitudAyuda.fkBeneficiario.fkPersona.identificacion.concat(' - ').concat(vm.estudioSocioEconomico.fkSolicitudAyuda.fkBeneficiario.fkPersona.nombre).concat(' ').concat(vm.estudioSocioEconomico.fkSolicitudAyuda.fkBeneficiario.fkPersona.apellido))">
+						</textbox>
+
 					</div>
 
 				</div>
-				
-				
-				<div class="row">
-					<div class="input-field col s12">
-						<n:label for="resultado">Resultado</n:label>
-						<span
-							sclass="fa fa-question-circle fa-lg help-icon-special"
-							tooltip="pop_direccion, position=after_end" />
-						<textbox id="resultado" type="text"
-							sclass="materialize-textarea" multiline="true"
-							value="@bind(vm.estudioSocioEconomico.resultado)">
+				<div sclass="col s6"
+					visible="@load(not empty vm.estudioSocioEconomico.fkSolicitudAyuda.fkBeneficiario.fkPersona.nombre )">
+					<div class="input-fieldcol s12">
+						<n:label for="beneficiario1" class="active">
+							Representante del Beneficiario:
+						</n:label>
+						<textbox disabled="true" id="beneficiario1"
+							value="@bind(vm.estudioSocioEconomico.fkSolicitudAyuda.fkBeneficiario.fkFamiliar.fkPersona.identificacion.concat(' - ').concat(vm.estudioSocioEconomico.fkSolicitudAyuda.fkBeneficiario.fkFamiliar.fkPersona.nombre).concat(' ').concat(vm.estudioSocioEconomico.fkSolicitudAyuda.fkBeneficiario.fkFamiliar.fkPersona.apellido))">
+						</textbox>
+					</div>
+
+				</div>
+			</div>
+			<div sclass="row">
+				<div class="col s6">
+					<div class="input-field  col s12">
+						<n:label for="beneficiario3" class="active">
+							Ayuda
+						</n:label>
+						<textbox disabled="true" id="beneficiario3"
+							value="@bind(vm.estudioSocioEconomico.fkSolicitudAyuda.fkAyuda.nombre)">
 						</textbox>
 					</div>
 				</div>
-				 
-				
-				
-
-
-				
+				<div sclass="col s6"
+					visible="@load(not empty vm.estudioSocioEconomico.fkSolicitudAyuda.fkAyuda.nombre )">
+					<div class="input-field col s12">
+						<n:label for="beneficiario3" class="active">
+							Descripción de Ayuda:
+						</n:label>
+						<textbox sclass="materialize-textarea"
+							disabled="true" multiline="true"
+							value="@bind(vm.estudioSocioEconomico.fkSolicitudAyuda.fkAyuda.descripcion)">
+						</textbox>
+					</div>
+				</div>
 			</div>
-			
 
+			<div class="row">
+				<div class="col s6">
+					<div class="input-field  col s12">
+						<n:label for="titulo" class="active">
+							Titulo de Solicitud
+						</n:label>
+						<textbox id="titulo" type="text" disabled="true"
+							maxlength="100"
+							value="@bind(vm.estudioSocioEconomico.fkSolicitudAyuda.titulo)">
+						</textbox>
+					</div>
+				</div>
+				<div class="col s6">
+					<div class="input-field  col s12">
+						<n:label for="urgencia" class="active">
+							Urgencia
+						</n:label>
+						<textbox id="urgencia" type="text"
+							disabled="true" maxlength="100"
+							value="@bind(vm.estudioSocioEconomico.fkSolicitudAyuda.urgenciaEnum)">
+						</textbox>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col s6">
+					<div class="input-field col s12">
+						<n:label for="fecha_solicitud" class="active">
+							Fecha de Solicitud
+						</n:label>
+
+						<datebox id="fecha_solicitud" cols="20"
+							disabled="true" format="dd/MM/yyyy" readonly="true"
+							value="@bind(vm.estudioSocioEconomico.fkSolicitudAyuda.fecha)" />
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+		<div class="row">
+			<n:label class="active">DATOS DEL ESTUDIO:</n:label>
+			<div class="row">
+				<div class="col s12">
+					<div class="input-field  col s12">
+						<n:label for="evaluador" class="active">
+							Evaluador
+						</n:label>
+						<textbox id="evaluador" type="text"
+							disabled="true" maxlength="100"
+							value="@bind(vm.estudioSocioEconomico.fkTrabajador.fkPersona.identificacion.concat( vm.estudioSocioEconomico.fkTrabajador.fkPersona.nombre).concat(' ').concat(vm.estudioSocioEconomico.fkTrabajador.fkPersona.apellido))">
+						</textbox>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col s12">
+
+					<div class="input-field col s6">
+						<n:label for="fecha" class="active">
+							Fecha Planificada:
+						</n:label>
+						<datebox id="fecha" cols="20" disabled="true"
+							format="dd/MM/yyyy"
+							value="@bind(vm.estudioSocioEconomico.fecha)" />
+					</div>
+
+					<div class="input-field col s6">
+						<n:label for="fecha2" class="active">
+							Fecha Realizado:
+						</n:label>
+						<datebox id="fecha2" cols="20"
+							format="dd/MM/yyyy" value="@bind(vm.fechaEjecutada)" />
+					</div>
+
+				</div>
+			</div>
+			<!-- Propio de estudio Socio economico -->
+
+		</div>
+		<div class="row">
+			<div class="input-field col s12">
+				<n:label for="resultado">Resultado</n:label>
+				<textbox id="resultado" type="text"
+					sclass="materialize-textarea" multiline="true"
+					value="@bind(vm.estudioSocioEconomico.resultado)">
+				</textbox>
+			</div>
 		</div>
 	</div>
 </zk>

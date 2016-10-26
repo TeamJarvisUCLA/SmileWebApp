@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,6 +30,7 @@ import ve.smile.consume.services.S;
 import ve.smile.dto.ClasificadorReconocimiento;
 import ve.smile.dto.Colaborador;
 import ve.smile.dto.Multimedia;
+import ve.smile.dto.NotificacionUsuario;
 import ve.smile.dto.Padrino;
 import ve.smile.dto.Patrocinador;
 import ve.smile.dto.Persona;
@@ -36,14 +38,17 @@ import ve.smile.dto.ReconocimientoPersona;
 import ve.smile.dto.Trabajador;
 import ve.smile.dto.Voluntario;
 import ve.smile.enums.EstatusColaboradorEnum;
+import ve.smile.enums.EstatusNotificacionEnum;
 import ve.smile.enums.EstatusPadrinoEnum;
 import ve.smile.enums.EstatusTrabajadorEnum;
 import ve.smile.enums.EstatusVoluntarioEnum;
 import ve.smile.enums.TipoMultimediaEnum;
 import ve.smile.enums.TipoReconocimientoEnum;
+import ve.smile.enums.TipoReferenciaNotificacionEnum;
 import ve.smile.payload.response.PayloadClasificadorReconocimientoResponse;
 import ve.smile.payload.response.PayloadColaboradorResponse;
 import ve.smile.payload.response.PayloadMultimediaResponse;
+import ve.smile.payload.response.PayloadNotificacionUsuarioResponse;
 import ve.smile.payload.response.PayloadPadrinoResponse;
 import ve.smile.payload.response.PayloadPatrocinadorResponse;
 import ve.smile.payload.response.PayloadReconocimientoPersonaResponse;
@@ -502,6 +507,29 @@ public class VM_AsignarReconocimientoIndex extends VM_WindowWizard implements
 					}
 				}
 
+				if (this.getReconocimientoPersona().getFkPersona()
+						.getFkUsuario() != null
+						&& this.getReconocimientoPersona().getFkPersona()
+								.getFkUsuario() != null) {
+					String contenido = "¡Felicitaciones!, se le ha asignado un reconocimiento de "
+							+ this.getReconocimientoPersona()
+									.getFkClasificadorReconocimiento()
+									.getNombre();
+					NotificacionUsuario notificacionUsuario = new NotificacionUsuario(
+							this.getReconocimientoPersona().getFkPersona()
+									.getFkUsuario(), new Date().getTime(),
+							((Double) payloadReconocimientoPersonaResponse
+									.getInformacion("id")).intValue(),
+							EstatusNotificacionEnum.PENDIENTE.ordinal(),
+							TipoReferenciaNotificacionEnum.RECONOCIMIENTO
+									.ordinal(), contenido);
+					PayloadNotificacionUsuarioResponse payloadNotificacionUsuarioResponse = S.NotificacionUsuarioService
+							.incluir(notificacionUsuario);
+					if (!UtilPayload.isOK(payloadNotificacionUsuarioResponse)) {
+						return (String) payloadNotificacionUsuarioResponse
+								.getInformacion(IPayloadResponse.MENSAJE);
+					}
+				}
 			} else {
 				return "Error Code: 099-Debe cargar una Imagen del Reconocimiento";
 			}

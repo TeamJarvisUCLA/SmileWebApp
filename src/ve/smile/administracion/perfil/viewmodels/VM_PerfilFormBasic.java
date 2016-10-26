@@ -21,6 +21,7 @@ import karen.core.form.viewmodels.VM_WindowForm;
 import karen.core.util.payload.UtilPayload;
 import karen.core.util.validate.UtilValidate;
 import karen.core.util.validate.UtilValidate.ValidateOperator;
+import lights.core.encryptor.UtilEncryptor;
 import lights.core.enums.TypeQuery;
 import lights.smile.util.UtilMultimedia;
 import lights.smile.util.Zki;
@@ -45,6 +46,7 @@ import ve.smile.payload.response.PayloadMultimediaResponse;
 import ve.smile.payload.response.PayloadPersonaResponse;
 import ve.smile.seguridad.dto.Usuario;
 import ve.smile.seguridad.enums.OperacionEnum;
+import ve.smile.seguridad.payload.response.PayloadUsuarioResponse;
 import app.UploadImageSingle;
 
 public class VM_PerfilFormBasic extends VM_WindowForm implements
@@ -67,10 +69,21 @@ public class VM_PerfilFormBasic extends VM_WindowForm implements
 	private String urlImage;
 	private String typeMedia;
 
+	private String clave;
+	private String claveConfiguracion;
+
 	private Persona persona;
+	private boolean editClave;
 
 	@Init(superclass = true)
 	public void childInit() {
+		editClave = false;
+		PayloadUsuarioResponse payloadUsuarioResponse = S.UsuarioService
+				.consultarUno(this.getUsuario().getIdUsuario());
+		if (UtilPayload.isOK(payloadUsuarioResponse)) {
+			this.getUsuario().setClave(
+					payloadUsuarioResponse.getObjetos().get(0).getClave());
+		}
 		this.setPersona(this.getUsuario().getPersona());
 		if (this.getPersona().getSexo() != null) {
 			this.setSexoEnum(SexoEnum.values()[this.getPersona().getSexo()]);
@@ -106,6 +119,21 @@ public class VM_PerfilFormBasic extends VM_WindowForm implements
 				Alert.showMessage(payloadCiudadResponse);
 			}
 			this.getCiudades().addAll(payloadCiudadResponse.getObjetos());
+		}
+
+	}
+
+	@Command("cambioClave")
+	public void cambioClave() {
+		if (clave == null || clave.equals("") || clave.trim().isEmpty()) {
+			return;
+		}
+		if (claveConfiguracion == null || claveConfiguracion.equals("")
+				|| claveConfiguracion.trim().isEmpty()) {
+			return;
+		}
+		if (!clave.equals(claveConfiguracion)) {
+			Alert.showErrorMessage("099", "Verfique las claves ingresadas");
 		}
 
 	}
@@ -334,8 +362,21 @@ public class VM_PerfilFormBasic extends VM_WindowForm implements
 				return true;
 			}
 
-			DataCenter.reloadCurrentNodoMenu();
-			return true;
+			// USUARIO
+			if (editClave) {
+
+				this.getUsuario().setClave(
+						UtilEncryptor.encriptar(this.getClave()));
+				PayloadUsuarioResponse payloadUsuarioResponse = S.UsuarioService
+						.modificar(getUsuario());
+				if (!UtilPayload.isOK(payloadUsuarioResponse)) {
+					Alert.showMessage(payloadUsuarioResponse);
+					return true;
+				}
+				Alert.showMessage(payloadUsuarioResponse);
+				DataCenter.reloadCurrentNodoMenu();
+				return true;
+			}
 		}
 		return false;
 	}
@@ -378,6 +419,25 @@ public class VM_PerfilFormBasic extends VM_WindowForm implements
 					"Telfono 1", 25);
 			UtilValidate.validateString(this.getPersona().getCorreo(),
 					"Correo", 100);
+
+			if (editClave) {
+				if (clave == null || clave.equals("") || clave.trim().isEmpty()) {
+					Alert.showErrorMessage("099",
+							"Debe Ingresar su <b> Clave </b>");
+					return false;
+				}
+				if (claveConfiguracion == null || claveConfiguracion.equals("")
+						|| claveConfiguracion.trim().isEmpty()) {
+					Alert.showErrorMessage("099",
+							"Debe Ingresar confirmar su <b> Clave </b>");
+					return false;
+				}
+				if (!clave.equals(claveConfiguracion)) {
+					Alert.showErrorMessage("099",
+							"Verfique las claves ingresadas");
+					return false;
+				}
+			}
 
 			return true;
 		} catch (Exception e) {
@@ -488,6 +548,30 @@ public class VM_PerfilFormBasic extends VM_WindowForm implements
 
 	public void setPersona(Persona persona) {
 		this.persona = persona;
+	}
+
+	public boolean getEditClave() {
+		return editClave;
+	}
+
+	public void setEditClave(boolean editClave) {
+		this.editClave = editClave;
+	}
+
+	public String getClave() {
+		return clave;
+	}
+
+	public void setClave(String clave) {
+		this.clave = clave;
+	}
+
+	public String getClaveConfiguracion() {
+		return claveConfiguracion;
+	}
+
+	public void setClaveConfiguracion(String claveConfiguracion) {
+		this.claveConfiguracion = claveConfiguracion;
 	}
 
 }

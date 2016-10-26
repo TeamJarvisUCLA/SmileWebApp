@@ -1,0 +1,52 @@
+<zk xmlns:n="native" xmlns:w="client">
+	<div sclass="animated fadeInLeft">
+
+		<div class="row">
+			<div class="col s12" align="center"
+				style="margin-bottom: 15px;">
+				<div sclass="row">
+					<span sclass="fa fa-check-square-o "
+						style="font-size: 4em;color: #d2ec3f;">
+					</span>
+				</div>
+				<div sclass="row">
+					<label
+						value="Consulta Generada exitosamente, Seleccione la Opción de su preferencia."
+						sclass="label-medium-500" style="font-size: 15px;">
+					</label>
+				</div>
+				<div sclass="row" align="left">
+					<checkbox label="Parcial"
+						checked="@bind(vm.parcial)" />
+				</div>
+				<div sclass="row">
+					<listbox model="@bind(vm.listTrabajoSocialPlanificados)" selectedItem="@bind(vm.trabajoSocialPlanificado)"
+						height="400px">
+						<listhead sizable="true">
+							<listheader width="25%" label="Trabajo Social" />
+							<listheader width="20%" label="Descripcion" />
+							<listheader width="20%" label="Lugar" />
+							<listheader width="20%" label="Responsable" />
+							<listheader width="25%" label="Estatus" />
+						</listhead>
+						<template name="model">
+							<listitem>
+								<listcell
+									label="@load(each.fkTrabajoSocial.nombre)" />
+
+								<listcell
+									label="@load(each.fkTrabajoSocial.descripcion)" />
+								<listcell
+									label="@load(each.fkDirectorio.nombre)" />
+								<listcell
+									label="@load(each.fkPersona.nombre.concat(' ').concat(each.fkPersona.apellido))" />
+								<listcell
+									label="@load(each.estatusEventoPlanificadoEnum)" />
+							</listitem>
+						</template>
+					</listbox>
+				</div>
+			</div>
+		</div>
+	</div>
+</zk>

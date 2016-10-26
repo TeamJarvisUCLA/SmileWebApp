@@ -458,10 +458,9 @@ public class VM_ReporteEventoIndex extends VM_WindowWizard {
 				if (eventoPlanificado == null
 						|| eventoPlanificado.getIdEventoPlanificado() == null) {
 
-					return "E:Error Code 5-Debe Seleccionar un <b>Evento</b>";
+					return "E:Error Code 5-Debe Seleccionar un <b> Trabajo Social</b>";
 
 				} else {
-					// llego la hora de la verdad candela
 					reportParametrizadoParcial();
 					return "";
 				}

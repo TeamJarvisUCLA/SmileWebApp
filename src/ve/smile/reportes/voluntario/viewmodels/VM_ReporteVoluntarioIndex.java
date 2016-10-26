@@ -382,13 +382,13 @@ public class VM_ReporteVoluntarioIndex extends VM_WindowWizard {
 		fechaHastaDate = null;
 		type = new String();
 		source = new String();
-		listClasificadorVoluntario = new ArrayList<>();
+
 		clasificadorVoluntariosSeleccionados = new HashSet<>();
 		listFortalezas = new ArrayList<>();
 		fortalezasSeleccionados = new HashSet<>();
-		listProfesion = new ArrayList<>();
+	
 		profesionesSeleccionadas = new HashSet<>();
-		voluntarios = new ArrayList<>();
+		
 		voluntarioClasificadoP = "";
 		estatusVoluntariosS = "";
 		fortalezasP = "";

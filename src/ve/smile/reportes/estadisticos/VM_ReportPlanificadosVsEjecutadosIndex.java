@@ -1,6 +1,5 @@
 package ve.smile.reportes.estadisticos;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,14 +16,11 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 import org.zkoss.bind.BindUtils;
 
-import freemarker.template.SimpleDate;
 import ve.smile.consume.services.S;
 import ve.smile.dto.EventoPlanificado;
 import ve.smile.dto.IndicadorEventoPlanificado;
 import ve.smile.dto.Organizacion;
 import ve.smile.enums.EstatusEventoPlanificadoEnum;
-import ve.smile.enums.EstatusTrabajoSocialPlanificadoEnum;
-import ve.smile.enums.TipoEventoEnum;
 import ve.smile.payload.response.PayloadEventoPlanificadoResponse;
 import ve.smile.payload.response.PayloadIndicadorEventoPlanificadoResponse;
 import ve.smile.reportes.Reporte;
@@ -249,20 +245,25 @@ public class VM_ReportPlanificadosVsEjecutadosIndex extends VM_WindowWizard {
 
 			parametros.put("pDireccion", eventoPlanificado.getFkDirectorio()
 					.getDireccion());
-			
-			parametros.put("pResponsable", eventoPlanificado.getFkPersona().getNombre() +" "+eventoPlanificado.getFkPersona().getApellido());
 
-			
-			Organizacion organizacion = S.OrganizacionService.consultarTodos().getObjetos().get(0);
-			
-			parametros.put("tDireccionOrganizacion", organizacion.getDireccion());
-			
-			parametros.put("tTelefonoOrganizacion", organizacion.getTelefono() + " " + "/" + " " + organizacion.getTelefono2());
-			
+			parametros.put("pResponsable", eventoPlanificado.getFkPersona()
+					.getNombre()
+					+ " "
+					+ eventoPlanificado.getFkPersona().getApellido());
+
+			Organizacion organizacion = S.OrganizacionService.consultarTodos()
+					.getObjetos().get(0);
+
+			parametros.put("tDireccionOrganizacion",
+					organizacion.getDireccion());
+
+			parametros.put("tTelefonoOrganizacion", organizacion.getTelefono()
+					+ " " + "/" + " " + organizacion.getTelefono2());
+
 			parametros.put("tCorreoOrganizacion", organizacion.getCorreo());
 
 			type = "pdf";
-			
+
 			source = "reporte/estadisticoPlanificadosVsEjecutados.jasper";
 		}
 		return "";
@@ -270,9 +271,9 @@ public class VM_ReportPlanificadosVsEjecutadosIndex extends VM_WindowWizard {
 
 	@Override
 	public String isValidPreconditionsCustom2(Integer currentStep) {
-		
+
 		return "";
-		
+
 	}
 
 	@Override

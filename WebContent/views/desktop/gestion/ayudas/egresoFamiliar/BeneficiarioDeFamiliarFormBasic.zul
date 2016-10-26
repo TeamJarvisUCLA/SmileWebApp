@@ -3,62 +3,38 @@
 		<div class="row">
 			<div class="col s12" align="center"
 				style="margin-bottom: 15px;">
-				<label value="Al Egresar al Representante Se Egresaran los Siguientes Beneficiarios "
+				<label
+					value="Al Egresar al Representante Se Egresaran los Siguientes Beneficiarios "
 					sclass="label-medium-500">
 				</label>
 			</div>
-
 		</div>
 		<div width="100%">
-
-			<div style="overflow: auto;" class="row">
-			<div class="col s12">
-			
-			
-				
-			
-				<div style="overflow: auto;"
-											class="row">
-											<div class="col s12">
-												<div class="col s12"
-													style="overflow: scroll;">
-													<listbox
-														id="listbox3" model="@load(vm.beneficiarios)">
-
-
-														<listhead
-															sizable="true">
-
-															<listheader
-																width="100%" label="Nombre de Beneficiario" />
-															
-															<listheader
-																width="100%" label="Identificacion" />
-
-
-														</listhead>
-														<template
-															name="model">
-															<listitem>
-
-																<listcell
-																	label="@load(each.fkPersona.nombre.concat(' ').concat(each.fkPersona.apellido))" />
-																
-																<listcell
-																	label="@load(each.fkPersona.identificacion)" />
-
-															</listitem>
-														</template>
-														<listfoot>
-															<listfooter
-																id="listFoot3" span="5"
-																use="karen.core.listfoot.ListFoot">
-															</listfooter>
-														</listfoot>
-													</listbox>
-												</div>
-											</div>
-										</div>
+			<div class="row">
+				<div class="col s12">
+					<div class="row">
+						<div class="col s12">
+							<div class="col s12">
+								<listbox id="listbox3" height="200px"
+									model="@load(vm.beneficiarios)">
+									<listhead sizable="true">
+										<listheader width="20%"
+											label="Identificación" />
+										<listheader width="80%"
+											label="Beneficiario" />
+									</listhead>
+									<template name="model">
+										<listitem>
+											<listcell
+												label="@load(each.fkPersona.identificacion)" />
+											<listcell
+												label="@load(each.fkPersona.nombre.concat(' ').concat(each.fkPersona.apellido))" />
+										</listitem>
+									</template>
+								</listbox>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

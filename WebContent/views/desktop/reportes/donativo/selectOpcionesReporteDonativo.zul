@@ -6,7 +6,7 @@
 					<checkbox label="Todos" checked="@bind(vm.todos)" />
 				</div>
 				<div sclass="col s3" style="padding: 0px">
-					<checkbox label="Fecha Solicitud"
+					<checkbox label="Fecha de Donativos "
 						checked="@bind(vm.fecha)" />
 				</div>
 				<div sclass="col s3" visible="@bind(vm.fecha)">
@@ -27,29 +27,11 @@
 			<div sclass="col s12" style="padding:0px">
 				
 				<div sclass="col s3">
-					<checkbox label="Aprobadas"
-						checked="@bind(vm.aprobadas)" />
+					<checkbox label="Aportes"
+						checked="@bind(vm.aporte)" value="@bind(vm.aporte)"/>
 				</div>
 
-				<div sclass="col s3">
-					<checkbox label="En Proceso"
-						checked="@bind(vm.enProceso)" />
-				</div>
 				
-				<div sclass="col s3">
-					<checkbox label="Rechazadas"
-						checked="@bind(vm.rechazadas)" />
-				</div>
-
-				<div sclass="col s3">
-					<checkbox label="Pendientes"
-						checked="@bind(vm.pendientes)" />
-				</div>
-				
-				<div sclass="col s3">
-					<checkbox label="Procesadas"
-						checked="@bind(vm.procesadas)" />
-				</div>
 			</div>
 		</div>
 		<div class = "row"  visible="@bind(!vm.todos)">
@@ -57,21 +39,21 @@
 				<div sclass="col s12" style="padding:0px">
 					
 					<div sclass="col s3">
-						<checkbox label="Ayudas"
-							checked="@bind(vm.recursoSolicitudAyuda)" />
-						<listbox id="listbox3" sclass="animated flipInX"
-							model="@load(vm.listRecurso)" checkmark="true" multiple="true"
-							height="150px" selectedItems="@bind(vm.recursosSeleccionadas)"
-							visible="@bind(vm.recursoSolicitudAyuda)">
+						<checkbox label="Recepciones"
+							checked="@bind(vm.tipoRecepcionEnum)" />
+						<listbox id="listbox1" sclass="animated flipInX"
+							model="@load(vm.listTipoRecepcionEnums)" checkmark="true" multiple="true"
+							height="150px" selectedItems="@bind(vm.tipoRecepcionEnumsSeleccionados)"
+							visible="@bind(vm.tipoRecepcionEnum)">
 							<listhead>
 								<listheader width="100%"
-									label="Recurso" />
+									label="Recepcion" />
 							</listhead>
 							<template name="model">
 								<listitem>
 									<listcell>
 										<label
-											value="@load(each.nombre)">
+											value="@load(each.toString())">
 										</label>
 									</listcell>
 								</listitem>
@@ -79,8 +61,34 @@
 						</listbox>
 					</div>
 					
+					
+					<div sclass="col s3">
+						<checkbox label="Procedencias"
+							checked="@bind(vm.tipoProcedenciaEnum)" />
+						<listbox id="listbox2" sclass="animated flipInX"
+							model="@load(vm.listTipoProcedenciaEnums)" checkmark="true" multiple="true"
+							height="150px" selectedItems="@bind(vm.tipoProcedenciaEnumsSeleccionados)"
+							visible="@bind(vm.tipoProcedenciaEnum)">
+							<listhead>
+								<listheader width="100%"
+									label="Recepcion" />
+							</listhead>
+							<template name="model">
+								<listitem>
+									<listcell>
+										<label
+											value="@load(each.toString())">
+										</label>
+									</listcell>
+								</listitem>
+							</template>
+						</listbox>
+					</div>
 				</div>
 			</div>
+			
+			
+			
 		</div>
 
 

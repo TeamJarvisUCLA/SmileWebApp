@@ -6,7 +6,7 @@
 		apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('ve.smile.gestion.ayudas.familiar_y_beneficiario.VM_FamiliarYBeneficiarioIndex')">
 		<div width="100%">
-			<div style="overflow: auto;" class="row">
+			<div class="row">
 				<div class="col s12">
 					<div class="col s12">
 						<listbox id="listbox"

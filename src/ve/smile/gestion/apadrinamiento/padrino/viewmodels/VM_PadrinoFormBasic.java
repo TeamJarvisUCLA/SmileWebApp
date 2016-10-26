@@ -434,9 +434,6 @@ public class VM_PadrinoFormBasic extends VM_WindowForm implements
 					.getDireccion(), "Dirección", 250);
 			UtilValidate.validateString(this.getPadrino().getFkPersona()
 					.getTelefono1(), "Teléfono 1", 25);
-
-			UtilValidate.validateString(this.getPadrino().getFkPersona()
-					.getFax(), "Fax", 100);
 			UtilValidate.validateString(this.getPadrino().getFkPersona()
 					.getCorreo(), "Correo", 100);
 

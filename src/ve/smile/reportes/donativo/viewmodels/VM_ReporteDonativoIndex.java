@@ -1,8 +1,9 @@
-package ve.smile.reportes.ayuda.viewmodels;
+package ve.smile.reportes.donativo.viewmodels;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -18,21 +19,28 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.zkoss.bind.annotation.Init;
 
 import ve.smile.consume.services.S;
+import ve.smile.dto.DonativoRecurso;
 import ve.smile.dto.Fortaleza;
 import ve.smile.dto.Recurso;
-import ve.smile.dto.SolicitudAyuda;
-import ve.smile.enums.EstatusSolicitudEnum;
-import ve.smile.payload.response.PayloadSolicitudAyudaResponse;
+import ve.smile.enums.ProcedenciaEnum;
+import ve.smile.enums.RecepcionEnum;
+import ve.smile.payload.response.PayloadDonativoRecursoResponse;
 
-public class VM_ReporteAyudaIndex extends VM_WindowWizard {
+public class VM_ReporteDonativoIndex extends VM_WindowWizard {
 
-	private boolean recursoSolicitudAyuda = false;
+	private boolean tipoProcedenciaEnum = false;
 
-	private boolean fortalezaSolicitudAyuda = false;
+	private boolean tipoRecepcionEnum = false;
+
+	private boolean recursoDonativoRecurso = false;
+
+	private boolean fortalezaDonativoRecurso = false;
 
 	private boolean redesSociales = false;
 
 	private boolean fecha = false;
+
+	private boolean aporte = false;
 
 	private boolean aprobadas = false;
 
@@ -58,7 +66,7 @@ public class VM_ReporteAyudaIndex extends VM_WindowWizard {
 
 	private Map<String, Object> parametros = new HashMap<>();
 
-	private List<Fortaleza> listFortalezas = new ArrayList<>();
+	private List<Fortaleza> listProcedencias = new ArrayList<>();
 
 	private List<String> listRedesSociales = new ArrayList<>();
 
@@ -70,9 +78,25 @@ public class VM_ReporteAyudaIndex extends VM_WindowWizard {
 
 	private Set<Recurso> recursosSeleccionadas;
 
-	private List<SolicitudAyuda> solicitudes;
+	private List<DonativoRecurso> donativos;
 
-	String estatusSolicitudAyudas = "";
+	private Set<ProcedenciaEnum> tipoProcedenciaEnumsSeleccionados;
+
+	private Set<RecepcionEnum> tipoRecepcionEnumsSeleccionados;
+
+	private List<ProcedenciaEnum> listTipoProcedenciaEnums = new ArrayList<>();
+
+	private List<RecepcionEnum> listTipoRecepcionEnums = new ArrayList<>();
+
+	String tipoProcedenciaEnumP = "";
+
+	String tTipoProcedenciaEnumP = "";
+
+	String tipoRecepcionEnumP = "";
+
+	String tTipoRecepcionEnumP = "";
+
+	String estatusDonativoRecursos = "";
 
 	String fortalezasP = "";
 
@@ -84,9 +108,9 @@ public class VM_ReporteAyudaIndex extends VM_WindowWizard {
 
 	String tFechaHasta = "";
 
-	String tFortalezas = "";
+	String tProcedencias = "";
 
-	String tRecursos = "";
+	String tRecepciones = "";
 
 	String fechaDesde = "";
 
@@ -97,26 +121,136 @@ public class VM_ReporteAyudaIndex extends VM_WindowWizard {
 
 		parametros.clear();
 
-		listFortalezas = S.FortalezaService.consultarTodos().getObjetos();
+		listProcedencias = S.FortalezaService.consultarTodos().getObjetos();
 
 		listRecurso = S.RecursoService.consultarTodos().getObjetos();
 
+		tipoProcedenciaEnumsSeleccionados = new HashSet<>();
+
 	}
 
-	public boolean isRecursoSolicitudAyuda() {
-		return recursoSolicitudAyuda;
+	public List<ProcedenciaEnum> getListTipoProcedenciaEnums() {
+		if (this.listTipoProcedenciaEnums == null) {
+			this.listTipoProcedenciaEnums = new ArrayList<ProcedenciaEnum>();
+		}
+		if (this.listTipoProcedenciaEnums.isEmpty()) {
+			for (ProcedenciaEnum procedencia : ProcedenciaEnum.values()) {
+				this.listTipoProcedenciaEnums.add(procedencia);
+			}
+		}
+		return listTipoProcedenciaEnums;
 	}
 
-	public void setRecursoSolicitudAyuda(boolean recursoSolicitudAyuda) {
-		this.recursoSolicitudAyuda = recursoSolicitudAyuda;
+	public void setListTipoProcedenciaEnums(
+			List<ProcedenciaEnum> listTipoProcedenciaEnums) {
+		this.listTipoProcedenciaEnums = listTipoProcedenciaEnums;
 	}
 
-	public boolean isFortalezaSolicitudAyuda() {
-		return fortalezaSolicitudAyuda;
+	public List<RecepcionEnum> getListTipoRecepcionEnums() {
+		if (this.listTipoRecepcionEnums == null) {
+			this.listTipoRecepcionEnums = new ArrayList<RecepcionEnum>();
+		}
+		if (this.listTipoRecepcionEnums.isEmpty()) {
+			for (RecepcionEnum recepcion : RecepcionEnum.values()) {
+				this.listTipoRecepcionEnums.add(recepcion);
+			}
+		}
+		return listTipoRecepcionEnums;
 	}
 
-	public void setFortalezaSolicitudAyuda(boolean fortalezaSolicitudAyuda) {
-		this.fortalezaSolicitudAyuda = fortalezaSolicitudAyuda;
+	public void setListTipoRecepcionEnums(
+			List<ProcedenciaEnum> listTipoProcedenciaEnums) {
+		this.listTipoProcedenciaEnums = listTipoProcedenciaEnums;
+	}
+
+	public boolean isAporte() {
+		return aporte;
+	}
+
+	public void setAporte(boolean aporte) {
+		this.aporte = aporte;
+	}
+
+	public boolean isTipoRecepcionEnum() {
+		return tipoRecepcionEnum;
+	}
+
+	public void setTipoRecepcionEnum(boolean tipoRecepcionEnum) {
+		this.tipoRecepcionEnum = tipoRecepcionEnum;
+	}
+
+	public Set<RecepcionEnum> getTipoRecepcionEnumsSeleccionados() {
+		return tipoRecepcionEnumsSeleccionados;
+	}
+
+	public void setTipoRecepcionEnumsSeleccionados(
+			Set<RecepcionEnum> tipoRecepcionEnumsSeleccionados) {
+		this.tipoRecepcionEnumsSeleccionados = tipoRecepcionEnumsSeleccionados;
+	}
+
+	public String getTipoRecepcionEnumP() {
+		return tipoRecepcionEnumP;
+	}
+
+	public void setTipoRecepcionEnumP(String tipoRecepcionEnumP) {
+		this.tipoRecepcionEnumP = tipoRecepcionEnumP;
+	}
+
+	public String gettTipoRecepcionEnumP() {
+		return tTipoRecepcionEnumP;
+	}
+
+	public void settTipoRecepcionEnumP(String tTipoRecepcionEnumP) {
+		this.tTipoRecepcionEnumP = tTipoRecepcionEnumP;
+	}
+
+	public boolean isTipoProcedenciaEnum() {
+		return tipoProcedenciaEnum;
+	}
+
+	public void setTipoProcedenciaEnum(boolean tipoProcedenciaEnum) {
+		this.tipoProcedenciaEnum = tipoProcedenciaEnum;
+	}
+
+	public Set<ProcedenciaEnum> getTipoProcedenciaEnumsSeleccionados() {
+		return tipoProcedenciaEnumsSeleccionados;
+	}
+
+	public void setTipoProcedenciaEnumsSeleccionados(
+			Set<ProcedenciaEnum> tipoProcedenciaEnumsSeleccionados) {
+		this.tipoProcedenciaEnumsSeleccionados = tipoProcedenciaEnumsSeleccionados;
+	}
+
+	public String getTipoProcedenciaEnumP() {
+		return tipoProcedenciaEnumP;
+	}
+
+	public void setTipoProcedenciaEnumP(String tipoProcedenciaEnumP) {
+		this.tipoProcedenciaEnumP = tipoProcedenciaEnumP;
+	}
+
+	public String gettTipoProcedenciaEnumP() {
+		return tTipoProcedenciaEnumP;
+	}
+
+	public void settTipoProcedenciaEnumP(String tTipoProcedenciaEnumP) {
+		this.tTipoProcedenciaEnumP = tTipoProcedenciaEnumP;
+	}
+
+	public boolean isRecursoDonativoRecurso() {
+		return recursoDonativoRecurso;
+	}
+
+	public void setRecursoDonativoRecurso(boolean recursoDonativoRecurso) {
+		this.recursoDonativoRecurso = recursoDonativoRecurso;
+	}
+
+	public boolean isFortalezaDonativoRecurso() {
+		return fortalezaDonativoRecurso;
+	}
+
+	public void setFortalezaDonativoRecurso(boolean fortalezaDonativoRecurso) {
+		this.fortalezaDonativoRecurso = fortalezaDonativoRecurso;
 	}
 
 	public boolean isRedesSociales() {
@@ -135,19 +269,19 @@ public class VM_ReporteAyudaIndex extends VM_WindowWizard {
 		this.fecha = fecha;
 	}
 
-	public List<Fortaleza> getListFortalezas() {
-		return listFortalezas;
+	public List<Fortaleza> getListProcedencias() {
+		return listProcedencias;
 	}
 
-	public void setListFortalezas(List<Fortaleza> listFortalezas) {
-		this.listFortalezas = listFortalezas;
+	public void setListProcedencias(List<Fortaleza> listProcedencias) {
+		this.listProcedencias = listProcedencias;
 	}
 
-	public Set<Fortaleza> getFortalezasSeleccionados() {
+	public Set<Fortaleza> getProcedenciasSeleccionados() {
 		return fortalezasSeleccionados;
 	}
 
-	public void setFortalezasSeleccionados(
+	public void setProcedenciasSeleccionados(
 			Set<Fortaleza> fortalezasSeleccionados) {
 		this.fortalezasSeleccionados = fortalezasSeleccionados;
 	}
@@ -160,11 +294,11 @@ public class VM_ReporteAyudaIndex extends VM_WindowWizard {
 		this.listRecurso = listRecurso;
 	}
 
-	public Set<Recurso> getRecursosSeleccionadas() {
+	public Set<Recurso> getRecepcionesSeleccionadas() {
 		return recursosSeleccionadas;
 	}
 
-	public void setRecursosSeleccionadas(Set<Recurso> recursosSeleccionadas) {
+	public void setRecepcionesSeleccionadas(Set<Recurso> recursosSeleccionadas) {
 		this.recursosSeleccionadas = recursosSeleccionadas;
 	}
 
@@ -281,9 +415,9 @@ public class VM_ReporteAyudaIndex extends VM_WindowWizard {
 	public List<String> getUrlPageToStep() {
 		List<String> urls = new ArrayList<String>();
 
-		urls.add("views/desktop/reportes/ayudas/selectOpcionesReporteAyuda.zul");
-		urls.add("views/desktop/reportes/ayudas/selectCompletado.zul");
-		urls.add("views/desktop/reportes/ayudas/viewReportPdfAyuda.zul");
+		urls.add("views/desktop/reportes/donativo/selectOpcionesReporteDonativo.zul");
+		urls.add("views/desktop/reportes/donativo/selectCompletado.zul");
+		urls.add("views/desktop/reportes/donativo/viewReportPdfDonativo.zul");
 
 		return urls;
 	}
@@ -359,7 +493,7 @@ public class VM_ReporteAyudaIndex extends VM_WindowWizard {
 			String sql = "";
 
 			if (todos) {
-				sql = "SELECT DISTINCT v FROM SolicitudAyuda v  WHERE  v.idSolicitudAyuda = v.idSolicitudAyuda ";
+				sql = "SELECT DISTINCT v FROM DonativoRecurso v  WHERE  v.idDonativoRecurso = v.idDonativoRecurso ";
 
 				if (fecha) {
 					System.out.println("entro");
@@ -381,9 +515,10 @@ public class VM_ReporteAyudaIndex extends VM_WindowWizard {
 						return "E:Error Code 5-No se puede ingresar una <b>Fecha Desde</b>  mayor a la <b>Fecha Hasta</b> ";
 
 					} else {
-						sql += " and v.fecha >= " + fechaDesdeDate.getTime()
-								+ " and v.fecha <= " + fechaHastaDate.getTime()
-								+ " ";
+						sql += " and v.fechaDonativo >= "
+								+ fechaDesdeDate.getTime()
+								+ " and v.fechaDonativo <= "
+								+ fechaHastaDate.getTime() + " ";
 						System.out.println(sql);
 					}
 				}
@@ -391,7 +526,7 @@ public class VM_ReporteAyudaIndex extends VM_WindowWizard {
 			}
 
 			if (!todos) {
-				sql = "SELECT DISTINCT v FROM SolicitudAyuda v  WHERE  v.idSolicitudAyuda = v.idSolicitudAyuda ";
+				sql = "SELECT DISTINCT v FROM DonativoRecurso v  WHERE  v.idDonativoRecurso = v.idDonativoRecurso ";
 
 				if (fecha) {
 					System.out.println("entro");
@@ -414,143 +549,102 @@ public class VM_ReporteAyudaIndex extends VM_WindowWizard {
 
 					} else {
 						System.out.println("no llego al final");
-						sql += " and v.fecha >= " + fechaDesdeDate.getTime()
-								+ " and v.fecha <= " + fechaHastaDate.getTime()
-								+ " ";
+						sql += " and v.fechaDonativo >= "
+								+ fechaDesdeDate.getTime()
+								+ " and v.fechaDonativo <= "
+								+ fechaHastaDate.getTime() + " ";
 						System.out.println(sql);
 					}
 				}
 
-				if (aprobadas || enProceso || rechazadas || pendientes
-						|| procesada) {
-					String estatusSolicitudAyudas = "";
+				if (tipoProcedenciaEnum) {
 
-					if (aprobadas) {
-						estatusSolicitudAyudas += EstatusSolicitudEnum.APROBADA
-								.ordinal() + ",";
-						estatusSolicitudAyudas += EstatusSolicitudEnum.APROBADA
-								.ordinal() + " ";
-					}
-
-					if (enProceso) {
-						estatusSolicitudAyudas += EstatusSolicitudEnum.EN_PROCESO
-								.ordinal() + ",";
-						estatusSolicitudAyudas += EstatusSolicitudEnum.EN_PROCESO
-								.ordinal() + " ";
-					}
-
-					if (rechazadas) {
-						estatusSolicitudAyudas += EstatusSolicitudEnum.RECHAZADA
-								.ordinal() + ",";
-						estatusSolicitudAyudas += EstatusSolicitudEnum.RECHAZADA
-								.ordinal() + " ";
-					}
-
-					if (pendientes) {
-						estatusSolicitudAyudas += EstatusSolicitudEnum.PENDIENTE
-								.ordinal() + ",";
-						estatusSolicitudAyudas += EstatusSolicitudEnum.PENDIENTE
-								.ordinal() + " ";
-					}
-
-					if (procesada) {
-						estatusSolicitudAyudas += EstatusSolicitudEnum.PROCESADA
-								.ordinal() + ",";
-						estatusSolicitudAyudas += EstatusSolicitudEnum.PROCESADA
-								.ordinal() + " ";
-					}
-
-					int tamano = estatusSolicitudAyudas.length();
-
-					char[] tmp = estatusSolicitudAyudas.toCharArray();
-
-					tmp[tamano - 1] = ' ';
-
-					estatusSolicitudAyudas = new String(tmp);
-
-					sql += "and v.estatusSolicitud in("
-							+ estatusSolicitudAyudas + ")";
-				}
-				if (recursoSolicitudAyuda) {
-
-					if (recursosSeleccionadas != null) {
-						String recursos = "";
+					if (tipoProcedenciaEnumsSeleccionados != null) {
+						String tipoProcedenciaEnumClasificado = "";
 						int i = 0;
 
-						for (Recurso recurso : recursosSeleccionadas) {
+						for (ProcedenciaEnum tipoProcedenciaEnum : tipoProcedenciaEnumsSeleccionados) {
 							i++;
-							recursos += recurso.getIdRecurso();
-							recursosP += recurso.getNombre() + "," + " ";
+							tipoProcedenciaEnumP += tipoProcedenciaEnum.name()
+									+ "," + " ";
+							tipoProcedenciaEnumClasificado += tipoProcedenciaEnum
+									.ordinal();
 
-							if (i != recursosSeleccionadas.size()) {
-								recursos += ",";
+							if (i != tipoProcedenciaEnumsSeleccionados.size()) {
+								tipoProcedenciaEnumClasificado += ",";
 							}
-
 						}
-						sql = sql.replace("WHERE",
-								", SolicitudAyudaRecurso pv WHERE");
-						sql += " and pv.fkSolicitudAyuda.idSolicitudAyuda = v.idSolicitudAyuda and pv.fkRecurso.idRecurso in ("
-								+ recursos + ")";
+
+						sql += " and v.procedencia in ("
+								+ tipoProcedenciaEnumClasificado + ")";
 					}
 				}
-			}
-			if (fortalezaSolicitudAyuda) {
 
-				if (fortalezasSeleccionados != null) {
-					String fortalezas = "";
-					int i = 0;
+				if (tipoRecepcionEnum) {
 
-					for (Fortaleza fortaleza : fortalezasSeleccionados) {
-						i++;
-						fortalezas += fortaleza.getIdFortaleza();
-						fortalezasP += fortaleza.getNombre() + "," + " ";
+					if (tipoRecepcionEnumsSeleccionados != null) {
+						String tipoProcedenciaEnumClasificado = "";
+						int i = 0;
 
-						if (i != fortalezasSeleccionados.size()) {
-							fortalezas += ",";
+						for (RecepcionEnum tipoRecepcionEnum : tipoRecepcionEnumsSeleccionados) {
+							i++;
+							tipoRecepcionEnumP += tipoRecepcionEnum.name()
+									+ "," + " ";
+							tipoProcedenciaEnumClasificado += tipoRecepcionEnum
+									.ordinal();
+
+							if (i != tipoRecepcionEnumsSeleccionados.size()) {
+								tipoProcedenciaEnumClasificado += ",";
+							}
 						}
+
+						sql += " and v.recepcion in ("
+								+ tipoProcedenciaEnumClasificado + ")";
 					}
-					sql = sql.replace("WHERE",
-							", SolicitudAyudaFortaleza vf WHERE");
-					sql += " and vf.fkSolicitudAyuda.idSolicitudAyuda = v.idSolicitudAyuda and vf.fkFortaleza.idFortaleza in ("
-							+ fortalezas + ")";
+				}
+
+				if (aporte) {
+
+					sql += "and v.aporte =(" + aporte + ")";
 				}
 
 			}
 
-			if (sql.equals("SELECT DISTINCT v FROM SolicitudAyuda v  WHERE  v.idSolicitudAyuda = v.idSolicitudAyuda ")
+			if (sql.equals("SELECT DISTINCT v FROM DonativoRecurso v  WHERE  v.idDonativoRecurso = v.idDonativoRecurso ")
 					&& !todos) {
 
-				return "E:Error Code 5-No se han seleccionados criterios para la consulta <b>SolicitudAyudas</b>";
+				return "E:Error Code 5-No se han seleccionados criterios para la consulta <b>DonativoRecursos</b>";
 
 			}
 
 			System.out.println(sql);
-			PayloadSolicitudAyudaResponse payloadSolicitudAyudaResponse = S.SolicitudAyudaService
-					.consultaSolicitudesParametrizado(sql);
-			List<SolicitudAyuda> listSolicitudAyudas = payloadSolicitudAyudaResponse
+			PayloadDonativoRecursoResponse payloadDonativoRecursoResponse = S.DonativoRecursoService
+					.consultaDonativosParametrizado(sql);
+			List<DonativoRecurso> listDonativoRecursos = payloadDonativoRecursoResponse
 					.getObjetos();
-			System.out.println(listSolicitudAyudas);
-			this.getSolicitudAyudas().addAll(listSolicitudAyudas);
+			System.out.println(listDonativoRecursos);
+			this.getDonativoRecursos().addAll(listDonativoRecursos);
 
-			if (listSolicitudAyudas.isEmpty()) {
-				return "E:Error Code 5-Los criterios seleccionados no aportan informaci�n para <b>SolicitudAyudas</b>";
+			if (listDonativoRecursos.isEmpty()) {
+				return "E:Error Code 5-Los criterios seleccionados no aportan informaci�n para <b>DonativoRecursos</b>";
 			}
-			for (SolicitudAyuda solicitud : listSolicitudAyudas) {
-				System.out.println(solicitud.getEstatusSolicitud());
+			for (DonativoRecurso solicitud : listDonativoRecursos) {
+				System.out.println(solicitud.getCantidad());
 			}
 
-			jrDataSource = new JRBeanCollectionDataSource(listSolicitudAyudas);
+			jrDataSource = new JRBeanCollectionDataSource(listDonativoRecursos);
+
 		}
 		if (currentStep == 2) {
 			type = "pdf";
-			if (!estatusSolicitudAyudas.equals("")) {
+			if (!estatusDonativoRecursos.equals("")) {
 				tStatus = "Estatus";
 			}
-			if (!fortalezasP.equals("")) {
-				tFortalezas = "Fortalezas";
+			if (!tipoProcedenciaEnumP.equals("")) {
+				tProcedencias = "Procedencia";
 			}
-			if (!recursosP.equals("")) {
-				tRecursos = "Recursos";
+			if (!tipoRecepcionEnumP.equals("")) {
+				tRecepciones = "Recepcion";
 			}
 
 			fechaDesde = fechaDesdeDate == null ? "" : UtilConverterDataList
@@ -571,21 +665,17 @@ public class VM_ReporteAyudaIndex extends VM_WindowWizard {
 
 			parametros.put("fechaHasta", fechaHasta);
 
-			parametros.put("titulo", "Solicitud de Ayudas");
+			parametros.put("titulo", " DONATIVOS");
 
-			parametros.put("tEstatus", tStatus);
+			parametros.put("tipoProcedenciaEnumP", tipoProcedenciaEnumP);
 
-			parametros.put("tFortalezas", tFortalezas);
+			parametros.put("tipoRecepcionEnumP", tipoRecepcionEnumP);
 
-			parametros.put("tRecursos", tRecursos);
+			parametros.put("tProcedencias", tProcedencias);
 
-			parametros.put("estatusSolicitudAyudas", estatusSolicitudAyudas);
+			parametros.put("tRecepciones", tRecepciones);
 
-			parametros.put("fortalezasP", fortalezasP);
-
-			parametros.put("recursosP", recursosP);
-
-			source = "reporte/reportAyudasParametrizados.jasper";
+			source = "reporte/reportDonativosParametrizados.jasper";
 		}
 
 		return "";
@@ -621,15 +711,15 @@ public class VM_ReporteAyudaIndex extends VM_WindowWizard {
 		this.parametros = parametros;
 	}
 
-	public List<SolicitudAyuda> getSolicitudAyudas() {
-		if (this.solicitudes == null) {
-			this.solicitudes = new ArrayList<>();
+	public List<DonativoRecurso> getDonativoRecursos() {
+		if (this.donativos == null) {
+			this.donativos = new ArrayList<>();
 		}
-		return solicitudes;
+		return donativos;
 	}
 
-	public void setSolicitudAyudas(List<SolicitudAyuda> solicitudes) {
-		this.solicitudes = solicitudes;
+	public void setDonativoRecursos(List<DonativoRecurso> donativos) {
+		this.donativos = donativos;
 	}
 
 	public JRDataSource getJrDataSource() {
@@ -640,27 +730,27 @@ public class VM_ReporteAyudaIndex extends VM_WindowWizard {
 		this.jrDataSource = jrDataSource;
 	}
 
-	public String getEstatusSolicitudAyudas() {
-		return estatusSolicitudAyudas;
+	public String getEstatusDonativoRecursos() {
+		return estatusDonativoRecursos;
 	}
 
-	public void setEstatusSolicitudAyudas(String estatusSolicitudAyudas) {
-		this.estatusSolicitudAyudas = estatusSolicitudAyudas;
+	public void setEstatusDonativoRecursos(String estatusDonativoRecursos) {
+		this.estatusDonativoRecursos = estatusDonativoRecursos;
 	}
 
-	public String getFortalezasP() {
+	public String getProcedenciasP() {
 		return fortalezasP;
 	}
 
-	public void setFortalezasP(String fortalezasP) {
+	public void setProcedenciasP(String fortalezasP) {
 		this.fortalezasP = fortalezasP;
 	}
 
-	public String getRecursosP() {
+	public String getRecepcionesP() {
 		return recursosP;
 	}
 
-	public void setRecursosP(String recursosP) {
+	public void setRecepcionesP(String recursosP) {
 		this.recursosP = recursosP;
 	}
 
@@ -688,20 +778,20 @@ public class VM_ReporteAyudaIndex extends VM_WindowWizard {
 		this.tFechaHasta = tFechaHasta;
 	}
 
-	public String gettFortalezas() {
-		return tFortalezas;
+	public String gettProcedencias() {
+		return tProcedencias;
 	}
 
-	public void settFortalezas(String tFortalezas) {
-		this.tFortalezas = tFortalezas;
+	public void settProcedencias(String tProcedencias) {
+		this.tProcedencias = tProcedencias;
 	}
 
-	public String gettRecursos() {
-		return tRecursos;
+	public String gettRecepciones() {
+		return tRecepciones;
 	}
 
-	public void settRecursos(String tRecursos) {
-		this.tRecursos = tRecursos;
+	public void settRecepciones(String tRecepciones) {
+		this.tRecepciones = tRecepciones;
 	}
 
 	public Date getFechaDesdeDate() {

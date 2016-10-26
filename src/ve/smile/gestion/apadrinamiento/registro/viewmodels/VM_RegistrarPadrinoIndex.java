@@ -425,9 +425,6 @@ public class VM_RegistrarPadrinoIndex extends VM_WindowWizard implements
 			try {
 				UtilValidate.validateString(this.getPadrinoSelected()
 						.getFkPersona().getTelefono1(), "Teléfono 1", 25);
-
-				UtilValidate.validateString(this.getPadrinoSelected()
-						.getFkPersona().getFax(), "Fax", 100);
 				UtilValidate.validateString(this.getPadrinoSelected()
 						.getFkPersona().getCorreo(), "Correo", 100);
 			} catch (Exception e) {

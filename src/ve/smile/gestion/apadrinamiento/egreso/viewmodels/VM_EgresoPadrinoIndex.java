@@ -314,8 +314,11 @@ public class VM_EgresoPadrinoIndex extends VM_WindowWizard {
 		botones.put(3, listOperacionWizard3);
 
 		List<OperacionWizard> listOperacionWizard4 = new ArrayList<OperacionWizard>();
-		listOperacionWizard4.add(OperacionWizardHelper
-				.getPorType(OperacionWizardEnum.FINALIZAR));
+		OperacionWizard operacionWizardCustom = new OperacionWizard(
+				OperacionWizardEnum.CUSTOM1.ordinal(), "Aceptar", "Custom1",
+				"fa fa-check", "indigo", "Aceptar");
+		listOperacionWizard4.add(operacionWizardCustom);
+
 		botones.put(4, listOperacionWizard4);
 
 		return botones;

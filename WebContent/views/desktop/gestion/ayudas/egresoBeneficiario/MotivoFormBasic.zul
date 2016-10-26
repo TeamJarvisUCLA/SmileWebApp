@@ -1,35 +1,152 @@
-
 <zk xmlns:n="native" xmlns:w="client">
 	<div sclass="animated fadeInLeft">
 		<div class="row">
 			<div class="col s12">
-				
-				
-				
-			
+
+				<div class="input-field col s6">
+					<n:label for="tipo_persona" class="active">
+						Tipo de persona
+					</n:label>
+
+					<combobox disabled="true" id="tipo_persona"
+						readonly="true" model="@bind(vm.tipoPersonaEnums)"
+						selectedItem="@bind(vm.tipoPersonaEnum)">
+						<template name="model">
+							<comboitem label="@load(each)" />
+						</template>
+					</combobox>
+				</div>
+
+				<div
+					visible="@load(empty vm.tipoPersonaEnum || vm.tipoPersonaEnum eq 'NATURAL' )">
+					<div class="input-field col s6">
+						<n:label class="active" for="identificacion">
+							Cédula
+						</n:label>
+
+						<textbox disabled="true" id="identificacion"
+							type="text" value="@bind(vm.persona.identificacion)">
+						</textbox>
+						<span
+							sclass="fa fa-question-circle fa-lg help-icon-special"
+							tooltip="pop_identificacion, position=after_end" />
+					</div>
+					<div class="input-field col s6">
+						<n:label class="active" for="nombre">
+							Nombre
+						</n:label>
+						<span
+							sclass="fa fa-question-circle fa-lg help-icon-special"
+							tooltip="pop_nombre, position=after_end" />
+						<textbox disabled="true" id="nombre" type="text"
+							value="@bind(vm.persona.nombre)">
+						</textbox>
+					</div>
+					<div class="input-field col s6">
+						<n:label class="active" for="apellido">
+							Apellido
+						</n:label>
+						<span
+							sclass="fa fa-question-circle fa-lg help-icon-special"
+							tooltip="pop_apellido, position=after_end" />
+						<textbox disabled="true" id="apellido"
+							type="text" value="@bind(vm.persona.apellido)">
+						</textbox>
+					</div>
+					<div class="input-field col s6">
+						<n:label for="sexo" class="active">
+							Sexo
+						</n:label>
+
+						<combobox disabled="true" id="sexo"
+							readonly="true" model="@bind(vm.sexoEnums)"
+							selectedItem="@bind(vm.sexoEnum)">
+							<template name="model" var="sexo">
+								<comboitem label="@bind(sexo)" />
+							</template>
+						</combobox>
+					</div>
+
+					<div class="input-field col s6">
+						<n:label for="fecha_nacimiento"
+							class="active">
+							Fecha de nacimiento
+						</n:label>
+						<datebox disabled="true" id="db" cols="20"
+							readonly="true" format="dd/MM/yyyy"
+							value="@bind(vm.fechaNacimiento)" />
+					</div>
+				</div>
+
+				<div
+					visible="@load(not empty (vm.tipoPersonaEnum) and vm.tipoPersonaEnum eq 'JURIDICA')">
+					<div class="input-field col s6">
+						<n:label class="active"
+							for="identificacionRif">
+							RIF
+						</n:label>
+						<textbox disabled="true" id="identificacionRif"
+							type="text" value="@bind(vm.persona.identificacion)">
+						</textbox>
+					</div>
+					<div class="input-field col s12">
+						<n:label class="active" for="nombreJuridico">
+							Nombre
+						</n:label>
+
+						<textbox disabled="true" id="nombreJuridico"
+							type="text" value="@bind(vm.persona.nombre)">
+
+						</textbox>
+					</div>
+				</div>
+				<div class="col s6" style="padding:0px">
+					<div class="input-field col s12">
+						<n:label for="fecha_ingreso" class="active">
+							Fecha de ingreso
+						</n:label>
+						<datebox disabled="true" id="fecha_ingreso"
+							cols="20" format="dd/MM/yyyy" readonly="true"
+							value="@bind(vm.fechaIngreso)" />
+					</div>
+
+					<div class="input-field col s12">
+						<n:label class="active" for="direccion">
+							Dirección
+						</n:label>
+
+						<textbox disabled="true" id="direccion"
+							type="text" sclass="materialize-textarea" multiline="true"
+							value="@bind(vm.persona.direccion)">
+						</textbox>
+					</div>
+				</div>
+
+
 				<div class="row">
 					<div class="input-field col s12">
-						<n:label for="motivo"
-									class="active">
-									Motivo de Egreso
-								</n:label>
+						<n:label for="motivo" class="active">
+							Motivo de Egreso
+						</n:label>
 						<span
 							sclass="fa fa-question-circle fa-lg help-icon-special"
 							tooltip="pop_direccion, position=after_end" />
-						<combobox id="motivo"
-									readonly="true" model="@bind(vm.motivos)"
-									selectedItem="@bind(vm.beneficiario.fkMotivo)">
-									<template name="model">
-										<comboitem label="@load(each.nombre)" />
-									</template>
-								</combobox>
+						<combobox id="motivo" readonly="true"
+							model="@bind(vm.motivos)"
+							selectedItem="@bind(vm.beneficiario.fkMotivo)">
+							<template name="model">
+								<comboitem label="@load(each.nombre)" />
+							</template>
+						</combobox>
 					</div>
 				</div>
-			
-				
+
+
 				<div class="row">
 					<div class="input-field col s12">
-						<n:label for="detalle">Detalle de Egreso</n:label>
+						<n:label for="detalle">
+							Detalle de Egreso
+						</n:label>
 						<span
 							sclass="fa fa-question-circle fa-lg help-icon-special"
 							tooltip="pop_direccion, position=after_end" />
@@ -39,15 +156,7 @@
 						</textbox>
 					</div>
 				</div>
-				 
-				 
-				
-
-
-				
 			</div>
-			
-
 		</div>
 	</div>
 </zk>

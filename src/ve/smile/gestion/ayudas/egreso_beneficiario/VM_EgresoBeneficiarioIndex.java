@@ -1,76 +1,39 @@
 package ve.smile.gestion.ayudas.egreso_beneficiario;
 
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.imageio.ImageIO;
-
 import karen.core.crux.alert.Alert;
-import karen.core.crux.session.DataCenter;
-import karen.core.dialog.catalogue.generic.data.CatalogueDialogData;
-import karen.core.dialog.catalogue.generic.events.CatalogueDialogCloseEvent;
-import karen.core.dialog.catalogue.generic.events.listeners.CatalogueDialogCloseListener;
-import karen.core.dialog.generic.enums.DialogActionEnum;
-import karen.core.simple_list.wizard.buttons.data.OperacionWizard;
-import karen.core.simple_list.wizard.buttons.enums.OperacionWizardEnum;
-import karen.core.simple_list.wizard.buttons.helpers.OperacionWizardHelper;
-import karen.core.simple_list.wizard.viewmodels.VM_WindowWizard;
-import karen.core.util.UtilDialog;
 import karen.core.util.payload.UtilPayload;
 import karen.core.util.validate.UtilValidate;
-import karen.core.util.validate.UtilValidate.ValidateOperator;
+import karen.core.wizard.buttons.data.OperacionWizard;
+import karen.core.wizard.buttons.enums.OperacionWizardEnum;
+import karen.core.wizard.buttons.helpers.OperacionWizardHelper;
+import karen.core.wizard.viewmodels.VM_WindowWizard;
 import lights.core.enums.TypeQuery;
 import lights.core.payload.response.IPayloadResponse;
-import lights.smile.util.UtilMultimedia;
 
-import org.zkoss.bind.BindUtils;
-import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
-import org.zkoss.zk.ui.event.UploadEvent;
 
 import ve.smile.consume.services.S;
-import ve.smile.dto.Ayuda;
 import ve.smile.dto.Beneficiario;
 import ve.smile.dto.Ciudad;
-import ve.smile.dto.Directorio;
 import ve.smile.dto.Estado;
 import ve.smile.dto.Motivo;
-import ve.smile.dto.Multimedia;
-import ve.smile.dto.Beneficiario;
-import ve.smile.dto.Beneficiario;
 import ve.smile.dto.Persona;
-import ve.smile.dto.Beneficiario;
-import ve.smile.dto.TsPlan;
-import ve.smile.dto.Voluntario;
 import ve.smile.enums.EstatusBeneficiarioEnum;
 import ve.smile.enums.EstatusPadrinoEnum;
-import ve.smile.enums.EstatusSolicitudEnum;
-import ve.smile.enums.TipoMultimediaEnum;
 import ve.smile.enums.TipoPersonaEnum;
-import ve.smile.enums.UrgenciaEnum;
+import ve.smile.payload.response.PayloadBeneficiarioResponse;
 import ve.smile.payload.response.PayloadEstadoResponse;
 import ve.smile.payload.response.PayloadMotivoResponse;
-import ve.smile.payload.response.PayloadMultimediaResponse;
-import ve.smile.payload.response.PayloadBeneficiarioResponse;
-import ve.smile.payload.response.PayloadBeneficiarioResponse;
-import ve.smile.payload.response.PayloadPersonaResponse;
-import ve.smile.payload.response.PayloadBeneficiarioResponse;
 import ve.smile.seguridad.enums.SexoEnum;
-import app.UploadImageSingle;
 
-public class VM_EgresoBeneficiarioIndex extends
-		VM_WindowWizard<Beneficiario> implements
-		UploadImageSingle  {
-	
+public class VM_EgresoBeneficiarioIndex extends VM_WindowWizard {
+
 	private List<Ciudad> ciudades;
 
 	private List<TipoPersonaEnum> tipoPersonaEnums;
@@ -83,34 +46,25 @@ public class VM_EgresoBeneficiarioIndex extends
 	private Date fechaIngreso;
 	private Persona persona;
 
-	private byte[] bytes = null;
-	private String nameImage;
-	private String extensionImage;
-	private String urlImagen;
-
 	private Estado estado;
 
 	private List<Estado> estados;
-	
 
 	private Beneficiario beneficiario;
-	
-	private List<Motivo> motivos ;
 
-
+	private List<Motivo> motivos;
 
 	@Init(superclass = true)
 	public void childInit() {
 		// NOTHING OK!
 		beneficiario = new Beneficiario();
-		
-		
+
 	}
-	
+
 	public void setMotivos(List<Motivo> motivos) {
 		this.motivos = motivos;
 	}
-	
+
 	public List<Motivo> getMotivos() {
 		if (this.motivos == null) {
 			this.motivos = new ArrayList<>();
@@ -128,7 +82,7 @@ public class VM_EgresoBeneficiarioIndex extends
 
 		return motivos;
 	}
-	
+
 	public TipoPersonaEnum getTipoPersonaEnum() {
 		return tipoPersonaEnum;
 	}
@@ -221,22 +175,6 @@ public class VM_EgresoBeneficiarioIndex extends
 		this.getBeneficiario().setFechaIngreso(fechaIngreso.getTime());
 	}
 
-	public String getNameImage() {
-		return nameImage;
-	}
-
-	public void setNameImage(String nameImage) {
-		this.nameImage = nameImage;
-	}
-
-	public String getExtensionImage() {
-		return extensionImage;
-	}
-
-	public void setExtensionImage(String extensionImage) {
-		this.extensionImage = extensionImage;
-	}
-
 	public List<SexoEnum> getSexoEnums() {
 		if (this.sexoEnums == null) {
 			this.sexoEnums = new ArrayList<>();
@@ -262,14 +200,6 @@ public class VM_EgresoBeneficiarioIndex extends
 		this.getPersona().setSexo(sexoEnum.ordinal());
 	}
 
-	public String getUrlImagen() {
-		return urlImagen;
-	}
-
-	public void setUrlImagen(String urlImagen) {
-		this.urlImagen = urlImagen;
-	}
-	
 	public Beneficiario getBeneficiario() {
 		return beneficiario;
 	}
@@ -278,36 +208,28 @@ public class VM_EgresoBeneficiarioIndex extends
 		this.beneficiario = beneficiario;
 	}
 
-
-
-	
-
 	@Override
 	public Map<Integer, List<OperacionWizard>> getButtonsToStep() {
 		Map<Integer, List<OperacionWizard>> botones = new HashMap<Integer, List<OperacionWizard>>();
-		
-		/*OperacionWizard operacionWizardCustom1 = new OperacionWizard(
-				OperacionWizardEnum.CUSTOM1.ordinal(), "APROBAR", "Custom1", "fa fa-check-square-o", "green", "APROBAR");
-		OperacionWizard operacionWizardCustom2 = new OperacionWizard(
-				OperacionWizardEnum.CUSTOM2.ordinal(), "RECHAZAR", "Custom2", "z-icon-times", "deep-orange", "RECHAZAR");
-*/
+
 		List<OperacionWizard> listOperacionWizard1 = new ArrayList<OperacionWizard>();
 		listOperacionWizard1.add(OperacionWizardHelper
 				.getPorType(OperacionWizardEnum.SIGUIENTE));
 
 		botones.put(1, listOperacionWizard1);
-		
+
 		List<OperacionWizard> listOperacionWizard2 = new ArrayList<OperacionWizard>();
+		OperacionWizard operacionWizardCustom1 = new OperacionWizard(
+				OperacionWizardEnum.CUSTOM1.ordinal(), "EGRESAR", "Custom1",
+				"z-icon-times", "deep-orange", "EGRESAR");
 		listOperacionWizard2.add(OperacionWizardHelper
 				.getPorType(OperacionWizardEnum.ATRAS));
+		listOperacionWizard2.add(operacionWizardCustom1);
 		listOperacionWizard2.add(OperacionWizardHelper
 				.getPorType(OperacionWizardEnum.CANCELAR));
-		listOperacionWizard2.add(OperacionWizardHelper
-				.getPorType(OperacionWizardEnum.SIGUIENTE));
 
 		botones.put(2, listOperacionWizard2);
-		
-		
+
 		List<OperacionWizard> listOperacionWizard3 = new ArrayList<OperacionWizard>();
 		listOperacionWizard3.add(OperacionWizardHelper
 				.getPorType(OperacionWizardEnum.ATRAS));
@@ -319,8 +241,10 @@ public class VM_EgresoBeneficiarioIndex extends
 		botones.put(3, listOperacionWizard3);
 
 		List<OperacionWizard> listOperacionWizard4 = new ArrayList<OperacionWizard>();
-		listOperacionWizard4.add(OperacionWizardHelper
-				.getPorType(OperacionWizardEnum.CUSTOM1));
+		OperacionWizard operacionWizardCustom = new OperacionWizard(
+				OperacionWizardEnum.CUSTOM1.ordinal(), "Aceptar", "Custom1",
+				"fa fa-check", "indigo", "Aceptar");
+		listOperacionWizard4.add(operacionWizardCustom);
 
 		botones.put(4, listOperacionWizard4);
 
@@ -329,7 +253,6 @@ public class VM_EgresoBeneficiarioIndex extends
 
 	@Override
 	public String executeCancelar(Integer currentStep) {
-		// TODO Auto-generated method stub
 		restartWizard();
 		return "";
 	}
@@ -338,10 +261,10 @@ public class VM_EgresoBeneficiarioIndex extends
 	public List<String> getIconsToStep() {
 		List<String> iconos = new ArrayList<String>();
 
+		iconos.add("fa fa-list");
 		iconos.add("fa fa-pencil-square-o");
 		iconos.add("fa fa-pencil-square-o");
-		iconos.add("fa fa-pencil-square-o");
-		// iconos.add("fa fa-check-square-o");
+		iconos.add("fa fa-check-square-o");
 
 		return iconos;
 	}
@@ -353,7 +276,7 @@ public class VM_EgresoBeneficiarioIndex extends
 		urls.add("views/desktop/gestion/ayudas/egresoBeneficiario/selectBeneficiario.zul");
 		urls.add("views/desktop/gestion/ayudas/egresoBeneficiario/BeneficiarioFormBasic.zul");
 		urls.add("views/desktop/gestion/ayudas/egresoBeneficiario/MotivoFormBasic.zul");
-		// urls.add("views/desktop/gestion/trabajoSocial/planificacion/registro/successRegistroBeneficiarioPlanificado.zul");
+		urls.add("views/desktop/gestion/ayudas/egresoBeneficiario/registroCompletado.zul");
 
 		return urls;
 	}
@@ -383,42 +306,49 @@ public class VM_EgresoBeneficiarioIndex extends
 		PayloadBeneficiarioResponse payloadBeneficiarioResponse = S.BeneficiarioService
 				.consultarPaginacionCriterios(cantidadRegistrosPagina, pagina,
 						TypeQuery.EQUAL, criterios);
-		
-		/*PayloadBeneficiarioResponse payloadBeneficiarioResponse = S.BeneficiarioService
-				.consultarPaginacion(cantidadRegistrosPagina, pagina);*/
 		return payloadBeneficiarioResponse;
 	}
 
 	@Override
+	public String executeCustom1(Integer currentStep) {
+		if (currentStep == 2) {
+			goToNextStep();
+		}
+		if (currentStep == 4) {
+			executeCancelar(currentStep);
+		}
+
+		return "";
+
+	}
+
+	@Override
 	public String isValidPreconditionsSiguiente(Integer currentStep) {
-		
+
 		if (currentStep == 1) {
 			if (selectedObject == null) {
 				return "E:Error Code 5-Debe seleccionar un <b>Beneficiario</b>";
 			}
 		}
-		
-		
 
-		
-		
 		return "";
 	}
 
 	@Override
 	public String isValidPreconditionsFinalizar(Integer currentStep) {
-		
-		if(currentStep == 3){
+
+		if (currentStep == 3) {
 			try {
-				UtilValidate.validateNull(this.getBeneficiario().getFkMotivo(), "Motivo");
-				
-				UtilValidate.validateString(this.getBeneficiario().getObservacion(),
-						"Detalle de Rechazo", 100);
+				UtilValidate.validateNull(this.getBeneficiario().getFkMotivo(),
+						"Motivo");
+
+				UtilValidate.validateString(this.getBeneficiario()
+						.getObservacion(), "Detalle de Rechazo", 100);
 			} catch (Exception e) {
 				return e.getMessage();
 			}
 		}
-		
+
 		return "";
 	}
 
@@ -426,23 +356,18 @@ public class VM_EgresoBeneficiarioIndex extends
 	public String executeFinalizar(Integer currentStep) {
 		if (currentStep == 3) {
 			Beneficiario beneficiario = this.getBeneficiario();
-			beneficiario.setEstatusBeneficiario(EstatusBeneficiarioEnum.INACTIVO.ordinal());
+			beneficiario
+					.setEstatusBeneficiario(EstatusBeneficiarioEnum.INACTIVO
+							.ordinal());
 			PayloadBeneficiarioResponse payloadBeneficiarioResponse = S.BeneficiarioService
 					.modificar(beneficiario);
-			/*Beneficiario beneficiario = this.getBeneficiario();
-			beneficiario.getFkPersona().setEstatus('0');
-
-			PayloadBeneficiarioResponse payloadBeneficiarioResponse = S.BeneficiarioService
-					.modificar(beneficiario);*/
-			
 			if (!UtilPayload.isOK(payloadBeneficiarioResponse)) {
 				Alert.showMessage(payloadBeneficiarioResponse);
-				
+
 			}
-			
+
 			if (UtilPayload.isOK(payloadBeneficiarioResponse)) {
-				restartWizard();
-				return "Beneficiario Egresado con Exito";
+				goToNextStep();
 			}
 
 		}
@@ -452,18 +377,12 @@ public class VM_EgresoBeneficiarioIndex extends
 
 	@Override
 	public void comeIn(Integer currentStep) {
-		if (currentStep == 1) {
-			this.getControllerWindowWizard().updateListBoxAndFooter();
-			BindUtils.postNotifyChange(null, null, this, "objectsList");
-		}
-		
-		if(currentStep==2){
-			
-			this.setBeneficiario(selectedObject);
-			
+
+		if (currentStep == 2) {
+
+			this.setBeneficiario((Beneficiario) selectedObject);
+
 			this.setPersona(this.getBeneficiario().getFkPersona());
-			
-			//if()
 			if (this.persona.getSexo() != null) {
 				this.setSexoEnum(SexoEnum.values()[this.persona.getSexo()]);
 			}
@@ -471,117 +390,17 @@ public class VM_EgresoBeneficiarioIndex extends
 				this.setTipoPersonaEnum(TipoPersonaEnum.values()[this.persona
 						.getTipoPersona()]);
 			}
-			if (this.getBeneficiario().getFkPersona() != null
-					&& this.getBeneficiario().getFkPersona().getFkMultimedia() != null) {
-				this.setUrlImagen(this.getBeneficiario().getFkPersona()
-						.getFkMultimedia().getUrl());
-			} else {
-
-				this.getPersona().setFkMultimedia(new Multimedia());
-
-			}
-			
-			
-		}
-		
-		
-	}
-	@Override
-	public BufferedImage getImageContent() {
-		try {
-			return loadImage();
-		} catch (Exception e) {
-			return null;
-		}
-	}
-
-	@Override
-	public void onUploadImageSingle(UploadEvent event, String idUpload) {
-		org.zkoss.util.media.Media media = event.getMedia();
-		if (media instanceof org.zkoss.image.Image) {
-			bytes = media.getByteData();
-			this.nameImage = media.getName();
-			this.extensionImage = media.getFormat();
-			if (UtilMultimedia.validateFile(nameImage.substring(this.nameImage
-					.lastIndexOf(".") + 1))) {
-				Multimedia multimedia = new Multimedia();
-				multimedia.setNombre(nameImage);
-				multimedia.setTipoMultimedia(TipoMultimediaEnum.IMAGEN
-						.ordinal());
-				multimedia.setUrl(new StringBuilder()
-						.append("/Smile/Patrocinador/").append(nameImage)
-						.toString());
-				multimedia.setExtension(UtilMultimedia
-						.stringToExtensionEnum(
-								nameImage.substring(this.nameImage
-										.lastIndexOf(".") + 1)).ordinal());
-				multimedia.setDescripcion("Imgen del patrocinador.");
-				System.out.println(multimedia.getDescripcion());
-				System.out.println(multimedia.getExtension());
-				this.getPersona().setFkMultimedia(multimedia);
-			} else {
-				this.getPersona().setFkMultimedia(null);
-				Alert.showMessage("E: Error Code: 100-El formato de la <b>imagen</b> es inválido");
-
+			if (this.getPersona().getFechaNacimiento() != null) {
+				this.fechaNacimiento = new Date(this.getPersona()
+						.getFechaNacimiento());
 			}
 
+			if (this.getBeneficiario().getFechaIngreso() != null) {
+				this.fechaNacimiento = new Date(this.getPersona()
+						.getFechaNacimiento());
+			}
 		}
+
 	}
-
-	@Override
-	public void onRemoveImageSingle(String idUpload) {
-		bytes = null;
-	}
-
-	public byte[] getBytes() {
-		return bytes;
-	}
-
-	public void setBytes(byte[] bytes) {
-		this.bytes = bytes;
-	}
-
-	private BufferedImage loadImage() throws Exception {
-		try {
-			Path path = Paths.get(this.getUrlImagen());
-			bytes = Files.readAllBytes(path);
-			return ImageIO.read(new File(this.getUrlImagen()));
-		} catch (Exception e) {
-			return null;
-		}
-	}
-	
-/*	@Override
-	public String executeCustom1(Integer currentStep) {
-		
-		
-		Beneficiario beneficiario = this.getBeneficiario();
-
-		PayloadBeneficiarioResponse payloadBeneficiarioResponse = S.BeneficiarioService
-				.modificar(beneficiario);
-		
-		if (!UtilPayload.isOK(payloadBeneficiarioResponse)) {
-			Alert.showMessage(payloadBeneficiarioResponse);
-			
-		}
-		
-		if (UtilPayload.isOK(payloadBeneficiarioResponse)) {
-			restartWizard();
-			return "Solicitud Aprobada Con Exito";
-		}
-		
-
-		return "";
-	}
-	
-	@Override
-	public String executeCustom2(Integer currentStep) {
-		goToNextStep();
-
-		return "";
-	}*/
-
-
-
 
 }

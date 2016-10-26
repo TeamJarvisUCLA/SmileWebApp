@@ -1,5 +1,5 @@
- <?xel-method prefix="m" name="convertirLongATimestamp" class="lights.smile.util.UtilConverterDataList" 
-	signature="java.lang.String convertirLongATimestamp(java.lang.Long)" ?> 
+<?xel-method prefix="m" name="convertirLongATimestamp" class="lights.smile.util.UtilConverterDataList" 
+	signature="java.lang.String convertirLongATimestamp(java.lang.Long)" ?>
 <zk xmlns:n="native" xmlns:w="client">
 	<div sclass="animated fadeInLeft">
 		<div class="row">
@@ -13,30 +13,25 @@
 		</div>
 		<div width="100%">
 
-			<div style="overflow: auto;" class="row">
-			<div class="col s12">
-				<div class="col s12" style="overflow: scroll;">
+			<div class="row">
+				<div class="col s12">
+					<div class="col s12">
 						<listbox id="listbox"
 							model="@load(vm.objectsList)"
 							selectedItem="@bind(vm.selectedObject)">
-
-
 							<listhead sizable="true">
-					
+								<listheader width="20%"
+									label="Identificación" />
 
-							<listheader width="100%" label="Nombre de Solicitante" />
-							<listheader width="100%" label="Identificacion" />
-							
-							
-
-						
+								<listheader width="80%"
+									label="Solicitante" />
 							</listhead>
 							<template name="model">
 								<listitem>
-								
-								<listcell label="@load(each.fkPersona.nombre.concat(' ').concat(each.fkPersona.apellido))" />
-								<listcell label="@load(each.fkPersona.identificacion)" />
-									
+									<listcell
+										label="@load(each.fkPersona.identificacion)" />
+									<listcell
+										label="@load(each.fkPersona.nombre.concat(' ').concat(each.fkPersona.apellido))" />
 								</listitem>
 							</template>
 							<listfoot>

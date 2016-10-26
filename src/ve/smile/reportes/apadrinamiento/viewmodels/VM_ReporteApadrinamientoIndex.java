@@ -1,8 +1,5 @@
 package ve.smile.reportes.apadrinamiento.viewmodels;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -11,13 +8,21 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
+import karen.core.util.payload.UtilPayload;
+import karen.core.wizard.buttons.data.OperacionWizard;
+import karen.core.wizard.buttons.enums.OperacionWizardEnum;
+import karen.core.wizard.buttons.helpers.OperacionWizardHelper;
+import karen.core.wizard.viewmodels.VM_WindowWizard;
+import lights.smile.util.UtilConverterDataList;
+import net.sf.jasperreports.engine.JRDataSource;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+
+/*import org.apache.poi.hssf.usermodel.HSSFSheet;
+ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+ import org.apache.poi.ss.usermodel.Cell;
+ import org.apache.poi.ss.usermodel.Row;*/
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.Init;
-import org.zkoss.zul.Filedownload;
 
 import ve.smile.consume.services.S;
 import ve.smile.dto.FrecuenciaAporte;
@@ -26,13 +31,6 @@ import ve.smile.enums.EstatusPadrinoEnum;
 import ve.smile.payload.response.PayloadFrecuenciaAporteResponse;
 import ve.smile.payload.response.PayloadPadrinoResponse;
 import ve.smile.reportes.Reporte;
-import net.sf.jasperreports.engine.JRDataSource;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import karen.core.util.payload.UtilPayload;
-import karen.core.wizard.buttons.data.OperacionWizard;
-import karen.core.wizard.buttons.enums.OperacionWizardEnum;
-import karen.core.wizard.buttons.helpers.OperacionWizardHelper;
-import karen.core.wizard.viewmodels.VM_WindowWizard;
 
 public class VM_ReporteApadrinamientoIndex extends VM_WindowWizard {
 
@@ -89,6 +87,14 @@ public class VM_ReporteApadrinamientoIndex extends VM_WindowWizard {
 	Double aporteDesde = 0.00;
 
 	Double aporteHasta = 0.00;
+
+	String fechaDesde = "";
+
+	String fechaHasta = "";
+
+	String tFechaDesde = "";
+
+	String tFechaHasta = "";
 
 	@Init(superclass = true)
 	public void childInit() {
@@ -332,144 +338,142 @@ public class VM_ReporteApadrinamientoIndex extends VM_WindowWizard {
 	@Override
 	public String executeCustom2(Integer currentStep) {
 		if (currentStep == 2) {
-			try {
-				HSSFWorkbook workBook = new HSSFWorkbook();
-				HSSFSheet workSheet = workBook.createSheet("PADRINOS");
-				Row excelRow = null;
-				Cell excelCell = null;
-				int rowNumber = 0;
-				excelRow = workSheet.createRow(rowNumber++);
+			/* try { */
+			/*
+			 * HSSFWorkbook workBook = new HSSFWorkbook(); HSSFSheet workSheet =
+			 * workBook.createSheet("PADRINOS"); Row excelRow = null; Cell
+			 * excelCell = null;
+			 */
+			/*
+			 * int rowNumber = 0; excelRow = workSheet.createRow(rowNumber++);
+			 * 
+			 * excelCell = excelRow.createCell(4);
+			 * excelCell.setCellValue("PADRINOS"); excelRow =
+			 * workSheet.createRow(rowNumber++);
+			 */
+			// if (fechaDesdeDate != null) {
+			// excelRow = workSheet.createRow(rowNumber++);
+			//
+			// excelCell = excelRow.createCell(1);
+			// excelCell.setCellValue("Fecha desde");
+			// excelCell = excelRow.createCell(2);
+			// excelCell.setCellValue(UtilConverterDataList
+			// .convertirLongADate(fechaDesdeDate.getTime()));
+			// excelRow = workSheet.createRow(rowNumber++);
+			// }
+			// if (fechaHastaDate != null) {
+			// excelRow = workSheet.createRow(rowNumber++);
+			//
+			// excelCell = excelRow.createCell(1);
+			// excelCell.setCellValue("Fecha Hasta");
+			// excelCell = excelRow.createCell(2);
+			// excelCell.setCellValue(UtilConverterDataList
+			// .convertirLongADate(fechaDesdeDate.getTime()));
+			// excelRow = workSheet.createRow(rowNumber++);
+			// }
+			// if (!fortalezasP.trim().isEmpty()) {
+			// excelRow = workSheet.createRow(rowNumber++);
+			//
+			// excelCell = excelRow.createCell(1);
+			// excelCell.setCellValue("Fortalezas");
+			// excelCell = excelRow.createCell(2);
+			// excelCell.setCellValue(fortalezasP);
+			// excelRow = workSheet.createRow(rowNumber++);
+			// }
+			// if (!profesionesP.trim().isEmpty()) {
+			// excelRow = workSheet.createRow(rowNumber++);
+			//
+			// excelCell = excelRow.createCell(1);
+			// excelCell.setCellValue("PROFESIONES");
+			// excelCell = excelRow.createCell(2);
+			// excelCell.setCellValue(profesionesP);
+			// excelRow = workSheet.createRow(rowNumber++);
+			// }
+			// if (!estatusVoluntariosS.trim().isEmpty()) {
+			// excelRow = workSheet.createRow(rowNumber++);
+			//
+			// excelCell = excelRow.createCell(1);
+			// excelCell.setCellValue("Estatus");
+			// excelCell = excelRow.createCell(2);
+			// excelCell.setCellValue(estatusVoluntariosS);
+			// excelRow = workSheet.createRow(rowNumber++);
+			// }
+			// if (!voluntarioClasificadoP.trim().isEmpty()) {
+			// excelRow = workSheet.createRow(rowNumber++);
+			//
+			// excelCell = excelRow.createCell(1);
+			// excelCell.setCellValue("Clasificadores de Voluntario");
+			// excelCell = excelRow.createCell(2);
+			// excelCell.setCellValue(voluntarioClasificadoP);
+			// excelRow = workSheet.createRow(rowNumber++);
+			// }
 
-				excelCell = excelRow.createCell(4);
-				excelCell.setCellValue("PADRINOS");
-				excelRow = workSheet.createRow(rowNumber++);
-				// if (fechaDesdeDate != null) {
-				// excelRow = workSheet.createRow(rowNumber++);
-				//
-				// excelCell = excelRow.createCell(1);
-				// excelCell.setCellValue("Fecha desde");
-				// excelCell = excelRow.createCell(2);
-				// excelCell.setCellValue(UtilConverterDataList
-				// .convertirLongADate(fechaDesdeDate.getTime()));
-				// excelRow = workSheet.createRow(rowNumber++);
-				// }
-				// if (fechaHastaDate != null) {
-				// excelRow = workSheet.createRow(rowNumber++);
-				//
-				// excelCell = excelRow.createCell(1);
-				// excelCell.setCellValue("Fecha Hasta");
-				// excelCell = excelRow.createCell(2);
-				// excelCell.setCellValue(UtilConverterDataList
-				// .convertirLongADate(fechaDesdeDate.getTime()));
-				// excelRow = workSheet.createRow(rowNumber++);
-				// }
-				// if (!fortalezasP.trim().isEmpty()) {
-				// excelRow = workSheet.createRow(rowNumber++);
-				//
-				// excelCell = excelRow.createCell(1);
-				// excelCell.setCellValue("Fortalezas");
-				// excelCell = excelRow.createCell(2);
-				// excelCell.setCellValue(fortalezasP);
-				// excelRow = workSheet.createRow(rowNumber++);
-				// }
-				// if (!profesionesP.trim().isEmpty()) {
-				// excelRow = workSheet.createRow(rowNumber++);
-				//
-				// excelCell = excelRow.createCell(1);
-				// excelCell.setCellValue("PROFESIONES");
-				// excelCell = excelRow.createCell(2);
-				// excelCell.setCellValue(profesionesP);
-				// excelRow = workSheet.createRow(rowNumber++);
-				// }
-				// if (!estatusVoluntariosS.trim().isEmpty()) {
-				// excelRow = workSheet.createRow(rowNumber++);
-				//
-				// excelCell = excelRow.createCell(1);
-				// excelCell.setCellValue("Estatus");
-				// excelCell = excelRow.createCell(2);
-				// excelCell.setCellValue(estatusVoluntariosS);
-				// excelRow = workSheet.createRow(rowNumber++);
-				// }
-				// if (!voluntarioClasificadoP.trim().isEmpty()) {
-				// excelRow = workSheet.createRow(rowNumber++);
-				//
-				// excelCell = excelRow.createCell(1);
-				// excelCell.setCellValue("Clasificadores de Voluntario");
-				// excelCell = excelRow.createCell(2);
-				// excelCell.setCellValue(voluntarioClasificadoP);
-				// excelRow = workSheet.createRow(rowNumber++);
-				// }
+			/*
+			 * excelRow = workSheet.createRow(rowNumber++); excelCell =
+			 * excelRow.createCell(0); excelCell.setCellValue("CEDULA / RIF");
+			 * excelCell = excelRow.createCell(1);
+			 * excelCell.setCellValue("NOMBRES"); excelCell =
+			 * excelRow.createCell(2); excelCell.setCellValue("APELLIDOS");
+			 * excelCell = excelRow.createCell(3);
+			 * excelCell.setCellValue("CORREO"); excelCell =
+			 * excelRow.createCell(4); excelCell.setCellValue("DIRECCI�N");
+			 * excelCell = excelRow.createCell(5);
+			 * excelCell.setCellValue("TEL�FONO"); excelCell =
+			 * excelRow.createCell(6);
+			 * excelCell.setCellValue("FRECUENCIA APORTE"); excelCell =
+			 * excelRow.createCell(7); excelCell.setCellValue("MONTO");
+			 * excelCell = excelRow.createCell(8);
+			 * excelCell.setCellValue("ESTATUS");
+			 * 
+			 * for (Padrino padrino : this.getPadrinos()) {
+			 * 
+			 * excelRow = workSheet.createRow(rowNumber++); excelCell =
+			 * excelRow.createCell(0);
+			 * excelCell.setCellValue(padrino.getFkPersona()
+			 * .getIdentificacion());
+			 * 
+			 * excelCell = excelRow.createCell(1);
+			 * excelCell.setCellValue(padrino.getFkPersona() .getNombre());
+			 * 
+			 * excelCell = excelRow.createCell(2);
+			 * excelCell.setCellValue(padrino.getFkPersona() .getApellido());
+			 * 
+			 * excelCell = excelRow.createCell(3);
+			 * excelCell.setCellValue(padrino.getFkPersona() .getCorreo());
+			 * 
+			 * excelCell = excelRow.createCell(4);
+			 * excelCell.setCellValue(padrino.getFkPersona() .getDireccion());
+			 * 
+			 * excelCell = excelRow.createCell(5);
+			 * excelCell.setCellValue(padrino.getFkPersona() .getTelefono1());
+			 * 
+			 * excelCell = excelRow.createCell(6);
+			 * excelCell.setCellValue(padrino.getFkFrecuenciaAporte()
+			 * .getNombre());
+			 * 
+			 * excelCell = excelRow.createCell(7);
+			 * excelCell.setCellValue(padrino.getMonto());
+			 * 
+			 * 
+			 * if (padrino.getEstatusPadrino() != null) { excelCell =
+			 * excelRow.createCell(8); excelCell .setCellValue(padrino
+			 * .getEstatusPadrinoEnum().toString()); }
+			 * 
+			 * } File tempFile = new File("C:\\Smile\\Padrinos.xls");
+			 * 
+			 * FileOutputStream outputStream = new FileOutputStream(tempFile);
+			 * workBook.write(outputStream);
+			 */
 
-				excelRow = workSheet.createRow(rowNumber++);
-				excelCell = excelRow.createCell(0);
-				excelCell.setCellValue("CEDULA / RIF");
-				excelCell = excelRow.createCell(1);
-				excelCell.setCellValue("NOMBRES");
-				excelCell = excelRow.createCell(2);
-				excelCell.setCellValue("APELLIDOS");
-				excelCell = excelRow.createCell(3);
-				excelCell.setCellValue("CORREO");
-				excelCell = excelRow.createCell(4);
-				excelCell.setCellValue("DIRECCIÓN");
-				excelCell = excelRow.createCell(5);
-				excelCell.setCellValue("TELÉFONO");
-				excelCell = excelRow.createCell(6);
-				excelCell.setCellValue("FRECUENCIA APORTE");
-				excelCell = excelRow.createCell(7);
-				excelCell.setCellValue("MONTO");
-				excelCell = excelRow.createCell(8);
-				excelCell.setCellValue("ESTATUS");
-
-				for (Padrino padrino : this.getPadrinos()) {
-
-					excelRow = workSheet.createRow(rowNumber++);
-					excelCell = excelRow.createCell(0);
-					excelCell.setCellValue(padrino.getFkPersona()
-							.getIdentificacion());
-
-					excelCell = excelRow.createCell(1);
-					excelCell.setCellValue(padrino.getFkPersona().getNombre());
-
-					excelCell = excelRow.createCell(2);
-					excelCell
-							.setCellValue(padrino.getFkPersona().getApellido());
-
-					excelCell = excelRow.createCell(3);
-					excelCell.setCellValue(padrino.getFkPersona().getCorreo());
-
-					excelCell = excelRow.createCell(4);
-					excelCell.setCellValue(padrino.getFkPersona()
-							.getDireccion());
-
-					excelCell = excelRow.createCell(5);
-					excelCell.setCellValue(padrino.getFkPersona()
-							.getTelefono1());
-
-					excelCell = excelRow.createCell(6);
-					excelCell.setCellValue(padrino.getFkFrecuenciaAporte()
-							.getNombre());
-
-					excelCell = excelRow.createCell(7);
-					excelCell.setCellValue(padrino.getMonto());
-
-					if (padrino.getEstatusPadrino() != null) {
-						excelCell = excelRow.createCell(8);
-						excelCell.setCellValue(padrino.getEstatusPadrinoEnum()
-								.toString());
-					}
-
-				}
-				File tempFile = new File("C:\\Smile\\Padrinos.xls");
-
-				FileOutputStream outputStream = new FileOutputStream(tempFile);
-				workBook.write(outputStream);
-
-				outputStream.close();
-
-				Filedownload.save(tempFile, "application/file");
-			} catch (IOException e) {
-				return "E:Error Code 5-No se pudo generar el archivo";
-			}
+			/*
+			 * outputStream.close();
+			 * 
+			 * Filedownload.save(tempFile, "application/file");
+			 */
+			/*
+			 * } catch (IOException e) { return
+			 * "E:Error Code 5-No se pudo generar el archivo"; }
+			 */
 		}
 		return "";
 	}
@@ -615,7 +619,7 @@ public class VM_ReporteApadrinamientoIndex extends VM_WindowWizard {
 			if (montoAporte) {
 
 				if (aporteDesde == 0 && aporteHasta == 0) {
-					return "E:Error Code 5-No se han ingresado montos para la búsqueda";
+					return "E:Error Code 5-No se han ingresado montos para la b�squeda";
 				} else if (aporteDesde == 0) {
 					return "E:Error Code 5-No se ha ingresado un <b>Monto Desde</b> como Parametro ";
 				} else if (aporteHasta == 0) {
@@ -640,10 +644,12 @@ public class VM_ReporteApadrinamientoIndex extends VM_WindowWizard {
 					.consultaPadrinoParametrizado(sql);
 			List<Padrino> listPadrinos = payloadPadrinoResponse.getObjetos();
 
+			this.getPadrinos().addAll(listPadrinos);
+
 			if (listPadrinos.isEmpty()) {
-				return "E:Error Code 5-Los criterios seleccionados no aportan información para <b>Padrinos</b>";
+				return "E:Error Code 5-Los criterios seleccionados no aportan informaci�n para <b>Padrinos</b>";
 			}
-			this.setPadrinos(listPadrinos);
+
 			jrDataSource = new JRBeanCollectionDataSource(listPadrinos);
 		}
 		if (currentStep == 2) {
@@ -690,13 +696,52 @@ public class VM_ReporteApadrinamientoIndex extends VM_WindowWizard {
 			 * 
 			 * tFechaHasta = fechaHasta.equals("") ? "" : "Fecha Hasta";
 			 */
+			if (aporteSeleccionadoP != null) {
+				if (!aporteSeleccionadoP.equals("")) {
+					tAporteSeleccionado = "Aportes";
+				}
+			}
+
+			fechaDesde = fechaDesdeDate == null ? "" : UtilConverterDataList
+					.convertirLongADate(fechaDesdeDate.getTime());
+
+			fechaHasta = fechaHastaDate == null ? "" : UtilConverterDataList
+					.convertirLongADate(fechaHastaDate.getTime());
+
+			tFechaDesde = fechaDesde.equals("") ? "" : "Fecha Desde";
+
+			tFechaHasta = fechaHasta.equals("") ? "" : "Fecha Hasta";
+
+			if (aporteDesde > 0 && aporteHasta > 0) {
+				tAporteDesde = aporteDesde.equals("") ? "" : "Aporte Desde";
+
+				tAporteHasta = aporteHasta.equals("") ? "" : "Aporte Hasta";
+			}
+
+			if (aporteDesde <= 0 && aporteHasta <= 0) {
+				aporteDesde = null;
+				aporteHasta = null;
+			}
+
+			parametros.put("tAporteSeleccionado", tAporteSeleccionado);
+
+			parametros.put("aporteSeleccionadoP", aporteSeleccionadoP);
+
 			parametros.put("tAporteDesde", tAporteDesde);
 
 			parametros.put("tAporteHasta", tAporteHasta);
 
-			parametros.put("fechaDesde", fechaDesdeDate);
+			parametros.put("aporteDesde", aporteDesde);
 
-			parametros.put("fechaHasta", fechaHastaDate);
+			parametros.put("aporteHasta", aporteHasta);
+
+			parametros.put("tFechaDesde", tFechaDesde);
+
+			parametros.put("tfechaHasta", tFechaHasta);
+
+			parametros.put("fechaDesde", fechaDesde);
+
+			parametros.put("fechaHasta", fechaHasta);
 
 			parametros.put("titulo", "PADRINOS");
 
@@ -877,6 +922,22 @@ public class VM_ReporteApadrinamientoIndex extends VM_WindowWizard {
 
 	public void settAporteSeleccionado(String tAporteSeleccionado) {
 		this.tAporteSeleccionado = tAporteSeleccionado;
+	}
+
+	public String gettFechaDesde() {
+		return tFechaDesde;
+	}
+
+	public void settFechaDesde(String tFechaDesde) {
+		this.tFechaDesde = tFechaDesde;
+	}
+
+	public String gettFechaHasta() {
+		return tFechaHasta;
+	}
+
+	public void settFechaHasta(String tFechaHasta) {
+		this.tFechaHasta = tFechaHasta;
 	}
 
 }

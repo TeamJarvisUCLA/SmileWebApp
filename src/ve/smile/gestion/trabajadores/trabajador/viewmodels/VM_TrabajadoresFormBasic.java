@@ -605,17 +605,17 @@ public class VM_TrabajadoresFormBasic extends VM_WindowForm implements
 					"Apellido", 150);
 			UtilValidate.validateInteger(this.getPersona().getSexo(), "Sexo",
 					ValidateOperator.LESS_THAN, 2);
-			UtilValidate.validateDate(this.getPersona().getFechaNacimiento(),
+			UtilValidate.validateDate(this.getFechaNacimiento().getTime(),
 					"Fecha de nacimiento", ValidateOperator.LESS_THAN,
 					new SimpleDateFormat("yyyy-MM-dd").format(new Date()),
-					"DD/MM/YYYY");
+					"dd/MM/yyy");
 
 			UtilValidate
 					.validateNull(this.getPersona().getFkCiudad(), "Ciudad");
-			UtilValidate.validateDate(this.getTrabajador().getFechaIngreso(),
+			UtilValidate.validateDate(this.getFechaIngreso().getTime(),
 					"Fecha de ingreso", ValidateOperator.LESS_THAN,
 					new SimpleDateFormat("yyyy-MM-dd").format(new Date()),
-					"DD/MM/YYYY");
+					"dd/MM/yyy");
 			UtilValidate.validateString(this.getPersona().getDireccion(),
 					"Dirección", 250);
 			UtilValidate.validateString(this.getPersona().getTelefono1(),

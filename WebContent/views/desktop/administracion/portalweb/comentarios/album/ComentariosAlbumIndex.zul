@@ -18,7 +18,7 @@
 						</listhead>
 						<template name="model">
 							<listitem>
-								<listcell label="@load(each.fkComunidad.nombre)" />
+								<listcell label="@load(each.fkComunidad.nombre.concat(' ').concat(each.fkComunidad.apellido))" />
 								<listcell label="@load(each.fkComunidad.correo)" />
 								<listcell label="@load(each.comentario)" />
 								<listcell label="@load(each.puntuacion)" />

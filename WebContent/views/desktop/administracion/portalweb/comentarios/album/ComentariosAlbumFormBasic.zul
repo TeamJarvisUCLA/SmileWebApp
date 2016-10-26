@@ -8,24 +8,47 @@
 			<div sclass="col s12 form">
 							<div class="input-field col s6">
 								<n:label for="nombre">Nombre</n:label>
-								<textbox id="nombre" type="text" value="@bind(vm.comentarioAlbum.fkComunidad.nombre)"> </textbox>
+								<textbox id="nombre" type="text" disabled="true" value="@bind(vm.comentarioAlbum.fkComunidad.nombre.concat(' ').concat(vm.comentarioAlbum.fkComunidad.apellido))"> </textbox>
 							</div>
 							
 							<div class="input-field col s6">
 								<n:label for="correo">Correo</n:label>
-								<textbox id="correo" type="text" value="@bind(vm.comentarioAlbum.fkComunidad.correo)"> </textbox>
+								<textbox id="correo" type="text" disabled="true" value="@bind(vm.comentarioAlbum.fkComunidad.correo)"> </textbox>
 							</div>
 							
 							<div class="input-field col s6">
 								<n:label for="Comentario">Comentario</n:label>
-								<textbox id="Comentario" type="text" value="@bind(vm.comentarioAlbum.comentario)"> </textbox>
+								<textbox id="Comentario" type="text" disabled="true" value="@bind(vm.comentarioAlbum.comentario)"> </textbox>
 							</div>
 							
-							<div class="input-field col s12">
+							<div class="input-field col s6">
 								<n:label for="Puntuacion">Puntuacion</n:label>
-								<textbox id="Puntuacion" type="text" value="@load(each.puntuacion)"> </textbox>
+								<textbox id="Puntuacion" type="text" disabled="true" value="@bind(vm.comentarioAlbum.puntuacion)"> </textbox>
 							</div>
-				
+						
+							<separator height="20px"></separator>
+								<div class="row">
+									<div class="col s12" align="center">
+										<div class="col s12">
+											<n:h6>Publicar el Comentario</n:h6>
+										</div>
+										<div class="col s12">
+											<div class="input-field col s6 offset-s3">
+												<n:div class="switch">
+													<n:label>
+														NO
+														<checkbox
+															checked="@bind(vm.publicar)">
+														</checkbox>
+														SI
+													</n:label>
+												</n:div>
+											</div>
+										</div>
+									</div>
+								</div>
+
+
 			</div>
 		</div>
 		

@@ -1,0 +1,277 @@
+<?xel-method prefix="m" name="getUrlWeb" class="lights.smile.util.Zki" 
+	signature="java.lang.String getUrlWeb(java.lang.String)" ?>
+<zk xmlns:n="native" xmlns:w="client">
+	<div width="80%" class="container opacity-0"
+		use="karen.core.form.controllers.C_WindowForm"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('ve.smile.administracion.portalweb.galeria.album.VM_albumesFormBasic')">
+		<div class="row">
+			<div class="input-field col s6 offset-s3">
+				<n:div class="switch">
+					<n:label>
+						Trabajo Social
+						<checkbox checked="@bind(vm.tipoEvento)">
+						</checkbox>
+						Evento
+					</n:label>
+				</n:div>
+			</div>
+		</div>
+		<div class="row" visible="@bind(vm.tipoEvento)">
+			<div class="input-field col s11">
+				<n:label for="lugar" class="active">
+					Evento:
+				</n:label>
+				<textbox id="evento" type="text" disabled="true"
+					value="@bind(vm.eventoPlanificado.fkEvento.nombre.concat(' - ').concat(vm.eventoPlanificado.fkEvento.descripcion))">
+				</textbox>
+			</div>
+			<div class="input-field col s1"
+				style="font-size: 2em;">
+				<button
+					sclass="teal lighten-1 waves-effect waves-light"
+					onClick="@command('buscarEventoPlan')" iconSclass="fa fa-search"
+					style="padding: 5px 15px; background-color: #2AA4EF !important">
+				</button>
+			</div>
+		</div>
+		<div class="row" visible="@bind(!vm.tipoEvento)">
+			<div class="input-field col s11">
+				<n:label for="lugar" class="active">
+					Trabajo social:
+				</n:label>
+				<textbox id="ts" type="text" disabled="true"
+					value="@bind(vm.tsPlan.fkTrabajoSocial.nombre.concat(' - ').concat(vm.tsPlan.fkTrabajoSocial.descripcion))">
+				</textbox>
+			</div>
+			<div class="input-field col s1"
+				style="font-size: 2em;">
+				<button
+					sclass="teal lighten-1 waves-effect waves-light"
+					onClick="@command('buscarTsPlan')" iconSclass="fa fa-search"
+					style="padding: 5px 15px; background-color: #2AA4EF !important">
+				</button>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col s12">
+				<div class="input-field col s6">
+					<n:label for="titulo">Titulo</n:label>
+					<span	sclass="fa fa-question-circle fa-lg help-icon-special"
+										tooltip="pop_titulo, position=after_end" />
+					<textbox id="titulo" type="text"
+						value="@bind(vm.album.titulo)">
+					</textbox>
+				</div>
+				<div class="input-field col s6">
+					<n:label for="descripcion">Descripcion</n:label>
+					<span sclass="fa fa-question-circle fa-lg help-icon-special"
+										tooltip="pop_descripcion, position=after_end" />
+					<textbox id="descripcion" type="text"
+						multiline="true" maxlength="200"
+						value="@bind(vm.album.descripcion)"
+						sclass="materialize-textarea">
+					</textbox>
+				</div>
+			</div>
+			<div class="col s12">
+				<div class="input-field col s6">
+					<n:label for="fecha_publicacion" class="active">
+						Fecha Publicacion
+					</n:label>
+					<span	sclass="fa fa-question-circle fa-lg help-icon-special"/>
+					<datebox id="fecha" cols="20" format="yyyy/MM/dd"
+						value="@bind(vm.fechaPublicacion)" />
+				</div>
+				<div class="input-field col s6">
+					<n:label for="fecha_expiracion" class="active">
+						Fecha Expiracion
+					</n:label>
+					<span	sclass="fa fa-question-circle fa-lg help-icon-special"/>
+					<datebox id="fechaF" cols="20" format="yyyy/MM/dd"
+						value="@bind(vm.fechaExpiracion)" />
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col s12 fotos" align="center" style="margin-bottom: 15px;">
+				<div sclass="row">
+					<div class="input-field col s12">
+						<button id="btnUpload" class="waves-effect waves-light btn" 
+							upload="true,maxsize=10000,multiple=true" 
+							onUpload="@command('btnUpload')">
+							Agregar Imagen
+						</button>
+
+						<div class="col s12">
+							<div class="row">
+								<div class="col s12">
+									<div class="row" children="@load(vm.multimediasAlbum)">
+										<template name="children">
+											<div class="col s4 multimedia">
+												<image
+													src="${m:getUrlWeb(each.fkMultimedia.url)}">
+												</image>
+												<div class="delete fa fa-minus-circle" onClick="@command('deleteMultimedia',multimedia=each)"></div>
+											</div>
+										</template>
+									</div>
+								</div>
+							</div>
+						</div>						
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col s12" align="center">
+			<n:h6>Publico en portal</n:h6>
+		</div>
+		<div class="row">
+			<div class="input-field col s6 offset-s3">
+				<n:div class="switch">
+					<n:label>
+						NO
+						<checkbox checked="@bind(vm.estatus)">
+						</checkbox>
+						SI
+					</n:label>
+				</n:div>
+			</div>
+		</div>
+		<!-- Popups ayuda -->
+		<popup id="pop_titulo" width="200px">
+			<html>
+
+
+
+
+				
+				<![CDATA[ Por favor, coloque el titulo del album que desea registrar.<br /> ]]>
+				
+				
+				
+				
+				
+				
+        	</html>
+		</popup>
+
+		<popup id="pop_descripcion" width="200px">
+			<html>
+
+
+
+
+				
+				<![CDATA[ Por favor, ingrese la descripcion del album
+				que desea registrar.<br /> ]]>
+				
+				
+				
+				
+	</html>
+		</popup>
+
+		<popup id="pop_fecha_publicacion" width="200px">
+			<html>
+
+
+
+
+				
+				<![CDATA[ Por favor, seleccione una fecha de publicacion del album que
+				desea registrar.<br /><font color="#3b85a1">Ejemplo:
+					11/08/1983.</font> ]]>
+				
+				
+				
+				
+	</html>
+		</popup>
+		
+
+		
+
+		
+		<popup id="pop_fecha_expiracion" width="200px">
+			<html>
+
+
+
+
+				
+				<![CDATA[ Por favor, indique la fecha de expiracion del album
+				 que desea registrar, usando el selector de
+				fechas.<br /> <font color="#3b85a1">Ejemplo:
+				11/08/1983.</font> ]]>
+				
+				
+				
+				
+
+        	</html>
+		</popup>
+		
+		
+		
+		
+<!-- 		<popup id="pop_imagen" width="200px"> -->
+<!-- 			<html> -->
+
+
+
+
+				
+<!-- 				<![CDATA[ Por favor, usando el icono de 'agregar' de -->
+<!-- 				color verde, anexe una imagen de la noticia que desea -->
+<!-- 				registrar.]]> -->
+				
+				
+				
+				
+	
+<!--     		</html> -->
+<!-- 		</popup> -->
+
+				
+		<!-- fin popups -->
+		
+		<div id="divButtonsForm"
+			use="karen.core.form.buttons.containers.DivButtonsForm">
+		</div>
+	</div>
+<style>
+	.fotos .s4:nth-child(3n+1) {
+	   	clear: left;
+	}
+	.fotos .s4 {
+	   	margin-bottom: 20px;
+	}
+	.fotos img {
+		width: 100%;
+	}
+	.multimedia:hover img{
+		opacity: .1;
+	}
+	.multimedia:hover .delete{
+		visibility: visible;
+		cursor: pointer;
+	}
+	.multimedia {
+		position: relative;
+	}
+	.delete {
+	    position: absolute;
+	    top: 33%;
+	    left: 40%;
+	    font-size: 50px;
+	    color: red;
+	    visibility: hidden;
+	}
+	.fotos button, .fotos .z-button:active {
+		background: #8bc34a !important;
+	    margin-bottom: 35px;
+	}
+</style>	
+</zk>

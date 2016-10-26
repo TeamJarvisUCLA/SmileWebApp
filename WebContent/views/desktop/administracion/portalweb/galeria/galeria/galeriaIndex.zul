@@ -1,3 +1,5 @@
+<?xel-method prefix="m" name="getUrlWeb" class="lights.smile.util.Zki" 
+	signature="java.lang.String getUrlWeb(java.lang.String)" ?>
 <zk xmlns:n="native" xmlns:w="client">
 	<style>
 		h4 {
@@ -101,7 +103,7 @@
 							       			<div class="info block-ellipsis">
 										        <label value="@load(each.descripcion)"></label>
 								          	</div>
-											<image src="@load(each.url)"></image>
+											<image src="${m:getUrlWeb(each.url)}"></image>
 											<div class="edit fa fa-pencil-square-o" onClick="@command('formEditMultimedia',multimedia=each)"></div>
 										</div>
 									</template>

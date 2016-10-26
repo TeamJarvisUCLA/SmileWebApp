@@ -1,6 +1,8 @@
 package ve.smile.web.viewmodels.galeria;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import org.zkoss.bind.annotation.BindingParam;
@@ -38,6 +40,16 @@ public class VM_Galeria {
 					.consultarAlbumCantidad(cantAlbum, EstatusAlbumEnum.PUBLICADO.ordinal());
 
 			this.albumes.addAll(payloadAlbumResponse.getObjetos());
+		}
+		Long datetime = new Date().getTime();
+		for(Iterator<Album> i = this.albumes.iterator(); i.hasNext(); ) {
+			Album item = i.next();
+		    if(datetime < item.getFechaPublicacion() || item.getFechaExpiracion() < datetime) {
+		    	System.out.println(item.getFechaPublicacion());
+		    	System.out.println(datetime);
+		    	System.out.println(item.getFechaExpiracion());
+		    	i.remove();
+		    }
 		}
 
 		return albumes;

@@ -1,0 +1,48 @@
+<zk xmlns:n="native" xmlns:w="client">
+	<div width="80%" class="container opacity-0"
+		use="karen.core.form.controllers.C_WindowForm"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('ve.smile.administracion.portalweb.correo.VM_ValidarCorreoFormBasic')">
+		<div class="row">
+			<div class="col s12">
+				<div class="row">
+					<div class="input-field col s6">
+						<n:label for="descripcion">Descripción</n:label>
+						<textbox id="descripcion" type="text"
+							sclass="materialize-textarea" multiline="true"
+							value="@bind(vm.configuracion.descripcion)">
+						</textbox>						
+					</div>
+				</div>
+				<div class="input-field col s6">
+					<n:label for="propiedad" class="active">Formularios</n:label>
+					<combobox id="propiedad"
+						selectedItem="@bind(vm.propiedadEnum)" model="@bind(vm.propiedadesEnums)">
+						<template name="model">
+							<comboitem label="@bind(each.toString())" />
+						</template>
+					</combobox>
+				</div>
+				<div class="col s12" align="center">
+					<n:h6>Se envia correo de bienvenida a este formulario?</n:h6>
+				</div>
+				<div class="row">
+					<div class="input-field col s6 ">
+						<n:div class="switch">
+							<n:label>
+								NO
+								<checkbox checked="@bind(vm.valor)">
+								</checkbox>
+								SI
+							</n:label>
+						</n:div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="divButtonsForm"
+			use="karen.core.form.buttons.containers.DivButtonsForm">
+		</div>
+	</div>
+
+</zk>

@@ -6,30 +6,52 @@
 
 		<div class="row">
 			<div sclass="col s12 form">
-							<div class="input-field col s6">
+							<div class="input-field col s12">
 								<n:label for="titulo">Titulo</n:label>
-								<textbox id="titulo" type="text" value="@bind(vm.comentarioCartelera.fkCartelera.titulo)"> </textbox>
+								<textbox id="titulo" type="text" disabled="true" value="@bind(vm.comentarioCartelera.fkCartelera.titulo)"> </textbox>
 							</div>
 
 							<div class="input-field col s6">
 								<n:label for="nombre">Nombre</n:label>
-								<textbox id="nombre" type="text" value="@bind(vm.comentarioCartelera.fkComunidad.nombre)"> </textbox>
+								<textbox id="nombre" type="text" disabled="true" value="@bind(vm.comentarioCartelera.fkComunidad.nombre.concat(' ').concat(vm.comentarioCartelera.fkComunidad.apellido))"> </textbox>
 							</div>
 							
 							<div class="input-field col s6">
 								<n:label for="correo">Correo</n:label>
-								<textbox id="correo" type="text" value="@bind(vm.comentarioCartelera.fkComunidad.correo)"> </textbox>
+								<textbox id="correo" type="text" disabled="true" value="@bind(vm.comentarioCartelera.fkComunidad.correo)"> </textbox>
 							</div>
 							
 							<div class="input-field col s6">
 								<n:label for="Comentario">Comentario</n:label>
-								<textbox id="Comentario" type="text" value="@bind(vm.comentarioCartelera.comentario)"> </textbox>
+								<textbox id="Comentario" type="text" disabled="true" value="@bind(vm.comentarioCartelera.comentario)"> </textbox>
 							</div>
 							
-							<div class="input-field col s12">
+							<div class="input-field col s6">
 								<n:label for="Puntuacion">Puntuacion</n:label>
-								<textbox id="Puntuacion" type="text" value="@load(each.puntuacion)"> </textbox>
+								<textbox id="Puntuacion" type="text" disabled="true" value="@bind(vm.comentarioCartelera.puntuacion)"> </textbox>
 							</div>
+							
+							<separator height="20px"></separator>
+								<div class="row">
+									<div class="col s12" align="center">
+										<div class="col s12">
+											<n:h6>Publicar el Comentario</n:h6>
+										</div>
+										<div class="col s12">
+											<div class="input-field col s6 offset-s3">
+												<n:div class="switch">
+													<n:label>
+														NO
+														<checkbox
+															checked="@bind(vm.publicar)">
+														</checkbox>
+														SI
+													</n:label>
+												</n:div>
+											</div>
+										</div>
+									</div>
+								</div>
 				
 			</div>
 		</div>

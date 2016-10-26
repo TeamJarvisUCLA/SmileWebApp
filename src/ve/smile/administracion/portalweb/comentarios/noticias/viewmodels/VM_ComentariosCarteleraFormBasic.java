@@ -21,47 +21,39 @@ import karen.core.util.payload.UtilPayload;
 import karen.core.util.validate.UtilValidate;
 
 
-public class VM_ComentariosCarteleraFormBasic extends VM_WindowForm{
+public class VM_ComentariosCarteleraFormBasic  extends VM_WindowForm{
+	public boolean publicar;
+	
 	@Init(superclass = true)
 	public void childInit() {
-		
+				
 	}
 
 	@Override
 	public List<OperacionForm> getOperationsForm(OperacionEnum operacionEnum) {
 		List<OperacionForm> operacionesForm = new ArrayList<OperacionForm>();
 		if(operacionEnum.equals(OperacionEnum.CUSTOM1)) {
-			operacionesForm.add(OperacionFormHelper.getPorType(OperacionFormEnum.APROBAR));
-			operacionesForm.add(OperacionFormHelper.getPorType(OperacionFormEnum.RECHAZAR));
+			OperacionForm operacionForm = new OperacionForm(OperacionEnum.CUSTOM1.ordinal(), "Procesar", "Custom1", "fa fa-cog", "indigo");
+			operacionesForm.add(operacionForm);
+			operacionesForm.add(OperacionFormHelper.getPorType(OperacionFormEnum.CANCELAR));
 			return operacionesForm;
 		}
 		return operacionesForm;
 	}
-
-	
-
 	@Override
-	public boolean actionAprobar(OperacionEnum operacionEnum) {
-		getComentarioCartelera().setEstatusComentario(EstatusComentarioCarteleraEnum.PUBLICADO.ordinal());
-		PayloadComentarioCarteleraResponse PayloadComentarioCarteleraResponse =S.ComentarioCarteleraService.modificar(getComentarioCartelera());
-		if (!UtilPayload.isOK(PayloadComentarioCarteleraResponse)) {
-			Alert.showMessage(PayloadComentarioCarteleraResponse);
+	public boolean actionCustom1(OperacionEnum operacionEnum) {
+		if(publicar == true){
+			getComentarioCartelera().setEstatusComentario(EstatusComentarioCarteleraEnum.PUBLICADO.ordinal());
+		} else {
+			getComentarioCartelera().setEstatusComentario(EstatusComentarioCarteleraEnum.OCULTO.ordinal());
+		}
+		PayloadComentarioCarteleraResponse payloadComentarioCarteleraResponse = S.ComentarioCarteleraService.modificar(getComentarioCartelera());
+		if (!UtilPayload.isOK(payloadComentarioCarteleraResponse)) {
+			Alert.showMessage(payloadComentarioCarteleraResponse);
 			return true;
 		}
 		DataCenter.reloadCurrentNodoMenu();
-		return false;
-	}
-
-	@Override
-	public boolean actionRechazar(OperacionEnum operacionEnum) {
-		getComentarioCartelera().setEstatusComentario(EstatusComentarioCarteleraEnum.OCULTO.ordinal());
-		PayloadComentarioCarteleraResponse PayloadComentarioCarteleraResponse =S.ComentarioCarteleraService.modificar(getComentarioCartelera());
-		if (!UtilPayload.isOK(PayloadComentarioCarteleraResponse)) {
-			Alert.showMessage(PayloadComentarioCarteleraResponse);
-			return true;
-		}
-		DataCenter.reloadCurrentNodoMenu();
-		return false;
+		return true;
 	}
 
 	public ComentarioCartelera getComentarioCartelera() {
@@ -96,4 +88,13 @@ public class VM_ComentariosCarteleraFormBasic extends VM_WindowForm{
 		return true;
 	}
 
+	public boolean isPublicar() {
+		return publicar;
+	}
+
+	public void setPublicar(boolean publicar) {
+		this.publicar = publicar;
+	}
+
+	
 }

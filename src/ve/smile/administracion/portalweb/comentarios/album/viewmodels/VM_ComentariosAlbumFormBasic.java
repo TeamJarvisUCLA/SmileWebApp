@@ -46,9 +46,9 @@ public class VM_ComentariosAlbumFormBasic extends VM_WindowForm{
 		}else {
 			getComentarioAlbum().setEstatusComentario(EstatusComentarioAlbumEnum.OCULTO.ordinal());
 		}
-		PayloadComentarioAlbumResponse PayloadComentarioAlbumResponse =S.ComentarioAlbumService.modificar(getComentarioAlbum());
-		if (!UtilPayload.isOK(PayloadComentarioAlbumResponse)) {
-			Alert.showMessage(PayloadComentarioAlbumResponse);
+		PayloadComentarioAlbumResponse payloadComentarioAlbumResponse =S.ComentarioAlbumService.modificar(getComentarioAlbum());
+		if (!UtilPayload.isOK(payloadComentarioAlbumResponse)) {
+			Alert.showMessage(payloadComentarioAlbumResponse);
 			return true;
 		}
 		DataCenter.reloadCurrentNodoMenu();

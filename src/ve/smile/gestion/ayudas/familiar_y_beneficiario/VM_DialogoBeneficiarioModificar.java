@@ -278,8 +278,7 @@ public class VM_DialogoBeneficiarioModificar extends
 					.getFechaIngreso(), "Fecha de ingreso");
 			UtilValidate.validateNullOrEmpty(this.getPersona().getDireccion(),
 					"Dirección");
-			UtilValidate.validateNullOrEmpty(this.getPersona()
-					.getFkMultimedia(), "Imagen");
+			UtilValidate.validateNullOrEmpty(bytes, "Imagen");
 
 			return true;
 		} catch (Exception e) {

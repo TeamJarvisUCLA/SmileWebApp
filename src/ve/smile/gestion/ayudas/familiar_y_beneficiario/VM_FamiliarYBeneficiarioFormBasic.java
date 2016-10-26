@@ -771,7 +771,7 @@ public class VM_FamiliarYBeneficiarioFormBasic extends VM_WindowForm implements
 					"dd/MM/yyyy");
 			UtilValidate.validateString(this.getPersona().getDireccion(),
 					"Dirección", 250);
-			UtilValidate.validateNull(this.getPersona().getFkMultimedia(),
+			UtilValidate.validateNull(bytes,
 					"Imagen");
 			UtilValidate.validateString(this.getPersona().getTelefono1(),
 					"Teléfono 1", 25);

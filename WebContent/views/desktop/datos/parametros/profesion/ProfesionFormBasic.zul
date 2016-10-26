@@ -13,6 +13,7 @@
 						value="@bind(vm.profesion.nombre)">
 					</textbox>
 				</div>
+				<span sclass="fa fa-question-circle fa-lg help-icon" tooltip="pop_nombre, position=after_end"/>
 			</div>
 
 			<div class="col s12">
@@ -23,11 +24,24 @@
 						value="@bind(vm.profesion.descripcion)">
 					</textbox>
 				</div>
+				<span sclass="fa fa-question-circle fa-lg help-icon" tooltip="pop_descripcion, position=after_end"/>
 			</div>
-
-
-
 		</div>
+		
+		<popup id="pop_nombre" width="200px">
+			<html>
+				<![CDATA[ Por favor, indique el nombre de la profesión 
+				que desea registrar.<br /><font color="#3b85a1">Ejemplo:
+				Ingeniero Civil.</font> ]]>
+			</html>
+		</popup>
+		<popup id="pop_descripcion" width="200px">
+			<html>
+				<![CDATA[ Por favor, indique una descripción breve sobre
+				la profesión que desea registrar.<br /><font color="#3b85a1">Ejemplo:
+				Profesional capacitado para estudiar, proyectar, organizar y coordinar los trabajos relacionados con la construcción.</font> ]]>
+			</html>
+		</popup>
 		<div id="divButtonsForm"
 			use="karen.core.form.buttons.containers.DivButtonsForm">
 		</div>

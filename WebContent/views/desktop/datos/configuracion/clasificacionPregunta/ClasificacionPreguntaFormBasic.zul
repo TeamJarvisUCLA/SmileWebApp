@@ -15,13 +15,7 @@
 
 		</div>
 			<div class="col s12">
-				<tabbox id="tb" class="rtab ltab">
-					<tabs id="tabs">
-						<tab id="tabPreguntas" label="Preguntas" />
-					</tabs>
-					<tabpanels>
-						<tabpanel>
-							<div sclass="col s5">
+						<div sclass="col s5">
 								<listbox model="@bind(vm.preguntas)"
 									emptyMessage="No hay preguntas registradas."
 									selectedItems="@bind(vm.preguntasSeleccionadas)"
@@ -39,6 +33,8 @@
 								</listbox>
 							</div>
 							<div sclass="col s1">
+							<span sclass="fa fa-question-circle fa-lg help-icon"
+								tooltip="pop_agregarRemover, position=after_end" />
 								<div sclass="row valign">
 										<button
 											iconSclass="fa fa-angle-double-right" sclass="button-conf"
@@ -60,16 +56,20 @@
 									</listhead>
 									<template name="model">
 										<listitem
-											label="@load(each.nombre)">
+											label="@load(each.pregunta)">
 										</listitem>
 									</template>
 								</listbox>
 							</div>
-						</tabpanel>
-					</tabpanels>
-				</tabbox>
-			</div>
+					</div>
 		</div>
+		
+		<popup id="pop_agregarRemover" width="200px">
+			<html>
+				<![CDATA[ Para agregar o remover preguntas al clasificador, 
+				primero seleccione y luego use estos botones. <br /><font color="#3b85a1">(>>) Agregar (<<) Remover</font> ]]>
+			</html>
+		</popup>
 
 		<div id="divButtonsForm"
 			use="karen.core.form.buttons.containers.DivButtonsForm">

@@ -15,14 +15,41 @@ import karen.core.util.payload.UtilPayload;
 import karen.core.util.validate.UtilValidate;
 import ve.smile.consume.services.S;
 import ve.smile.seguridad.enums.OperacionEnum;
+import ve.smile.payload.response.PayloadClasificadorMotivoResponse;
 import ve.smile.payload.response.PayloadMotivoResponse;
+import ve.smile.dto.ClasificadorMotivo;
 import ve.smile.dto.Motivo;
 
 public class VM_MotivoFormBasic extends VM_WindowForm {
+	
+	private List<ClasificadorMotivo> clasificadorMotivos;
 
 	@Init(superclass = true)
 	public void childInit() {
 		// NOTHING OK!
+	}
+
+	
+	public List<ClasificadorMotivo> getClasificadorMotivos() {
+		if (this.clasificadorMotivos == null) {
+			this.clasificadorMotivos = new ArrayList<>();
+		}
+		if (this.clasificadorMotivos.isEmpty()) {
+			PayloadClasificadorMotivoResponse payloadClasificadorMotivoResponse = S.ClasificadorMotivoService
+					.consultarTodos();
+
+			if (!UtilPayload.isOK(payloadClasificadorMotivoResponse)) {
+				Alert.showMessage(payloadClasificadorMotivoResponse);
+			}
+
+			this.clasificadorMotivos
+					.addAll(payloadClasificadorMotivoResponse.getObjetos());
+		}
+		return clasificadorMotivos;
+	}
+
+	public void setClasificadorMotivos(List<ClasificadorMotivo> clasificadorMotivos) {
+		this.clasificadorMotivos = clasificadorMotivos;
 	}
 
 	@Override
@@ -107,6 +134,8 @@ public class VM_MotivoFormBasic extends VM_WindowForm {
 	public boolean isFormValidated() {
 		try {
 			UtilValidate.validateString(getMotivo().getNombre(), "Nombre", 100);
+			UtilValidate.validateNull(getMotivo().getFkClasificadorMotivo(),
+					"Clasificador de Motivo");
 			UtilValidate.validateString(getMotivo().getDescripcion(),
 					"Descripción", 250);
 
@@ -117,5 +146,4 @@ public class VM_MotivoFormBasic extends VM_WindowForm {
 			return false;
 		}
 	}
-
 }

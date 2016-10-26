@@ -186,5 +186,4 @@ public class VM_RequisitoParticipacionFormBasic extends VM_WindowForm {
 			Set<Requisito> participacionRequisitosSeleccionadas) {
 		this.participacionRequisitosSeleccionadas = participacionRequisitosSeleccionadas;
 	}
-
 }

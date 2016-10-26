@@ -33,12 +33,19 @@
 				<span sclass="fa fa-question-circle fa-lg help-icon" tooltip="pop_clasificador, position=after_end"/>
 			</div>
 
-			<div class="col s12">
+			<div sclass="col s12">
 				<div class="input-field offset-s2 col s8">
-					<n:label for="tipo_evento">Tipo de Evento</n:label>
-					<textbox id="tipo_evento" type="text"
-						maxlength="100" value="@bind(vm.evento.tipoEvento)">
-					</textbox>
+					<n:label class="active"
+						for="tipo_evento">
+						Tipo de Evento
+					</n:label>
+					<combobox id="tipo_evento"
+						readonly="true" model="@bind(vm.tipoEventoEnums)"
+						selectedItem="@bind(vm.tipoEventoEnum)">
+						<template name="model">
+							<comboitem label="@load(each.toString())" />
+						</template>
+					</combobox>
 				</div>
 				<span sclass="fa fa-question-circle fa-lg help-icon" tooltip="pop_tipo, position=after_end"/>
 			</div>
@@ -60,8 +67,7 @@
 			<html>
 				
 				<![CDATA[ Por favor, indique el nombre del evento que
-				desea registrar.<br /><font color="#3b85a1">Ejemplo:
-				Carrera caminata 20k.</font> ]]>
+				desea registrar.<br /><font color="#3b85a1">Ejemplo: Carrera caminata 20k.</font> ]]>
 				
 			</html>
 		</popup>
@@ -71,7 +77,7 @@
 				
 				<![CDATA[ Por favor, indique un clasificador para el
 				evento que desea registrar.<br /><font
-				color="#3b85a1">Ejemplo:Caminata.</font> ]]>
+				color="#3b85a1">Ejemplo: Caminata.</font> ]]>
 				
 			</html>
 		</popup>
@@ -80,7 +86,7 @@
 			<html>
 				
 				<![CDATA[ Por favor, indique el tipo de evento.<br
-				/><font color="#3b85a1">Ejemplo:Anual.</font> ]]>
+				/><font color="#3b85a1">Ejemplo: Anual.</font> ]]>
 				
 			</html>
 		</popup>
@@ -90,12 +96,11 @@
 				
 				<![CDATA[ Por favor, indique una descripción breve,
 				sobre el evento que desea registrar.<br /><font
-				color="#3b85a1">Ejemplo:Carrera caminata por 20K para la
+				color="#3b85a1">Ejemplo: Carrera caminata por 20K para la
 				recolección de fondos.</font> ]]>
 				
 			</html>
 		</popup>
-
 
 		<div id="divButtonsForm"
 			use="karen.core.form.buttons.containers.DivButtonsForm">

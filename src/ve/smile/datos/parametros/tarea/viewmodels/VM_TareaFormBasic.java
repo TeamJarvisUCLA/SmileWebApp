@@ -134,11 +134,10 @@ public class VM_TareaFormBasic extends VM_WindowForm {
 	public boolean isFormValidated() {
 		try {
 			UtilValidate.validateString(getTarea().getNombre(), "Nombre", 100);
-			UtilValidate.validateString(getTarea().getDescripcion(),
-					"Descripción", 250);
 			UtilValidate.validateNull(getTarea().getFkClasificadorTarea(),
 					"Clasificador de Tarea");
-
+			UtilValidate.validateString(getTarea().getDescripcion(),
+					"Descripción", 250);
 			return true;
 		} catch (Exception e) {
 			Alert.showMessage(e.getMessage());

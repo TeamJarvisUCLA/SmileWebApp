@@ -57,14 +57,14 @@
     	<popup id="pop_clasificador" width="200px">
         	<html><![CDATA[
             	Por favor, indique un clasificador para la capacitación que desea
-            	registrar.<br /><font color="#3b85a1">Ejemplo:Actividades.</font>
+            	registrar.<br /><font color="#3b85a1">Ejemplo: Actividades.</font>
         	]]></html>
     	</popup>
     	
     	<popup id="pop_descripcion" width="200px">
         	<html><![CDATA[
             	Por favor, indique una descripción breve, sobre la capacitación que desea
-            	registrar.<br /><font color="#3b85a1">Ejemplo:Taller de actividades especiales
+            	registrar.<br /><font color="#3b85a1">Ejemplo: Taller de actividades especiales
             	post-tratamiento para voluntarios.</font>
         	]]></html>
     	</popup>

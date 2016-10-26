@@ -12,14 +12,17 @@
 						emptyMessage="No existen elementos para mostrar en la lista">
 
 						<listhead sizable="true">
-							<listheader width="50%" label="Nombre" />
-							<listheader width="50%" label="Descripcion" />
+							<listheader width="33%" label="Nombre" />
+							<listheader width="33%" label="Descripcion" />
+							<listheader width="33%"	label="Clasificador de Motivo" />
 						</listhead>
 						<template name="model">
 							<listitem>
 								<listcell label="@load(each.nombre)" />
 								<listcell
 									label="@load(each.descripcion)" />
+									<listcell
+									label="@load(each.fkClasificadorMotivo.nombre)" />
 							</listitem>
 						</template>
 						<listfoot>

@@ -17,6 +17,7 @@ import org.zkoss.bind.annotation.Init;
 import ve.smile.consume.services.S;
 import ve.smile.dto.Evento;
 import ve.smile.dto.ClasificadorEvento;
+import ve.smile.enums.TipoEventoEnum;
 import ve.smile.payload.response.PayloadEventoResponse;
 import ve.smile.payload.response.PayloadClasificadorEventoResponse;
 import ve.smile.seguridad.enums.OperacionEnum;
@@ -24,10 +25,39 @@ import ve.smile.seguridad.enums.OperacionEnum;
 public class VM_EventoFormBasic extends VM_WindowForm {
 
 	private List<ClasificadorEvento> clasificadorEventos;
+	private List<TipoEventoEnum> tipoEventoEnums;
+	private TipoEventoEnum tipoEventoEnum;
 
 	@Init(superclass = true)
 	public void childInit() {
-		// NOTHING OK!
+		if (this.getEvento().getIdEvento() != null){
+			tipoEventoEnum = this.getEvento().getTipoEventoEnum();
+		}
+	}	
+	
+	public TipoEventoEnum getTipoEventoEnum() {
+		return tipoEventoEnum;
+	}
+
+	public void setTipoEventoEnum(TipoEventoEnum tipoEventoEnum) {
+		this.tipoEventoEnum = tipoEventoEnum;
+	}
+
+	public void setTipoEventoEnums(List<TipoEventoEnum> tipoEventoEnums) {
+		this.tipoEventoEnums = tipoEventoEnums;
+	}
+
+	public List<TipoEventoEnum> getTipoEventoEnums() {
+		if (this.tipoEventoEnums == null) {
+			this.tipoEventoEnums = new ArrayList<TipoEventoEnum>();
+		}
+		if (this.tipoEventoEnums.isEmpty()) {
+			for (TipoEventoEnum tipoEventoEnum : TipoEventoEnum
+					.values()) {
+				this.tipoEventoEnums.add(tipoEventoEnum);
+			}
+		}
+		return tipoEventoEnums;
 	}
 
 	public List<ClasificadorEvento> getClasificadorEventos() {
@@ -75,9 +105,7 @@ public class VM_EventoFormBasic extends VM_WindowForm {
 
 			return operacionesForm;
 		}
-
 		return operacionesForm;
-
 	}
 
 	@Override
@@ -87,6 +115,7 @@ public class VM_EventoFormBasic extends VM_WindowForm {
 		}
 
 		if (operacionEnum.equals(OperacionEnum.INCLUIR)) {
+			this.getEvento().setTipoEvento(tipoEventoEnum.ordinal());
 			PayloadEventoResponse payloadEventoResponse = S.EventoService
 					.incluir(getEvento());
 
@@ -101,6 +130,7 @@ public class VM_EventoFormBasic extends VM_WindowForm {
 		}
 
 		if (operacionEnum.equals(OperacionEnum.MODIFICAR)) {
+			this.getEvento().setTipoEvento(tipoEventoEnum.ordinal());
 			PayloadEventoResponse payloadEventoResponse = S.EventoService
 					.modificar(getEvento());
 
@@ -113,14 +143,12 @@ public class VM_EventoFormBasic extends VM_WindowForm {
 
 			return true;
 		}
-
 		return false;
 	}
 
 	@Override
 	public boolean actionSalir(OperacionEnum operacionEnum) {
 		DataCenter.reloadCurrentNodoMenu();
-
 		return true;
 	}
 
@@ -139,8 +167,8 @@ public class VM_EventoFormBasic extends VM_WindowForm {
 			UtilValidate.validateString(getEvento().getNombre(), "Nombre", 100);
 			UtilValidate.validateNull(getEvento().getFkClasificadorEvento(),
 					"Clasificador de Evento");
-			
-			
+			UtilValidate.validateNull(tipoEventoEnum,
+					"Tipo de Evento");			
 			UtilValidate.validateString(getEvento().getDescripcion(),
 					"Descripción", 250);			
 			

@@ -107,6 +107,9 @@
 							droppable="true" content="@bind(vm.directorio.nombre)" />
 					</gmaps>
 				</div>
+				<span style="float:right"
+							sclass="fa fa-question-circle fa-lg help-icon"
+							tooltip="pop_ubicacion, position=after_end" />
 				<div class="col s4">
 					<div class="input-field col s12">
 						<n:label for="latitud" class="active">Latitud</n:label>
@@ -143,101 +146,64 @@
 		</div>
 
 		<popup id="pop_nombre" width="200px">
-			<html>
-
-
-				
+			<html>				
 				<![CDATA[ Por favor, indique el nombre del lugar que
 				desea registrar.<br /><font color="#3b85a1">Ejemplo:
 				Club Italo.</font> ]]>
-				
-				
-				
         	</html>
 		</popup>
-
+		<popup id="pop_ubicacion" width="200px">
+			<html>				
+				<![CDATA[ Por favor, indique en el mapa la ubicación del lugar que
+				desea registrar. ]]>
+        	</html>
+		</popup>
 		<popup id="pop_telefono" width="200px">
-			<html>
-
-
-				
+			<html>			
 				<![CDATA[ Por favor, indique un número de contacto del
 				lugar que desea registrar.<br /><font
 				color="#3b85a1">Ejemplo:02514424229.</font> ]]>
-				
-				
-				
         	</html>
 		</popup>
 
 		<popup id="pop_estado" width="200px">
 			<html>
-
-
-				
-				<![CDATA[Por favor, use el combo para indicar el estado
+				<![CDATA[Por favor, indique el estado
 				donde se encuentra el lugar que desea registrar.<br
-				/><font color="#3b85a1">Ejemplo:Bolívar.</font> ]]>
-				
-				
-					
+				/><font color="#3b85a1">Ejemplo: Lara.</font> ]]>
         	</html>
 		</popup>
 
 		<popup id="pop_ciudad" width="200px">
-			<html>
-
-
-				
-				<![CDATA[ Por favor, use el combo para indicar la ciudad
+			<html>				
+				<![CDATA[ Por favor, indique la ciudad
 				donde se encuentra el lugar que desea registrar.<br
-				/><font color="#3b85a1">Ejemplo: Puerto Ordaz.</font>
-				]]>
-				
-				
-						
+				/><font color="#3b85a1">Ejemplo: Barquisimeto.</font>
+				]]>						
         	</html>
 		</popup>
 
 		<popup id="pop_direccion" width="200px">
 			<html>
-
-
-				
-				<![CDATA[ Por favor, indique la dirección donde se
-				encuentra el lugar que desea registrar.<br /><font
-				color="#3b85a1">Ejemplo: Avenida Leofling.</font> ]]>
-				
-				
-						
+				<![CDATA[ Por favor, indique la dirección 
+				del lugar que desea registrar.<br /><font
+				color="#3b85a1">Ejemplo: Calle 23 Entre Carreras 18 Y 19.</font> ]]>						
         	</html>
 		</popup>
 
 		<popup id="pop_url" width="200px">
 			<html>
-
-
-				
 				<![CDATA[ Por favor, indique la página web del lugar que
 				desea registrar.<br /><font color="#3b85a1">Ejemplo:
-				www.civg.com.ve.</font> ]]>
-				
-				
-						
+				www.hotelprincipe.com.ve.</font> ]]>	
         	</html>
 		</popup>
 
 		<popup id="pop_imagen" width="200px">
 			<html>
-
-
-				
-				<![CDATA[ Por favor, anexe una imagen del lugar que
-				desea añadir al directorio, usando el botón de agregar
-				(en color verde).<br /><font color="#3b85a1">]]>
-				
-				
-						
+				<![CDATA[ Por favor, usando el icono de 'agregar' de
+				color verde, anexe una imagen del patrocinador que desea
+				registrar.]]>
         	</html>
 		</popup>
 

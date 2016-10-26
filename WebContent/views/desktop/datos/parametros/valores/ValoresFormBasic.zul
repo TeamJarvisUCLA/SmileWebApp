@@ -20,16 +20,36 @@
 						value="@bind(vm.valores.nombre)">
 					</textbox>
 				</div>
+				<span sclass="fa fa-question-circle fa-lg help-icon" tooltip="pop_nombre, position=after_end"/>
 			</div>
 
 			<div class="row">
 				<div class="col s12">
+					<span style="float:center"
+							sclass="fa fa-question-circle fa-lg help-icon"
+							tooltip="pop_imagen, position=after_end" />
 			 			<div class="input-field offset-s2 col s8">
-						<uploadImageSingle maxsize="9000" size="200"
-							idUpload="1" title="Imagen del Valor" />
-					</div>
+							<uploadImageSingle maxsize="9000" size="200"
+								idUpload="1" title="Imagen del Valor" />	
+						</div>
 				</div>
 			</div>
+			
+		<popup id="pop_nombre" width="200px">
+			<html>
+				<![CDATA[ Por favor, indique el nombre del valor
+				que desea registrar.<br /><font color="#3b85a1">Ejemplo:
+				Respeto.</font> ]]>
+			</html>
+		</popup>
+					
+		<popup id="pop_imagen" width="200px">
+			<html>
+				<![CDATA[ Por favor, usando el icono de 'agregar' de
+				color verde, anexe una imagen para el valor que desea
+				registrar.]]>
+        	</html>
+		</popup>
 
 		</div>
 		<div id="divButtonsForm"

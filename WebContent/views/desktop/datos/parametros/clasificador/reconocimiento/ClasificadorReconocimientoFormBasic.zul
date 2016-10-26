@@ -18,17 +18,6 @@
 			
 			<div class="col s12">
 				<div class="input-field offset-s2 col s8">
-					<n:label for="descripcion">Descripción</n:label>
-					<textbox id="descripcion" type="text"
-						maxlength="250" multiline="true" sclass="materialize-textarea"
-						value="@bind(vm.clasificadorReconocimiento.descripcion)">
-					</textbox>
-				</div>
-				<span sclass="fa fa-question-circle fa-lg help-icon" tooltip="pop_descripcion, position=after_end"/>
-			</div>
-			
-			<div class="col s12">
-				<div class="input-field offset-s2 col s8">
 					<n:label for="tipo_reconocimiento">
 						Tipo de Reconocimiento
 					</n:label>
@@ -43,6 +32,16 @@
 				<span sclass="fa fa-question-circle fa-lg help-icon" tooltip="pop_tipo, position=after_end"/>
 			</div>
 			
+			<div class="col s12">
+				<div class="input-field offset-s2 col s8">
+					<n:label for="descripcion">Descripción</n:label>
+					<textbox id="descripcion" type="text"
+						maxlength="250" multiline="true" sclass="materialize-textarea"
+						value="@bind(vm.clasificadorReconocimiento.descripcion)">
+					</textbox>
+				</div>
+				<span sclass="fa fa-question-circle fa-lg help-icon" tooltip="pop_descripcion, position=after_end"/>
+			</div>			
 		</div>
 		
 		

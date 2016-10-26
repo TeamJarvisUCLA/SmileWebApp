@@ -305,15 +305,14 @@ public class VM_DirectorioFormBasic extends VM_WindowForm implements
 	}
 
 	public boolean isFormValidated() {
-		try {
-			UtilValidate.validateString(getDirectorio().getDireccion(),
-					"Dirección", 250);
+		try {			
 			UtilValidate.validateString(getDirectorio().getNombre(), "Nombre",
 					100);
 			UtilValidate.validateString(getDirectorio().getTelefono(),
 					"Teléfono", 80);
-			UtilValidate.validateString(getDirectorio().getUrl(), "URL", 200);
 			UtilValidate.validateNull(getDirectorio().getFkCiudad(), "Ciudad");
+			UtilValidate.validateString(getDirectorio().getDireccion(),
+					"Dirección", 250);						
 			return true;
 		} catch (Exception e) {
 			Alert.showMessage(e.getMessage());

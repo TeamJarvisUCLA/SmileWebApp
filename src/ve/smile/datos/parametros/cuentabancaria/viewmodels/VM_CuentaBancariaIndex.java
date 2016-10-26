@@ -76,7 +76,7 @@ VM_WindowSimpleListPrincipal<CuentaBancaria> {
 				Double.valueOf(String.valueOf(payloadDonativoCuentaBancariaResponse.getInformacion(IPayloadResponse.COUNT))).intValue();
 
 		if (countDonativosCuentaBancaria > 0) {
-			return "E:Error 0:No se puede eliminar la <b>Cuenta Bancaria</b> seleccionada ya que está siendo utilizada en " + countDonativosCuentaBancaria + " Donativos";
+			return "E:Error 0:No se puede eliminar la <b>Cuenta Bancaria</b> seleccionada ya que estï¿½ siendo utilizada en " + countDonativosCuentaBancaria + " Donativos";
 		}
 
 		return "";

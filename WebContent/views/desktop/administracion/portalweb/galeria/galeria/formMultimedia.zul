@@ -9,7 +9,7 @@
 		<separator height="20px"></separator>
 		<div class="row">
 			<div class="col s12" align="center" style="margin-bottom: 15px;">
-				<label value="Ingrese los datos del album" sclass="label-medium-500"></label>
+				<label value="Ingrese los datos de la imagen" sclass="label-medium-500"></label>
 			</div>
 		</div>
 		<div class="row">
@@ -34,7 +34,7 @@
 			<div class="input-field col s5">
 				<div class="input-field col s12">
 					<uploadImageSingle maxsize="9000" size="200"
-						idUpload="1" title="Imagen del Evento" />
+						idUpload="1" title="Imagen" />
 				</div>
 			</div>
 

@@ -31,11 +31,20 @@
 						<n:div class="switch">
 							<n:label>
 								NO
-								<checkbox    checked="@bind(vm.myValor)">
+								<checkbox checked="@bind(vm.myValor)">
 								</checkbox>
 								SI
 							</n:label>
 						</n:div>
+							<div class="input-field col s6">
+					<n:label for="valores" class="active">Seleccione si desea enviar correo de bienvenida: Si o No </n:label>
+					<combobox id="MyValore"
+						selectedItem="@bind(vm.myValore)" model="@bind(vm.myvalores)">
+						<template name="model">
+							<comboitem label="@bind(each)" />
+						</template>
+					</combobox>
+				</div>
 					</div>
 				</div>
 			</div>

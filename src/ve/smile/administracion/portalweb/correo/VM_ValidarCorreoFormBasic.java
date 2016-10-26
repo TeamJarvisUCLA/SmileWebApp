@@ -1,13 +1,11 @@
 package ve.smile.administracion.portalweb.correo;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
 import ve.smile.consume.services.S;
 import ve.smile.dto.Configuracion;
-import ve.smile.enums.EstatusAlbumEnum;
 import ve.smile.enums.PropiedadEnum;
 import ve.smile.payload.response.PayloadConfiguracionResponse;
 import ve.smile.seguridad.enums.OperacionEnum;
@@ -26,6 +24,49 @@ public class VM_ValidarCorreoFormBasic extends VM_WindowForm {
 	private List<PropiedadEnum> PropiedadesEnums;
 	private PropiedadEnum PropiedadEnum;
 	private boolean valor = true;
+	
+	private myValor MyValore;
+	private List<myValor> myvalores;
+
+	
+	//probando con una lista
+
+		public enum myValor
+		{
+		    No,
+		    Si,
+		    	}
+		
+
+		public List<myValor> getMyvalores() {
+			
+			if (this.myvalores == null) {
+				myvalores = new ArrayList<myValor>();
+			}
+			if (this.myvalores.isEmpty()) {
+				for (myValor myValor : MyValore.values()) {
+					this.myvalores.add(myValor);
+				}		
+			}
+				    
+			return myvalores;
+		}
+
+		public void setmyvalores(List<myValor> myvalores) {
+			this.myvalores = myvalores;
+		}
+
+		public myValor getMyValore() {
+			return MyValore;
+		}
+
+		public void setMyValore(myValor MyValore) {
+			this.MyValore = MyValore;
+
+		}
+		
+		
+//////
 
 
 	
@@ -69,11 +110,21 @@ public class VM_ValidarCorreoFormBasic extends VM_WindowForm {
 
 				
 			this.getConfiguracion().setPropiedad(PropiedadEnum.ordinal());
-			if(this.configuracion.getValor().equals("true")){
-				this.configuracion.setValor("true");
-			}else if(this.configuracion.getValor().equals("false")){
-				this.configuracion.setValor("false");
-			}
+			
+			//if(this.configuracion.getValor().equals("true")){
+				//this.configuracion.setValor("true");
+			//}else if(this.configuracion.getValor().equals("false")){ /////esto era lo que tenia en el primer commit
+				//this.configuracion.setValor("false");
+			//}
+			
+			if(this.getMyValore().equals("Si"))
+			{
+				this.configuracion.setValor("True");
+				
+			}else if(this.getMyValore().equals("No")){
+				this.configuracion.setValor("False");}
+			
+			
 			PayloadConfiguracionResponse payloadConfiguracionResponse = S.ConfiguracionService
 					.incluir(getConfiguracion());
 
@@ -161,7 +212,7 @@ public class VM_ValidarCorreoFormBasic extends VM_WindowForm {
 		return PropiedadEnum;
 	}
 
-	public void setTipoCarteleraEnum(PropiedadEnum PropiedadEnum) {
+	public void setPropiedadEnum(PropiedadEnum PropiedadEnum) {
 		this.PropiedadEnum = PropiedadEnum;
 		this.getConfiguracion().setPropiedad(PropiedadEnum.ordinal());
 

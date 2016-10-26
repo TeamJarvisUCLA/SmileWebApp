@@ -18,7 +18,7 @@
 				<div class="col s12">
 					<div class="col s12">
 						<listbox model="@load(vm.tsPlans)"
-							height="150px"
+							 height="200px"
 							emptyMessage="No hay Trabajos Sociales Planificados"
 							selectedItem="@bind(vm.tsPlan)">
 							<listhead sizable="true">

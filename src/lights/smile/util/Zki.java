@@ -24,6 +24,7 @@ public class Zki {
 	public static final String PARTICIPACION = "PARTICIPACION/PARTICIPACION_";
 	public static final String ALBUM = "ALBUM/ALBUM_";
 	public static final String GALERIA = "GALERIA/GALERIA_";
+	public static final String RECONOCIMIENTOS = "RECONOCIMIENTO/RECONOCIMIENTO_";
 
 	public static final String DEFAULT = "default_image.jpg";
 

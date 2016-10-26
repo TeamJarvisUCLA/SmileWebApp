@@ -17,23 +17,36 @@
 			<div class="row">
 				<div class="col s12">
 					<div class="col s12">
-						<listbox model="@load(vm.eventoPlanificados)"
-							height="150px" emptyMessage="No hay Eventos Planificados"
-							selectedItem="@bind(vm.eventoPlanificado)">
+						<listbox id="listbox"
+							model="@load(vm.objectsList)"
+							selectedItem="@bind(vm.selectedObject)">
+
 							<listhead sizable="true">
-								<listheader width="33%" label="Evento" />
-								<listheader width="33%"
-									label="Fecha Planificada" />
-								<listheader width="33%" label="Lugar" />
+								<listheader width="15%" label="Nombre" />
+								<listheader width="20%"
+									label="Descripción" />
+								<listheader width="15%"
+									label="Fecha Inicion" />
+								<listheader width="15%"
+									label="Fecha Fin" />
+								<listheader width="20%" label="Lugar" />
+								<listheader width="15%"
+									label="Coordinador" />
 							</listhead>
 							<template name="model">
 								<listitem>
 									<listcell
 										label="@load(each.fkEvento.nombre)" />
 									<listcell
-										label="${m:convertirLongADate(each.fechaPlanificada)}" />
+										label="@load(each.fkEvento.descripcion)" />
+									<listcell
+										label="${m:convertirLongADate(each.fechaInicio)}" />
+									<listcell
+										label="${m:convertirLongADate(each.fechaFin)}" />
 									<listcell
 										label="@load(each.fkDirectorio.nombre)" />
+									<listcell
+										label="@load(each.fkPersona.nombre.concat(' ').concat(each.fkPersona.apellido))" />
 								</listitem>
 							</template>
 						</listbox>

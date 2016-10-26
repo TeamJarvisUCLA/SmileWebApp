@@ -313,6 +313,8 @@ public class VM_RegistroDonativoIndex extends VM_WindowWizard {
 				.getPorType(OperacionWizardEnum.ATRAS));
 		listOperacionWizard2.add(OperacionWizardHelper
 				.getPorType(OperacionWizardEnum.SIGUIENTE));
+		listOperacionWizard2.add(OperacionWizardHelper
+				.getPorType(OperacionWizardEnum.CANCELAR));
 
 		botones.put(2, listOperacionWizard2);
 
@@ -321,12 +323,16 @@ public class VM_RegistroDonativoIndex extends VM_WindowWizard {
 				.getPorType(OperacionWizardEnum.ATRAS));
 		listOperacionWizard3.add(OperacionWizardHelper
 				.getPorType(OperacionWizardEnum.FINALIZAR));
+		listOperacionWizard3.add(OperacionWizardHelper
+				.getPorType(OperacionWizardEnum.CANCELAR));
 
 		botones.put(3, listOperacionWizard3);
 
 		List<OperacionWizard> listOperacionWizard4 = new ArrayList<OperacionWizard>();
-		listOperacionWizard4.add(OperacionWizardHelper
-				.getPorType(OperacionWizardEnum.CUSTOM1));
+		OperacionWizard operacionWizardCustom6 = new OperacionWizard(
+				OperacionWizardEnum.CUSTOM1.ordinal(), "ACEPTAR", "Custom1",
+				"fa fa-check", "indigo", "ACEPTAR");
+		listOperacionWizard4.add(operacionWizardCustom6);
 
 		botones.put(4, listOperacionWizard4);
 
@@ -361,59 +367,59 @@ public class VM_RegistroDonativoIndex extends VM_WindowWizard {
 	public String executeSiguiente(Integer currentStep) {
 		if (currentStep == 1) {
 			if (procedenciaEnums.equals(ProcedenciaEnum.COLABORADOR)) {
-				this.visibleC=true;
-				this.visibleE=false;
-				this.visibleP=false;
-				this.visiblePA=false;
-				this.visibleT=false;
+				this.visibleC = true;
+				this.visibleE = false;
+				this.visibleP = false;
+				this.visiblePA = false;
+				this.visibleT = false;
 				this.setSrcList("views/desktop/gestion/donativo/registro/selectColaborador.zul");
-				
+
 			}
 			if (procedenciaEnums.equals(ProcedenciaEnum.EVENTO)) {
-				this.visibleC=false;
-				this.visibleE=true;
-				this.visibleP=false;
-				this.visiblePA=false;
-				this.visibleT=false;
+				this.visibleC = false;
+				this.visibleE = true;
+				this.visibleP = false;
+				this.visiblePA = false;
+				this.visibleT = false;
 				this.setSrcList("views/desktop/gestion/donativo/registro/selectEventoPlanificado.zul");
-			
+
 			}
 			if (procedenciaEnums.equals(ProcedenciaEnum.PADRINO)) {
-				this.visibleC=false;
-				this.visibleE=false;
-				this.visibleP=true;
-				this.visiblePA=false;
-				this.visibleT=false;
+				this.visibleC = false;
+				this.visibleE = false;
+				this.visibleP = true;
+				this.visiblePA = false;
+				this.visibleT = false;
 				this.setSrcList("views/desktop/gestion/donativo/registro/selectPadrino.zul");
-			
+
 			}
 			if (procedenciaEnums.equals(ProcedenciaEnum.PATROCINADOR)) {
-				this.visibleC=false;
-				this.visibleE=false;
-				this.visibleP=false;
-				this.visiblePA=true;
-				this.visibleT=false;
+				this.visibleC = false;
+				this.visibleE = false;
+				this.visibleP = false;
+				this.visiblePA = true;
+				this.visibleT = false;
 				this.setSrcList("views/desktop/gestion/donativo/registro/selectPatrocinador.zul");
-			
+
 			}
 			if (procedenciaEnums.equals(ProcedenciaEnum.TRABAJO_SOCIAL)) {
-				this.visibleC=false;
-				this.visibleE=false;
-				this.visibleP=false;
-				this.visiblePA=false;
-				this.visibleT=true;
+				this.visibleC = false;
+				this.visibleE = false;
+				this.visibleP = false;
+				this.visiblePA = false;
+				this.visibleT = true;
 				this.setSrcList("views/desktop/gestion/donativo/registro/selectTrabajoSocialPlanificado.zul");
-			
+
 			}
 			if (procedenciaEnums.equals(ProcedenciaEnum.ANONIMO)) {
-				this.visibleC=false;
-				this.visibleE=false;
-				this.visibleP=false;
-				this.visiblePA=false;
-				this.visibleT=false;
-				
+				this.visibleC = false;
+				this.visibleE = false;
+				this.visibleP = false;
+				this.visiblePA = false;
+				this.visibleT = false;
+
 				goToNextStep();
-			}		
+			}
 			BindUtils.postNotifyChange(null, null, this, "*");
 		}
 		goToNextStep();
@@ -490,6 +496,8 @@ public class VM_RegistroDonativoIndex extends VM_WindowWizard {
 								.getTime()), "dd/MM/yyyy");
 				UtilValidate.validateNull(donativoRecurso.getFkRecurso(),
 						"Recurso");
+				UtilValidate.validateNull(donativoRecurso.getFkRecurso()
+						.getIdRecurso(), "Recurso");
 
 				UtilValidate.validateInteger(
 						new Integer((int) donativoRecurso.getCantidad()),
@@ -506,7 +514,8 @@ public class VM_RegistroDonativoIndex extends VM_WindowWizard {
 							"Cuenta Bancaria Remitente");
 					UtilValidate.validateNull(cuentaBancariaDestinataria,
 							"Cuenta Bancaria Destinataria");
-					UtilValidate.validateNull(nroReferencia, "numero de referencia");
+					UtilValidate.validateNull(nroReferencia,
+							"numero de referencia");
 				}
 
 			} catch (Exception e) {
@@ -671,7 +680,11 @@ public class VM_RegistroDonativoIndex extends VM_WindowWizard {
 					}
 				}
 				if (fechaAporte == null) {
-					fechaAporte = new Date(padrino.getFechaIngreso());
+					if (padrino.getFechaIngreso() == null) {
+						fechaAporte = new Date();
+					} else {
+						fechaAporte = new Date(padrino.getFechaIngreso());
+					}
 				} else {
 					UnidadFrecuenciaAporteEnum unidadFrecuenciaAporteEnum = padrino
 							.getFkFrecuenciaAporte()
@@ -700,6 +713,8 @@ public class VM_RegistroDonativoIndex extends VM_WindowWizard {
 						calendar.add(Calendar.MONTH, cantidad);
 						fechaAporte = calendar.getTime();
 					}
+					this.getDonativoRecurso().setCantidad(
+							this.getPadrino().getMonto());
 				}
 			}
 		}
@@ -958,7 +973,4 @@ public class VM_RegistroDonativoIndex extends VM_WindowWizard {
 		this.visibleT = visibleT;
 	}
 
-
-
-	
 }

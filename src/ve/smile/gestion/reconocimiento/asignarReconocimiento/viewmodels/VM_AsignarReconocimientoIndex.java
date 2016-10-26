@@ -5,32 +5,26 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.imageio.ImageIO;
 
 import karen.core.crux.alert.Alert;
-import karen.core.crux.session.DataCenter;
-import karen.core.simple_list.wizard.buttons.data.OperacionWizard;
-import karen.core.simple_list.wizard.buttons.enums.OperacionWizardEnum;
-import karen.core.simple_list.wizard.buttons.helpers.OperacionWizardHelper;
-import karen.core.simple_list.wizard.viewmodels.VM_WindowWizard;
 import karen.core.util.payload.UtilPayload;
+import karen.core.wizard.buttons.data.OperacionWizard;
+import karen.core.wizard.buttons.enums.OperacionWizardEnum;
+import karen.core.wizard.buttons.helpers.OperacionWizardHelper;
+import karen.core.wizard.viewmodels.VM_WindowWizard;
 import lights.core.enums.TypeQuery;
 import lights.core.payload.response.IPayloadResponse;
 import lights.smile.util.UtilMultimedia;
 import lights.smile.util.Zki;
 
 import org.zkoss.bind.BindUtils;
-import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
-import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.event.UploadEvent;
 
-import app.UploadImageSingle;
 import ve.smile.consume.services.S;
 import ve.smile.dto.ClasificadorReconocimiento;
 import ve.smile.dto.Colaborador;
@@ -46,7 +40,7 @@ import ve.smile.enums.EstatusPadrinoEnum;
 import ve.smile.enums.EstatusTrabajadorEnum;
 import ve.smile.enums.EstatusVoluntarioEnum;
 import ve.smile.enums.TipoMultimediaEnum;
-import ve.smile.enums.TipoReconocimientoEnum; 
+import ve.smile.enums.TipoReconocimientoEnum;
 import ve.smile.payload.response.PayloadClasificadorReconocimientoResponse;
 import ve.smile.payload.response.PayloadColaboradorResponse;
 import ve.smile.payload.response.PayloadMultimediaResponse;
@@ -55,15 +49,17 @@ import ve.smile.payload.response.PayloadPatrocinadorResponse;
 import ve.smile.payload.response.PayloadReconocimientoPersonaResponse;
 import ve.smile.payload.response.PayloadTrabajadorResponse;
 import ve.smile.payload.response.PayloadVoluntarioResponse;
+import app.UploadImageSingle;
 
-public class VM_AsignarReconocimientoIndex extends VM_WindowWizard implements UploadImageSingle{
-	
+public class VM_AsignarReconocimientoIndex extends VM_WindowWizard implements
+		UploadImageSingle {
+
 	private List<TipoReconocimientoEnum> tipoReconocimientoEnums;
 	private List<ClasificadorReconocimiento> clasificadorReconocimientos;
 	private List<ClasificadorReconocimiento> clasificadorPorTipoReconocimientos;
 	TipoReconocimientoEnum tipoReconocimientoEnum;
 	private ReconocimientoPersona reconocimientoPersona;
-	
+
 	private Padrino padrino;
 	private Voluntario voluntario;
 	private Colaborador colaborador;
@@ -76,15 +72,15 @@ public class VM_AsignarReconocimientoIndex extends VM_WindowWizard implements Up
 	private String extensionImage;
 	private String urlImage;
 	private String typeMedia;
-	
+
 	private List<Padrino> padrinos;
 	private List<Voluntario> voluntarios;
 	private List<Colaborador> colaboradores;
 	private List<Patrocinador> patrocinadores;
 	private List<Trabajador> trabajadores;
-	
+
 	private String srcList;
-	
+
 	@Init(superclass = true)
 	public void childInit() {
 		padrino = new Padrino();
@@ -93,8 +89,7 @@ public class VM_AsignarReconocimientoIndex extends VM_WindowWizard implements Up
 		patrocinador = new Patrocinador();
 		trabajador = new Trabajador();
 	}
-	
-	
+
 	public TipoReconocimientoEnum getTipoReconocimientoEnum() {
 		return tipoReconocimientoEnum;
 	}
@@ -104,20 +99,19 @@ public class VM_AsignarReconocimientoIndex extends VM_WindowWizard implements Up
 		this.tipoReconocimientoEnum = tipoReconocimientoEnum;
 	}
 
-
 	public List<TipoReconocimientoEnum> getTipoReconocimientoEnums() {
 		if (this.tipoReconocimientoEnums == null) {
 			this.tipoReconocimientoEnums = new ArrayList<>();
 		}
 		if (this.tipoReconocimientoEnums.isEmpty()) {
-			for (TipoReconocimientoEnum tipoReconocimiento : TipoReconocimientoEnum.values()) {
+			for (TipoReconocimientoEnum tipoReconocimiento : TipoReconocimientoEnum
+					.values()) {
 				this.tipoReconocimientoEnums.add(tipoReconocimiento);
 			}
 		}
 		return tipoReconocimientoEnums;
 	}
-	
-	
+
 	public void setTipoReconocimientoEnums(
 			List<TipoReconocimientoEnum> tipoReconocimientoEnums) {
 		this.tipoReconocimientoEnums = tipoReconocimientoEnums;
@@ -127,17 +121,13 @@ public class VM_AsignarReconocimientoIndex extends VM_WindowWizard implements Up
 		return persona;
 	}
 
-
 	public void setPersona(Persona persona) {
 		this.persona = persona;
 	}
 
-
 	public Padrino getPadrino() {
 		return padrino;
 	}
-
-
 
 	public void setPadrino(Padrino padrino) {
 		this.padrino = padrino;
@@ -179,37 +169,25 @@ public class VM_AsignarReconocimientoIndex extends VM_WindowWizard implements Up
 		return voluntario;
 	}
 
-
-
 	public void setVoluntario(Voluntario voluntario) {
 		this.voluntario = voluntario;
 	}
-
-
 
 	public Colaborador getColaborador() {
 		return colaborador;
 	}
 
-
-
 	public void setColaborador(Colaborador colaborador) {
 		this.colaborador = colaborador;
 	}
-
-
 
 	public Patrocinador getPatrocinador() {
 		return patrocinador;
 	}
 
-
-
 	public void setPatrocinador(Patrocinador patrocinador) {
 		this.patrocinador = patrocinador;
 	}
-
-
 
 	public Trabajador getTrabajador() {
 		return trabajador;
@@ -233,7 +211,6 @@ public class VM_AsignarReconocimientoIndex extends VM_WindowWizard implements Up
 		return null;
 	}
 
-
 	public void setTrabajador(Trabajador trabajador) {
 		this.trabajador = trabajador;
 	}
@@ -251,16 +228,6 @@ public class VM_AsignarReconocimientoIndex extends VM_WindowWizard implements Up
 						media.getName().lastIndexOf(".") + 1);
 				this.typeMedia = media.getContentType();
 
-				if (this.getPersona().getIdPersona() != null) {
-					this.nameImage = new StringBuilder().append(Zki.PERSONAS)
-							.append(this.getPersona().getIdPersona())
-							.append(".").append(extensionImage).toString();
-
-					this.urlImage = new StringBuilder().append(Zki.PERSONAS)
-							.append(this.getPersona().getIdPersona())
-							.append(".").append(extensionImage).toString();
-
-				}
 			} else {
 				this.getPersona().setFkMultimedia(null);
 				Alert.showMessage("E: Error Code: 100-El formato de la <b>imagen</b> es inválido");
@@ -300,26 +267,31 @@ public class VM_AsignarReconocimientoIndex extends VM_WindowWizard implements Up
 				.getPorType(OperacionWizardEnum.ATRAS));
 		listOperacionWizard2.add(OperacionWizardHelper
 				.getPorType(OperacionWizardEnum.SIGUIENTE));
-
+		listOperacionWizard2.add(OperacionWizardHelper
+				.getPorType(OperacionWizardEnum.CANCELAR));
 		botones.put(2, listOperacionWizard2);
 
 		List<OperacionWizard> listOperacionWizard3 = new ArrayList<OperacionWizard>();
 		listOperacionWizard3.add(OperacionWizardHelper
 				.getPorType(OperacionWizardEnum.ATRAS));
 		listOperacionWizard3.add(OperacionWizardHelper
-				.getPorType(OperacionWizardEnum.SIGUIENTE));
-
+				.getPorType(OperacionWizardEnum.FINALIZAR));
+		listOperacionWizard3.add(OperacionWizardHelper
+				.getPorType(OperacionWizardEnum.CANCELAR));
 		botones.put(3, listOperacionWizard3);
 
 		List<OperacionWizard> listOperacionWizard4 = new ArrayList<OperacionWizard>();
-		listOperacionWizard4.add(OperacionWizardHelper
-				.getPorType(OperacionWizardEnum.FINALIZAR));
+		OperacionWizard operacionWizardCustom = new OperacionWizard(
+				OperacionWizardEnum.CUSTOM1.ordinal(), "Aceptar", "Custom1",
+				"fa fa-check", "indigo", "Aceptar");
+
+		listOperacionWizard4.add(operacionWizardCustom);
 
 		botones.put(4, listOperacionWizard4);
 
 		return botones;
 	}
-	
+
 	@Override
 	public List<String> getIconsToStep() {
 		List<String> iconos = new ArrayList<String>();
@@ -333,6 +305,13 @@ public class VM_AsignarReconocimientoIndex extends VM_WindowWizard implements Up
 	}
 
 	@Override
+	public String executeCustom1(Integer currentStep) {
+		this.setSelectedObject(null);
+		restartWizard();
+		return "";
+	}
+
+	@Override
 	public List<String> getUrlPageToStep() {
 		List<String> urls = new ArrayList<String>();
 
@@ -342,110 +321,64 @@ public class VM_AsignarReconocimientoIndex extends VM_WindowWizard implements Up
 		urls.add("views/desktop/gestion/reconocimiento/asignarReconocimiento/registroCompletado.zul");
 		return urls;
 	}
-	
+
 	@Override
 	public String executeSiguiente(Integer currentStep) {
 		if (currentStep == 1) {
 			if (tipoReconocimientoEnum.equals(tipoReconocimientoEnum.PADRINO)) {
 				this.setSrcList("views/desktop/gestion/reconocimiento/asignarReconocimiento/selectPadrino.zul");
 			}
-			if (tipoReconocimientoEnum.equals(tipoReconocimientoEnum.VOLUNTARIO)) {
+			if (tipoReconocimientoEnum
+					.equals(tipoReconocimientoEnum.VOLUNTARIO)) {
 				this.setSrcList("views/desktop/gestion/reconocimiento/asignarReconocimiento/selectVoluntario.zul");
 			}
-			if (tipoReconocimientoEnum.equals(tipoReconocimientoEnum.COLABORADOR)) {
+			if (tipoReconocimientoEnum
+					.equals(tipoReconocimientoEnum.COLABORADOR)) {
 				this.setSrcList("views/desktop/gestion/reconocimiento/asignarReconocimiento/selectColaborador.zul");
 			}
-			if (tipoReconocimientoEnum.equals(tipoReconocimientoEnum.PATROCINADOR)) {
+			if (tipoReconocimientoEnum
+					.equals(tipoReconocimientoEnum.PATROCINADOR)) {
 				this.setSrcList("views/desktop/gestion/reconocimiento/asignarReconocimiento/selectPatrocinador.zul");
 			}
-			if (tipoReconocimientoEnum.equals(tipoReconocimientoEnum.TRABAJADOR)) {
+			if (tipoReconocimientoEnum
+					.equals(tipoReconocimientoEnum.TRABAJADOR)) {
 				this.setSrcList("views/desktop/gestion/reconocimiento/asignarReconocimiento/selectTrabajador.zul");
 			}
 			BindUtils.postNotifyChange(null, null, this, "*");
 		}
 		if (currentStep == 2) {
 			Map<String, String> criterios = new HashMap<>();
-			criterios.put("tipoReconocimiento", String.valueOf(tipoReconocimientoEnum.ordinal()));
-			PayloadClasificadorReconocimientoResponse payloadClasificadorReconocimientoResponse = S.ClasificadorReconocimientoService.consultarCriterios(TypeQuery.EQUAL, criterios);
-			clasificadorPorTipoReconocimientos =  payloadClasificadorReconocimientoResponse.getObjetos();
+			criterios.put("tipoReconocimiento",
+					String.valueOf(tipoReconocimientoEnum.ordinal()));
+			PayloadClasificadorReconocimientoResponse payloadClasificadorReconocimientoResponse = S.ClasificadorReconocimientoService
+					.consultarCriterios(TypeQuery.EQUAL, criterios);
+			clasificadorPorTipoReconocimientos = payloadClasificadorReconocimientoResponse
+					.getObjetos();
 		}
-		if (currentStep == 3) {
-			
-			this.getReconocimientoPersona().setFkPersona(this.persona);
-			
-			//TODO: Para imagen
-			if(extensionImage != null){
-				
-				if (bytes != null) {
-					Multimedia multimedia = new Multimedia();
-					multimedia.setNombre(nameImage);
-					multimedia.setTipoMultimedia(TipoMultimediaEnum.IMAGEN
-							.ordinal());
-					multimedia.setUrl(this.getUrlImage());
-					multimedia.setExtension(UtilMultimedia.stringToExtensionEnum(
-							extensionImage).ordinal());
-					multimedia.setDescripcion(typeMedia);
-
-					PayloadMultimediaResponse payloadMultimediaResponse = S.MultimediaService
-							.incluir(multimedia);
-					if (!UtilPayload.isOK(payloadMultimediaResponse)) {
-						Alert.showMessage(payloadMultimediaResponse);
-					}
-					multimedia.setIdMultimedia(((Double) payloadMultimediaResponse
-							.getInformacion("id")).intValue());
-					this.getReconocimientoPersona().setFkMultimedia(multimedia);
-				}
-				
-				//TODO: Incluir Reconocimiento
-				PayloadReconocimientoPersonaResponse payloadReconocimientoPersonaResponse = S.ReconocimientoPersonaService
-						.incluir(getReconocimientoPersona());
-				if (!UtilPayload.isOK(payloadReconocimientoPersonaResponse)) {
-					Alert.showMessage(payloadReconocimientoPersonaResponse);
-				}	
-				
-				if (bytes != null) {
-					Zki.save(Zki.PERSONAS, getPersona().getIdPersona(),
-							extensionImage, bytes);
-					Multimedia multimedia = this.getPersona().getFkMultimedia();
-					multimedia.setNombre(Zki.PERSONAS
-							+ this.getPersona().getIdPersona() + "."
-							+ this.extensionImage);
-					multimedia.setUrl(Zki.PERSONAS + getPersona().getIdPersona()
-							+ "." + this.extensionImage);
-					PayloadMultimediaResponse payloadMultimediaResponse = S.MultimediaService
-							.modificar(multimedia);
-
-					if (!UtilPayload.isOK(payloadMultimediaResponse)) {
-						Alert.showMessage(payloadMultimediaResponse);
-					}
-				}
-				
-			}else{
-				Alert.showMessage("Error Code: 099-Debe cargar una Imagen del trabajador");
-				}						
-		}
-				
 		goToNextStep();
 
 		return "";
 	}
-	
+
 	@Override
 	public String executeAtras(Integer currentStep) {
 		goToPreviousStep();
 
 		return "";
 	}
-	
+
 	@Override
-	public IPayloadResponse<Trabajador> getDataToTable(Integer cantidadRegistrosPagina, Integer pagina)
-	{
+	public IPayloadResponse<Trabajador> getDataToTable(
+			Integer cantidadRegistrosPagina, Integer pagina) {
 		Map<String, String> criterios = new HashMap<>();
-		criterios.put("estatusTrabajador", String.valueOf(EstatusTrabajadorEnum.ACTIVO.ordinal()));
-		PayloadTrabajadorResponse payloadTrabajadorResponse = S.TrabajadorService.consultarPaginacionCriterios(cantidadRegistrosPagina, pagina,	TypeQuery.EQUAL, criterios);
+		criterios.put("estatusTrabajador",
+				String.valueOf(EstatusTrabajadorEnum.ACTIVO.ordinal()));
+		PayloadTrabajadorResponse payloadTrabajadorResponse = S.TrabajadorService
+				.consultarPaginacionCriterios(cantidadRegistrosPagina, pagina,
+						TypeQuery.EQUAL, criterios);
 		return payloadTrabajadorResponse;
 	}
-	
+
 	@Override
 	public String isValidPreconditionsSiguiente(Integer currentStep) {
 		if (currentStep == 1) {
@@ -458,56 +391,130 @@ public class VM_AsignarReconocimientoIndex extends VM_WindowWizard implements Up
 			if (tipoReconocimientoEnum.equals(tipoReconocimientoEnum.PADRINO)
 					&& padrino.getIdPadrino() == null) {
 				return "E:Error Code 5-Debe seleccionar un <b>Padrino</b>";
-				}else if(tipoReconocimientoEnum.equals(tipoReconocimientoEnum.PADRINO)){
-					persona = this.getPadrino().getFkPersona();
-				}
-			if (tipoReconocimientoEnum.equals(tipoReconocimientoEnum.VOLUNTARIO)
+			} else if (tipoReconocimientoEnum
+					.equals(tipoReconocimientoEnum.PADRINO)) {
+				persona = this.getPadrino().getFkPersona();
+			}
+			if (tipoReconocimientoEnum
+					.equals(tipoReconocimientoEnum.VOLUNTARIO)
 					&& voluntario.getIdVoluntario() == null) {
-					return "E:Error Code 5-Debe seleccionar un <b>Voluntario</b>";
-					}else if(tipoReconocimientoEnum.equals(tipoReconocimientoEnum.VOLUNTARIO)){
-						persona = this.getVoluntario().getFkPersona();
-					}
-			if (tipoReconocimientoEnum.equals(tipoReconocimientoEnum.COLABORADOR)
+				return "E:Error Code 5-Debe seleccionar un <b>Voluntario</b>";
+			} else if (tipoReconocimientoEnum
+					.equals(tipoReconocimientoEnum.VOLUNTARIO)) {
+				persona = this.getVoluntario().getFkPersona();
+			}
+			if (tipoReconocimientoEnum
+					.equals(tipoReconocimientoEnum.COLABORADOR)
 					&& colaborador.getIdColaborador() == null) {
 				return "E:Error Code 5-Debe seleccionar un <b>Colaborador</b>";
-				}else if(tipoReconocimientoEnum.equals(tipoReconocimientoEnum.COLABORADOR)){
-					persona = this.getColaborador().getFkPersona();
-				}
-			if (tipoReconocimientoEnum.equals(tipoReconocimientoEnum.PATROCINADOR)
+			} else if (tipoReconocimientoEnum
+					.equals(tipoReconocimientoEnum.COLABORADOR)) {
+				persona = this.getColaborador().getFkPersona();
+			}
+			if (tipoReconocimientoEnum
+					.equals(tipoReconocimientoEnum.PATROCINADOR)
 					&& patrocinador.getIdPatrocinador() == null) {
 				return "E:Error Code 5-Debe seleccionar un <b>Patrocinador</b>";
-				}else if(tipoReconocimientoEnum.equals(tipoReconocimientoEnum.PATROCINADOR)){
-					persona = this.getPatrocinador().getFkPersona();
-				}			
-			if (tipoReconocimientoEnum.equals(tipoReconocimientoEnum.TRABAJADOR)
+			} else if (tipoReconocimientoEnum
+					.equals(tipoReconocimientoEnum.PATROCINADOR)) {
+				persona = this.getPatrocinador().getFkPersona();
+			}
+			if (tipoReconocimientoEnum
+					.equals(tipoReconocimientoEnum.TRABAJADOR)
 					&& trabajador.getIdTrabajador() == null) {
 				return "E:Error Code 5-Debe seleccionar un <b>Trabajador</b>";
-				}else if(tipoReconocimientoEnum.equals(tipoReconocimientoEnum.TRABAJADOR)){
-					persona = this.getTrabajador().getFkPersona();
-				}
+			} else if (tipoReconocimientoEnum
+					.equals(tipoReconocimientoEnum.TRABAJADOR)) {
+				persona = this.getTrabajador().getFkPersona();
+			}
 		}
 
 		if (currentStep == 3) {
-			if (getReconocimientoPersona().getFkClasificadorReconocimiento() == null || getReconocimientoPersona().getContenido() == null){
+			if (getReconocimientoPersona().getFkClasificadorReconocimiento() == null
+					|| getReconocimientoPersona().getContenido() == null) {
 				return "E:Error Code 5-Debe llenar todos los campos";
 			}
-			if(extensionImage == null){
+			if (extensionImage == null) {
 				return "Error Code 099-Debe cargar una Imagen para el reconocimiento";
 			}
-	}
+		}
 
 		return "";
 	}
 
 	@Override
 	public String executeFinalizar(Integer currentStep) {
-		reconocimientoPersona = new ReconocimientoPersona();
-		bytes = null;
-		nameImage = null;
-		extensionImage = null;
-		urlImage = null;
-		typeMedia = null;
-		restartWizard();
+		if (currentStep == 3) {
+
+			this.getReconocimientoPersona().setFkPersona(this.persona);
+
+			// TODO: Para imagen
+			if (extensionImage != null) {
+
+				if (bytes != null) {
+					Multimedia multimedia = new Multimedia();
+					multimedia.setNombre(nameImage);
+					multimedia.setTipoMultimedia(TipoMultimediaEnum.IMAGEN
+							.ordinal());
+					multimedia.setUrl(this.getUrlImage());
+					multimedia.setExtension(UtilMultimedia
+							.stringToExtensionEnum(extensionImage).ordinal());
+					multimedia.setDescripcion(typeMedia);
+
+					PayloadMultimediaResponse payloadMultimediaResponse = S.MultimediaService
+							.incluir(multimedia);
+					if (!UtilPayload.isOK(payloadMultimediaResponse)) {
+						Alert.showMessage(payloadMultimediaResponse);
+					}
+					multimedia
+							.setIdMultimedia(((Double) payloadMultimediaResponse
+									.getInformacion("id")).intValue());
+					this.getReconocimientoPersona().setFkMultimedia(multimedia);
+				}
+
+				// TODO: Incluir Reconocimiento
+				PayloadReconocimientoPersonaResponse payloadReconocimientoPersonaResponse = S.ReconocimientoPersonaService
+						.incluir(getReconocimientoPersona());
+				if (!UtilPayload.isOK(payloadReconocimientoPersonaResponse)) {
+					Alert.showMessage(payloadReconocimientoPersonaResponse);
+				}
+				getReconocimientoPersona().setIdReconocimientoPersona(
+						((Double) payloadReconocimientoPersonaResponse
+								.getInformacion("id")).intValue());
+				if (bytes != null) {
+					Zki.save(Zki.RECONOCIMIENTOS, getReconocimientoPersona()
+							.getIdReconocimientoPersona(), extensionImage,
+							bytes);
+					Multimedia multimedia = this.getPersona().getFkMultimedia();
+					multimedia.setNombre(Zki.RECONOCIMIENTOS
+							+ getReconocimientoPersona()
+									.getIdReconocimientoPersona() + "."
+							+ this.extensionImage);
+					multimedia.setUrl(Zki.RECONOCIMIENTOS
+							+ getReconocimientoPersona()
+									.getIdReconocimientoPersona() + "."
+							+ this.extensionImage);
+					PayloadMultimediaResponse payloadMultimediaResponse = S.MultimediaService
+							.modificar(multimedia);
+
+					if (!UtilPayload.isOK(payloadMultimediaResponse)) {
+						Alert.showMessage(payloadMultimediaResponse);
+					}
+				}
+
+			} else {
+				return "Error Code: 099-Debe cargar una Imagen del Reconocimiento";
+			}
+
+			reconocimientoPersona = new ReconocimientoPersona();
+			bytes = null;
+			nameImage = null;
+			extensionImage = null;
+			urlImage = null;
+			typeMedia = null;
+			goToNextStep();
+
+		}
 		return "";
 	}
 
@@ -518,27 +525,24 @@ public class VM_AsignarReconocimientoIndex extends VM_WindowWizard implements Up
 	public void setSrcList(String srcList) {
 		this.srcList = srcList;
 	}
-	
-	
-	
+
 	public List<ClasificadorReconocimiento> getClasificadorPorTipoReconocimientos() {
 		return clasificadorPorTipoReconocimientos;
 	}
-
 
 	public void setClasificadorPorTipoReconocimientos(
 			List<ClasificadorReconocimiento> clasificadorPorTipoReconocimientos) {
 		this.clasificadorPorTipoReconocimientos = clasificadorPorTipoReconocimientos;
 	}
 
-
 	public List<Patrocinador> getPatrocinadores() {
 		if (this.patrocinadores == null) {
 			this.patrocinadores = new ArrayList<>();
 		}
 		if (this.patrocinadores.isEmpty()) {
-			
-			//Todo patrocinador que está en tabla es ACTIVO, por tanto no se valida por estatus.
+
+			// Todo patrocinador que está en tabla es ACTIVO, por tanto no se
+			// valida por estatus.
 			PayloadPatrocinadorResponse payloadPatrocinadorResponse = S.PatrocinadorService
 					.consultarTodos();
 			if (UtilPayload.isOK(payloadPatrocinadorResponse)) {
@@ -553,19 +557,20 @@ public class VM_AsignarReconocimientoIndex extends VM_WindowWizard implements Up
 	public void setPatrocinadores(List<Patrocinador> patrocinadores) {
 		this.patrocinadores = patrocinadores;
 	}
-	
+
 	public List<Padrino> getPadrinos() {
 		if (this.padrinos == null) {
 			this.padrinos = new ArrayList<>();
 		}
 		if (this.padrinos.isEmpty()) {
-			
+
 			Map<String, String> criterios = new HashMap<>();
-			criterios.put("estatusPadrino", String.valueOf(EstatusPadrinoEnum.ACTIVO.ordinal()));
-			PayloadPadrinoResponse payloadPadrinoResponse = S.PadrinoService.consultarCriterios(TypeQuery.EQUAL, criterios);
+			criterios.put("estatusPadrino",
+					String.valueOf(EstatusPadrinoEnum.ACTIVO.ordinal()));
+			PayloadPadrinoResponse payloadPadrinoResponse = S.PadrinoService
+					.consultarCriterios(TypeQuery.EQUAL, criterios);
 			if (UtilPayload.isOK(payloadPadrinoResponse)) {
-				this.padrinos.addAll(payloadPadrinoResponse
-						.getObjetos());
+				this.padrinos.addAll(payloadPadrinoResponse.getObjetos());
 			}
 		}
 
@@ -575,32 +580,32 @@ public class VM_AsignarReconocimientoIndex extends VM_WindowWizard implements Up
 	public void setPadrinos(List<Padrino> padrinos) {
 		this.padrinos = padrinos;
 	}
-	
+
 	public List<Trabajador> getTrabajadores() {
 		if (this.trabajadores == null) {
 			this.trabajadores = new ArrayList<>();
 		}
 		if (this.trabajadores.isEmpty()) {
-			
+
 			Map<String, String> criterios = new HashMap<>();
-			criterios.put("estatusTrabajador", String.valueOf(EstatusTrabajadorEnum.ACTIVO.ordinal()));
-			
-			PayloadTrabajadorResponse payloadTrabajadorResponse = S.TrabajadorService.consultarCriterios(TypeQuery.EQUAL, criterios);
+			criterios.put("estatusTrabajador",
+					String.valueOf(EstatusTrabajadorEnum.ACTIVO.ordinal()));
+
+			PayloadTrabajadorResponse payloadTrabajadorResponse = S.TrabajadorService
+					.consultarCriterios(TypeQuery.EQUAL, criterios);
 			if (UtilPayload.isOK(payloadTrabajadorResponse)) {
-				this.trabajadores.addAll(payloadTrabajadorResponse
-						.getObjetos());
+				this.trabajadores
+						.addAll(payloadTrabajadorResponse.getObjetos());
 			}
 		}
 
 		return trabajadores;
 	}
-	
-	
 
 	public void setTrabajadores(List<Trabajador> trabajadores) {
 		this.trabajadores = trabajadores;
 	}
-	
+
 	public List<Voluntario> getVoluntarios() {
 		if (this.voluntarios == null) {
 			this.voluntarios = new ArrayList<>();
@@ -608,12 +613,13 @@ public class VM_AsignarReconocimientoIndex extends VM_WindowWizard implements Up
 		if (this.voluntarios.isEmpty()) {
 
 			Map<String, String> criterios = new HashMap<>();
-			criterios.put("estatusVoluntario", String.valueOf(EstatusVoluntarioEnum.ACTIVO.ordinal()));
-			
-			PayloadVoluntarioResponse payloadVoluntarioResponse = S.VoluntarioService.consultarCriterios(TypeQuery.EQUAL, criterios);
+			criterios.put("estatusVoluntario",
+					String.valueOf(EstatusVoluntarioEnum.ACTIVO.ordinal()));
+
+			PayloadVoluntarioResponse payloadVoluntarioResponse = S.VoluntarioService
+					.consultarCriterios(TypeQuery.EQUAL, criterios);
 			if (UtilPayload.isOK(payloadVoluntarioResponse)) {
-				this.voluntarios.addAll(payloadVoluntarioResponse
-						.getObjetos());
+				this.voluntarios.addAll(payloadVoluntarioResponse.getObjetos());
 			}
 		}
 
@@ -623,18 +629,19 @@ public class VM_AsignarReconocimientoIndex extends VM_WindowWizard implements Up
 	public void setVoluntarios(List<Voluntario> voluntarios) {
 		this.voluntarios = voluntarios;
 	}
-	
+
 	public List<Colaborador> getColaboradores() {
 		if (this.colaboradores == null) {
 			this.colaboradores = new ArrayList<>();
 		}
 		if (this.colaboradores.isEmpty()) {
-			
 
 			Map<String, String> criterios = new HashMap<>();
-			criterios.put("estatusColaborador", String.valueOf(EstatusColaboradorEnum.ACTIVO.ordinal()));
-			
-			PayloadColaboradorResponse payloadColaboradorResponse = S.ColaboradorService.consultarCriterios(TypeQuery.EQUAL, criterios);
+			criterios.put("estatusColaborador",
+					String.valueOf(EstatusColaboradorEnum.ACTIVO.ordinal()));
+
+			PayloadColaboradorResponse payloadColaboradorResponse = S.ColaboradorService
+					.consultarCriterios(TypeQuery.EQUAL, criterios);
 			if (UtilPayload.isOK(payloadColaboradorResponse)) {
 				this.colaboradores.addAll(payloadColaboradorResponse
 						.getObjetos());
@@ -647,19 +654,19 @@ public class VM_AsignarReconocimientoIndex extends VM_WindowWizard implements Up
 	public void setColaboradores(List<Colaborador> colaboradores) {
 		this.colaboradores = colaboradores;
 	}
-	
+
 	public ReconocimientoPersona getReconocimientoPersona() {
-		if(reconocimientoPersona == null){
+		if (reconocimientoPersona == null) {
 			reconocimientoPersona = new ReconocimientoPersona();
 		}
 		return reconocimientoPersona;
 	}
 
-
-	public void setReconocimientoPersona(ReconocimientoPersona reconocimientoPersona) {
+	public void setReconocimientoPersona(
+			ReconocimientoPersona reconocimientoPersona) {
 		this.reconocimientoPersona = reconocimientoPersona;
 	}
-	
+
 	public List<ClasificadorReconocimiento> getClasificadorReconocimientos() {
 		if (this.clasificadorReconocimientos == null) {
 			this.clasificadorReconocimientos = new ArrayList<>();
@@ -673,7 +680,8 @@ public class VM_AsignarReconocimientoIndex extends VM_WindowWizard implements Up
 			}
 
 			this.clasificadorReconocimientos
-					.addAll(payloadClasificadorReconocimientoResponse.getObjetos());
+					.addAll(payloadClasificadorReconocimientoResponse
+							.getObjetos());
 		}
 		return clasificadorReconocimientos;
 	}
@@ -682,4 +690,12 @@ public class VM_AsignarReconocimientoIndex extends VM_WindowWizard implements Up
 			List<ClasificadorReconocimiento> clasificadorReconocimientos) {
 		this.clasificadorReconocimientos = clasificadorReconocimientos;
 	}
+
+	@Override
+	public String executeCancelar(Integer currentStep) {
+		this.setSelectedObject(null);
+		restartWizard();
+		return "";
+	}
+
 }

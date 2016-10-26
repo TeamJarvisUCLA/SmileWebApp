@@ -167,6 +167,12 @@ button {
 	position: absolute;
 }
 
+.owl-theme .owl-controls .owl-buttons .owl-prev{
+	left: 0px;
+    top: 200px;
+    position: absolute;
+}
+
 .z-tabbox {
 	min-height: 300px !important;
 }

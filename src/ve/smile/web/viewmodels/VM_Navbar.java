@@ -1,11 +1,21 @@
 package ve.smile.web.viewmodels;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import karen.core.crux.session.DataCenter;
 
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
 
+import ve.smile.consume.services.S;
+import ve.smile.dto.Organizacion;
+import ve.smile.payload.response.PayloadOrganizacionResponse;
+
 public class VM_Navbar {
+	
+	private List<Organizacion> organizacion;
+
 	
 	@Init
 	public void init(){
@@ -72,4 +82,23 @@ public class VM_Navbar {
 		
 	}
 	
+	@Command
+	public void ayuda() {
+		DataCenter.updateSrcPageContent(null, null, "/views/web/faq.zul");
+		
+	}
+	
+	public List<Organizacion> getorganizacion(){
+		if (this.organizacion == null) {
+			this.organizacion = new ArrayList<>();
+		}
+		if (this.organizacion.isEmpty()) {
+			PayloadOrganizacionResponse payloadOrganizacionResponse = S.OrganizacionService
+					.buscarOrganizacion();
+			
+			this.organizacion.addAll(payloadOrganizacionResponse.getObjetos());
+		}
+
+		return organizacion;
+	}
 }

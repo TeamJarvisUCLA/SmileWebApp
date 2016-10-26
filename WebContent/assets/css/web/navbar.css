@@ -20,6 +20,10 @@
 	width: 100%;
 }
 
+.logo {
+    display: inline-block;	
+}
+
 .navbar img {
 	max-width: 214px;
 	max-height: 210px;

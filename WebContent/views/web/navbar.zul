@@ -1,3 +1,5 @@
+<?xel-method prefix="m" name="getUrlWeb" class="lights.smile.util.Zki" 
+	signature="java.lang.String getUrlWeb(java.lang.String)" ?>
 <zk xmlns:n="native" xmlns:w="client">
 	<zscript>
 	boolean openTop = false;
@@ -109,10 +111,12 @@
 								</label>
 							</div>
 							<separator height="10px"></separator>
-							<div
+							<div apply="org.zkoss.bind.BindComposer"
+								viewModel="@id('vm') @init('ve.smile.web.viewmodels.VM_Navbar')"
 								class="col s12 div-buttons-form z-div">
 								<button type="button" iconSclass=""
 									class="indigo waves-effect waves-light btn"
+									onClick="@command('ayuda')"
 									style="background-color: #3B85A1 !important;    margin-top: 18px;">
 									AYUDA
 								</button>
@@ -145,8 +149,12 @@
 	<div sclass="navbar navbar-fixed"
 		apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('ve.smile.web.viewmodels.VM_Navbar')">
-		<image src="/imagenes/logo_fanca2.jpg" style=""></image>
-
+		<div class="logo" children="@load(vm.organizacion)">
+			<template name="children">
+				<image src="${m:getUrlWeb(each.fkMultimedia.url)}" style=""></image>
+				<!-- 				/imagenes/logo_fanca2.jpg -->
+			</template>
+		</div>
 		<div sclass="pull-right divNavbar">
 			<a target="true" href="" style=" font-size: 25px; " label=""
 				iconSclass="fa fa-bars"

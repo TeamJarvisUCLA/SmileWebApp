@@ -493,15 +493,6 @@
         						</html>
 							</popup>
 
-							<div class="col s12" style="padding:0px;">
-								<div class="input-field col s12">
-									<span style="float:right"
-										sclass="fa fa-question-circle fa-lg help-icon"
-										tooltip="pop_imagen, position=after_end" />
-									<uploadImageSingle maxsize="9000"
-										size="200" idUpload="1" title="Imagen " />
-								</div>
-							</div>
 
 							<popup id="pop_multimedia" width="200px">
 								<html>

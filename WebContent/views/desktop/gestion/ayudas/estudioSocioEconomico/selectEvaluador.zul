@@ -108,19 +108,6 @@
 					</div>
 
 				</div>
-				<div sclass="row">
-					<div class="col s12">
-						<div class="input-field  col s12">
-							<n:label for="observacion" class="active">
-								Observación
-							</n:label>
-							<textbox type="text" disabled="true"
-								sclass="materialize-textarea" multiline="true"
-								value="@bind(vm.solicitudAyuda.observacion)">
-							</textbox>
-						</div>
-					</div>
-				</div>
 			</div>
 			<div class="row">
 

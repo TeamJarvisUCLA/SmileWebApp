@@ -1,5 +1,5 @@
- <?xel-method prefix="m" name="convertirLongATimestamp" class="lights.smile.util.UtilConverterDataList" 
-	signature="java.lang.String convertirLongATimestamp(java.lang.Long)" ?> 
+<?xel-method prefix="m" name="convertirLongADate" class="lights.smile.util.UtilConverterDataList" 
+	signature="java.lang.String convertirLongADate(java.lang.Long)" ?>
 <zk xmlns:n="native" xmlns:w="client">
 	<div sclass="animated fadeInLeft">
 		<div class="row">
@@ -13,48 +13,45 @@
 		</div>
 		<div width="100%">
 
-			<div style="overflow: auto;" class="row">
-			<div class="col s12">
-				<div class="col s12" style="overflow: scroll;">
+			<div class="row">
+				<div class="col s12">
+					<div class="col s12">
 						<listbox id="listbox"
 							model="@load(vm.objectsList)"
+							emptyMessage="No hay Solicitudes Registradas"
 							selectedItem="@bind(vm.selectedObject)">
 
-
 							<listhead sizable="true">
-							<listheader width="250px" label="Titulo de Solicitud" />
-							<listheader width="250px" label="Nombre de Beneficiario" />
-							<listheader width="250px" label="Apellido de Beneficiario" />
-							
-							 
-							<listheader width="250px" label="Nombre de Representante" />
-							<listheader width="250px" label="Identificacion de Representante" />
-							
-							<listheader width="250px" label="Ayuda Solicitada" />
-							<listheader width="150px" label="Urgencia" />
-							<listheader width="150px" label="Fecha" />
+								<listheader width="10%" label="Titulo " />
+								<listheader width="20%"
+									label="Beneficiario" />
+								<listheader width="20%"
+									label="Representante" />
+								<listheader width="10%"
+									label="Urgencia" />
+								<listheader width="20%"
+									label="Ayuda Solicitada" />
+								<listheader width="20%" label="Fecha" />
+
 							</listhead>
 							<template name="model">
 								<listitem>
 									<listcell
 										label="@load(each.titulo)" />
-										
-								<listcell label="@load(each.fkBeneficiario.fkPersona.nombre.concat(' ').concat(each.fkBeneficiario.fkPersona.apellido))" />
-								<listcell label="@load(each.fkBeneficiario.fkPersona.identificacion)" />
-								
-								
-								
-								<listcell label="@load(each.fkBeneficiario.fkFamiliar.fkPersona.nombre.concat(' ').concat(each.fkBeneficiario.fkFamiliar.fkPersona.apellido))" />
-								<listcell label="@load(each.fkBeneficiario.fkFamiliar.fkPersona.identificacion)" />
-								 
-								<listcell label="@load(each.fkAyuda.nombre)" />
-								<listcell label="@load(each.urgenciaEnum)" />
-								<listcell label="${m:convertirLongATimestamp(each.fecha)}" />  
-									
+									<listcell
+										label="@load(each.fkBeneficiario.fkPersona.identificacion.concat(' - ').concat(each.fkBeneficiario.fkPersona.nombre).concat(' ').concat(each.fkBeneficiario.fkPersona.apellido))" />
+									<listcell
+										label="@load(each.fkBeneficiario.fkFamiliar.fkPersona.identificacion.concat(' - ').concat(each.fkBeneficiario.fkFamiliar.fkPersona.nombre).concat(' ').concat(each.fkBeneficiario.fkFamiliar.fkPersona.apellido))" />
+									<listcell
+										label="@load(each.urgenciaEnum.toString())" />
+									<listcell
+										label="@load(each.fkAyuda.nombre)" />
+									<listcell
+										label="${m:convertirLongADate(each.fecha)}" />
 								</listitem>
 							</template>
 							<listfoot>
-								<listfooter id="listFoot" span="11"
+								<listfooter id="listFoot" span="6"
 									use="karen.core.listfoot.ListFoot">
 								</listfooter>
 							</listfoot>

@@ -4,30 +4,36 @@
 		action="show: slideIn;hide: slideOut"
 		use="karen.core.dialog.catalogue.list_pagination.controllers.C_ListPaginationCatalogueDialog"
 		apply="org.zkoss.bind.BindComposer"
-		viewModel="@id('vm') @init('ve.smile.gestion.ayudas.asignacion_ayuda.VM_CatalogoRecurso', dialogData=arg.get('dialogData'))">
-		<caption label="VOLUNTARIO" style="margin-left: 40%;" />
+		viewModel="@id('vm') @init('ve.smile.gestion.trabajo_social.planificacion.actividades.recursos.viewmodels.VM_CatalogoRecursos', dialogData=arg.get('dialogData'))">
+		<caption label="RECURSOS" style="margin-left: 40%;" />
 		<separator height="20px"></separator>
 		<n:h6 style="margin-left: 5%;">
-			Por favor seleccione un responsable:
+			Por favor seleccione los recursos:
 		</n:h6>
 		<separator height="20px"></separator>
 		<listbox id="listbox" model="@load(vm.objectList)"
 			selectedItem="@bind(vm.selectedObject)"
-			style="width: 90%; margin-left: 5%;padding-bottom: 5%;">
+			style="width: 90%; margin-left: 5%;padding-bottom: 5%;"
+			multiple="true" checkmark="true">
 
 			<listhead sizable="true">
-				<listheader label="Nombre" />
-				<listheader label="Descripcion" />
-				
+				<listheader width="5%" label="" />
+				<listheader width="25%" label="Nombre" />
+				<listheader width="40%" label="Descripcion" />
+				<listheader width="30%"
+					label="Clasificador de Recursos" />
 			</listhead>
 			<template name="model">
 				<listitem>
+					<listcell label="" />
 					<listcell label="@load(each.nombre)" />
 					<listcell label="@load(each.descripcion)" />
+					<listcell
+						label="@load(each.fkClasificadorRecurso.nombre)" />
 				</listitem>
 			</template>
 			<listfoot>
-				<listfooter id="listFoot" span="2"
+				<listfooter id="listFoot" span="4"
 					use="karen.core.listfoot.ListFoot">
 				</listfooter>
 			</listfoot>

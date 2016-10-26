@@ -1,182 +1,200 @@
-
 <zk xmlns:n="native" xmlns:w="client">
+	<style>
+		.z-auxheader-content, .z-auxheader-content:hover { background:
+		#594e46 !important; border-right: none; height: 41px; color:
+		white; }
+
+		.z-datebox input, .z-datebox-input:focus,
+		.z-datebox-input:active { width: 166px; height: 1.5em
+		!important; border: 1px solid #999999 !important; border-radius:
+		7px; font-size: 1.4em !important; text-align: center !important;
+		background: #f2fca5; } .z-datebox input{ border: 1px solid
+		#999999 !important; font-size: 14px!important; }
+	</style>
 	<div sclass="animated fadeInLeft">
 		<div class="row">
 			<div class="col s12">
-				
-				<div class="row">
 
-					<div class="input-field col s12">
-					
-					<n:label for="beneficiario3" class="active">
-						Titulo Solicitud Ayuda:
+				<div class="row">
+					<n:label class="active">
+						DATOS DE LA SOLICITUD:
 					</n:label>
-					<label sclass="subtitulo-evento" value="@bind(vm.selectedObject.titulo)"> </label>
-					
+					<div sclass="row">
+						<div sclass="col s6">
+							<div class="input-field col s12">
+								<n:label for="beneficiario1"
+									class="active">
+									Beneficiario:
+								</n:label>
+								<textbox disabled="true"
+									value="@bind(vm.solicitudAyuda.fkBeneficiario.fkPersona.identificacion.concat(' - ').concat(vm.solicitudAyuda.fkBeneficiario.fkPersona.nombre).concat(' ').concat(vm.solicitudAyuda.fkBeneficiario.fkPersona.apellido))">
+								</textbox>
+
+							</div>
+
+						</div>
+						<div sclass="col s6"
+							visible="@load(not empty vm.solicitudAyuda.fkBeneficiario.fkPersona.nombre )">
+							<div class="input-fieldcol s12">
+								<n:label for="beneficiario1"
+									class="active">
+									Representante del Beneficiario:
+								</n:label>
+								<textbox disabled="true"
+									id="beneficiario1"
+									value="@bind(vm.solicitudAyuda.fkBeneficiario.fkFamiliar.fkPersona.identificacion.concat(' - ').concat(vm.solicitudAyuda.fkBeneficiario.fkFamiliar.fkPersona.nombre).concat(' ').concat(vm.solicitudAyuda.fkBeneficiario.fkFamiliar.fkPersona.apellido))">
+								</textbox>
+							</div>
+
+						</div>
+					</div>
+					<div sclass="row">
+						<div class="col s6">
+							<div class="input-field  col s12">
+								<n:label for="beneficiario3"
+									class="active">
+									Ayuda
+								</n:label>
+								<textbox disabled="true"
+									id="beneficiario3"
+									value="@bind(vm.solicitudAyuda.fkAyuda.nombre)">
+								</textbox>
+							</div>
+						</div>
+						<div sclass="col s6"
+							visible="@load(not empty vm.solicitudAyuda.fkAyuda.nombre )">
+							<div class="input-field col s12">
+								<n:label for="beneficiario3"
+									class="active">
+									Descripción de Ayuda:
+								</n:label>
+								<textbox sclass="materialize-textarea"
+									disabled="true" multiline="true"
+									value="@bind(vm.solicitudAyuda.fkAyuda.descripcion)">
+								</textbox>
+							</div>
+						</div>
 					</div>
 
-				</div>
-				
-				<div class="row">
-
-					<div class="input-field col s12">
-						<n:label for="beneficiario_solicitud" class="active">
-						Nombre Beneficiario Solicitud Ayuda:
-					</n:label>
-					
-					<label sclass="subtitulo-evento" value="@bind(vm.selectedObject.fkBeneficiario.fkPersona.nombre.concat(' ').concat(vm.selectedObject.fkBeneficiario.fkPersona.apellido))"> </label>
-					
+					<div class="row">
+						<div class="col s6">
+							<div class="input-field  col s12">
+								<n:label for="titulo" class="active">
+									Titulo de Solicitud
+								</n:label>
+								<textbox id="titulo" type="text"
+									disabled="true" maxlength="100"
+									value="@bind(vm.solicitudAyuda.titulo)">
+								</textbox>
+							</div>
+						</div>
+						<div class="col s6">
+							<div class="input-field  col s12">
+								<n:label for="urgencia"
+									class="active">
+									Urgencia
+								</n:label>
+								<textbox id="urgencia" type="text"
+									disabled="true" maxlength="100"
+									value="@bind(vm.solicitudAyuda.urgenciaEnum)">
+								</textbox>
+							</div>
+						</div>
 					</div>
 
-				</div>
-				
-				
-				<div class="row">
+					<div class="row">
+						<div class="col s6">
+							<div class="input-field col s12">
+								<n:label for="fecha_solicitud"
+									class="active">
+									Fecha de Solicitud
+								</n:label>
 
-					<div class="input-field col s12">
-						<n:label for="beneficiario3_solicitud" class="active">
-						Documento de Identificacion Beneficiario Solicitud Ayuda:
-					</n:label>
-					
-					<label sclass="subtitulo-evento" value="@bind(vm.selectedObject.fkBeneficiario.fkPersona.identificacion)"> </label>
-					
-					
+								<datebox id="fecha_solicitud" cols="20"
+									disabled="true" format="dd/MM/yyyy" readonly="true"
+									value="@bind(vm.solicitudAyuda.fecha)" />
+							</div>
+						</div>
+
 					</div>
-
-				</div>
-				
-				
-				<div class="row">
-
-					<div class="input-field col s12">
-						<n:label for="familiar_solicitud" class="active">
-						Nombre Representante Solicitud Ayuda:
-					</n:label>
-					<label sclass="subtitulo-evento" value="@bind(vm.selectedObject.fkBeneficiario.fkFamiliar.fkPersona.nombre.concat(' ').concat(vm.selectedObject.fkBeneficiario.fkFamiliar.fkPersona.apellido))"> </label>
-					
-					
+					<div sclass="row">
+						<div class="col s12">
+							<div class="input-field  col s12">
+								<n:label for="observacion"
+									class="active">
+									Observación
+								</n:label>
+								<textbox type="text" disabled="true"
+									sclass="materialize-textarea" multiline="true"
+									value="@bind(vm.solicitudAyuda.observacion)">
+								</textbox>
+							</div>
+						</div>
 					</div>
-
 				</div>
-				
-				
-				
 				<div class="row">
 
-					<div class="input-field col s12">
-						<n:label for="familiar3_solicitud" class="active">
-						Documento de Identificacion Representante Solicitud Ayuda:
-					</n:label>
-					<label sclass="subtitulo-evento" value="@bind(vm.selectedObject.fkBeneficiario.fkFamiliar.fkPersona.identificacion)"> </label>
-					
-					
-					</div>
-
-				</div>
-				
-				<div class="row">
-
-					<div class="input-field col s12">
-						<n:label for="ayuda_solicitud" class="active">
-						Ayuda Solicitada:
-					</n:label>
-					<label sclass="subtitulo-evento" value="@bind(vm.selectedObject.fkAyuda.nombre)"> </label>
-					
-					
-					</div>
-
-				</div>
-				
-				<div class="row">
-
-					<div class="input-field col s12">
-						<n:label for="ayuda2_solicitud" class="active">
-						Urgencia Solicitud:
-					</n:label>
-					<label sclass="subtitulo-evento" value="@bind(vm.selectedObject.urgenciaEnum)"> </label>
-					
-					</div>
-
-				</div>
-				
-				<div class="row">
-
-					<div class="input-field col s12">
-						<n:label for="ayuda2_solicitud" class="active">
-						Observacion Solicitud:
-					</n:label>
-					<label sclass="subtitulo-evento" value="@bind(vm.selectedObject.observacion)"> </label>
-					
-					</div>
-
-				</div>
-				
-				
-				
-				<div class="row">
-			<div class="col s12">
-
-				<listbox height="200px"
-					emptyMessage="No hay Recursos Seleccionados."
-					model="@bind(vm.solicitudAyudaRecursos)">
-					<listhead sizable="true">
-						<listheader width="50%" label="Nombre de Recurso" />
-						<listheader width="50%" label="Descripcion de Recurso" />
-						<listheader width="50%" label="Cantidad a Asignar" />
-					</listhead>
-					<template name="model">
-						<listitem>
-							<listcell
-								label="@load(each.fkRecurso.nombre)">
-							</listcell>
-							
-							<listcell
-								label="@load(each.fkRecurso.descripcion)">
-							</listcell>
-							
-							<listcell>
-							<intbox
-									style="background: #f2fca5; height: 1em; border: 1px solid #999999; border-radius: 7px; font-size:1.2em;  text-align: center;"
-									value="@bind(each.cantidad)">
-								</intbox>
-							
-							</listcell>
-							
-
-						
-							
-							
-						</listitem>
-					</template>
-				</listbox>
-			</div>
-		</div>
-				
-				
-				
-				
-				<div class="row">
-
-					<div class="input-field col s12">
-						<n:label for="fecha"
-							class="active">
-							Fecha de Asignación:
+					<div class="input-field col s11">
+						<n:label for="recurso" class="active">
+							Seleccione los Recursos:
 						</n:label>
-						<datebox id="fecha"
-							readonly="true" cols="20" format="dd/MM/yyyy"
-							value="@bind(vm.fechaAsignacion)" />
+
 					</div>
-
+					<div class="input-field col s1"
+						style="font-size: 2em;">
+						<button
+							sclass="teal lighten-1 waves-effect waves-light"
+							onClick="@command('buscarRecurso')" iconSclass="fa fa-search"
+							style="padding: 5px 15px; background-color: #2AA4EF !important">
+						</button>
+					</div>
 				</div>
-				 
-				
-				
+				<div class="row">
+					<div class="col s12">
 
+						<listbox height="200px"
+							emptyMessage="No hay Recursos Seleccionados."
+							model="@bind(vm.solicitudAyudaRecursos)">
+							<listhead sizable="true">
+								<listheader width="15%" label="Nombre" />
+								<listheader width="20%"
+									label="Descripción" />
+								<listheader width="20%"
+									label="Unidad de Medida" />
+								<listheader width="20%"
+									label="Cantidad a Asignar" />
+								<listheader width="25%"
+									label="Fecha de Asignación" />
+							</listhead>
+							<template name="model">
+								<listitem>
+									<listcell
+										label="@load(each.fkRecurso.nombre)">
+									</listcell>
 
-				
+									<listcell
+										label="@load(each.fkRecurso.descripcion)">
+									</listcell>
+									<listcell
+										label="@load(each.fkRecurso.fkUnidadMedida.nombre)">
+									</listcell>
+									<listcell>
+										<doublebox format="0.00"
+											style="background: #f2fca5; height: 1em; border: 1px solid #999999; border-radius: 7px; font-size:1.2em;  text-align: center;"
+											value="@bind(each.cantidad)">
+										</doublebox>
+									</listcell>
+									<listcell>
+										<datebox format="dd/MM/yyyy"
+											value="@bind(each.fechaAsignacionDate)" width="190px">
+										</datebox>
+									</listcell>
+								</listitem>
+							</template>
+						</listbox>
+					</div>
+				</div>
 			</div>
-			
-
 		</div>
 	</div>
 </zk>

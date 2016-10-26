@@ -17,7 +17,7 @@ public class Zki {
 	public static final String DIRECTORIO = "DIRECTORIO/DIRECTORIO_";
 	public static final String TRABAJO_SOCIAL = "TRABAJO_SOCIAL/TRABAJO_SOCIAL_";
 	public static final String EVENTO = "EVENTO/EVENTO_";
-	public static final String ORGANIZACION = "ORGANIZACION/";
+	public static final String ORGANIZACION = "ORGANIZACION/LOGO_";
 	public static final String NOTICIAS = "NOTICIAS/NOTICIAS_";
 	public static final String PERSONAS = "PERSONA/PERSONAS_";
 	public static final String VALORES = "VALORES/VALORES_";

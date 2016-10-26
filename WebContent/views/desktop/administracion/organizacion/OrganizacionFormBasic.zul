@@ -2,6 +2,9 @@
 <?xel-method prefix="m" name="getUrlWeb" class="lights.smile.util.Zki" 
 	signature="java.lang.String getUrlWeb(java.lang.String)" ?>
 <zk xmlns:n="native" xmlns:w="client">
+	<script type="text/javascript"
+		content="zk.googleAPIkey='AIzaSyAh2kLWx3Rtsw1GjYI2pwGNnix4ZwTZTm4'" />
+
 	<div width="80%" class="container ${arg.animation_}"
 		use="karen.core.form.controllers.C_WindowForm"
 		apply="org.zkoss.bind.BindComposer"
@@ -118,6 +121,39 @@
 								</textbox>
 							</div>
 
+							<div class="input-field col s6">
+								<n:label for="twitter" class="active">
+									Twitter
+								</n:label>
+								<textbox id="twitter" type="text"
+									maxlength="200" value="@bind(vm.organizacion.twitter)">
+								</textbox>
+							</div>
+							<div class="input-field col s6">
+								<n:label for="facebook"
+									class="active">
+									Facebook
+								</n:label>
+								<textbox id="facebook" type="text"
+									maxlength="200" value="@bind(vm.organizacion.facebook)">
+								</textbox>
+							</div>
+							<div class="input-field col s6">
+								<n:label for="linked" class="active">
+									Linkedin
+								</n:label>
+								<textbox id="linked" type="text"
+									maxlength="200" value="@bind(vm.organizacion.linkedin)">
+								</textbox>
+							</div>
+							<div class="input-field col s6">
+								<n:label for="fax" class="active">
+									Instagram
+								</n:label>
+								<textbox id="instagram" type="text"
+									maxlength="200" value="@bind(vm.organizacion.instagram)">
+								</textbox>
+							</div>
 						</tabpanel>
 
 						<tabpanel>
@@ -143,22 +179,45 @@
 								</textbox>
 							</div>
 
-							<div class="input-field col s6">
-								<n:label for="latitud" class="active">
-									Latitud
-								</n:label>
-								<textbox id="latitud" type="text"
-									maxlength="100" value="@bind(vm.organizacion.latitud)">
-								</textbox>
-							</div>
-							<div class="input-field col s6">
-								<n:label for="longitud"
-									class="active">
-									Longitud
-								</n:label>
-								<textbox id="longitud" type="text"
-									maxlength="100" value="@bind(vm.organizacion.longitud)">
-								</textbox>
+
+							<div class="col s12">
+
+								<div class="col s8">
+									<gmaps version="3.9" id="gmaps"
+										width="100%" lat="10.0661057" height="400px"
+										showZoomCtrl="true" protocol="http" lng="-69.3144749"
+										showScaleCtrl="true"
+										tooltiptext="Presione la ubicación de su lugar."
+										onMapClick="@command('changeMarker', event = event)">
+
+										<gmarker id="marker"
+											lat="@bind(vm.organizacion.latitud)" open="true"
+											lng="@bind(vm.organizacion.longitud)" draggable="true"
+											droppable="true" content="@bind(vm.organizacion.nombre)" />
+									</gmaps>
+								</div>
+								<div class="col s4">
+									<div class="input-field col s12">
+										<n:label for="latitud"
+											class="active">
+											Latitud
+										</n:label>
+										<doublebox id="latitud"
+											disabled="true" value="@bind(vm.organizacion.latitud)">
+										</doublebox>
+									</div>
+									<div class="input-field col s12">
+										<n:label for="longitud"
+											class="active">
+											Longitud
+										</n:label>
+										<doublebox id="longitud"
+											disabled="true" value="@bind(vm.organizacion.longitud)">
+										</doublebox>
+									</div>
+
+
+								</div>
 							</div>
 						</tabpanel>
 

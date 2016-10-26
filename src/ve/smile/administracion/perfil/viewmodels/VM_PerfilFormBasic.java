@@ -29,6 +29,7 @@ import lights.smile.util.Zki;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
+import org.zkoss.chart.impl.PyramidPlotImpl;
 import org.zkoss.zk.ui.event.UploadEvent;
 
 import ve.smile.consume.services.S;
@@ -373,10 +374,11 @@ public class VM_PerfilFormBasic extends VM_WindowForm implements
 					Alert.showMessage(payloadUsuarioResponse);
 					return true;
 				}
-				Alert.showMessage(payloadUsuarioResponse);
-				DataCenter.reloadCurrentNodoMenu();
-				return true;
+
 			}
+			Alert.showMessage(payloadPersonaResponse);
+			DataCenter.reloadCurrentNodoMenu();
+			return true;
 		}
 		return false;
 	}

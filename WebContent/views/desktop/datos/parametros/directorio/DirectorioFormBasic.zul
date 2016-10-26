@@ -109,13 +109,13 @@
 				</div>
 				<div class="col s4">
 					<div class="input-field col s12">
-						<n:label for="latitud">Latitud</n:label>
+						<n:label for="latitud" class="active">Latitud</n:label>
 						<doublebox id="latitud" disabled="true"
 							value="@bind(vm.directorio.latitud)">
 						</doublebox>
 					</div>
 					<div class="input-field col s12">
-						<n:label for="longitud">Longitud</n:label>
+						<n:label for="longitud" class="active">Longitud</n:label>
 						<doublebox id="longitud" disabled="true"
 							value="@bind(vm.directorio.longitud)">
 						</doublebox>

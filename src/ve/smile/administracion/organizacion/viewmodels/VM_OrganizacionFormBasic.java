@@ -19,7 +19,12 @@ import karen.core.util.validate.UtilValidate;
 import lights.smile.util.UtilMultimedia;
 import lights.smile.util.Zki;
 
+import org.zkoss.bind.annotation.BindingParam;
+import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
+import org.zkoss.bind.annotation.NotifyChange;
+import org.zkoss.gmaps.Gmarker;
+import org.zkoss.gmaps.event.MapMouseEvent;
 import org.zkoss.zk.ui.event.UploadEvent;
 
 import ve.smile.consume.services.S;
@@ -42,6 +47,12 @@ public class VM_OrganizacionFormBasic extends VM_WindowForm implements
 
 	@Init(superclass = true)
 	public void childInit() {
+		if (this.getOrganizacion().getLongitud() == null
+				|| this.getOrganizacion().getLatitud() == null) {
+			this.getOrganizacion().setLatitud(10.066560);
+			this.getOrganizacion().setLongitud(-69.312565);
+		}
+
 		if (this.getOrganizacion() != null
 				&& this.getOrganizacion().getFkMultimedia() != null
 				&& this.getOrganizacion().getFkMultimedia().getIdMultimedia() != null) {
@@ -56,6 +67,19 @@ public class VM_OrganizacionFormBasic extends VM_WindowForm implements
 					.getDescripcion();
 		} else {
 			this.getOrganizacion().setFkMultimedia(new Multimedia());
+		}
+	}
+
+	@SuppressWarnings("deprecation")
+	@Command
+	@NotifyChange({ "organizacion" })
+	public void changeMarker(@BindingParam("event") MapMouseEvent event) {
+		Gmarker gmarker = event.getGmarker();
+		if (gmarker != null) {
+			gmarker.setOpen(true);
+		} else {
+			this.getOrganizacion().setLatitud(event.getLat());
+			this.getOrganizacion().setLongitud(event.getLng());
 		}
 	}
 

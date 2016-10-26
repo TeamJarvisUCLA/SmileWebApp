@@ -1,5 +1,7 @@
 <zk xmlns:n="native" xmlns:w="client">
 
+	<script type="text/javascript"
+		content="zk.googleAPIkey='AIzaSyAh2kLWx3Rtsw1GjYI2pwGNnix4ZwTZTm4'" />
 	<n:link href="assets/css/web/contactanos.css" rel="stylesheet"
 		type="text/css">
 	</n:link>
@@ -13,9 +15,19 @@
 					<template name="children">
 						<div
 							class="org-contenedor-banner org-contenedor-banner-img">
-							<iframe sclass="contact-map"
-								src="@load(each.iframe)">
-							</iframe>
+<!-- 							<iframe sclass="contact-map" -->
+<!-- 								src="@load(each.iframe)"> -->
+<!-- 							</iframe> -->
+<gmaps version="3.9" id="gmaps"
+										width="100%" lat="@bind(each.latitud)" height="400px"
+										showZoomCtrl="true" protocol="http" lng="@bind(each.longitud)"
+										showScaleCtrl="true">
+
+										<gmarker id="marker"
+											lat="@bind(each.latitud)" open="true"
+											lng="@bind(each.longitud)" draggable="true"
+											droppable="true" content="@bind(each.nombre.concat('  ').concat(each.direccion))" />
+									</gmaps>
 						</div>
 					</template>
 				</div>
@@ -150,7 +162,7 @@
 								onClick="@command('incluir')"
 								style="background: #3b85a1 !important; color: #ffffff !important"
 								class="waves-effect waves-light btn" href="">
-								enviar
+								ENVIAR
 							</button>
 						</div>
 					</div>

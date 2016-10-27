@@ -42,7 +42,7 @@
 								<div class="input-field col s12">
 									<label class="center-transform-x"
 										style="    color: #a6a6a6;font-size: 17px;">
-										Imagen del Trabajo Social
+										Logo de la Organización
 									</label>
 									<uploadImageSingle maxsize="9000"
 										size="200" idUpload="1" title="" />

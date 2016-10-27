@@ -26,6 +26,9 @@ public class Zki {
 	public static final String GALERIA = "GALERIA/GALERIA_";
 	public static final String RECONOCIMIENTOS = "RECONOCIMIENTO/RECONOCIMIENTO_";
 
+	public static final String BANNER = "ORGANIZACION/BANNER_";
+	public static final String APK = "ORGANIZACION/APK_";
+
 	public static final String DEFAULT = "default_image.jpg";
 
 	public static String getPath() {

@@ -1,11 +1,10 @@
-package ve.smile.administracion.portalweb.principal.imagenPrincipal;
+package ve.smile.administracion.portalweb.apk_movil.viewmodels;
 
 import karen.core.crux.alert.Alert;
 import karen.core.dialog.generic.controllers.C_WindowDialog;
 import karen.core.dialog.generic.enums.DialogActionEnum;
 import karen.core.dialog.generic.events.DialogCloseEvent;
 import karen.core.dialog.message_box.events.MessageBoxDialogCloseEvent;
-import lights.smile.util.UtilMultimedia;
 import lights.smile.util.Zki;
 
 import org.zkoss.bind.annotation.Init;
@@ -16,7 +15,7 @@ import ve.smile.dto.Multimedia;
 import ve.smile.enums.TipoMultimediaEnum;
 import ve.smile.payload.response.PayloadMultimediaResponse;
 
-public class C_formImagenPrincipal extends C_WindowDialog {
+public class C_apkMovil extends C_WindowDialog {
 	private static final long serialVersionUID = 1L;
 
 	Multimedia multimedia;
@@ -30,38 +29,36 @@ public class C_formImagenPrincipal extends C_WindowDialog {
 	public void onAccept(Event event) {
 		DialogCloseEvent dialogCloseEvent = new DialogCloseEvent(event,
 				DialogActionEnum.ACEPTAR);
-		VM_formImagenPrincipal vmMutimedia = (VM_formImagenPrincipal) vm();
-		
+		VM_formApkMovil vmMutimedia = (VM_formApkMovil) vm();
+
 		Multimedia multimedia = vmMutimedia.getMultimedia();
-		
-		multimedia.setTipoMultimedia(TipoMultimediaEnum.BANNER.ordinal());
-		multimedia.setExtension(UtilMultimedia.stringToExtensionEnum(
-				vmMutimedia.getExtensionImage()).ordinal());
+
+		multimedia.setDescripcion(vmMutimedia.getExtensionImage());
+		multimedia.setTipoMultimedia(TipoMultimediaEnum.APK.ordinal());
+		multimedia.setExtension(0);
 
 		PayloadMultimediaResponse payloadMultimediaResponse = S.MultimediaService
 				.incluir(multimedia);
-		
+
 		multimedia.setIdMultimedia(((Double) payloadMultimediaResponse
 				.getInformacion("id")).intValue());
 
-		
-		Zki.save(Zki.BANNER, multimedia.getIdMultimedia(), vmMutimedia.getExtensionImage(), vmMutimedia.getBytes());
+		Zki.save(Zki.APK, multimedia.getIdMultimedia(),
+				vmMutimedia.getExtensionImage(), vmMutimedia.getBytes());
 
-		multimedia.setUrl(Zki.BANNER
-				+ multimedia.getIdMultimedia() + "."
+		multimedia.setUrl(Zki.APK + multimedia.getIdMultimedia() + "."
 				+ vmMutimedia.getExtensionImage());
-		payloadMultimediaResponse = S.MultimediaService
-				.modificar(multimedia);
-		
+		payloadMultimediaResponse = S.MultimediaService.modificar(multimedia);
+
 		vmMutimedia.limpiar();
-	
+
 		close(dialogCloseEvent);
 
 	}
-	
+
 	public void onClick$btnDelete(Event event) {
-		
-		VM_formImagenPrincipal vmMutimedia = (VM_formImagenPrincipal) vm();
+
+		VM_formApkMovil vmMutimedia = (VM_formApkMovil) vm();
 		this.multimedia = vmMutimedia.getMultimedia();
 		vmMutimedia.limpiar();
 		onCancel(event);

@@ -297,6 +297,9 @@ public class VM_RegistroCierreEventoIndex extends VM_WindowWizard {
 				
 				 EventoPlanificado eventoPlanificado = (EventoPlanificado)selectedObject;
 				 eventoPlanificado.setFechaEjecutada(this.fechaEjecucionInicio.getTime());
+				 eventoPlanificado.setFechaFinEjecucion(this.fechaEjecucionFin.getTime());
+				 eventoPlanificado.setFechaInicioEjecucion(this.fechaEjecucionInicio.getTime());
+				 eventoPlanificado.setEstatusEvento(EstatusEventoPlanificadoEnum.EJECUTADO.ordinal());
 				 eventoPlanificado.setFkMotivo(null);
 				 PayloadEventoPlanificadoResponse eventoPlanificadoResponse =
 				 S.EventoPlanificadoService

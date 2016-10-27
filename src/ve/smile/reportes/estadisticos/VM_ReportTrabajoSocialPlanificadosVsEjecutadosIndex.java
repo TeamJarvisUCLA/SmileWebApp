@@ -141,6 +141,7 @@ public class VM_ReportTrabajoSocialPlanificadosVsEjecutadosIndex extends VM_Wind
 	@Override
 	public String executeFinalizar(Integer currentStep) {
 		if (currentStep == 3) {
+			parametros.clear();
 			restartWizard();
 		}
 

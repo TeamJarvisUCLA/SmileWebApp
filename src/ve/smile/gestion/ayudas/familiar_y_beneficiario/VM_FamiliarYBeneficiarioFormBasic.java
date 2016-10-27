@@ -341,8 +341,8 @@ public class VM_FamiliarYBeneficiarioFormBasic extends VM_WindowForm implements
 						// operacion diferente de 0 modificar, igual a 0 es
 						// registrar
 						if (index != 0) {
-							getBeneficiarios().addAll(
-									getBeneficiariosPorRegistrar());
+							getBeneficiarios().add(
+									windowFormDialogCloseEvent.getEntity());
 							refreshBeneficiarioModificar();
 						} else {
 							refreshBeneficiarioRegistrar();
@@ -771,8 +771,7 @@ public class VM_FamiliarYBeneficiarioFormBasic extends VM_WindowForm implements
 					"dd/MM/yyyy");
 			UtilValidate.validateString(this.getPersona().getDireccion(),
 					"Dirección", 250);
-			UtilValidate.validateNull(bytes,
-					"Imagen");
+			UtilValidate.validateNull(bytes, "Imagen");
 			UtilValidate.validateString(this.getPersona().getTelefono1(),
 					"Teléfono 1", 25);
 

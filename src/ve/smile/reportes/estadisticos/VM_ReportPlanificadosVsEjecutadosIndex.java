@@ -200,7 +200,7 @@ public class VM_ReportPlanificadosVsEjecutadosIndex extends VM_WindowWizard {
 		if (currentStep == 2) {
 			parametros
 					.put("titulo",
-							"Reporte Estadistico de Eventos Planificados Vs Ejecutados");
+							"Reporte Estadistico de Eventos Planificado Vs Ejecutado");
 			String direccion = Reporte.class
 					.getResource("Reporte.jasper")
 					.getPath()

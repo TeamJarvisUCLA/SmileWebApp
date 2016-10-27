@@ -592,7 +592,7 @@ public class VM_ReporteTrabajoSocialIndex extends VM_WindowWizard {
 
 		parametros.put("fechaHasta", fechaHasta);
 
-		parametros.put("titulo", "EVENTOS");
+		parametros.put("titulo", "TRABAJO SOCIAL");
 
 		parametros.put("tStatus", tStatus);
 

@@ -35,17 +35,17 @@
 										sclass="img-responsive">
 									</image>
 				</div>
-				<div sclass="col s12 text-center citas">
-					<div sclass="divTag">
-						<label value="Tag"></label><span sclass="fa fa-circle"></span>
-					</div>
-					<div sclass="divTag">
-						<label value="Tag"></label><span sclass="fa fa-circle"></span>
-					</div>
-					<div sclass="divTag">
-						<label value="Tag"></label><span sclass="fa fa-circle"></span>
-					</div>				
-				</div>
+<!-- 				<div sclass="col s12 text-center citas"> -->
+<!-- 					<div sclass="divTag"> -->
+<!-- 						<label value="Tag"></label><span sclass="fa fa-circle"></span> -->
+<!-- 					</div> -->
+<!-- 					<div sclass="divTag"> -->
+<!-- 						<label value="Tag"></label><span sclass="fa fa-circle"></span> -->
+<!-- 					</div> -->
+<!-- 					<div sclass="divTag"> -->
+<!-- 						<label value="Tag"></label><span sclass="fa fa-circle"></span> -->
+<!-- 					</div>				 -->
+<!-- 				</div> -->
 			</div>
 			<div class="col s8 descripcion">
 				<div class="row">

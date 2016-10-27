@@ -1,4 +1,4 @@
-package ve.smile.administracion.app_movil.viewmodels;
+package ve.smile.administracion.app_movil.usuarios.viewmodels;
 
 import org.zkoss.bind.annotation.Init;
 

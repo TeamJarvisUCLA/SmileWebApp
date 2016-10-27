@@ -1,4 +1,4 @@
-package ve.smile.administracion.app_movil.viewmodels;
+package ve.smile.administracion.app_movil.usuarios.viewmodels;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,7 +38,7 @@ public class VM_UsuariosMovilFormBasic extends VM_WindowForm {
 
 	private List<RolMovilEnum> rolMovilEnums;
 	private RolMovilEnum rolMovilEnum;
-	private Configuracion confPostulacionPadrino;
+	private Configuracion confPostulacionPadrino = new Configuracion();
 
 	@Init(superclass = true)
 	public void childInit() {

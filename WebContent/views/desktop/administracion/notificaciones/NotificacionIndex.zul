@@ -1,0 +1,826 @@
+<?xel-method prefix="m" name="getUrlWeb" class="lights.smile.util.Zki" 
+	signature="java.lang.String getUrlWeb(java.lang.String)" ?>
+<?xel-method prefix="m" name="convertirLongADate" class="lights.smile.util.UtilConverterDataList" 
+	signature="java.lang.String convertirLongADate(java.lang.Long)" ?>
+
+<zk xmlns:n="native" xmlns:w="client">
+
+	<style>
+		.z-listitem:hover>.z-listcell>.z-listcell-content,.z-treerow:hover>.z-treecell>.z-treecell-content,.z-treerow-selected:hover>.z-treecell>.z-treecell-content,.z-listitem.z-listitem-selected:hover>.z-listcell>.z-listcell-content
+		{ background: #F0F2DC !important; color: #8D7A6F !important;
+		max-height: 200px !important; height: 150px !important;
+		overflow: auto; }
+
+
+
+
+
+
+
+
+
+
+
+
+		.z-listitem.z-listitem-selected>.z-listcell>.z-listcell-content,.z-treerow-selected>.z-treecell>.z-treecell-content
+		{ background: #AFA197 !important; color: #ffffff !important;
+		max-height: 200px !important; height: 150px !important;
+		overflow: auto; }
+
+		.z-listcell-content { font-family: "Roboto", sans-serif
+		!important; font-size: 1.1em !important; color: #87796f;
+		text-align: initial; display: -webkit-box; -webkit-line-clamp:
+		1; -webkit-box-orient: vertical; overflow: hidden !important;
+		text-overflow: ellipsis; height: 150px; }
+	</style>
+
+	<div width="100%" class='${arg.animation_}'
+		use="karen.core.simple_list_principal.controllers.C_WindowSimpleListPrincipal"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('ve.smile.administracion.notificaciones.viewmodels.VM_NotificacionIndex')">
+
+		<div class="row">
+			<div class="col s12">
+				<div class="row">
+					<div sclass="col s6">
+						<div class="input-field  col s12">
+							<n:label class="active"
+								for="fk_unidad_medida">
+								Estatus
+							</n:label>
+							<combobox id="Estatus" instant="true"
+								tooltip="Estatus" model="@bind(vm.estatusNotificacionEnums)"
+								onChange="@command('changeFilter')"
+								selectedItem="@bind(vm.estatusNotificacionEnum)">
+								<template name="model">
+									<comboitem
+										label="@load(each.toString())" />
+								</template>
+							</combobox>
+						</div>
+					</div>
+
+					<div sclass="col s6">
+						<div class="input-field  col s12">
+							<n:label class="active" for="Referencia">
+								Tipo
+							</n:label>
+							<combobox id="Referencia" instant="true"
+								tooltip="Referencia"
+								model="@bind(vm.tipoReferenciaNotificacionEnums)"
+								onChange="@command('changeFilter')"
+								selectedItem="@bind(vm.tipoReferenciaNotificacionEnum)">
+								<template name="model">
+									<comboitem
+										label="@load(each.toString())" />
+								</template>
+							</combobox>
+						</div>
+					</div>
+
+				</div>
+				<div class="col s6">
+					<listbox id="listbox" model="@load(vm.objectsList)"
+						selectedItem="@bind(vm.selectedObject)"
+						onSelect="@command('changeNotificacion')"
+						emptyMessage="No hay notificaciones para mostrar">
+
+						<listhead>
+							<listheader width="100%"
+								label="Notificación" />
+						</listhead>
+						<template name="model">
+							<listitem>
+								<listcell>
+
+									<div
+										style="border-bottom: 1px solid #E4E6E9;">
+										<div sclass="menu-pink">
+											<span
+												style="background-color: #f26b7a!important;border-color: #f26b7a;"
+												visible="@bind(each.tipoReferenciaNotificacionEnum eq 'EVENTO')"
+												sclass="btn-noti no-hover  btn-grid fa-circle-o fa">
+											</span>
+											<span
+												style="background-color: #b42233!important;border-color: #b42233;"
+												visible="@bind(each.tipoReferenciaNotificacionEnum eq 'TRABAJO_SOCIAL')"
+												sclass="btn-noti no-hover  btn-grid fa-circle-o fa">
+											</span>
+											<span
+												style="background-color: #8ac7de !important; border-color:#8ac7de;"
+												visible="@bind(each.tipoReferenciaNotificacionEnum eq 'ACTIVIDAD')"
+												sclass="btn-noti no-hover  btn-grid fa-circle-o fa">
+											</span>
+											<span
+												style="background-color: #b385a1 !important; border-color:#b385a1;"
+												visible="@bind(each.tipoReferenciaNotificacionEnum eq 'TAREA')"
+												sclass="btn-noti no-hover  btn-grid fa-circle-o fa">
+											</span>
+											<span
+												style="background-color:  #c2d62d !important; border-color: #c2d62d;"
+												visible="@bind(each.tipoReferenciaNotificacionEnum eq 'DIFUSION')"
+												sclass="btn-noti no-hover  btn-grid fa-circle-o fa">
+											</span>
+											<span
+												style="background-color: #aaaf7c!important; border-color: #aaaf7c;"
+												visible="@bind(each.tipoReferenciaNotificacionEnum eq 'RECONOCIMIENTO')"
+												sclass="btn-noti no-hover  btn-grid fa-circle-o fa">
+											</span>
+											<span
+												style="background-color:  #594e46!important; border-color: #594e46"
+												visible="@bind(each.tipoReferenciaNotificacionEnum eq 'CAPACITACION')"
+												sclass="btn-noti no-hover  btn-grid fa-circle-o fa">
+											</span>
+											<label
+												style="font-weight: 600;"
+												value="@bind(each.tipoReferenciaNotificacionEnum.toString())">
+											</label>
+											<n:br></n:br>
+											<n:br></n:br>
+											<label
+												value="@bind(each.contenido.concat(' '))">
+											</label>
+											<n:br></n:br>
+											<div
+												style="text-align:right">
+												<label
+													style="font-weight: 600; text-align:right"
+													value="${m:convertirLongADate(each.fecha)}">
+												</label>
+											</div>
+										</div>
+									</div>
+								</listcell>
+
+							</listitem>
+						</template>
+						<listfoot>
+							<listfooter id="listFoot" span="3"
+								use="karen.core.listfoot.ListFoot">
+							</listfooter>
+						</listfoot>
+					</listbox>
+				</div>
+
+				<div sclass="col s6"
+					visible="@bind(not empty vm.selectedObject)">
+					<div sclass="row animated fadeIn">
+
+
+						<div sclass="menu-pink">
+							<span
+								style="background-color: #f26b7a!important;border-color: #f26b7a;"
+								visible="@bind(vm.selectedObject.tipoReferenciaNotificacionEnum eq 'EVENTO')"
+								sclass="btn-noti no-hover  btn-grid fa-circle-o fa">
+							</span>
+							<span
+								style="background-color: #b42233!important;border-color: #b42233;"
+								visible="@bind(vm.selectedObject.tipoReferenciaNotificacionEnum eq 'TRABAJO_SOCIAL')"
+								sclass="btn-noti no-hover  btn-grid fa-circle-o fa">
+							</span>
+							<span
+								style="background-color: #8ac7de !important; border-color:#8ac7de;"
+								visible="@bind(vm.selectedObject.tipoReferenciaNotificacionEnum eq 'ACTIVIDAD')"
+								sclass="btn-noti no-hover  btn-grid fa-circle-o fa">
+							</span>
+							<span
+								style="background-color: #b385a1 !important; border-color:#b385a1;"
+								visible="@bind(vm.selectedObject.tipoReferenciaNotificacionEnum eq 'TAREA')"
+								sclass="btn-noti no-hover  btn-grid fa-circle-o fa">
+							</span>
+							<span
+								style="background-color:  #c2d62d !important; border-color: #c2d62d;"
+								visible="@bind(vm.selectedObject.tipoReferenciaNotificacionEnum eq 'DIFUSION')"
+								sclass="btn-noti no-hover  btn-grid fa-circle-o fa">
+							</span>
+							<span
+								style="background-color: #aaaf7c!important; border-color: #aaaf7c;"
+								visible="@bind(vm.selectedObject.tipoReferenciaNotificacionEnum eq 'RECONOCIMIENTO')"
+								sclass="btn-noti no-hover  btn-grid fa-circle-o fa">
+							</span>
+							<span
+								style="background-color:  #594e46!important; border-color: #594e46"
+								visible="@bind(vm.selectedObject.tipoReferenciaNotificacionEnum eq 'CAPACITACION')"
+								sclass="btn-noti no-hover  btn-grid fa-circle-o fa">
+							</span>
+							<label style="font-weight: 600;"
+								value="@bind(vm.selectedObject.tipoReferenciaNotificacionEnum.toString())">
+							</label>
+							<n:br></n:br>
+							<n:br></n:br>
+							<label
+								value="@bind(vm.selectedObject.contenido.concat(' '))">
+							</label>
+							<n:br></n:br>
+							<div style="text-align:right">
+								<label
+									style="font-weight: 600; text-align:right"
+									value="${m:convertirLongADate(vm.selectedObject.fecha)}">
+								</label>
+							</div>
+						</div>
+
+						<div sclass="menu-pink">
+
+							<div sclass="row"
+								visible="@bind(vm.selectedObject.tipoReferenciaNotificacionEnum eq 'EVENTO' and not empty vm.eventoPlanificado)">
+								<div sclass="col s12">
+									<div class=" col s12">
+										<div sclass="row">
+											<div sclass="col s3">
+												<n:br></n:br>
+												<n:br></n:br>
+												<n:br></n:br>
+												<n:br></n:br>
+												<div
+													visible="@bind(not empty vm.eventoPlanificado.fkMultimedia and not empty vm.eventoPlanificado.fkMultimedia.url)">
+													<image
+														class="img-responsive circle center-block"
+														src="${m:getUrlWeb(vm.eventoPlanificado.fkMultimedia.url)}"
+														width="128px" height="128px">
+													</image>
+												</div>
+												<n:br></n:br>
+											</div>
+											<div sclass="col s9">
+												<div sclass="col s12">
+													<label
+														sclass="titulo-evento"
+														value="@bind(vm.eventoPlanificado.fkEvento.nombre)">
+													</label>
+
+													<label
+														sclass="subtitulo-evento"
+														value="@bind(vm.eventoPlanificado.fkEvento.fkClasificadorEvento.nombre)">
+													</label>
+
+													<div sclass="row">
+														<label
+															sclass="descripcion-evento"
+															value="@bind(vm.eventoPlanificado.fkEvento.descripcion)">
+
+														</label>
+													</div>
+													<div sclass="row">
+														<div
+															sclass="col s8" align="left" style="padding:0px">
+
+															<label
+																sclass="info-titulo-evento">
+																Fecha
+																Inicio:
+															</label>
+															<label
+																sclass="info-descripcion-evento"
+																value="${m:convertirLongADate(vm.eventoPlanificado.fechaInicio)}">
+
+															</label>
+															<label
+																sclass="info-descripcion-evento" value="        ">
+															</label>
+															<label
+																sclass="info-titulo-evento">
+																Fecha
+																Fin:
+															</label>
+															<label
+																sclass="info-descripcion-evento"
+																value="${m:convertirLongADate(vm.eventoPlanificado.fechaFin)}">
+
+															</label>
+															<n:br></n:br>
+															<label
+																sclass="info-titulo-evento">
+																Lugar:
+															</label>
+															<label
+																sclass="info-descripcion-evento"
+																value="@bind(vm.eventoPlanificado.fkDirectorio.nombre)">
+															</label>
+															<n:br></n:br>
+															<label
+																sclass="info-titulo-evento">
+																Dirección:
+															</label>
+															<label
+																sclass="info-descripcion-evento"
+																value="@bind(vm.eventoPlanificado.fkDirectorio.direccion)">
+
+															</label>
+															<n:br></n:br>
+
+														</div>
+														<div
+															sclass="col s4">
+															<image
+																class="img-responsive center-block"
+																src="/imagenes/portal/icon/mapa.png"
+																style="width: auto;padding: 0px;margin: 0px;display: inline-block;">
+															</image>
+
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+
+							<div class=" col s12"
+								visible="@bind(vm.selectedObject.tipoReferenciaNotificacionEnum eq 'TRABAJO_SOCIAL')">
+								<div sclass="row" style="margin:0px;">
+
+									<div sclass="col s3">
+										<n:br></n:br>
+										<n:br></n:br>
+										<n:br></n:br>
+										<n:br></n:br>
+										<div align="center">
+											<image
+												class="img-responsive circle center-block"
+												src="${m:getUrlWeb(vm.tsPlan.fkMultimedia.url)}"
+												width="128px" height="128px">
+											</image>
+										</div>
+										<n:br></n:br>
+									</div>
+									<div sclass="col s9"
+										align="center">
+										<div sclass="col s12"
+											align="center">
+											<label
+												sclass="titulo-evento"
+												value="@bind(vm.tsPlan.fkTrabajoSocial.nombre)">
+											</label>
+
+											<label
+												sclass="subtitulo-evento"
+												value="@bind(vm.tsPlan.fkTrabajoSocial.fkClasificadorTrabajoSocial.nombre)">
+											</label>
+
+											<div sclass="row">
+												<label
+													sclass="descripcion-evento"
+													value="@bind(vm.tsPlan.fkTrabajoSocial.descripcion)">
+
+												</label>
+											</div>
+											<div sclass="row">
+												<div sclass="col s8"
+													align="left" style="padding:0px">
+
+													<label
+														sclass="info-titulo-evento">
+														Fecha Inicio:
+													</label>
+													<label
+														sclass="info-descripcion-evento"
+														value="${m:convertirLongADate(vm.tsPlan.fechaInicio)}">
+
+													</label>
+													<label
+														sclass="info-descripcion-evento" value="        ">
+													</label>
+													<label
+														sclass="info-titulo-evento">
+														Fecha Fin:
+													</label>
+													<label
+														sclass="info-descripcion-evento"
+														value="${m:convertirLongADate(vm.tsPlan.fechaFin)}">
+
+													</label>
+													<n:br></n:br>
+													<label
+														sclass="info-titulo-evento">
+														Lugar:
+													</label>
+													<label
+														sclass="info-descripcion-evento"
+														value="@bind(vm.tsPlan.fkDirectorio.nombre)">
+													</label>
+													<n:br></n:br>
+													<label
+														sclass="info-titulo-evento">
+														Dirección:
+													</label>
+													<label
+														sclass="info-descripcion-evento"
+														value="@bind(vm.tsPlan.fkDirectorio.direccion)">
+
+													</label>
+													<n:br></n:br>
+
+												</div>
+												<div sclass="col s4">
+													<image
+														class="img-responsive center-block"
+														src="/imagenes/portal/icon/mapa.png"
+														style="width: auto;padding: 0px;margin: 0px;display: inline-block;">
+													</image>
+													<span
+														class="fa fa-search center-block"
+														style=" width: auto; margin: 0px; display: inline-block;vertical-align: bottom;color:#3b85a1">
+													</span>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class=" col s12"
+								visible="@bind(vm.selectedObject.tipoReferenciaNotificacionEnum eq 'CAPACITACION')">
+								<div sclass="row" style="margin:0px;">
+
+
+									<div sclass="col s12"
+										align="center">
+										<div sclass="col s12"
+											align="center">
+											<label
+												sclass="titulo-evento"
+												value="@bind(vm.capacitacionPlanificada.fkCapacitacion.nombre)">
+											</label>
+
+											<label
+												sclass="subtitulo-evento"
+												value="@bind(vm.capacitacionPlanificada.fkCapacitacion.fkClasificadorCapacitacion.nombre)">
+											</label>
+
+											<div sclass="row">
+												<label
+													sclass="descripcion-evento"
+													value="@bind(vm.capacitacionPlanificada.fkCapacitacion.descripcion)">
+
+												</label>
+											</div>
+											<div sclass="row">
+												<div sclass="col s12"
+													align="left" style="padding:0px">
+
+													<label
+														sclass="info-titulo-evento">
+														Fecha
+														Planificada:
+													</label>
+													<label
+														sclass="info-descripcion-evento"
+														value="${m:convertirLongADate(vm.capacitacionPlanificada.fechaPlanificada)}">
+
+													</label>
+
+													<n:br></n:br>
+													<label
+														sclass="info-titulo-evento">
+														Lugar:
+													</label>
+													<label
+														sclass="info-descripcion-evento"
+														value="@bind(vm.capacitacionPlanificada.fkDirectorio.nombre)">
+													</label>
+													<n:br></n:br>
+													<label
+														sclass="info-titulo-evento">
+														Dirección:
+													</label>
+													<label
+														sclass="info-descripcion-evento"
+														value="@bind(vm.capacitacionPlanificada.fkDirectorio.direccion)">
+
+													</label>
+													<n:br></n:br>
+
+												</div>
+												<div sclass="col s4">
+													<image
+														class="img-responsive center-block"
+														src="/imagenes/portal/icon/mapa.png"
+														style="width: auto;padding: 0px;margin: 0px;display: inline-block;">
+													</image>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class=" col s12"
+								visible="@bind(vm.selectedObject.tipoReferenciaNotificacionEnum eq 'ACTIVIDAD')">
+
+								<div sclass="row" style="margin:0px;"
+									visible="@bind(not empty vm.tsPlanActividadTrabajador and not empty vm.tsPlanActividadTrabajador.idTsPlanActividadTrabajador)">
+
+
+									<div sclass="col s12"
+										align="center">
+										<div sclass="col s12"
+											align="center">
+											<label
+												sclass="titulo-evento"
+												value="@bind(vm.tsPlanActividadTrabajador.fkTsPlanActividad.fkActividad.nombre)">
+											</label>
+
+											<label
+												sclass="subtitulo-evento"
+												value="@bind(vm.tsPlanActividadTrabajador.fkTsPlanActividad.fkActividad.fkClasificadorActividad.nombre)">
+											</label>
+
+											<div sclass="row">
+												<label
+													sclass="descripcion-evento"
+													value="@bind(vm.tsPlanActividadTrabajador.fkTsPlanActividad.fkActividad.descripcion)">
+
+												</label>
+											</div>
+											<div sclass="row">
+												<div sclass="col s12"
+													align="left" style="padding:0px">
+
+													<label
+														sclass="info-titulo-evento">
+														Fecha
+														Planificada:
+													</label>
+													<label
+														sclass="info-descripcion-evento"
+														value="${m:convertirLongADate(vm.tsPlanActividadTrabajador.fkTsPlanActividad.fechaPlanificada)}">
+
+													</label>
+
+													<n:br></n:br>
+													<label
+														sclass="info-titulo-evento">
+														Lugar:
+													</label>
+													<label
+														sclass="info-descripcion-evento"
+														value="@bind(vm.tsPlanActividadTrabajador.fkTsPlanActividad.fkDirectorio.nombre)">
+													</label>
+													<n:br></n:br>
+													<label
+														sclass="info-titulo-evento">
+														Dirección:
+													</label>
+													<label
+														sclass="info-descripcion-evento"
+														value="@bind(vm.tsPlanActividadTrabajador.fkTsPlanActividad.fkDirectorio.direccion)">
+
+													</label>
+													<n:br></n:br>
+
+												</div>
+												<div sclass="col s4">
+													<image
+														class="img-responsive center-block"
+														src="/imagenes/portal/icon/mapa.png"
+														style="width: auto;padding: 0px;margin: 0px;display: inline-block;">
+													</image>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div sclass="row" style="margin:0px;"
+									visible="@bind(not empty vm.tsplanActividadVoluntario and not empty vm.tsplanActividadVoluntario.idTsPlanActividadVoluntario)">
+
+
+									<div sclass="col s12"
+										align="center">
+										<div sclass="col s12"
+											align="center">
+											<label
+												sclass="titulo-evento"
+												value="@bind(vm.tsplanActividadVoluntario.fkTsPlanActividad.fkActividad.nombre)">
+											</label>
+
+											<label
+												sclass="subtitulo-evento"
+												value="@bind(vm.tsplanActividadVoluntario.fkTsPlanActividad.fkActividad.fkClasificadorActividad.nombre)">
+											</label>
+
+											<div sclass="row">
+												<label
+													sclass="descripcion-evento"
+													value="@bind(vm.tsplanActividadVoluntario.fkTsPlanActividad.fkActividad.descripcion)">
+
+												</label>
+											</div>
+											<div sclass="row">
+												<div sclass="col s12"
+													align="left" style="padding:0px">
+
+													<label
+														sclass="info-titulo-evento">
+														Fecha
+														Planificada:
+													</label>
+													<label
+														sclass="info-descripcion-evento"
+														value="${m:convertirLongADate(vm.tsplanActividadVoluntario.fkTsPlanActividad.fechaPlanificada)}">
+
+													</label>
+
+													<n:br></n:br>
+													<label
+														sclass="info-titulo-evento">
+														Lugar:
+													</label>
+													<label
+														sclass="info-descripcion-evento"
+														value="@bind(vm.tsplanActividadVoluntario.fkTsPlanActividad.fkDirectorio.nombre)">
+													</label>
+													<n:br></n:br>
+													<label
+														sclass="info-titulo-evento">
+														Dirección:
+													</label>
+													<label
+														sclass="info-descripcion-evento"
+														value="@bind(vm.tsplanActividadVoluntario.fkTsPlanActividad.fkDirectorio.direccion)">
+
+													</label>
+													<n:br></n:br>
+
+												</div>
+												<div sclass="col s4">
+													<image
+														class="img-responsive center-block"
+														src="/imagenes/portal/icon/mapa.png"
+														style="width: auto;padding: 0px;margin: 0px;display: inline-block;">
+													</image>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+
+
+							</div>
+
+							<div class=" col s12"
+								visible="@bind(vm.selectedObject.tipoReferenciaNotificacionEnum eq 'TAREA')">
+
+
+								<div sclass="row" style="margin:0px;"
+									visible="@bind(not empty vm.eventPlanTareaTrabajador and not empty vm.eventPlanTareaTrabajador.idEventPlanTareaTrabajador)">
+
+
+									<div sclass="col s12"
+										align="center">
+										<div sclass="col s12"
+											align="center">
+											<label
+												sclass="titulo-evento"
+												value="@bind(vm.eventPlanTareaTrabajador.fkEventPlanTarea.fkTarea.nombre)">
+											</label>
+
+											<label
+												sclass="subtitulo-evento"
+												value="@bind(vm.eventPlanTareaTrabajador.fkEventPlanTarea.fkTarea.fkClasificadorTarea.nombre)">
+											</label>
+
+											<div sclass="row">
+												<label
+													sclass="descripcion-evento"
+													value="@bind(vm.eventPlanTareaTrabajador.fkEventPlanTarea.fkTarea.descripcion)">
+
+												</label>
+											</div>
+											<div sclass="row">
+												<div sclass="col s12"
+													align="left" style="padding:0px">
+
+													<label
+														sclass="info-titulo-evento">
+														Fecha
+														Planificada:
+													</label>
+													<label
+														sclass="info-descripcion-evento"
+														value="${m:convertirLongADate(vm.eventPlanTareaTrabajador.fkEventPlanTarea.fechaPlanificada)}">
+
+													</label>
+
+													<n:br></n:br>
+													<label
+														sclass="info-titulo-evento">
+														Lugar:
+													</label>
+													<label
+														sclass="info-descripcion-evento"
+														value="@bind(vm.eventPlanTareaTrabajador.fkEventPlanTarea.fkDirectorio.nombre)">
+													</label>
+													<n:br></n:br>
+													<label
+														sclass="info-titulo-evento">
+														Dirección:
+													</label>
+													<label
+														sclass="info-descripcion-evento"
+														value="@bind(vm.eventPlanTareaTrabajador.fkEventPlanTarea.fkDirectorio.direccion)">
+
+													</label>
+													<n:br></n:br>
+
+												</div>
+												<div sclass="col s4">
+													<image
+														class="img-responsive center-block"
+														src="/imagenes/portal/icon/mapa.png"
+														style="width: auto;padding: 0px;margin: 0px;display: inline-block;">
+													</image>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div sclass="row" style="margin:0px;"
+									visible="@bind(not empty vm.eventPlanTareaVoluntario)">
+
+
+									<div sclass="col s12"
+										align="center">
+										<div sclass="col s12"
+											align="center">
+											<label
+												sclass="titulo-evento"
+												value="@bind(vm.eventPlanTareaVoluntario.fkEventPlanTarea.fkTarea.nombre)">
+											</label>
+
+											<label
+												sclass="subtitulo-evento"
+												value="@bind(vm.eventPlanTareaVoluntario.fkEventPlanTarea.fkTarea.fkClasificadorTarea.nombre)">
+											</label>
+
+											<div sclass="row">
+												<label
+													sclass="descripcion-evento"
+													value="@bind(vm.eventPlanTareaVoluntario.fkEventPlanTarea.fkTarea.descripcion)">
+
+												</label>
+											</div>
+											<div sclass="row">
+												<div sclass="col s12"
+													align="left" style="padding:0px">
+
+													<label
+														sclass="info-titulo-evento">
+														Fecha
+														Planificada:
+													</label>
+													<label
+														sclass="info-descripcion-evento"
+														value="${m:convertirLongADate(vm.eventPlanTareaVoluntario.fkEventPlanTarea.fechaPlanificada)}">
+
+													</label>
+
+													<n:br></n:br>
+													<label
+														sclass="info-titulo-evento">
+														Lugar:
+													</label>
+													<label
+														sclass="info-descripcion-evento"
+														value="@bind(vm.eventPlanTareaVoluntario.fkEventPlanTarea.fkDirectorio.nombre)">
+													</label>
+													<n:br></n:br>
+													<label
+														sclass="info-titulo-evento">
+														Dirección:
+													</label>
+													<label
+														sclass="info-descripcion-evento"
+														value="@bind(vm.eventPlanTareaVoluntario.fkEventPlanTarea.fkDirectorio.direccion)">
+
+													</label>
+													<n:br></n:br>
+
+												</div>
+												<div sclass="col s4">
+													<image
+														class="img-responsive center-block"
+														src="/imagenes/portal/icon/mapa.png"
+														style="width: auto;padding: 0px;margin: 0px;display: inline-block;">
+													</image>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<toolbar id="toolbar" align="center"
+			use="karen.core.toolbar.Toolbar">
+		</toolbar>
+	</div>
+</zk>

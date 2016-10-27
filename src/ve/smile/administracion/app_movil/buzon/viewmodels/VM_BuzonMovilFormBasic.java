@@ -1,4 +1,4 @@
-package ve.smile.administracion.portalweb.comentarios.album.viewmodels;
+package ve.smile.administracion.app_movil.buzon.viewmodels;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,9 +6,9 @@ import java.util.List;
 import org.zkoss.bind.annotation.Init;
 
 import ve.smile.consume.services.S;
-import ve.smile.dto.ComentarioAlbum;
-import ve.smile.enums.EstatusComentarioAlbumEnum;
-import ve.smile.payload.response.PayloadComentarioAlbumResponse;
+import ve.smile.dto.ContactoPortal;
+import ve.smile.enums.EstatusContactoEnum;
+import ve.smile.payload.response.PayloadContactoPortalResponse;
 import ve.smile.seguridad.enums.OperacionEnum;
 import karen.core.crux.alert.Alert;
 import karen.core.crux.session.DataCenter;
@@ -19,12 +19,12 @@ import karen.core.form.viewmodels.VM_WindowForm;
 import karen.core.util.payload.UtilPayload;
 import karen.core.util.validate.UtilValidate;
 
-public class VM_ComentariosAlbumFormBasic extends VM_WindowForm{
-	public boolean publicar;
-	
+public class VM_BuzonMovilFormBasic extends VM_WindowForm {
+
+	private  String respuesta;
 	@Init(superclass = true)
 	public void childInit() {
-				
+		
 	}
 
 	@Override
@@ -39,34 +39,34 @@ public class VM_ComentariosAlbumFormBasic extends VM_WindowForm{
 		return operacionesForm;
 	}
 
+	
+
 	@Override
 	public boolean actionCustom1(OperacionEnum operacionEnum) {
-		if (publicar==true){
-			getComentarioAlbum().setEstatusComentario(EstatusComentarioAlbumEnum.PUBLICADO.ordinal());
-		}else {
-			getComentarioAlbum().setEstatusComentario(EstatusComentarioAlbumEnum.OCULTO.ordinal());
-		}
-		PayloadComentarioAlbumResponse payloadComentarioAlbumResponse =S.ComentarioAlbumService.modificar(getComentarioAlbum());
-		if (!UtilPayload.isOK(payloadComentarioAlbumResponse)) {
-			Alert.showMessage(payloadComentarioAlbumResponse);
+		getContactoPortal().setEstatusContacto(EstatusContactoEnum.PROCESADA.ordinal());
+		getContactoPortal().setRespuesta(respuesta);
+		PayloadContactoPortalResponse payloadContactoPortalResponse =S.ContactoPortalService.modificar(getContactoPortal());
+		if (!UtilPayload.isOK(payloadContactoPortalResponse)) {
+			Alert.showMessage(payloadContactoPortalResponse);
 			return true;
 		}
 		DataCenter.reloadCurrentNodoMenu();
 		return true;
 	}
 
-	public ComentarioAlbum getComentarioAlbum() {
-		return (ComentarioAlbum) DataCenter.getEntity();
+
+	public ContactoPortal getContactoPortal() {
+		return (ContactoPortal) DataCenter.getEntity();
 	}
 
 	public boolean isFormValidated() {
 		try {
-			UtilValidate.validateString(getComentarioAlbum().getFkComunidad().getNombre(), "Nombre", 200);
-			UtilValidate.validateString(getComentarioAlbum().getFkComunidad().getCorreo(), "Correo", 200);
-			UtilValidate.validateString(getComentarioAlbum().getComentario(), "Comentario", 300);
-			//UtilValidate.validateDate(getComentarioAlbum().getFecha(), "Fecha", validateOperator, date_8601, formatToShow);
-			//UtilValidate.validateInteger(getComentarioAlbum().getTipoContactoPortal(), "Tipo Contacto", validateOperator, valueToCompare);
-			UtilValidate.validateNull(getComentarioAlbum().getPuntuacion(), "Puntuacion");
+			UtilValidate.validateString(getContactoPortal().getFkComunidad().getNombre(), "Nombre", 200);
+			UtilValidate.validateString(getContactoPortal().getFkClasificadorSugerencia().getNombre(), "Nombre", 200);
+			UtilValidate.validateString(getContactoPortal().getContenido(), "Contenido", 300);
+			//UtilValidate.validateDate(getContactoPortal().getFecha(), "Fecha", validateOperator, date_8601, formatToShow);
+			//UtilValidate.validateInteger(getContactoPortal().getTipoContactoPortal(), "Tipo Contacto", validateOperator, valueToCompare);
+			UtilValidate.validateNull(getContactoPortal().getEstatusContactoEnum(), "Estatus");
 			
 			return true;
 		} catch (Exception e) {
@@ -86,11 +86,11 @@ public class VM_ComentariosAlbumFormBasic extends VM_WindowForm{
 		return true;
 	}
 
-	public boolean isPublicar() {
-		return publicar;
+	public String getRespuesta() {
+		return respuesta;
 	}
 
-	public void setPublicar(boolean publicar) {
-		this.publicar = publicar;
-	}	
+	public void setRespuesta(String respuesta) {
+		this.respuesta = respuesta;
+	}
 }

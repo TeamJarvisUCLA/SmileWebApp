@@ -1,7 +1,9 @@
-package ve.smile.administracion.portalweb.comentarios.album.viewmodels;
+package ve.smile.administracion.app_movil.buzon.viewmodels;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import org.zkoss.bind.annotation.Init;
 
 import karen.core.crux.alert.Alert;
 import karen.core.crux.session.DataCenter;
@@ -9,18 +11,18 @@ import karen.core.simple_list_principal.viewmodels.VM_WindowSimpleListPrincipal;
 import karen.core.util.payload.UtilPayload;
 import lights.core.enums.TypeQuery;
 import lights.core.payload.response.IPayloadResponse;
-
-import org.zkoss.bind.annotation.Init;
-
 import ve.smile.consume.services.S;
-import ve.smile.dto.ComentarioAlbum;
-import ve.smile.payload.response.PayloadComentarioAlbumResponse;
+import ve.smile.dto.ContactoPortal;
+import ve.smile.enums.EstatusContactoEnum;
+import ve.smile.enums.ProcedenciaMensajeEnum;
+import ve.smile.enums.TipoContactoPortalEnum;
+import ve.smile.payload.response.PayloadContactoPortalResponse;
 import ve.smile.seguridad.dto.Operacion;
 import ve.smile.seguridad.enums.OperacionEnum;
 import ve.smile.seguridad.enums.helper.OperacionHelper;
 
-public class VM_ComentariosAlbumIndex extends
-		VM_WindowSimpleListPrincipal<ComentarioAlbum> {
+public class VM_BuzonMovilIndex extends
+		VM_WindowSimpleListPrincipal<ContactoPortal> {
 
 	@Init(superclass = true)
 	public void childInit() {
@@ -30,19 +32,25 @@ public class VM_ComentariosAlbumIndex extends
 	@Override
 	public String getSrcFileZulForm(OperacionEnum operacionEnum) {
 		if (operacionEnum.equals(OperacionEnum.CUSTOM1)) {
-			return "views/desktop/administracion/portalweb/comentarios/album/ComentariosAlbumFormBasic.zul";
+			return "views/desktop/administracion/appMovil/buzon/BuzonMovilFormBasic.zul";
 		}
 		return "";
 	}
 
 	@Override
-	public IPayloadResponse<ComentarioAlbum> getDataToTable(
+	public IPayloadResponse<ContactoPortal> getDataToTable(
 			Integer cantidadRegistrosPagina, Integer pagina) {
 		Map<String, String> criterios = new HashMap<String, String>();
-		PayloadComentarioAlbumResponse payloadComentarioAlbumResponse = S.ComentarioAlbumService
+		// criterios.put("tipoContactoPortal",
+		// String.valueOf(TipoContactoPortalEnum.SUGERENCIA.ordinal()));
+		criterios.put("estatusContacto",
+				String.valueOf(EstatusContactoEnum.PENDIENTE.ordinal()));
+		criterios.put("procedencia",
+				String.valueOf(ProcedenciaMensajeEnum.MOVIL.ordinal()));
+		PayloadContactoPortalResponse payloadContactoPortalResponse = S.ContactoPortalService
 				.consultarPaginacionCriterios(cantidadRegistrosPagina, pagina,
 						TypeQuery.EQUAL, criterios);
-		return payloadComentarioAlbumResponse;
+		return payloadContactoPortalResponse;
 	}
 
 	@Override
@@ -62,12 +70,11 @@ public class VM_ComentariosAlbumIndex extends
 
 	@Override
 	public void doDelete() {
-		PayloadComentarioAlbumResponse payloadComentarioAlbumResponse = S.ComentarioAlbumService
-				.eliminar(getSelectedObject().getIdComentarioAlbum());
-		Alert.showMessage(payloadComentarioAlbumResponse);
-		if (UtilPayload.isOK(payloadComentarioAlbumResponse)) {
+		PayloadContactoPortalResponse payloadContactoPortalResponse = S.ContactoPortalService
+				.eliminar(getSelectedObject().getIdContactoPortal());
+		Alert.showMessage(payloadContactoPortalResponse);
+		if (UtilPayload.isOK(payloadContactoPortalResponse)) {
 			getControllerWindowSimpleListPrincipal().updateListBoxAndFooter();
 		}
 	}
-
 }

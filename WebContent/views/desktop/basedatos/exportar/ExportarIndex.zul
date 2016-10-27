@@ -90,13 +90,13 @@
 							class="indigo waves-effect waves-light btn"
 							onClick="@command('respaldarTablas')" label="Respaldar">
 						</button>
-						<button iconSclass="fa fa-download"
-							class="indigo waves-effect waves-light btn"
-							onClick="@command('respaldarTablas')" label="Importar">
-						</button>
+<!-- 						<button iconSclass="fa fa-download" -->
+<!-- 							class="indigo waves-effect waves-light btn" -->
+<!-- 							onClick="@command('respaldarTablas')" label="Importar"> -->
+<!-- 						</button> -->
 
-						<button label="Load Excel to listview"
-							upload="true,maxsize=300">
+<!-- 						<button label="Load Excel to listview" -->
+<!-- 							upload="true,maxsize=300"> -->
 							<!--         <attribute name="onUpload"><![CDATA[ -->
 
 							<!--             import java.io.File; -->
@@ -114,10 +114,10 @@
 
 
 							<!--         ]]></attribute> -->
-						</button>
-						<button label="Upload" upload="true"
-							onUpload="@command('onUploadFile',upEvent=event)">
-						</button>
+<!-- 						</button> -->
+<!-- 						<button label="Upload" upload="true" -->
+<!-- 							onUpload="@command('onUploadFile',upEvent=event)"> -->
+<!-- 						</button> -->
 					</div>
 				</div>
 			</div>

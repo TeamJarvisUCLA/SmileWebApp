@@ -1,4 +1,4 @@
-package ve.smile.administracion.app_movil.viewmodels;
+package ve.smile.administracion.app_movil.usuarios.viewmodels;
 
 import karen.core.simple_list_principal.viewmodels.VM_WindowSimpleListPrincipal;
 import lights.core.payload.response.IPayloadResponse;

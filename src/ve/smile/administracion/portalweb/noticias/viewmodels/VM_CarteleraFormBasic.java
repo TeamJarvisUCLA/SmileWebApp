@@ -9,9 +9,6 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 
-import org.zkoss.bind.annotation.Init;
-import org.zkoss.zk.ui.event.UploadEvent;
-
 import karen.core.crux.alert.Alert;
 import karen.core.crux.session.DataCenter;
 import karen.core.form.buttons.data.OperacionForm;
@@ -22,23 +19,25 @@ import karen.core.util.payload.UtilPayload;
 import karen.core.util.validate.UtilValidate;
 import lights.smile.util.UtilMultimedia;
 import lights.smile.util.Zki;
+
+import org.zkoss.bind.annotation.Init;
+import org.zkoss.zk.ui.event.UploadEvent;
+
 import ve.smile.consume.services.S;
-import ve.smile.seguridad.enums.OperacionEnum;
-import ve.smile.payload.response.PayloadCarteleraResponse;
-import ve.smile.payload.response.PayloadMultimediaResponse;
 import ve.smile.dto.Cartelera;
 import ve.smile.dto.Multimedia;
 import ve.smile.enums.EstatusCarteleraEnum;
 import ve.smile.enums.TipoCarteleraEnum;
 import ve.smile.enums.TipoMultimediaEnum;
+import ve.smile.payload.response.PayloadCarteleraResponse;
+import ve.smile.payload.response.PayloadMultimediaResponse;
+import ve.smile.seguridad.enums.OperacionEnum;
 
 public class VM_CarteleraFormBasic extends VM_WindowForm {
-	
-	
 
 	private List<TipoCarteleraEnum> TipoEnums;
 	private TipoCarteleraEnum tipoEnum;
-	
+
 	private byte[] bytes = null;
 	private String nameImage;
 	private String extensionImage;
@@ -47,23 +46,21 @@ public class VM_CarteleraFormBasic extends VM_WindowForm {
 	private String typeMedia;
 
 	private Date fechaFinalizacion = new Date();
-	private Date fechaInicio=new Date();
-	Cartelera cartelera= new Cartelera();
-	
-	
+	private Date fechaInicio = new Date();
+
 	@Init(superclass = true)
-	public void childInit_VM_CarteleraFormBasic() {		
-		//NOTHING OK!
+	public void childInit_VM_CarteleraFormBasic() {
+		// NOTHING OK!
 
 		if (this.getCartelera().getFechaInicio() != null) {
 			this.setFechaInicio(new Date(this.getCartelera().getFechaInicio()));
 		} else {
 			this.setFechaInicio(new Date());
 		}
-		
+
 		if (this.getCartelera() != null
 				&& this.getCartelera().getFkMultimedia() != null) {
-
+			System.out.println(this.getCartelera().getFkMultimedia().getUrl());
 			this.setUrlImage(this.getCartelera().getFkMultimedia().getUrl());
 
 			this.nameImage = this.getCartelera().getFkMultimedia().getNombre();
@@ -74,32 +71,34 @@ public class VM_CarteleraFormBasic extends VM_WindowForm {
 		} else {
 			this.getCartelera().setFkMultimedia(new Multimedia());
 		}
-		
+
 		if (this.getCartelera().getFechaFinalizacion() != null) {
-			this.setFechaFinalizacion(new Date(this.getCartelera().getFechaFinalizacion()));
+			this.setFechaFinalizacion(new Date(this.getCartelera()
+					.getFechaFinalizacion()));
 		} else {
 			this.setFechaFinalizacion(new Date());
 		}
-		
-		
-	
+
 	}
 
 	@Override
 	public List<OperacionForm> getOperationsForm(OperacionEnum operacionEnum) {
 		List<OperacionForm> operacionesForm = new ArrayList<OperacionForm>();
 
-		if (operacionEnum.equals(OperacionEnum.INCLUIR) ||
-				operacionEnum.equals(OperacionEnum.MODIFICAR)) {
+		if (operacionEnum.equals(OperacionEnum.INCLUIR)
+				|| operacionEnum.equals(OperacionEnum.MODIFICAR)) {
 
-			operacionesForm.add(OperacionFormHelper.getPorType(OperacionFormEnum.GUARDAR));
-			operacionesForm.add(OperacionFormHelper.getPorType(OperacionFormEnum.CANCELAR));
+			operacionesForm.add(OperacionFormHelper
+					.getPorType(OperacionFormEnum.GUARDAR));
+			operacionesForm.add(OperacionFormHelper
+					.getPorType(OperacionFormEnum.CANCELAR));
 
 			return operacionesForm;
 		}
 
 		if (operacionEnum.equals(OperacionEnum.CONSULTAR)) {
-			operacionesForm.add(OperacionFormHelper.getPorType(OperacionFormEnum.SALIR));
+			operacionesForm.add(OperacionFormHelper
+					.getPorType(OperacionFormEnum.SALIR));
 
 			return operacionesForm;
 		}
@@ -110,21 +109,22 @@ public class VM_CarteleraFormBasic extends VM_WindowForm {
 
 	@Override
 	public boolean actionGuardar(OperacionEnum operacionEnum) {
-		if(!isFormValidated()) {
+		if (!isFormValidated()) {
 			return true;
 		}
-		
+
 		if (operacionEnum.equals(OperacionEnum.INCLUIR)) {
-			
-			this.getCartelera().setTipoCartelera(TipoCarteleraEnum.NOTICIAS.ordinal());
-			this.getCartelera().setEstatusCartelera(EstatusCarteleraEnum.PUBLICADO.ordinal());
-			
+
+			this.getCartelera().setTipoCartelera(
+					TipoCarteleraEnum.NOTICIAS.ordinal());
+			this.getCartelera().setEstatusCartelera(
+					EstatusCarteleraEnum.PUBLICADO.ordinal());
+
 			this.getCartelera().setFechaFinalizacion(
 					this.getFechaFinalizacion().getTime());
-			
-			this.getCartelera().setFechaInicio(
-					this.getFechaInicio().getTime());
-			
+
+			this.getCartelera().setFechaInicio(this.getFechaInicio().getTime());
+
 			if (bytes != null) {
 				Multimedia multimedia = new Multimedia();
 				multimedia.setNombre(nameImage);
@@ -137,21 +137,18 @@ public class VM_CarteleraFormBasic extends VM_WindowForm {
 
 				PayloadMultimediaResponse payloadMultimediaResponse = S.MultimediaService
 						.incluir(multimedia);
-			
-				
+
 				multimedia.setIdMultimedia(((Double) payloadMultimediaResponse
 						.getInformacion("id")).intValue());
 				this.getCartelera().setFkMultimedia(multimedia);
 			}
-			
-			PayloadCarteleraResponse payloadCarteleraResponse =
-					S.CarteleraService.incluir(getCartelera());
+
+			PayloadCarteleraResponse payloadCarteleraResponse = S.CarteleraService
+					.incluir(getCartelera());
 			this.getCartelera().setIdCartelera(
 					((Double) payloadCarteleraResponse.getInformacion("id"))
 							.intValue());
 
-			
-			
 			if (bytes != null) {
 				Zki.save(Zki.NOTICIAS, getCartelera().getIdCartelera(),
 						extensionImage, bytes);
@@ -159,8 +156,9 @@ public class VM_CarteleraFormBasic extends VM_WindowForm {
 				multimedia.setNombre(Zki.NOTICIAS
 						+ this.getCartelera().getIdCartelera() + "."
 						+ this.extensionImage);
-				multimedia.setUrl(Zki.NOTICIAS + getCartelera().getIdCartelera()
-						+ "." + this.extensionImage);
+				multimedia.setUrl(Zki.NOTICIAS
+						+ getCartelera().getIdCartelera() + "."
+						+ this.extensionImage);
 				PayloadMultimediaResponse payloadMultimediaResponse = S.MultimediaService
 						.modificar(multimedia);
 
@@ -178,16 +176,15 @@ public class VM_CarteleraFormBasic extends VM_WindowForm {
 			return true;
 		}
 
-		if (operacionEnum.equals(OperacionEnum.MODIFICAR))  {
-			
+		if (operacionEnum.equals(OperacionEnum.MODIFICAR)) {
 
-			if (this.getBytes() != null ) {
-				
+			if (this.getBytes() != null) {
+
 				System.out.println("entre ");
 				if (this.getCartelera().getFkMultimedia() == null
 						|| this.getCartelera().getFkMultimedia()
 								.getIdMultimedia() == null) {
-					
+
 					System.out.println("entre 2");
 
 					Multimedia multimedia = new Multimedia();
@@ -203,13 +200,15 @@ public class VM_CarteleraFormBasic extends VM_WindowForm {
 					multimedia
 							.setIdMultimedia(((Double) payloadMultimediaResponse
 									.getInformacion("id")).intValue());
-					Zki.save(Zki.NOTICIAS, this.getCartelera().getIdCartelera(),
+					Zki.save(Zki.NOTICIAS,
+							this.getCartelera().getIdCartelera(),
 							extensionImage, bytes);
 					this.getCartelera().setFkMultimedia(multimedia);
 				} else {
 					System.out.println("entre 3");
 
-					Multimedia multimedia = this.getCartelera().getFkMultimedia();
+					Multimedia multimedia = this.getCartelera()
+							.getFkMultimedia();
 					multimedia.setNombre(nameImage);
 					multimedia.setDescripcion(typeMedia);
 					multimedia.setUrl(this.getUrlImage());
@@ -217,18 +216,21 @@ public class VM_CarteleraFormBasic extends VM_WindowForm {
 							.stringToExtensionEnum(extensionImage).ordinal());
 					PayloadMultimediaResponse payloadMultimediaResponse = S.MultimediaService
 							.modificar(multimedia);
-				
-					Zki.save(Zki.NOTICIAS, this.getCartelera().getIdCartelera(),
+
+					Zki.save(Zki.NOTICIAS,
+							this.getCartelera().getIdCartelera(),
 							extensionImage, bytes);
 				}
 
 			}
 
-			this.getCartelera().setTipoCartelera(TipoCarteleraEnum.NOTICIAS.ordinal());
-			this.getCartelera().setEstatusCartelera(EstatusCarteleraEnum.PUBLICADO.ordinal());
+			this.getCartelera().setTipoCartelera(
+					TipoCarteleraEnum.NOTICIAS.ordinal());
+			this.getCartelera().setEstatusCartelera(
+					EstatusCarteleraEnum.PUBLICADO.ordinal());
 
 			Multimedia multimedia = this.getCartelera().getFkMultimedia();
-			
+
 			if (bytes == null && this.getCartelera().getFkMultimedia() != null) {
 				Zki.remove(this.getCartelera().getFkMultimedia().getUrl());
 				getCartelera().setFkMultimedia(null);
@@ -236,8 +238,7 @@ public class VM_CarteleraFormBasic extends VM_WindowForm {
 
 			PayloadCarteleraResponse payloadCarteleraResponse = S.CarteleraService
 					.modificar(getCartelera());
-			
-		
+
 			if (bytes == null && multimedia != null) {
 				PayloadMultimediaResponse payloadMultimediaResponse = S.MultimediaService
 						.eliminar(multimedia.getIdMultimedia());
@@ -246,7 +247,7 @@ public class VM_CarteleraFormBasic extends VM_WindowForm {
 					return true;
 				}
 			}
-			
+
 			if (!UtilPayload.isOK(payloadCarteleraResponse)) {
 				Alert.showMessage(payloadCarteleraResponse);
 				return true;
@@ -254,7 +255,7 @@ public class VM_CarteleraFormBasic extends VM_WindowForm {
 			DataCenter.reloadCurrentNodoMenu();
 			return true;
 		}
-	
+
 		return false;
 	}
 
@@ -270,11 +271,6 @@ public class VM_CarteleraFormBasic extends VM_WindowForm {
 		return actionSalir(operacionEnum);
 	}
 
-
-
-
-	
-	
 	public List<TipoCarteleraEnum> getTipoEnums() {
 		if (this.TipoEnums == null) {
 			TipoEnums = new ArrayList<TipoCarteleraEnum>();
@@ -302,11 +298,7 @@ public class VM_CarteleraFormBasic extends VM_WindowForm {
 	}
 
 	public Cartelera getCartelera() {
-		return cartelera;
-	}
-
-	public void setCartelera(Cartelera cartelera) {
-		this.cartelera = cartelera;
+		return (Cartelera) DataCenter.getEntity();
 	}
 
 	public String getNameImage() {
@@ -341,7 +333,7 @@ public class VM_CarteleraFormBasic extends VM_WindowForm {
 		this.typeMedia = typeMedia;
 	}
 
-//	@Override
+	// @Override
 	public BufferedImage getImageContent() {
 		if (bytes != null) {
 			try {
@@ -397,8 +389,6 @@ public class VM_CarteleraFormBasic extends VM_WindowForm {
 		this.bytes = bytes;
 	}
 
-	
-	
 	public Date getFechaFinalizacion() {
 		return fechaFinalizacion;
 	}
@@ -406,6 +396,7 @@ public class VM_CarteleraFormBasic extends VM_WindowForm {
 	public void setFechaFinalizacion(Date fechaFinalizacion) {
 		this.fechaFinalizacion = fechaFinalizacion;
 	}
+
 	public Date getFechaInicio() {
 		return fechaInicio;
 	}
@@ -413,19 +404,13 @@ public class VM_CarteleraFormBasic extends VM_WindowForm {
 	public void setFechaInicio(Date fechaInicio) {
 		this.fechaInicio = fechaInicio;
 	}
-	
-	
-	
-	
-	
+
 	public boolean isFormValidated() {
 		try {
 
-			
-			
 			UtilValidate.validateString(this.getCartelera().getDescripcion(),
 					"Descripcion", 200);
-			
+
 			UtilValidate.validateString(this.getCartelera().getTitulo(),
 					"Titulo", 100);
 

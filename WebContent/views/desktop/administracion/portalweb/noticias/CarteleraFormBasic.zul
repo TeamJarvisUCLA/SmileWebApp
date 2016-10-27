@@ -1,25 +1,27 @@
 <?component name="uploadImageSingle" macroURI="/assets/theme/components/upload_image_single.zul"?>
 
 <zk xmlns:n="native" xmlns:w="client">
-	<div width="80%" class="container opacity-0"
+	<div width="80%" class="container ${arg.animation_}"
 		use="karen.core.form.controllers.C_WindowForm"
 		apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('ve.smile.administracion.portalweb.noticias.viewmodels.VM_CarteleraFormBasic')">
 
 		<div class="row">
 			<div class="col s12">
-				<div class="input-field col s6">
+				<div class="input-field col s12">
 					<n:label for="titulo">Titulo</n:label>
-					<span	sclass="fa fa-question-circle fa-lg help-icon-special"
-										tooltip="pop_titulo, position=after_end" />
+					<span
+						sclass="fa fa-question-circle fa-lg help-icon-special"
+						tooltip="pop_titulo, position=after_end" />
 					<textbox id="titulo" type="text"
 						value="@bind(vm.cartelera.titulo)">
 					</textbox>
 				</div>
-				<div class="input-field col s6">
+				<div class="input-field col s12">
 					<n:label for="descripcion">Descripcion</n:label>
-					<span sclass="fa fa-question-circle fa-lg help-icon-special"
-										tooltip="pop_descripcion, position=after_end" />
+					<span
+						sclass="fa fa-question-circle fa-lg help-icon-special"
+						tooltip="pop_descripcion, position=after_end" />
 					<textbox id="descripcion" type="text"
 						multiline="true" maxlength="200"
 						value="@bind(vm.cartelera.descripcion)"
@@ -32,33 +34,37 @@
 					<n:label for="fecha_inicio" class="active">
 						Fecha Inicio
 					</n:label>
-					<span	sclass="fa fa-question-circle fa-lg help-icon-special"
-										tooltip="pop_fecha_inicio, position=after_end" />
-					<datebox id="fecha" cols="20" constraint="no empty, no future" format="yyyy/MM/dd"
+					<span
+						sclass="fa fa-question-circle fa-lg help-icon-special"
+						tooltip="pop_fecha_inicio, position=after_end" />
+					<datebox id="fecha" cols="20"
+						constraint="no empty, no future" format="dd/MM/yyyy"
 						value="@bind(vm.fechaInicio)" />
 				</div>
 				<div class="input-field col s6">
 					<n:label for="fecha_finalizacion" class="active">
 						Fecha Finalizacion
 					</n:label>
-					<span	sclass="fa fa-question-circle fa-lg help-icon-special"
-										tooltip="pop_fecha_finalizacion, position=after_end" />
-					<datebox id="fechaF" cols="20" format="yyyy/MM/dd"
+					<span
+						sclass="fa fa-question-circle fa-lg help-icon-special"
+						tooltip="pop_fecha_finalizacion, position=after_end" />
+					<datebox id="fechaF" cols="20" format="dd/MM/yyyy"
 						value="@bind(vm.fechaFinalizacion)" />
 				</div>
 			</div>
 			<div class="input-field col s5">
-				<div class="input-field col s12" style="font-size:16px; ">
-				<span style="float:right"
-										sclass="fa fa-question-circle fa-lg help-icon"
-										tooltip="pop_imagen, position=after_end" />
+				<div class="input-field col s12"
+					style="font-size:16px; ">
+					<span style="float:right"
+						sclass="fa fa-question-circle fa-lg help-icon"
+						tooltip="pop_imagen, position=after_end" />
 					<uploadImageSingle maxsize="9000" size="200"
 						idUpload="1" title="Imagen de la noticia" />
 				</div>
 			</div>
 		</div>
-		
-		
+
+
 		<!-- Popups ayuda -->
 		<popup id="pop_titulo" width="200px">
 			<html>
@@ -66,8 +72,11 @@
 
 
 
+
 				
-				<![CDATA[ Por favor, coloque el titulo de la noticia que desea registrar.<br /> ]]>
+				<![CDATA[ Por favor, coloque el titulo de la noticia que
+				desea registrar.<br /> ]]>
+				
 				
 				
 				
@@ -83,9 +92,11 @@
 
 
 
+
 				
-				<![CDATA[ Por favor, ingrese la descripcion de la noticia
-				que desea registrar.<br /> ]]>
+				<![CDATA[ Por favor, ingrese la descripcion de la
+				noticia que desea registrar.<br /> ]]>
+				
 				
 				
 				
@@ -99,32 +110,36 @@
 
 
 
+
 				
-				<![CDATA[ Por favor, seleccione una fecha de inicio de la noticia que
-				desea registrar.<br /><font color="#3b85a1">Ejemplo:
-					11/08/1983.</font> ]]>
+				<![CDATA[ Por favor, seleccione una fecha de inicio de
+				la noticia que desea registrar.<br /><font
+				color="#3b85a1">Ejemplo: 11/08/1983.</font> ]]>
+				
 				
 				
 				
 				
 	</html>
 		</popup>
-		
 
-		
 
-		
+
+
+
 		<popup id="pop_fecha_finalizacion" width="200px">
 			<html>
 
 
 
 
+
 				
-				<![CDATA[ Por favor, indique la fecha de finalizacion de la noticia
-				 que desea registrar, usando el selector de
+				<![CDATA[ Por favor, indique la fecha de finalizacion de
+				la noticia que desea registrar, usando el selector de
 				fechas.<br /> <font color="#3b85a1">Ejemplo:
 				11/08/1983.</font> ]]>
+				
 				
 				
 				
@@ -132,12 +147,13 @@
 
         	</html>
 		</popup>
-		
-		
-		
-		
+
+
+
+
 		<popup id="pop_imagen" width="200px">
 			<html>
+
 
 
 
@@ -150,13 +166,14 @@
 				
 				
 				
+				
 	
     		</html>
 		</popup>
 
-				
+
 		<!-- fin popups -->
-		
+
 		<div id="divButtonsForm"
 			use="karen.core.form.buttons.containers.DivButtonsForm">
 		</div>

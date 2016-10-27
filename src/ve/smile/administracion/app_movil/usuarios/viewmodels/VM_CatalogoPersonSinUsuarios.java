@@ -1,4 +1,4 @@
-package ve.smile.administracion.app_movil.viewmodels;
+package ve.smile.administracion.app_movil.usuarios.viewmodels;
 
 import karen.core.dialog.catalogue.list_pagination.viewmodels.VM_ListPaginationCatalogueDialog;
 import lights.core.payload.response.IPayloadResponse;

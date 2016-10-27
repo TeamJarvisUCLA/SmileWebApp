@@ -95,16 +95,28 @@ public class Login {
 		}
 
 		usuario.setPersona(persona);
-//		DataCenter.getUserSecurityData().getUsuario()
-//				.setNotificacionUsuarios(new ArrayList<NotificacionUsuario>());
-		
+
+		PayloadNotificacionUsuarioResponse payloadNotificacionUsuarioResponse1 = S.NotificacionUsuarioService
+				.consultarCriterios(TypeQuery.EQUAL, criterio);
+		if (UtilPayload.isOK(payloadNotificacionUsuarioResponse1)
+				&& payloadNotificacionUsuarioResponse1.getObjetos() != null) {
+			DataCenter
+					.getUserSecurityData()
+					.getUsuario()
+					.setNotificacionUsuarios(
+							payloadNotificacionUsuarioResponse1.getObjetos());
+		}
+
+		// DataCenter.getUserSecurityData().getUsuario()
+		// .setNotificacionUsuarios(new ArrayList<NotificacionUsuario>());
+
 		DataCenter.getUserSecurityData().getUsuario().setPersona(persona);
 		// DataCenter.setSizeNotificacions(8);
 		criterio.put("estatusNotificacion",
 				String.valueOf(EstatusNotificacionEnum.PENDIENTE.ordinal()));
 		PayloadNotificacionUsuarioResponse payloadNotificacionUsuarioResponse = S.NotificacionUsuarioService
 				.consultarCriterios(TypeQuery.EQUAL, criterio);
-		
+
 		if (UtilPayload.isOK(payloadPersonaResponse)
 				&& payloadPersonaResponse.getObjetos() != null) {
 			DataCenter

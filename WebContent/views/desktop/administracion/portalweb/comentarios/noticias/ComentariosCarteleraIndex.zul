@@ -10,17 +10,17 @@
 					<listbox id="listbox" model="@load(vm.objectsList)"
 						selectedItem="@bind(vm.selectedObject)">
 						<listhead sizable="true">
-							<listheader width="25%" label="Titulo" />
+							<listheader width="45%" label="Titulo" />
 							<listheader width="25%" label="Nombre" />
 							<listheader width="35%" label="Correo" />
 							<listheader width="25%" label="Comentario" />
-							<listheader width="25%" label="Puntuación" />
+							<listheader width="15%" label="Puntuación" />
 							
 						</listhead>
 						<template name="model">
 							<listitem>
 								<listcell label="@load(each.fkCartelera.titulo)" />
-								<listcell label="@load(each.fkComunidad.nombre)" />
+								<listcell label="@load(each.fkComunidad.nombre.concat(' ').concat(each.fkComunidad.apellido))" />
 								<listcell label="@load(each.fkComunidad.correo)" />
 								<listcell label="@load(each.comentario)" />
 								<listcell label="@load(each.puntuacion)" />

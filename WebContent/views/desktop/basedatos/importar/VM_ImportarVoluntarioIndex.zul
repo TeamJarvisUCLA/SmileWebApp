@@ -1,0 +1,67 @@
+<zk xmlns:n="native" xmlns:w="client">
+	<div width="100%" class="${arg.animation_}"
+		use="karen.core.simple_list_principal.controllers.C_WindowSimpleListPrincipal"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('ve.smile.basedatos.importar.viewmodels.VM_ImportarVoluntarioIndex')">
+
+		<div class="row">
+			<div class="col s12">
+				Nombre del Archivo:
+				<textbox id="archivo" type="text" readonly="true"
+					value="@load(vm.archivo)">
+				</textbox>
+				<div class="col s12">
+					<listbox model="@load(vm.voluntarios)">
+						<listhead sizable="true">
+							<listheader width="10%"
+								label="Identificación" />
+							<listheader width="10%" label="Nombre" />
+							<listheader width="10%" label="Apellido" />
+							<listheader width="15%" label="Correo" />
+							<listheader width="30%" label="Dirección" />
+							<listheader width="10%" label="Teléfono" />
+						</listhead>
+						<template name="model">
+							<listitem>
+
+								<listcell
+									label="@load(each.identificacion)" />
+								<listcell label="@load(each.nombre)" />
+								<listcell label="@load(each.apellido)" />
+								<listcell label="@load(each.correo)" />
+								<listcell label="@load(each.direccion)" />
+								<listcell label="@load(each.telefono1)" />
+							</listitem>
+						</template>
+
+					</listbox>
+				</div>
+			</div>
+			<div class="col s12">
+				<div class="col s4" align="right">
+					<button label="Cargar Archivo" upload="true"
+						onUpload="@command('onUploadFile',upEvent=event)"
+						sclass=" lime accent-4 accent-4 waves-effect waves-light btn"
+						iconSclass="fa fa-file-excel-o">
+					</button>
+				</div>
+				<div class="col s4" align="center">
+					<button id="btnAceptar" label="Guardar"
+						disabled="@bind(empty vm.voluntarios)"
+						sclass="indigo waves-effect waves-light btn"
+						iconSclass="fa fa-floppy-o" onClick="@command('aceptar')">
+					</button>
+				</div>
+				<div class="col s4" align="left">
+					<button id="btnCance" label="CANCELAR"
+						disabled="@bind(empty vm.voluntarios)"
+						sclass="red waves-effect waves-light btn" iconSclass="fa fa-times"
+						onClick="@command('cancelar')">
+					</button>
+				</div>
+			</div>
+		</div>
+
+
+	</div>
+</zk>

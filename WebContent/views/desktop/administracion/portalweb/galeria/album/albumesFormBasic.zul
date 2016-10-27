@@ -1,7 +1,7 @@
 <?xel-method prefix="m" name="getUrlWeb" class="lights.smile.util.Zki" 
 	signature="java.lang.String getUrlWeb(java.lang.String)" ?>
 <zk xmlns:n="native" xmlns:w="client">
-	<div width="80%" class="container opacity-0"
+	<div width="80%" class="container ${arg.animation_}"
 		use="karen.core.form.controllers.C_WindowForm"
 		apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('ve.smile.administracion.portalweb.galeria.album.VM_albumesFormBasic')">

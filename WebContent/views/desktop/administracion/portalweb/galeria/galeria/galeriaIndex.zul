@@ -76,7 +76,7 @@
 	<div
 		apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('ve.smile.administracion.portalweb.galeria.galeria.VM_galeriaIndex')">
-		<div class="row">
+		<div class="row ${arg.animation_}">
 
 			<div sclass="col s12">
 				<div class=" col s12">

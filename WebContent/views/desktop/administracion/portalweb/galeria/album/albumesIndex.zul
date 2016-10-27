@@ -1,7 +1,7 @@
 <?xel-method prefix="m" name="convertirLongADate" class="lights.smile.util.UtilConverterDataList" signature="java.lang.String convertirLongADate(Long)"?>
 
 <zk xmlns:n="native" xmlns:w="client">
-	<div width="100%" class='opacity-0'
+	<div width="100%" class="${arg.animation_}"
 		use="karen.core.simple_list_principal.controllers.C_WindowSimpleListPrincipal"
 		apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('ve.smile.administracion.portalweb.galeria.album.VM_albumesIndex')">

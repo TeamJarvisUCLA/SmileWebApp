@@ -59,7 +59,7 @@ public class C_Recuperacion extends C_WindowDialog {
 	
 	public void CreatesendEmail(String correo){
 		String asunto = "Recuperacion de Contraseña";
-		String contenido = "Recibe un cordial saludo su nueva contraseña es 123456";
+		String contenido = "Recibe un cordial saludo tu nueva contraseña es 123456";
 		try {
 			new UtillMail().generateAndSendEmail(correo,asunto,contenido);
 		} catch (AddressException e) {

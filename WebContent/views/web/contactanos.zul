@@ -178,7 +178,7 @@
 						<div sclass="row">
 							<div class="col s12 contact-holder">
 
-								<div
+								<div visible="@load(vm.org.twitter eq null?false:true)"
 									class="containerRedes twitter valign-wrapper">
 									<div class="valign-wrapper">
 										<n:img
@@ -192,7 +192,7 @@
 									</n:span>
 								</div>
 
-								<div
+								<div visible="@load(vm.org.facebook eq null?false:true)"
 									class="containerRedes facebook valign-wrapper">
 									<div class="valign-wrapper">
 										<n:img
@@ -206,7 +206,7 @@
 									</n:span>
 								</div>
 
-								<div
+								<div visible="@load(vm.org.instagram eq null?false:true)"
 									class="containerRedes instagram valign-wrapper">
 									<div class="valign-wrapper">
 										<n:img

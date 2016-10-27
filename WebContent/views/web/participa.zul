@@ -98,12 +98,12 @@
 											apply="org.zkoss.bind.BindComposer"
 											viewModel="@id('vm') @init('ve.smile.web.postulacion.viewmodels.VM_AbrirPostulado')">
 											<button type="button"
-												class="waves-effect waves-light btn" href="" visible="@load(each.tipoFormulario eq 1)"
+												class="waves-effect waves-light btn" href="" visible="@load(each.tipoFormulario eq 0)"
 												onClick="@command('abrirPostularVoluntario')">
 												POSTÚLATE
 											</button>
 											<button type="button"
-												class="waves-effect waves-light btn" href="" visible="@load(each.tipoFormulario eq 0)"
+												class="waves-effect waves-light btn" href="" visible="@load(each.tipoFormulario eq 1)"
 												onClick="@command('abrirPostularPadrino')">
 												POSTÚLATE
 											</button>

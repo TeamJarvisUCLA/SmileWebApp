@@ -53,7 +53,7 @@ public class VM_apkMovilIndex {
 		dialogData.put("multimedia", multimedia);
 		UtilDialog
 				.showDialog(
-						"/views/desktop/administracion/portalweb/apkMovil/formImagenPrincipal.zul",
+						"/views/desktop/administracion/portalweb/apkMovil/apkMovil.zul",
 						dialogData);
 	}
 
@@ -64,7 +64,7 @@ public class VM_apkMovilIndex {
 		dialogData.put("multimedia", multimedia);
 		UtilDialog
 				.showDialog(
-						"/views/desktop/administracion/portalweb/apkMovil/formImagenPrincipal.zul",
+						"/views/desktop/administracion/portalweb/apkMovil/apkMovil.zul",
 						dialogData);
 	}
 

@@ -13,7 +13,7 @@
 		visibility: hidden; }
 	</style>
 	<div apply="org.zkoss.bind.BindComposer"
-		viewModel="@id('vm') @init('ve.smile.administracion.portalweb.apk_movil.viewmodels.VM_formApkMovil')">
+		viewModel="@id('vm') @init('ve.smile.administracion.portalweb.apk_movil.viewmodels.VM_apkMovilIndex')">
 		<div class="row ">
 
 			<div sclass="col s12 banner">

@@ -5,7 +5,7 @@
 		action="show: slideIn;hide: slideOut"
 		use="ve.smile.administracion.portalweb.apk_movil.viewmodels.C_apkMovil"
 		apply="org.zkoss.bind.BindComposer"
-		viewModel="@id('vm') @init('ve.smile.administracion.portalweb.apk_movil.viewmodels.VM_formApkMovil_', dialogData=arg.get('dialogData'))">
+		viewModel="@id('vm') @init('ve.smile.administracion.portalweb.apk_movil.viewmodels.VM_formApkMovil', dialogData=arg.get('dialogData'))">
 		<separator height="20px"></separator>
 		<div class="row">
 			<div class="col s12" align="center"

@@ -159,11 +159,6 @@ public class VM_CarteleraFormBasic extends VM_WindowForm {
 				multimedia.setUrl(Zki.NOTICIAS
 						+ getCartelera().getIdCartelera() + "."
 						+ this.extensionImage);
-				this.getCartelera().setFechaFinalizacion(
-						this.getFechaFinalizacion().getTime());
-
-				this.getCartelera().setFechaInicio(
-						this.getFechaInicio().getTime());
 
 				PayloadMultimediaResponse payloadMultimediaResponse = S.MultimediaService
 						.modificar(multimedia);
@@ -229,7 +224,10 @@ public class VM_CarteleraFormBasic extends VM_WindowForm {
 				}
 
 			}
+			this.getCartelera().setFechaFinalizacion(
+					this.getFechaFinalizacion().getTime());
 
+			this.getCartelera().setFechaInicio(this.getFechaInicio().getTime());
 			this.getCartelera().setTipoCartelera(
 					TipoCarteleraEnum.NOTICIAS.ordinal());
 			this.getCartelera().setEstatusCartelera(

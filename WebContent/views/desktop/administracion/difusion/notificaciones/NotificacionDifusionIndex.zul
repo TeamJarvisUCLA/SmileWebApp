@@ -54,7 +54,7 @@
 			</div>
 		</div>
 		<div class="col s12">
-			<div class="col s12" align="right">
+			<div class="col s12" align="center">
 				<button id="btnAceptar" label="ENVIAR"
 					disabled="@bind(empty vm.usuarios)"
 					sclass="indigo waves-effect waves-light btn"

@@ -65,19 +65,19 @@ VM_WindowSimpleListPrincipal<TrabajoSocial> {
 		Map<String, String> criterios =
 				new HashMap<String, String>();
 
-		criterios.put("fkTsPlan.idTrabajoSocial", String.valueOf(getSelectedObject().getIdTrabajoSocial()));
+		criterios.put("fkTrabajoSocial.idTrabajoSocial", String.valueOf(getSelectedObject().getIdTrabajoSocial()));
 
 		//Table Relation TsPlanPersona
-		PayloadTsPlanPersonaResponse payloadTsPlanPersonaResponse=
-				S.TsPlanPersonaService.contarCriterios(TypeQuery.EQUAL,
-						criterios);
+//		PayloadTsPlanPersonaResponse payloadTsPlanPersonaResponse=
+//				S.TsPlanPersonaService.contarCriterios(TypeQuery.EQUAL,
+//						criterios);
+//
+//		if (!UtilPayload.isOK(payloadTsPlanPersonaResponse)) {
+//			return String.valueOf(payloadTsPlanPersonaResponse.getInformacion(IPayloadResponse.MENSAJE));
+//		}
 
-		if (!UtilPayload.isOK(payloadTsPlanPersonaResponse)) {
-			return String.valueOf(payloadTsPlanPersonaResponse.getInformacion(IPayloadResponse.MENSAJE));
-		}
-
-		Integer countPersonas = 
-				Double.valueOf(String.valueOf(payloadTsPlanPersonaResponse.getInformacion(IPayloadResponse.COUNT))).intValue();
+//		Integer countPersonas = 
+//				Double.valueOf(String.valueOf(payloadTsPlanPersonaResponse.getInformacion(IPayloadResponse.COUNT))).intValue();
 
 		//Table Relation TsPlan
 		PayloadTsPlanResponse payloadTsPlanResponse=
@@ -116,9 +116,6 @@ VM_WindowSimpleListPrincipal<TrabajoSocial> {
 				Double.valueOf(String.valueOf(payloadPlantillaTrabajoSocialIndicadorResponse.getInformacion(IPayloadResponse.COUNT))).intValue();
 
 
-		if (countPersonas > 0) {
-			return "E:Error 0:No se puede eliminar el <b>Trabajo Social</b> seleccionado ya que está asigando a " + countPersonas + " Personas en Trabajos Sociales";
-		}
 
 		if (countTrabajos > 0) {
 			return "E:Error 0:No se puede eliminar el <b>Trabajo Social</b> seleccionado ya que está siendo utilizado en " + countTrabajos + " Trabajos Sociales Planificados";

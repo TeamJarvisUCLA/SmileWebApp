@@ -596,7 +596,7 @@ public class VM_ReporteVoluntarioIndex extends VM_WindowWizard {
 								+ fechaDesdeDate.getTime()
 								+ " and v.fechaIngreso <= "
 								+ fechaHastaDate.getTime() + " ";
-						System.out.println(sql);
+					
 					}
 				}
 
@@ -629,7 +629,7 @@ public class VM_ReporteVoluntarioIndex extends VM_WindowWizard {
 								+ fechaDesdeDate.getTime()
 								+ " and v.fechaIngreso <= "
 								+ fechaHastaDate.getTime() + " ";
-						System.out.println(sql);
+						
 					}
 				}
 
@@ -754,13 +754,13 @@ public class VM_ReporteVoluntarioIndex extends VM_WindowWizard {
 					.consultaVoluntariosParametrizado(sql);
 			List<Voluntario> listVoluntarios = payloadVoluntarioResponse
 					.getObjetos();
-			this.getVoluntarios().addAll(listVoluntarios);
+	
 
-			System.out.println(sql);
+		
 			if (listVoluntarios.isEmpty()) {
 				return "E:Error Code 5-Los criterios seleccionados no aportan informaci�n para <b>Voluntarios</b>";
 			}
-
+			this.getVoluntarios().addAll(listVoluntarios);
 			jrDataSource = new JRBeanCollectionDataSource(listVoluntarios);
 		}
 		if (currentStep == 2) {

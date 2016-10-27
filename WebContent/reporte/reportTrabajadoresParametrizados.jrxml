@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="documento_asignacion" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" scriptletClass="net.sf.jasperreports.engine.JRDefaultScriptlet" uuid="2cc1dfe8-35f4-44cb-b41c-1c58e9d3b41e">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="57"/>
+	<property name="ireport.y" value="101"/>
 	<parameter name="titulo" class="java.lang.String"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["C:\\Users\\Soaint\\Desktop\\"]]></defaultValueExpression>
@@ -117,7 +117,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$P{fechaHasta}.equals("") ? null : $P{fechaHasta}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement positionType="Float" x="116" y="140" width="432" height="20" isPrintWhenDetailOverflows="true" uuid="469a4b5c-5bfa-49b7-a4ec-054c0e815b28"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial"/>
@@ -131,12 +131,12 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$P{fortalezasP}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement positionType="Float" x="116" y="110" width="432" height="20" isPrintWhenDetailOverflows="true" uuid="e9716f98-f528-4892-adc6-1bc15c408a6d"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{estatusTrabajadores}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{estatusTrabajadores}==""?null : $P{estatusTrabajadores}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement positionType="Float" mode="Opaque" x="38" y="72" width="107" height="20" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" forecolor="#FFFFFF" backcolor="#3B85A1" uuid="d07a5b8c-154d-4891-81a2-b17e6640ed32"/>
@@ -247,12 +247,12 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{fkPersona.direccion}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="470" y="3" width="84" height="20" uuid="d87ce8fa-35e2-4c63-b4e1-2cb9da1fcb8c"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle" markup="styled">
 					<font fontName="Arial"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{estatusTrabajador} == 0 ? "Activo" : $F{estatusTrabajador} == 1 ? "Inactivo"  : ""]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{estatusTrabajador} == 0 ? "Activo" : $F{estatusTrabajador} == 1 ? "Inactivo"  : "No Asignado"]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

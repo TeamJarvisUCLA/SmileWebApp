@@ -113,9 +113,7 @@
 				<textElement>
 					<font fontName="Arial"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{fechaDesde}.equals("") ? null : $P{fechaDesde}
-
-]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{fechaDesde}.equals("") ? null : $P{fechaDesde}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement x="417" y="72" width="100" height="20" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="6a01c63c-3b43-402e-92d9-edf3f14e8d5b"/>
@@ -124,14 +122,14 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$P{fechaHasta}.equals("") ? null : $P{fechaHasta}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement x="116" y="159" width="432" height="20" isPrintWhenDetailOverflows="true" uuid="469a4b5c-5bfa-49b7-a4ec-054c0e815b28"/>
 				<textElement>
 					<font fontName="Arial"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{aporteSeleccionadoP}==""?null : $P{aporteSeleccionadoP} ]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{aporteSeleccionadoP}==""?null : $P{aporteSeleccionadoP}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement x="116" y="129" width="432" height="20" isPrintWhenDetailOverflows="true" uuid="e9716f98-f528-4892-adc6-1bc15c408a6d"/>
 				<textElement>
 					<font fontName="Arial"/>
@@ -213,8 +211,7 @@
 				<textElement>
 					<font fontName="Arial"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{aporteDesde}
-]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{aporteDesde}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement x="417" y="89" width="100" height="20" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="8b5ba693-416b-4681-be07-4fb5b38a4e48"/>

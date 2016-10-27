@@ -122,7 +122,7 @@ public class VM_ReporteEventoIndex extends VM_WindowWizard {
 				.getObjetos();
 
 		listTareas = S.TareaService.consultarTodos().getObjetos();
-		System.out.println(listTareas.size());
+
 
 		listIndicadores = S.IndicadorService.consultarTodos().getObjetos();
 
@@ -437,7 +437,7 @@ public class VM_ReporteEventoIndex extends VM_WindowWizard {
 				return "E:Error Code 5-No se han seleccionados criterios para la consulta <b>Voluntarios</b>";
 
 			}
-			System.out.println(sql);
+	
 			PayloadEventoPlanificadoResponse payloadEventoPlanificadoResponse = S.EventoPlanificadoService
 					.consultaEventosPlanificadosParametrizado(sql);
 			List<EventoPlanificado> listEventosPlanificados = payloadEventoPlanificadoResponse
@@ -969,7 +969,7 @@ public class VM_ReporteEventoIndex extends VM_WindowWizard {
 
 		}
 		else{
-			System.out.println("Mensaje Tarea");
+		
 			parametros.put("tMensajeTarea", "No hay tareas Asignadas a este evento");
 			
 		}

@@ -48,7 +48,7 @@
 				
 				<div sclass="col s3">
 					<checkbox label="Procesadas"
-						checked="@bind(vm.procesadas)" />
+						checked="@bind(vm.procesada)" />
 				</div>
 			</div>
 		</div>

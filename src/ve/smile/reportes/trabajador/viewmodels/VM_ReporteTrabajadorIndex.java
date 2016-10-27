@@ -351,7 +351,7 @@ public class VM_ReporteTrabajadorIndex extends VM_WindowWizard {
 				sql = "SELECT DISTINCT v FROM Trabajador v  WHERE  v.idTrabajador = v.idTrabajador ";
 
 				if (fechaIngreso) {
-					System.out.println("entro");
+				
 					if (fechaDesdeDate == null && fechaHastaDate == null) {
 
 						return "E:Error Code 5-No se han ingresado parametros de fechas ";
@@ -374,7 +374,7 @@ public class VM_ReporteTrabajadorIndex extends VM_WindowWizard {
 								+ fechaDesdeDate.getTime()
 								+ " and v.fechaIngreso <= "
 								+ fechaHastaDate.getTime() + " ";
-						System.out.println(sql);
+			
 					}
 				}
 
@@ -384,7 +384,7 @@ public class VM_ReporteTrabajadorIndex extends VM_WindowWizard {
 				sql = "SELECT DISTINCT v FROM Trabajador v  WHERE  v.idTrabajador = v.idTrabajador ";
 
 				if (fechaIngreso) {
-					System.out.println("entro");
+		
 					if (fechaDesdeDate == null && fechaHastaDate == null) {
 
 						return "E:Error Code 5-No se han ingresado parametros de fechas ";
@@ -403,12 +403,12 @@ public class VM_ReporteTrabajadorIndex extends VM_WindowWizard {
 						return "E:Error Code 5-No se puede ingresar una <b>Fecha Desde</b>  mayor a la <b>Fecha Hasta</b> ";
 
 					} else {
-						System.out.println("no llego al final");
+					
 						sql += " and v.fechaIngreso >= "
 								+ fechaDesdeDate.getTime()
 								+ " and v.fechaIngreso <= "
 								+ fechaHastaDate.getTime() + " ";
-						System.out.println(sql);
+						
 					}
 				}
 
@@ -495,7 +495,7 @@ public class VM_ReporteTrabajadorIndex extends VM_WindowWizard {
 
 			}
 
-			System.out.println(sql);
+		
 			PayloadTrabajadorResponse payloadTrabajadorResponse = S.TrabajadorService
 					.consultaTrabajadoresParametrizado(sql);
 			List<Trabajador> listTrabajadores = payloadTrabajadorResponse
@@ -505,9 +505,7 @@ public class VM_ReporteTrabajadorIndex extends VM_WindowWizard {
 			if (listTrabajadores.isEmpty()) {
 				return "E:Error Code 5-Los criterios seleccionados no aportan informaci�n para <b>Trabajadores</b>";
 			}
-			for(Trabajador trabajador : listTrabajadores){
-				System.out.println(trabajador.getEstatusTrabajador());
-			}
+	
 
 			jrDataSource = new JRBeanCollectionDataSource(listTrabajadores);
 		}
@@ -596,7 +594,7 @@ public class VM_ReporteTrabajadorIndex extends VM_WindowWizard {
 
 	@Override
 	public String isValidPreconditionsCustom2(Integer currentStep) {
-		System.out.println("algo paso por aqui pendiente");
+
 		return "";
 	}
 

@@ -21,10 +21,12 @@ import org.zkoss.bind.annotation.Init;
 import ve.smile.consume.services.S;
 import ve.smile.dto.DonativoRecurso;
 import ve.smile.dto.Fortaleza;
+import ve.smile.dto.Organizacion;
 import ve.smile.dto.Recurso;
 import ve.smile.enums.ProcedenciaEnum;
 import ve.smile.enums.RecepcionEnum;
 import ve.smile.payload.response.PayloadDonativoRecursoResponse;
+import ve.smile.reportes.Reporte;
 
 public class VM_ReporteDonativoIndex extends VM_WindowWizard {
 
@@ -496,7 +498,7 @@ public class VM_ReporteDonativoIndex extends VM_WindowWizard {
 				sql = "SELECT DISTINCT v FROM DonativoRecurso v  WHERE  v.idDonativoRecurso = v.idDonativoRecurso ";
 
 				if (fecha) {
-					System.out.println("entro");
+		
 					if (fechaDesdeDate == null && fechaHastaDate == null) {
 
 						return "E:Error Code 5-No se han ingresado parametros de fechas ";
@@ -519,7 +521,7 @@ public class VM_ReporteDonativoIndex extends VM_WindowWizard {
 								+ fechaDesdeDate.getTime()
 								+ " and v.fechaDonativo <= "
 								+ fechaHastaDate.getTime() + " ";
-						System.out.println(sql);
+				
 					}
 				}
 
@@ -529,7 +531,7 @@ public class VM_ReporteDonativoIndex extends VM_WindowWizard {
 				sql = "SELECT DISTINCT v FROM DonativoRecurso v  WHERE  v.idDonativoRecurso = v.idDonativoRecurso ";
 
 				if (fecha) {
-					System.out.println("entro");
+			
 					if (fechaDesdeDate == null && fechaHastaDate == null) {
 
 						return "E:Error Code 5-No se han ingresado parametros de fechas ";
@@ -548,12 +550,12 @@ public class VM_ReporteDonativoIndex extends VM_WindowWizard {
 						return "E:Error Code 5-No se puede ingresar una <b>Fecha Desde</b>  mayor a la <b>Fecha Hasta</b> ";
 
 					} else {
-						System.out.println("no llego al final");
+					
 						sql += " and v.fechaDonativo >= "
 								+ fechaDesdeDate.getTime()
 								+ " and v.fechaDonativo <= "
 								+ fechaHastaDate.getTime() + " ";
-						System.out.println(sql);
+				
 					}
 				}
 
@@ -617,20 +619,18 @@ public class VM_ReporteDonativoIndex extends VM_WindowWizard {
 
 			}
 
-			System.out.println(sql);
+
 			PayloadDonativoRecursoResponse payloadDonativoRecursoResponse = S.DonativoRecursoService
 					.consultaDonativosParametrizado(sql);
 			List<DonativoRecurso> listDonativoRecursos = payloadDonativoRecursoResponse
 					.getObjetos();
-			System.out.println(listDonativoRecursos);
+	
 			this.getDonativoRecursos().addAll(listDonativoRecursos);
 
 			if (listDonativoRecursos.isEmpty()) {
 				return "E:Error Code 5-Los criterios seleccionados no aportan informaci�n para <b>DonativoRecursos</b>";
 			}
-			for (DonativoRecurso solicitud : listDonativoRecursos) {
-				System.out.println(solicitud.getCantidad());
-			}
+		
 
 			jrDataSource = new JRBeanCollectionDataSource(listDonativoRecursos);
 
@@ -646,6 +646,26 @@ public class VM_ReporteDonativoIndex extends VM_WindowWizard {
 			if (!tipoRecepcionEnumP.equals("")) {
 				tRecepciones = "Recepcion";
 			}
+			
+			String direccion = Reporte.class
+					.getResource("Reporte.jasper")
+					.getPath()
+					.replace(
+							"WEB-INF/classes/ve/smile/reportes/Reporte.jasper",
+							"imagenes/logo_fanca.jpg");
+			direccion = direccion.replaceFirst("/", "");
+			direccion = direccion.replace("/", "\\");
+			parametros.put("timagen1", direccion);
+			direccion = Reporte.class
+					.getResource("Reporte.jasper")
+					.getPath()
+					.replace(
+							"WEB-INF/classes/ve/smile/reportes/Reporte.jasper",
+							"imagenes/smiles_webdesktop.png");
+			direccion = direccion.replaceFirst("/", "");
+			direccion = direccion.replace("/", "\\");
+			parametros.put("timagen2", direccion);
+			
 
 			fechaDesde = fechaDesdeDate == null ? "" : UtilConverterDataList
 					.convertirLongADate(fechaDesdeDate.getTime());
@@ -674,7 +694,15 @@ public class VM_ReporteDonativoIndex extends VM_WindowWizard {
 			parametros.put("tProcedencias", tProcedencias);
 
 			parametros.put("tRecepciones", tRecepciones);
+			
+			Organizacion organizacion = S.OrganizacionService.consultarTodos().getObjetos().get(0);
+			
+			parametros.put("tDireccionOrganizacion", organizacion.getDireccion());
+			
+			parametros.put("tTelefonoOrganizacion", organizacion.getTelefono() + " " + "/" + " " + organizacion.getTelefono2());
 
+			parametros.put("tCorreoOrganizacion", organizacion.getCorreo());
+			
 			source = "reporte/reportDonativosParametrizados.jasper";
 		}
 
@@ -683,7 +711,7 @@ public class VM_ReporteDonativoIndex extends VM_WindowWizard {
 
 	@Override
 	public String isValidPreconditionsCustom2(Integer currentStep) {
-		System.out.println("algo paso por aqui pendiente");
+
 		return "";
 	}
 

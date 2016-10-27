@@ -39,14 +39,10 @@
 					<checkbox label="Cancelado"
 						checked="@bind(vm.cancelado)" />
 				</div>
-				<div sclass="col s3">
-					<checkbox label="Rechazado"
-						checked="@bind(vm.rechazado)" />
-				</div>
 			</div>
 		</div>
-		<div class="row">
-			<div class="row">
+		<div class="row" >
+			<div class="row" visible="@bind(!vm.todos)">
 				<div sclass="col s12" style="padding:0px">
 					<div sclass="col s3">
 						<checkbox label="Clasificador Trabajo Social"

@@ -16,6 +16,7 @@ import karen.core.wizard.viewmodels.VM_WindowWizard;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
+
 /*import org.apache.poi.hssf.usermodel.HSSFSheet;
  import org.apache.poi.hssf.usermodel.HSSFWorkbook;
  import org.apache.poi.ss.usermodel.Cell;
@@ -25,6 +26,7 @@ import org.zkoss.bind.annotation.Init;
 
 import ve.smile.consume.services.S;
 import ve.smile.dto.ClasificadorReconocimiento;
+import ve.smile.dto.Organizacion;
 import ve.smile.dto.ReconocimientoPersona;
 import ve.smile.enums.TipoReconocimientoEnum;
 import ve.smile.payload.response.PayloadClasificadorReconocimientoResponse;
@@ -447,11 +449,11 @@ public class VM_ReporteReconocimientoIndex extends VM_WindowWizard {
 					.consultaReconocimientoPersonasParametrizado(sql);
 			List<ReconocimientoPersona> listReconocimientos = payloadReconocimientoResponse
 					.getObjetos();
-			this.getReconocimientos().addAll(listReconocimientos);
-
+			
 			if (listReconocimientos.isEmpty()) {
 				return "E:Error Code 5-Los criterios seleccionados no aportan información para <b>Reconocimientos</b>";
 			}
+			this.getReconocimientos().addAll(listReconocimientos);
 
 			jrDataSource = new JRBeanCollectionDataSource(listReconocimientos);
 		}
@@ -498,7 +500,15 @@ public class VM_ReporteReconocimientoIndex extends VM_WindowWizard {
 
 			parametros.put("reconocimientoClasificadoP",
 					reconocimientoClasificadoP);
+			
+			Organizacion organizacion = S.OrganizacionService.consultarTodos().getObjetos().get(0);
+			
+			parametros.put("tDireccionOrganizacion", organizacion.getDireccion());
+			
+			parametros.put("tTelefonoOrganizacion", organizacion.getTelefono() + " " + "/" + " " + organizacion.getTelefono2());
 
+			parametros.put("tCorreoOrganizacion", organizacion.getCorreo());
+			
 			source = "reporte/reportReconocimientosParametrizados.jasper";
 		}
 		return "";

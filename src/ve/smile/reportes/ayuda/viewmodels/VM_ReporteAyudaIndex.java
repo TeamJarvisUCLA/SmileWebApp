@@ -19,10 +19,12 @@ import org.zkoss.bind.annotation.Init;
 
 import ve.smile.consume.services.S;
 import ve.smile.dto.Fortaleza;
+import ve.smile.dto.Organizacion;
 import ve.smile.dto.Recurso;
 import ve.smile.dto.SolicitudAyuda;
 import ve.smile.enums.EstatusSolicitudEnum;
 import ve.smile.payload.response.PayloadSolicitudAyudaResponse;
+import ve.smile.reportes.Reporte;
 
 public class VM_ReporteAyudaIndex extends VM_WindowWizard {
 
@@ -362,7 +364,7 @@ public class VM_ReporteAyudaIndex extends VM_WindowWizard {
 				sql = "SELECT DISTINCT v FROM SolicitudAyuda v  WHERE  v.idSolicitudAyuda = v.idSolicitudAyuda ";
 
 				if (fecha) {
-					System.out.println("entro");
+				
 					if (fechaDesdeDate == null && fechaHastaDate == null) {
 
 						return "E:Error Code 5-No se han ingresado parametros de fechas ";
@@ -384,7 +386,7 @@ public class VM_ReporteAyudaIndex extends VM_WindowWizard {
 						sql += " and v.fecha >= " + fechaDesdeDate.getTime()
 								+ " and v.fecha <= " + fechaHastaDate.getTime()
 								+ " ";
-						System.out.println(sql);
+				
 					}
 				}
 
@@ -394,7 +396,7 @@ public class VM_ReporteAyudaIndex extends VM_WindowWizard {
 				sql = "SELECT DISTINCT v FROM SolicitudAyuda v  WHERE  v.idSolicitudAyuda = v.idSolicitudAyuda ";
 
 				if (fecha) {
-					System.out.println("entro");
+		
 					if (fechaDesdeDate == null && fechaHastaDate == null) {
 
 						return "E:Error Code 5-No se han ingresado parametros de fechas ";
@@ -413,11 +415,11 @@ public class VM_ReporteAyudaIndex extends VM_WindowWizard {
 						return "E:Error Code 5-No se puede ingresar una <b>Fecha Desde</b>  mayor a la <b>Fecha Hasta</b> ";
 
 					} else {
-						System.out.println("no llego al final");
+					
 						sql += " and v.fecha >= " + fechaDesdeDate.getTime()
 								+ " and v.fecha <= " + fechaHastaDate.getTime()
 								+ " ";
-						System.out.println(sql);
+					
 					}
 				}
 
@@ -524,20 +526,17 @@ public class VM_ReporteAyudaIndex extends VM_WindowWizard {
 
 			}
 
-			System.out.println(sql);
+
 			PayloadSolicitudAyudaResponse payloadSolicitudAyudaResponse = S.SolicitudAyudaService
 					.consultaSolicitudesParametrizado(sql);
 			List<SolicitudAyuda> listSolicitudAyudas = payloadSolicitudAyudaResponse
 					.getObjetos();
-			System.out.println(listSolicitudAyudas);
-			this.getSolicitudAyudas().addAll(listSolicitudAyudas);
 
 			if (listSolicitudAyudas.isEmpty()) {
 				return "E:Error Code 5-Los criterios seleccionados no aportan informaci�n para <b>SolicitudAyudas</b>";
 			}
-			for (SolicitudAyuda solicitud : listSolicitudAyudas) {
-				System.out.println(solicitud.getEstatusSolicitud());
-			}
+			this.getSolicitudAyudas().addAll(listSolicitudAyudas);
+	
 
 			jrDataSource = new JRBeanCollectionDataSource(listSolicitudAyudas);
 		}
@@ -552,6 +551,25 @@ public class VM_ReporteAyudaIndex extends VM_WindowWizard {
 			if (!recursosP.equals("")) {
 				tRecursos = "Recursos";
 			}
+			
+			String direccion = Reporte.class
+					.getResource("Reporte.jasper")
+					.getPath()
+					.replace(
+							"WEB-INF/classes/ve/smile/reportes/Reporte.jasper",
+							"imagenes/logo_fanca.jpg");
+			direccion = direccion.replaceFirst("/", "");
+			direccion = direccion.replace("/", "\\");
+			parametros.put("timagen1", direccion);
+			direccion = Reporte.class
+					.getResource("Reporte.jasper")
+					.getPath()
+					.replace(
+							"WEB-INF/classes/ve/smile/reportes/Reporte.jasper",
+							"imagenes/smiles_webdesktop.png");
+			direccion = direccion.replaceFirst("/", "");
+			direccion = direccion.replace("/", "\\");
+			parametros.put("timagen2", direccion);
 
 			fechaDesde = fechaDesdeDate == null ? "" : UtilConverterDataList
 					.convertirLongADate(fechaDesdeDate.getTime());
@@ -584,7 +602,15 @@ public class VM_ReporteAyudaIndex extends VM_WindowWizard {
 			parametros.put("fortalezasP", fortalezasP);
 
 			parametros.put("recursosP", recursosP);
+			
+			Organizacion organizacion = S.OrganizacionService.consultarTodos().getObjetos().get(0);
+			
+			parametros.put("tDireccionOrganizacion", organizacion.getDireccion());
+			
+			parametros.put("tTelefonoOrganizacion", organizacion.getTelefono() + " " + "/" + " " + organizacion.getTelefono2());
 
+			parametros.put("tCorreoOrganizacion", organizacion.getCorreo());
+			
 			source = "reporte/reportAyudasParametrizados.jasper";
 		}
 
@@ -593,7 +619,6 @@ public class VM_ReporteAyudaIndex extends VM_WindowWizard {
 
 	@Override
 	public String isValidPreconditionsCustom2(Integer currentStep) {
-		System.out.println("algo paso por aqui pendiente");
 		return "";
 	}
 

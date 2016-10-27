@@ -1,12 +1,10 @@
 package ve.smile.reportes.trabajosocial.viewmodels;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
 import karen.core.wizard.buttons.data.OperacionWizard;
 import karen.core.wizard.buttons.enums.OperacionWizardEnum;
 import karen.core.wizard.buttons.helpers.OperacionWizardHelper;
@@ -15,24 +13,17 @@ import lights.core.enums.TypeQuery;
 import lights.smile.util.UtilConverterDataList;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.Init;
-
 import ve.smile.consume.services.S;
 import ve.smile.dto.Actividad;
 import ve.smile.dto.ClasificadorTrabajoSocial;
-import ve.smile.dto.EventPlanTarea;
 import ve.smile.dto.Indicador;
-import ve.smile.dto.IndicadorEventoPlanificado;
 import ve.smile.dto.IndicadorTsPlan;
 import ve.smile.dto.Organizacion;
 import ve.smile.dto.TsPlan;
 import ve.smile.dto.TsPlanActividad;
-import ve.smile.enums.EstatusEventoPlanificadoEnum;
-import ve.smile.payload.response.PayloadEventPlanTareaResponse;
-import ve.smile.payload.response.PayloadIndicadorEventoPlanificadoResponse;
-import ve.smile.payload.response.PayloadIndicadorTsPlanActividadResponse;
+import ve.smile.enums.EstatusTrabajoSocialPlanificadoEnum;
 import ve.smile.payload.response.PayloadIndicadorTsPlanResponse;
 import ve.smile.payload.response.PayloadTsPlanActividadResponse;
 import ve.smile.payload.response.PayloadTsPlanResponse;
@@ -121,7 +112,7 @@ public class VM_ReporteTrabajoSocialIndex extends VM_WindowWizard {
 				.consultarTodos().getObjetos();
 
 		listAtividades = S.ActividadService.consultarTodos().getObjetos();
-		System.out.println(listAtividades.size());
+	
 
 		listIndicadores = S.IndicadorService.consultarTodos().getObjetos();
 
@@ -324,7 +315,7 @@ public class VM_ReporteTrabajoSocialIndex extends VM_WindowWizard {
 		if (currentStep == 1) {
 			listTrabajoSocialPlanificados = new ArrayList<>();
 			String sql = "";
-			System.out.println(todos);
+		
 			if (todos) {
 
 				sql = "SELECT DISTINCT tsp FROM TsPlan tsp  WHERE  tsp.idTsPlan = tsp.idTsPlan ";
@@ -388,37 +379,27 @@ public class VM_ReporteTrabajoSocialIndex extends VM_WindowWizard {
 					}
 				}
 
-				if (cancelado || ejecutado || planificado || rechazado) {
+				if (cancelado || ejecutado || planificado) {
 					String estatusEventos = "";
 
 					if (cancelado) {
-						estatusEventos += EstatusEventoPlanificadoEnum.CANCELADO
-								.ordinal() + ",";
-						estatusTsP += EstatusEventoPlanificadoEnum.CANCELADO
-								.toString() + " ";
+						
+						estatusEventos += EstatusTrabajoSocialPlanificadoEnum.CANCELADO.ordinal() + ",";
+						estatusTsP += EstatusTrabajoSocialPlanificadoEnum.CANCELADO.toString() + " ";
 					}
 
 					if (ejecutado) {
 
-						estatusEventos += EstatusEventoPlanificadoEnum.EJECUTADO
-								.ordinal() + ",";
-						estatusTsP += EstatusEventoPlanificadoEnum.EJECUTADO
+						estatusEventos += EstatusTrabajoSocialPlanificadoEnum.EJECUTADO.ordinal() + ",";
+						estatusTsP += EstatusTrabajoSocialPlanificadoEnum.EJECUTADO
 								.toString() + " ";
 					}
 
 					if (planificado) {
 
-						estatusEventos += EstatusEventoPlanificadoEnum.PLANIFICADO
+						estatusEventos += EstatusTrabajoSocialPlanificadoEnum.PLANIFICADO
 								.ordinal() + ",";
-						estatusTsP += EstatusEventoPlanificadoEnum.PLANIFICADO
-								.toString() + " ";
-					}
-
-					if (rechazado) {
-
-						estatusEventos += EstatusEventoPlanificadoEnum.RECHAZADO
-								.ordinal() + ",";
-						estatusTsP += EstatusEventoPlanificadoEnum.RECHAZADO
+						estatusTsP += EstatusTrabajoSocialPlanificadoEnum.PLANIFICADO
 								.toString() + " ";
 					}
 
@@ -434,12 +415,12 @@ public class VM_ReporteTrabajoSocialIndex extends VM_WindowWizard {
 				}
 
 				if (indicador) {
-					System.out.println("entro al los indicadores");
+				
 					if (indicadoresSeleccionados != null) {
-						System.out.println("Paso el Null");
+			
 						String indicadores = "";
 						int i = 0;
-						System.out.println("entro al los indicadores");
+			
 						for (Indicador indicador : indicadoresSeleccionados) {
 							i++;
 							indicadores += indicador.getIdIndicador();
@@ -520,7 +501,7 @@ public class VM_ReporteTrabajoSocialIndex extends VM_WindowWizard {
 				return "E:Error Code 5-No se han seleccionados criterios para la consulta <b>Voluntarios</b>";
 
 			}
-			System.out.println(sql);
+		
 			PayloadTsPlanResponse payloadTsPlanResponse = S.TsPlanService
 					.consultaTrabajoSocialPlanificadosParametrizado(sql);
 			List<TsPlan> listTsPlans = payloadTsPlanResponse.getObjetos();
@@ -630,6 +611,10 @@ public class VM_ReporteTrabajoSocialIndex extends VM_WindowWizard {
 
 		parametros.put("tDireccionOrganizacion", organizacion.getDireccion());
 
+parametros.put("tTelefonoOrganizacion", organizacion.getTelefono() + " " + "/" + " " + organizacion.getTelefono2());
+		
+		parametros.put("tCorreoOrganizacion", organizacion.getCorreo());
+
 		source = "reporte/reportTsPlanificadosParametrizados.jasper";
 	}
 
@@ -708,7 +693,6 @@ public class VM_ReporteTrabajoSocialIndex extends VM_WindowWizard {
 			parametros.put("tDescripcion", "Descripción");
 
 		} else {
-			System.out.println("Mensaje Tarea");
 			parametros.put("tMensajeActividad",
 					"No hay  Actividades  Asignadas a este Trabajo Social");
 

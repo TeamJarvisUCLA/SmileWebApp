@@ -18,6 +18,7 @@ import org.zkoss.bind.BindUtils;
 
 import ve.smile.consume.services.S;
 import ve.smile.dto.IndicadorTsPlan;
+import ve.smile.dto.Organizacion;
 import ve.smile.dto.TsPlan;
 import ve.smile.payload.response.PayloadIndicadorTsPlanResponse;
 import ve.smile.payload.response.PayloadTsPlanResponse;
@@ -170,7 +171,7 @@ public class VM_ReportTrabajoSocialPlanificadosVsEjecutadosIndex extends VM_Wind
 				this.indicadorTrabajoSocialPlanificado = new ArrayList<IndicadorTsPlan>();
 				Map<String, String> criterios = new HashMap<>();
 				TsPlan trabajoSocialPlanificado = (TsPlan) selectedObject;
-				System.out.println(trabajoSocialPlanificado.getIdTsPlan());
+
 				criterios.put("fkTrabajoSocialPlanificado.idTrabajoSocialPlanificado",
 						trabajoSocialPlanificado.getIdTsPlan() + "");
 				PayloadIndicadorTsPlanResponse payloadIndicadorTsPlanResponse = S.IndicadorTsPlanService
@@ -212,6 +213,16 @@ public class VM_ReportTrabajoSocialPlanificadosVsEjecutadosIndex extends VM_Wind
 			parametros.put("pUnidadDeMedida", "Unidad de Medida");
 			parametros.put("pValorEsperado", "Valor Esperado");
 			parametros.put("pValorReal", "Valor Real");
+			Organizacion organizacion = S.OrganizacionService.consultarTodos()
+					.getObjetos().get(0);
+			parametros.put("tDireccionOrganizacion",
+					organizacion.getDireccion());
+
+			parametros.put("tTelefonoOrganizacion", organizacion.getTelefono()
+					+ " " + "/" + " " + organizacion.getTelefono2());
+
+			parametros.put("tCorreoOrganizacion", organizacion.getCorreo());
+
 			type = "pdf";
 			source = "reporte/estadisticoTrabajoSocialPlanificadosVsEjecutados.jasper";
 			

@@ -287,12 +287,12 @@ public class VM_PostulacionIndex extends VM_WindowWizard {
 		listOperacionWizard3.add(operacionWizardCustom3);
 
 		botones.put(3, listOperacionWizard3);
-		
+
 		List<OperacionWizard> listOperacionWizard4 = new ArrayList<OperacionWizard>();
 		listOperacionWizard4.add(OperacionWizardHelper
 				.getPorType(OperacionWizardEnum.FINALIZAR));
 		botones.put(4, listOperacionWizard4);
-		
+
 		return botones;
 	}
 
@@ -321,11 +321,14 @@ public class VM_PostulacionIndex extends VM_WindowWizard {
 		if (currentStep == 1) {
 			this.setEstado(this.getPadrinoSelected().getFkPersona()
 					.getFkCiudad().getFkEstado());
-			this.setSexoEnum(SexoEnum.values()[this.getPadrinoSelected()
-					.getFkPersona().getSexo()]);
+
 			this.setTipoPersonaEnum(TipoPersonaEnum.values()[this
 					.getPadrinoSelected().getFkPersona().getTipoPersona()]);
 			this.setMotivo(this.getPadrinoSelected().getFkMotivo());
+			if (this.getPadrinoSelected().getFkPersona().getSexo() != null) {
+				this.setSexoEnum(SexoEnum.values()[this.getPadrinoSelected()
+						.getFkPersona().getSexo()]);
+			}
 			Map<String, String> criterios = new HashMap<>();
 			criterios.put("fkEstado.idEstado",
 					String.valueOf(estado.getIdEstado()));
@@ -370,14 +373,11 @@ public class VM_PostulacionIndex extends VM_WindowWizard {
 				return "E:Error Code 5-Debe seleccionar un <b>postulado</b>";
 			}
 		}
-		if (currentStep == 3)
-		{
-			try
-			{
-				UtilValidate.validateNull(this.getPadrinoSelected().getFkMotivo(), "Motivo");
-			}
-			catch (Exception e)
-			{
+		if (currentStep == 3) {
+			try {
+				UtilValidate.validateNull(this.getPadrinoSelected()
+						.getFkMotivo(), "Motivo");
+			} catch (Exception e) {
 				return e.getMessage();
 			}
 		}
@@ -394,7 +394,7 @@ public class VM_PostulacionIndex extends VM_WindowWizard {
 				return e.getMessage();
 			}
 		}
-		
+
 		return "";
 	}
 

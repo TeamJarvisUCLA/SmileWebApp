@@ -26,7 +26,7 @@ import ve.smile.payload.response.PayloadMultimediaAlbumResponse;
 import ve.smile.payload.response.PayloadTsPlanResponse;
 
 public class VM_Album {
-	
+
 	private List<MultimediaAlbum> multimediaAlbum;
 	private List<EventoPlanificado> eventoPlanificado;
 	private List<TsPlan> tsPlan;
@@ -35,26 +35,26 @@ public class VM_Album {
 	private Date fechaEjecutado;
 	private String fechaPublicacionFormat;
 	private String directorio;
-	
+
 	public Date getFechaPublicacion() {
 		if (getevento() != null){
-			this.fechaEjecutado = new Date(getevento().getFechaEjecutada());
+			this.fechaEjecutado = new Date(getevento().getFechaInicio());
 		}else{
-			this.fechaEjecutado = new Date(getts().getFechaEjecutada());
+			this.fechaEjecutado = new Date(getts().getFechaInicio());
 		}
 		return fechaEjecutado;
 	}
-	
-	public String getdirectorio(){
-		
-		if (getevento() != null){
+
+	public String getdirectorio() {
+
+		if (getevento() != null) {
 			this.directorio = getevento().getFkDirectorio().getNombre();
-		}else{
+		} else {
 			this.directorio = getts().getFkDirectorio().getNombre();
 		}
-		
+
 		return directorio;
-				
+
 	}
 
 	public Integer getCant() {
@@ -65,7 +65,7 @@ public class VM_Album {
 	public Album getalbum() {
 		return (Album) DataCenter.getEntity();
 	}
-	
+
 	public List<MultimediaAlbum> getmultimediaalbum() {
 		if (this.multimediaAlbum == null) {
 			this.multimediaAlbum = new ArrayList<>();
@@ -88,15 +88,16 @@ public class VM_Album {
 	@Command
 	public void galeria() {
 		DataCenter.updateSrcPageContent(null, null, "/views/web/galeria.zul");
-		
+
 	}
 
 	public String getFechaPublicacionFormat() {
-		this.fechaPublicacionFormat = new SimpleDateFormat("dd-MM-yyyy").format(getFechaPublicacion());
+		this.fechaPublicacionFormat = new SimpleDateFormat("dd-MM-yyyy")
+				.format(getFechaPublicacion());
 		return fechaPublicacionFormat;
 	}
-	
-	public EventoPlanificado getevento(){
+
+	public EventoPlanificado getevento() {
 		if (this.eventoPlanificado == null) {
 			this.eventoPlanificado = new ArrayList<>();
 		}
@@ -114,12 +115,12 @@ public class VM_Album {
 		}
 		if (eventoPlanificado.size() == 0) {
 			return null;
-		}else {
+		} else {
 			return eventoPlanificado.get(0);
 		}
 	}
-	
-	public TsPlan getts(){
+
+	public TsPlan getts() {
 		if (this.tsPlan == null) {
 			this.tsPlan = new ArrayList<>();
 		}
@@ -130,18 +131,17 @@ public class VM_Album {
 					.consultaTSPlanificadoAlbum(getalbum().getIdAlbum());
 
 			if (UtilPayload.isOK(payloadTsPlanResponse)) {
-				this.tsPlan.addAll(payloadTsPlanResponse
-						.getObjetos());
+				this.tsPlan.addAll(payloadTsPlanResponse.getObjetos());
 			}
 
 		}
 		if (tsPlan.size() == 0) {
 			return null;
-		}else {
+		} else {
 			return tsPlan.get(0);
 		}
 	}
-	
+
 	public List<ComentarioAlbum> getcomentarioalbum() {
 		if (this.comentarioAlbum == null) {
 			this.comentarioAlbum = new ArrayList<>();
@@ -150,7 +150,8 @@ public class VM_Album {
 		if (this.comentarioAlbum.isEmpty()) {
 
 			PayloadComentarioAlbumResponse payloadComentarioAlbumResponse = S.ComentarioAlbumService
-					.consultaComentariosAlbum(getalbum().getIdAlbum(), EstatusComentarioAlbumEnum.PUBLICADO.ordinal());
+					.consultaComentariosAlbum(getalbum().getIdAlbum(),
+							EstatusComentarioAlbumEnum.PUBLICADO.ordinal());
 
 			if (UtilPayload.isOK(payloadComentarioAlbumResponse)) {
 				this.comentarioAlbum.addAll(payloadComentarioAlbumResponse
@@ -162,12 +163,13 @@ public class VM_Album {
 	}
 
 	@Command
-	public void abrirComentar(){
+	public void abrirComentar() {
 		DialogData dialogData = new DialogData();
 		UtilDialog.showDialog("/views/web/comentarAlbum.zul", dialogData);
 	}
-	
+
 	@GlobalCommand
 	@NotifyChange("*")
-	public void refreshComentarios(){}
+	public void refreshComentarios() {
+	}
 }

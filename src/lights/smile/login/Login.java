@@ -8,6 +8,7 @@ import karen.core.crux.session.DataCenter;
 import karen.core.crux.session.UserSecurityData;
 import karen.core.crux.session.context.SesionContextHelper;
 import karen.core.crux.session.listener_zk.MySessionListener;
+import karen.core.dialog.generic.data.DialogData;
 import karen.core.util.UtilDialog;
 import karen.core.util.payload.UtilPayload;
 import karen.core.util.validate.UtilValidate;
@@ -141,5 +142,11 @@ public class Login {
 
 			return false;
 		}
+	}
+	
+	@Command
+	public void recuperacion(){
+		DialogData dialogData = new DialogData();
+		UtilDialog.showDialog("/views/web/recuperacion.zul", dialogData);
 	}
 }

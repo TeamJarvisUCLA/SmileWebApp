@@ -1,0 +1,51 @@
+<zk xmlns:n="native" xmlns:w="client">
+
+	<window width="80%" sclass="window-dialog"
+		action="show: slideIn;hide: slideOut"
+		use="ve.smile.web.viewmodels.recuperacion.C_Recuperacion"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('ve.smile.web.viewmodels.recuperacion.VM_recuperacion', dialogData=arg.get('dialogData'))">
+		
+		<n:link href="assets/css/web/comentarAlbum.css" rel="stylesheet" type="text/css"></n:link>
+		<n:link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"></n:link>
+		
+		<n:div id="modalFormComentario">
+			<div class="container-fluid">
+				<div class="row">
+					<div sclass="col s12 close">
+						<a id="btnCancel">
+							<span>x</span>
+						</a>
+					</div>
+					<div sclass="col s12 text-center">
+						<n:h6>Recuperacion de contraseña</n:h6>
+					</div>
+					<div sclass="offset-s2 col s6 form">
+						<div class="input-field col s12">
+							<n:label for="correo">Correo</n:label>
+							<textbox id="correo" type="text"
+								value="@bind(vm.usuario.correo)">
+							</textbox>
+						</div>													
+					</div>
+					<div sclass="offset-s2 col s6 form">
+						<label
+							value="Ingresa el correo con el que te registraste y te enviaremos un email con tu nueva contraseña">
+						</label>												
+					</div>						
+					<div class="col s4 text-center">
+						<image src="/imagenes/portal/conejo.png"></image>
+					</div>			
+					<div id="divButtonsForm" sclass="row">
+						<div class="col s12 text-center">
+							<button id="btnAccept" class="waves-effect waves-light btn" href="">
+								aceptar
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</n:div>
+	</window>
+
+</zk>

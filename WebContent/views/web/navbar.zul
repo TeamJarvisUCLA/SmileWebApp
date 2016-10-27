@@ -94,7 +94,7 @@
 							<div
 								class="col s12 div-buttons-form z-div">
 								<separator height="15px"></separator>
-								<button type="button" iconSclass=""
+								<button type="button" iconSclass="" onClick="@command('recuperacion')"
 									class="indigo waves-effect waves-light btn"
 									style="background-color: #3B85A1 !important; margin-top: 18px;margin-bottom: 27px;">
 									RECUPERAR

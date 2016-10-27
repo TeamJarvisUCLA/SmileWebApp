@@ -41,7 +41,13 @@ public class VM_Contactanos {
 	private List<Organizacion> organizacion;
 	private Configuracion confContactanos =  new Configuracion();
 	boolean emailContactanos = false;
+	private Organizacion org;
 	
+	public Organizacion getOrg() {
+		this.org = organizacion.get(0);
+		return org;
+	}
+
 	@Init(superclass = true)
 	public void childInit() {
 		// NOTHING OK!

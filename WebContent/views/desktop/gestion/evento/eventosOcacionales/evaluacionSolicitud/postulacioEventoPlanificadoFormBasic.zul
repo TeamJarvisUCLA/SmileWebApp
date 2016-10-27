@@ -1,0 +1,77 @@
+<zk xmlns:n="native" xmlns:w="client">
+<div use="karen.core.form.controllers.C_WindowForm"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('ve.smile.gestion.eventosOcaionales.evaluacionSolicitud.viewmodels.VM_EvaluacionEventoFormBasic')">
+	<div class="row">
+
+		<div class="input-field col s6">
+			<n:label for="lugar" class="active">Nombre:</n:label>
+			<textbox id="nombreEvento" type="text" disabled="true"
+				value="@bind(vm.eventoPlanificado.fkEvento.nombre)">
+			</textbox>
+		</div>
+		<div class="input-field col s6">
+			<n:label for="lugar" class="active">
+				Tipo de Evento:
+			</n:label>
+			<textbox id="Tipo" type="text" disabled="true"
+				value="@bind(vm.eventoPlanificado.fkEvento.fkClasificadorEvento.nombre)">
+			</textbox>
+		</div>
+		<div class="input-field col s12">
+			<n:label for="lugar" class="active">Descripción:</n:label>
+			<textbox id="descripcion" type="text" disabled="true"
+				value="@bind(vm.eventoPlanificado.fkEvento.descripcion)">
+			</textbox>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col s6">
+			<div class="row">
+				<div class="input-field col s12">
+					<n:label for="fecha_trabajo_social"
+						class="active">
+						Fecha Inicio:
+					</n:label>
+					<datebox id="fecha_inicio" readonly="true" cols="20"
+						format="dd/MM/yyyy" value="@bind(vm.fechaInicio)" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="input-field col s12">
+					<n:label for="fecha_trabajo_social"
+						class="active">
+						Fecha Fin:
+					</n:label>
+					<datebox id="fecha_evento_planificado"
+						readonly="true" cols="20" format="dd/MM/yyyy"
+						value="@bind(vm.fechaFin)" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="input-field col s11">
+					<n:label for="lugar" class="active">Lugar:</n:label>
+					<textbox id="lugar" type="text" disabled="true"
+						value="@bind(vm.eventoPlanificado.fkDirectorio.nombre.concat(' - ').concat(vm.eventoPlanificado.fkDirectorio.direccion))">
+					</textbox>
+				</div>			
+				</div>
+			<div class="row">
+				<div class="input-field col s11">
+					<n:label for="responsable" class="active">
+						Responsable:
+					</n:label>
+					<textbox id="responsable" type="text"
+						disabled="true"
+						value="@bind(vm.eventoPlanificado.fkPersona.identificacion.concat(' - ').concat(vm.eventoPlanificado.fkPersona.nombre.concat(' ')).concat(vm.eventoPlanificado.fkPersona.apellido))">
+					</textbox>
+				</div>				
+			</div>
+		</div>
+		
+
+	</div>
+<div id="divButtonsForm"
+			use="karen.core.form.buttons.containers.DivButtonsForm">
+		</div>	</div>
+</zk>

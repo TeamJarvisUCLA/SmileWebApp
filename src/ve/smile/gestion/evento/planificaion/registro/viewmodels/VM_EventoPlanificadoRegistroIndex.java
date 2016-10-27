@@ -245,16 +245,20 @@ public class VM_EventoPlanificadoRegistroIndex extends VM_WindowWizard
 	public String isValidPreconditionsFinalizar(Integer currentStep) {
 		if (currentStep == 2) {
 			try {
-				Calendar calendar = Calendar.getInstance();
-				calendar.add(Calendar.DAY_OF_YEAR, -1);
-				UtilValidate.validateDate(this.getFechaInicio().getTime(),
-						"Fecha Inicio", ValidateOperator.GREATER_THAN,
-						new SimpleDateFormat("yyyy-MM-dd").format(calendar.getTime()),
-						"dd/MM/yyyy");
-				UtilValidate.validateDate(this.getFechaFin().getTime(),
-						"Fecha Fin", ValidateOperator.GREATER_THAN,
-						new SimpleDateFormat("yyyy-MM-dd").format(calendar.getTime()),
-						"dd/MM/yyyy");
+				Date fechainicio = new Date(fechaInicio.getYear(), fechaInicio.getMonth(), fechaInicio.getDate(), 23, 59,59);			
+				if(fechainicio.getTime()<new Date().getTime()){
+					return "E:Error Code 5-La fecha inicio no puede ser menor que la fecha de actual";
+					 
+				}
+				Date fechafin = new Date(fechaFin.getYear(), fechaFin.getMonth(), fechaInicio.getDate(), 23, 59,59);
+				if(fechafin.getTime()<new Date().getTime()){
+					return "E:Error Code 5-La fecha fin no puede ser menor que la fecha de actual";
+					
+				}
+				if(fechaInicio.getTime()>fechaFin.getTime()){
+					return "E:Error Code 5-La fecha fin no puede ser menor que la fecha de inicio";
+					
+				}
 				UtilValidate.validateNull(this.getEventoPlanificado().getFkPersona()
 						, "Responsable");
 				UtilValidate.validateNull(this.getEventoPlanificado().getFkDirectorio()

@@ -33,6 +33,7 @@ import ve.smile.dto.EventoPlanificado;
 import ve.smile.dto.NotificacionUsuario;
 import ve.smile.dto.Trabajador;
 import ve.smile.dto.Voluntario;
+import ve.smile.enums.EstatusEventoPlanificadoEnum;
 import ve.smile.enums.EstatusNotificacionEnum;
 import ve.smile.enums.TipoReferenciaNotificacionEnum;
 import ve.smile.payload.response.PayloadEventPlanTareaResponse;
@@ -317,8 +318,11 @@ public class VM_TareaParticipanteEventoPlanificado extends VM_WindowWizard{
 	@Override
 	public IPayloadResponse<EventoPlanificado> getDataToTable(
 			Integer cantidadRegistrosPagina, Integer pagina) {
-		PayloadEventoPlanificadoResponse payloadEventoPlanificadoResponse = S.EventoPlanificadoService
-				.consultarPaginacion(cantidadRegistrosPagina, pagina);
+		Map<String, String> criterios = new HashMap<String, String>();
+		criterios.put("estatusEvento", EstatusEventoPlanificadoEnum.PLANIFICADO.ordinal()+"");
+		PayloadEventoPlanificadoResponse payloadEventoPlanificadoResponse = 
+				S.EventoPlanificadoService.consultarPaginacionCriterios(cantidadRegistrosPagina, pagina, TypeQuery.EQUAL, criterios);
+
 		return payloadEventoPlanificadoResponse;
 	}
 

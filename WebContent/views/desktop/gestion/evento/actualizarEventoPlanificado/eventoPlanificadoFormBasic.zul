@@ -1,64 +1,74 @@
 <?component name="uploadImageSingle" macroURI="/assets/theme/components/upload_image_single.zul"?>
+<?xel-method prefix="m" name="getUrlWeb" class="lights.smile.util.Zki" 
+	signature="java.lang.String getUrlWeb(java.lang.String)" ?>
+
 
 <zk xmlns:n="native" xmlns:w="client">
-	<style>
-		.toolbarToSee_ button 
-		{ margin-bottom: 5px; 
-		} .toolbarToSee_
-		.ka-toolbar { 
-		margin-top: 0px !important; max-width: 36px;
-		margin: 0 auto; 
-		} 
-		.estilo-color-selected {
-		-webkit-border-radius: 30px 30px 30px 30px; 
-		border-radius: 30px
-		30px 30px 30px; 
-		height: 25px; 
-		width: 25px; 
-		margin-top: 5px; 
-		}
-		.estilo-preliminar { 
-		border: 2px dashed black;
-		height: 103px;
-		width: 120px !important;
-		}
-		 /* Toolbar de la lista */ 
-		.toolbar-custom-buttons
-		.btn-floating.btn-small { 
-		width: 25px; 
-		height: 25px; 
-		}
-		.toolbar-custom-buttons { 
-		margin: 0px !important; 
-		padding: 0px !important; 
-		text-align: center; 
-		} 
-		.toolbar-custom-buttons button i 
-		{ margin-top: -1em; 
-		} .toolbar-custom-buttons button {
-		font-size: 0em !important; 
-		} 
-		.tree-full-ventanas
-		.z-treecell-content { 
-		min-height: 40px; 
-		line-height: 25px; 
-		}
-	</style>
-	<div sclass="animated fadeInLeft" use="karen.core.form.controllers.C_WindowForm"
+	<div width="80%" class="container ${arg.animation_}"
+		use="karen.core.form.controllers.C_WindowForm"
 		apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('ve.smile.gestion.evento.actualizacionEventPs.viewmodels.VM_EventoPlanificado')">
+
+	
+		<separator height="20px"></separator>
 		<div class="row">
-			<div class="col s6">			
+		<div class="col s12">
+		<div class="row">
+		<div class="input-field col s6">
+						<n:label for="nombre" class="active">
+							Nombre:
+						</n:label>
+						<textbox id="nombre" type="text"
+							disabled="true"
+							value="@bind(vm.eventoPlanificado.fkEvento.nombre)">
+						</textbox>
+					</div>
+					<div class="input-field col s6">
+						<n:label for="tipo" class="active">
+							Tipo de Evento:
+						</n:label>
+						<textbox id="tipo" type="text"
+							disabled="true"
+							value="@bind(vm.eventoPlanificado.fkEvento.fkClasificadorEvento.nombre)">
+						</textbox>
+					</div>
+					<div class="input-field col s12">
+						<n:label for="decripcion" class="active">
+							Descripción:
+						</n:label>
+						<textbox id="descripcion" type="text"
+							disabled="true"
+							value="@bind(vm.eventoPlanificado.fkEvento.descripcion)">
+						</textbox>
+					</div>
+		
+		</div>
+		
+		</div>
+			<div class="col s6">
 				<div class="row">
 
 					<div class="input-field col s12">
 						<n:label for="fecha_trabajo_social"
 							class="active">
-							Fecha Planificada:
+							Fecha Inicio:
+						</n:label>
+						<datebox id="fecha_inicio" readonly="true"
+							cols="20" format="dd/MM/yyyy" value="@bind(vm.fechaInicio)" />
+					</div>
+
+				</div>
+
+				<div class="row">
+
+					<div class="input-field col s12">
+						<n:label for="fecha_trabajo_social"
+							class="active">
+							Fecha Fin:
 						</n:label>
 						<datebox id="fecha_evento_planificado"
 							readonly="true" cols="20" format="dd/MM/yyyy"
-							value="@bind(vm.fechaPlanificada)" />
+							value="@bind(vm.fechaFin)" />
 					</div>
 
 				</div>
@@ -69,7 +79,7 @@
 							Lugar:
 						</n:label>
 						<textbox id="lugar" type="text" disabled="true"
-							value="@bind(vm.eventoPlanificado.fkDirectorio.direccion)">
+							value="@bind(vm.eventoPlanificado.fkDirectorio.nombre.concat(' - ').concat(vm.eventoPlanificado.fkDirectorio.direccion))">
 						</textbox>
 					</div>
 					<div class="input-field col s1"
@@ -91,7 +101,8 @@
 							Responsable:
 						</n:label>
 						<textbox id="responsable" type="text"
-							disabled="true" value="@bind(vm.eventoPlanificado.fkPersona.nombre)">
+							disabled="true"
+							value="@bind(vm.eventoPlanificado.fkPersona.identificacion.concat(' - ').concat(vm.eventoPlanificado.fkPersona.nombre.concat(' ')).concat(vm.eventoPlanificado.fkPersona.apellido))">
 						</textbox>
 					</div>
 					<div class="input-field col s1"
@@ -113,7 +124,7 @@
 			</div>
 
 		</div>
-			<div id="divButtonsForm"
+		<div id="divButtonsForm"
 			use="karen.core.form.buttons.containers.DivButtonsForm">
 		</div>
 	</div>

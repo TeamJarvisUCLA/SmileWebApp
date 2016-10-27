@@ -243,7 +243,9 @@ public class VM_RegistroCierreTrabajoSocialIndex extends VM_WindowWizard {
 					}
 
 					TsPlan tsPlan = this.getTsPlanSelected();
-					tsPlan.setFechaEjecutada(this.fechaEjecucionInicio
+					tsPlan.setFechaInicioEjecucion(this.fechaEjecucionFin
+							.getTime());
+					tsPlan.setFechaInicioEjecucion(this.fechaEjecucionInicio
 							.getTime());
 					tsPlan.setFkMotivo(null);
 					tsPlan.setEstatusTsPlan(EstatusTrabajoSocialPlanificadoEnum.EJECUTADO

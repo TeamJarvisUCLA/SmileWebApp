@@ -42,7 +42,7 @@
 						style="margin-right:2px; margin-left:2px">
 						<div sclass="row">
 							<div class="input-field col s12">
-								<n:label for="nombres">Correo:</n:label>
+								<n:label for="nombres">Usuario:</n:label>
 								<textbox id="nombres" type="text"
 									value="@bind(vm.usuario.correo)" onOK="@command('login')">
 								</textbox>

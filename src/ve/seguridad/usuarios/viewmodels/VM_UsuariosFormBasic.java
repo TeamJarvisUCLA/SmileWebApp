@@ -30,7 +30,10 @@ import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
 
 import ve.smile.consume.services.S;
+import ve.smile.dto.Configuracion;
 import ve.smile.dto.Persona;
+import ve.smile.enums.PropiedadEnum;
+import ve.smile.payload.response.PayloadConfiguracionResponse;
 import ve.smile.payload.response.PayloadPersonaResponse;
 import ve.smile.seguridad.dto.Rol;
 import ve.smile.seguridad.dto.Usuario;
@@ -40,6 +43,8 @@ import ve.smile.seguridad.payload.response.PayloadUsuarioResponse;
 public class VM_UsuariosFormBasic extends VM_WindowForm {
 
 	private Persona persona;
+
+	private Configuracion confPostulacionPadrino = new Configuracion();
 
 	@Init(superclass = true)
 	public void childInit() {
@@ -54,7 +59,22 @@ public class VM_UsuariosFormBasic extends VM_WindowForm {
 					&& payloadResponse.getObjetos() != null
 					&& payloadResponse.getObjetos().size() > 0) {
 				this.setPersona(payloadResponse.getObjetos().get(0));
+
 			}
+		}
+
+		PayloadConfiguracionResponse payloadConfiguracionResponseP = S.ConfiguracionService
+				.consultarConfiguracionPropiedad(PropiedadEnum.EMAIL_USUARIOS_REGISTRO
+						.ordinal());
+		if (UtilPayload.isOK(payloadConfiguracionResponseP)) {
+			if (!payloadConfiguracionResponseP.getObjetos().isEmpty()) {
+				this.confPostulacionPadrino
+						.setValor(payloadConfiguracionResponseP.getObjetos()
+								.get(0).getValor());
+			} else {
+				this.confPostulacionPadrino.setValor("false");
+			}
+
 		}
 	}
 
@@ -91,7 +111,7 @@ public class VM_UsuariosFormBasic extends VM_WindowForm {
 		}
 
 		if (operacionEnum.equals(OperacionEnum.INCLUIR)) {
-
+			getUsuario().setCorreo(this.getUsuario().getCorreo().toUpperCase());
 			getUsuario().setClave(UtilEncryptor.encriptar("123456"));
 
 			PayloadUsuarioResponse payloadUsuarioResponse = S.UsuarioService
@@ -115,30 +135,34 @@ public class VM_UsuariosFormBasic extends VM_WindowForm {
 
 			Alert.showMessage(payloadUsuarioResponse);
 			DataCenter.reloadCurrentNodoMenu();
-
-			try {
-				new UtillMail()
-						.generateAndSendEmail(
-								this.persona.getCorreo(),
-								"FANCA - Usuario Smile",
-								"<p><span style=\"color:#3399cc;\"><strong>&iexcl;Felicidades!</strong></span></p><p><span style=\"color:#3399cc;\">Eres parte del nuestra organizaci&oacute;n, tus credenciales de ingreso son:</span></p><p><span style=\"color:#ff6699;\"><strong>Usuario</strong>: </span><span style=\"color:#3399ff;\">"
-										+ this.getUsuario().getCorreo()
-										+ "</span></p><p><span style=\"color: rgb(255, 102, 153);\"><b>Clave</b>:&nbsp;</span><span style=\"color:#3399ff;\"> 123456 </span></p><p><span style=\"color:#3399ff;\">Ingresa a nuestro portal por la Url:&nbsp;<a href=\"http://localhost:8080/SmileWebApp/main.zul\" target=\"_blank\">http://localhost:8080/SmileWebApp/main.zul</a>&nbsp;e inicia sesi&oacute;n</span></p><p>&nbsp;</p><p><span style=\"color:#ff6699;\"><strong>FANCA - Fundaci&oacute;n del Amigo Ni&ntilde;os con C&aacute;ncer</strong></span></p>");
-			} catch (AddressException e) {
-				e.printStackTrace();
-				Alert.showErrorMessage("100",
-						"Problemas al enviar el correo al usuario");
-				return true;
-			} catch (MessagingException e) {
-				e.printStackTrace();
-				Alert.showErrorMessage("100",
-						"Problemas al enviar el correo al usuario");
-				return true;
+			if (isEmailRegistro()) {
+				try {
+					new UtillMail()
+							.generateAndSendEmail(
+									this.persona.getCorreo(),
+									"FANCA - Usuario Smile",
+									"<p><span style=\"color:#3399cc;\"><strong>&iexcl;Felicidades!</strong></span></p><p><span style=\"color:#3399cc;\">Eres parte del nuestra organizaci&oacute;n, tus credenciales de ingreso son:</span></p><p><span style=\"color:#ff6699;\"><strong>Usuario</strong>: </span><span style=\"color:#3399ff;\">"
+											+ this.getUsuario().getCorreo()
+											+ "</span></p><p><span style=\"color: rgb(255, 102, 153);\"><b>Clave</b>:&nbsp;</span><span style=\"color:#3399ff;\"> 123456 </span></p><p><span style=\"color:#3399ff;\">Ingresa a nuestro portal por la Url:&nbsp;<a href=\"http://localhost:8080/SmileWebApp/main.zul\" target=\"_blank\">http://localhost:8080/SmileWebApp/main.zul</a>&nbsp;e inicia sesi&oacute;n</span></p><p>&nbsp;</p><p><span style=\"color:#ff6699;\"><strong>FANCA - Fundaci&oacute;n del Amigo Ni&ntilde;os con C&aacute;ncer</strong></span></p>");
+				} catch (AddressException e) {
+					e.printStackTrace();
+					Alert.showErrorMessage("100",
+							"Problemas al enviar el correo al usuario");
+					return true;
+				} catch (MessagingException e) {
+					e.printStackTrace();
+					Alert.showErrorMessage("100",
+							"Problemas al enviar el correo al usuario");
+					return true;
+				}
 			}
 			return true;
 		}
 
 		if (operacionEnum.equals(OperacionEnum.MODIFICAR)) {
+
+			getUsuario().setCorreo(this.getUsuario().getCorreo().toUpperCase());
+
 			PayloadUsuarioResponse payloadUsuarioResponse = S.UsuarioService
 					.modificar(getUsuario());
 
@@ -273,7 +297,7 @@ public class VM_UsuariosFormBasic extends VM_WindowForm {
 
 			UtilValidate.validateNull(getUsuario().getFkRol(), "Rol");
 			UtilValidate
-					.validateNull(getUsuario().getFkRol().getIdRol(), "Rol");	
+					.validateNull(getUsuario().getFkRol().getIdRol(), "Rol");
 			return true;
 		} catch (Exception e) {
 			Alert.showMessage(e.getMessage());
@@ -301,5 +325,12 @@ public class VM_UsuariosFormBasic extends VM_WindowForm {
 	@Override
 	public void onIncluir() {
 		getUsuario().setEstatus(Usuario.ACTIVO);
+	}
+
+	public boolean isEmailRegistro() {
+		if (this.confPostulacionPadrino.getValor().equals("true")) {
+			return true;
+		}
+		return false;
 	}
 }

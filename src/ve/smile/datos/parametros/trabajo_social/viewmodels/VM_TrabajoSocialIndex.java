@@ -65,7 +65,7 @@ VM_WindowSimpleListPrincipal<TrabajoSocial> {
 		Map<String, String> criterios =
 				new HashMap<String, String>();
 
-		criterios.put("fkTrabajoSocial.idTrabajoSocial", String.valueOf(getSelectedObject().getIdTrabajoSocial()));
+		criterios.put("fkTsPlan.idTrabajoSocial", String.valueOf(getSelectedObject().getIdTrabajoSocial()));
 
 		//Table Relation TsPlanPersona
 		PayloadTsPlanPersonaResponse payloadTsPlanPersonaResponse=

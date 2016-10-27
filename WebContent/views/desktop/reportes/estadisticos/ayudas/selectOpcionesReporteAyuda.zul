@@ -1,0 +1,61 @@
+<zk xmlns:n="native" xmlns:w="client">
+	<div width="100%" class=" ${arg.animation_} container_reporte">
+		<div sclass="row">
+			<div sclass="col s12">
+				<div sclass="col s3" style="padding: 0px">
+					<checkbox label="Todos" checked="@bind(vm.todos)" />
+				</div>
+				<div sclass="col s3" style="padding: 0px">
+					<checkbox label="Fecha Solicitud"
+						checked="@bind(vm.fecha)" />
+				</div>
+				<div sclass="col s3" visible="@bind(vm.fecha)">
+					<label value="Fecha Desde"></label>
+					<datebox format="dd/MM/yyyy"
+						value="@bind(vm.fechaDesdeDate)">
+					</datebox>
+				</div>
+				<div sclass="col s3" visible="@bind(vm.fecha)">
+					<label value="Fecha Hasta"></label>
+					<datebox format="dd/MM/yyyy"
+						value="@bind(vm.fechaHastaDate)">
+					</datebox>
+				</div>
+			</div>
+		</div>
+		<div class = "row"  visible="@bind(!vm.todos)">
+			<div class="row">
+				<div sclass="col s12" style="padding:0px">
+					
+					<div sclass="col s3">
+						<checkbox label="Ayudas"
+							checked="@bind(vm.ayuda)" />
+						<listbox id="listbox3" sclass="animated flipInX"
+							model="@load(vm.listAyudas)" checkmark="true" multiple="true"
+							height="150px" selectedItems="@bind(vm.ayudasSeleccionados)"
+							visible="@bind(vm.ayuda)">
+							<listhead>
+								<listheader width="100%"
+									label="Recurso" />
+							</listhead>
+							<template name="model">
+								<listitem>
+									<listcell>
+										<label
+											value="@load(each.nombre)">
+										</label>
+									</listcell>
+								</listitem>
+							</template>
+						</listbox>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+
+
+
+	</div>
+</zk>
+

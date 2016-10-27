@@ -46,16 +46,16 @@
 						<div sclass="col s9" align="center">
 							<div sclass="col s12" align="center">
 								<label sclass="titulo-evento"
-									value="@bind(vm.selectedObject.fkTrabajoSocial.nombre)">
+									value="@bind(vm.selectedObject.fkEvento.nombre)">
 								</label>
 
 								<label sclass="subtitulo-evento"
-									value="@bind(vm.selectedObject.fkTrabajoSocial.fkClasificadorTrabajoSocial.nombre)">
+									value="@bind(vm.selectedObject.fkEvento.fkClasificadorEvento.nombre)">
 								</label>
 
 								<div sclass="row">
 									<label sclass="descripcion-evento"
-										value="@bind(vm.selectedObject.fkTrabajoSocial.descripcion)">
+										value="@bind(vm.selectedObject.fkEvento.descripcion)">
 
 									</label>
 								</div>
@@ -123,7 +123,7 @@
 
 					<listbox height="300px"
 						emptyMessage="No hay indicadores asociados al evento."
-						model="@bind(vm.indicadorTrabajoSocialPlanificado)">
+						model="@bind(vm.indicadorEventoPlanificado)">
 						<listhead sizable="true">
 							<listheader label="Indicador" />
 							<listheader label="Unidad de Medida" />
@@ -142,16 +142,15 @@
 								</listcell>
 
 								<listcell>
-									<intbox
-										style="    height: 1em; border: 1px solid #999999; border-radius: 7px; font-size:1.2em;  text-align: center;"
-										value="@bind(each.valorEsperado)" disabled="true">
-									</intbox>
+									<label
+										value="@bind(each.valorEsperado)" >
+									</label>
 								</listcell>
 								<listcell>
-									<intbox
-										style="    height: 1em; border: 1px solid #999999; border-radius: 7px; font-size:1.2em;  text-align: center;"
+									<label
+										
 										value="@bind(each.valorReal)">
-									</intbox>
+									</label>
 								</listcell>
 							</listitem>
 						</template>

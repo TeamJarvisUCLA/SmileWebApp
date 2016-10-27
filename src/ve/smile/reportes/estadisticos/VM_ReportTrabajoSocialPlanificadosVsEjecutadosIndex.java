@@ -34,6 +34,8 @@ public class VM_ReportTrabajoSocialPlanificadosVsEjecutadosIndex extends VM_Wind
 	private String source;
 	
 	private String type;
+	
+	TsPlan tsPlan = new TsPlan();
 
 	@Override
 	public Map<Integer, List<OperacionWizard>> getButtonsToStep() {
@@ -81,9 +83,9 @@ public class VM_ReportTrabajoSocialPlanificadosVsEjecutadosIndex extends VM_Wind
 	public List<String> getUrlPageToStep() {
 		List<String> urls = new ArrayList<String>();
 
-		urls.add("views/desktop/reporte/estadisticos/trabajoSocialPlanificadosVsEjecutados/selectOpcionesPlanificadosVsEjecutados.zul");
-		urls.add("views/desktop/reporte/estadisticos/trabajoSocialPlanificadosVsEjecutados/listIndicadoresTrabajoSocialPlanificado.zul");
-		urls.add("views/desktop/reporte/estadisticos/trabajoSocialPlanificadosVsEjecutados/viewReportPlanificadosVsEjecutados.zul");
+		urls.add("views/desktop/reportes/estadisticos/trabajoSocialPlanificadosVsEjecutados/selectOpcionesPlanificadosVsEjecutados.zul");
+		urls.add("views/desktop/reportes/estadisticos/trabajoSocialPlanificadosVsEjecutados/listIndicadoresTrabajoSocialPlanificado.zul");
+		urls.add("views/desktop/reportes/estadisticos/trabajoSocialPlanificadosVsEjecutados/viewReportPlanificadosVsEjecutados.zul");
 
 		return urls;
 	}
@@ -170,16 +172,13 @@ public class VM_ReportTrabajoSocialPlanificadosVsEjecutadosIndex extends VM_Wind
 			if (currentStep == 1) {
 				this.indicadorTrabajoSocialPlanificado = new ArrayList<IndicadorTsPlan>();
 				Map<String, String> criterios = new HashMap<>();
-				TsPlan trabajoSocialPlanificado = (TsPlan) selectedObject;
+				tsPlan = (TsPlan) selectedObject;
 
-				criterios.put("fkTrabajoSocialPlanificado.idTrabajoSocialPlanificado",
-						trabajoSocialPlanificado.getIdTsPlan() + "");
+				criterios.put("fkTsPlan.idTsPlan",
+						tsPlan.getIdTsPlan() + "");
 				PayloadIndicadorTsPlanResponse payloadIndicadorTsPlanResponse = S.IndicadorTsPlanService
 						.consultarCriterios(TypeQuery.EQUAL, criterios);
-				if (payloadIndicadorTsPlanResponse.getObjetos()
-						.size() > 0
-						& payloadIndicadorTsPlanResponse
-								.getObjetos() != null) {
+				if (payloadIndicadorTsPlanResponse.getObjetos().size() > 0 & payloadIndicadorTsPlanResponse.getObjetos() != null) {
 					for (IndicadorTsPlan indicaTrbPlanificado : payloadIndicadorTsPlanResponse
 							.getObjetos()) {
 						IndicadorTsPlan indTrbPla = new IndicadorTsPlan();
@@ -213,6 +212,25 @@ public class VM_ReportTrabajoSocialPlanificadosVsEjecutadosIndex extends VM_Wind
 			parametros.put("pUnidadDeMedida", "Unidad de Medida");
 			parametros.put("pValorEsperado", "Valor Esperado");
 			parametros.put("pValorReal", "Valor Real");
+			parametros.put("pFecha", tsPlan.getFechaPlanificada());	
+			parametros.put("pNombreTrabajoSocial", tsPlan.getFkTrabajoSocial()
+					.getNombre());
+
+			parametros.put("pDescripcion", tsPlan.getFkTrabajoSocial()
+					.getDescripcion());
+
+			parametros.put("pLugar", tsPlan.getFkDirectorio()
+					.getNombre());
+
+			parametros.put("pDireccion", tsPlan.getFkDirectorio()
+					.getDireccion());
+
+			parametros.put("pResponsable", tsPlan.getFkPersona()
+					.getNombre()
+					+ " "
+					+ tsPlan.getFkPersona().getApellido());
+			
+			
 			Organizacion organizacion = S.OrganizacionService.consultarTodos()
 					.getObjetos().get(0);
 			parametros.put("tDireccionOrganizacion",
@@ -251,11 +269,13 @@ public class VM_ReportTrabajoSocialPlanificadosVsEjecutadosIndex extends VM_Wind
 		return "";
 	}
 
-	public List<IndicadorTsPlan> getIndicadorTsPlan() {
+
+
+	public List<IndicadorTsPlan> getIndicadorTrabajoSocialPlanificado() {
 		return indicadorTrabajoSocialPlanificado;
 	}
 
-	public void setIndicadorTsPlan(
+	public void setIndicadorTrabajoSocialPlanificado(
 			List<IndicadorTsPlan> indicadorTrabajoSocialPlanificado) {
 		this.indicadorTrabajoSocialPlanificado = indicadorTrabajoSocialPlanificado;
 	}

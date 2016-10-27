@@ -1,5 +1,10 @@
 package ve.smile.reportes.ayuda.viewmodels;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -16,10 +21,12 @@ import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 import org.zkoss.bind.annotation.Init;
+import org.zkoss.zul.Filedownload;
 
 import ve.smile.consume.services.S;
 import ve.smile.dto.Fortaleza;
 import ve.smile.dto.Organizacion;
+import ve.smile.dto.Padrino;
 import ve.smile.dto.Recurso;
 import ve.smile.dto.SolicitudAyuda;
 import ve.smile.enums.EstatusSolicitudEnum;
@@ -350,6 +357,29 @@ public class VM_ReporteAyudaIndex extends VM_WindowWizard {
 
 	@Override
 	public String executeCustom2(Integer currentStep) {
+		if (currentStep == 2) {
+			File crear_archivo = new File("C:\\Smile\\ayudas.csv");
+			try {
+				crear_archivo.createNewFile();
+				FileWriter w = new FileWriter(crear_archivo);
+				BufferedWriter bw = new BufferedWriter(w);
+				PrintWriter wr = new PrintWriter(bw);
+
+				for (SolicitudAyuda obj : this.solicitudes) {
+
+					wr.println(obj.getTitulo()
+							+ ";" + obj.getFkAyuda().getNombre()+ ";"
+							+ obj.getFkAyuda().getDescripcion() + ";"
+							+ obj.getFkBeneficiario().getFkFamiliar().getFkPersona().getNombre() + ";"
+							+ obj.getFkBeneficiario().getFkFamiliar().getFkPersona().getNombre());
+				}
+				wr.close();
+				bw.close();
+				Filedownload.save(crear_archivo, "application/file");			
+			} catch (IOException e) {
+				return "E:Error Code 5-No se pudo generar el archivo";
+			}
+		}
 		return "";
 	}
 

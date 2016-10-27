@@ -62,13 +62,9 @@ public class VM_ReportPlanificadosVsEjecutadosIndex extends VM_WindowWizard {
 		listOperacionWizard2.add(OperacionWizardHelper
 				.getPorType(OperacionWizardEnum.ATRAS));
 
-		OperacionWizard operacionWizard3 = new OperacionWizard(
-				OperacionWizardEnum.CUSTOM2.ordinal(), "EXPORTAR", "Custom2",
-				"", "teal accent-4", "Exportar");
-
+		
 		listOperacionWizard2.add(operacionWizard2);
 
-		listOperacionWizard2.add(operacionWizard3);
 
 		botones.put(2, listOperacionWizard2);
 

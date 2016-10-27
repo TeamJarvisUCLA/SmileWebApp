@@ -1,10 +1,16 @@
 package ve.smile.reportes.trabajosocial.viewmodels;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
 import karen.core.wizard.buttons.data.OperacionWizard;
 import karen.core.wizard.buttons.enums.OperacionWizardEnum;
 import karen.core.wizard.buttons.helpers.OperacionWizardHelper;
@@ -13,14 +19,19 @@ import lights.core.enums.TypeQuery;
 import lights.smile.util.UtilConverterDataList;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.Init;
+import org.zkoss.zul.Filedownload;
+
 import ve.smile.consume.services.S;
 import ve.smile.dto.Actividad;
 import ve.smile.dto.ClasificadorTrabajoSocial;
+import ve.smile.dto.EventoPlanificado;
 import ve.smile.dto.Indicador;
 import ve.smile.dto.IndicadorTsPlan;
 import ve.smile.dto.Organizacion;
+import ve.smile.dto.TrabajoSocial;
 import ve.smile.dto.TsPlan;
 import ve.smile.dto.TsPlanActividad;
 import ve.smile.enums.EstatusTrabajoSocialPlanificadoEnum;
@@ -306,7 +317,30 @@ public class VM_ReporteTrabajoSocialIndex extends VM_WindowWizard {
 
 	@Override
 	public String executeCustom2(Integer currentStep) {
-		return "";
+		File crear_archivo = new File("C:\\Smile\\trabajoSocial.csv");
+		try {
+			crear_archivo.createNewFile();
+			FileWriter w = new FileWriter(crear_archivo);
+			BufferedWriter bw = new BufferedWriter(w);
+			PrintWriter wr = new PrintWriter(bw);
+
+			for (TsPlan obj : this.listTrabajoSocialPlanificados) {
+
+				wr.println(obj.getFkPersona().getIdentificacion()+";"+obj.getFkPersona().getNombre()
+						+ ";" + obj.getFkPersona().getApellido() +";"
+						+ obj.getFkTrabajoSocial().getNombre() + ";"
+						+ obj.getFkTrabajoSocial().getDescripcion() + ";"
+						+ obj.getFkDirectorio().getNombre()+";"+obj.getFkDirectorio().getDireccion());
+			}
+			wr.close();
+			bw.close();
+			Filedownload.save(crear_archivo, "application/file");			
+		} catch (IOException e) {
+			return "E:Error Code 5-No se pudo generar el archivo";
+		}
+	
+	return "";
+
 	}
 
 	@Override
@@ -507,7 +541,7 @@ public class VM_ReporteTrabajoSocialIndex extends VM_WindowWizard {
 			List<TsPlan> listTsPlans = payloadTsPlanResponse.getObjetos();
 
 			if (listTsPlans.isEmpty()) {
-				return "E:Error Code 5-Los criterios seleccionados no aportan información para <b>Trabajo Social</b>";
+				return "E:Error Code 5-Los criterios seleccionados no aportan informaciï¿½n para <b>Trabajo Social</b>";
 			}
 
 			this.listTrabajoSocialPlanificados.addAll(listTsPlans);
@@ -690,7 +724,7 @@ parametros.put("tTelefonoOrganizacion", organizacion.getTelefono() + " " + "/" +
 		if (!tsPlanActividads.isEmpty()) {
 			parametros.put("tsActividades", tsPlanActividads);
 			parametros.put("tNombreTsA", "Nombre");
-			parametros.put("tDescripcion", "Descripción");
+			parametros.put("tDescripcion", "Descripciï¿½n");
 
 		} else {
 			parametros.put("tMensajeActividad",

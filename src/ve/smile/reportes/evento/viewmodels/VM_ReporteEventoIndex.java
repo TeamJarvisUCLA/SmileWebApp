@@ -1,5 +1,10 @@
 package ve.smile.reportes.evento.viewmodels;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -17,9 +22,11 @@ import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 import org.zkoss.bind.annotation.Init;
+import org.zkoss.zul.Filedownload;
 
 import ve.smile.consume.services.S;
 import ve.smile.dto.ClasificadorEvento;
+import ve.smile.dto.DonativoRecurso;
 import ve.smile.dto.EventPlanTarea;
 import ve.smile.dto.EventoPlanificado;
 import ve.smile.dto.Indicador;
@@ -252,7 +259,29 @@ public class VM_ReporteEventoIndex extends VM_WindowWizard {
 
 	@Override
 	public String executeCustom2(Integer currentStep) {
-		return "";
+		File crear_archivo = new File("C:\\Smile\\eventoPlanificados.csv");
+		try {
+			crear_archivo.createNewFile();
+			FileWriter w = new FileWriter(crear_archivo);
+			BufferedWriter bw = new BufferedWriter(w);
+			PrintWriter wr = new PrintWriter(bw);
+
+			for (EventoPlanificado obj : this.listEventosPlanificados) {
+
+				wr.println(obj.getFkPersona().getIdentificacion()+";"+obj.getFkPersona().getNombre()
+						+ ";" + obj.getFkPersona().getApellido() +";"
+						+ obj.getFkEvento().getNombre() + ";"
+						+ obj.getFkEvento().getDescripcion() + ";"
+						+ obj.getFkDirectorio().getNombre()+";"+obj.getFkDirectorio().getDireccion());
+			}
+			wr.close();
+			bw.close();
+			Filedownload.save(crear_archivo, "application/file");			
+		} catch (IOException e) {
+			return "E:Error Code 5-No se pudo generar el archivo";
+		}
+	
+	return "";
 	}
 
 	@Override

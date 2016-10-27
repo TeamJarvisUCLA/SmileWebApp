@@ -1,9 +1,12 @@
 package ve.smile.reportes.voluntario.viewmodels;
 
 // import para Excel
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -430,132 +433,24 @@ public class VM_ReporteVoluntarioIndex extends VM_WindowWizard {
 	@Override
 	public String executeCustom2(Integer currentStep) {
 		if (currentStep == 2) {
+			File crear_archivo = new File("C:\\Smile\\voluntario.csv");
 			try {
-				HSSFWorkbook workBook = new HSSFWorkbook();
-				HSSFSheet workSheet = workBook.createSheet("VOLUNTARIOS");
-				Row excelRow = null;
-				Cell excelCell = null;
-				int rowNumber = 0;
-				excelRow = workSheet.createRow(rowNumber++);
-
-				excelCell = excelRow.createCell(4);
-				excelCell.setCellValue("VOLUNTARIOS");
-				excelRow = workSheet.createRow(rowNumber++);
-//				if (fechaDesdeDate != null) {
-//					excelRow = workSheet.createRow(rowNumber++);
-//
-//					excelCell = excelRow.createCell(1);
-//					excelCell.setCellValue("Fecha desde");
-//					excelCell = excelRow.createCell(2);
-//					excelCell.setCellValue(UtilConverterDataList
-//							.convertirLongADate(fechaDesdeDate.getTime()));
-//					excelRow = workSheet.createRow(rowNumber++);
-//				}
-//				if (fechaHastaDate != null) {
-//					excelRow = workSheet.createRow(rowNumber++);
-//
-//					excelCell = excelRow.createCell(1);
-//					excelCell.setCellValue("Fecha Hasta");
-//					excelCell = excelRow.createCell(2);
-//					excelCell.setCellValue(UtilConverterDataList
-//							.convertirLongADate(fechaDesdeDate.getTime()));
-//					excelRow = workSheet.createRow(rowNumber++);
-//				}
-//				if (!fortalezasP.trim().isEmpty()) {
-//					excelRow = workSheet.createRow(rowNumber++);
-//
-//					excelCell = excelRow.createCell(1);
-//					excelCell.setCellValue("Fortalezas");
-//					excelCell = excelRow.createCell(2);
-//					excelCell.setCellValue(fortalezasP);
-//					excelRow = workSheet.createRow(rowNumber++);
-//				}
-//				if (!profesionesP.trim().isEmpty()) {
-//					excelRow = workSheet.createRow(rowNumber++);
-//
-//					excelCell = excelRow.createCell(1);
-//					excelCell.setCellValue("PROFESIONES");
-//					excelCell = excelRow.createCell(2);
-//					excelCell.setCellValue(profesionesP);
-//					excelRow = workSheet.createRow(rowNumber++);
-//				}
-//				if (!estatusVoluntariosS.trim().isEmpty()) {
-//					excelRow = workSheet.createRow(rowNumber++);
-//
-//					excelCell = excelRow.createCell(1);
-//					excelCell.setCellValue("Estatus");
-//					excelCell = excelRow.createCell(2);
-//					excelCell.setCellValue(estatusVoluntariosS);
-//					excelRow = workSheet.createRow(rowNumber++);
-//				}
-//				if (!voluntarioClasificadoP.trim().isEmpty()) {
-//					excelRow = workSheet.createRow(rowNumber++);
-//
-//					excelCell = excelRow.createCell(1);
-//					excelCell.setCellValue("Clasificadores de Voluntario");
-//					excelCell = excelRow.createCell(2);
-//					excelCell.setCellValue(voluntarioClasificadoP);
-//					excelRow = workSheet.createRow(rowNumber++);
-//				}
-
-				excelRow = workSheet.createRow(rowNumber++);
-				excelCell = excelRow.createCell(0);
-				excelCell.setCellValue("CEDULA / RIF");
-				excelCell = excelRow.createCell(1);
-				excelCell.setCellValue("NOMBRES");
-				excelCell = excelRow.createCell(2);
-				excelCell.setCellValue("APELLIDOS");
-				excelCell = excelRow.createCell(3);
-				excelCell.setCellValue("CORREO");
-				excelCell = excelRow.createCell(4);
-				excelCell.setCellValue("DIRECCI�N");
-				excelCell = excelRow.createCell(5);
-				excelCell.setCellValue("TEL�FONO");
-				excelCell = excelRow.createCell(6);
-				excelCell.setCellValue("ESTATUS");
+				crear_archivo.createNewFile();
+				FileWriter w = new FileWriter(crear_archivo);
+				BufferedWriter bw = new BufferedWriter(w);
+				PrintWriter wr = new PrintWriter(bw);
 
 				for (Voluntario voluntario : this.getVoluntarios()) {
 
-					excelRow = workSheet.createRow(rowNumber++);
-					excelCell = excelRow.createCell(0);
-					excelCell.setCellValue(voluntario.getFkPersona()
-							.getIdentificacion());
-
-					excelCell = excelRow.createCell(1);
-					excelCell.setCellValue(voluntario.getFkPersona()
-							.getNombre());
-
-					excelCell = excelRow.createCell(2);
-					excelCell.setCellValue(voluntario.getFkPersona()
-							.getApellido());
-
-					excelCell = excelRow.createCell(3);
-					excelCell.setCellValue(voluntario.getFkPersona()
-							.getCorreo());
-
-					excelCell = excelRow.createCell(4);
-					excelCell.setCellValue(voluntario.getFkPersona()
-							.getDireccion());
-
-					excelCell = excelRow.createCell(5);
-					excelCell.setCellValue(voluntario.getFkPersona()
-							.getTelefono1());
-
-					if (voluntario.getEstatusVoluntario() != null) {
-						excelCell = excelRow.createCell(6);
-						excelCell
-								.setCellValue(voluntario
-										.getEstatusVoluntarioEnum().toString());
-					}
-					
+					wr.println(voluntario.getFkPersona().getIdentificacion()
+							+ ";" + voluntario.getFkPersona().getNombre() + ";"
+							+ voluntario.getFkPersona().getApellido() + ";"
+							+ voluntario.getFkPersona().getCorreo() + ";"
+							+ voluntario.getFkPersona().getDireccion());
 				}
-				File tempFile = new File("C:\\Smile\\Voluntarios.xls");
-				FileOutputStream outputStream = new FileOutputStream(tempFile);
-				workBook.write(outputStream);
-
-				outputStream.close();
-
-				Filedownload.save(tempFile, "application/file");
+				wr.close();
+				bw.close();
+				Filedownload.save(crear_archivo, "application/file");			
 			} catch (IOException e) {
 				return "E:Error Code 5-No se pudo generar el archivo";
 			}

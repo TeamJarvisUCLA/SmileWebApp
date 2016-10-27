@@ -1,5 +1,10 @@
 package ve.smile.reportes.donativo.viewmodels;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -17,12 +22,14 @@ import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 import org.zkoss.bind.annotation.Init;
+import org.zkoss.zul.Filedownload;
 
 import ve.smile.consume.services.S;
 import ve.smile.dto.DonativoRecurso;
 import ve.smile.dto.Fortaleza;
 import ve.smile.dto.Organizacion;
 import ve.smile.dto.Recurso;
+import ve.smile.dto.SolicitudAyuda;
 import ve.smile.enums.ProcedenciaEnum;
 import ve.smile.enums.RecepcionEnum;
 import ve.smile.payload.response.PayloadDonativoRecursoResponse;
@@ -484,6 +491,29 @@ public class VM_ReporteDonativoIndex extends VM_WindowWizard {
 
 	@Override
 	public String executeCustom2(Integer currentStep) {
+		if (currentStep == 2) {
+			File crear_archivo = new File("C:\\Smile\\donativos.csv");
+			try {
+				crear_archivo.createNewFile();
+				FileWriter w = new FileWriter(crear_archivo);
+				BufferedWriter bw = new BufferedWriter(w);
+				PrintWriter wr = new PrintWriter(bw);
+
+				for (DonativoRecurso obj : this.donativos) {
+
+					wr.println(obj.getFkPersona().getIdentificacion()+";"+obj.getFkPersona().getNombre()
+							+ ";" + obj.getFkPersona().getApellido() +";"
+							+ obj.getFkRecurso().getNombre() + ";"
+							+ obj.getFkRecurso().getDescripcion() + ";"
+							+ obj.getCantidad());
+				}
+				wr.close();
+				bw.close();
+				Filedownload.save(crear_archivo, "application/file");			
+			} catch (IOException e) {
+				return "E:Error Code 5-No se pudo generar el archivo";
+			}
+		}
 		return "";
 	}
 

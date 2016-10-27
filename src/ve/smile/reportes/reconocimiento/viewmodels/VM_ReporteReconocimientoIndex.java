@@ -1,6 +1,11 @@
 package ve.smile.reportes.reconocimiento.viewmodels;
 
 // import para Excel
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -17,17 +22,20 @@ import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 
+
 /*import org.apache.poi.hssf.usermodel.HSSFSheet;
  import org.apache.poi.hssf.usermodel.HSSFWorkbook;
  import org.apache.poi.ss.usermodel.Cell;
  import org.apache.poi.ss.usermodel.Row;*/
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.Init;
+import org.zkoss.zul.Filedownload;
 
 import ve.smile.consume.services.S;
 import ve.smile.dto.ClasificadorReconocimiento;
 import ve.smile.dto.Organizacion;
 import ve.smile.dto.ReconocimientoPersona;
+import ve.smile.dto.TsPlan;
 import ve.smile.enums.TipoReconocimientoEnum;
 import ve.smile.payload.response.PayloadClasificadorReconocimientoResponse;
 import ve.smile.payload.response.PayloadReconocimientoPersonaResponse;
@@ -318,65 +326,30 @@ public class VM_ReporteReconocimientoIndex extends VM_WindowWizard {
 	@Override
 	public String executeCustom2(Integer currentStep) {
 		if (currentStep == 2) {
-			/*
-			 * try { HSSFWorkbook workBook = new HSSFWorkbook(); HSSFSheet
-			 * workSheet = workBook.createSheet("RECONOCIMIENTOS"); Row excelRow
-			 * = null; Cell excelCell = null; int rowNumber = 0; excelRow =
-			 * workSheet.createRow(rowNumber++);
-			 * 
-			 * excelCell = excelRow.createCell(4);
-			 * excelCell.setCellValue("RECONOCIMIENTOS"); excelRow =
-			 * workSheet.createRow(rowNumber++); //TODO: excelRow =
-			 * workSheet.createRow(rowNumber++); excelCell =
-			 * excelRow.createCell(0); excelCell.setCellValue("CEDULA");
-			 * excelCell = excelRow.createCell(1);
-			 * excelCell.setCellValue("NOMBRES"); excelCell =
-			 * excelRow.createCell(2); excelCell.setCellValue("APELLIDOS");
-			 * excelCell = excelRow.createCell(3);
-			 * excelCell.setCellValue("RECONOCIMIENTOS"); excelCell =
-			 * excelRow.createCell(4); excelCell.setCellValue("CLASIFICADORES");
-			 * excelCell = excelRow.createCell(4);
-			 * excelCell.setCellValue("TIPOS");
-			 * 
-			 * for (ReconocimientoPersona reconocimiento :
-			 * this.getReconocimientos()) {
-			 * 
-			 * excelRow = workSheet.createRow(rowNumber++); excelCell =
-			 * excelRow.createCell(0);
-			 * excelCell.setCellValue(reconocimiento.getFkPersona()
-			 * .getIdentificacion());
-			 * 
-			 * excelCell = excelRow.createCell(1);
-			 * excelCell.setCellValue(reconocimiento.getFkPersona()
-			 * .getNombre());
-			 * 
-			 * excelCell = excelRow.createCell(2);
-			 * excelCell.setCellValue(reconocimiento.getFkPersona()
-			 * .getApellido());
-			 * 
-			 * excelCell = excelRow.createCell(3);
-			 * excelCell.setCellValue(reconocimiento.getContenido());
-			 * 
-			 * excelCell = excelRow.createCell(4);
-			 * excelCell.setCellValue(reconocimiento
-			 * .getFkClasificadorReconocimiento() .getNombre());
-			 * 
-			 * excelCell = excelRow.createCell(5);
-			 * excelCell.setCellValue(reconocimiento
-			 * .getFkClasificadorReconocimiento() .getTipoReconocimiento());
-			 * //TODO: Como hago para el Tipo de Reconocimiento? } File tempFile
-			 * = new File("C:\\Smile\\reconociminetos.xls"); FileOutputStream
-			 * outputStream = new FileOutputStream(tempFile);
-			 * workBook.write(outputStream);
-			 * 
-			 * outputStream.close();
-			 * 
-			 * Filedownload.save(tempFile, "application/file"); } catch
-			 * (IOException e) { return
-			 * "E:Error Code 5-No se pudo generar el archivo"; }
-			 */
+			File crear_archivo = new File("C:\\Smile\\reconocimientos.csv");
+			try {
+				crear_archivo.createNewFile();
+				FileWriter w = new FileWriter(crear_archivo);
+				BufferedWriter bw = new BufferedWriter(w);
+				PrintWriter wr = new PrintWriter(bw);
+
+				for (ReconocimientoPersona obj : this.reconocimientos) {
+
+					wr.println(obj.getFkPersona().getIdentificacion()+";"+obj.getFkPersona().getNombre()
+							+ ";" + obj.getFkPersona().getApellido() +";"
+							+ obj.getContenido() + ";"
+							+ obj.getFkClasificadorReconocimiento().getNombre()+ ";"
+							+ obj.getFkClasificadorReconocimiento().getDescripcion());
+				}
+				wr.close();
+				bw.close();
+				Filedownload.save(crear_archivo, "application/file");			
+			} catch (IOException e) {
+				return "E:Error Code 5-No se pudo generar el archivo";
+			}
 		}
 		return "";
+		
 	}
 
 	@Override

@@ -34,7 +34,7 @@
 			<html>
 				<![CDATA[ Por favor, redacte la pregunta frecuente 
 				que desea registrar.<br /><font
-				color="#3b85a1">Ejemplo: Visitas¿Cómo postularme a voluntario?.</font> ]]>
+				color="#3b85a1">Ejemplo: ¿Cómo postularme a voluntario?.</font> ]]>
 			</html>			
 		</popup>
 		<popup id="pop_respuesta" width="200px">

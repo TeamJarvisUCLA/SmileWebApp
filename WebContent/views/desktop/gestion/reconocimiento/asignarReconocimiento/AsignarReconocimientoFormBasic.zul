@@ -14,7 +14,7 @@
 							</n:label>
 							<textbox id="nombre" type="text"
 								disabled="true"
-								value="@bind(vm.persona.identificacion.concat(' - ').concat(persona.nombre).concat(' ').concat(vm.persona.apellido))">
+								value="@bind(vm.persona.identificacion.concat(' - ').concat(vm.persona.nombre).concat(' ').concat(vm.persona.apellido))">
 							</textbox>
 						</div>
 					</div>

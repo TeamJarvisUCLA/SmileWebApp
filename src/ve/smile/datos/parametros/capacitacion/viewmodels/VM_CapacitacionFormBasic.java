@@ -137,11 +137,11 @@ public class VM_CapacitacionFormBasic extends VM_WindowForm {
 		try {
 			UtilValidate.validateString(getCapacitacion().getNombre(),
 					"Nombre", 100);
-			UtilValidate.validateString(getCapacitacion().getDescripcion(),
-					"Descripción", 250);
 			UtilValidate.validateNull(getCapacitacion()
 					.getFkClasificadorCapacitacion(),
 					"Clasificador de Capacitación");
+			UtilValidate.validateString(getCapacitacion().getDescripcion(),
+					"Descripción", 250);			
 
 			return true;
 		} catch (Exception e) {

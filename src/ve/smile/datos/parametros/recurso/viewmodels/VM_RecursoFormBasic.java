@@ -160,10 +160,10 @@ public class VM_RecursoFormBasic extends VM_WindowForm {
 		try {
 			UtilValidate
 					.validateString(getRecurso().getNombre(), "Nombre", 100);
-			UtilValidate.validateNull(getRecurso().getFkClasificadorRecurso(),
-					"Clasificador de Recurso");
 			UtilValidate.validateNull(getRecurso().getFkUnidadMedida(),
 					"Unidad de Medida");
+			UtilValidate.validateNull(getRecurso().getFkClasificadorRecurso(),
+					"Clasificador de Recurso");			
 			UtilValidate.validateString(getRecurso().getDescripcion(),
 					"Descripción", 250);
 			return true;

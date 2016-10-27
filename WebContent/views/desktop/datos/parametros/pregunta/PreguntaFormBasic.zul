@@ -13,6 +13,8 @@
 						value="@bind(vm.pregunta.pregunta)">
 					</textbox>
 				</div>
+				<span sclass="fa fa-question-circle fa-lg help-icon"
+					tooltip="pop_pregunta, position=after_end" />
 			</div>
 
 			<div class="col s12">
@@ -23,8 +25,25 @@
 						value="@bind(vm.pregunta.respuesta)">
 					</textbox>
 				</div>
+				<span sclass="fa fa-question-circle fa-lg help-icon"
+					tooltip="pop_respuesta, position=after_end" />
 			</div>
 		</div>
+		
+		<popup id="pop_pregunta" width="200px">
+			<html>
+				<![CDATA[ Por favor, redacte la pregunta frecuente 
+				que desea registrar.<br /><font
+				color="#3b85a1">Ejemplo: ¿Cómo postularme a voluntario?.</font> ]]>
+			</html>			
+		</popup>
+		<popup id="pop_respuesta" width="200px">
+			<html>
+				<![CDATA[ Por favor, redacte la respuesta de la pregunta frecuente 
+				que desea registrar.<br /><font
+				color="#3b85a1">Ejemplo: Ingrese a la opción de postulación, ingrese los datos y seleccione el botón de postularse.</font> ]]>
+			</html>			
+		</popup>
 
 		<div id="divButtonsForm"
 			use="karen.core.form.buttons.containers.DivButtonsForm">

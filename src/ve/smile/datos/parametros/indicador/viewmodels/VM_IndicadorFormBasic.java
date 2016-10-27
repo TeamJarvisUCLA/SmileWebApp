@@ -135,6 +135,8 @@ public class VM_IndicadorFormBasic extends VM_WindowForm {
 		try {
 			UtilValidate.validateString(getIndicador().getNombre(), "Nombre",
 					200);
+			UtilValidate.validateNull(getIndicador().getFkUnidadMedida(),
+					"Unidad de Medida");
 			UtilValidate.validateString(getIndicador().getDescripcion(),
 					"Descripción", 250);
 			return true;
@@ -144,5 +146,4 @@ public class VM_IndicadorFormBasic extends VM_WindowForm {
 			return false;
 		}
 	}
-
 }

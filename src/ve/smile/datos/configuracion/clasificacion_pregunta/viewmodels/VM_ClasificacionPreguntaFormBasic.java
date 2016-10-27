@@ -33,8 +33,8 @@ public class VM_ClasificacionPreguntaFormBasic extends VM_WindowForm {
 
 	@Init(superclass = true)
 	public void childInit() {
-		this.getClasificadorPreguntas().addAll(
-				this.getClasificadorPregunta().getPreguntasClasificadas());
+			this.getClasificadorPreguntas().addAll(
+this.getClasificadorPregunta().getPreguntasClasificadas());
 
 		if (this.getPreguntas().isEmpty()) {
 			PayloadPreguntaResponse payloadPreguntaResponse = S.PreguntaService
@@ -48,29 +48,30 @@ public class VM_ClasificacionPreguntaFormBasic extends VM_WindowForm {
 	}
 
 	@Command("agregarPreguntasClasificador")
-	@NotifyChange({ "preguntas", "clasificadorPreguntas",
-			"preguntasSeleccionadas", "clasificadorPreguntasSeleccionadas" })
+	@NotifyChange({ "preguntas", "clasificadorPreguntas", "preguntasSeleccionadas",
+			"clasificadorPreguntasSeleccionadas" })
 	public void agregarPreguntasClasificador() {
 		if (this.getPreguntasSeleccionadas() != null
 				&& this.getPreguntasSeleccionadas().size() > 0) {
 			this.getClasificadorPreguntas().addAll(preguntasSeleccionadas);
-			this.getclasificadorPreguntasSeleccionadas().clear();
 			this.getPreguntasSeleccionadas().clear();
+			this.getClasificadorPreguntasSeleccionadas().clear();
+
 		}
 	}
 
 	@Command("removerPreguntasClasificador")
-	@NotifyChange({ "preguntas", "clasificadorPreguntas",
-			"preguntasSeleccionadas", "clasificadorPreguntasSeleccionadas" })
+	@NotifyChange({ "preguntas", "clasificadorPreguntas", "preguntasSeleccionadas",
+	"clasificadorPreguntasSeleccionadas" })
 	public void removerPreguntasClasificador() {
-		if (this.getPreguntasSeleccionadas() != null
-				&& this.getPreguntasSeleccionadas().size() > 0) {
-			this.getClasificadorPreguntas().removeAll(preguntasSeleccionadas);
-			this.getclasificadorPreguntasSeleccionadas().clear();
+		if (this.getClasificadorPreguntasSeleccionadas() != null
+				&& this.getClasificadorPreguntasSeleccionadas().size() > 0) {
+			this.getClasificadorPreguntas().removeAll(
+					clasificadorPreguntasSeleccionadas);			
 			this.getPreguntasSeleccionadas().clear();
+			this.getClasificadorPreguntasSeleccionadas().clear();
 		}
 	}
-
 	public boolean disabledPregunta(Pregunta pregunta) {
 		return this.getClasificadorPreguntas().contains(pregunta);
 	}
@@ -98,8 +99,7 @@ public class VM_ClasificacionPreguntaFormBasic extends VM_WindowForm {
 
 		if (operacionEnum.equals(OperacionEnum.MODIFICAR)) {
 			this.getClasificadorPregunta().getPreguntasClasificadas().clear();
-			this.getClasificadorPregunta().getPreguntasClasificadas()
-					.addAll(this.getClasificadorPreguntas());
+			this.getClasificadorPregunta().getPreguntasClasificadas().addAll(this.getClasificadorPreguntas());
 			PayloadClasificadorPreguntaResponse payloadClasificadorPreguntaResponse = S.ClasificadorPreguntaService
 					.modificar(getClasificadorPregunta());
 			if (!UtilPayload.isOK(payloadClasificadorPreguntaResponse)) {
@@ -155,7 +155,7 @@ public class VM_ClasificacionPreguntaFormBasic extends VM_WindowForm {
 		return preguntasSeleccionadas;
 	}
 
-	public void setPreguntasSeleccionadas(Set<Pregunta> preguntasSeleccionadas) {
+	public void setPreguntasSeleccionadas (Set<Pregunta> preguntasSeleccionadas) {
 		this.preguntasSeleccionadas = preguntasSeleccionadas;
 	}
 
@@ -170,7 +170,7 @@ public class VM_ClasificacionPreguntaFormBasic extends VM_WindowForm {
 		this.clasificadorPreguntas = clasificadorPreguntas;
 	}
 
-	public Set<Pregunta> getclasificadorPreguntasSeleccionadas() {
+	public Set<Pregunta> getClasificadorPreguntasSeleccionadas() {
 		if (this.clasificadorPreguntasSeleccionadas == null) {
 			this.clasificadorPreguntasSeleccionadas = new HashSet<>();
 		}
@@ -178,7 +178,7 @@ public class VM_ClasificacionPreguntaFormBasic extends VM_WindowForm {
 	}
 
 	public void setClasificadorPreguntasSeleccionadas(
-			Set<Pregunta> clasificadorPreguntasSeleccionadas) {
-		this.clasificadorPreguntasSeleccionadas = clasificadorPreguntasSeleccionadas;
-	}
+				Set<Pregunta> clasificadorPreguntasSeleccionadas) {
+			this.clasificadorPreguntasSeleccionadas = clasificadorPreguntasSeleccionadas;
+		}
 }

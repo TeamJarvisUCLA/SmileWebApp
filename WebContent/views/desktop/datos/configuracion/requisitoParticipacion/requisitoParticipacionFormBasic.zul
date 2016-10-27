@@ -49,6 +49,8 @@
 								</listbox>
 							</div>
 							<div sclass="col s1">
+							<span sclass="fa fa-question-circle fa-lg help-icon"
+								tooltip="pop_agregarRemoverIndicador, position=after_end" />
 								<div sclass="row valign">
 									<button
 										iconSclass="fa fa-angle-double-right" sclass="button-conf"
@@ -82,10 +84,16 @@
 				</tabbox>
 			</div>
 		</div>
+		
+		<popup id="pop_agregarRemoverIndicador" width="200px">
+			<html>
+				<![CDATA[ Para agregar o remover indicadores a la participación 
+				primero seleccione y luego use estos botones. <br /><font color="#3b85a1">(>>) Agregar (<<) Remover</font> ]]>
+			</html>
+		</popup>
 
 		<div id="divButtonsForm"
 			use="karen.core.form.buttons.containers.DivButtonsForm">
-
 		</div>
 
 	</div>

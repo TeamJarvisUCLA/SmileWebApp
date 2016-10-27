@@ -37,6 +37,7 @@
 					</textbox>
 				</div>
 			</div>
+			
 			<div class="col s12">
 				<tabbox id="tb" class="rtab ltab">
 					<tabs id="tabs">
@@ -59,13 +60,15 @@
 										<listitem
 											label="@load(each.nombre)">
 											<zscript>
-	self.setDisabled(vm.disabledIndicador(each));
-</zscript>
+												self.setDisabled(vm.disabledIndicador(each));
+											</zscript>
 										</listitem>
 									</template>
 								</listbox>
 							</div>
 							<div sclass="col s1" align="center">
+							<span sclass="fa fa-question-circle fa-lg help-icon"
+								tooltip="pop_agregarRemoverIndicador, position=after_end" />
 								<div sclass="row">
 									<button sclass="button-conf"
 										iconSclass="fa fa-angle-double-right"
@@ -108,13 +111,15 @@
 										<listitem
 											label="@load(each.nombre)">
 											<zscript>
-	self.setDisabled(vm.disabledActividad(each));
-</zscript>
+												self.setDisabled(vm.disabledActividad(each));
+											</zscript>
 										</listitem>
 									</template>
 								</listbox>
 							</div>
 							<div sclass="col s1">
+							<span sclass="fa fa-question-circle fa-lg help-icon"
+								tooltip="pop_agregarRemoverActividad, position=after_end" />
 								<div sclass="row valign">
 									<button
 										iconSclass="fa fa-angle-double-right" sclass="button-conf"
@@ -147,10 +152,22 @@
 				</tabbox>
 			</div>
 		</div>
+		
+		<popup id="pop_agregarRemoverIndicador" width="200px">
+			<html>
+				<![CDATA[ Para agregar o remover indicadores al trabajo social, 
+				primero seleccione y luego use estos botones. <br /><font color="#3b85a1">(>>) Agregar (<<) Remover</font> ]]>
+			</html>
+		</popup>
+		<popup id="pop_agregarRemoverActividad" width="200px">
+			<html>
+				<![CDATA[ Para agregar o remover actividades al trabajo social, 
+				primero seleccione y luego use estos botones. <br /><font color="#3b85a1">(>>) Agregar (<<) Remover</font> ]]>
+			</html>
+		</popup>
 
 		<div id="divButtonsForm"
 			use="karen.core.form.buttons.containers.DivButtonsForm">
-
 		</div>
 
 	</div>

@@ -38,7 +38,7 @@
     	<popup id="pop_descripcion" width="200px">
         	<html><![CDATA[
             	Por favor, indique una descripción breve, sobre la ayuda que desea
-            	registrar.<br /><font color="#3b85a1">Ejemplo:Realizar una charla de crecimiento
+            	registrar.<br /><font color="#3b85a1">Ejemplo: Realizar una charla de crecimiento
             	espiritual para los niños de la escuelita del hospital.</font>
         	]]></html>
     	</popup>

@@ -109,10 +109,10 @@ public class VM_UnidadMedidaFormBasic extends VM_WindowForm {
 		try {
 			UtilValidate.validateString(getUnidadMedida().getNombre(),
 					"Nombre", 100);
-			UtilValidate.validateString(getUnidadMedida().getDescripcion(),
-					"Descripción", 250);
 			UtilValidate.validateString(getUnidadMedida().getAbreviatura(),
 					"Abreviatura", 100);
+			UtilValidate.validateString(getUnidadMedida().getDescripcion(),
+					"Descripción", 250);			
 			return true;
 		} catch (Exception e) {
 			Alert.showMessage(e.getMessage());

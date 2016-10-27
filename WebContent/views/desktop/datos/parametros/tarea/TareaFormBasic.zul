@@ -13,6 +13,8 @@
 						value="@bind(vm.tarea.nombre)">
 					</textbox>
 				</div>
+				<span sclass="fa fa-question-circle fa-lg help-icon"
+					tooltip="pop_nombre, position=after_end" />
 			</div>
 
 			<div sclass="col s12">
@@ -29,6 +31,8 @@
 						</template>
 					</combobox>
 				</div>
+				<span sclass="fa fa-question-circle fa-lg help-icon"
+					tooltip="pop_clasificador, position=after_end" />
 			</div>
 
 			<div class="col s12">
@@ -39,8 +43,33 @@
 						multiline="true" value="@bind(vm.tarea.descripcion)">
 					</textbox>
 				</div>
+				<span sclass="fa fa-question-circle fa-lg help-icon"
+					tooltip="pop_descripcion, position=after_end" />
 			</div>
 		</div>
+		
+		<popup id="pop_nombre" width="200px">
+			<html>
+				<![CDATA[ Por favor, indique el nombre de la tarea
+				que desea registrar.<br /><font color="#3b85a1">Ejemplo: Vender tarjetas</font> ]]>
+			</html>
+		</popup>
+
+		<popup id="pop_clasificador" width="200px">
+			<html>
+				<![CDATA[ Por favor, indique un clasificador para la
+				tarea que desea registrar.<br /><font
+				color="#3b85a1">Ejemplo: Recaudar fondos.</font> ]]>
+			</html>
+		</popup>
+
+		<popup id="pop_descripcion" width="200px">
+			<html>
+				<![CDATA[ Por favor, indique una descripción breve,
+				sobre la tarea que desea registrar.<br /><font
+				color="#3b85a1">Ejemplo: Vender tarjetas a beneficio de la fundación.</font> ]]>
+			</html>
+		</popup>
 
 		<div id="divButtonsForm"
 			use="karen.core.form.buttons.containers.DivButtonsForm">

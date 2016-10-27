@@ -167,35 +167,35 @@ public class VM_EventoIndex extends VM_WindowSimpleListPrincipal<Evento> {
 				Double.valueOf(String.valueOf(payloadPlantillaEventoTareaResponse.getInformacion(IPayloadResponse.COUNT))).intValue();
 
 		if (countPlatillasTareas > 0) {
-			return "E:Error 0:No se puede eliminar el <b>Evento</b> seleccionado ya que est· siendo utilizado en " + countPlatillasTareas + " Plantillas de Tareas";
+			return "E:Error 0:No se puede eliminar el <b>Evento</b> seleccionado ya que est√° siendo utilizado en " + countPlatillasTareas + " Plantillas de Tareas";
 		}
 
 		if (countPlatillasIndicadores > 0) {
-			return "E:Error 0:No se puede eliminar el <b>Evento</b> seleccionado ya que est· siendo utilizado en " + countPlatillasIndicadores + " Plantillas de Indicadores";
+			return "E:Error 0:No se puede eliminar el <b>Evento</b> seleccionado ya que est√° siendo utilizado en " + countPlatillasIndicadores + " Plantillas de Indicadores";
 		}
 
 		if (countIndicadoresEventoPlanificado > 0) {
-			return "E:Error 0:No se puede eliminar el <b>Evento</b> seleccionado ya que est· siendo utilizado en " + countIndicadoresEventoPlanificado + " Indicadores de Eventos Planificados";
+			return "E:Error 0:No se puede eliminar el <b>Evento</b> seleccionado ya que est√° siendo utilizado en " + countIndicadoresEventoPlanificado + " Indicadores de Eventos Planificados";
 		}
 
 		if (countEventosPlanificados > 0) {
-			return "E:Error 0:No se puede eliminar el <b>Evento</b> seleccionado ya que est· siendo utilizado en " + countEventosPlanificados + " Eventos Planificados";
+			return "E:Error 0:No se puede eliminar el <b>Evento</b> seleccionado ya que est√° siendo utilizado en " + countEventosPlanificados + " Eventos Planificados";
 		}
 
 		if (countEventosFavoritos > 0) {
-			return "E:Error 0:No se puede eliminar el <b>Evento</b> seleccionado ya que est· siendo utilizado en " + countEventosFavoritos + " Eventos Favoritos";
+			return "E:Error 0:No se puede eliminar el <b>Evento</b> seleccionado ya que est√° siendo utilizado en " + countEventosFavoritos + " Eventos Favoritos";
 		}
 
 		if (countTareasVoluntario > 0) {
-			return "E:Error 0:No se puede eliminar el <b>Evento</b> seleccionado ya que est· siendo utilizado en " + countTareasVoluntario + " Tareas de Voluntarios";
+			return "E:Error 0:No se puede eliminar el <b>Evento</b> seleccionado ya que est√° siendo utilizado en " + countTareasVoluntario + " Tareas de Voluntarios";
 		}
 
 		if (countTareasTrabajador > 0) {
-			return "E:Error 0:No se puede eliminar el <b>Evento</b> seleccionado ya que est· siendo utilizado en " + countTareasTrabajador + " Tareas de Trabajadores";
+			return "E:Error 0:No se puede eliminar el <b>Evento</b> seleccionado ya que est√° siendo utilizado en " + countTareasTrabajador + " Tareas de Trabajadores";
 		}
 
 		if (countPatrocinadores > 0) {
-			return "E:Error 0:No se puede eliminar el <b>Evento</b> seleccionado ya que est· siendo utilizado en " + countPatrocinadores + " Patrocinadores de Eventos Planificados";
+			return "E:Error 0:No se puede eliminar el <b>Evento</b> seleccionado ya que est√° siendo utilizado en " + countPatrocinadores + " Patrocinadores de Eventos Planificados";
 		}
 
 		return "";

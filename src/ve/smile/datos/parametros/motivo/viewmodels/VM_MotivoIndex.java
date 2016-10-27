@@ -285,71 +285,71 @@ public class VM_MotivoIndex extends VM_WindowSimpleListPrincipal<Motivo> {
 				Double.valueOf(String.valueOf(payloadIncidenciaEventoPlanResponse.getInformacion(IPayloadResponse.COUNT))).intValue();
 
 		if (countIncidenciasEventos > 0) {
-			return "E:Error 0:No se puede eliminar el <b>Motivo/b> seleccionado ya que est· siendo utilizado en " + countIncidenciasEventos + " Incidencias de Eventos";
+			return "E:Error 0:No se puede eliminar el <b>Motivo/b> seleccionado ya que est√° siendo utilizado en " + countIncidenciasEventos + " Incidencias de Eventos";
 		}
 
 		if (countIncidenciasTs > 0) {
-			return "E:Error 0:No se puede eliminar el <b>Motivo/b> seleccionado ya que est· siendo utilizado en " + countIncidenciasTs + " Incidencias de Trabajos Sociales";
+			return "E:Error 0:No se puede eliminar el <b>Motivo/b> seleccionado ya que est√° siendo utilizado en " + countIncidenciasTs + " Incidencias de Trabajos Sociales";
 		}
 
 		if (countCapacitacionesVoluntarios > 0) {
-			return "E:Error 0:No se puede eliminar el <b>Motivo/b> seleccionado ya que est· siendo utilizado en " + countCapacitacionesVoluntarios + " Capacitaciones para Voluntarios";
+			return "E:Error 0:No se puede eliminar el <b>Motivo/b> seleccionado ya que est√° siendo utilizado en " + countCapacitacionesVoluntarios + " Capacitaciones para Voluntarios";
 		}
 
 		if (countActividadesVoluntario > 0) {
-			return "E:Error 0:No se puede eliminar el <b>Motivo/b> seleccionado ya que est· siendo utilizado en " + countActividadesVoluntario + " Actividades de Voluntarios";
+			return "E:Error 0:No se puede eliminar el <b>Motivo/b> seleccionado ya que est√° siendo utilizado en " + countActividadesVoluntario + " Actividades de Voluntarios";
 		}
 
 		if (countActividadesTrabajador > 0) {
-			return "E:Error 0:No se puede eliminar el <b>Motivo/b> seleccionado ya que est· siendo utilizado en " + countActividadesTrabajador + " Actividades de Trabajadores";
+			return "E:Error 0:No se puede eliminar el <b>Motivo/b> seleccionado ya que est√° siendo utilizado en " + countActividadesTrabajador + " Actividades de Trabajadores";
 		}
 
 		if (countActividades > 0) {
-			return "E:Error 0:No se puede eliminar el <b>Motivo/b> seleccionado ya que est· siendo utilizado en " + countActividades + " Actividades de Trabajo Social";
+			return "E:Error 0:No se puede eliminar el <b>Motivo/b> seleccionado ya que est√° siendo utilizado en " + countActividades + " Actividades de Trabajo Social";
 		}
 
 		if (countTs > 0) {
-			return "E:Error 0:No se puede eliminar el <b>Motivo/b> seleccionado ya que est· siendo utilizado en " + countTs + " Trabajos Sociales Planificados";
+			return "E:Error 0:No se puede eliminar el <b>Motivo/b> seleccionado ya que est√° siendo utilizado en " + countTs + " Trabajos Sociales Planificados";
 		}
 
 		if (countSolicitudes > 0) {
-			return "E:Error 0:No se puede eliminar el <b>Motivo/b> seleccionado ya que est· siendo utilizado en " + countSolicitudes + " Solicitudes de Ayuda";
+			return "E:Error 0:No se puede eliminar el <b>Motivo/b> seleccionado ya que est√° siendo utilizado en " + countSolicitudes + " Solicitudes de Ayuda";
 		}
 
 		if (countIndicadoresActividades > 0) {
-			return "E:Error 0:No se puede eliminar el <b>Motivo/b> seleccionado ya que est· siendo utilizado en " + countIndicadoresActividades + " Indicadores de Actividades";
+			return "E:Error 0:No se puede eliminar el <b>Motivo/b> seleccionado ya que est√° siendo utilizado en " + countIndicadoresActividades + " Indicadores de Actividades";
 		}
 
 		if (countIndicadoresTs > 0) {
-			return "E:Error 0:No se puede eliminar el <b>Motivo/b> seleccionado ya que est· siendo utilizado en " + countIndicadoresTs + " Indicadores del Trabajo Social";
+			return "E:Error 0:No se puede eliminar el <b>Motivo/b> seleccionado ya que est√° siendo utilizado en " + countIndicadoresTs + " Indicadores del Trabajo Social";
 		}
 
 		if (countIndicadoresTareasEvento > 0) {
-			return "E:Error 0:No se puede eliminar el <b>Motivo/b> seleccionado ya que est· siendo utilizado en " + countIndicadoresTareasEvento + " Indicadores de Tareas de Eventos";
+			return "E:Error 0:No se puede eliminar el <b>Motivo/b> seleccionado ya que est√° siendo utilizado en " + countIndicadoresTareasEvento + " Indicadores de Tareas de Eventos";
 		}
 
 		if (countIndicadoresEvento > 0) {
-			return "E:Error 0:No se puede eliminar el <b>Motivo/b> seleccionado ya que est· siendo utilizado en " + countIndicadoresEvento + " Indicadores de Eventos";
+			return "E:Error 0:No se puede eliminar el <b>Motivo/b> seleccionado ya que est√° siendo utilizado en " + countIndicadoresEvento + " Indicadores de Eventos";
 		}
 
 		if (countEventos > 0) {
-			return "E:Error 0:No se puede eliminar el <b>Motivo/b> seleccionado ya que est· siendo utilizado en " + countEventos + " Eventos Planificados";
+			return "E:Error 0:No se puede eliminar el <b>Motivo/b> seleccionado ya que est√° siendo utilizado en " + countEventos + " Eventos Planificados";
 		}
 
 		if (countTareas > 0) {
-			return "E:Error 0:No se puede eliminar el <b>Motivo/b> seleccionado ya que est· siendo utilizado en " + countTareas + " Tareas de Eventos";
+			return "E:Error 0:No se puede eliminar el <b>Motivo/b> seleccionado ya que est√° siendo utilizado en " + countTareas + " Tareas de Eventos";
 		}
 
 		if (countTareasVoluntarios > 0) {
-			return "E:Error 0:No se puede eliminar el <b>Motivo/b> seleccionado ya que est· siendo utilizado en " + countTareasVoluntarios + " Tareas de los Voluntarios";
+			return "E:Error 0:No se puede eliminar el <b>Motivo/b> seleccionado ya que est√° siendo utilizado en " + countTareasVoluntarios + " Tareas de los Voluntarios";
 		}
 
 		if (countTareasTrabajador > 0) {
-			return "E:Error 0:No se puede eliminar el <b>Motivo/b> seleccionado ya que est· siendo utilizado en " + countTareasTrabajador + " Tareas de los Trabajadores";
+			return "E:Error 0:No se puede eliminar el <b>Motivo/b> seleccionado ya que est√° siendo utilizado en " + countTareasTrabajador + " Tareas de los Trabajadores";
 		}
 
 		if (countCapacitaciones > 0) {
-			return "E:Error 0:No se puede eliminar el <b>Motivo/b> seleccionado ya que est· siendo utilizado en " + countCapacitaciones + " Capacitaciones";
+			return "E:Error 0:No se puede eliminar el <b>Motivo/b> seleccionado ya que est√° siendo utilizado en " + countCapacitaciones + " Capacitaciones";
 		}
 
 		return "";

@@ -48,43 +48,29 @@
 					sclass="fa fa-question-circle fa-lg help-icon"
 					tooltip="pop_frecuencia, position=after_end" />
 			</div>
-
 		</div>
-
 
 		<popup id="pop_nombre" width="200px">
 			<html>
-
-				
 				<![CDATA[ Por favor, indique un nombre que represente el
 				aporte que desea registrar.<br /><font
 				color="#3b85a1">Ejemplo: Trimestral.</font> ]]>
-				
-				
 			</html>
 		</popup>
 
 		<popup id="pop_unidad" width="200px">
 			<html>
-
-				
 				<![CDATA[ Por favor, indique la unidad de medida que
 				desea usar para el aporte que desea registrar.<br
-				/><font color="#3b85a1">Ejemplo:Mes.</font> ]]>
-				
-				
+				/><font color="#3b85a1">Ejemplo: Mes.</font> ]]>
 			</html>
 		</popup>
 
 		<popup id="pop_frecuencia" width="200px">
 			<html>
-
-				
 				<![CDATA[ Por favor, indique la frecuencia que desea
 				usar para el aporte que desea registrar.<br /><font
-				color="#3b85a1">Ejemplo:3.</font> ]]>
-				
-				
+				color="#3b85a1">Ejemplo: 3.</font> ]]>
 			</html>
 		</popup>
 

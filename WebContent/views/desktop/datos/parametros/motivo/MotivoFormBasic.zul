@@ -15,6 +15,24 @@
 				</div>
 				<span sclass="fa fa-question-circle fa-lg help-icon" tooltip="pop_nombre, position=after_end"/>
 			</div>
+			
+			<div sclass="col s12">
+				<div class="input-field offset-s2 col s8">
+					<n:label class="active"
+						for="fk_clasificador_motivo">
+						Clasificador de Motivo
+					</n:label>
+					<combobox id="fk_clasificador_motivo"
+						readonly="true" model="@bind(vm.clasificadorMotivos)"
+						selectedItem="@bind(vm.motivo.fkClasificadorMotivo)">
+						<template name="model">
+							<comboitem label="@load(each.nombre)" />
+						</template>
+					</combobox>
+				</div>
+				<span sclass="fa fa-question-circle fa-lg help-icon"
+					tooltip="pop_clasificador, position=after_end" />
+			</div>
 
 			<div class="col s12">
 				<div class="input-field offset-s2 col s8">
@@ -33,11 +51,19 @@
 			<html>
 				<![CDATA[ Por favor, indique una descripción breve,
 				sobre el motivo que desea registrar.<br /><font
-				color="#3b85a1">Ejemplo:Motivo de carácter
+				color="#3b85a1">Ejemplo: Motivo de carácter
 				ordinario.</font> ]]>
 			</html>
 		</popup>
-
+	
+		<popup id="pop_clasificador" width="200px">
+			<html>
+				<![CDATA[ Por favor, indique un clasificador para la
+				actividad que desea registrar.<br /><font
+				color="#3b85a1">Ejemplo: Control y seguimiento.</font> ]]>
+			</html>
+		</popup>
+		
 		<popup id="pop_nombre" width="200px">
 			<html>
 				<![CDATA[ Por favor, indique el nombre del motivo que

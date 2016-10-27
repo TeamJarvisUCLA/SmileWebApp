@@ -26,8 +26,6 @@ import ve.smile.seguridad.enums.OperacionEnum;
 
 public class VM_RequisitoAyudaFormBasic extends VM_WindowForm {
 
-
-
 	private List<Requisito> requisitos;
 	private Set<Requisito> requisitosSeleccionadas;
 	private List<Requisito> ayudaRequisitos;

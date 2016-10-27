@@ -41,12 +41,11 @@
     	
     	<popup id="pop_color" width="200px">
         	<html><![CDATA[
-            	Por favor, seleccione un color para que esté asociado al clasificador
-            	del evento que desea registrar.<br /><font color="#3b85a1">Ejemplo:#333366.</font>
+            	Por favor, seleccione el color que desee asociar al clasificador
+            	del evento que desea registrar.
         	]]></html>
     	</popup>
     	
-
 		<div id="divButtonsForm"
 			use="karen.core.form.buttons.containers.DivButtonsForm">
 		</div>

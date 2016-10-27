@@ -40,7 +40,7 @@
     	<popup id="pop_descripcion" width="200px">
         	<html><![CDATA[
             	Por favor, indique una descripción breve, sobre el clasificador que desea
-            	registrar.<br /><font color="#3b85a1">Ejemplo:Encargados del voluntariado
+            	registrar.<br /><font color="#3b85a1">Ejemplo: Encargados del voluntariado
             	dentro del hospital.</font>
         	]]></html>
     	</popup>

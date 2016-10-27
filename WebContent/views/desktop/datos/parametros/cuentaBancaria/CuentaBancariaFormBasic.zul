@@ -15,13 +15,20 @@
 						<comboitem label="@load(each.nombre)" />
 					</template>
 				</combobox>
+				<span
+					sclass="fa fa-question-circle fa-lg help-icon-special"
+					tooltip="pop_banco, position=after_end" />
 			</div>
+				
 
 			<div class="input-field col s6">
 				<n:label for="cuentaBancaria">Cuenta bancaria</n:label>
 				<textbox id="cuentaBancaria" type="text" maxlength="40"
 					value="@bind(vm.cuentaBancaria.cuentaBancaria)">
 				</textbox>
+				<span
+					sclass="fa fa-question-circle fa-lg help-icon-special"
+					tooltip="pop_cuentaBancaria, position=after_end" />
 			</div>
 
 			<div class="input-field col s6">
@@ -29,6 +36,9 @@
 				<textbox id="titular" type="text" maxlength="150"
 					value="@bind(vm.cuentaBancaria.titular)">
 				</textbox>
+				<span
+					sclass="fa fa-question-circle fa-lg help-icon-special"
+					tooltip="pop_titularCuentaBancaria, position=after_end" />
 			</div>
 
 			<div class="input-field col s6">
@@ -37,6 +47,9 @@
 					placeholder="V-1234567 J-123245-2 "
 					value="@bind(vm.cuentaBancaria.identificacionTitular)">
 				</textbox>
+				<span
+					sclass="fa fa-question-circle fa-lg help-icon-special"
+					tooltip="pop_identificacionTitular, position=after_end" />
 			</div>
 
 			<div class="input-field col s6">
@@ -44,8 +57,12 @@
 					Correo Electrónico del titular
 				</n:label>
 				<textbox id="correotitular" type="text" maxlength="100"
+				constraint="/.+@.+\.[a-zA-Z]+/:Debe ingresar un correo válido"
 					value="@bind(vm.cuentaBancaria.correoTitular)">
 				</textbox>
+				<span
+					sclass="fa fa-question-circle fa-lg help-icon-special"
+					tooltip="pop_correoTitular, position=after_end" />
 			</div>
 
 			<div class="input-field col s6">
@@ -53,10 +70,12 @@
 				<textbox id="tipo_cuenta" type="text" maxlength="100"
 					value="@bind(vm.cuentaBancaria.tipoCuenta)">
 				</textbox>
+				<span
+					sclass="fa fa-question-circle fa-lg help-icon-special"
+					tooltip="pop_tipoCuenta, position=after_end" />
 			</div>
 
 			<div class="input-field col s6">
-
 				<n:label for="tipo_reconocimiento" class="active">
 					TIPO DE PROPIETARIO
 				</n:label>
@@ -68,19 +87,62 @@
 						<comboitem label="@load(each)" />
 					</template>
 				</combobox>
-				<span 
+				<span
 					sclass="fa fa-question-circle fa-lg help-icon-special"
 					tooltip="pop_propietario, position=after_end" />
 			</div>
-			
 		</div>
+				
 		<popup id="pop_propietario" width="200px">
 			<html>				
 				<![CDATA[ Por favor, indique un tipo de propietario sobre
 				la cuenta bancaria  que desea registrar.<br /><font
-				color="#3b85a1">Ejemplo:ORGANIZACIÓN.</font> ]]>
+				color="#3b85a1">Ejemplo: ORGANIZACIÓN.</font> ]]>
 			</html>
 		</popup>
+				<popup id="pop_tipoCuenta" width="200px">
+			<html>				
+				<![CDATA[ Por favor, indique el tipo de cuenta
+				que desea registrar.<br /><font
+				color="#3b85a1">Ejemplo: Corriente.</font> ]]>
+			</html>
+		</popup>		
+		<popup id="pop_correoTitular" width="200px">
+			<html>				
+				<![CDATA[ Por favor, indique un correo del titular de
+				la cuenta bancaria  que desea registrar.<br /><font
+				color="#3b85a1">Ejemplo:samuelherrera@gmail.com.</font> ]]>
+			</html>
+		</popup>		
+		<popup id="pop_identificacionTitular" width="200px">
+			<html>				
+				<![CDATA[ Por favor, indique Cédula/Rif del titular de la cuenta
+				que desea registrar.<br /><font
+				color="#3b85a1">Ejemplo: V-1234567 / J-123245-2.</font> ]]>
+			</html>
+		</popup>		
+		<popup id="pop_titularCuentaBancaria" width="200px">
+			<html>				
+				<![CDATA[ Por favor, indique nombre y apellido del titular
+				la cuenta bancaria  que desea registrar.<br /><font
+				color="#3b85a1">Ejemplo: Samuel Herrera.</font> ]]>
+			</html>
+		</popup>
+		<popup id="pop_cuentaBancaria" width="200px">
+			<html>				
+				<![CDATA[ Por favor, indique el número de la cuenta bancaria 
+				que desea registrar.<br /><font
+				color="#3b85a1">Ejemplo: 1165542555698986320.</font> ]]>
+			</html>
+		</popup>		
+		<popup id="pop_banco" width="200px">
+			<html>				
+				<![CDATA[ Por favor, indique el banco al que pertenece la cuenta
+				que desea registrar.<br /><font
+				color="#3b85a1">Ejemplo: Banco Provincial.</font> ]]>
+			</html>
+		</popup>
+		
 		<div id="divButtonsForm"
 			use="karen.core.form.buttons.containers.DivButtonsForm">
 		</div>

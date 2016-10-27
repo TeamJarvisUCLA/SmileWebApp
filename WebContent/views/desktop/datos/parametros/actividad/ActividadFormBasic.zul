@@ -61,7 +61,7 @@
 			<html>
 				<![CDATA[ Por favor, indique un clasificador para la
 				actividad que desea registrar.<br /><font
-				color="#3b85a1">Ejemplo:Visitas.</font> ]]>
+				color="#3b85a1">Ejemplo: Visitas.</font> ]]>
 			</html>
 		</popup>
 
@@ -69,7 +69,7 @@
 			<html>
 				<![CDATA[ Por favor, indique una descripción breve,
 				sobre la actividad que desea registrar.<br /><font
-				color="#3b85a1">Ejemplo:Organizar el orden de las
+				color="#3b85a1">Ejemplo: Organizar el orden de las
 				visitas correspondientes a la escuelita del
 				hospital.</font> ]]>
 			</html>
